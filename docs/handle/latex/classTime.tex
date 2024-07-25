@@ -167,7 +167,7 @@ References m\+\_\+cur\+Tick, and SIMULATION\+\_\+\+TICK.
 
 
 
-Referenced by Timer\+::alarm(), Mode\+Sharing\+::begin\+Sending\+IR(), Leds\+::blink\+All(), Leds\+::blink\+Index(), Leds\+::blink\+Map(), Leds\+::blink\+Pair(), Leds\+::blink\+Pairs(), Leds\+::blink\+Range(), Serial\+Coms\+::check\+Serial(), Mode\+Sharing\+::continue\+Sending\+IR(), Timer\+::on\+End(), Timer\+::on\+Start(), Menus\+::open\+Menu\+Selection(), Mode\+Sharing\+::receive\+Mode\+IR(), Randomizer\+::run(), Vortex\+Engine\+::run\+Main\+Logic(), Menus\+::run\+Menu\+Selection(), IRSender\+::send(), VLSender\+::send(), Modes\+::set\+Cur\+Mode(), Menu\+::show\+Bulb\+Selection(), Color\+Select\+::show\+Full\+Set(), Color\+Select\+::show\+Selection(), Timer\+::start(), and Button\+::update().
+Referenced by Timer\+::alarm(), Mode\+Sharing\+::begin\+Sending\+IR(), Leds\+::blink\+All(), Leds\+::blink\+Index(), Leds\+::blink\+Map(), Leds\+::blink\+Pair(), Leds\+::blink\+Pairs(), Leds\+::blink\+Range(), Serial\+Coms\+::check\+Serial(), Mode\+Sharing\+::continue\+Sending\+IR(), Vortex\+::handle\+Input\+Queue(), Timer\+::on\+End(), Timer\+::on\+Start(), Menus\+::open\+Menu\+Selection(), Mode\+Sharing\+::receive\+Mode\+IR(), Randomizer\+::run(), Vortex\+Engine\+::run\+Main\+Logic(), Menus\+::run\+Menu\+Selection(), IRSender\+::send(), VLSender\+::send(), Modes\+::set\+Cur\+Mode(), Menu\+::show\+Bulb\+Selection(), Color\+Select\+::show\+Full\+Set(), Color\+Select\+::show\+Selection(), Timer\+::start(), and Button\+::update().
 
 \mbox{\Hypertarget{classTime_a719c88f4e11a83f7167f45a2a58f5d60}\label{classTime_a719c88f4e11a83f7167f45a2a58f5d60}} 
 \index{Time@{Time}!getRealCurtime@{getRealCurtime}}
@@ -210,6 +210,10 @@ Definition at line 134 of file Time\+Control.\+cpp.
 
 
 References TICKRATE.
+
+
+
+Referenced by Vortex\+::get\+Tickrate().
 
 \mbox{\Hypertarget{classTime_a0058db559daacf8050e8a0b1d4b9fd8c}\label{classTime_a0058db559daacf8050e8a0b1d4b9fd8c}} 
 \index{Time@{Time}!init@{init}}
@@ -323,6 +327,10 @@ Definition at line 141 of file Time\+Control.\+cpp.
 
 
 References DEFAULT\+\_\+\+TICKRATE.
+
+
+
+Referenced by Vortex\+::set\+Tickrate().
 
 \mbox{\Hypertarget{classTime_a823b10e685d34b667e16e36fea96e150}\label{classTime_a823b10e685d34b667e16e36fea96e150}} 
 \index{Time@{Time}!tickClock@{tickClock}}

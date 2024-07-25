@@ -162,10 +162,10 @@ Static Private Attributes</h2></td></tr>
 <div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;  }</div>
 <div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;  <a class="code" href="classSerialComs.html#a8f0805c088fb29b00827b63ef1e8a6c3">m_lastCheck</a> = now;</div>
 <div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;<span class="preprocessor">#ifdef VORTEX_LIB</span></div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;  <span class="keywordflow">if</span> (!Vortex::vcallbacks()-&gt;serialCheck()) {</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;  <span class="keywordflow">if</span> (!<a class="code" href="classVortex.html#a84b31157edd8814f3e7b545ca4c3fa00">Vortex::vcallbacks</a>()-&gt;serialCheck()) {</div>
 <div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
 <div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;  }</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;  Vortex::vcallbacks()-&gt;serialBegin(<a class="code" href="VortexConfig_8h.html#ad89976cc0b5340110179f6ce40df3028">SERIAL_BAUD_RATE</a>);</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;  <a class="code" href="classVortex.html#a84b31157edd8814f3e7b545ca4c3fa00">Vortex::vcallbacks</a>()-&gt;<a class="code" href="classVortexCallbacks.html#a88f75444b8e202760243d3aa6ba6939b">serialBegin</a>(<a class="code" href="VortexConfig_8h.html#ad89976cc0b5340110179f6ce40df3028">SERIAL_BAUD_RATE</a>);</div>
 <div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;<span class="preprocessor">#else</span></div>
 <div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;  <span class="comment">// This will check if the serial communication is open</span></div>
 <div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;  <span class="keywordflow">if</span> (!Serial) {</div>
@@ -190,8 +190,10 @@ Static Private Attributes</h2></td></tr>
 <div class="ttc" id="aclassSerialComs_html_a8f0805c088fb29b00827b63ef1e8a6c3"><div class="ttname"><a href="classSerialComs.html#a8f0805c088fb29b00827b63ef1e8a6c3">SerialComs::m_lastCheck</a></div><div class="ttdeci">static uint32_t m_lastCheck</div><div class="ttdef"><b>Definition:</b> <a href="Serial_8h_source.html#l00038">Serial.h:38</a></div></div>
 <div class="ttc" id="aclassSerialComs_html_ac6a8cc107fd0997dcd0f87a2b81ecd82"><div class="ttname"><a href="classSerialComs.html#ac6a8cc107fd0997dcd0f87a2b81ecd82">SerialComs::isConnected</a></div><div class="ttdeci">static bool isConnected()</div><div class="ttdef"><b>Definition:</b> <a href="Serial_8cpp_source.html#l00035">Serial.cpp:35</a></div></div>
 <div class="ttc" id="aclassTime_html_a7c7a8e067bdbd5aaf119521539d30940"><div class="ttname"><a href="classTime.html#a7c7a8e067bdbd5aaf119521539d30940">Time::getCurtime</a></div><div class="ttdeci">static uint32_t getCurtime()</div><div class="ttdef"><b>Definition:</b> <a href="TimeControl_8h_source.html#l00040">TimeControl.h:40</a></div></div>
+<div class="ttc" id="aclassVortexCallbacks_html_a88f75444b8e202760243d3aa6ba6939b"><div class="ttname"><a href="classVortexCallbacks.html#a88f75444b8e202760243d3aa6ba6939b">VortexCallbacks::serialBegin</a></div><div class="ttdeci">virtual void serialBegin(uint32_t baud)</div><div class="ttdef"><b>Definition:</b> <a href="VortexLib_8h_source.html#l00049">VortexLib.h:49</a></div></div>
+<div class="ttc" id="aclassVortex_html_a84b31157edd8814f3e7b545ca4c3fa00"><div class="ttname"><a href="classVortex.html#a84b31157edd8814f3e7b545ca4c3fa00">Vortex::vcallbacks</a></div><div class="ttdeci">static VortexCallbacks * vcallbacks()</div><div class="ttdef"><b>Definition:</b> <a href="VortexLib_8h_source.html#l00221">VortexLib.h:221</a></div></div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="TimeControl_8h_source.html#l00040">Time::getCurtime()</a>, <a class="el" href="Serial_8cpp_source.html#l00035">isConnected()</a>, <a class="el" href="Serial_8h_source.html#l00038">m_lastCheck</a>, <a class="el" href="Serial_8h_source.html#l00037">m_serialConnected</a>, <a class="el" href="Timings_8h_source.html#l00019">MAX_SERIAL_CHECK_INTERVAL</a>, <a class="el" href="Menus_8h_source.html#l00018">MENU_EDITOR_CONNECTION</a>, <a class="el" href="Menus_8cpp_source.html#l00217">Menus::openMenu()</a>, and <a class="el" href="VortexConfig_8h_source.html#l00317">SERIAL_BAUD_RATE</a>.</p>
+<p class="reference">References <a class="el" href="TimeControl_8h_source.html#l00040">Time::getCurtime()</a>, <a class="el" href="Serial_8cpp_source.html#l00035">isConnected()</a>, <a class="el" href="Serial_8h_source.html#l00038">m_lastCheck</a>, <a class="el" href="Serial_8h_source.html#l00037">m_serialConnected</a>, <a class="el" href="Timings_8h_source.html#l00019">MAX_SERIAL_CHECK_INTERVAL</a>, <a class="el" href="Menus_8h_source.html#l00018">MENU_EDITOR_CONNECTION</a>, <a class="el" href="Menus_8cpp_source.html#l00217">Menus::openMenu()</a>, <a class="el" href="VortexConfig_8h_source.html#l00317">SERIAL_BAUD_RATE</a>, <a class="el" href="VortexLib_8h_source.html#l00049">VortexCallbacks::serialBegin()</a>, and <a class="el" href="VortexLib_8h_source.html#l00221">Vortex::vcallbacks()</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="Serial_8cpp_source.html#l00024">init()</a>, <a class="el" href="EditorConnection_8cpp_source.html#l00071">EditorConnection::run()</a>, and <a class="el" href="VortexEngine_8cpp_source.html#l00170">VortexEngine::runMainLogic()</a>.</p>
 
@@ -258,7 +260,7 @@ Static Private Attributes</h2></td></tr>
 <div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
 <div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160;  }</div>
 <div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160;<span class="preprocessor">#ifdef VORTEX_LIB</span></div>
-<div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160;  <span class="keywordflow">return</span> (Vortex::vcallbacks()-&gt;serialAvail() &gt; 0);</div>
+<div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160;  <span class="keywordflow">return</span> (<a class="code" href="classVortex.html#a84b31157edd8814f3e7b545ca4c3fa00">Vortex::vcallbacks</a>()-&gt;serialAvail() &gt; 0);</div>
 <div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;<span class="preprocessor">#else</span></div>
 <div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160;  <span class="keywordflow">return</span> (Serial.available() &gt; 0);</div>
 <div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160;<span class="preprocessor">#endif</span></div>
@@ -267,7 +269,7 @@ Static Private Attributes</h2></td></tr>
 <div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160;<span class="preprocessor">#endif</span></div>
 <div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160;}</div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="Serial_8cpp_source.html#l00035">isConnected()</a>.</p>
+<p class="reference">References <a class="el" href="Serial_8cpp_source.html#l00035">isConnected()</a>, and <a class="el" href="VortexLib_8h_source.html#l00221">Vortex::vcallbacks()</a>.</p>
 
 </div>
 </div>
@@ -379,7 +381,7 @@ Static Private Attributes</h2></td></tr>
 <div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;    <span class="keywordflow">return</span>;</div>
 <div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;  }</div>
 <div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;<span class="preprocessor">#ifdef VORTEX_LIB</span></div>
-<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;  uint32_t amt = Vortex::vcallbacks()-&gt;serialAvail();</div>
+<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;  uint32_t amt = <a class="code" href="classVortex.html#a84b31157edd8814f3e7b545ca4c3fa00">Vortex::vcallbacks</a>()-&gt;<a class="code" href="classVortexCallbacks.html#a032caa2c7c4294b061a122206a1817cd">serialAvail</a>();</div>
 <div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;<span class="preprocessor">#else</span></div>
 <div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;  uint32_t amt = Serial.available();</div>
 <div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;<span class="preprocessor">#endif</span></div>
@@ -389,7 +391,7 @@ Static Private Attributes</h2></td></tr>
 <div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;  <span class="keywordflow">do</span> {</div>
 <div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;    uint8_t <span class="keywordtype">byte</span> = 0;</div>
 <div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;<span class="preprocessor">#ifdef VORTEX_LIB</span></div>
-<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;    <span class="keywordflow">if</span> (!Vortex::vcallbacks()-&gt;serialRead((<span class="keywordtype">char</span> *)&amp;<span class="keywordtype">byte</span>, 1)) {</div>
+<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;    <span class="keywordflow">if</span> (!<a class="code" href="classVortex.html#a84b31157edd8814f3e7b545ca4c3fa00">Vortex::vcallbacks</a>()-&gt;serialRead((<span class="keywordtype">char</span> *)&amp;<span class="keywordtype">byte</span>, 1)) {</div>
 <div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;      <span class="keywordflow">return</span>;</div>
 <div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;    }</div>
 <div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160;<span class="preprocessor">#else</span></div>
@@ -400,8 +402,9 @@ Static Private Attributes</h2></td></tr>
 <div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160;<span class="preprocessor">#endif</span></div>
 <div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160;}</div>
 <div class="ttc" id="aclassByteStream_html_ad3b413f399f22d30548a61a5e01ef3a7"><div class="ttname"><a href="classByteStream.html#ad3b413f399f22d30548a61a5e01ef3a7">ByteStream::serialize8</a></div><div class="ttdeci">bool serialize8(uint8_t byte)</div><div class="ttdef"><b>Definition:</b> <a href="ByteStream_8cpp_source.html#l00341">ByteStream.cpp:341</a></div></div>
+<div class="ttc" id="aclassVortexCallbacks_html_a032caa2c7c4294b061a122206a1817cd"><div class="ttname"><a href="classVortexCallbacks.html#a032caa2c7c4294b061a122206a1817cd">VortexCallbacks::serialAvail</a></div><div class="ttdeci">virtual int32_t serialAvail()</div><div class="ttdef"><b>Definition:</b> <a href="VortexLib_8h_source.html#l00051">VortexLib.h:51</a></div></div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="Serial_8cpp_source.html#l00035">isConnected()</a>, and <a class="el" href="ByteStream_8cpp_source.html#l00341">ByteStream::serialize8()</a>.</p>
+<p class="reference">References <a class="el" href="Serial_8cpp_source.html#l00035">isConnected()</a>, <a class="el" href="VortexLib_8h_source.html#l00051">VortexCallbacks::serialAvail()</a>, <a class="el" href="ByteStream_8cpp_source.html#l00341">ByteStream::serialize8()</a>, and <a class="el" href="VortexLib_8h_source.html#l00221">Vortex::vcallbacks()</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="EditorConnection_8cpp_source.html#l00240">EditorConnection::receiveData()</a>.</p>
 
@@ -440,8 +443,8 @@ Static Private Attributes</h2></td></tr>
 <div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;  byteStream.<a class="code" href="classByteStream.html#a282f071ea249471c360d364642f9b3c7">recalcCRC</a>();</div>
 <div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;  uint32_t size = byteStream.<a class="code" href="classByteStream.html#a755097adde5b21b33d3c4e3623d04f97">rawSize</a>();</div>
 <div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;<span class="preprocessor">#ifdef VORTEX_LIB</span></div>
-<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;  Vortex::vcallbacks()-&gt;serialWrite((<span class="keyword">const</span> uint8_t *)&amp;size, <span class="keyword">sizeof</span>(size));</div>
-<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;  Vortex::vcallbacks()-&gt;serialWrite((<span class="keyword">const</span> uint8_t *)byteStream.<a class="code" href="classByteStream.html#a6993f9575592309a501156db31f82554">rawData</a>(), byteStream.<a class="code" href="classByteStream.html#a755097adde5b21b33d3c4e3623d04f97">rawSize</a>());</div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;  <a class="code" href="classVortex.html#a84b31157edd8814f3e7b545ca4c3fa00">Vortex::vcallbacks</a>()-&gt;<a class="code" href="classVortexCallbacks.html#ab3ecbd028fc042995432dfd1a79f365e">serialWrite</a>((<span class="keyword">const</span> uint8_t *)&amp;size, <span class="keyword">sizeof</span>(size));</div>
+<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;  <a class="code" href="classVortex.html#a84b31157edd8814f3e7b545ca4c3fa00">Vortex::vcallbacks</a>()-&gt;<a class="code" href="classVortexCallbacks.html#ab3ecbd028fc042995432dfd1a79f365e">serialWrite</a>((<span class="keyword">const</span> uint8_t *)byteStream.<a class="code" href="classByteStream.html#a6993f9575592309a501156db31f82554">rawData</a>(), byteStream.<a class="code" href="classByteStream.html#a755097adde5b21b33d3c4e3623d04f97">rawSize</a>());</div>
 <div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;<span class="preprocessor">#else</span></div>
 <div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;  Serial.write((<span class="keyword">const</span> uint8_t *)&amp;size, <span class="keyword">sizeof</span>(size));</div>
 <div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;  Serial.write((<span class="keyword">const</span> uint8_t *)byteStream.<a class="code" href="classByteStream.html#a6993f9575592309a501156db31f82554">rawData</a>(), byteStream.<a class="code" href="classByteStream.html#a755097adde5b21b33d3c4e3623d04f97">rawSize</a>());</div>
@@ -451,8 +454,9 @@ Static Private Attributes</h2></td></tr>
 <div class="ttc" id="aclassByteStream_html_a282f071ea249471c360d364642f9b3c7"><div class="ttname"><a href="classByteStream.html#a282f071ea249471c360d364642f9b3c7">ByteStream::recalcCRC</a></div><div class="ttdeci">uint32_t recalcCRC(bool force=false)</div><div class="ttdef"><b>Definition:</b> <a href="ByteStream_8cpp_source.html#l00301">ByteStream.cpp:301</a></div></div>
 <div class="ttc" id="aclassByteStream_html_a6993f9575592309a501156db31f82554"><div class="ttname"><a href="classByteStream.html#a6993f9575592309a501156db31f82554">ByteStream::rawData</a></div><div class="ttdeci">void * rawData() const</div><div class="ttdef"><b>Definition:</b> <a href="ByteStream_8h_source.html#l00109">ByteStream.h:109</a></div></div>
 <div class="ttc" id="aclassByteStream_html_a755097adde5b21b33d3c4e3623d04f97"><div class="ttname"><a href="classByteStream.html#a755097adde5b21b33d3c4e3623d04f97">ByteStream::rawSize</a></div><div class="ttdeci">uint32_t rawSize() const</div><div class="ttdef"><b>Definition:</b> <a href="ByteStream_8h_source.html#l00110">ByteStream.h:110</a></div></div>
+<div class="ttc" id="aclassVortexCallbacks_html_ab3ecbd028fc042995432dfd1a79f365e"><div class="ttname"><a href="classVortexCallbacks.html#ab3ecbd028fc042995432dfd1a79f365e">VortexCallbacks::serialWrite</a></div><div class="ttdeci">virtual uint32_t serialWrite(const uint8_t *buf, size_t amt)</div><div class="ttdef"><b>Definition:</b> <a href="VortexLib_8h_source.html#l00056">VortexLib.h:56</a></div></div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="Serial_8cpp_source.html#l00035">isConnected()</a>, <a class="el" href="ByteStream_8h_source.html#l00109">ByteStream::rawData()</a>, <a class="el" href="ByteStream_8h_source.html#l00110">ByteStream::rawSize()</a>, and <a class="el" href="ByteStream_8cpp_source.html#l00301">ByteStream::recalcCRC()</a>.</p>
+<p class="reference">References <a class="el" href="Serial_8cpp_source.html#l00035">isConnected()</a>, <a class="el" href="ByteStream_8h_source.html#l00109">ByteStream::rawData()</a>, <a class="el" href="ByteStream_8h_source.html#l00110">ByteStream::rawSize()</a>, <a class="el" href="ByteStream_8cpp_source.html#l00301">ByteStream::recalcCRC()</a>, <a class="el" href="VortexLib_8h_source.html#l00056">VortexCallbacks::serialWrite()</a>, and <a class="el" href="VortexLib_8h_source.html#l00221">Vortex::vcallbacks()</a>.</p>
 
 </div>
 </div>
@@ -501,7 +505,7 @@ Static Private Attributes</h2></td></tr>
 <div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;  uint8_t buf[2048] = {0};</div>
 <div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;  <span class="keywordtype">int</span> len = vsnprintf((<span class="keywordtype">char</span> *)buf, <span class="keyword">sizeof</span>(buf), msg, list);</div>
 <div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;<span class="preprocessor">#ifdef VORTEX_LIB</span></div>
-<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;  Vortex::vcallbacks()-&gt;serialWrite(buf, len);</div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;  <a class="code" href="classVortex.html#a84b31157edd8814f3e7b545ca4c3fa00">Vortex::vcallbacks</a>()-&gt;<a class="code" href="classVortexCallbacks.html#ab3ecbd028fc042995432dfd1a79f365e">serialWrite</a>(buf, len);</div>
 <div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;<span class="preprocessor">#else</span></div>
 <div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;  Serial.write(buf, len);</div>
 <div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;<span class="preprocessor">#endif</span></div>
@@ -509,7 +513,7 @@ Static Private Attributes</h2></td></tr>
 <div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;<span class="preprocessor">#endif</span></div>
 <div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;}</div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="Serial_8cpp_source.html#l00035">isConnected()</a>.</p>
+<p class="reference">References <a class="el" href="Serial_8cpp_source.html#l00035">isConnected()</a>, <a class="el" href="VortexLib_8h_source.html#l00056">VortexCallbacks::serialWrite()</a>, and <a class="el" href="VortexLib_8h_source.html#l00221">Vortex::vcallbacks()</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="EditorConnection_8cpp_source.html#l00216">EditorConnection::leaveMenu()</a>, <a class="el" href="EditorConnection_8cpp_source.html#l00071">EditorConnection::run()</a>, and <a class="el" href="EditorConnection_8cpp_source.html#l00246">EditorConnection::sendModes()</a>.</p>
 

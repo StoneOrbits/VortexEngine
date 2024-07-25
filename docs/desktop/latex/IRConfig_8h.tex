@@ -1,55 +1,61 @@
-\hypertarget{IRConfig_8h}{}\doxysection{Vortex\+Engine/src/\+Wireless/\+I\+R\+Config.h File Reference}
+\hypertarget{IRConfig_8h}{}\doxysection{Vortex\+Engine/src/\+Wireless/\+IRConfig.h File Reference}
 \label{IRConfig_8h}\index{VortexEngine/src/Wireless/IRConfig.h@{VortexEngine/src/Wireless/IRConfig.h}}
 This graph shows which files directly or indirectly include this file\+:
-% FIG 0
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{IRConfig_8h__dep__incl}
+\end{center}
+\end{figure}
 \doxysubsection*{Macros}
 \begin{DoxyCompactItemize}
 \item 
-\#define \mbox{\hyperlink{IRConfig_8h_a83712445abeda376f45de0d227e46597}{I\+R\+\_\+\+E\+N\+A\+B\+L\+E\+\_\+\+S\+E\+N\+D\+ER}}~1
+\#define \mbox{\hyperlink{IRConfig_8h_a83712445abeda376f45de0d227e46597}{IR\+\_\+\+ENABLE\+\_\+\+SENDER}}~1
 \item 
-\#define \mbox{\hyperlink{IRConfig_8h_a43811afb99ba423e7ee1ef599438367d}{I\+R\+\_\+\+E\+N\+A\+B\+L\+E\+\_\+\+R\+E\+C\+E\+I\+V\+ER}}~1
+\#define \mbox{\hyperlink{IRConfig_8h_a43811afb99ba423e7ee1ef599438367d}{IR\+\_\+\+ENABLE\+\_\+\+RECEIVER}}~1
 \item 
-\#define \mbox{\hyperlink{IRConfig_8h_abb1031528909e89b76a9dea91641d770}{I\+R\+\_\+\+D\+E\+F\+A\+U\+L\+T\+\_\+\+B\+L\+O\+C\+K\+\_\+\+S\+I\+ZE}}~32
+\#define \mbox{\hyperlink{IRConfig_8h_abb1031528909e89b76a9dea91641d770}{IR\+\_\+\+DEFAULT\+\_\+\+BLOCK\+\_\+\+SIZE}}~32
 \item 
-\#define \mbox{\hyperlink{IRConfig_8h_a60b384b29858304f4e2e7239dfb1594b}{I\+R\+\_\+\+D\+E\+F\+A\+U\+L\+T\+\_\+\+B\+L\+O\+C\+K\+\_\+\+S\+P\+A\+C\+I\+NG}}~\mbox{\hyperlink{TimeControl_8h_a73adf9c10352865ff95b5f46e642c560}{M\+S\+\_\+\+T\+O\+\_\+\+T\+I\+C\+KS}}(300)
+\#define \mbox{\hyperlink{IRConfig_8h_a60b384b29858304f4e2e7239dfb1594b}{IR\+\_\+\+DEFAULT\+\_\+\+BLOCK\+\_\+\+SPACING}}~\mbox{\hyperlink{TimeControl_8h_a73adf9c10352865ff95b5f46e642c560}{MS\+\_\+\+TO\+\_\+\+TICKS}}(300)
 \item 
-\#define \mbox{\hyperlink{IRConfig_8h_a0d94cd48fd9c4b03fa756646e6902286}{I\+R\+\_\+\+M\+A\+X\+\_\+\+D\+W\+O\+R\+D\+S\+\_\+\+T\+R\+A\+N\+S\+F\+ER}}~1024
+\#define \mbox{\hyperlink{IRConfig_8h_a0d94cd48fd9c4b03fa756646e6902286}{IR\+\_\+\+MAX\+\_\+\+DWORDS\+\_\+\+TRANSFER}}~1024
 \item 
-\#define \mbox{\hyperlink{IRConfig_8h_a8214fb4810b1ce36ec250940fbf75148}{I\+R\+\_\+\+M\+A\+X\+\_\+\+D\+A\+T\+A\+\_\+\+T\+R\+A\+N\+S\+F\+ER}}~(\mbox{\hyperlink{IRConfig_8h_a0d94cd48fd9c4b03fa756646e6902286}{I\+R\+\_\+\+M\+A\+X\+\_\+\+D\+W\+O\+R\+D\+S\+\_\+\+T\+R\+A\+N\+S\+F\+ER}} $\ast$ sizeof(uint32\+\_\+t))
+\#define \mbox{\hyperlink{IRConfig_8h_a8214fb4810b1ce36ec250940fbf75148}{IR\+\_\+\+MAX\+\_\+\+DATA\+\_\+\+TRANSFER}}~(\mbox{\hyperlink{IRConfig_8h_a0d94cd48fd9c4b03fa756646e6902286}{IR\+\_\+\+MAX\+\_\+\+DWORDS\+\_\+\+TRANSFER}} $\ast$ sizeof(uint32\+\_\+t))
 \item 
-\#define \mbox{\hyperlink{IRConfig_8h_adb9cd61b2e7cb891d2bb2492608a4555}{I\+R\+\_\+\+R\+E\+C\+V\+\_\+\+B\+U\+F\+\_\+\+S\+I\+ZE}}~\mbox{\hyperlink{IRConfig_8h_a8214fb4810b1ce36ec250940fbf75148}{I\+R\+\_\+\+M\+A\+X\+\_\+\+D\+A\+T\+A\+\_\+\+T\+R\+A\+N\+S\+F\+ER}}
+\#define \mbox{\hyperlink{IRConfig_8h_adb9cd61b2e7cb891d2bb2492608a4555}{IR\+\_\+\+RECV\+\_\+\+BUF\+\_\+\+SIZE}}~\mbox{\hyperlink{IRConfig_8h_a8214fb4810b1ce36ec250940fbf75148}{IR\+\_\+\+MAX\+\_\+\+DATA\+\_\+\+TRANSFER}}
 \item 
-\#define \mbox{\hyperlink{IRConfig_8h_a0913e9250e9628ea97a6309bd203bf75}{I\+R\+\_\+\+T\+H\+R\+E\+S\+H\+O\+LD}}~0.\+25
+\#define \mbox{\hyperlink{IRConfig_8h_a0913e9250e9628ea97a6309bd203bf75}{IR\+\_\+\+THRESHOLD}}~0.\+25
 \item 
-\#define \mbox{\hyperlink{IRConfig_8h_abeb3194aae954114d15f6d8dfd90ad90}{I\+R\+\_\+\+T\+H\+R\+E\+S\+\_\+\+UP}}~(1 + \mbox{\hyperlink{IRConfig_8h_a0913e9250e9628ea97a6309bd203bf75}{I\+R\+\_\+\+T\+H\+R\+E\+S\+H\+O\+LD}})
+\#define \mbox{\hyperlink{IRConfig_8h_abeb3194aae954114d15f6d8dfd90ad90}{IR\+\_\+\+THRES\+\_\+\+UP}}~(1 + \mbox{\hyperlink{IRConfig_8h_a0913e9250e9628ea97a6309bd203bf75}{IR\+\_\+\+THRESHOLD}})
 \item 
-\#define \mbox{\hyperlink{IRConfig_8h_a106e00ae99e4b96c0d6559954b65a354}{I\+R\+\_\+\+T\+H\+R\+E\+S\+\_\+\+D\+O\+WN}}~(1 -\/ \mbox{\hyperlink{IRConfig_8h_a0913e9250e9628ea97a6309bd203bf75}{I\+R\+\_\+\+T\+H\+R\+E\+S\+H\+O\+LD}})
+\#define \mbox{\hyperlink{IRConfig_8h_a106e00ae99e4b96c0d6559954b65a354}{IR\+\_\+\+THRES\+\_\+\+DOWN}}~(1 -\/ \mbox{\hyperlink{IRConfig_8h_a0913e9250e9628ea97a6309bd203bf75}{IR\+\_\+\+THRESHOLD}})
 \item 
-\#define \mbox{\hyperlink{IRConfig_8h_a7695385a5a888d20cadfe5bdbb361a93}{I\+R\+\_\+\+T\+I\+M\+I\+NG}}~(uint32\+\_\+t)562
+\#define \mbox{\hyperlink{IRConfig_8h_a7695385a5a888d20cadfe5bdbb361a93}{IR\+\_\+\+TIMING}}~(uint32\+\_\+t)562
 \item 
-\#define \mbox{\hyperlink{IRConfig_8h_a73218da9e787280d69b894953d2d4bdc}{I\+R\+\_\+\+T\+I\+M\+I\+N\+G\+\_\+\+M\+IN}}~((uint32\+\_\+t)(\mbox{\hyperlink{IRConfig_8h_a7695385a5a888d20cadfe5bdbb361a93}{I\+R\+\_\+\+T\+I\+M\+I\+NG}} $\ast$ \mbox{\hyperlink{IRConfig_8h_a106e00ae99e4b96c0d6559954b65a354}{I\+R\+\_\+\+T\+H\+R\+E\+S\+\_\+\+D\+O\+WN}}))
+\#define \mbox{\hyperlink{IRConfig_8h_a73218da9e787280d69b894953d2d4bdc}{IR\+\_\+\+TIMING\+\_\+\+MIN}}~((uint32\+\_\+t)(\mbox{\hyperlink{IRConfig_8h_a7695385a5a888d20cadfe5bdbb361a93}{IR\+\_\+\+TIMING}} $\ast$ \mbox{\hyperlink{IRConfig_8h_a106e00ae99e4b96c0d6559954b65a354}{IR\+\_\+\+THRES\+\_\+\+DOWN}}))
 \item 
-\#define \mbox{\hyperlink{IRConfig_8h_a944e2c947b73c4c3d8063a87ce8bf6b0}{I\+R\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+M\+A\+RK}}~(uint32\+\_\+t)(\mbox{\hyperlink{IRConfig_8h_a7695385a5a888d20cadfe5bdbb361a93}{I\+R\+\_\+\+T\+I\+M\+I\+NG}} $\ast$ 16)
+\#define \mbox{\hyperlink{IRConfig_8h_a944e2c947b73c4c3d8063a87ce8bf6b0}{IR\+\_\+\+HEADER\+\_\+\+MARK}}~(uint32\+\_\+t)(\mbox{\hyperlink{IRConfig_8h_a7695385a5a888d20cadfe5bdbb361a93}{IR\+\_\+\+TIMING}} $\ast$ 16)
 \item 
-\#define \mbox{\hyperlink{IRConfig_8h_a90e0af319ad0da9f670f6f1207575336}{I\+R\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+S\+P\+A\+CE}}~(uint32\+\_\+t)(\mbox{\hyperlink{IRConfig_8h_a7695385a5a888d20cadfe5bdbb361a93}{I\+R\+\_\+\+T\+I\+M\+I\+NG}} $\ast$ 8)
+\#define \mbox{\hyperlink{IRConfig_8h_a90e0af319ad0da9f670f6f1207575336}{IR\+\_\+\+HEADER\+\_\+\+SPACE}}~(uint32\+\_\+t)(\mbox{\hyperlink{IRConfig_8h_a7695385a5a888d20cadfe5bdbb361a93}{IR\+\_\+\+TIMING}} $\ast$ 8)
 \item 
-\#define \mbox{\hyperlink{IRConfig_8h_a16e1424faaa05feaa4cd36654ca57fe2}{I\+R\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+M\+A\+R\+K\+\_\+\+M\+IN}}~((uint32\+\_\+t)(\mbox{\hyperlink{IRConfig_8h_a944e2c947b73c4c3d8063a87ce8bf6b0}{I\+R\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+M\+A\+RK}} $\ast$ \mbox{\hyperlink{IRConfig_8h_a106e00ae99e4b96c0d6559954b65a354}{I\+R\+\_\+\+T\+H\+R\+E\+S\+\_\+\+D\+O\+WN}}))
+\#define \mbox{\hyperlink{IRConfig_8h_a16e1424faaa05feaa4cd36654ca57fe2}{IR\+\_\+\+HEADER\+\_\+\+MARK\+\_\+\+MIN}}~((uint32\+\_\+t)(\mbox{\hyperlink{IRConfig_8h_a944e2c947b73c4c3d8063a87ce8bf6b0}{IR\+\_\+\+HEADER\+\_\+\+MARK}} $\ast$ \mbox{\hyperlink{IRConfig_8h_a106e00ae99e4b96c0d6559954b65a354}{IR\+\_\+\+THRES\+\_\+\+DOWN}}))
 \item 
-\#define \mbox{\hyperlink{IRConfig_8h_a250ce61cfc429f875c14a5d45408d63c}{I\+R\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+S\+P\+A\+C\+E\+\_\+\+M\+IN}}~((uint32\+\_\+t)(\mbox{\hyperlink{IRConfig_8h_a90e0af319ad0da9f670f6f1207575336}{I\+R\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+S\+P\+A\+CE}} $\ast$ \mbox{\hyperlink{IRConfig_8h_a106e00ae99e4b96c0d6559954b65a354}{I\+R\+\_\+\+T\+H\+R\+E\+S\+\_\+\+D\+O\+WN}}))
+\#define \mbox{\hyperlink{IRConfig_8h_a250ce61cfc429f875c14a5d45408d63c}{IR\+\_\+\+HEADER\+\_\+\+SPACE\+\_\+\+MIN}}~((uint32\+\_\+t)(\mbox{\hyperlink{IRConfig_8h_a90e0af319ad0da9f670f6f1207575336}{IR\+\_\+\+HEADER\+\_\+\+SPACE}} $\ast$ \mbox{\hyperlink{IRConfig_8h_a106e00ae99e4b96c0d6559954b65a354}{IR\+\_\+\+THRES\+\_\+\+DOWN}}))
 \item 
-\#define \mbox{\hyperlink{IRConfig_8h_a8c44cc313efc4b5a8e0d3f60f4ea4116}{I\+R\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+M\+A\+R\+K\+\_\+\+M\+AX}}~((uint32\+\_\+t)(\mbox{\hyperlink{IRConfig_8h_a944e2c947b73c4c3d8063a87ce8bf6b0}{I\+R\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+M\+A\+RK}} $\ast$ \mbox{\hyperlink{IRConfig_8h_abeb3194aae954114d15f6d8dfd90ad90}{I\+R\+\_\+\+T\+H\+R\+E\+S\+\_\+\+UP}}))
+\#define \mbox{\hyperlink{IRConfig_8h_a8c44cc313efc4b5a8e0d3f60f4ea4116}{IR\+\_\+\+HEADER\+\_\+\+MARK\+\_\+\+MAX}}~((uint32\+\_\+t)(\mbox{\hyperlink{IRConfig_8h_a944e2c947b73c4c3d8063a87ce8bf6b0}{IR\+\_\+\+HEADER\+\_\+\+MARK}} $\ast$ \mbox{\hyperlink{IRConfig_8h_abeb3194aae954114d15f6d8dfd90ad90}{IR\+\_\+\+THRES\+\_\+\+UP}}))
 \item 
-\#define \mbox{\hyperlink{IRConfig_8h_a42938e952fc459aeb8873acf64773150}{I\+R\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+S\+P\+A\+C\+E\+\_\+\+M\+AX}}~((uint32\+\_\+t)(\mbox{\hyperlink{IRConfig_8h_a90e0af319ad0da9f670f6f1207575336}{I\+R\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+S\+P\+A\+CE}} $\ast$ \mbox{\hyperlink{IRConfig_8h_abeb3194aae954114d15f6d8dfd90ad90}{I\+R\+\_\+\+T\+H\+R\+E\+S\+\_\+\+UP}}))
+\#define \mbox{\hyperlink{IRConfig_8h_a42938e952fc459aeb8873acf64773150}{IR\+\_\+\+HEADER\+\_\+\+SPACE\+\_\+\+MAX}}~((uint32\+\_\+t)(\mbox{\hyperlink{IRConfig_8h_a90e0af319ad0da9f670f6f1207575336}{IR\+\_\+\+HEADER\+\_\+\+SPACE}} $\ast$ \mbox{\hyperlink{IRConfig_8h_abeb3194aae954114d15f6d8dfd90ad90}{IR\+\_\+\+THRES\+\_\+\+UP}}))
 \item 
-\#define \mbox{\hyperlink{IRConfig_8h_a794e3dde0a52fb4dec3147e8f9a3b637}{I\+R\+\_\+\+D\+I\+V\+I\+D\+E\+R\+\_\+\+S\+P\+A\+CE}}~\mbox{\hyperlink{IRConfig_8h_a944e2c947b73c4c3d8063a87ce8bf6b0}{I\+R\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+M\+A\+RK}}
+\#define \mbox{\hyperlink{IRConfig_8h_a794e3dde0a52fb4dec3147e8f9a3b637}{IR\+\_\+\+DIVIDER\+\_\+\+SPACE}}~\mbox{\hyperlink{IRConfig_8h_a944e2c947b73c4c3d8063a87ce8bf6b0}{IR\+\_\+\+HEADER\+\_\+\+MARK}}
 \item 
-\#define \mbox{\hyperlink{IRConfig_8h_a922192a7f2db985a305ed7812d9d8bbb}{I\+R\+\_\+\+D\+I\+V\+I\+D\+E\+R\+\_\+\+S\+P\+A\+C\+E\+\_\+\+M\+IN}}~\mbox{\hyperlink{IRConfig_8h_a16e1424faaa05feaa4cd36654ca57fe2}{I\+R\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+M\+A\+R\+K\+\_\+\+M\+IN}}
+\#define \mbox{\hyperlink{IRConfig_8h_a922192a7f2db985a305ed7812d9d8bbb}{IR\+\_\+\+DIVIDER\+\_\+\+SPACE\+\_\+\+MIN}}~\mbox{\hyperlink{IRConfig_8h_a16e1424faaa05feaa4cd36654ca57fe2}{IR\+\_\+\+HEADER\+\_\+\+MARK\+\_\+\+MIN}}
 \item 
-\#define \mbox{\hyperlink{IRConfig_8h_a66f77f74dccd077c47375906d1d0b763}{I\+R\+\_\+\+D\+I\+V\+I\+D\+E\+R\+\_\+\+S\+P\+A\+C\+E\+\_\+\+M\+AX}}~\mbox{\hyperlink{IRConfig_8h_a8c44cc313efc4b5a8e0d3f60f4ea4116}{I\+R\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+M\+A\+R\+K\+\_\+\+M\+AX}}
+\#define \mbox{\hyperlink{IRConfig_8h_a66f77f74dccd077c47375906d1d0b763}{IR\+\_\+\+DIVIDER\+\_\+\+SPACE\+\_\+\+MAX}}~\mbox{\hyperlink{IRConfig_8h_a8c44cc313efc4b5a8e0d3f60f4ea4116}{IR\+\_\+\+HEADER\+\_\+\+MARK\+\_\+\+MAX}}
 \item 
-\#define \mbox{\hyperlink{IRConfig_8h_adb7873801cd8375d8960498034492e93}{I\+R\+\_\+\+S\+E\+N\+D\+\_\+\+P\+W\+M\+\_\+\+P\+IN}}~0
+\#define \mbox{\hyperlink{IRConfig_8h_adb7873801cd8375d8960498034492e93}{IR\+\_\+\+SEND\+\_\+\+PWM\+\_\+\+PIN}}~0
 \item 
-\#define \mbox{\hyperlink{IRConfig_8h_a83700f565451aa042a3751f225b0cff8}{I\+R\+\_\+\+R\+E\+C\+E\+I\+V\+E\+R\+\_\+\+P\+IN}}~2
+\#define \mbox{\hyperlink{IRConfig_8h_a83700f565451aa042a3751f225b0cff8}{IR\+\_\+\+RECEIVER\+\_\+\+PIN}}~2
 \end{DoxyCompactItemize}
 
 
@@ -58,229 +64,229 @@ This graph shows which files directly or indirectly include this file\+:
 \index{IRConfig.h@{IRConfig.h}!IR\_DEFAULT\_BLOCK\_SIZE@{IR\_DEFAULT\_BLOCK\_SIZE}}
 \index{IR\_DEFAULT\_BLOCK\_SIZE@{IR\_DEFAULT\_BLOCK\_SIZE}!IRConfig.h@{IRConfig.h}}
 \doxysubsubsection{\texorpdfstring{IR\_DEFAULT\_BLOCK\_SIZE}{IR\_DEFAULT\_BLOCK\_SIZE}}
-{\footnotesize\ttfamily \#define I\+R\+\_\+\+D\+E\+F\+A\+U\+L\+T\+\_\+\+B\+L\+O\+C\+K\+\_\+\+S\+I\+ZE~32}
+{\footnotesize\ttfamily \#define IR\+\_\+\+DEFAULT\+\_\+\+BLOCK\+\_\+\+SIZE~32}
 
 
 
-Definition at line 12 of file I\+R\+Config.\+h.
+Definition at line 12 of file IRConfig.\+h.
 
 \mbox{\Hypertarget{IRConfig_8h_a60b384b29858304f4e2e7239dfb1594b}\label{IRConfig_8h_a60b384b29858304f4e2e7239dfb1594b}} 
 \index{IRConfig.h@{IRConfig.h}!IR\_DEFAULT\_BLOCK\_SPACING@{IR\_DEFAULT\_BLOCK\_SPACING}}
 \index{IR\_DEFAULT\_BLOCK\_SPACING@{IR\_DEFAULT\_BLOCK\_SPACING}!IRConfig.h@{IRConfig.h}}
 \doxysubsubsection{\texorpdfstring{IR\_DEFAULT\_BLOCK\_SPACING}{IR\_DEFAULT\_BLOCK\_SPACING}}
-{\footnotesize\ttfamily \#define I\+R\+\_\+\+D\+E\+F\+A\+U\+L\+T\+\_\+\+B\+L\+O\+C\+K\+\_\+\+S\+P\+A\+C\+I\+NG~\mbox{\hyperlink{TimeControl_8h_a73adf9c10352865ff95b5f46e642c560}{M\+S\+\_\+\+T\+O\+\_\+\+T\+I\+C\+KS}}(300)}
+{\footnotesize\ttfamily \#define IR\+\_\+\+DEFAULT\+\_\+\+BLOCK\+\_\+\+SPACING~\mbox{\hyperlink{TimeControl_8h_a73adf9c10352865ff95b5f46e642c560}{MS\+\_\+\+TO\+\_\+\+TICKS}}(300)}
 
 
 
-Definition at line 13 of file I\+R\+Config.\+h.
+Definition at line 13 of file IRConfig.\+h.
 
 \mbox{\Hypertarget{IRConfig_8h_a794e3dde0a52fb4dec3147e8f9a3b637}\label{IRConfig_8h_a794e3dde0a52fb4dec3147e8f9a3b637}} 
 \index{IRConfig.h@{IRConfig.h}!IR\_DIVIDER\_SPACE@{IR\_DIVIDER\_SPACE}}
 \index{IR\_DIVIDER\_SPACE@{IR\_DIVIDER\_SPACE}!IRConfig.h@{IRConfig.h}}
 \doxysubsubsection{\texorpdfstring{IR\_DIVIDER\_SPACE}{IR\_DIVIDER\_SPACE}}
-{\footnotesize\ttfamily \#define I\+R\+\_\+\+D\+I\+V\+I\+D\+E\+R\+\_\+\+S\+P\+A\+CE~\mbox{\hyperlink{IRConfig_8h_a944e2c947b73c4c3d8063a87ce8bf6b0}{I\+R\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+M\+A\+RK}}}
+{\footnotesize\ttfamily \#define IR\+\_\+\+DIVIDER\+\_\+\+SPACE~\mbox{\hyperlink{IRConfig_8h_a944e2c947b73c4c3d8063a87ce8bf6b0}{IR\+\_\+\+HEADER\+\_\+\+MARK}}}
 
 
 
-Definition at line 38 of file I\+R\+Config.\+h.
+Definition at line 38 of file IRConfig.\+h.
 
 \mbox{\Hypertarget{IRConfig_8h_a66f77f74dccd077c47375906d1d0b763}\label{IRConfig_8h_a66f77f74dccd077c47375906d1d0b763}} 
 \index{IRConfig.h@{IRConfig.h}!IR\_DIVIDER\_SPACE\_MAX@{IR\_DIVIDER\_SPACE\_MAX}}
 \index{IR\_DIVIDER\_SPACE\_MAX@{IR\_DIVIDER\_SPACE\_MAX}!IRConfig.h@{IRConfig.h}}
 \doxysubsubsection{\texorpdfstring{IR\_DIVIDER\_SPACE\_MAX}{IR\_DIVIDER\_SPACE\_MAX}}
-{\footnotesize\ttfamily \#define I\+R\+\_\+\+D\+I\+V\+I\+D\+E\+R\+\_\+\+S\+P\+A\+C\+E\+\_\+\+M\+AX~\mbox{\hyperlink{IRConfig_8h_a8c44cc313efc4b5a8e0d3f60f4ea4116}{I\+R\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+M\+A\+R\+K\+\_\+\+M\+AX}}}
+{\footnotesize\ttfamily \#define IR\+\_\+\+DIVIDER\+\_\+\+SPACE\+\_\+\+MAX~\mbox{\hyperlink{IRConfig_8h_a8c44cc313efc4b5a8e0d3f60f4ea4116}{IR\+\_\+\+HEADER\+\_\+\+MARK\+\_\+\+MAX}}}
 
 
 
-Definition at line 40 of file I\+R\+Config.\+h.
+Definition at line 40 of file IRConfig.\+h.
 
 \mbox{\Hypertarget{IRConfig_8h_a922192a7f2db985a305ed7812d9d8bbb}\label{IRConfig_8h_a922192a7f2db985a305ed7812d9d8bbb}} 
 \index{IRConfig.h@{IRConfig.h}!IR\_DIVIDER\_SPACE\_MIN@{IR\_DIVIDER\_SPACE\_MIN}}
 \index{IR\_DIVIDER\_SPACE\_MIN@{IR\_DIVIDER\_SPACE\_MIN}!IRConfig.h@{IRConfig.h}}
 \doxysubsubsection{\texorpdfstring{IR\_DIVIDER\_SPACE\_MIN}{IR\_DIVIDER\_SPACE\_MIN}}
-{\footnotesize\ttfamily \#define I\+R\+\_\+\+D\+I\+V\+I\+D\+E\+R\+\_\+\+S\+P\+A\+C\+E\+\_\+\+M\+IN~\mbox{\hyperlink{IRConfig_8h_a16e1424faaa05feaa4cd36654ca57fe2}{I\+R\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+M\+A\+R\+K\+\_\+\+M\+IN}}}
+{\footnotesize\ttfamily \#define IR\+\_\+\+DIVIDER\+\_\+\+SPACE\+\_\+\+MIN~\mbox{\hyperlink{IRConfig_8h_a16e1424faaa05feaa4cd36654ca57fe2}{IR\+\_\+\+HEADER\+\_\+\+MARK\+\_\+\+MIN}}}
 
 
 
-Definition at line 39 of file I\+R\+Config.\+h.
+Definition at line 39 of file IRConfig.\+h.
 
 \mbox{\Hypertarget{IRConfig_8h_a43811afb99ba423e7ee1ef599438367d}\label{IRConfig_8h_a43811afb99ba423e7ee1ef599438367d}} 
 \index{IRConfig.h@{IRConfig.h}!IR\_ENABLE\_RECEIVER@{IR\_ENABLE\_RECEIVER}}
 \index{IR\_ENABLE\_RECEIVER@{IR\_ENABLE\_RECEIVER}!IRConfig.h@{IRConfig.h}}
 \doxysubsubsection{\texorpdfstring{IR\_ENABLE\_RECEIVER}{IR\_ENABLE\_RECEIVER}}
-{\footnotesize\ttfamily \#define I\+R\+\_\+\+E\+N\+A\+B\+L\+E\+\_\+\+R\+E\+C\+E\+I\+V\+ER~1}
+{\footnotesize\ttfamily \#define IR\+\_\+\+ENABLE\+\_\+\+RECEIVER~1}
 
 
 
-Definition at line 9 of file I\+R\+Config.\+h.
+Definition at line 9 of file IRConfig.\+h.
 
 \mbox{\Hypertarget{IRConfig_8h_a83712445abeda376f45de0d227e46597}\label{IRConfig_8h_a83712445abeda376f45de0d227e46597}} 
 \index{IRConfig.h@{IRConfig.h}!IR\_ENABLE\_SENDER@{IR\_ENABLE\_SENDER}}
 \index{IR\_ENABLE\_SENDER@{IR\_ENABLE\_SENDER}!IRConfig.h@{IRConfig.h}}
 \doxysubsubsection{\texorpdfstring{IR\_ENABLE\_SENDER}{IR\_ENABLE\_SENDER}}
-{\footnotesize\ttfamily \#define I\+R\+\_\+\+E\+N\+A\+B\+L\+E\+\_\+\+S\+E\+N\+D\+ER~1}
+{\footnotesize\ttfamily \#define IR\+\_\+\+ENABLE\+\_\+\+SENDER~1}
 
 
 
-Definition at line 8 of file I\+R\+Config.\+h.
+Definition at line 8 of file IRConfig.\+h.
 
 \mbox{\Hypertarget{IRConfig_8h_a944e2c947b73c4c3d8063a87ce8bf6b0}\label{IRConfig_8h_a944e2c947b73c4c3d8063a87ce8bf6b0}} 
 \index{IRConfig.h@{IRConfig.h}!IR\_HEADER\_MARK@{IR\_HEADER\_MARK}}
 \index{IR\_HEADER\_MARK@{IR\_HEADER\_MARK}!IRConfig.h@{IRConfig.h}}
 \doxysubsubsection{\texorpdfstring{IR\_HEADER\_MARK}{IR\_HEADER\_MARK}}
-{\footnotesize\ttfamily \#define I\+R\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+M\+A\+RK~(uint32\+\_\+t)(\mbox{\hyperlink{IRConfig_8h_a7695385a5a888d20cadfe5bdbb361a93}{I\+R\+\_\+\+T\+I\+M\+I\+NG}} $\ast$ 16)}
+{\footnotesize\ttfamily \#define IR\+\_\+\+HEADER\+\_\+\+MARK~(uint32\+\_\+t)(\mbox{\hyperlink{IRConfig_8h_a7695385a5a888d20cadfe5bdbb361a93}{IR\+\_\+\+TIMING}} $\ast$ 16)}
 
 
 
-Definition at line 29 of file I\+R\+Config.\+h.
+Definition at line 29 of file IRConfig.\+h.
 
 \mbox{\Hypertarget{IRConfig_8h_a8c44cc313efc4b5a8e0d3f60f4ea4116}\label{IRConfig_8h_a8c44cc313efc4b5a8e0d3f60f4ea4116}} 
 \index{IRConfig.h@{IRConfig.h}!IR\_HEADER\_MARK\_MAX@{IR\_HEADER\_MARK\_MAX}}
 \index{IR\_HEADER\_MARK\_MAX@{IR\_HEADER\_MARK\_MAX}!IRConfig.h@{IRConfig.h}}
 \doxysubsubsection{\texorpdfstring{IR\_HEADER\_MARK\_MAX}{IR\_HEADER\_MARK\_MAX}}
-{\footnotesize\ttfamily \#define I\+R\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+M\+A\+R\+K\+\_\+\+M\+AX~((uint32\+\_\+t)(\mbox{\hyperlink{IRConfig_8h_a944e2c947b73c4c3d8063a87ce8bf6b0}{I\+R\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+M\+A\+RK}} $\ast$ \mbox{\hyperlink{IRConfig_8h_abeb3194aae954114d15f6d8dfd90ad90}{I\+R\+\_\+\+T\+H\+R\+E\+S\+\_\+\+UP}}))}
+{\footnotesize\ttfamily \#define IR\+\_\+\+HEADER\+\_\+\+MARK\+\_\+\+MAX~((uint32\+\_\+t)(\mbox{\hyperlink{IRConfig_8h_a944e2c947b73c4c3d8063a87ce8bf6b0}{IR\+\_\+\+HEADER\+\_\+\+MARK}} $\ast$ \mbox{\hyperlink{IRConfig_8h_abeb3194aae954114d15f6d8dfd90ad90}{IR\+\_\+\+THRES\+\_\+\+UP}}))}
 
 
 
-Definition at line 35 of file I\+R\+Config.\+h.
+Definition at line 35 of file IRConfig.\+h.
 
 \mbox{\Hypertarget{IRConfig_8h_a16e1424faaa05feaa4cd36654ca57fe2}\label{IRConfig_8h_a16e1424faaa05feaa4cd36654ca57fe2}} 
 \index{IRConfig.h@{IRConfig.h}!IR\_HEADER\_MARK\_MIN@{IR\_HEADER\_MARK\_MIN}}
 \index{IR\_HEADER\_MARK\_MIN@{IR\_HEADER\_MARK\_MIN}!IRConfig.h@{IRConfig.h}}
 \doxysubsubsection{\texorpdfstring{IR\_HEADER\_MARK\_MIN}{IR\_HEADER\_MARK\_MIN}}
-{\footnotesize\ttfamily \#define I\+R\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+M\+A\+R\+K\+\_\+\+M\+IN~((uint32\+\_\+t)(\mbox{\hyperlink{IRConfig_8h_a944e2c947b73c4c3d8063a87ce8bf6b0}{I\+R\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+M\+A\+RK}} $\ast$ \mbox{\hyperlink{IRConfig_8h_a106e00ae99e4b96c0d6559954b65a354}{I\+R\+\_\+\+T\+H\+R\+E\+S\+\_\+\+D\+O\+WN}}))}
+{\footnotesize\ttfamily \#define IR\+\_\+\+HEADER\+\_\+\+MARK\+\_\+\+MIN~((uint32\+\_\+t)(\mbox{\hyperlink{IRConfig_8h_a944e2c947b73c4c3d8063a87ce8bf6b0}{IR\+\_\+\+HEADER\+\_\+\+MARK}} $\ast$ \mbox{\hyperlink{IRConfig_8h_a106e00ae99e4b96c0d6559954b65a354}{IR\+\_\+\+THRES\+\_\+\+DOWN}}))}
 
 
 
-Definition at line 32 of file I\+R\+Config.\+h.
+Definition at line 32 of file IRConfig.\+h.
 
 \mbox{\Hypertarget{IRConfig_8h_a90e0af319ad0da9f670f6f1207575336}\label{IRConfig_8h_a90e0af319ad0da9f670f6f1207575336}} 
 \index{IRConfig.h@{IRConfig.h}!IR\_HEADER\_SPACE@{IR\_HEADER\_SPACE}}
 \index{IR\_HEADER\_SPACE@{IR\_HEADER\_SPACE}!IRConfig.h@{IRConfig.h}}
 \doxysubsubsection{\texorpdfstring{IR\_HEADER\_SPACE}{IR\_HEADER\_SPACE}}
-{\footnotesize\ttfamily \#define I\+R\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+S\+P\+A\+CE~(uint32\+\_\+t)(\mbox{\hyperlink{IRConfig_8h_a7695385a5a888d20cadfe5bdbb361a93}{I\+R\+\_\+\+T\+I\+M\+I\+NG}} $\ast$ 8)}
+{\footnotesize\ttfamily \#define IR\+\_\+\+HEADER\+\_\+\+SPACE~(uint32\+\_\+t)(\mbox{\hyperlink{IRConfig_8h_a7695385a5a888d20cadfe5bdbb361a93}{IR\+\_\+\+TIMING}} $\ast$ 8)}
 
 
 
-Definition at line 30 of file I\+R\+Config.\+h.
+Definition at line 30 of file IRConfig.\+h.
 
 \mbox{\Hypertarget{IRConfig_8h_a42938e952fc459aeb8873acf64773150}\label{IRConfig_8h_a42938e952fc459aeb8873acf64773150}} 
 \index{IRConfig.h@{IRConfig.h}!IR\_HEADER\_SPACE\_MAX@{IR\_HEADER\_SPACE\_MAX}}
 \index{IR\_HEADER\_SPACE\_MAX@{IR\_HEADER\_SPACE\_MAX}!IRConfig.h@{IRConfig.h}}
 \doxysubsubsection{\texorpdfstring{IR\_HEADER\_SPACE\_MAX}{IR\_HEADER\_SPACE\_MAX}}
-{\footnotesize\ttfamily \#define I\+R\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+S\+P\+A\+C\+E\+\_\+\+M\+AX~((uint32\+\_\+t)(\mbox{\hyperlink{IRConfig_8h_a90e0af319ad0da9f670f6f1207575336}{I\+R\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+S\+P\+A\+CE}} $\ast$ \mbox{\hyperlink{IRConfig_8h_abeb3194aae954114d15f6d8dfd90ad90}{I\+R\+\_\+\+T\+H\+R\+E\+S\+\_\+\+UP}}))}
+{\footnotesize\ttfamily \#define IR\+\_\+\+HEADER\+\_\+\+SPACE\+\_\+\+MAX~((uint32\+\_\+t)(\mbox{\hyperlink{IRConfig_8h_a90e0af319ad0da9f670f6f1207575336}{IR\+\_\+\+HEADER\+\_\+\+SPACE}} $\ast$ \mbox{\hyperlink{IRConfig_8h_abeb3194aae954114d15f6d8dfd90ad90}{IR\+\_\+\+THRES\+\_\+\+UP}}))}
 
 
 
-Definition at line 36 of file I\+R\+Config.\+h.
+Definition at line 36 of file IRConfig.\+h.
 
 \mbox{\Hypertarget{IRConfig_8h_a250ce61cfc429f875c14a5d45408d63c}\label{IRConfig_8h_a250ce61cfc429f875c14a5d45408d63c}} 
 \index{IRConfig.h@{IRConfig.h}!IR\_HEADER\_SPACE\_MIN@{IR\_HEADER\_SPACE\_MIN}}
 \index{IR\_HEADER\_SPACE\_MIN@{IR\_HEADER\_SPACE\_MIN}!IRConfig.h@{IRConfig.h}}
 \doxysubsubsection{\texorpdfstring{IR\_HEADER\_SPACE\_MIN}{IR\_HEADER\_SPACE\_MIN}}
-{\footnotesize\ttfamily \#define I\+R\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+S\+P\+A\+C\+E\+\_\+\+M\+IN~((uint32\+\_\+t)(\mbox{\hyperlink{IRConfig_8h_a90e0af319ad0da9f670f6f1207575336}{I\+R\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+S\+P\+A\+CE}} $\ast$ \mbox{\hyperlink{IRConfig_8h_a106e00ae99e4b96c0d6559954b65a354}{I\+R\+\_\+\+T\+H\+R\+E\+S\+\_\+\+D\+O\+WN}}))}
+{\footnotesize\ttfamily \#define IR\+\_\+\+HEADER\+\_\+\+SPACE\+\_\+\+MIN~((uint32\+\_\+t)(\mbox{\hyperlink{IRConfig_8h_a90e0af319ad0da9f670f6f1207575336}{IR\+\_\+\+HEADER\+\_\+\+SPACE}} $\ast$ \mbox{\hyperlink{IRConfig_8h_a106e00ae99e4b96c0d6559954b65a354}{IR\+\_\+\+THRES\+\_\+\+DOWN}}))}
 
 
 
-Definition at line 33 of file I\+R\+Config.\+h.
+Definition at line 33 of file IRConfig.\+h.
 
 \mbox{\Hypertarget{IRConfig_8h_a8214fb4810b1ce36ec250940fbf75148}\label{IRConfig_8h_a8214fb4810b1ce36ec250940fbf75148}} 
 \index{IRConfig.h@{IRConfig.h}!IR\_MAX\_DATA\_TRANSFER@{IR\_MAX\_DATA\_TRANSFER}}
 \index{IR\_MAX\_DATA\_TRANSFER@{IR\_MAX\_DATA\_TRANSFER}!IRConfig.h@{IRConfig.h}}
 \doxysubsubsection{\texorpdfstring{IR\_MAX\_DATA\_TRANSFER}{IR\_MAX\_DATA\_TRANSFER}}
-{\footnotesize\ttfamily \#define I\+R\+\_\+\+M\+A\+X\+\_\+\+D\+A\+T\+A\+\_\+\+T\+R\+A\+N\+S\+F\+ER~(\mbox{\hyperlink{IRConfig_8h_a0d94cd48fd9c4b03fa756646e6902286}{I\+R\+\_\+\+M\+A\+X\+\_\+\+D\+W\+O\+R\+D\+S\+\_\+\+T\+R\+A\+N\+S\+F\+ER}} $\ast$ sizeof(uint32\+\_\+t))}
+{\footnotesize\ttfamily \#define IR\+\_\+\+MAX\+\_\+\+DATA\+\_\+\+TRANSFER~(\mbox{\hyperlink{IRConfig_8h_a0d94cd48fd9c4b03fa756646e6902286}{IR\+\_\+\+MAX\+\_\+\+DWORDS\+\_\+\+TRANSFER}} $\ast$ sizeof(uint32\+\_\+t))}
 
 
 
-Definition at line 17 of file I\+R\+Config.\+h.
+Definition at line 17 of file IRConfig.\+h.
 
 \mbox{\Hypertarget{IRConfig_8h_a0d94cd48fd9c4b03fa756646e6902286}\label{IRConfig_8h_a0d94cd48fd9c4b03fa756646e6902286}} 
 \index{IRConfig.h@{IRConfig.h}!IR\_MAX\_DWORDS\_TRANSFER@{IR\_MAX\_DWORDS\_TRANSFER}}
 \index{IR\_MAX\_DWORDS\_TRANSFER@{IR\_MAX\_DWORDS\_TRANSFER}!IRConfig.h@{IRConfig.h}}
 \doxysubsubsection{\texorpdfstring{IR\_MAX\_DWORDS\_TRANSFER}{IR\_MAX\_DWORDS\_TRANSFER}}
-{\footnotesize\ttfamily \#define I\+R\+\_\+\+M\+A\+X\+\_\+\+D\+W\+O\+R\+D\+S\+\_\+\+T\+R\+A\+N\+S\+F\+ER~1024}
+{\footnotesize\ttfamily \#define IR\+\_\+\+MAX\+\_\+\+DWORDS\+\_\+\+TRANSFER~1024}
 
 
 
-Definition at line 16 of file I\+R\+Config.\+h.
+Definition at line 16 of file IRConfig.\+h.
 
 \mbox{\Hypertarget{IRConfig_8h_a83700f565451aa042a3751f225b0cff8}\label{IRConfig_8h_a83700f565451aa042a3751f225b0cff8}} 
 \index{IRConfig.h@{IRConfig.h}!IR\_RECEIVER\_PIN@{IR\_RECEIVER\_PIN}}
 \index{IR\_RECEIVER\_PIN@{IR\_RECEIVER\_PIN}!IRConfig.h@{IRConfig.h}}
 \doxysubsubsection{\texorpdfstring{IR\_RECEIVER\_PIN}{IR\_RECEIVER\_PIN}}
-{\footnotesize\ttfamily \#define I\+R\+\_\+\+R\+E\+C\+E\+I\+V\+E\+R\+\_\+\+P\+IN~2}
+{\footnotesize\ttfamily \#define IR\+\_\+\+RECEIVER\+\_\+\+PIN~2}
 
 
 
-Definition at line 43 of file I\+R\+Config.\+h.
+Definition at line 43 of file IRConfig.\+h.
 
 \mbox{\Hypertarget{IRConfig_8h_adb9cd61b2e7cb891d2bb2492608a4555}\label{IRConfig_8h_adb9cd61b2e7cb891d2bb2492608a4555}} 
 \index{IRConfig.h@{IRConfig.h}!IR\_RECV\_BUF\_SIZE@{IR\_RECV\_BUF\_SIZE}}
 \index{IR\_RECV\_BUF\_SIZE@{IR\_RECV\_BUF\_SIZE}!IRConfig.h@{IRConfig.h}}
 \doxysubsubsection{\texorpdfstring{IR\_RECV\_BUF\_SIZE}{IR\_RECV\_BUF\_SIZE}}
-{\footnotesize\ttfamily \#define I\+R\+\_\+\+R\+E\+C\+V\+\_\+\+B\+U\+F\+\_\+\+S\+I\+ZE~\mbox{\hyperlink{IRConfig_8h_a8214fb4810b1ce36ec250940fbf75148}{I\+R\+\_\+\+M\+A\+X\+\_\+\+D\+A\+T\+A\+\_\+\+T\+R\+A\+N\+S\+F\+ER}}}
+{\footnotesize\ttfamily \#define IR\+\_\+\+RECV\+\_\+\+BUF\+\_\+\+SIZE~\mbox{\hyperlink{IRConfig_8h_a8214fb4810b1ce36ec250940fbf75148}{IR\+\_\+\+MAX\+\_\+\+DATA\+\_\+\+TRANSFER}}}
 
 
 
-Definition at line 20 of file I\+R\+Config.\+h.
+Definition at line 20 of file IRConfig.\+h.
 
 \mbox{\Hypertarget{IRConfig_8h_adb7873801cd8375d8960498034492e93}\label{IRConfig_8h_adb7873801cd8375d8960498034492e93}} 
 \index{IRConfig.h@{IRConfig.h}!IR\_SEND\_PWM\_PIN@{IR\_SEND\_PWM\_PIN}}
 \index{IR\_SEND\_PWM\_PIN@{IR\_SEND\_PWM\_PIN}!IRConfig.h@{IRConfig.h}}
 \doxysubsubsection{\texorpdfstring{IR\_SEND\_PWM\_PIN}{IR\_SEND\_PWM\_PIN}}
-{\footnotesize\ttfamily \#define I\+R\+\_\+\+S\+E\+N\+D\+\_\+\+P\+W\+M\+\_\+\+P\+IN~0}
+{\footnotesize\ttfamily \#define IR\+\_\+\+SEND\+\_\+\+PWM\+\_\+\+PIN~0}
 
 
 
-Definition at line 42 of file I\+R\+Config.\+h.
+Definition at line 42 of file IRConfig.\+h.
 
 \mbox{\Hypertarget{IRConfig_8h_a106e00ae99e4b96c0d6559954b65a354}\label{IRConfig_8h_a106e00ae99e4b96c0d6559954b65a354}} 
 \index{IRConfig.h@{IRConfig.h}!IR\_THRES\_DOWN@{IR\_THRES\_DOWN}}
 \index{IR\_THRES\_DOWN@{IR\_THRES\_DOWN}!IRConfig.h@{IRConfig.h}}
 \doxysubsubsection{\texorpdfstring{IR\_THRES\_DOWN}{IR\_THRES\_DOWN}}
-{\footnotesize\ttfamily \#define I\+R\+\_\+\+T\+H\+R\+E\+S\+\_\+\+D\+O\+WN~(1 -\/ \mbox{\hyperlink{IRConfig_8h_a0913e9250e9628ea97a6309bd203bf75}{I\+R\+\_\+\+T\+H\+R\+E\+S\+H\+O\+LD}})}
+{\footnotesize\ttfamily \#define IR\+\_\+\+THRES\+\_\+\+DOWN~(1 -\/ \mbox{\hyperlink{IRConfig_8h_a0913e9250e9628ea97a6309bd203bf75}{IR\+\_\+\+THRESHOLD}})}
 
 
 
-Definition at line 24 of file I\+R\+Config.\+h.
+Definition at line 24 of file IRConfig.\+h.
 
 \mbox{\Hypertarget{IRConfig_8h_abeb3194aae954114d15f6d8dfd90ad90}\label{IRConfig_8h_abeb3194aae954114d15f6d8dfd90ad90}} 
 \index{IRConfig.h@{IRConfig.h}!IR\_THRES\_UP@{IR\_THRES\_UP}}
 \index{IR\_THRES\_UP@{IR\_THRES\_UP}!IRConfig.h@{IRConfig.h}}
 \doxysubsubsection{\texorpdfstring{IR\_THRES\_UP}{IR\_THRES\_UP}}
-{\footnotesize\ttfamily \#define I\+R\+\_\+\+T\+H\+R\+E\+S\+\_\+\+UP~(1 + \mbox{\hyperlink{IRConfig_8h_a0913e9250e9628ea97a6309bd203bf75}{I\+R\+\_\+\+T\+H\+R\+E\+S\+H\+O\+LD}})}
+{\footnotesize\ttfamily \#define IR\+\_\+\+THRES\+\_\+\+UP~(1 + \mbox{\hyperlink{IRConfig_8h_a0913e9250e9628ea97a6309bd203bf75}{IR\+\_\+\+THRESHOLD}})}
 
 
 
-Definition at line 23 of file I\+R\+Config.\+h.
+Definition at line 23 of file IRConfig.\+h.
 
 \mbox{\Hypertarget{IRConfig_8h_a0913e9250e9628ea97a6309bd203bf75}\label{IRConfig_8h_a0913e9250e9628ea97a6309bd203bf75}} 
 \index{IRConfig.h@{IRConfig.h}!IR\_THRESHOLD@{IR\_THRESHOLD}}
 \index{IR\_THRESHOLD@{IR\_THRESHOLD}!IRConfig.h@{IRConfig.h}}
 \doxysubsubsection{\texorpdfstring{IR\_THRESHOLD}{IR\_THRESHOLD}}
-{\footnotesize\ttfamily \#define I\+R\+\_\+\+T\+H\+R\+E\+S\+H\+O\+LD~0.\+25}
+{\footnotesize\ttfamily \#define IR\+\_\+\+THRESHOLD~0.\+25}
 
 
 
-Definition at line 22 of file I\+R\+Config.\+h.
+Definition at line 22 of file IRConfig.\+h.
 
 \mbox{\Hypertarget{IRConfig_8h_a7695385a5a888d20cadfe5bdbb361a93}\label{IRConfig_8h_a7695385a5a888d20cadfe5bdbb361a93}} 
 \index{IRConfig.h@{IRConfig.h}!IR\_TIMING@{IR\_TIMING}}
 \index{IR\_TIMING@{IR\_TIMING}!IRConfig.h@{IRConfig.h}}
 \doxysubsubsection{\texorpdfstring{IR\_TIMING}{IR\_TIMING}}
-{\footnotesize\ttfamily \#define I\+R\+\_\+\+T\+I\+M\+I\+NG~(uint32\+\_\+t)562}
+{\footnotesize\ttfamily \#define IR\+\_\+\+TIMING~(uint32\+\_\+t)562}
 
 
 
-Definition at line 26 of file I\+R\+Config.\+h.
+Definition at line 26 of file IRConfig.\+h.
 
 \mbox{\Hypertarget{IRConfig_8h_a73218da9e787280d69b894953d2d4bdc}\label{IRConfig_8h_a73218da9e787280d69b894953d2d4bdc}} 
 \index{IRConfig.h@{IRConfig.h}!IR\_TIMING\_MIN@{IR\_TIMING\_MIN}}
 \index{IR\_TIMING\_MIN@{IR\_TIMING\_MIN}!IRConfig.h@{IRConfig.h}}
 \doxysubsubsection{\texorpdfstring{IR\_TIMING\_MIN}{IR\_TIMING\_MIN}}
-{\footnotesize\ttfamily \#define I\+R\+\_\+\+T\+I\+M\+I\+N\+G\+\_\+\+M\+IN~((uint32\+\_\+t)(\mbox{\hyperlink{IRConfig_8h_a7695385a5a888d20cadfe5bdbb361a93}{I\+R\+\_\+\+T\+I\+M\+I\+NG}} $\ast$ \mbox{\hyperlink{IRConfig_8h_a106e00ae99e4b96c0d6559954b65a354}{I\+R\+\_\+\+T\+H\+R\+E\+S\+\_\+\+D\+O\+WN}}))}
+{\footnotesize\ttfamily \#define IR\+\_\+\+TIMING\+\_\+\+MIN~((uint32\+\_\+t)(\mbox{\hyperlink{IRConfig_8h_a7695385a5a888d20cadfe5bdbb361a93}{IR\+\_\+\+TIMING}} $\ast$ \mbox{\hyperlink{IRConfig_8h_a106e00ae99e4b96c0d6559954b65a354}{IR\+\_\+\+THRES\+\_\+\+DOWN}}))}
 
 
 
-Definition at line 27 of file I\+R\+Config.\+h.
+Definition at line 27 of file IRConfig.\+h.
 

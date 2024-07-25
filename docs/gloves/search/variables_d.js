@@ -1,6 +1,7 @@
 var searchData=
 [
-  ['patternid_2589',['patternID',['../structdefault__mode__entry.html#a95bf993636f486502b854fc91380cd5b',1,'default_mode_entry']]],
-  ['prefixend_2590',['prefixEnd',['../structLZ4__streamDecode__t__internal.html#a742712f31d2dafdbb124a251a097fee5',1,'LZ4_streamDecode_t_internal']]],
-  ['prefixsize_2591',['prefixSize',['../structLZ4__streamDecode__t__internal.html#a44f5f7acc14c2bb3865eccd5372107c4',1,'LZ4_streamDecode_t_internal']]]
+  ['patternid_2963',['patternID',['../structdefault__mode__entry.html#a95bf993636f486502b854fc91380cd5b',1,'default_mode_entry']]],
+  ['patternnames_2964',['patternNames',['../VortexLib_8cpp.html#a2ac261b51ef7f1cff07858e44a5599a1',1,'VortexLib.cpp']]],
+  ['prefixend_2965',['prefixEnd',['../structLZ4__streamDecode__t__internal.html#a742712f31d2dafdbb124a251a097fee5',1,'LZ4_streamDecode_t_internal']]],
+  ['prefixsize_2966',['prefixSize',['../structLZ4__streamDecode__t__internal.html#a44f5f7acc14c2bb3865eccd5372107c4',1,'LZ4_streamDecode_t_internal']]]
 ];

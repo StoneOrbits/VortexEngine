@@ -245,6 +245,8 @@ Private Member Functions</h2></td></tr>
 </div><!-- fragment -->
 <p class="reference">References <a class="el" href="Buttons_8h_source.html#l00010">NUM_BUTTONS</a>.</p>
 
+<p class="reference">Referenced by <a class="el" href="VortexLib_8cpp_source.html#l00885">Vortex::selectButton()</a>.</p>
+
 </div>
 </div>
 <a id="a4e775beebe1f2c6dce04c82ed14741cb"></a>
@@ -275,12 +277,13 @@ Private Member Functions</h2></td></tr>
 <div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;  <a class="code" href="Buttons_8cpp.html#a0f2e1bfb2e10150496ad7fb75420713b">g_pButton</a>-&gt;<a class="code" href="classButton.html#ad8e030c1c8846d43f3126047d4a3667f">update</a>();</div>
 <div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;<span class="preprocessor">#ifdef VORTEX_LIB</span></div>
 <div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;  <span class="comment">// read input from the vortex lib interface, for example Vortex::shortClick()</span></div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;  Vortex::handleInputQueue(<a class="code" href="Buttons_8cpp.html#a0f2e1bfb2e10150496ad7fb75420713b">g_pButton</a>, <a class="code" href="Buttons_8h.html#a45add6b39f5b0c0137de978b90e26b5d">NUM_BUTTONS</a>);</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;  <a class="code" href="classVortex.html#aa334b5f76d4d9d7f0a95296afd1f7ed0">Vortex::handleInputQueue</a>(<a class="code" href="Buttons_8cpp.html#a0f2e1bfb2e10150496ad7fb75420713b">g_pButton</a>, <a class="code" href="Buttons_8h.html#a45add6b39f5b0c0137de978b90e26b5d">NUM_BUTTONS</a>);</div>
 <div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;<span class="preprocessor">#endif</span></div>
 <div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;}</div>
 <div class="ttc" id="aclassButton_html_ad8e030c1c8846d43f3126047d4a3667f"><div class="ttname"><a href="classButton.html#ad8e030c1c8846d43f3126047d4a3667f">Button::update</a></div><div class="ttdeci">void update()</div><div class="ttdef"><b>Definition:</b> <a href="Button_8cpp_source.html#l00102">Button.cpp:102</a></div></div>
+<div class="ttc" id="aclassVortex_html_aa334b5f76d4d9d7f0a95296afd1f7ed0"><div class="ttname"><a href="classVortex.html#aa334b5f76d4d9d7f0a95296afd1f7ed0">Vortex::handleInputQueue</a></div><div class="ttdeci">static void handleInputQueue(Button *buttons, uint32_t numButtons)</div><div class="ttdef"><b>Definition:</b> <a href="VortexLib_8cpp_source.html#l01558">VortexLib.cpp:1558</a></div></div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="Buttons_8cpp_source.html#l00016">g_pButton</a>, <a class="el" href="Buttons_8h_source.html#l00010">NUM_BUTTONS</a>, and <a class="el" href="Button_8cpp_source.html#l00102">Button::update()</a>.</p>
+<p class="reference">References <a class="el" href="Buttons_8cpp_source.html#l00016">g_pButton</a>, <a class="el" href="VortexLib_8cpp_source.html#l01558">Vortex::handleInputQueue()</a>, <a class="el" href="Buttons_8h_source.html#l00010">NUM_BUTTONS</a>, and <a class="el" href="Button_8cpp_source.html#l00102">Button::update()</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="VortexEngine_8cpp_source.html#l00158">VortexEngine::tick()</a>.</p>
 

@@ -1,8 +1,8 @@
 var searchData=
 [
-  ['keychain_5fmode_5fstate_5fcount_2424',['KEYCHAIN_MODE_STATE_COUNT',['../classGlobalBrightness.html#af652c0391d561dc18d0887508e403d34aaf075e4df663f1c36af362a64db58339',1,'GlobalBrightness']]],
-  ['keychain_5fmode_5fstate_5fdops_2425',['KEYCHAIN_MODE_STATE_DOPS',['../classGlobalBrightness.html#af652c0391d561dc18d0887508e403d34a1334271bca78524849b81c3a1babfb69',1,'GlobalBrightness']]],
-  ['keychain_5fmode_5fstate_5foff_2426',['KEYCHAIN_MODE_STATE_OFF',['../classGlobalBrightness.html#af652c0391d561dc18d0887508e403d34a3b6055f48d6b32f275728a47588a7f1b',1,'GlobalBrightness']]],
-  ['keychain_5fmode_5fstate_5fsignal_2427',['KEYCHAIN_MODE_STATE_SIGNAL',['../classGlobalBrightness.html#af652c0391d561dc18d0887508e403d34a356f69344a8733fcd5d8480c9ab10237',1,'GlobalBrightness']]],
-  ['keychain_5fmode_5fstate_5fsolid_2428',['KEYCHAIN_MODE_STATE_SOLID',['../classGlobalBrightness.html#af652c0391d561dc18d0887508e403d34a1fc86c00a64b39090ef0bbfbabc4db9a',1,'GlobalBrightness']]]
+  ['json_5fmode_5fnone_2819',['JSON_MODE_NONE',['../classVortexCLI.html#a5021498b90d142e95b6858a101dd69f3a9b2cde183aa61cdb57495ffd9e877dbb',1,'VortexCLI']]],
+  ['json_5fmode_5fread_5ffile_2820',['JSON_MODE_READ_FILE',['../classVortexCLI.html#a5021498b90d142e95b6858a101dd69f3ad98644719ab95d7c224d4286c92acbe7',1,'VortexCLI']]],
+  ['json_5fmode_5fread_5fstdin_2821',['JSON_MODE_READ_STDIN',['../classVortexCLI.html#a5021498b90d142e95b6858a101dd69f3adcc6a199b711fcd956ef38159ec46155',1,'VortexCLI']]],
+  ['json_5fmode_5fwrite_5ffile_2822',['JSON_MODE_WRITE_FILE',['../classVortexCLI.html#a5021498b90d142e95b6858a101dd69f3a5eafb03ffe2c76d356c89185ed9e1e67',1,'VortexCLI']]],
+  ['json_5fmode_5fwrite_5fstdout_2823',['JSON_MODE_WRITE_STDOUT',['../classVortexCLI.html#a5021498b90d142e95b6858a101dd69f3af4f23e46967f278eab45c8d2ad4b22c1',1,'VortexCLI']]]
 ];

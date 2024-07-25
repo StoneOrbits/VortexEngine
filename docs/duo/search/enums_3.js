@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['keychain_5fmode_5fstate_2398',['keychain_mode_state',['../classGlobalBrightness.html#af652c0391d561dc18d0887508e403d34',1,'GlobalBrightness']]]
+  ['jsonmode_2777',['JsonMode',['../classVortexCLI.html#a5021498b90d142e95b6858a101dd69f3',1,'VortexCLI']]]
 ];

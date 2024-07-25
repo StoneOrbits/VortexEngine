@@ -80,5 +80,11 @@ var hierarchy =
     [ "Time", "classTime.html", null ],
     [ "Timer", "classTimer.html", null ],
     [ "VLSender", "classVLSender.html", null ],
+    [ "Vortex", "classVortex.html", null ],
+    [ "Vortex::VortexButtonEvent", "classVortex_1_1VortexButtonEvent.html", null ],
+    [ "VortexCallbacks", "classVortexCallbacks.html", [
+      [ "VortexCLI::VortexCLICallbacks", "classVortexCLI_1_1VortexCLICallbacks.html", null ]
+    ] ],
+    [ "VortexCLI", "classVortexCLI.html", null ],
     [ "VortexEngine", "classVortexEngine.html", null ]
 ];

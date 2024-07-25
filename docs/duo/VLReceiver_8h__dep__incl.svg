@@ -46,7 +46,7 @@ if (edges && edges.length) {
         </defs>
 
 <script type="text/javascript">
-var viewWidth = 525;
+var viewWidth = 674;
 var viewHeight = 106;
 var sectionId = 'dynsection-1';
 </script>
@@ -58,9 +58,9 @@ var sectionId = 'dynsection-1';
 <g id="node1" class="node">
 <title>Node1</title>
 <g id="a_node1"><a xlink:title=" ">
-<polygon fill="#bfbfbf" stroke="black" points="191,-67.5 191,-97.5 334,-97.5 334,-67.5 191,-67.5"/>
-<text text-anchor="start" x="199" y="-85.5" font-family="Helvetica,sans-Serif" font-size="10.00">VortexEngine/src/Wireless</text>
-<text text-anchor="middle" x="262.5" y="-74.5" font-family="Helvetica,sans-Serif" font-size="10.00">/VLReceiver.h</text>
+<polygon fill="#bfbfbf" stroke="black" points="282,-67.5 282,-97.5 425,-97.5 425,-67.5 282,-67.5"/>
+<text text-anchor="start" x="290" y="-85.5" font-family="Helvetica,sans-Serif" font-size="10.00">VortexEngine/src/Wireless</text>
+<text text-anchor="middle" x="353.5" y="-74.5" font-family="Helvetica,sans-Serif" font-size="10.00">/VLReceiver.h</text>
 </a>
 </g>
 </g>
@@ -77,8 +77,8 @@ var sectionId = 'dynsection-1';
 <!-- Node1&#45;&gt;Node2 -->
 <g id="edge1" class="edge">
 <title>Node1&#45;&gt;Node2</title>
-<path fill="none" stroke="midnightblue" d="M212.42,-64.09C182.23,-53.6 144.28,-40.41 116,-30.58"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="211.33,-67.42 221.92,-67.4 213.63,-60.81 211.33,-67.42"/>
+<path fill="none" stroke="midnightblue" d="M283.72,-65.19C238.2,-54.54 179.36,-40.78 135.85,-30.61"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="282.99,-68.61 293.52,-67.48 284.58,-61.79 282.99,-68.61"/>
 </g>
 <!-- Node3 -->
 <g id="node3" class="node">
@@ -92,8 +92,8 @@ var sectionId = 'dynsection-1';
 <!-- Node1&#45;&gt;Node3 -->
 <g id="edge2" class="edge">
 <title>Node1&#45;&gt;Node3</title>
-<path fill="none" stroke="midnightblue" d="M262.5,-57.25C262.5,-46.02 262.5,-33.38 262.5,-25.19"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="259,-57.4 262.5,-67.4 266,-57.4 259,-57.4"/>
+<path fill="none" stroke="midnightblue" d="M325.23,-61.31C308.14,-49.1 287.25,-34.18 274.41,-25.01"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="323.58,-64.43 333.75,-67.4 327.65,-58.74 323.58,-64.43"/>
 </g>
 <!-- Node4 -->
 <g id="node4" class="node">
@@ -108,8 +108,24 @@ var sectionId = 'dynsection-1';
 <!-- Node1&#45;&gt;Node4 -->
 <g id="edge3" class="edge">
 <title>Node1&#45;&gt;Node4</title>
-<path fill="none" stroke="midnightblue" d="M311.9,-63.96C341.37,-53.48 378.31,-40.37 405.87,-30.58"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="310.46,-60.75 302.21,-67.4 312.8,-67.35 310.46,-60.75"/>
+<path fill="none" stroke="midnightblue" d="M381.88,-61.45C396.03,-51.45 412.81,-39.6 425.58,-30.58"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="379.61,-58.77 373.46,-67.4 383.65,-64.48 379.61,-58.77"/>
+</g>
+<!-- Node5 -->
+<g id="node5" class="node">
+<title>Node5</title>
+<g id="a_node5"><a xlink:href="VortexLib_8cpp.html" target="_top" xlink:title=" ">
+<polygon fill="none" stroke="black" points="535.5,-0.5 535.5,-30.5 665.5,-30.5 665.5,-0.5 535.5,-0.5"/>
+<text text-anchor="start" x="543.5" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">VortexEngine/VortexLib</text>
+<text text-anchor="middle" x="600.5" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">/VortexLib.cpp</text>
+</a>
+</g>
+</g>
+<!-- Node1&#45;&gt;Node5 -->
+<g id="edge4" class="edge">
+<title>Node1&#45;&gt;Node5</title>
+<path fill="none" stroke="midnightblue" d="M416.51,-64.92C456.82,-54.31 508.54,-40.7 546.88,-30.61"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="415.57,-61.55 406.79,-67.48 417.35,-68.32 415.57,-61.55"/>
 </g>
 </g>
 </svg>

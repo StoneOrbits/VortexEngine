@@ -6,7 +6,8 @@
 
 
 
-Inheritance diagram for Pattern\+Select\+:\nopagebreak
+Inheritance diagram for Pattern\+Select\+:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -16,11 +17,17 @@ Inheritance diagram for Pattern\+Select\+:\nopagebreak
 
 
 Collaboration diagram for Pattern\+Select\+:
-% FIG 0
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classPatternSelect__coll__graph}
+\end{center}
+\end{figure}
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{classPatternSelect_ab79397451c6dc96ea27d2b4940fed750}{Pattern\+Select}} (\mbox{\hyperlink{classVortexEngine}{Vortex\+Engine}} \&engine, const \mbox{\hyperlink{classRGBColor}{R\+G\+B\+Color}} \&col, bool advanced)
+\mbox{\hyperlink{classPatternSelect_ab79397451c6dc96ea27d2b4940fed750}{Pattern\+Select}} (\mbox{\hyperlink{classVortexEngine}{Vortex\+Engine}} \&engine, const \mbox{\hyperlink{classRGBColor}{RGBColor}} \&col, bool advanced)
 \item 
 \mbox{\hyperlink{classPatternSelect_a0148e868a3acd84b1a94b8a74af77a29}{$\sim$\+Pattern\+Select}} ()
 \item 
@@ -58,7 +65,7 @@ Definition at line 9 of file Pattern\+Select.\+h.
 \index{PatternSelect@{PatternSelect}!PatternSelect@{PatternSelect}}
 \index{PatternSelect@{PatternSelect}!PatternSelect@{PatternSelect}}
 \doxysubsubsection{\texorpdfstring{PatternSelect()}{PatternSelect()}}
-{\footnotesize\ttfamily Pattern\+Select\+::\+Pattern\+Select (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classVortexEngine}{Vortex\+Engine}} \&}]{engine,  }\item[{const \mbox{\hyperlink{classRGBColor}{R\+G\+B\+Color}} \&}]{col,  }\item[{bool}]{advanced }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily Pattern\+Select\+::\+Pattern\+Select (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classVortexEngine}{Vortex\+Engine}} \&}]{engine,  }\item[{const \mbox{\hyperlink{classRGBColor}{RGBColor}} \&}]{col,  }\item[{bool}]{advanced }\end{DoxyParamCaption})}
 
 
 
@@ -70,7 +77,7 @@ Definition at line 18 of file Pattern\+Select.\+cpp.
 \DoxyCodeLine{19   \mbox{\hyperlink{classMenu_a015cc9ee4e9800ad776e8e8097ca49fe}{Menu}}(engine, col, advanced),}
 \DoxyCodeLine{20   \mbox{\hyperlink{classPatternSelect_a46a2cec7b6d788b0492c1143252e2bf0}{m\_srcLed}}(\mbox{\hyperlink{Leds_8h_a5504983bb4926facfaf0307b99425819}{LED\_FIRST}}),}
 \DoxyCodeLine{21   \mbox{\hyperlink{classPatternSelect_a80246d4447d98ba20b0ef3c963ef02a4}{m\_argIndex}}(0),}
-\DoxyCodeLine{22   \mbox{\hyperlink{classPatternSelect_a28fd6b65e9d5af4644451e571273c20a}{m\_started}}(\textcolor{keyword}{false})}
+\DoxyCodeLine{22   \mbox{\hyperlink{classPatternSelect_a28fd6b65e9d5af4644451e571273c20a}{m\_started}}(\textcolor{keyword}{false})}
 \DoxyCodeLine{23 \{}
 \DoxyCodeLine{24 \}}
 
@@ -114,14 +121,14 @@ Definition at line 30 of file Pattern\+Select.\+cpp.
 \DoxyCodeLine{32   \textcolor{keywordflow}{if} (!\mbox{\hyperlink{classMenu_ae177e0a053fdbb2681ec14ea6b12e2d0}{Menu::init}}()) \{}
 \DoxyCodeLine{33     \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
 \DoxyCodeLine{34   \}}
-\DoxyCodeLine{35   \mbox{\hyperlink{Log_8h_a5d2f30bd1cbcf49f829a7e8eb6173c06}{DEBUG\_LOG}}(\textcolor{stringliteral}{"Entered pattern select"});}
+\DoxyCodeLine{35   \mbox{\hyperlink{Log_8h_a5d2f30bd1cbcf49f829a7e8eb6173c06}{DEBUG\_LOG}}(\textcolor{stringliteral}{"{}Entered pattern select"{}});}
 \DoxyCodeLine{36   \textcolor{keywordflow}{return} \textcolor{keyword}{true};}
 \DoxyCodeLine{37 \}}
 
 \end{DoxyCode}
 
 
-References D\+E\+B\+U\+G\+\_\+\+L\+OG, and Menu\+::init().
+References DEBUG\+\_\+\+LOG, and Menu\+::init().
 
 \mbox{\Hypertarget{classPatternSelect_a605366bb9ccec088bd35d84364dc2069}\label{classPatternSelect_a605366bb9ccec088bd35d84364dc2069}} 
 \index{PatternSelect@{PatternSelect}!onLedSelected@{onLedSelected}}
@@ -242,11 +249,11 @@ Definition at line 57 of file Pattern\+Select.\+cpp.
 \DoxyCodeLine{98   \}}
 \DoxyCodeLine{99   \mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8c}{PatternID}} newID = (\mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8c}{PatternID}})(\mbox{\hyperlink{classMenu_ac8a829f4f7405393db1c8729828494e4}{m\_previewMode}}.\mbox{\hyperlink{classMode_a37b660257352663dcab903649b7aebc7}{getPatternID}}(\mbox{\hyperlink{classPatternSelect_a46a2cec7b6d788b0492c1143252e2bf0}{m\_srcLed}}) + 1);}
 \DoxyCodeLine{100   \mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8c}{PatternID}} maxID = \mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8ca63a5c7f0287e61ea810c90b211903308}{PATTERN\_SINGLE\_LAST}};}
-\DoxyCodeLine{101 \textcolor{preprocessor}{\#if VORTEX\_SLIM == 0}}
+\DoxyCodeLine{101 \textcolor{preprocessor}{\#if VORTEX\_SLIM == 0}}
 \DoxyCodeLine{102   \textcolor{keywordflow}{if} (\mbox{\hyperlink{classMenu_ab2586ae2b8c777db240885bd000ea57d}{m\_targetLeds}} == \mbox{\hyperlink{Leds_8h_ac9a910b2dc4fabac704e56a0fcb3b97e}{MAP\_LED\_ALL}} || \mbox{\hyperlink{classMenu_ab2586ae2b8c777db240885bd000ea57d}{m\_targetLeds}} == \mbox{\hyperlink{Leds_8h_ae3e48bdbee97fcc922ac8a9f4c8cf8fa}{MAP\_LED}}(\mbox{\hyperlink{Leds_8h_aa90d79e6c4a68055c827d212d85e499e}{LED\_MULTI}})) \{}
 \DoxyCodeLine{103     maxID = \mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8ca4a47e790a421b744f6b060610e6a0099}{PATTERN\_MULTI\_LAST}};}
 \DoxyCodeLine{104   \}}
-\DoxyCodeLine{105 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{105 \textcolor{preprocessor}{\#endif}}
 \DoxyCodeLine{106   \textcolor{keywordflow}{if} (newID > maxID) \{}
 \DoxyCodeLine{107     newID = maxID;}
 \DoxyCodeLine{108   \}}
@@ -263,13 +270,13 @@ Definition at line 57 of file Pattern\+Select.\+cpp.
 \DoxyCodeLine{119     \mbox{\hyperlink{classMenu_ac8a829f4f7405393db1c8729828494e4}{m\_previewMode}}.\mbox{\hyperlink{classMode_a2f678199656c1a0c4e97c1c36f043778}{clearPattern}}(\mbox{\hyperlink{Leds_8h_aa90d79e6c4a68055c827d212d85e499e}{LED\_MULTI}});}
 \DoxyCodeLine{120   \}}
 \DoxyCodeLine{121   \mbox{\hyperlink{classMenu_ac8a829f4f7405393db1c8729828494e4}{m\_previewMode}}.\mbox{\hyperlink{classMode_aa719878c227361144835120787581d94}{init}}();}
-\DoxyCodeLine{122   \mbox{\hyperlink{Log_8h_a8bdccae09f7cdda8fb311e0bd81c35dc}{DEBUG\_LOGF}}(\textcolor{stringliteral}{"Iterated to pattern id \%d"}, newID);}
+\DoxyCodeLine{122   \mbox{\hyperlink{Log_8h_a8bdccae09f7cdda8fb311e0bd81c35dc}{DEBUG\_LOGF}}(\textcolor{stringliteral}{"{}Iterated to pattern id \%d"{}}, newID);}
 \DoxyCodeLine{123 \}}
 
 \end{DoxyCode}
 
 
-References Pattern\+::arg\+Ref(), Vortex\+Engine\+::button(), Mode\+::clear\+Pattern(), D\+E\+B\+U\+G\+\_\+\+L\+O\+GF, Pattern\+::get\+Num\+Args(), Mode\+::get\+Pattern(), Mode\+::get\+Pattern\+I\+D(), Leds\+::hold\+All(), Mode\+::init(), is\+Multi\+Led\+Pattern\+I\+D(), L\+E\+D\+\_\+\+A\+NY, L\+E\+D\+\_\+\+M\+U\+L\+TI, Vortex\+Engine\+::leds(), Menu\+::m\+\_\+advanced, m\+\_\+arg\+Index, Menu\+::m\+\_\+engine, Menu\+::m\+\_\+preview\+Mode, m\+\_\+src\+Led, m\+\_\+started, Menu\+::m\+\_\+target\+Leds, M\+A\+P\+\_\+\+F\+O\+R\+E\+A\+C\+H\+\_\+\+L\+ED, M\+A\+P\+\_\+\+L\+ED, M\+A\+P\+\_\+\+L\+E\+D\+\_\+\+A\+LL, Button\+::on\+Consecutive\+Presses(), P\+A\+T\+T\+E\+R\+N\+\_\+\+F\+I\+R\+ST, P\+A\+T\+T\+E\+R\+N\+\_\+\+M\+U\+L\+T\+I\+\_\+\+L\+A\+ST, P\+A\+T\+T\+E\+R\+N\+\_\+\+S\+I\+N\+G\+L\+E\+\_\+\+L\+A\+ST, R\+G\+B\+\_\+\+R\+ED, R\+G\+B\+\_\+\+Y\+E\+L\+L\+O\+W1, Mode\+::set\+Pattern(), and Mode\+::set\+Pattern\+Map().
+References Pattern\+::arg\+Ref(), Vortex\+Engine\+::button(), Mode\+::clear\+Pattern(), DEBUG\+\_\+\+LOGF, Pattern\+::get\+Num\+Args(), Mode\+::get\+Pattern(), Mode\+::get\+Pattern\+ID(), Leds\+::hold\+All(), Mode\+::init(), is\+Multi\+Led\+Pattern\+ID(), LED\+\_\+\+ANY, LED\+\_\+\+MULTI, Vortex\+Engine\+::leds(), Menu\+::m\+\_\+advanced, m\+\_\+arg\+Index, Menu\+::m\+\_\+engine, Menu\+::m\+\_\+preview\+Mode, m\+\_\+src\+Led, m\+\_\+started, Menu\+::m\+\_\+target\+Leds, MAP\+\_\+\+FOREACH\+\_\+\+LED, MAP\+\_\+\+LED, MAP\+\_\+\+LED\+\_\+\+ALL, Button\+::on\+Consecutive\+Presses(), PATTERN\+\_\+\+FIRST, PATTERN\+\_\+\+MULTI\+\_\+\+LAST, PATTERN\+\_\+\+SINGLE\+\_\+\+LAST, RGB\+\_\+\+RED, RGB\+\_\+\+YELLOW1, Mode\+::set\+Pattern(), and Mode\+::set\+Pattern\+Map().
 
 \mbox{\Hypertarget{classPatternSelect_a83e663abcad2ca3049dcd407108b4258}\label{classPatternSelect_a83e663abcad2ca3049dcd407108b4258}} 
 \index{PatternSelect@{PatternSelect}!run@{run}}
@@ -302,7 +309,7 @@ Definition at line 39 of file Pattern\+Select.\+cpp.
 \end{DoxyCode}
 
 
-References Menu\+::m\+\_\+advanced, Menu\+::m\+\_\+engine, Menu\+::m\+\_\+preview\+Mode, Menu\+::\+M\+E\+N\+U\+\_\+\+C\+O\+N\+T\+I\+N\+UE, Vortex\+Engine\+::menus(), Mode\+::play(), R\+G\+B\+\_\+\+G\+R\+E\+E\+N0, R\+G\+B\+\_\+\+W\+H\+I\+T\+E5, Menu\+::run(), and Menus\+::show\+Selection().
+References Menu\+::m\+\_\+advanced, Menu\+::m\+\_\+engine, Menu\+::m\+\_\+preview\+Mode, Menu\+::\+MENU\+\_\+\+CONTINUE, Vortex\+Engine\+::menus(), Mode\+::play(), RGB\+\_\+\+GREEN0, RGB\+\_\+\+WHITE5, Menu\+::run(), and Menus\+::show\+Selection().
 
 
 

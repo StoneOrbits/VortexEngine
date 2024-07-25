@@ -621,7 +621,7 @@ Static Private Attributes</h2></td></tr>
 <div class="fragment"><div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160;{</div>
 <div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160;<span class="preprocessor">#ifdef VORTEX_LIB</span></div>
 <div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160;  <span class="comment">// send mark timing over socket</span></div>
-<div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160;  Vortex::vcallbacks()-&gt;infraredWrite(<span class="keyword">true</span>, time);</div>
+<div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160;  <a class="code" href="classVortex.html#a84b31157edd8814f3e7b545ca4c3fa00">Vortex::vcallbacks</a>()-&gt;<a class="code" href="classVortexCallbacks.html#a97b9d8709dd8f4d940184cf6996da776">infraredWrite</a>(<span class="keyword">true</span>, time);</div>
 <div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160;<span class="preprocessor">#else</span></div>
 <div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160;  <a class="code" href="classVLSender.html#a563dfda5e2adea98cbf98ef98c66787c">startPWM</a>();</div>
 <div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160;  <a class="code" href="classTime.html#a9682da1974a20a9bcdbb678984cd0e9c">Time::delayMicroseconds</a>(time);</div>
@@ -629,8 +629,10 @@ Static Private Attributes</h2></td></tr>
 <div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160;}</div>
 <div class="ttc" id="aclassTime_html_a9682da1974a20a9bcdbb678984cd0e9c"><div class="ttname"><a href="classTime.html#a9682da1974a20a9bcdbb678984cd0e9c">Time::delayMicroseconds</a></div><div class="ttdeci">static void delayMicroseconds(uint32_t us)</div></div>
 <div class="ttc" id="aclassVLSender_html_a563dfda5e2adea98cbf98ef98c66787c"><div class="ttname"><a href="classVLSender.html#a563dfda5e2adea98cbf98ef98c66787c">VLSender::startPWM</a></div><div class="ttdeci">static void startPWM()</div><div class="ttdef"><b>Definition:</b> <a href="VLSender_8cpp_source.html#l00170">VLSender.cpp:170</a></div></div>
+<div class="ttc" id="aclassVortexCallbacks_html_a97b9d8709dd8f4d940184cf6996da776"><div class="ttname"><a href="classVortexCallbacks.html#a97b9d8709dd8f4d940184cf6996da776">VortexCallbacks::infraredWrite</a></div><div class="ttdeci">virtual void infraredWrite(bool mark, uint32_t amount)</div><div class="ttdef"><b>Definition:</b> <a href="VortexLib_8h_source.html#l00045">VortexLib.h:45</a></div></div>
+<div class="ttc" id="aclassVortex_html_a84b31157edd8814f3e7b545ca4c3fa00"><div class="ttname"><a href="classVortex.html#a84b31157edd8814f3e7b545ca4c3fa00">Vortex::vcallbacks</a></div><div class="ttdeci">static VortexCallbacks * vcallbacks()</div><div class="ttdef"><b>Definition:</b> <a href="VortexLib_8h_source.html#l00221">VortexLib.h:221</a></div></div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="classTime.html#a9682da1974a20a9bcdbb678984cd0e9c">Time::delayMicroseconds()</a>, and <a class="el" href="VLSender_8cpp_source.html#l00170">startPWM()</a>.</p>
+<p class="reference">References <a class="el" href="classTime.html#a9682da1974a20a9bcdbb678984cd0e9c">Time::delayMicroseconds()</a>, <a class="el" href="VortexLib_8h_source.html#l00045">VortexCallbacks::infraredWrite()</a>, <a class="el" href="VLSender_8cpp_source.html#l00170">startPWM()</a>, and <a class="el" href="VortexLib_8h_source.html#l00221">Vortex::vcallbacks()</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="VLSender_8cpp_source.html#l00115">beginSend()</a>, and <a class="el" href="VLSender_8cpp_source.html#l00134">sendByte()</a>.</p>
 
@@ -664,7 +666,7 @@ Static Private Attributes</h2></td></tr>
 <div class="fragment"><div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160;{</div>
 <div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160;<span class="preprocessor">#ifdef VORTEX_LIB</span></div>
 <div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160;  <span class="comment">// send space timing over socket</span></div>
-<div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160;  Vortex::vcallbacks()-&gt;infraredWrite(<span class="keyword">false</span>, time);</div>
+<div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160;  <a class="code" href="classVortex.html#a84b31157edd8814f3e7b545ca4c3fa00">Vortex::vcallbacks</a>()-&gt;<a class="code" href="classVortexCallbacks.html#a97b9d8709dd8f4d940184cf6996da776">infraredWrite</a>(<span class="keyword">false</span>, time);</div>
 <div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160;<span class="preprocessor">#else</span></div>
 <div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160;  <a class="code" href="classVLSender.html#a6fadfb59019cde5bbcf9d2f2e33a50f6">stopPWM</a>();</div>
 <div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160;  <a class="code" href="classTime.html#a9682da1974a20a9bcdbb678984cd0e9c">Time::delayMicroseconds</a>(time);</div>
@@ -672,7 +674,7 @@ Static Private Attributes</h2></td></tr>
 <div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160;}</div>
 <div class="ttc" id="aclassVLSender_html_a6fadfb59019cde5bbcf9d2f2e33a50f6"><div class="ttname"><a href="classVLSender.html#a6fadfb59019cde5bbcf9d2f2e33a50f6">VLSender::stopPWM</a></div><div class="ttdeci">static void stopPWM()</div><div class="ttdef"><b>Definition:</b> <a href="VLSender_8cpp_source.html#l00185">VLSender.cpp:185</a></div></div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="classTime.html#a9682da1974a20a9bcdbb678984cd0e9c">Time::delayMicroseconds()</a>, and <a class="el" href="VLSender_8cpp_source.html#l00185">stopPWM()</a>.</p>
+<p class="reference">References <a class="el" href="classTime.html#a9682da1974a20a9bcdbb678984cd0e9c">Time::delayMicroseconds()</a>, <a class="el" href="VortexLib_8h_source.html#l00045">VortexCallbacks::infraredWrite()</a>, <a class="el" href="VLSender_8cpp_source.html#l00185">stopPWM()</a>, and <a class="el" href="VortexLib_8h_source.html#l00221">Vortex::vcallbacks()</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="VLSender_8cpp_source.html#l00115">beginSend()</a>, and <a class="el" href="VLSender_8cpp_source.html#l00134">sendByte()</a>.</p>
 

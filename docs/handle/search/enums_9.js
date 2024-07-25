@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['valuestyle_2589',['ValueStyle',['../classColorset.html#a3cfec1a04020fca46a63a7030300de26',1,'Colorset']]],
-  ['variable_5flength_5ferror_2590',['variable_length_error',['../Compression_8cpp.html#a9d0df14b4296f06cf7c7b141f26d29b3',1,'Compression.cpp']]]
+  ['randomizeflags_2967',['RandomizeFlags',['../classRandomizer.html#a284ed130367e4cf0914f77fc3f7a155e',1,'Randomizer']]],
+  ['recvstate_2968',['RecvState',['../classIRReceiver.html#a56148488dd4f2a403202a0467b4940b9',1,'IRReceiver']]]
 ];

@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['jsonmode_3071',['JsonMode',['../classVortexCLI.html#a5021498b90d142e95b6858a101dd69f3',1,'VortexCLI']]]
+  ['jsonmode_3113',['JsonMode',['../classVortexCLI.html#a5021498b90d142e95b6858a101dd69f3',1,'VortexCLI']]]
 ];

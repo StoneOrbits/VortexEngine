@@ -433,7 +433,7 @@ References Pattern\+::equals(), get\+Led\+Count(), LED\+\_\+\+FIRST, m\+\_\+mult
 
 
 
-Referenced by Pattern\+Select\+::on\+Long\+Click(), operator!=(), and operator==().
+Referenced by Pattern\+Select\+::on\+Long\+Click(), operator!=(), operator==(), and Vortex\+::set\+Menu\+Demo\+Mode().
 
 \mbox{\Hypertarget{classMode_adfb21384f2d14af66f7aa80e9a8ae447}\label{classMode_adfb21384f2d14af66f7aa80e9a8ae447}} 
 \index{Mode@{Mode}!getArg@{getArg}}
@@ -504,7 +504,7 @@ Definition at line 495 of file Mode.\+cpp.
 \end{DoxyCode}
 
 
-Referenced by Color\+Select\+::on\+Led\+Selected(), Pattern\+Select\+::on\+Led\+Selected(), Color\+Select\+::on\+Long\+Click(), Color\+Select\+::run(), and set\+Pattern().
+Referenced by Vortex\+::get\+Colorset(), Color\+Select\+::on\+Led\+Selected(), Pattern\+Select\+::on\+Led\+Selected(), Color\+Select\+::on\+Long\+Click(), Color\+Select\+::run(), and set\+Pattern().
 
 \mbox{\Hypertarget{classMode_a25fa9c7e3e991a9fd7bf36c1c281fc15}\label{classMode_a25fa9c7e3e991a9fd7bf36c1c281fc15}} 
 \index{Mode@{Mode}!getFlags@{getFlags}}
@@ -534,7 +534,7 @@ References has\+Multi\+Led(), has\+Same\+Single\+Led(), has\+Single\+Led(), has\
 
 
 
-Referenced by serialize().
+Referenced by Vortex\+::mode\+To\+Json(), and serialize().
 
 \mbox{\Hypertarget{classMode_a02896a308abb58563215774352aaeabf}\label{classMode_a02896a308abb58563215774352aaeabf}} 
 \index{Mode@{Mode}!getLedCount@{getLedCount}}
@@ -563,7 +563,7 @@ References LED\+\_\+\+COUNT.
 
 
 
-Referenced by equals(), and operator=().
+Referenced by equals(), Vortex\+::mode\+To\+Json(), Vortex\+::num\+Leds\+In\+Mode(), operator=(), and Vortex\+::set\+Menu\+Demo\+Mode().
 
 \mbox{\Hypertarget{classMode_aa9879b0cd0f9c6279002defafa54400b}\label{classMode_aa9879b0cd0f9c6279002defafa54400b}} 
 \index{Mode@{Mode}!getPattern@{getPattern}}
@@ -648,7 +648,7 @@ Definition at line 442 of file Mode.\+cpp.
 \end{DoxyCode}
 
 
-Referenced by get\+Arg(), get\+Colorset(), get\+Pattern\+ID(), Randomizer\+::init(), and set\+Arg().
+Referenced by get\+Arg(), get\+Colorset(), Vortex\+::get\+Pattern\+Args(), get\+Pattern\+ID(), Randomizer\+::init(), Vortex\+::mode\+To\+Json(), set\+Arg(), and Vortex\+::set\+Pattern\+Args().
 
 \mbox{\Hypertarget{classMode_a0c012c6a748a1a1a9502b552bfa2ba66}\label{classMode_a0c012c6a748a1a1a9502b552bfa2ba66}} 
 \index{Mode@{Mode}!getPatternID@{getPatternID}}
@@ -677,7 +677,7 @@ References get\+Pattern(), Pattern\+::get\+Pattern\+ID(), and PATTERN\+\_\+\+NON
 
 
 
-Referenced by is\+Empty(), Mode\+Sharing\+::receive\+Mode(), Randomizer\+::run(), and Modes\+::set\+Cur\+Mode().
+Referenced by Vortex\+::get\+Mode\+Name(), Vortex\+::get\+Pattern\+ID(), is\+Empty(), Mode\+Sharing\+::receive\+Mode(), Randomizer\+::run(), and Modes\+::set\+Cur\+Mode().
 
 \mbox{\Hypertarget{classMode_a7e3d11e2bcda0bef4918c0eae7b60958}\label{classMode_a7e3d11e2bcda0bef4918c0eae7b60958}} 
 \index{Mode@{Mode}!getSingleLedMap@{getSingleLedMap}}
@@ -878,7 +878,7 @@ References Pattern\+::init(), LED\+\_\+\+FIRST, m\+\_\+multi\+Pat, m\+\_\+single
 
 
 
-Referenced by Modes\+::add\+Mode(), Modes\+::add\+Serialized\+Mode(), Editor\+Connection\+::clear\+Demo(), Menu\+::init(), load\+From\+Buffer(), Pattern\+Select\+::next\+Pattern(), Pattern\+Select\+::on\+Led\+Selected(), Color\+Select\+::on\+Long\+Click(), Factory\+Reset\+::on\+Long\+Click(), Randomizer\+::re\+Roll(), and Randomizer\+::run().
+Referenced by Modes\+::add\+Mode(), Modes\+::add\+Serialized\+Mode(), Editor\+Connection\+::clear\+Demo(), Menu\+::init(), load\+From\+Buffer(), Pattern\+Select\+::next\+Pattern(), Pattern\+Select\+::on\+Led\+Selected(), Color\+Select\+::on\+Long\+Click(), Factory\+Reset\+::on\+Long\+Click(), Randomizer\+::re\+Roll(), Randomizer\+::run(), Vortex\+::set\+Colorset(), Vortex\+::set\+Menu\+Demo\+Mode(), Vortex\+::set\+Pattern(), Vortex\+::set\+Pattern\+Args(), and Vortex\+::set\+Pattern\+At().
 
 \mbox{\Hypertarget{classMode_aca4af72a0131337a51c782b43d402f0f}\label{classMode_aca4af72a0131337a51c782b43d402f0f}} 
 \index{Mode@{Mode}!isEmpty@{isEmpty}}
@@ -944,7 +944,7 @@ References has\+Multi\+Led(), and has\+Single\+Led().
 
 
 
-Referenced by Color\+Select\+::init(), Factory\+Reset\+::init(), Color\+Select\+::is\+Valid\+Led\+Selection(), Pattern\+Select\+::on\+Led\+Selected(), and Randomizer\+::run().
+Referenced by Vortex\+::get\+Mode\+Name(), Color\+Select\+::init(), Factory\+Reset\+::init(), Vortex\+::is\+Cur\+Mode\+Multi(), Color\+Select\+::is\+Valid\+Led\+Selection(), Pattern\+Select\+::on\+Led\+Selected(), and Randomizer\+::run().
 
 \mbox{\Hypertarget{classMode_a31ed6fbb39ca7876e415fc58bc18d630}\label{classMode_a31ed6fbb39ca7876e415fc58bc18d630}} 
 \index{Mode@{Mode}!loadFromBuffer@{loadFromBuffer}}
@@ -1154,7 +1154,7 @@ References Byte\+Stream\+::compress(), DEBUG\+\_\+\+LOGF, serialize(), Vortex\+E
 
 
 
-Referenced by Modes\+::\+Mode\+Link\+::init(), IRSender\+::load\+Mode(), and VLSender\+::load\+Mode().
+Referenced by Vortex\+::get\+Cur\+Mode(), Modes\+::\+Mode\+Link\+::init(), IRSender\+::load\+Mode(), and VLSender\+::load\+Mode().
 
 \mbox{\Hypertarget{classMode_aad4310ad7cbb0d98f5583c97881012f2}\label{classMode_aad4310ad7cbb0d98f5583c97881012f2}} 
 \index{Mode@{Mode}!serialize@{serialize}}
@@ -1323,7 +1323,7 @@ References LED\+\_\+\+ALL, LED\+\_\+\+ALL\+\_\+\+SINGLE, LED\+\_\+\+ANY, LED\+\_
 
 
 
-Referenced by clear\+Colorset(), Randomizer\+::re\+Roll\+Multi(), Randomizer\+::re\+Roll\+Singles(), and set\+Colorset\+Map().
+Referenced by clear\+Colorset(), Randomizer\+::re\+Roll\+Multi(), Randomizer\+::re\+Roll\+Singles(), Vortex\+::set\+Colorset(), and set\+Colorset\+Map().
 
 \mbox{\Hypertarget{classMode_afac24695014a247ce0efb77eaad28107}\label{classMode_afac24695014a247ce0efb77eaad28107}} 
 \index{Mode@{Mode}!setColorsetMap@{setColorsetMap}}
@@ -1441,7 +1441,7 @@ References Pattern\+::bind(), clear\+Pattern(), get\+Colorset(), is\+Multi\+Led\
 
 
 
-Referenced by Editor\+Connection\+::clear\+Demo(), clear\+Pattern(), Mode(), Pattern\+Select\+::next\+Pattern(), Pattern\+Select\+::on\+Led\+Selected(), Randomizer\+::re\+Roll\+Multi(), Randomizer\+::re\+Roll\+Singles(), Randomizer\+::roll\+Custom\+Pattern(), Randomizer\+::roll\+Singles\+Led\+Map(), Randomizer\+::run(), and set\+Pattern\+Map().
+Referenced by Editor\+Connection\+::clear\+Demo(), clear\+Pattern(), Mode(), Vortex\+::mode\+From\+Json(), Pattern\+Select\+::next\+Pattern(), Pattern\+Select\+::on\+Led\+Selected(), Randomizer\+::re\+Roll\+Multi(), Randomizer\+::re\+Roll\+Singles(), Randomizer\+::roll\+Custom\+Pattern(), Randomizer\+::roll\+Singles\+Led\+Map(), Randomizer\+::run(), Vortex\+::set\+Pattern(), Vortex\+::set\+Pattern\+At(), and set\+Pattern\+Map().
 
 \mbox{\Hypertarget{classMode_a523af1ad207240eb672bf8ad0fccad7d}\label{classMode_a523af1ad207240eb672bf8ad0fccad7d}} 
 \index{Mode@{Mode}!setPatternMap@{setPatternMap}}

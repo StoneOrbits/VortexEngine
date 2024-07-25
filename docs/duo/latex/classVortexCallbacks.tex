@@ -1,0 +1,282 @@
+\hypertarget{classVortexCallbacks}{}\doxysection{Vortex\+Callbacks Class Reference}
+\label{classVortexCallbacks}\index{VortexCallbacks@{VortexCallbacks}}
+
+
+{\ttfamily \#include $<$Vortex\+Lib.\+h$>$}
+
+
+
+Inheritance diagram for Vortex\+Callbacks\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=243pt]{classVortexCallbacks__inherit__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classVortexCallbacks_a00c64761d03cf33c3a983c09d8b1904f}{Vortex\+Callbacks}} ()
+\item 
+virtual \mbox{\hyperlink{classVortexCallbacks_a8e8acd327bb3cf4ccb90f2a3e782ef80}{$\sim$\+Vortex\+Callbacks}} ()
+\item 
+virtual long \mbox{\hyperlink{classVortexCallbacks_adabbc0f5dbdf9c9f77d97922ba5b87d2}{check\+Pin\+Hook}} (uint32\+\_\+t pin)
+\item 
+virtual void \mbox{\hyperlink{classVortexCallbacks_a97b9d8709dd8f4d940184cf6996da776}{infrared\+Write}} (bool mark, uint32\+\_\+t amount)
+\item 
+virtual bool \mbox{\hyperlink{classVortexCallbacks_a4498020f9f6cee5f06c1db36e7f2db07}{serial\+Check}} ()
+\item 
+virtual void \mbox{\hyperlink{classVortexCallbacks_a88f75444b8e202760243d3aa6ba6939b}{serial\+Begin}} (uint32\+\_\+t baud)
+\item 
+virtual int32\+\_\+t \mbox{\hyperlink{classVortexCallbacks_a032caa2c7c4294b061a122206a1817cd}{serial\+Avail}} ()
+\item 
+virtual size\+\_\+t \mbox{\hyperlink{classVortexCallbacks_a02a28ef796673b371dedae766f3d33e8}{serial\+Read}} (char $\ast$buf, size\+\_\+t amt)
+\item 
+virtual uint32\+\_\+t \mbox{\hyperlink{classVortexCallbacks_ab3ecbd028fc042995432dfd1a79f365e}{serial\+Write}} (const uint8\+\_\+t $\ast$buf, size\+\_\+t amt)
+\item 
+virtual void \mbox{\hyperlink{classVortexCallbacks_a8f69cf219c2e762fbb60c2dec3265093}{leds\+Init}} (void $\ast$cl, int count)
+\item 
+virtual void \mbox{\hyperlink{classVortexCallbacks_ad1ed303f3a6aba01782c5a20c0867e3d}{leds\+Brightness}} (int brightness)
+\item 
+virtual void \mbox{\hyperlink{classVortexCallbacks_a41f5eca6551d85d62904cece931b63a0}{leds\+Show}} ()
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line 35 of file Vortex\+Lib.\+h.
+
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classVortexCallbacks_a00c64761d03cf33c3a983c09d8b1904f}\label{classVortexCallbacks_a00c64761d03cf33c3a983c09d8b1904f}} 
+\index{VortexCallbacks@{VortexCallbacks}!VortexCallbacks@{VortexCallbacks}}
+\index{VortexCallbacks@{VortexCallbacks}!VortexCallbacks@{VortexCallbacks}}
+\doxysubsubsection{\texorpdfstring{VortexCallbacks()}{VortexCallbacks()}}
+{\footnotesize\ttfamily Vortex\+Callbacks\+::\+Vortex\+Callbacks (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line 38 of file Vortex\+Lib.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{38 \{\}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{classVortexCallbacks_a8e8acd327bb3cf4ccb90f2a3e782ef80}\label{classVortexCallbacks_a8e8acd327bb3cf4ccb90f2a3e782ef80}} 
+\index{VortexCallbacks@{VortexCallbacks}!````~VortexCallbacks@{$\sim$VortexCallbacks}}
+\index{````~VortexCallbacks@{$\sim$VortexCallbacks}!VortexCallbacks@{VortexCallbacks}}
+\doxysubsubsection{\texorpdfstring{$\sim$VortexCallbacks()}{~VortexCallbacks()}}
+{\footnotesize\ttfamily virtual Vortex\+Callbacks\+::$\sim$\+Vortex\+Callbacks (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+Definition at line 39 of file Vortex\+Lib.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{39 \{\}}
+
+\end{DoxyCode}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classVortexCallbacks_adabbc0f5dbdf9c9f77d97922ba5b87d2}\label{classVortexCallbacks_adabbc0f5dbdf9c9f77d97922ba5b87d2}} 
+\index{VortexCallbacks@{VortexCallbacks}!checkPinHook@{checkPinHook}}
+\index{checkPinHook@{checkPinHook}!VortexCallbacks@{VortexCallbacks}}
+\doxysubsubsection{\texorpdfstring{checkPinHook()}{checkPinHook()}}
+{\footnotesize\ttfamily long Vortex\+Callbacks\+::check\+Pin\+Hook (\begin{DoxyParamCaption}\item[{uint32\+\_\+t}]{pin }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Reimplemented in \mbox{\hyperlink{classVortexCLI_1_1VortexCLICallbacks_a760b0edfb8498067d3d536846a59831b}{Vortex\+CLI\+::\+Vortex\+CLICallbacks}}.
+
+
+
+Definition at line 603 of file Vortex\+Lib.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{604 \{}
+\DoxyCodeLine{605   \textcolor{comment}{// leaving the pin checking to user-\/overrides rather than}}
+\DoxyCodeLine{606   \textcolor{comment}{// checking the default pins here}}
+\DoxyCodeLine{607   \textcolor{keywordflow}{return} 1; \textcolor{comment}{// HIGH}}
+\DoxyCodeLine{608 \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{classVortexCallbacks_a97b9d8709dd8f4d940184cf6996da776}\label{classVortexCallbacks_a97b9d8709dd8f4d940184cf6996da776}} 
+\index{VortexCallbacks@{VortexCallbacks}!infraredWrite@{infraredWrite}}
+\index{infraredWrite@{infraredWrite}!VortexCallbacks@{VortexCallbacks}}
+\doxysubsubsection{\texorpdfstring{infraredWrite()}{infraredWrite()}}
+{\footnotesize\ttfamily virtual void Vortex\+Callbacks\+::infrared\+Write (\begin{DoxyParamCaption}\item[{bool}]{mark,  }\item[{uint32\+\_\+t}]{amount }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+Definition at line 45 of file Vortex\+Lib.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{45 \{ \}}
+
+\end{DoxyCode}
+
+
+Referenced by VLSender\+::send\+Mark(), and VLSender\+::send\+Space().
+
+\mbox{\Hypertarget{classVortexCallbacks_ad1ed303f3a6aba01782c5a20c0867e3d}\label{classVortexCallbacks_ad1ed303f3a6aba01782c5a20c0867e3d}} 
+\index{VortexCallbacks@{VortexCallbacks}!ledsBrightness@{ledsBrightness}}
+\index{ledsBrightness@{ledsBrightness}!VortexCallbacks@{VortexCallbacks}}
+\doxysubsubsection{\texorpdfstring{ledsBrightness()}{ledsBrightness()}}
+{\footnotesize\ttfamily virtual void Vortex\+Callbacks\+::leds\+Brightness (\begin{DoxyParamCaption}\item[{int}]{brightness }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+Definition at line 60 of file Vortex\+Lib.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{60 \{ \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{classVortexCallbacks_a8f69cf219c2e762fbb60c2dec3265093}\label{classVortexCallbacks_a8f69cf219c2e762fbb60c2dec3265093}} 
+\index{VortexCallbacks@{VortexCallbacks}!ledsInit@{ledsInit}}
+\index{ledsInit@{ledsInit}!VortexCallbacks@{VortexCallbacks}}
+\doxysubsubsection{\texorpdfstring{ledsInit()}{ledsInit()}}
+{\footnotesize\ttfamily virtual void Vortex\+Callbacks\+::leds\+Init (\begin{DoxyParamCaption}\item[{void $\ast$}]{cl,  }\item[{int}]{count }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+Reimplemented in \mbox{\hyperlink{classVortexCLI_1_1VortexCLICallbacks_ac2ed7fc9a1b0e6a6c18ac623733a5215}{Vortex\+CLI\+::\+Vortex\+CLICallbacks}}.
+
+
+
+Definition at line 58 of file Vortex\+Lib.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{58 \{ \}}
+
+\end{DoxyCode}
+
+
+Referenced by Leds\+::init().
+
+\mbox{\Hypertarget{classVortexCallbacks_a41f5eca6551d85d62904cece931b63a0}\label{classVortexCallbacks_a41f5eca6551d85d62904cece931b63a0}} 
+\index{VortexCallbacks@{VortexCallbacks}!ledsShow@{ledsShow}}
+\index{ledsShow@{ledsShow}!VortexCallbacks@{VortexCallbacks}}
+\doxysubsubsection{\texorpdfstring{ledsShow()}{ledsShow()}}
+{\footnotesize\ttfamily virtual void Vortex\+Callbacks\+::leds\+Show (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+Reimplemented in \mbox{\hyperlink{classVortexCLI_1_1VortexCLICallbacks_ad7e9e9df45b332d200e353e441c1ab6a}{Vortex\+CLI\+::\+Vortex\+CLICallbacks}}.
+
+
+
+Definition at line 62 of file Vortex\+Lib.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{62 \{ \}}
+
+\end{DoxyCode}
+
+
+Referenced by Leds\+::update().
+
+\mbox{\Hypertarget{classVortexCallbacks_a032caa2c7c4294b061a122206a1817cd}\label{classVortexCallbacks_a032caa2c7c4294b061a122206a1817cd}} 
+\index{VortexCallbacks@{VortexCallbacks}!serialAvail@{serialAvail}}
+\index{serialAvail@{serialAvail}!VortexCallbacks@{VortexCallbacks}}
+\doxysubsubsection{\texorpdfstring{serialAvail()}{serialAvail()}}
+{\footnotesize\ttfamily virtual int32\+\_\+t Vortex\+Callbacks\+::serial\+Avail (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+Definition at line 51 of file Vortex\+Lib.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{51 \{ \textcolor{keywordflow}{return} 0; \}}
+
+\end{DoxyCode}
+
+
+Referenced by Serial\+Coms\+::read().
+
+\mbox{\Hypertarget{classVortexCallbacks_a88f75444b8e202760243d3aa6ba6939b}\label{classVortexCallbacks_a88f75444b8e202760243d3aa6ba6939b}} 
+\index{VortexCallbacks@{VortexCallbacks}!serialBegin@{serialBegin}}
+\index{serialBegin@{serialBegin}!VortexCallbacks@{VortexCallbacks}}
+\doxysubsubsection{\texorpdfstring{serialBegin()}{serialBegin()}}
+{\footnotesize\ttfamily virtual void Vortex\+Callbacks\+::serial\+Begin (\begin{DoxyParamCaption}\item[{uint32\+\_\+t}]{baud }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+Definition at line 49 of file Vortex\+Lib.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{49 \{ \}}
+
+\end{DoxyCode}
+
+
+Referenced by Serial\+Coms\+::check\+Serial().
+
+\mbox{\Hypertarget{classVortexCallbacks_a4498020f9f6cee5f06c1db36e7f2db07}\label{classVortexCallbacks_a4498020f9f6cee5f06c1db36e7f2db07}} 
+\index{VortexCallbacks@{VortexCallbacks}!serialCheck@{serialCheck}}
+\index{serialCheck@{serialCheck}!VortexCallbacks@{VortexCallbacks}}
+\doxysubsubsection{\texorpdfstring{serialCheck()}{serialCheck()}}
+{\footnotesize\ttfamily virtual bool Vortex\+Callbacks\+::serial\+Check (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+Definition at line 47 of file Vortex\+Lib.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{47 \{ \textcolor{keywordflow}{return} \textcolor{keyword}{false}; \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{classVortexCallbacks_a02a28ef796673b371dedae766f3d33e8}\label{classVortexCallbacks_a02a28ef796673b371dedae766f3d33e8}} 
+\index{VortexCallbacks@{VortexCallbacks}!serialRead@{serialRead}}
+\index{serialRead@{serialRead}!VortexCallbacks@{VortexCallbacks}}
+\doxysubsubsection{\texorpdfstring{serialRead()}{serialRead()}}
+{\footnotesize\ttfamily virtual size\+\_\+t Vortex\+Callbacks\+::serial\+Read (\begin{DoxyParamCaption}\item[{char $\ast$}]{buf,  }\item[{size\+\_\+t}]{amt }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+Definition at line 54 of file Vortex\+Lib.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{54 \{ \textcolor{keywordflow}{return} 0; \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{classVortexCallbacks_ab3ecbd028fc042995432dfd1a79f365e}\label{classVortexCallbacks_ab3ecbd028fc042995432dfd1a79f365e}} 
+\index{VortexCallbacks@{VortexCallbacks}!serialWrite@{serialWrite}}
+\index{serialWrite@{serialWrite}!VortexCallbacks@{VortexCallbacks}}
+\doxysubsubsection{\texorpdfstring{serialWrite()}{serialWrite()}}
+{\footnotesize\ttfamily virtual uint32\+\_\+t Vortex\+Callbacks\+::serial\+Write (\begin{DoxyParamCaption}\item[{const uint8\+\_\+t $\ast$}]{buf,  }\item[{size\+\_\+t}]{amt }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+Definition at line 56 of file Vortex\+Lib.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{56 \{ \textcolor{keywordflow}{return} 0; \}}
+
+\end{DoxyCode}
+
+
+Referenced by Serial\+Coms\+::write().
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Vortex\+Engine/\+Vortex\+Lib/\mbox{\hyperlink{VortexLib_8h}{Vortex\+Lib.\+h}}\item 
+Vortex\+Engine/\+Vortex\+Lib/\mbox{\hyperlink{VortexLib_8cpp}{Vortex\+Lib.\+cpp}}\end{DoxyCompactItemize}

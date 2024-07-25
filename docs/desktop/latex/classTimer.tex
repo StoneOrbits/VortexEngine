@@ -7,7 +7,13 @@
 
 
 Collaboration diagram for Timer\+:
-% FIG 0
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classTimer__coll__graph}
+\end{center}
+\end{figure}
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
@@ -15,7 +21,7 @@ Collaboration diagram for Timer\+:
 \item 
 \mbox{\hyperlink{classTimer_a14fa469c4c295c5fa6e66a4ad1092146}{$\sim$\+Timer}} ()
 \item 
-void \mbox{\hyperlink{classTimer_a86ea4092d795f381126ca491df5d065b}{init}} (uint8\+\_\+t flags=\mbox{\hyperlink{Timer_8h_a0559e5671895fc55b82c39d7ed88365b}{T\+I\+M\+E\+R\+\_\+\+F\+L\+A\+G\+S\+\_\+\+N\+O\+NE}}, uint8\+\_\+t alarm1=0, uint8\+\_\+t alarm2=0, uint8\+\_\+t alarm3=0, uint8\+\_\+t alarm4=0)
+void \mbox{\hyperlink{classTimer_a86ea4092d795f381126ca491df5d065b}{init}} (uint8\+\_\+t flags=\mbox{\hyperlink{Timer_8h_a0559e5671895fc55b82c39d7ed88365b}{TIMER\+\_\+\+FLAGS\+\_\+\+NONE}}, uint8\+\_\+t alarm1=0, uint8\+\_\+t alarm2=0, uint8\+\_\+t alarm3=0, uint8\+\_\+t alarm4=0)
 \item 
 \mbox{\hyperlink{Timer_8h_ac1042e0c476de4fa262aa4e5c6de17ca}{Alarm\+ID}} \mbox{\hyperlink{classTimer_aecfcc5cd99115c67b5f5f7a485bd7a81}{add\+Alarm}} (uint32\+\_\+t interval)
 \item 
@@ -85,9 +91,9 @@ Definition at line 10 of file Timer.\+cpp.
 \DoxyCodeLine{13   \mbox{\hyperlink{classTimer_a3f1a532f75bafc1cc9a03c09033468f1}{m\_numAlarms}}(0),}
 \DoxyCodeLine{14   \mbox{\hyperlink{classTimer_aac562ec662bac7536addaabbf8d44d27}{m\_curAlarm}}(0),}
 \DoxyCodeLine{15   \mbox{\hyperlink{classTimer_a934e0795404c28155a496127297154ce}{m\_startTime}}(0)}
-\DoxyCodeLine{16 \textcolor{preprocessor}{\#ifdef VORTEX\_LIB}}
+\DoxyCodeLine{16 \textcolor{preprocessor}{\#ifdef VORTEX\_LIB}}
 \DoxyCodeLine{17   , m\_simStartTime(0)}
-\DoxyCodeLine{18 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{18 \textcolor{preprocessor}{\#endif}}
 \DoxyCodeLine{19 \{}
 \DoxyCodeLine{20 \}}
 
@@ -145,11 +151,11 @@ Definition at line 40 of file Timer.\+cpp.
 \end{DoxyCode}
 
 
-References E\+R\+R\+O\+R\+\_\+\+O\+U\+T\+\_\+\+O\+F\+\_\+\+M\+E\+M\+O\+RY, m\+\_\+alarms, m\+\_\+num\+Alarms, and vrealloc.
+References ERROR\+\_\+\+OUT\+\_\+\+OF\+\_\+\+MEMORY, m\+\_\+alarms, m\+\_\+num\+Alarms, and vrealloc.
 
 
 
-Referenced by Pulsish\+Pattern\+::init(), Lighthouse\+Pattern\+::init(), Back\+Strobe\+Pattern\+::init(), Zigzag\+Pattern\+::init(), Hue\+Shift\+Pattern\+::init(), Drip\+Morph\+Pattern\+::init(), Blink\+Step\+Pattern\+::init(), Sequenced\+Pattern\+::init(), and init().
+Referenced by Back\+Strobe\+Pattern\+::init(), Blink\+Step\+Pattern\+::init(), Drip\+Morph\+Pattern\+::init(), Hue\+Shift\+Pattern\+::init(), Lighthouse\+Pattern\+::init(), Pulsish\+Pattern\+::init(), Sequenced\+Pattern\+::init(), Zigzag\+Pattern\+::init(), and init().
 
 \mbox{\Hypertarget{classTimer_a8a6d962c92c8e2e641254ea28e1f0443}\label{classTimer_a8a6d962c92c8e2e641254ea28e1f0443}} 
 \index{Timer@{Timer}!alarm@{alarm}}
@@ -193,11 +199,11 @@ Definition at line 112 of file Timer.\+cpp.
 \end{DoxyCode}
 
 
-References A\+L\+A\+R\+M\+\_\+\+N\+O\+NE, Time\+::get\+Curtime(), get\+Start\+Time(), m\+\_\+alarms, m\+\_\+cur\+Alarm, m\+\_\+engine, m\+\_\+num\+Alarms, set\+Start\+Time(), and Vortex\+Engine\+::time().
+References ALARM\+\_\+\+NONE, Time\+::get\+Curtime(), get\+Start\+Time(), m\+\_\+alarms, m\+\_\+cur\+Alarm, m\+\_\+engine, m\+\_\+num\+Alarms, set\+Start\+Time(), and Vortex\+Engine\+::time().
 
 
 
-Referenced by Basic\+Pattern\+::play(), Pulsish\+Pattern\+::play(), Lighthouse\+Pattern\+::play(), Back\+Strobe\+Pattern\+::play(), Zigzag\+Pattern\+::play(), Hue\+Shift\+Pattern\+::play(), Drip\+Morph\+Pattern\+::play(), Blink\+Step\+Pattern\+::play(), and Sequenced\+Pattern\+::play().
+Referenced by Back\+Strobe\+Pattern\+::play(), Blink\+Step\+Pattern\+::play(), Drip\+Morph\+Pattern\+::play(), Hue\+Shift\+Pattern\+::play(), Lighthouse\+Pattern\+::play(), Pulsish\+Pattern\+::play(), Sequenced\+Pattern\+::play(), Zigzag\+Pattern\+::play(), and Basic\+Pattern\+::play().
 
 \mbox{\Hypertarget{classTimer_aa959b6b96fbccfb1d0bfc3174e95ada6}\label{classTimer_aa959b6b96fbccfb1d0bfc3174e95ada6}} 
 \index{Timer@{Timer}!curAlarm@{curAlarm}}
@@ -231,13 +237,13 @@ Definition at line 140 of file Timer.\+cpp.
 
 \begin{DoxyCode}{0}
 \DoxyCodeLine{141 \{}
-\DoxyCodeLine{142 \textcolor{preprocessor}{\#ifdef VORTEX\_LIB}}
+\DoxyCodeLine{142 \textcolor{preprocessor}{\#ifdef VORTEX\_LIB}}
 \DoxyCodeLine{143   \textcolor{comment}{// timers use a different 'start time' tracker in simulations so that}}
 \DoxyCodeLine{144   \textcolor{comment}{// the startTime remains unchanged when the simulation ends}}
 \DoxyCodeLine{145   \textcolor{keywordflow}{if} (\mbox{\hyperlink{classTimer_ab268f74a1622be40e4d11042d2b1ae51}{m\_engine}}.\mbox{\hyperlink{classVortexEngine_a3f383e032325c07495d21474f497d2f6}{time}}().isSimulation() \&\& m\_simStartTime) \{}
 \DoxyCodeLine{146     \textcolor{keywordflow}{return} m\_simStartTime;}
 \DoxyCodeLine{147   \}}
-\DoxyCodeLine{148 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{148 \textcolor{preprocessor}{\#endif}}
 \DoxyCodeLine{149   \textcolor{keywordflow}{return} \mbox{\hyperlink{classTimer_a934e0795404c28155a496127297154ce}{m\_startTime}};}
 \DoxyCodeLine{150 \}}
 
@@ -254,7 +260,7 @@ Referenced by alarm(), on\+End(), and on\+Start().
 \index{Timer@{Timer}!init@{init}}
 \index{init@{init}!Timer@{Timer}}
 \doxysubsubsection{\texorpdfstring{init()}{init()}}
-{\footnotesize\ttfamily void Timer\+::init (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{flags = {\ttfamily \mbox{\hyperlink{Timer_8h_a0559e5671895fc55b82c39d7ed88365b}{T\+I\+M\+E\+R\+\_\+\+F\+L\+A\+G\+S\+\_\+\+N\+O\+NE}}},  }\item[{uint8\+\_\+t}]{alarm1 = {\ttfamily 0},  }\item[{uint8\+\_\+t}]{alarm2 = {\ttfamily 0},  }\item[{uint8\+\_\+t}]{alarm3 = {\ttfamily 0},  }\item[{uint8\+\_\+t}]{alarm4 = {\ttfamily 0} }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily void Timer\+::init (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{flags = {\ttfamily \mbox{\hyperlink{Timer_8h_a0559e5671895fc55b82c39d7ed88365b}{TIMER\+\_\+\+FLAGS\+\_\+\+NONE}}},  }\item[{uint8\+\_\+t}]{alarm1 = {\ttfamily 0},  }\item[{uint8\+\_\+t}]{alarm2 = {\ttfamily 0},  }\item[{uint8\+\_\+t}]{alarm3 = {\ttfamily 0},  }\item[{uint8\+\_\+t}]{alarm4 = {\ttfamily 0} }\end{DoxyParamCaption})}
 
 
 
@@ -274,7 +280,7 @@ Definition at line 30 of file Timer.\+cpp.
 \end{DoxyCode}
 
 
-References add\+Alarm(), reset(), start(), T\+I\+M\+E\+R\+\_\+1\+\_\+\+A\+L\+A\+RM, T\+I\+M\+E\+R\+\_\+2\+\_\+\+A\+L\+A\+R\+MS, T\+I\+M\+E\+R\+\_\+3\+\_\+\+A\+L\+A\+R\+MS, T\+I\+M\+E\+R\+\_\+4\+\_\+\+A\+L\+A\+R\+MS, T\+I\+M\+E\+R\+\_\+\+A\+L\+A\+R\+M\+\_\+\+M\+A\+SK, and T\+I\+M\+E\+R\+\_\+\+S\+T\+A\+RT.
+References add\+Alarm(), reset(), start(), TIMER\+\_\+1\+\_\+\+ALARM, TIMER\+\_\+2\+\_\+\+ALARMS, TIMER\+\_\+3\+\_\+\+ALARMS, TIMER\+\_\+4\+\_\+\+ALARMS, TIMER\+\_\+\+ALARM\+\_\+\+MASK, and TIMER\+\_\+\+START.
 
 
 
@@ -381,9 +387,9 @@ Definition at line 68 of file Timer.\+cpp.
 \DoxyCodeLine{72   \mbox{\hyperlink{classTimer_a3f1a532f75bafc1cc9a03c09033468f1}{m\_numAlarms}} = 0;}
 \DoxyCodeLine{73   \mbox{\hyperlink{classTimer_aac562ec662bac7536addaabbf8d44d27}{m\_curAlarm}} = 0;}
 \DoxyCodeLine{74   \mbox{\hyperlink{classTimer_a934e0795404c28155a496127297154ce}{m\_startTime}} = 0;}
-\DoxyCodeLine{75 \textcolor{preprocessor}{\#ifdef VORTEX\_LIB}}
+\DoxyCodeLine{75 \textcolor{preprocessor}{\#ifdef VORTEX\_LIB}}
 \DoxyCodeLine{76   m\_simStartTime = 0;}
-\DoxyCodeLine{77 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{77 \textcolor{preprocessor}{\#endif}}
 \DoxyCodeLine{78 \}}
 
 \end{DoxyCode}
@@ -393,7 +399,7 @@ References m\+\_\+alarms, m\+\_\+cur\+Alarm, m\+\_\+num\+Alarms, m\+\_\+start\+T
 
 
 
-Referenced by Pulsish\+Pattern\+::init(), Lighthouse\+Pattern\+::init(), Back\+Strobe\+Pattern\+::init(), Zigzag\+Pattern\+::init(), Hue\+Shift\+Pattern\+::init(), Drip\+Morph\+Pattern\+::init(), Blink\+Step\+Pattern\+::init(), Sequenced\+Pattern\+::init(), and init().
+Referenced by Back\+Strobe\+Pattern\+::init(), Blink\+Step\+Pattern\+::init(), Drip\+Morph\+Pattern\+::init(), Hue\+Shift\+Pattern\+::init(), Lighthouse\+Pattern\+::init(), Pulsish\+Pattern\+::init(), Sequenced\+Pattern\+::init(), Zigzag\+Pattern\+::init(), and init().
 
 \mbox{\Hypertarget{classTimer_ae2bb6568a306973c24c38bb98d928d1a}\label{classTimer_ae2bb6568a306973c24c38bb98d928d1a}} 
 \index{Timer@{Timer}!restart@{restart}}
@@ -431,7 +437,7 @@ Definition at line 152 of file Timer.\+cpp.
 
 \begin{DoxyCode}{0}
 \DoxyCodeLine{153 \{}
-\DoxyCodeLine{154 \textcolor{preprocessor}{\#ifdef VORTEX\_LIB}}
+\DoxyCodeLine{154 \textcolor{preprocessor}{\#ifdef VORTEX\_LIB}}
 \DoxyCodeLine{155   \textcolor{comment}{// if this timer is running in a simulation then don't actually update}}
 \DoxyCodeLine{156   \textcolor{comment}{// the starttime, instead update the simulation start time so that when}}
 \DoxyCodeLine{157   \textcolor{comment}{// the simulation ends the startTime will not have changed at all}}
@@ -440,7 +446,7 @@ Definition at line 152 of file Timer.\+cpp.
 \DoxyCodeLine{160     m\_simStartTime = tick;}
 \DoxyCodeLine{161     \textcolor{keywordflow}{return};}
 \DoxyCodeLine{162   \}}
-\DoxyCodeLine{163 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{163 \textcolor{preprocessor}{\#endif}}
 \DoxyCodeLine{164   \textcolor{comment}{// move the start time forward}}
 \DoxyCodeLine{165   \mbox{\hyperlink{classTimer_a934e0795404c28155a496127297154ce}{m\_startTime}} = tick;}
 \DoxyCodeLine{166 \}}
@@ -469,9 +475,9 @@ Definition at line 59 of file Timer.\+cpp.
 \DoxyCodeLine{60 \{}
 \DoxyCodeLine{61   \textcolor{comment}{// reset the start time}}
 \DoxyCodeLine{62   \mbox{\hyperlink{classTimer_a934e0795404c28155a496127297154ce}{m\_startTime}} = \mbox{\hyperlink{classTimer_ab268f74a1622be40e4d11042d2b1ae51}{m\_engine}}.\mbox{\hyperlink{classVortexEngine_a3f383e032325c07495d21474f497d2f6}{time}}().\mbox{\hyperlink{classTime_a4928281e63a820cd8f0b00b53c6e4587}{getCurtime}}() + offset;}
-\DoxyCodeLine{63 \textcolor{preprocessor}{\#ifdef VORTEX\_LIB}}
+\DoxyCodeLine{63 \textcolor{preprocessor}{\#ifdef VORTEX\_LIB}}
 \DoxyCodeLine{64   m\_simStartTime = \mbox{\hyperlink{classTimer_a934e0795404c28155a496127297154ce}{m\_startTime}};}
-\DoxyCodeLine{65 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{65 \textcolor{preprocessor}{\#endif}}
 \DoxyCodeLine{66 \}}
 
 \end{DoxyCode}
@@ -481,7 +487,7 @@ References Time\+::get\+Curtime(), m\+\_\+engine, m\+\_\+start\+Time, and Vortex
 
 
 
-Referenced by Pulsish\+Pattern\+::init(), Lighthouse\+Pattern\+::init(), Back\+Strobe\+Pattern\+::init(), Zigzag\+Pattern\+::init(), Hue\+Shift\+Pattern\+::init(), Drip\+Morph\+Pattern\+::init(), Blink\+Step\+Pattern\+::init(), Sequenced\+Pattern\+::init(), init(), and restart().
+Referenced by Back\+Strobe\+Pattern\+::init(), Blink\+Step\+Pattern\+::init(), Drip\+Morph\+Pattern\+::init(), Hue\+Shift\+Pattern\+::init(), Lighthouse\+Pattern\+::init(), Pulsish\+Pattern\+::init(), Sequenced\+Pattern\+::init(), Zigzag\+Pattern\+::init(), init(), and restart().
 
 \mbox{\Hypertarget{classTimer_a35f384d70298841a8826720b1a57e255}\label{classTimer_a35f384d70298841a8826720b1a57e255}} 
 \index{Timer@{Timer}!startTime@{startTime}}

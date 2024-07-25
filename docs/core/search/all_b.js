@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['kb_520',['KB',['../Compression_8cpp.html#a1841fd1a462d245d8c73dce55e2f45da',1,'Compression.cpp']]],
-  ['keychainmodeenabled_521',['keychainModeEnabled',['../classModes.html#a576b63195795fa9c7c41ae9ac65e4334',1,'Modes']]]
+  ['kb_530',['KB',['../Compression_8cpp.html#a1841fd1a462d245d8c73dce55e2f45da',1,'Compression.cpp']]],
+  ['keychainmodeenabled_531',['keychainModeEnabled',['../classModes.html#a576b63195795fa9c7c41ae9ac65e4334',1,'Modes']]]
 ];

@@ -4,14 +4,16 @@
 {\ttfamily \#include $<$inttypes.\+h$>$}\newline
 {\ttfamily \#include $<$stddef.\+h$>$}\newline
 {\ttfamily \#include $<$stdint.\+h$>$}\newline
-Include dependency graph for Compression.\+h\+:\nopagebreak
+Include dependency graph for Compression.\+h\+:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
 \includegraphics[width=350pt]{Compression_8h__incl}
 \end{center}
 \end{figure}
-This graph shows which files directly or indirectly include this file\+:\nopagebreak
+This graph shows which files directly or indirectly include this file\+:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -21,92 +23,92 @@ This graph shows which files directly or indirectly include this file\+:\nopageb
 \doxysubsection*{Classes}
 \begin{DoxyCompactItemize}
 \item 
-struct \mbox{\hyperlink{structLZ4__stream__t__internal}{L\+Z4\+\_\+stream\+\_\+t\+\_\+internal}}
+struct \mbox{\hyperlink{structLZ4__stream__t__internal}{LZ4\+\_\+stream\+\_\+t\+\_\+internal}}
 \item 
-struct \mbox{\hyperlink{structLZ4__streamDecode__t__internal}{L\+Z4\+\_\+stream\+Decode\+\_\+t\+\_\+internal}}
+struct \mbox{\hyperlink{structLZ4__streamDecode__t__internal}{LZ4\+\_\+stream\+Decode\+\_\+t\+\_\+internal}}
 \item 
-union \mbox{\hyperlink{unionLZ4__stream__u}{L\+Z4\+\_\+stream\+\_\+u}}
+union \mbox{\hyperlink{unionLZ4__stream__u}{LZ4\+\_\+stream\+\_\+u}}
 \item 
-union \mbox{\hyperlink{unionLZ4__streamDecode__u}{L\+Z4\+\_\+stream\+Decode\+\_\+u}}
+union \mbox{\hyperlink{unionLZ4__streamDecode__u}{LZ4\+\_\+stream\+Decode\+\_\+u}}
 \end{DoxyCompactItemize}
 \doxysubsection*{Macros}
 \begin{DoxyCompactItemize}
 \item 
-\#define \mbox{\hyperlink{Compression_8h_a447d16897de4a23473da7db80e10dd71}{compress\+\_\+size}}(src\+Size)~\mbox{\hyperlink{Compression_8h_a362093578d68480b493984b4853edc1f}{L\+Z4\+\_\+compress\+Bound}}(src\+Size)
+\#define \mbox{\hyperlink{Compression_8h_a447d16897de4a23473da7db80e10dd71}{compress\+\_\+size}}(src\+Size)~\mbox{\hyperlink{Compression_8h_a362093578d68480b493984b4853edc1f}{LZ4\+\_\+compress\+Bound}}(src\+Size)
 \item 
-\#define \mbox{\hyperlink{Compression_8h_a7bd1a03358e9713d4fad4aee56543de4}{compress\+\_\+buffer}}(src,  dst,  src\+Size,  dst\+Capacity)~\mbox{\hyperlink{Compression_8h_aacc5de6f21665d10fd8ec9e5ac0b9d40}{L\+Z4\+\_\+compress\+\_\+default}}((const char $\ast$)src, (char $\ast$)dst, src\+Size, dst\+Capacity)
+\#define \mbox{\hyperlink{Compression_8h_a7bd1a03358e9713d4fad4aee56543de4}{compress\+\_\+buffer}}(src,  dst,  src\+Size,  dst\+Capacity)~\mbox{\hyperlink{Compression_8h_aacc5de6f21665d10fd8ec9e5ac0b9d40}{LZ4\+\_\+compress\+\_\+default}}((const char $\ast$)src, (char $\ast$)dst, src\+Size, dst\+Capacity)
 \item 
-\#define \mbox{\hyperlink{Compression_8h_a1797dad25222e0b23dbdc5eef82421d9}{decompress\+\_\+buffer}}(src,  dst,  src\+Size,  dst\+Capacity)~\mbox{\hyperlink{Compression_8h_acd2bf35d3f502d03dc980c1f71dc16e5}{L\+Z4\+\_\+decompress\+\_\+safe}}((const char $\ast$)src, (char $\ast$)dst, src\+Size, dst\+Capacity)
+\#define \mbox{\hyperlink{Compression_8h_a1797dad25222e0b23dbdc5eef82421d9}{decompress\+\_\+buffer}}(src,  dst,  src\+Size,  dst\+Capacity)~\mbox{\hyperlink{Compression_8h_acd2bf35d3f502d03dc980c1f71dc16e5}{LZ4\+\_\+decompress\+\_\+safe}}((const char $\ast$)src, (char $\ast$)dst, src\+Size, dst\+Capacity)
 \item 
-\#define \mbox{\hyperlink{Compression_8h_a533d9aebfa4668c3ed98bb961d7c5731}{L\+Z4\+\_\+\+M\+E\+M\+O\+R\+Y\+\_\+\+U\+S\+A\+G\+E\+\_\+\+M\+IN}}~10
+\#define \mbox{\hyperlink{Compression_8h_a533d9aebfa4668c3ed98bb961d7c5731}{LZ4\+\_\+\+MEMORY\+\_\+\+USAGE\+\_\+\+MIN}}~10
 \item 
-\#define \mbox{\hyperlink{Compression_8h_a003849b5d7ae53e30ad147fdecc8fab3}{L\+Z4\+\_\+\+M\+E\+M\+O\+R\+Y\+\_\+\+U\+S\+A\+G\+E\+\_\+\+D\+E\+F\+A\+U\+LT}}~10
+\#define \mbox{\hyperlink{Compression_8h_a003849b5d7ae53e30ad147fdecc8fab3}{LZ4\+\_\+\+MEMORY\+\_\+\+USAGE\+\_\+\+DEFAULT}}~10
 \item 
-\#define \mbox{\hyperlink{Compression_8h_afdf396ddb66c966fc4a2f7f3cf7fd6ca}{L\+Z4\+\_\+\+M\+E\+M\+O\+R\+Y\+\_\+\+U\+S\+A\+G\+E\+\_\+\+M\+AX}}~20
+\#define \mbox{\hyperlink{Compression_8h_afdf396ddb66c966fc4a2f7f3cf7fd6ca}{LZ4\+\_\+\+MEMORY\+\_\+\+USAGE\+\_\+\+MAX}}~20
 \item 
-\#define \mbox{\hyperlink{Compression_8h_a24ddbc39e7379532031a91357e66a32c}{L\+Z4\+\_\+\+M\+E\+M\+O\+R\+Y\+\_\+\+U\+S\+A\+GE}}~\mbox{\hyperlink{Compression_8h_a003849b5d7ae53e30ad147fdecc8fab3}{L\+Z4\+\_\+\+M\+E\+M\+O\+R\+Y\+\_\+\+U\+S\+A\+G\+E\+\_\+\+D\+E\+F\+A\+U\+LT}}
+\#define \mbox{\hyperlink{Compression_8h_a24ddbc39e7379532031a91357e66a32c}{LZ4\+\_\+\+MEMORY\+\_\+\+USAGE}}~\mbox{\hyperlink{Compression_8h_a003849b5d7ae53e30ad147fdecc8fab3}{LZ4\+\_\+\+MEMORY\+\_\+\+USAGE\+\_\+\+DEFAULT}}
 \item 
-\#define \mbox{\hyperlink{Compression_8h_a88ee51e36ca74cd0533e731c20572ea6}{L\+Z4\+\_\+\+M\+A\+X\+\_\+\+I\+N\+P\+U\+T\+\_\+\+S\+I\+ZE}}~0x7\+E000000   /$\ast$ 2 113 929 216 bytes $\ast$/
+\#define \mbox{\hyperlink{Compression_8h_a88ee51e36ca74cd0533e731c20572ea6}{LZ4\+\_\+\+MAX\+\_\+\+INPUT\+\_\+\+SIZE}}~0x7\+E000000   /$\ast$ 2 113 929 216 bytes $\ast$/
 \item 
-\#define \mbox{\hyperlink{Compression_8h_a2453a423fd34640a0afbbf57ed0a5399}{L\+Z4\+\_\+\+C\+O\+M\+P\+R\+E\+S\+S\+B\+O\+U\+ND}}(isize)~((unsigned)(isize) $>$ (unsigned)\mbox{\hyperlink{Compression_8h_a88ee51e36ca74cd0533e731c20572ea6}{L\+Z4\+\_\+\+M\+A\+X\+\_\+\+I\+N\+P\+U\+T\+\_\+\+S\+I\+ZE}} ? 0 \+: (isize) + ((isize)/255) + 16)
+\#define \mbox{\hyperlink{Compression_8h_a2453a423fd34640a0afbbf57ed0a5399}{LZ4\+\_\+\+COMPRESSBOUND}}(isize)~((unsigned)(isize) $>$ (unsigned)\mbox{\hyperlink{Compression_8h_a88ee51e36ca74cd0533e731c20572ea6}{LZ4\+\_\+\+MAX\+\_\+\+INPUT\+\_\+\+SIZE}} ? 0 \+: (isize) + ((isize)/255) + 16)
 \item 
-\#define \mbox{\hyperlink{Compression_8h_a7ff55560faf20d3fefb924507c8d6c7c}{L\+Z4\+\_\+\+D\+E\+C\+O\+D\+E\+R\+\_\+\+R\+I\+N\+G\+\_\+\+B\+U\+F\+F\+E\+R\+\_\+\+S\+I\+ZE}}(max\+Block\+Size)~(65536 + 14 + (max\+Block\+Size))  /$\ast$ for static allocation; max\+Block\+Size presumed valid $\ast$/
+\#define \mbox{\hyperlink{Compression_8h_a7ff55560faf20d3fefb924507c8d6c7c}{LZ4\+\_\+\+DECODER\+\_\+\+RING\+\_\+\+BUFFER\+\_\+\+SIZE}}(max\+Block\+Size)~(65536 + 14 + (max\+Block\+Size))  /$\ast$ for static allocation; max\+Block\+Size presumed valid $\ast$/
 \item 
-\#define \mbox{\hyperlink{Compression_8h_aeb9541df4b1585ede70167d977ef85f5}{L\+Z4\+\_\+\+D\+E\+C\+O\+M\+P\+R\+E\+S\+S\+\_\+\+I\+N\+P\+L\+A\+C\+E\+\_\+\+M\+A\+R\+G\+IN}}(compressed\+Size)~(((compressed\+Size) $>$$>$ 8) + 32)
+\#define \mbox{\hyperlink{Compression_8h_aeb9541df4b1585ede70167d977ef85f5}{LZ4\+\_\+\+DECOMPRESS\+\_\+\+INPLACE\+\_\+\+MARGIN}}(compressed\+Size)~(((compressed\+Size) $>$$>$ 8) + 32)
 \item 
-\#define \mbox{\hyperlink{Compression_8h_a31af8f4225099e9d899eb05292500513}{L\+Z4\+\_\+\+D\+E\+C\+O\+M\+P\+R\+E\+S\+S\+\_\+\+I\+N\+P\+L\+A\+C\+E\+\_\+\+B\+U\+F\+F\+E\+R\+\_\+\+S\+I\+ZE}}(decompressed\+Size)~((decompressed\+Size) + \mbox{\hyperlink{Compression_8h_aeb9541df4b1585ede70167d977ef85f5}{L\+Z4\+\_\+\+D\+E\+C\+O\+M\+P\+R\+E\+S\+S\+\_\+\+I\+N\+P\+L\+A\+C\+E\+\_\+\+M\+A\+R\+G\+IN}}(decompressed\+Size))
+\#define \mbox{\hyperlink{Compression_8h_a31af8f4225099e9d899eb05292500513}{LZ4\+\_\+\+DECOMPRESS\+\_\+\+INPLACE\+\_\+\+BUFFER\+\_\+\+SIZE}}(decompressed\+Size)~((decompressed\+Size) + \mbox{\hyperlink{Compression_8h_aeb9541df4b1585ede70167d977ef85f5}{LZ4\+\_\+\+DECOMPRESS\+\_\+\+INPLACE\+\_\+\+MARGIN}}(decompressed\+Size))
 \item 
-\#define \mbox{\hyperlink{Compression_8h_aef230e9fd51b7bf939654ecc08a3778f}{L\+Z4\+\_\+\+D\+I\+S\+T\+A\+N\+C\+E\+\_\+\+M\+AX}}~65535   /$\ast$ set to maximum value by default $\ast$/
+\#define \mbox{\hyperlink{Compression_8h_aef230e9fd51b7bf939654ecc08a3778f}{LZ4\+\_\+\+DISTANCE\+\_\+\+MAX}}~65535   /$\ast$ set to maximum value by default $\ast$/
 \item 
-\#define \mbox{\hyperlink{Compression_8h_a774e0a0178907508c85694b433018855}{L\+Z4\+\_\+\+C\+O\+M\+P\+R\+E\+S\+S\+\_\+\+I\+N\+P\+L\+A\+C\+E\+\_\+\+M\+A\+R\+G\+IN}}~(\mbox{\hyperlink{Compression_8h_aef230e9fd51b7bf939654ecc08a3778f}{L\+Z4\+\_\+\+D\+I\+S\+T\+A\+N\+C\+E\+\_\+\+M\+AX}} + 32)   /$\ast$ \mbox{\hyperlink{Compression_8h_aef230e9fd51b7bf939654ecc08a3778f}{L\+Z4\+\_\+\+D\+I\+S\+T\+A\+N\+C\+E\+\_\+\+M\+AX}} can be safely replaced by src\+Size when it\textquotesingle{}s smaller $\ast$/
+\#define \mbox{\hyperlink{Compression_8h_a774e0a0178907508c85694b433018855}{LZ4\+\_\+\+COMPRESS\+\_\+\+INPLACE\+\_\+\+MARGIN}}~(\mbox{\hyperlink{Compression_8h_aef230e9fd51b7bf939654ecc08a3778f}{LZ4\+\_\+\+DISTANCE\+\_\+\+MAX}} + 32)   /$\ast$ \mbox{\hyperlink{Compression_8h_aef230e9fd51b7bf939654ecc08a3778f}{LZ4\+\_\+\+DISTANCE\+\_\+\+MAX}} can be safely replaced by src\+Size when it\textquotesingle{}s smaller $\ast$/
 \item 
-\#define \mbox{\hyperlink{Compression_8h_a797b301e5722274187dd7add642f4c39}{L\+Z4\+\_\+\+C\+O\+M\+P\+R\+E\+S\+S\+\_\+\+I\+N\+P\+L\+A\+C\+E\+\_\+\+B\+U\+F\+F\+E\+R\+\_\+\+S\+I\+ZE}}(max\+Compressed\+Size)~((max\+Compressed\+Size) + \mbox{\hyperlink{Compression_8h_a774e0a0178907508c85694b433018855}{L\+Z4\+\_\+\+C\+O\+M\+P\+R\+E\+S\+S\+\_\+\+I\+N\+P\+L\+A\+C\+E\+\_\+\+M\+A\+R\+G\+IN}})
+\#define \mbox{\hyperlink{Compression_8h_a797b301e5722274187dd7add642f4c39}{LZ4\+\_\+\+COMPRESS\+\_\+\+INPLACE\+\_\+\+BUFFER\+\_\+\+SIZE}}(max\+Compressed\+Size)~((max\+Compressed\+Size) + \mbox{\hyperlink{Compression_8h_a774e0a0178907508c85694b433018855}{LZ4\+\_\+\+COMPRESS\+\_\+\+INPLACE\+\_\+\+MARGIN}})
 \item 
-\#define \mbox{\hyperlink{Compression_8h_ac7f04539d94ce57826ef8b2f3d8408af}{L\+Z4\+\_\+\+H\+A\+S\+H\+L\+OG}}~(\mbox{\hyperlink{Compression_8h_a24ddbc39e7379532031a91357e66a32c}{L\+Z4\+\_\+\+M\+E\+M\+O\+R\+Y\+\_\+\+U\+S\+A\+GE}}-\/2)
+\#define \mbox{\hyperlink{Compression_8h_ac7f04539d94ce57826ef8b2f3d8408af}{LZ4\+\_\+\+HASHLOG}}~(\mbox{\hyperlink{Compression_8h_a24ddbc39e7379532031a91357e66a32c}{LZ4\+\_\+\+MEMORY\+\_\+\+USAGE}}-\/2)
 \item 
-\#define \mbox{\hyperlink{Compression_8h_a1bb7a0fa34be27b67f43ce30be0fc905}{L\+Z4\+\_\+\+H\+A\+S\+H\+T\+A\+B\+L\+E\+S\+I\+ZE}}~(1 $<$$<$ \mbox{\hyperlink{Compression_8h_a24ddbc39e7379532031a91357e66a32c}{L\+Z4\+\_\+\+M\+E\+M\+O\+R\+Y\+\_\+\+U\+S\+A\+GE}})
+\#define \mbox{\hyperlink{Compression_8h_a1bb7a0fa34be27b67f43ce30be0fc905}{LZ4\+\_\+\+HASHTABLESIZE}}~(1 $<$$<$ \mbox{\hyperlink{Compression_8h_a24ddbc39e7379532031a91357e66a32c}{LZ4\+\_\+\+MEMORY\+\_\+\+USAGE}})
 \item 
-\#define \mbox{\hyperlink{Compression_8h_a75fa199d8ad0949f67b62054171dc473}{L\+Z4\+\_\+\+H\+A\+S\+H\+\_\+\+S\+I\+Z\+E\+\_\+\+U32}}~(1 $<$$<$ \mbox{\hyperlink{Compression_8h_ac7f04539d94ce57826ef8b2f3d8408af}{L\+Z4\+\_\+\+H\+A\+S\+H\+L\+OG}})       /$\ast$ required as macro for static allocation $\ast$/
+\#define \mbox{\hyperlink{Compression_8h_a75fa199d8ad0949f67b62054171dc473}{LZ4\+\_\+\+HASH\+\_\+\+SIZE\+\_\+\+U32}}~(1 $<$$<$ \mbox{\hyperlink{Compression_8h_ac7f04539d94ce57826ef8b2f3d8408af}{LZ4\+\_\+\+HASHLOG}})       /$\ast$ required as macro for static allocation $\ast$/
 \item 
-\#define \mbox{\hyperlink{Compression_8h_a1b76402ebadac569ceb550cb22a7a6e4}{L\+Z4\+\_\+\+S\+T\+R\+E\+A\+M\+S\+I\+ZE}}~((1UL $<$$<$ \mbox{\hyperlink{Compression_8h_a24ddbc39e7379532031a91357e66a32c}{L\+Z4\+\_\+\+M\+E\+M\+O\+R\+Y\+\_\+\+U\+S\+A\+GE}}) + 32)  /$\ast$ static size, for inter-\/version compatibility $\ast$/
+\#define \mbox{\hyperlink{Compression_8h_a1b76402ebadac569ceb550cb22a7a6e4}{LZ4\+\_\+\+STREAMSIZE}}~((1UL $<$$<$ \mbox{\hyperlink{Compression_8h_a24ddbc39e7379532031a91357e66a32c}{LZ4\+\_\+\+MEMORY\+\_\+\+USAGE}}) + 32)  /$\ast$ static size, for inter-\/version compatibility $\ast$/
 \item 
-\#define \mbox{\hyperlink{Compression_8h_a46c76b999fe84b296be4dd4a8ea25746}{L\+Z4\+\_\+\+S\+T\+R\+E\+A\+M\+S\+I\+Z\+E\+\_\+\+V\+O\+I\+DP}}~(\mbox{\hyperlink{Compression_8h_a1b76402ebadac569ceb550cb22a7a6e4}{L\+Z4\+\_\+\+S\+T\+R\+E\+A\+M\+S\+I\+ZE}} / sizeof(void$\ast$))
+\#define \mbox{\hyperlink{Compression_8h_a46c76b999fe84b296be4dd4a8ea25746}{LZ4\+\_\+\+STREAMSIZE\+\_\+\+VOIDP}}~(\mbox{\hyperlink{Compression_8h_a1b76402ebadac569ceb550cb22a7a6e4}{LZ4\+\_\+\+STREAMSIZE}} / sizeof(void$\ast$))
 \item 
-\#define \mbox{\hyperlink{Compression_8h_a414ecb38e0607f239de5ebca5a5beef5}{L\+Z4\+\_\+\+S\+T\+R\+E\+A\+M\+D\+E\+C\+O\+D\+E\+S\+I\+Z\+E\+\_\+\+U64}}~(4 + ((sizeof(void$\ast$)==16) ? 2 \+: 0) /$\ast$AS-\/400$\ast$/ )
+\#define \mbox{\hyperlink{Compression_8h_a414ecb38e0607f239de5ebca5a5beef5}{LZ4\+\_\+\+STREAMDECODESIZE\+\_\+\+U64}}~(4 + ((sizeof(void$\ast$)==16) ? 2 \+: 0) /$\ast$AS-\/400$\ast$/ )
 \item 
-\#define \mbox{\hyperlink{Compression_8h_a9a08f1c4969b5e46eba93818cd7cb5a7}{L\+Z4\+\_\+\+S\+T\+R\+E\+A\+M\+D\+E\+C\+O\+D\+E\+S\+I\+ZE}}~(\mbox{\hyperlink{Compression_8h_a414ecb38e0607f239de5ebca5a5beef5}{L\+Z4\+\_\+\+S\+T\+R\+E\+A\+M\+D\+E\+C\+O\+D\+E\+S\+I\+Z\+E\+\_\+\+U64}} $\ast$ sizeof(unsigned long long))
+\#define \mbox{\hyperlink{Compression_8h_a9a08f1c4969b5e46eba93818cd7cb5a7}{LZ4\+\_\+\+STREAMDECODESIZE}}~(\mbox{\hyperlink{Compression_8h_a414ecb38e0607f239de5ebca5a5beef5}{LZ4\+\_\+\+STREAMDECODESIZE\+\_\+\+U64}} $\ast$ sizeof(unsigned long long))
 \end{DoxyCompactItemize}
 \doxysubsection*{Typedefs}
 \begin{DoxyCompactItemize}
 \item 
-typedef union \mbox{\hyperlink{unionLZ4__stream__u}{L\+Z4\+\_\+stream\+\_\+u}} \mbox{\hyperlink{Compression_8h_a4fb9ac4ce6d5e25edc9188f9d6633498}{L\+Z4\+\_\+stream\+\_\+t}}
+typedef union \mbox{\hyperlink{unionLZ4__stream__u}{LZ4\+\_\+stream\+\_\+u}} \mbox{\hyperlink{Compression_8h_a4fb9ac4ce6d5e25edc9188f9d6633498}{LZ4\+\_\+stream\+\_\+t}}
 \item 
-typedef union \mbox{\hyperlink{unionLZ4__streamDecode__u}{L\+Z4\+\_\+stream\+Decode\+\_\+u}} \mbox{\hyperlink{Compression_8h_a76a1eaa4729efddb43040217daad4d4e}{L\+Z4\+\_\+stream\+Decode\+\_\+t}}
+typedef union \mbox{\hyperlink{unionLZ4__streamDecode__u}{LZ4\+\_\+stream\+Decode\+\_\+u}} \mbox{\hyperlink{Compression_8h_a76a1eaa4729efddb43040217daad4d4e}{LZ4\+\_\+stream\+Decode\+\_\+t}}
 \item 
-typedef int8\+\_\+t \mbox{\hyperlink{Compression_8h_a5a92dc99fae36cb5affa6a5b46ec37e0}{L\+Z4\+\_\+i8}}
+typedef int8\+\_\+t \mbox{\hyperlink{Compression_8h_a5a92dc99fae36cb5affa6a5b46ec37e0}{LZ4\+\_\+i8}}
 \item 
-typedef uint8\+\_\+t \mbox{\hyperlink{Compression_8h_ae5ce20aa82fe990ff4c5c6114b25ad10}{L\+Z4\+\_\+byte}}
+typedef uint8\+\_\+t \mbox{\hyperlink{Compression_8h_ae5ce20aa82fe990ff4c5c6114b25ad10}{LZ4\+\_\+byte}}
 \item 
-typedef uint16\+\_\+t \mbox{\hyperlink{Compression_8h_aa2b2c02b982fbdc76c31494bfba54270}{L\+Z4\+\_\+u16}}
+typedef uint16\+\_\+t \mbox{\hyperlink{Compression_8h_aa2b2c02b982fbdc76c31494bfba54270}{LZ4\+\_\+u16}}
 \item 
-typedef uint32\+\_\+t \mbox{\hyperlink{Compression_8h_ad202a87356f947f6613e9fb614c5fafd}{L\+Z4\+\_\+u32}}
+typedef uint32\+\_\+t \mbox{\hyperlink{Compression_8h_ad202a87356f947f6613e9fb614c5fafd}{LZ4\+\_\+u32}}
 \item 
-typedef struct \mbox{\hyperlink{structLZ4__stream__t__internal}{L\+Z4\+\_\+stream\+\_\+t\+\_\+internal}} \mbox{\hyperlink{Compression_8h_a0f72bfb7291e7672b7c08dcfc2095bb9}{L\+Z4\+\_\+stream\+\_\+t\+\_\+internal}}
+typedef struct \mbox{\hyperlink{structLZ4__stream__t__internal}{LZ4\+\_\+stream\+\_\+t\+\_\+internal}} \mbox{\hyperlink{Compression_8h_a0f72bfb7291e7672b7c08dcfc2095bb9}{LZ4\+\_\+stream\+\_\+t\+\_\+internal}}
 \end{DoxyCompactItemize}
 \doxysubsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
-int \mbox{\hyperlink{Compression_8h_aacc5de6f21665d10fd8ec9e5ac0b9d40}{L\+Z4\+\_\+compress\+\_\+default}} (const char $\ast$src, char $\ast$dst, int src\+Size, int dst\+Capacity)
+int \mbox{\hyperlink{Compression_8h_aacc5de6f21665d10fd8ec9e5ac0b9d40}{LZ4\+\_\+compress\+\_\+default}} (const char $\ast$src, char $\ast$dst, int src\+Size, int dst\+Capacity)
 \item 
-int \mbox{\hyperlink{Compression_8h_acd2bf35d3f502d03dc980c1f71dc16e5}{L\+Z4\+\_\+decompress\+\_\+safe}} (const char $\ast$src, char $\ast$dst, int compressed\+Size, int dst\+Capacity)
+int \mbox{\hyperlink{Compression_8h_acd2bf35d3f502d03dc980c1f71dc16e5}{LZ4\+\_\+decompress\+\_\+safe}} (const char $\ast$src, char $\ast$dst, int compressed\+Size, int dst\+Capacity)
 \item 
-int \mbox{\hyperlink{Compression_8h_a362093578d68480b493984b4853edc1f}{L\+Z4\+\_\+compress\+Bound}} (int input\+Size)
+int \mbox{\hyperlink{Compression_8h_a362093578d68480b493984b4853edc1f}{LZ4\+\_\+compress\+Bound}} (int input\+Size)
 \item 
-int \mbox{\hyperlink{Compression_8h_a1af5fb2f539203c891e9c9c5b6e598a5}{L\+Z4\+\_\+compress\+\_\+fast}} (const char $\ast$src, char $\ast$dst, int src\+Size, int dst\+Capacity, int acceleration)
+int \mbox{\hyperlink{Compression_8h_a1af5fb2f539203c891e9c9c5b6e598a5}{LZ4\+\_\+compress\+\_\+fast}} (const char $\ast$src, char $\ast$dst, int src\+Size, int dst\+Capacity, int acceleration)
 \item 
-int \mbox{\hyperlink{Compression_8h_a2b241266a74fc87e1c126a17b852c934}{L\+Z4\+\_\+compress\+\_\+fast\+\_\+ext\+State}} (void $\ast$state, const char $\ast$src, char $\ast$dst, int src\+Size, int dst\+Capacity, int acceleration)
+int \mbox{\hyperlink{Compression_8h_a2b241266a74fc87e1c126a17b852c934}{LZ4\+\_\+compress\+\_\+fast\+\_\+ext\+State}} (void $\ast$state, const char $\ast$src, char $\ast$dst, int src\+Size, int dst\+Capacity, int acceleration)
 \item 
-\mbox{\hyperlink{Compression_8h_a4fb9ac4ce6d5e25edc9188f9d6633498}{L\+Z4\+\_\+stream\+\_\+t}} $\ast$ \mbox{\hyperlink{Compression_8h_a43fc7d0a99a5a66f6056d73ce3e8aa5c}{L\+Z4\+\_\+init\+Stream}} (void $\ast$buffer, size\+\_\+t size)
+\mbox{\hyperlink{Compression_8h_a4fb9ac4ce6d5e25edc9188f9d6633498}{LZ4\+\_\+stream\+\_\+t}} $\ast$ \mbox{\hyperlink{Compression_8h_a43fc7d0a99a5a66f6056d73ce3e8aa5c}{LZ4\+\_\+init\+Stream}} (void $\ast$buffer, size\+\_\+t size)
 \end{DoxyCompactItemize}
 
 
@@ -115,7 +117,7 @@ int \mbox{\hyperlink{Compression_8h_a2b241266a74fc87e1c126a17b852c934}{L\+Z4\+\_
 \index{Compression.h@{Compression.h}!compress\_buffer@{compress\_buffer}}
 \index{compress\_buffer@{compress\_buffer}!Compression.h@{Compression.h}}
 \doxysubsubsection{\texorpdfstring{compress\_buffer}{compress\_buffer}}
-{\footnotesize\ttfamily \#define compress\+\_\+buffer(\begin{DoxyParamCaption}\item[{}]{src,  }\item[{}]{dst,  }\item[{}]{src\+Size,  }\item[{}]{dst\+Capacity }\end{DoxyParamCaption})~\mbox{\hyperlink{Compression_8h_aacc5de6f21665d10fd8ec9e5ac0b9d40}{L\+Z4\+\_\+compress\+\_\+default}}((const char $\ast$)src, (char $\ast$)dst, src\+Size, dst\+Capacity)}
+{\footnotesize\ttfamily \#define compress\+\_\+buffer(\begin{DoxyParamCaption}\item[{}]{src,  }\item[{}]{dst,  }\item[{}]{src\+Size,  }\item[{}]{dst\+Capacity }\end{DoxyParamCaption})~\mbox{\hyperlink{Compression_8h_aacc5de6f21665d10fd8ec9e5ac0b9d40}{LZ4\+\_\+compress\+\_\+default}}((const char $\ast$)src, (char $\ast$)dst, src\+Size, dst\+Capacity)}
 
 
 
@@ -125,7 +127,7 @@ Definition at line 21 of file Compression.\+h.
 \index{Compression.h@{Compression.h}!compress\_size@{compress\_size}}
 \index{compress\_size@{compress\_size}!Compression.h@{Compression.h}}
 \doxysubsubsection{\texorpdfstring{compress\_size}{compress\_size}}
-{\footnotesize\ttfamily \#define compress\+\_\+size(\begin{DoxyParamCaption}\item[{}]{src\+Size }\end{DoxyParamCaption})~\mbox{\hyperlink{Compression_8h_a362093578d68480b493984b4853edc1f}{L\+Z4\+\_\+compress\+Bound}}(src\+Size)}
+{\footnotesize\ttfamily \#define compress\+\_\+size(\begin{DoxyParamCaption}\item[{}]{src\+Size }\end{DoxyParamCaption})~\mbox{\hyperlink{Compression_8h_a362093578d68480b493984b4853edc1f}{LZ4\+\_\+compress\+Bound}}(src\+Size)}
 
 
 
@@ -135,7 +137,7 @@ Definition at line 20 of file Compression.\+h.
 \index{Compression.h@{Compression.h}!decompress\_buffer@{decompress\_buffer}}
 \index{decompress\_buffer@{decompress\_buffer}!Compression.h@{Compression.h}}
 \doxysubsubsection{\texorpdfstring{decompress\_buffer}{decompress\_buffer}}
-{\footnotesize\ttfamily \#define decompress\+\_\+buffer(\begin{DoxyParamCaption}\item[{}]{src,  }\item[{}]{dst,  }\item[{}]{src\+Size,  }\item[{}]{dst\+Capacity }\end{DoxyParamCaption})~\mbox{\hyperlink{Compression_8h_acd2bf35d3f502d03dc980c1f71dc16e5}{L\+Z4\+\_\+decompress\+\_\+safe}}((const char $\ast$)src, (char $\ast$)dst, src\+Size, dst\+Capacity)}
+{\footnotesize\ttfamily \#define decompress\+\_\+buffer(\begin{DoxyParamCaption}\item[{}]{src,  }\item[{}]{dst,  }\item[{}]{src\+Size,  }\item[{}]{dst\+Capacity }\end{DoxyParamCaption})~\mbox{\hyperlink{Compression_8h_acd2bf35d3f502d03dc980c1f71dc16e5}{LZ4\+\_\+decompress\+\_\+safe}}((const char $\ast$)src, (char $\ast$)dst, src\+Size, dst\+Capacity)}
 
 
 
@@ -145,9 +147,9 @@ Definition at line 22 of file Compression.\+h.
 \index{Compression.h@{Compression.h}!LZ4\_COMPRESS\_INPLACE\_BUFFER\_SIZE@{LZ4\_COMPRESS\_INPLACE\_BUFFER\_SIZE}}
 \index{LZ4\_COMPRESS\_INPLACE\_BUFFER\_SIZE@{LZ4\_COMPRESS\_INPLACE\_BUFFER\_SIZE}!Compression.h@{Compression.h}}
 \doxysubsubsection{\texorpdfstring{LZ4\_COMPRESS\_INPLACE\_BUFFER\_SIZE}{LZ4\_COMPRESS\_INPLACE\_BUFFER\_SIZE}}
-{\footnotesize\ttfamily \#define L\+Z4\+\_\+\+C\+O\+M\+P\+R\+E\+S\+S\+\_\+\+I\+N\+P\+L\+A\+C\+E\+\_\+\+B\+U\+F\+F\+E\+R\+\_\+\+S\+I\+ZE(\begin{DoxyParamCaption}\item[{}]{max\+Compressed\+Size }\end{DoxyParamCaption})~((max\+Compressed\+Size) + \mbox{\hyperlink{Compression_8h_a774e0a0178907508c85694b433018855}{L\+Z4\+\_\+\+C\+O\+M\+P\+R\+E\+S\+S\+\_\+\+I\+N\+P\+L\+A\+C\+E\+\_\+\+M\+A\+R\+G\+IN}})}
+{\footnotesize\ttfamily \#define LZ4\+\_\+\+COMPRESS\+\_\+\+INPLACE\+\_\+\+BUFFER\+\_\+\+SIZE(\begin{DoxyParamCaption}\item[{}]{max\+Compressed\+Size }\end{DoxyParamCaption})~((max\+Compressed\+Size) + \mbox{\hyperlink{Compression_8h_a774e0a0178907508c85694b433018855}{LZ4\+\_\+\+COMPRESS\+\_\+\+INPLACE\+\_\+\+MARGIN}})}
 
-max\+Compressed\+Size is generally \mbox{\hyperlink{Compression_8h_a2453a423fd34640a0afbbf57ed0a5399}{L\+Z4\+\_\+\+C\+O\+M\+P\+R\+E\+S\+S\+B\+O\+U\+N\+D(input\+Size)}}, but can be set to any lower value, with the risk that compression can fail (return code 0(zero)) 
+max\+Compressed\+Size is generally \mbox{\hyperlink{Compression_8h_a2453a423fd34640a0afbbf57ed0a5399}{LZ4\+\_\+\+COMPRESSBOUND(input\+Size)}}, but can be set to any lower value, with the risk that compression can fail (return code 0(zero)) 
 
 Definition at line 129 of file Compression.\+h.
 
@@ -155,7 +157,7 @@ Definition at line 129 of file Compression.\+h.
 \index{Compression.h@{Compression.h}!LZ4\_COMPRESS\_INPLACE\_MARGIN@{LZ4\_COMPRESS\_INPLACE\_MARGIN}}
 \index{LZ4\_COMPRESS\_INPLACE\_MARGIN@{LZ4\_COMPRESS\_INPLACE\_MARGIN}!Compression.h@{Compression.h}}
 \doxysubsubsection{\texorpdfstring{LZ4\_COMPRESS\_INPLACE\_MARGIN}{LZ4\_COMPRESS\_INPLACE\_MARGIN}}
-{\footnotesize\ttfamily \#define L\+Z4\+\_\+\+C\+O\+M\+P\+R\+E\+S\+S\+\_\+\+I\+N\+P\+L\+A\+C\+E\+\_\+\+M\+A\+R\+G\+IN~(\mbox{\hyperlink{Compression_8h_aef230e9fd51b7bf939654ecc08a3778f}{L\+Z4\+\_\+\+D\+I\+S\+T\+A\+N\+C\+E\+\_\+\+M\+AX}} + 32)   /$\ast$ \mbox{\hyperlink{Compression_8h_aef230e9fd51b7bf939654ecc08a3778f}{L\+Z4\+\_\+\+D\+I\+S\+T\+A\+N\+C\+E\+\_\+\+M\+AX}} can be safely replaced by src\+Size when it\textquotesingle{}s smaller $\ast$/}
+{\footnotesize\ttfamily \#define LZ4\+\_\+\+COMPRESS\+\_\+\+INPLACE\+\_\+\+MARGIN~(\mbox{\hyperlink{Compression_8h_aef230e9fd51b7bf939654ecc08a3778f}{LZ4\+\_\+\+DISTANCE\+\_\+\+MAX}} + 32)   /$\ast$ \mbox{\hyperlink{Compression_8h_aef230e9fd51b7bf939654ecc08a3778f}{LZ4\+\_\+\+DISTANCE\+\_\+\+MAX}} can be safely replaced by src\+Size when it\textquotesingle{}s smaller $\ast$/}
 
 
 
@@ -165,7 +167,7 @@ Definition at line 128 of file Compression.\+h.
 \index{Compression.h@{Compression.h}!LZ4\_COMPRESSBOUND@{LZ4\_COMPRESSBOUND}}
 \index{LZ4\_COMPRESSBOUND@{LZ4\_COMPRESSBOUND}!Compression.h@{Compression.h}}
 \doxysubsubsection{\texorpdfstring{LZ4\_COMPRESSBOUND}{LZ4\_COMPRESSBOUND}}
-{\footnotesize\ttfamily \#define L\+Z4\+\_\+\+C\+O\+M\+P\+R\+E\+S\+S\+B\+O\+U\+ND(\begin{DoxyParamCaption}\item[{}]{isize }\end{DoxyParamCaption})~((unsigned)(isize) $>$ (unsigned)\mbox{\hyperlink{Compression_8h_a88ee51e36ca74cd0533e731c20572ea6}{L\+Z4\+\_\+\+M\+A\+X\+\_\+\+I\+N\+P\+U\+T\+\_\+\+S\+I\+ZE}} ? 0 \+: (isize) + ((isize)/255) + 16)}
+{\footnotesize\ttfamily \#define LZ4\+\_\+\+COMPRESSBOUND(\begin{DoxyParamCaption}\item[{}]{isize }\end{DoxyParamCaption})~((unsigned)(isize) $>$ (unsigned)\mbox{\hyperlink{Compression_8h_a88ee51e36ca74cd0533e731c20572ea6}{LZ4\+\_\+\+MAX\+\_\+\+INPUT\+\_\+\+SIZE}} ? 0 \+: (isize) + ((isize)/255) + 16)}
 
 
 
@@ -175,7 +177,7 @@ Definition at line 77 of file Compression.\+h.
 \index{Compression.h@{Compression.h}!LZ4\_DECODER\_RING\_BUFFER\_SIZE@{LZ4\_DECODER\_RING\_BUFFER\_SIZE}}
 \index{LZ4\_DECODER\_RING\_BUFFER\_SIZE@{LZ4\_DECODER\_RING\_BUFFER\_SIZE}!Compression.h@{Compression.h}}
 \doxysubsubsection{\texorpdfstring{LZ4\_DECODER\_RING\_BUFFER\_SIZE}{LZ4\_DECODER\_RING\_BUFFER\_SIZE}}
-{\footnotesize\ttfamily \#define L\+Z4\+\_\+\+D\+E\+C\+O\+D\+E\+R\+\_\+\+R\+I\+N\+G\+\_\+\+B\+U\+F\+F\+E\+R\+\_\+\+S\+I\+ZE(\begin{DoxyParamCaption}\item[{}]{max\+Block\+Size }\end{DoxyParamCaption})~(65536 + 14 + (max\+Block\+Size))  /$\ast$ for static allocation; max\+Block\+Size presumed valid $\ast$/}
+{\footnotesize\ttfamily \#define LZ4\+\_\+\+DECODER\+\_\+\+RING\+\_\+\+BUFFER\+\_\+\+SIZE(\begin{DoxyParamCaption}\item[{}]{max\+Block\+Size }\end{DoxyParamCaption})~(65536 + 14 + (max\+Block\+Size))  /$\ast$ for static allocation; max\+Block\+Size presumed valid $\ast$/}
 
 
 
@@ -185,7 +187,7 @@ Definition at line 119 of file Compression.\+h.
 \index{Compression.h@{Compression.h}!LZ4\_DECOMPRESS\_INPLACE\_BUFFER\_SIZE@{LZ4\_DECOMPRESS\_INPLACE\_BUFFER\_SIZE}}
 \index{LZ4\_DECOMPRESS\_INPLACE\_BUFFER\_SIZE@{LZ4\_DECOMPRESS\_INPLACE\_BUFFER\_SIZE}!Compression.h@{Compression.h}}
 \doxysubsubsection{\texorpdfstring{LZ4\_DECOMPRESS\_INPLACE\_BUFFER\_SIZE}{LZ4\_DECOMPRESS\_INPLACE\_BUFFER\_SIZE}}
-{\footnotesize\ttfamily \#define L\+Z4\+\_\+\+D\+E\+C\+O\+M\+P\+R\+E\+S\+S\+\_\+\+I\+N\+P\+L\+A\+C\+E\+\_\+\+B\+U\+F\+F\+E\+R\+\_\+\+S\+I\+ZE(\begin{DoxyParamCaption}\item[{}]{decompressed\+Size }\end{DoxyParamCaption})~((decompressed\+Size) + \mbox{\hyperlink{Compression_8h_aeb9541df4b1585ede70167d977ef85f5}{L\+Z4\+\_\+\+D\+E\+C\+O\+M\+P\+R\+E\+S\+S\+\_\+\+I\+N\+P\+L\+A\+C\+E\+\_\+\+M\+A\+R\+G\+IN}}(decompressed\+Size))}
+{\footnotesize\ttfamily \#define LZ4\+\_\+\+DECOMPRESS\+\_\+\+INPLACE\+\_\+\+BUFFER\+\_\+\+SIZE(\begin{DoxyParamCaption}\item[{}]{decompressed\+Size }\end{DoxyParamCaption})~((decompressed\+Size) + \mbox{\hyperlink{Compression_8h_aeb9541df4b1585ede70167d977ef85f5}{LZ4\+\_\+\+DECOMPRESS\+\_\+\+INPLACE\+\_\+\+MARGIN}}(decompressed\+Size))}
 
 note\+: presumes that compressed\+Size $<$ decompressed\+Size. note2\+: margin is overestimated a bit, since it could use compressed\+Size instead 
 
@@ -195,7 +197,7 @@ Definition at line 122 of file Compression.\+h.
 \index{Compression.h@{Compression.h}!LZ4\_DECOMPRESS\_INPLACE\_MARGIN@{LZ4\_DECOMPRESS\_INPLACE\_MARGIN}}
 \index{LZ4\_DECOMPRESS\_INPLACE\_MARGIN@{LZ4\_DECOMPRESS\_INPLACE\_MARGIN}!Compression.h@{Compression.h}}
 \doxysubsubsection{\texorpdfstring{LZ4\_DECOMPRESS\_INPLACE\_MARGIN}{LZ4\_DECOMPRESS\_INPLACE\_MARGIN}}
-{\footnotesize\ttfamily \#define L\+Z4\+\_\+\+D\+E\+C\+O\+M\+P\+R\+E\+S\+S\+\_\+\+I\+N\+P\+L\+A\+C\+E\+\_\+\+M\+A\+R\+G\+IN(\begin{DoxyParamCaption}\item[{}]{compressed\+Size }\end{DoxyParamCaption})~(((compressed\+Size) $>$$>$ 8) + 32)}
+{\footnotesize\ttfamily \#define LZ4\+\_\+\+DECOMPRESS\+\_\+\+INPLACE\+\_\+\+MARGIN(\begin{DoxyParamCaption}\item[{}]{compressed\+Size }\end{DoxyParamCaption})~(((compressed\+Size) $>$$>$ 8) + 32)}
 
 
 
@@ -205,7 +207,7 @@ Definition at line 121 of file Compression.\+h.
 \index{Compression.h@{Compression.h}!LZ4\_DISTANCE\_MAX@{LZ4\_DISTANCE\_MAX}}
 \index{LZ4\_DISTANCE\_MAX@{LZ4\_DISTANCE\_MAX}!Compression.h@{Compression.h}}
 \doxysubsubsection{\texorpdfstring{LZ4\_DISTANCE\_MAX}{LZ4\_DISTANCE\_MAX}}
-{\footnotesize\ttfamily \#define L\+Z4\+\_\+\+D\+I\+S\+T\+A\+N\+C\+E\+\_\+\+M\+AX~65535   /$\ast$ set to maximum value by default $\ast$/}
+{\footnotesize\ttfamily \#define LZ4\+\_\+\+DISTANCE\+\_\+\+MAX~65535   /$\ast$ set to maximum value by default $\ast$/}
 
 
 
@@ -215,7 +217,7 @@ Definition at line 125 of file Compression.\+h.
 \index{Compression.h@{Compression.h}!LZ4\_HASH\_SIZE\_U32@{LZ4\_HASH\_SIZE\_U32}}
 \index{LZ4\_HASH\_SIZE\_U32@{LZ4\_HASH\_SIZE\_U32}!Compression.h@{Compression.h}}
 \doxysubsubsection{\texorpdfstring{LZ4\_HASH\_SIZE\_U32}{LZ4\_HASH\_SIZE\_U32}}
-{\footnotesize\ttfamily \#define L\+Z4\+\_\+\+H\+A\+S\+H\+\_\+\+S\+I\+Z\+E\+\_\+\+U32~(1 $<$$<$ \mbox{\hyperlink{Compression_8h_ac7f04539d94ce57826ef8b2f3d8408af}{L\+Z4\+\_\+\+H\+A\+S\+H\+L\+OG}})       /$\ast$ required as macro for static allocation $\ast$/}
+{\footnotesize\ttfamily \#define LZ4\+\_\+\+HASH\+\_\+\+SIZE\+\_\+\+U32~(1 $<$$<$ \mbox{\hyperlink{Compression_8h_ac7f04539d94ce57826ef8b2f3d8408af}{LZ4\+\_\+\+HASHLOG}})       /$\ast$ required as macro for static allocation $\ast$/}
 
 
 
@@ -225,7 +227,7 @@ Definition at line 140 of file Compression.\+h.
 \index{Compression.h@{Compression.h}!LZ4\_HASHLOG@{LZ4\_HASHLOG}}
 \index{LZ4\_HASHLOG@{LZ4\_HASHLOG}!Compression.h@{Compression.h}}
 \doxysubsubsection{\texorpdfstring{LZ4\_HASHLOG}{LZ4\_HASHLOG}}
-{\footnotesize\ttfamily \#define L\+Z4\+\_\+\+H\+A\+S\+H\+L\+OG~(\mbox{\hyperlink{Compression_8h_a24ddbc39e7379532031a91357e66a32c}{L\+Z4\+\_\+\+M\+E\+M\+O\+R\+Y\+\_\+\+U\+S\+A\+GE}}-\/2)}
+{\footnotesize\ttfamily \#define LZ4\+\_\+\+HASHLOG~(\mbox{\hyperlink{Compression_8h_a24ddbc39e7379532031a91357e66a32c}{LZ4\+\_\+\+MEMORY\+\_\+\+USAGE}}-\/2)}
 
 
 
@@ -235,7 +237,7 @@ Definition at line 138 of file Compression.\+h.
 \index{Compression.h@{Compression.h}!LZ4\_HASHTABLESIZE@{LZ4\_HASHTABLESIZE}}
 \index{LZ4\_HASHTABLESIZE@{LZ4\_HASHTABLESIZE}!Compression.h@{Compression.h}}
 \doxysubsubsection{\texorpdfstring{LZ4\_HASHTABLESIZE}{LZ4\_HASHTABLESIZE}}
-{\footnotesize\ttfamily \#define L\+Z4\+\_\+\+H\+A\+S\+H\+T\+A\+B\+L\+E\+S\+I\+ZE~(1 $<$$<$ \mbox{\hyperlink{Compression_8h_a24ddbc39e7379532031a91357e66a32c}{L\+Z4\+\_\+\+M\+E\+M\+O\+R\+Y\+\_\+\+U\+S\+A\+GE}})}
+{\footnotesize\ttfamily \#define LZ4\+\_\+\+HASHTABLESIZE~(1 $<$$<$ \mbox{\hyperlink{Compression_8h_a24ddbc39e7379532031a91357e66a32c}{LZ4\+\_\+\+MEMORY\+\_\+\+USAGE}})}
 
 
 
@@ -245,7 +247,7 @@ Definition at line 139 of file Compression.\+h.
 \index{Compression.h@{Compression.h}!LZ4\_MAX\_INPUT\_SIZE@{LZ4\_MAX\_INPUT\_SIZE}}
 \index{LZ4\_MAX\_INPUT\_SIZE@{LZ4\_MAX\_INPUT\_SIZE}!Compression.h@{Compression.h}}
 \doxysubsubsection{\texorpdfstring{LZ4\_MAX\_INPUT\_SIZE}{LZ4\_MAX\_INPUT\_SIZE}}
-{\footnotesize\ttfamily \#define L\+Z4\+\_\+\+M\+A\+X\+\_\+\+I\+N\+P\+U\+T\+\_\+\+S\+I\+ZE~0x7\+E000000   /$\ast$ 2 113 929 216 bytes $\ast$/}
+{\footnotesize\ttfamily \#define LZ4\+\_\+\+MAX\+\_\+\+INPUT\+\_\+\+SIZE~0x7\+E000000   /$\ast$ 2 113 929 216 bytes $\ast$/}
 
 
 
@@ -255,7 +257,7 @@ Definition at line 76 of file Compression.\+h.
 \index{Compression.h@{Compression.h}!LZ4\_MEMORY\_USAGE@{LZ4\_MEMORY\_USAGE}}
 \index{LZ4\_MEMORY\_USAGE@{LZ4\_MEMORY\_USAGE}!Compression.h@{Compression.h}}
 \doxysubsubsection{\texorpdfstring{LZ4\_MEMORY\_USAGE}{LZ4\_MEMORY\_USAGE}}
-{\footnotesize\ttfamily \#define L\+Z4\+\_\+\+M\+E\+M\+O\+R\+Y\+\_\+\+U\+S\+A\+GE~\mbox{\hyperlink{Compression_8h_a003849b5d7ae53e30ad147fdecc8fab3}{L\+Z4\+\_\+\+M\+E\+M\+O\+R\+Y\+\_\+\+U\+S\+A\+G\+E\+\_\+\+D\+E\+F\+A\+U\+LT}}}
+{\footnotesize\ttfamily \#define LZ4\+\_\+\+MEMORY\+\_\+\+USAGE~\mbox{\hyperlink{Compression_8h_a003849b5d7ae53e30ad147fdecc8fab3}{LZ4\+\_\+\+MEMORY\+\_\+\+USAGE\+\_\+\+DEFAULT}}}
 
 
 
@@ -265,7 +267,7 @@ Definition at line 30 of file Compression.\+h.
 \index{Compression.h@{Compression.h}!LZ4\_MEMORY\_USAGE\_DEFAULT@{LZ4\_MEMORY\_USAGE\_DEFAULT}}
 \index{LZ4\_MEMORY\_USAGE\_DEFAULT@{LZ4\_MEMORY\_USAGE\_DEFAULT}!Compression.h@{Compression.h}}
 \doxysubsubsection{\texorpdfstring{LZ4\_MEMORY\_USAGE\_DEFAULT}{LZ4\_MEMORY\_USAGE\_DEFAULT}}
-{\footnotesize\ttfamily \#define L\+Z4\+\_\+\+M\+E\+M\+O\+R\+Y\+\_\+\+U\+S\+A\+G\+E\+\_\+\+D\+E\+F\+A\+U\+LT~10}
+{\footnotesize\ttfamily \#define LZ4\+\_\+\+MEMORY\+\_\+\+USAGE\+\_\+\+DEFAULT~10}
 
 
 
@@ -275,7 +277,7 @@ Definition at line 26 of file Compression.\+h.
 \index{Compression.h@{Compression.h}!LZ4\_MEMORY\_USAGE\_MAX@{LZ4\_MEMORY\_USAGE\_MAX}}
 \index{LZ4\_MEMORY\_USAGE\_MAX@{LZ4\_MEMORY\_USAGE\_MAX}!Compression.h@{Compression.h}}
 \doxysubsubsection{\texorpdfstring{LZ4\_MEMORY\_USAGE\_MAX}{LZ4\_MEMORY\_USAGE\_MAX}}
-{\footnotesize\ttfamily \#define L\+Z4\+\_\+\+M\+E\+M\+O\+R\+Y\+\_\+\+U\+S\+A\+G\+E\+\_\+\+M\+AX~20}
+{\footnotesize\ttfamily \#define LZ4\+\_\+\+MEMORY\+\_\+\+USAGE\+\_\+\+MAX~20}
 
 
 
@@ -285,7 +287,7 @@ Definition at line 27 of file Compression.\+h.
 \index{Compression.h@{Compression.h}!LZ4\_MEMORY\_USAGE\_MIN@{LZ4\_MEMORY\_USAGE\_MIN}}
 \index{LZ4\_MEMORY\_USAGE\_MIN@{LZ4\_MEMORY\_USAGE\_MIN}!Compression.h@{Compression.h}}
 \doxysubsubsection{\texorpdfstring{LZ4\_MEMORY\_USAGE\_MIN}{LZ4\_MEMORY\_USAGE\_MIN}}
-{\footnotesize\ttfamily \#define L\+Z4\+\_\+\+M\+E\+M\+O\+R\+Y\+\_\+\+U\+S\+A\+G\+E\+\_\+\+M\+IN~10}
+{\footnotesize\ttfamily \#define LZ4\+\_\+\+MEMORY\+\_\+\+USAGE\+\_\+\+MIN~10}
 
 
 
@@ -295,7 +297,7 @@ Definition at line 25 of file Compression.\+h.
 \index{Compression.h@{Compression.h}!LZ4\_STREAMDECODESIZE@{LZ4\_STREAMDECODESIZE}}
 \index{LZ4\_STREAMDECODESIZE@{LZ4\_STREAMDECODESIZE}!Compression.h@{Compression.h}}
 \doxysubsubsection{\texorpdfstring{LZ4\_STREAMDECODESIZE}{LZ4\_STREAMDECODESIZE}}
-{\footnotesize\ttfamily \#define L\+Z4\+\_\+\+S\+T\+R\+E\+A\+M\+D\+E\+C\+O\+D\+E\+S\+I\+ZE~(\mbox{\hyperlink{Compression_8h_a414ecb38e0607f239de5ebca5a5beef5}{L\+Z4\+\_\+\+S\+T\+R\+E\+A\+M\+D\+E\+C\+O\+D\+E\+S\+I\+Z\+E\+\_\+\+U64}} $\ast$ sizeof(unsigned long long))}
+{\footnotesize\ttfamily \#define LZ4\+\_\+\+STREAMDECODESIZE~(\mbox{\hyperlink{Compression_8h_a414ecb38e0607f239de5ebca5a5beef5}{LZ4\+\_\+\+STREAMDECODESIZE\+\_\+\+U64}} $\ast$ sizeof(unsigned long long))}
 
 
 
@@ -305,9 +307,9 @@ Definition at line 211 of file Compression.\+h.
 \index{Compression.h@{Compression.h}!LZ4\_STREAMDECODESIZE\_U64@{LZ4\_STREAMDECODESIZE\_U64}}
 \index{LZ4\_STREAMDECODESIZE\_U64@{LZ4\_STREAMDECODESIZE\_U64}!Compression.h@{Compression.h}}
 \doxysubsubsection{\texorpdfstring{LZ4\_STREAMDECODESIZE\_U64}{LZ4\_STREAMDECODESIZE\_U64}}
-{\footnotesize\ttfamily \#define L\+Z4\+\_\+\+S\+T\+R\+E\+A\+M\+D\+E\+C\+O\+D\+E\+S\+I\+Z\+E\+\_\+\+U64~(4 + ((sizeof(void$\ast$)==16) ? 2 \+: 0) /$\ast$AS-\/400$\ast$/ )}
+{\footnotesize\ttfamily \#define LZ4\+\_\+\+STREAMDECODESIZE\+\_\+\+U64~(4 + ((sizeof(void$\ast$)==16) ? 2 \+: 0) /$\ast$AS-\/400$\ast$/ )}
 
-L\+Z4\+\_\+stream\+Decode\+\_\+t \+: information structure to track an L\+Z4 stream during decompression. init this structure using L\+Z4\+\_\+set\+Stream\+Decode() before first use. note \+: only use in association with static linking ! this definition is not A\+P\+I/\+A\+BI safe, and may change in a future version ! 
+LZ4\+\_\+stream\+Decode\+\_\+t \+: information structure to track an LZ4 stream during decompression. init this structure using LZ4\+\_\+set\+Stream\+Decode() before first use. note \+: only use in association with static linking ! this definition is not API/\+ABI safe, and may change in a future version ! 
 
 Definition at line 210 of file Compression.\+h.
 
@@ -315,9 +317,9 @@ Definition at line 210 of file Compression.\+h.
 \index{Compression.h@{Compression.h}!LZ4\_STREAMSIZE@{LZ4\_STREAMSIZE}}
 \index{LZ4\_STREAMSIZE@{LZ4\_STREAMSIZE}!Compression.h@{Compression.h}}
 \doxysubsubsection{\texorpdfstring{LZ4\_STREAMSIZE}{LZ4\_STREAMSIZE}}
-{\footnotesize\ttfamily \#define L\+Z4\+\_\+\+S\+T\+R\+E\+A\+M\+S\+I\+ZE~((1UL $<$$<$ \mbox{\hyperlink{Compression_8h_a24ddbc39e7379532031a91357e66a32c}{L\+Z4\+\_\+\+M\+E\+M\+O\+R\+Y\+\_\+\+U\+S\+A\+GE}}) + 32)  /$\ast$ static size, for inter-\/version compatibility $\ast$/}
+{\footnotesize\ttfamily \#define LZ4\+\_\+\+STREAMSIZE~((1UL $<$$<$ \mbox{\hyperlink{Compression_8h_a24ddbc39e7379532031a91357e66a32c}{LZ4\+\_\+\+MEMORY\+\_\+\+USAGE}}) + 32)  /$\ast$ static size, for inter-\/version compatibility $\ast$/}
 
-L\+Z4\+\_\+stream\+\_\+t \+: Do not use below internal definitions directly ! Declare or allocate an L\+Z4\+\_\+stream\+\_\+t instead. L\+Z4\+\_\+stream\+\_\+t can also be created using L\+Z4\+\_\+create\+Stream(), which is recommended. The structure definition can be convenient for static allocation (on stack, or as part of larger structure). Init this structure with \mbox{\hyperlink{Compression_8h_a43fc7d0a99a5a66f6056d73ce3e8aa5c}{L\+Z4\+\_\+init\+Stream()}} before first use. note \+: only use this definition in association with static linking ! this definition is not A\+P\+I/\+A\+BI safe, and may change in future versions. 
+LZ4\+\_\+stream\+\_\+t \+: Do not use below internal definitions directly ! Declare or allocate an LZ4\+\_\+stream\+\_\+t instead. LZ4\+\_\+stream\+\_\+t can also be created using LZ4\+\_\+create\+Stream(), which is recommended. The structure definition can be convenient for static allocation (on stack, or as part of larger structure). Init this structure with \mbox{\hyperlink{Compression_8h_a43fc7d0a99a5a66f6056d73ce3e8aa5c}{LZ4\+\_\+init\+Stream()}} before first use. note \+: only use this definition in association with static linking ! this definition is not API/\+ABI safe, and may change in future versions. 
 
 Definition at line 178 of file Compression.\+h.
 
@@ -325,7 +327,7 @@ Definition at line 178 of file Compression.\+h.
 \index{Compression.h@{Compression.h}!LZ4\_STREAMSIZE\_VOIDP@{LZ4\_STREAMSIZE\_VOIDP}}
 \index{LZ4\_STREAMSIZE\_VOIDP@{LZ4\_STREAMSIZE\_VOIDP}!Compression.h@{Compression.h}}
 \doxysubsubsection{\texorpdfstring{LZ4\_STREAMSIZE\_VOIDP}{LZ4\_STREAMSIZE\_VOIDP}}
-{\footnotesize\ttfamily \#define L\+Z4\+\_\+\+S\+T\+R\+E\+A\+M\+S\+I\+Z\+E\+\_\+\+V\+O\+I\+DP~(\mbox{\hyperlink{Compression_8h_a1b76402ebadac569ceb550cb22a7a6e4}{L\+Z4\+\_\+\+S\+T\+R\+E\+A\+M\+S\+I\+ZE}} / sizeof(void$\ast$))}
+{\footnotesize\ttfamily \#define LZ4\+\_\+\+STREAMSIZE\+\_\+\+VOIDP~(\mbox{\hyperlink{Compression_8h_a1b76402ebadac569ceb550cb22a7a6e4}{LZ4\+\_\+\+STREAMSIZE}} / sizeof(void$\ast$))}
 
 
 
@@ -338,7 +340,7 @@ Definition at line 179 of file Compression.\+h.
 \index{Compression.h@{Compression.h}!LZ4\_byte@{LZ4\_byte}}
 \index{LZ4\_byte@{LZ4\_byte}!Compression.h@{Compression.h}}
 \doxysubsubsection{\texorpdfstring{LZ4\_byte}{LZ4\_byte}}
-{\footnotesize\ttfamily typedef uint8\+\_\+t \mbox{\hyperlink{Compression_8h_ae5ce20aa82fe990ff4c5c6114b25ad10}{L\+Z4\+\_\+byte}}}
+{\footnotesize\ttfamily typedef uint8\+\_\+t \mbox{\hyperlink{Compression_8h_ae5ce20aa82fe990ff4c5c6114b25ad10}{LZ4\+\_\+byte}}}
 
 
 
@@ -348,7 +350,7 @@ Definition at line 144 of file Compression.\+h.
 \index{Compression.h@{Compression.h}!LZ4\_i8@{LZ4\_i8}}
 \index{LZ4\_i8@{LZ4\_i8}!Compression.h@{Compression.h}}
 \doxysubsubsection{\texorpdfstring{LZ4\_i8}{LZ4\_i8}}
-{\footnotesize\ttfamily typedef int8\+\_\+t \mbox{\hyperlink{Compression_8h_a5a92dc99fae36cb5affa6a5b46ec37e0}{L\+Z4\+\_\+i8}}}
+{\footnotesize\ttfamily typedef int8\+\_\+t \mbox{\hyperlink{Compression_8h_a5a92dc99fae36cb5affa6a5b46ec37e0}{LZ4\+\_\+i8}}}
 
 
 
@@ -358,37 +360,37 @@ Definition at line 143 of file Compression.\+h.
 \index{Compression.h@{Compression.h}!LZ4\_stream\_t@{LZ4\_stream\_t}}
 \index{LZ4\_stream\_t@{LZ4\_stream\_t}!Compression.h@{Compression.h}}
 \doxysubsubsection{\texorpdfstring{LZ4\_stream\_t}{LZ4\_stream\_t}}
-{\footnotesize\ttfamily typedef union \mbox{\hyperlink{unionLZ4__stream__u}{L\+Z4\+\_\+stream\+\_\+u}} \mbox{\hyperlink{Compression_8h_a4fb9ac4ce6d5e25edc9188f9d6633498}{L\+Z4\+\_\+stream\+\_\+t}}}
+{\footnotesize\ttfamily typedef union \mbox{\hyperlink{unionLZ4__stream__u}{LZ4\+\_\+stream\+\_\+u}} \mbox{\hyperlink{Compression_8h_a4fb9ac4ce6d5e25edc9188f9d6633498}{LZ4\+\_\+stream\+\_\+t}}}
 
 
 
-Definition at line 111 of file Compression.\+h.
+Definition at line 106 of file Compression.\+h.
 
 \mbox{\Hypertarget{Compression_8h_a0f72bfb7291e7672b7c08dcfc2095bb9}\label{Compression_8h_a0f72bfb7291e7672b7c08dcfc2095bb9}} 
 \index{Compression.h@{Compression.h}!LZ4\_stream\_t\_internal@{LZ4\_stream\_t\_internal}}
 \index{LZ4\_stream\_t\_internal@{LZ4\_stream\_t\_internal}!Compression.h@{Compression.h}}
 \doxysubsubsection{\texorpdfstring{LZ4\_stream\_t\_internal}{LZ4\_stream\_t\_internal}}
-{\footnotesize\ttfamily typedef struct \mbox{\hyperlink{structLZ4__stream__t__internal}{L\+Z4\+\_\+stream\+\_\+t\+\_\+internal}} \mbox{\hyperlink{structLZ4__stream__t__internal}{L\+Z4\+\_\+stream\+\_\+t\+\_\+internal}}}
+{\footnotesize\ttfamily typedef struct \mbox{\hyperlink{structLZ4__stream__t__internal}{LZ4\+\_\+stream\+\_\+t\+\_\+internal}} \mbox{\hyperlink{structLZ4__stream__t__internal}{LZ4\+\_\+stream\+\_\+t\+\_\+internal}}}
 
 
 
-Definition at line 148 of file Compression.\+h.
+Definition at line 146 of file Compression.\+h.
 
 \mbox{\Hypertarget{Compression_8h_a76a1eaa4729efddb43040217daad4d4e}\label{Compression_8h_a76a1eaa4729efddb43040217daad4d4e}} 
 \index{Compression.h@{Compression.h}!LZ4\_streamDecode\_t@{LZ4\_streamDecode\_t}}
 \index{LZ4\_streamDecode\_t@{LZ4\_streamDecode\_t}!Compression.h@{Compression.h}}
 \doxysubsubsection{\texorpdfstring{LZ4\_streamDecode\_t}{LZ4\_streamDecode\_t}}
-{\footnotesize\ttfamily typedef union \mbox{\hyperlink{unionLZ4__streamDecode__u}{L\+Z4\+\_\+stream\+Decode\+\_\+u}} \mbox{\hyperlink{Compression_8h_a76a1eaa4729efddb43040217daad4d4e}{L\+Z4\+\_\+stream\+Decode\+\_\+t}}}
+{\footnotesize\ttfamily typedef union \mbox{\hyperlink{unionLZ4__streamDecode__u}{LZ4\+\_\+stream\+Decode\+\_\+u}} \mbox{\hyperlink{Compression_8h_a76a1eaa4729efddb43040217daad4d4e}{LZ4\+\_\+stream\+Decode\+\_\+t}}}
 
 
 
-Definition at line 117 of file Compression.\+h.
+Definition at line 106 of file Compression.\+h.
 
 \mbox{\Hypertarget{Compression_8h_aa2b2c02b982fbdc76c31494bfba54270}\label{Compression_8h_aa2b2c02b982fbdc76c31494bfba54270}} 
 \index{Compression.h@{Compression.h}!LZ4\_u16@{LZ4\_u16}}
 \index{LZ4\_u16@{LZ4\_u16}!Compression.h@{Compression.h}}
 \doxysubsubsection{\texorpdfstring{LZ4\_u16}{LZ4\_u16}}
-{\footnotesize\ttfamily typedef uint16\+\_\+t \mbox{\hyperlink{Compression_8h_aa2b2c02b982fbdc76c31494bfba54270}{L\+Z4\+\_\+u16}}}
+{\footnotesize\ttfamily typedef uint16\+\_\+t \mbox{\hyperlink{Compression_8h_aa2b2c02b982fbdc76c31494bfba54270}{LZ4\+\_\+u16}}}
 
 
 
@@ -398,7 +400,7 @@ Definition at line 145 of file Compression.\+h.
 \index{Compression.h@{Compression.h}!LZ4\_u32@{LZ4\_u32}}
 \index{LZ4\_u32@{LZ4\_u32}!Compression.h@{Compression.h}}
 \doxysubsubsection{\texorpdfstring{LZ4\_u32}{LZ4\_u32}}
-{\footnotesize\ttfamily typedef uint32\+\_\+t \mbox{\hyperlink{Compression_8h_ad202a87356f947f6613e9fb614c5fafd}{L\+Z4\+\_\+u32}}}
+{\footnotesize\ttfamily typedef uint32\+\_\+t \mbox{\hyperlink{Compression_8h_ad202a87356f947f6613e9fb614c5fafd}{LZ4\+\_\+u32}}}
 
 
 
@@ -411,9 +413,9 @@ Definition at line 146 of file Compression.\+h.
 \index{Compression.h@{Compression.h}!LZ4\_compress\_default@{LZ4\_compress\_default}}
 \index{LZ4\_compress\_default@{LZ4\_compress\_default}!Compression.h@{Compression.h}}
 \doxysubsubsection{\texorpdfstring{LZ4\_compress\_default()}{LZ4\_compress\_default()}}
-{\footnotesize\ttfamily int L\+Z4\+\_\+compress\+\_\+default (\begin{DoxyParamCaption}\item[{const char $\ast$}]{src,  }\item[{char $\ast$}]{dst,  }\item[{int}]{src\+Size,  }\item[{int}]{dst\+Capacity }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily int LZ4\+\_\+compress\+\_\+default (\begin{DoxyParamCaption}\item[{const char $\ast$}]{src,  }\item[{char $\ast$}]{dst,  }\item[{int}]{src\+Size,  }\item[{int}]{dst\+Capacity }\end{DoxyParamCaption})}
 
-\mbox{\hyperlink{Compression_8h_aacc5de6f21665d10fd8ec9e5ac0b9d40}{L\+Z4\+\_\+compress\+\_\+default()}} \+: Compresses \textquotesingle{}src\+Size\textquotesingle{} bytes from buffer \textquotesingle{}src\textquotesingle{} into already allocated \textquotesingle{}dst\textquotesingle{} buffer of size \textquotesingle{}dst\+Capacity\textquotesingle{}. Compression is guaranteed to succeed if \textquotesingle{}dst\+Capacity\textquotesingle{} $>$= L\+Z4\+\_\+compress\+Bound(src\+Size). It also runs faster, so it\textquotesingle{}s a recommended setting. If the function cannot compress \textquotesingle{}src\textquotesingle{} into a more limited \textquotesingle{}dst\textquotesingle{} budget, compression stops {\itshape immediately}, and the function result is zero. In which case, \textquotesingle{}dst\textquotesingle{} content is undefined (invalid). src\+Size \+: max supported value is L\+Z4\+\_\+\+M\+A\+X\+\_\+\+I\+N\+P\+U\+T\+\_\+\+S\+I\+ZE. dst\+Capacity \+: size of buffer \textquotesingle{}dst\textquotesingle{} (which must be already allocated) \begin{DoxyReturn}{Returns}
+\mbox{\hyperlink{Compression_8h_aacc5de6f21665d10fd8ec9e5ac0b9d40}{LZ4\+\_\+compress\+\_\+default()}} \+: Compresses \textquotesingle{}src\+Size\textquotesingle{} bytes from buffer \textquotesingle{}src\textquotesingle{} into already allocated \textquotesingle{}dst\textquotesingle{} buffer of size \textquotesingle{}dst\+Capacity\textquotesingle{}. Compression is guaranteed to succeed if \textquotesingle{}dst\+Capacity\textquotesingle{} $>$= LZ4\+\_\+compress\+Bound(src\+Size). It also runs faster, so it\textquotesingle{}s a recommended setting. If the function cannot compress \textquotesingle{}src\textquotesingle{} into a more limited \textquotesingle{}dst\textquotesingle{} budget, compression stops {\itshape immediately}, and the function result is zero. In which case, \textquotesingle{}dst\textquotesingle{} content is undefined (invalid). src\+Size \+: max supported value is LZ4\+\_\+\+MAX\+\_\+\+INPUT\+\_\+\+SIZE. dst\+Capacity \+: size of buffer \textquotesingle{}dst\textquotesingle{} (which must be already allocated) \begin{DoxyReturn}{Returns}
 \+: the number of bytes written into buffer \textquotesingle{}dst\textquotesingle{} (necessarily $<$= dst\+Capacity) or 0 if compression fails Note \+: This function is protected against buffer overflow scenarios (never writes outside \textquotesingle{}dst\textquotesingle{} buffer, nor read outside \textquotesingle{}source\textquotesingle{} buffer). 
 \end{DoxyReturn}
 
@@ -429,15 +431,15 @@ Definition at line 955 of file Compression.\+cpp.
 \end{DoxyCode}
 
 
-References L\+Z4\+\_\+compress\+\_\+fast().
+References LZ4\+\_\+compress\+\_\+fast().
 
 \mbox{\Hypertarget{Compression_8h_a1af5fb2f539203c891e9c9c5b6e598a5}\label{Compression_8h_a1af5fb2f539203c891e9c9c5b6e598a5}} 
 \index{Compression.h@{Compression.h}!LZ4\_compress\_fast@{LZ4\_compress\_fast}}
 \index{LZ4\_compress\_fast@{LZ4\_compress\_fast}!Compression.h@{Compression.h}}
 \doxysubsubsection{\texorpdfstring{LZ4\_compress\_fast()}{LZ4\_compress\_fast()}}
-{\footnotesize\ttfamily int L\+Z4\+\_\+compress\+\_\+fast (\begin{DoxyParamCaption}\item[{const char $\ast$}]{src,  }\item[{char $\ast$}]{dst,  }\item[{int}]{src\+Size,  }\item[{int}]{dst\+Capacity,  }\item[{int}]{acceleration }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily int LZ4\+\_\+compress\+\_\+fast (\begin{DoxyParamCaption}\item[{const char $\ast$}]{src,  }\item[{char $\ast$}]{dst,  }\item[{int}]{src\+Size,  }\item[{int}]{dst\+Capacity,  }\item[{int}]{acceleration }\end{DoxyParamCaption})}
 
-\mbox{\hyperlink{Compression_8h_a1af5fb2f539203c891e9c9c5b6e598a5}{L\+Z4\+\_\+compress\+\_\+fast()}} \+: Same as \mbox{\hyperlink{Compression_8h_aacc5de6f21665d10fd8ec9e5ac0b9d40}{L\+Z4\+\_\+compress\+\_\+default()}}, but allows selection of \char`\"{}acceleration\char`\"{} factor. The larger the acceleration value, the faster the algorithm, but also the lesser the compression. It\textquotesingle{}s a trade-\/off. It can be fine tuned, with each successive value providing roughly +$\sim$3\% to speed. An acceleration value of \char`\"{}1\char`\"{} is the same as regular \mbox{\hyperlink{Compression_8h_aacc5de6f21665d10fd8ec9e5ac0b9d40}{L\+Z4\+\_\+compress\+\_\+default()}} Values $<$= 0 will be replaced by L\+Z4\+\_\+\+A\+C\+C\+E\+L\+E\+R\+A\+T\+I\+O\+N\+\_\+\+D\+E\+F\+A\+U\+LT (currently == 1, see lz4.\+c). Values $>$ L\+Z4\+\_\+\+A\+C\+C\+E\+L\+E\+R\+A\+T\+I\+O\+N\+\_\+\+M\+AX will be replaced by L\+Z4\+\_\+\+A\+C\+C\+E\+L\+E\+R\+A\+T\+I\+O\+N\+\_\+\+M\+AX (currently == 65537, see lz4.\+c). 
+\mbox{\hyperlink{Compression_8h_a1af5fb2f539203c891e9c9c5b6e598a5}{LZ4\+\_\+compress\+\_\+fast()}} \+: Same as \mbox{\hyperlink{Compression_8h_aacc5de6f21665d10fd8ec9e5ac0b9d40}{LZ4\+\_\+compress\+\_\+default()}}, but allows selection of \char`\"{}acceleration\char`\"{} factor. The larger the acceleration value, the faster the algorithm, but also the lesser the compression. It\textquotesingle{}s a trade-\/off. It can be fine tuned, with each successive value providing roughly +$\sim$3\% to speed. An acceleration value of \char`\"{}1\char`\"{} is the same as regular \mbox{\hyperlink{Compression_8h_aacc5de6f21665d10fd8ec9e5ac0b9d40}{LZ4\+\_\+compress\+\_\+default()}} Values $<$= 0 will be replaced by LZ4\+\_\+\+ACCELERATION\+\_\+\+DEFAULT (currently == 1, see lz4.\+c). Values $>$ LZ4\+\_\+\+ACCELERATION\+\_\+\+MAX will be replaced by LZ4\+\_\+\+ACCELERATION\+\_\+\+MAX (currently == 65537, see lz4.\+c). 
 
 Definition at line 945 of file Compression.\+cpp.
 
@@ -455,19 +457,19 @@ Definition at line 945 of file Compression.\+cpp.
 \end{DoxyCode}
 
 
-References L\+Z4\+\_\+compress\+\_\+fast\+\_\+ext\+State(), vfree, and vmalloc.
+References LZ4\+\_\+compress\+\_\+fast\+\_\+ext\+State(), vfree, and vmalloc.
 
 
 
-Referenced by L\+Z4\+\_\+compress\+\_\+default().
+Referenced by LZ4\+\_\+compress\+\_\+default().
 
 \mbox{\Hypertarget{Compression_8h_a2b241266a74fc87e1c126a17b852c934}\label{Compression_8h_a2b241266a74fc87e1c126a17b852c934}} 
 \index{Compression.h@{Compression.h}!LZ4\_compress\_fast\_extState@{LZ4\_compress\_fast\_extState}}
 \index{LZ4\_compress\_fast\_extState@{LZ4\_compress\_fast\_extState}!Compression.h@{Compression.h}}
 \doxysubsubsection{\texorpdfstring{LZ4\_compress\_fast\_extState()}{LZ4\_compress\_fast\_extState()}}
-{\footnotesize\ttfamily int L\+Z4\+\_\+compress\+\_\+fast\+\_\+ext\+State (\begin{DoxyParamCaption}\item[{void $\ast$}]{state,  }\item[{const char $\ast$}]{src,  }\item[{char $\ast$}]{dst,  }\item[{int}]{src\+Size,  }\item[{int}]{dst\+Capacity,  }\item[{int}]{acceleration }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily int LZ4\+\_\+compress\+\_\+fast\+\_\+ext\+State (\begin{DoxyParamCaption}\item[{void $\ast$}]{state,  }\item[{const char $\ast$}]{src,  }\item[{char $\ast$}]{dst,  }\item[{int}]{src\+Size,  }\item[{int}]{dst\+Capacity,  }\item[{int}]{acceleration }\end{DoxyParamCaption})}
 
-\mbox{\hyperlink{Compression_8h_a2b241266a74fc87e1c126a17b852c934}{L\+Z4\+\_\+compress\+\_\+fast\+\_\+ext\+State()}} \+: Same as \mbox{\hyperlink{Compression_8h_a1af5fb2f539203c891e9c9c5b6e598a5}{L\+Z4\+\_\+compress\+\_\+fast()}}, using an externally allocated memory space for its state. Use L\+Z4\+\_\+sizeof\+State() to know how much memory must be allocated, and allocate it on 8-\/bytes boundaries (using {\ttfamily malloc()} typically). Then, provide this buffer as {\ttfamily void$\ast$ state} to compression function. 
+\mbox{\hyperlink{Compression_8h_a2b241266a74fc87e1c126a17b852c934}{LZ4\+\_\+compress\+\_\+fast\+\_\+ext\+State()}} \+: Same as \mbox{\hyperlink{Compression_8h_a1af5fb2f539203c891e9c9c5b6e598a5}{LZ4\+\_\+compress\+\_\+fast()}}, using an externally allocated memory space for its state. Use LZ4\+\_\+sizeof\+State() to know how much memory must be allocated, and allocate it on 8-\/bytes boundaries (using {\ttfamily malloc()} typically). Then, provide this buffer as {\ttfamily void$\ast$ state} to compression function. 
 
 Definition at line 922 of file Compression.\+cpp.
 
@@ -498,19 +500,19 @@ Definition at line 922 of file Compression.\+cpp.
 \end{DoxyCode}
 
 
-References assert, by\+Ptr, by\+U16, by\+U32, L\+Z4\+\_\+stream\+\_\+u\+::internal\+\_\+donotuse, limited\+Output, L\+Z4\+\_\+64\+Klimit, L\+Z4\+\_\+compress\+\_\+generic(), L\+Z4\+\_\+compress\+Bound(), L\+Z4\+\_\+\+D\+I\+S\+T\+A\+N\+C\+E\+\_\+\+M\+AX, L\+Z4\+\_\+init\+Stream(), no\+Dict, no\+Dict\+Issue, and not\+Limited.
+References assert, by\+Ptr, by\+U16, by\+U32, LZ4\+\_\+stream\+\_\+u\+::internal\+\_\+donotuse, limited\+Output, LZ4\+\_\+64\+Klimit, LZ4\+\_\+compress\+\_\+generic(), LZ4\+\_\+compress\+Bound(), LZ4\+\_\+\+DISTANCE\+\_\+\+MAX, LZ4\+\_\+init\+Stream(), no\+Dict, no\+Dict\+Issue, and not\+Limited.
 
 
 
-Referenced by L\+Z4\+\_\+compress\+\_\+fast().
+Referenced by LZ4\+\_\+compress\+\_\+fast().
 
 \mbox{\Hypertarget{Compression_8h_a362093578d68480b493984b4853edc1f}\label{Compression_8h_a362093578d68480b493984b4853edc1f}} 
 \index{Compression.h@{Compression.h}!LZ4\_compressBound@{LZ4\_compressBound}}
 \index{LZ4\_compressBound@{LZ4\_compressBound}!Compression.h@{Compression.h}}
 \doxysubsubsection{\texorpdfstring{LZ4\_compressBound()}{LZ4\_compressBound()}}
-{\footnotesize\ttfamily int L\+Z4\+\_\+compress\+Bound (\begin{DoxyParamCaption}\item[{int}]{input\+Size }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily int LZ4\+\_\+compress\+Bound (\begin{DoxyParamCaption}\item[{int}]{input\+Size }\end{DoxyParamCaption})}
 
-\mbox{\hyperlink{Compression_8h_a362093578d68480b493984b4853edc1f}{L\+Z4\+\_\+compress\+Bound()}} \+: Provides the maximum size that L\+Z4 compression may output in a \char`\"{}worst case\char`\"{} scenario (input data not compressible) This function is primarily useful for memory allocation purposes (destination buffer size). Macro \mbox{\hyperlink{Compression_8h_a2453a423fd34640a0afbbf57ed0a5399}{L\+Z4\+\_\+\+C\+O\+M\+P\+R\+E\+S\+S\+B\+O\+U\+N\+D()}} is also provided for compilation-\/time evaluation (stack memory allocation for example). Note that \mbox{\hyperlink{Compression_8h_aacc5de6f21665d10fd8ec9e5ac0b9d40}{L\+Z4\+\_\+compress\+\_\+default()}} compresses faster when dst\+Capacity is $>$= L\+Z4\+\_\+compress\+Bound(src\+Size) input\+Size \+: max supported value is L\+Z4\+\_\+\+M\+A\+X\+\_\+\+I\+N\+P\+U\+T\+\_\+\+S\+I\+ZE return \+: maximum output size in a \char`\"{}worst case\char`\"{} scenario or 0, if input size is incorrect (too large or negative) 
+\mbox{\hyperlink{Compression_8h_a362093578d68480b493984b4853edc1f}{LZ4\+\_\+compress\+Bound()}} \+: Provides the maximum size that LZ4 compression may output in a \char`\"{}worst case\char`\"{} scenario (input data not compressible) This function is primarily useful for memory allocation purposes (destination buffer size). Macro \mbox{\hyperlink{Compression_8h_a2453a423fd34640a0afbbf57ed0a5399}{LZ4\+\_\+\+COMPRESSBOUND()}} is also provided for compilation-\/time evaluation (stack memory allocation for example). Note that \mbox{\hyperlink{Compression_8h_aacc5de6f21665d10fd8ec9e5ac0b9d40}{LZ4\+\_\+compress\+\_\+default()}} compresses faster when dst\+Capacity is $>$= LZ4\+\_\+compress\+Bound(src\+Size) input\+Size \+: max supported value is LZ4\+\_\+\+MAX\+\_\+\+INPUT\+\_\+\+SIZE return \+: maximum output size in a \char`\"{}worst case\char`\"{} scenario or 0, if input size is incorrect (too large or negative) 
 
 Definition at line 370 of file Compression.\+cpp.
 
@@ -521,19 +523,19 @@ Definition at line 370 of file Compression.\+cpp.
 \end{DoxyCode}
 
 
-References L\+Z4\+\_\+\+C\+O\+M\+P\+R\+E\+S\+S\+B\+O\+U\+ND.
+References LZ4\+\_\+\+COMPRESSBOUND.
 
 
 
-Referenced by L\+Z4\+\_\+compress\+\_\+fast\+\_\+ext\+State().
+Referenced by LZ4\+\_\+compress\+\_\+fast\+\_\+ext\+State().
 
 \mbox{\Hypertarget{Compression_8h_acd2bf35d3f502d03dc980c1f71dc16e5}\label{Compression_8h_acd2bf35d3f502d03dc980c1f71dc16e5}} 
 \index{Compression.h@{Compression.h}!LZ4\_decompress\_safe@{LZ4\_decompress\_safe}}
 \index{LZ4\_decompress\_safe@{LZ4\_decompress\_safe}!Compression.h@{Compression.h}}
 \doxysubsubsection{\texorpdfstring{LZ4\_decompress\_safe()}{LZ4\_decompress\_safe()}}
-{\footnotesize\ttfamily int L\+Z4\+\_\+decompress\+\_\+safe (\begin{DoxyParamCaption}\item[{const char $\ast$}]{src,  }\item[{char $\ast$}]{dst,  }\item[{int}]{compressed\+Size,  }\item[{int}]{dst\+Capacity }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily int LZ4\+\_\+decompress\+\_\+safe (\begin{DoxyParamCaption}\item[{const char $\ast$}]{src,  }\item[{char $\ast$}]{dst,  }\item[{int}]{compressed\+Size,  }\item[{int}]{dst\+Capacity }\end{DoxyParamCaption})}
 
-\mbox{\hyperlink{Compression_8h_acd2bf35d3f502d03dc980c1f71dc16e5}{L\+Z4\+\_\+decompress\+\_\+safe()}} \+: compressed\+Size \+: is the exact complete size of the compressed block. dst\+Capacity \+: is the size of destination buffer (which must be already allocated), presumed an upper bound of decompressed size. \begin{DoxyReturn}{Returns}
+\mbox{\hyperlink{Compression_8h_acd2bf35d3f502d03dc980c1f71dc16e5}{LZ4\+\_\+decompress\+\_\+safe()}} \+: compressed\+Size \+: is the exact complete size of the compressed block. dst\+Capacity \+: is the size of destination buffer (which must be already allocated), presumed an upper bound of decompressed size. \begin{DoxyReturn}{Returns}
 \+: the number of bytes decompressed into destination buffer (necessarily $<$= dst\+Capacity) If destination buffer is not large enough, decoding will stop and output an error code (negative value). If the source stream is detected malformed, the function will stop decoding and return a negative result. Note 1 \+: This function is protected against malicious data packets \+: it will never writes outside \textquotesingle{}dst\textquotesingle{} buffer, nor read outside \textquotesingle{}source\textquotesingle{} buffer, even if the compressed block is maliciously modified to order the decoder to do these actions. In such case, the decoder stops immediately, and considers the compressed block malformed. Note 2 \+: compressed\+Size and dst\+Capacity must be provided to the function, the compressed block does not contain them. The implementation is free to send / store / derive this information in whichever way is most beneficial. If there is a need for a different format which bundles together both compressed data and its metadata, consider looking at lz4frame.\+h instead. 
 \end{DoxyReturn}
 
@@ -551,21 +553,21 @@ Definition at line 1461 of file Compression.\+cpp.
 \end{DoxyCode}
 
 
-References decode\+\_\+full\+\_\+block, end\+On\+Input\+Size, L\+Z4\+\_\+decompress\+\_\+generic(), and no\+Dict.
+References decode\+\_\+full\+\_\+block, end\+On\+Input\+Size, LZ4\+\_\+decompress\+\_\+generic(), and no\+Dict.
 
 \mbox{\Hypertarget{Compression_8h_a43fc7d0a99a5a66f6056d73ce3e8aa5c}\label{Compression_8h_a43fc7d0a99a5a66f6056d73ce3e8aa5c}} 
 \index{Compression.h@{Compression.h}!LZ4\_initStream@{LZ4\_initStream}}
 \index{LZ4\_initStream@{LZ4\_initStream}!Compression.h@{Compression.h}}
 \doxysubsubsection{\texorpdfstring{LZ4\_initStream()}{LZ4\_initStream()}}
-{\footnotesize\ttfamily \mbox{\hyperlink{Compression_8h_a4fb9ac4ce6d5e25edc9188f9d6633498}{L\+Z4\+\_\+stream\+\_\+t}}$\ast$ L\+Z4\+\_\+init\+Stream (\begin{DoxyParamCaption}\item[{void $\ast$}]{buffer,  }\item[{size\+\_\+t}]{size }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \mbox{\hyperlink{Compression_8h_a4fb9ac4ce6d5e25edc9188f9d6633498}{LZ4\+\_\+stream\+\_\+t}}$\ast$ LZ4\+\_\+init\+Stream (\begin{DoxyParamCaption}\item[{void $\ast$}]{buffer,  }\item[{size\+\_\+t}]{size }\end{DoxyParamCaption})}
 
-\mbox{\hyperlink{Compression_8h_a43fc7d0a99a5a66f6056d73ce3e8aa5c}{L\+Z4\+\_\+init\+Stream()}} \+: v1.\+9.\+0+ An L\+Z4\+\_\+stream\+\_\+t structure must be initialized at least once. This is automatically done when invoking L\+Z4\+\_\+create\+Stream(), but it\textquotesingle{}s not when the structure is simply declared on stack (for example).
+\mbox{\hyperlink{Compression_8h_a43fc7d0a99a5a66f6056d73ce3e8aa5c}{LZ4\+\_\+init\+Stream()}} \+: v1.\+9.\+0+ An LZ4\+\_\+stream\+\_\+t structure must be initialized at least once. This is automatically done when invoking LZ4\+\_\+create\+Stream(), but it\textquotesingle{}s not when the structure is simply declared on stack (for example).
 
-Use \mbox{\hyperlink{Compression_8h_a43fc7d0a99a5a66f6056d73ce3e8aa5c}{L\+Z4\+\_\+init\+Stream()}} to properly initialize a newly declared L\+Z4\+\_\+stream\+\_\+t. It can also initialize any arbitrary buffer of sufficient size, and will \begin{DoxyReturn}{Returns}
+Use \mbox{\hyperlink{Compression_8h_a43fc7d0a99a5a66f6056d73ce3e8aa5c}{LZ4\+\_\+init\+Stream()}} to properly initialize a newly declared LZ4\+\_\+stream\+\_\+t. It can also initialize any arbitrary buffer of sufficient size, and will \begin{DoxyReturn}{Returns}
 a pointer of proper type upon initialization.
 \end{DoxyReturn}
 Note \+: initialization fails if size and alignment conditions are not respected. In which case, the function will \begin{DoxyReturn}{Returns}
-N\+U\+LL. Note2\+: An L\+Z4\+\_\+stream\+\_\+t structure guarantees correct alignment and size. Note3\+: Before v1.\+9.\+0, use L\+Z4\+\_\+reset\+Stream() instead 
+NULL. Note2\+: An LZ4\+\_\+stream\+\_\+t structure guarantees correct alignment and size. Note3\+: Before v1.\+9.\+0, use LZ4\+\_\+reset\+Stream() instead 
 \end{DoxyReturn}
 
 
@@ -574,7 +576,7 @@ Definition at line 974 of file Compression.\+cpp.
 
 \begin{DoxyCode}{0}
 \DoxyCodeLine{975 \{}
-\DoxyCodeLine{976   \mbox{\hyperlink{Compression_8cpp_a8728fe9e99fe783be28c0f38bb0d0761}{DEBUGLOG}}(5, \textcolor{stringliteral}{"LZ4\_initStream"});}
+\DoxyCodeLine{976   \mbox{\hyperlink{Compression_8cpp_a8728fe9e99fe783be28c0f38bb0d0761}{DEBUGLOG}}(5, \textcolor{stringliteral}{"{}LZ4\_initStream"{}});}
 \DoxyCodeLine{977   \textcolor{keywordflow}{if} (buffer == NULL) \{ \textcolor{keywordflow}{return} NULL; \}}
 \DoxyCodeLine{978   \textcolor{keywordflow}{if} (size < \textcolor{keyword}{sizeof}(\mbox{\hyperlink{unionLZ4__stream__u}{LZ4\_stream\_t}})) \{ \textcolor{keywordflow}{return} NULL; \}}
 \DoxyCodeLine{979   \textcolor{keywordflow}{if} (!\mbox{\hyperlink{Compression_8cpp_ac33d4ec2f474813cee3ee86163eba2ef}{LZ4\_isAligned}}(buffer, \mbox{\hyperlink{Compression_8cpp_adc972484e4b4a228506ba1a99f18661a}{LZ4\_stream\_t\_alignment}}())) \textcolor{keywordflow}{return} NULL;}
@@ -585,9 +587,9 @@ Definition at line 974 of file Compression.\+cpp.
 \end{DoxyCode}
 
 
-References D\+E\+B\+U\+G\+L\+OG, L\+Z4\+\_\+is\+Aligned(), and L\+Z4\+\_\+stream\+\_\+t\+\_\+alignment().
+References DEBUGLOG, LZ4\+\_\+is\+Aligned(), and LZ4\+\_\+stream\+\_\+t\+\_\+alignment().
 
 
 
-Referenced by L\+Z4\+\_\+compress\+\_\+fast\+\_\+ext\+State().
+Referenced by LZ4\+\_\+compress\+\_\+fast\+\_\+ext\+State().
 

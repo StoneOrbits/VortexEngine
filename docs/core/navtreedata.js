@@ -1,24 +1,26 @@
 /*
-@licstart  The following is the entire license notice for the
-JavaScript code in this file.
+ @licstart  The following is the entire license notice for the JavaScript code in this file.
 
-Copyright (C) 1997-2019 by Dimitri van Heesch
+ The MIT License (MIT)
 
-This program is free software; you can redistribute it and/or modify
-it under the terms of version 2 of the GNU General Public License as published by
-the Free Software Foundation
+ Copyright (C) 1997-2020 by Dimitri van Heesch
 
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-GNU General Public License for more details.
+ Permission is hereby granted, free of charge, to any person obtaining a copy of this software
+ and associated documentation files (the "Software"), to deal in the Software without restriction,
+ including without limitation the rights to use, copy, modify, merge, publish, distribute,
+ sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is
+ furnished to do so, subject to the following conditions:
 
-You should have received a copy of the GNU General Public License along
-with this program; if not, write to the Free Software Foundation, Inc.,
-51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+ The above copyright notice and this permission notice shall be included in all copies or
+ substantial portions of the Software.
 
-@licend  The above is the entire license notice
-for the JavaScript code in this file
+ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING
+ BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+ NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
+ DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+ @licend  The above is the entire license notice for the JavaScript code in this file
 */
 var NAVTREE =
 [
@@ -54,16 +56,16 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "BackStrobePattern_8cpp.html",
-"Compression_8cpp.html#a758ae6d5b0a32072c833b9a03be20a37",
-"LighthousePattern_8h_source.html",
-"Storage_8h.html",
-"classBackStrobePattern.html#ab36bbceb686bed38d056300ca6da99f6",
-"classColorset.html#abdb775cb7e1def40b8da4c7ffc4f5df8",
-"classLeds.html#aa44bce4221035a5b267bbc4c82ebb488",
-"classPattern.html#a2761837d9ea948e92487a8cd55c58f09",
-"classStorage.html",
-"classVortexCLI.html#a372fba86705e5b895eb79178b10e9675",
-"globals_defs_k.html"
+"Compression_8cpp.html#a9d0df14b4296f06cf7c7b141f26d29b3",
+"Log_8h.html#aae4791cf4f80ed032e48ef42b57e0a4e",
+"TimeControl_8cpp.html#a6a51e9baeec9b06ae477cf6475efc71d",
+"classBasicPattern.html#a1ba4f8f4cda3165e9867f3fd010efcfc",
+"classColorset.html#acac6cc5795e5cb3f79159141da9deaba",
+"classLeds.html#adb650141cfe42027332fa56e8de9e1a0",
+"classPattern.html#a74bdb41c74915065e3c983427a6973d3",
+"classTheaterChasePattern.html",
+"classVortexCLI.html#a5021498b90d142e95b6858a101dd69f3ad98644719ab95d7c224d4286c92acbe7",
+"globals_e.html"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

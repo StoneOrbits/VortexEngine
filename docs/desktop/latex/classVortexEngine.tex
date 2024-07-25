@@ -7,7 +7,13 @@
 
 
 Collaboration diagram for Vortex\+Engine\+:
-% FIG 0
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classVortexEngine__coll__graph}
+\end{center}
+\end{figure}
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
@@ -43,13 +49,13 @@ void \mbox{\hyperlink{classVortexEngine_a38d50f4e166343ebe0867c2950fb50bc}{set\+
 \item 
 \mbox{\hyperlink{classStorage}{Storage}} \& \mbox{\hyperlink{classVortexEngine_a9cd0c2746600e484f4510b22e884019b}{storage}} ()
 \item 
-\mbox{\hyperlink{classIRReceiver}{I\+R\+Receiver}} \& \mbox{\hyperlink{classVortexEngine_a35eb211f1a70211b94a6c68747bf5157}{ir\+Receiver}} ()
+\mbox{\hyperlink{classIRReceiver}{IRReceiver}} \& \mbox{\hyperlink{classVortexEngine_a35eb211f1a70211b94a6c68747bf5157}{ir\+Receiver}} ()
 \item 
-\mbox{\hyperlink{classIRSender}{I\+R\+Sender}} \& \mbox{\hyperlink{classVortexEngine_a7c455b376183699c9e0b7d23578028dc}{ir\+Sender}} ()
+\mbox{\hyperlink{classIRSender}{IRSender}} \& \mbox{\hyperlink{classVortexEngine_a7c455b376183699c9e0b7d23578028dc}{ir\+Sender}} ()
 \item 
-\mbox{\hyperlink{classVLReceiver}{V\+L\+Receiver}} \& \mbox{\hyperlink{classVortexEngine_a61596df61187e37b53430d5d8e861058}{vl\+Receiver}} ()
+\mbox{\hyperlink{classVLReceiver}{VLReceiver}} \& \mbox{\hyperlink{classVortexEngine_a61596df61187e37b53430d5d8e861058}{vl\+Receiver}} ()
 \item 
-\mbox{\hyperlink{classVLSender}{V\+L\+Sender}} \& \mbox{\hyperlink{classVortexEngine_adb440ed90584458a9d4287beb4ddeb5b}{vl\+Sender}} ()
+\mbox{\hyperlink{classVLSender}{VLSender}} \& \mbox{\hyperlink{classVortexEngine_adb440ed90584458a9d4287beb4ddeb5b}{vl\+Sender}} ()
 \item 
 \mbox{\hyperlink{classLeds}{Leds}} \& \mbox{\hyperlink{classVortexEngine_a6db4e68fe048d9ff0fbb15cc126f28fb}{leds}} ()
 \item 
@@ -76,13 +82,13 @@ void \mbox{\hyperlink{classVortexEngine_a38d50f4e166343ebe0867c2950fb50bc}{set\+
 \item 
 \mbox{\hyperlink{classStorage}{Storage}} \mbox{\hyperlink{classVortexEngine_a065e21d9585246728c6b6244d1d4e738}{m\+\_\+storage}}
 \item 
-\mbox{\hyperlink{classIRReceiver}{I\+R\+Receiver}} \mbox{\hyperlink{classVortexEngine_a0defff546d320851c22740e908ffcc92}{m\+\_\+ir\+Receiver}}
+\mbox{\hyperlink{classIRReceiver}{IRReceiver}} \mbox{\hyperlink{classVortexEngine_a0defff546d320851c22740e908ffcc92}{m\+\_\+ir\+Receiver}}
 \item 
-\mbox{\hyperlink{classIRSender}{I\+R\+Sender}} \mbox{\hyperlink{classVortexEngine_a032a6821d3f8bcfec936973bfcfe56bc}{m\+\_\+ir\+Sender}}
+\mbox{\hyperlink{classIRSender}{IRSender}} \mbox{\hyperlink{classVortexEngine_a032a6821d3f8bcfec936973bfcfe56bc}{m\+\_\+ir\+Sender}}
 \item 
-\mbox{\hyperlink{classVLReceiver}{V\+L\+Receiver}} \mbox{\hyperlink{classVortexEngine_a3e1a61fe72aa758c009ed0e243f17104}{m\+\_\+vl\+Receiver}}
+\mbox{\hyperlink{classVLReceiver}{VLReceiver}} \mbox{\hyperlink{classVortexEngine_a3e1a61fe72aa758c009ed0e243f17104}{m\+\_\+vl\+Receiver}}
 \item 
-\mbox{\hyperlink{classVLSender}{V\+L\+Sender}} \mbox{\hyperlink{classVortexEngine_ab2d695e86cbf7a1429199c8132b7ad6e}{m\+\_\+vl\+Sender}}
+\mbox{\hyperlink{classVLSender}{VLSender}} \mbox{\hyperlink{classVortexEngine_ab2d695e86cbf7a1429199c8132b7ad6e}{m\+\_\+vl\+Sender}}
 \item 
 \mbox{\hyperlink{classLeds}{Leds}} \mbox{\hyperlink{classVortexEngine_a191e480857fb7f173dae7846bb6e9843}{m\+\_\+leds}}
 \item 
@@ -136,7 +142,7 @@ Definition at line 8 of file Vortex\+Engine.\+cpp.
 \DoxyCodeLine{21   \mbox{\hyperlink{classVortexEngine_aa6ab9fa0d15c5628ed65a41206df33c4}{m\_modes}}(\mbox{\hyperlink{classVortexEngine_a8a356e459660541f8a513ba88584e432}{m\_engine}}),}
 \DoxyCodeLine{22   \mbox{\hyperlink{classVortexEngine_aaa71bd5ce5778c4e804e71f608f11ef2}{m\_patternBuilder}}(\mbox{\hyperlink{classVortexEngine_a8a356e459660541f8a513ba88584e432}{m\_engine}}),}
 \DoxyCodeLine{23   \mbox{\hyperlink{classVortexEngine_a68bdf824c4c7b2303a1b1a37da67f496}{m\_sleeping}}(\textcolor{keyword}{false}),}
-\DoxyCodeLine{24   \mbox{\hyperlink{classVortexEngine_ae6812312d6c117bf487ea7d2754f8063}{m\_autoCycle}}(\textcolor{keyword}{false})}
+\DoxyCodeLine{24   \mbox{\hyperlink{classVortexEngine_ae6812312d6c117bf487ea7d2754f8063}{m\_autoCycle}}(\textcolor{keyword}{false})}
 \DoxyCodeLine{25 \{}
 \DoxyCodeLine{26 \}}
 
@@ -181,7 +187,7 @@ References Buttons\+::button(), and m\+\_\+buttons.
 
 
 
-Referenced by Menus\+::check\+Open(), Factory\+Reset\+::on\+Long\+Click(), Color\+Select\+::on\+Long\+Click(), Pattern\+Select\+::on\+Short\+Click(), Randomizer\+::on\+Short\+Click(), Modes\+::play(), Menu\+::run(), Menus\+::run\+Cur\+Menu(), run\+Main\+Logic(), Menus\+::run\+Menu\+Selection(), Menu\+::show\+Exit(), Factory\+Reset\+::show\+Reset(), Menus\+::show\+Selection(), Color\+Select\+::show\+Slot\+Selection(), and tick().
+Referenced by Menus\+::check\+Open(), Color\+Select\+::on\+Long\+Click(), Factory\+Reset\+::on\+Long\+Click(), Pattern\+Select\+::on\+Short\+Click(), Randomizer\+::on\+Short\+Click(), Modes\+::play(), Menu\+::run(), Menus\+::run\+Cur\+Menu(), run\+Main\+Logic(), Menus\+::run\+Menu\+Selection(), Menu\+::show\+Exit(), Factory\+Reset\+::show\+Reset(), Menus\+::show\+Selection(), Color\+Select\+::show\+Slot\+Selection(), and tick().
 
 \mbox{\Hypertarget{classVortexEngine_a0fbadd7cc2c0df5dcbff623c4e1292ce}\label{classVortexEngine_a0fbadd7cc2c0df5dcbff623c4e1292ce}} 
 \index{VortexEngine@{VortexEngine}!buttons@{buttons}}
@@ -229,7 +235,7 @@ Definition at line 228 of file Vortex\+Engine.\+cpp.
 \end{DoxyCode}
 
 
-References V\+O\+R\+T\+E\+X\+\_\+\+V\+E\+R\+S\+I\+O\+N\+\_\+\+M\+A\+J\+OR.
+References VORTEX\+\_\+\+VERSION\+\_\+\+MAJOR.
 
 
 
@@ -251,34 +257,34 @@ Definition at line 107 of file Vortex\+Engine.\+cpp.
 \DoxyCodeLine{109   \textcolor{comment}{// cleanup in reverse order}}
 \DoxyCodeLine{110   \textcolor{comment}{// NOTE: the embedded doesn't actually cleanup,}}
 \DoxyCodeLine{111   \textcolor{comment}{//       but the test frameworks do}}
-\DoxyCodeLine{112 \textcolor{preprocessor}{\#ifdef VORTEX\_LIB}}
+\DoxyCodeLine{112 \textcolor{preprocessor}{\#ifdef VORTEX\_LIB}}
 \DoxyCodeLine{113   \mbox{\hyperlink{classVortexEngine_aaa71bd5ce5778c4e804e71f608f11ef2}{m\_patternBuilder}}.\mbox{\hyperlink{classPatternBuilder_a68d39cbbce383f591b06fce2e903453b}{cleanup}}();}
 \DoxyCodeLine{114   \mbox{\hyperlink{classVortexEngine_aa6ab9fa0d15c5628ed65a41206df33c4}{m\_modes}}.\mbox{\hyperlink{classModes_aa16cf03f84bc5d911d220580ba3aeb7a}{cleanup}}();}
 \DoxyCodeLine{115   \mbox{\hyperlink{classVortexEngine_a90c37ecfdcefe9db975f71ed249dac96}{m\_menus}}.\mbox{\hyperlink{classMenus_afb9e47baa1d7322d865bc025202d7b9b}{cleanup}}();}
 \DoxyCodeLine{116   \mbox{\hyperlink{classVortexEngine_a05f38a31481080ed3f9d9b881c6cf769}{m\_buttons}}.\mbox{\hyperlink{classButtons_a4bee1374d1782a6006faee6f9d9bb792}{cleanup}}();}
 \DoxyCodeLine{117   \mbox{\hyperlink{classVortexEngine_a191e480857fb7f173dae7846bb6e9843}{m\_leds}}.\mbox{\hyperlink{classLeds_a2292420b1011485e315eff165bb201cf}{cleanup}}();}
-\DoxyCodeLine{118 \textcolor{preprocessor}{\#if VL\_ENABLE\_SENDER == 1}}
+\DoxyCodeLine{118 \textcolor{preprocessor}{\#if VL\_ENABLE\_SENDER == 1}}
 \DoxyCodeLine{119   \mbox{\hyperlink{classVortexEngine_ab2d695e86cbf7a1429199c8132b7ad6e}{m\_vlSender}}.\mbox{\hyperlink{classVLSender_a49afba3c3cae06136ad8744e367fcdb3}{cleanup}}();}
-\DoxyCodeLine{120 \textcolor{preprocessor}{\#endif}}
-\DoxyCodeLine{121 \textcolor{preprocessor}{\#if VL\_ENABLE\_RECEIVER == 1}}
+\DoxyCodeLine{120 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{121 \textcolor{preprocessor}{\#if VL\_ENABLE\_RECEIVER == 1}}
 \DoxyCodeLine{122   \mbox{\hyperlink{classVortexEngine_a3e1a61fe72aa758c009ed0e243f17104}{m\_vlReceiver}}.\mbox{\hyperlink{classVLReceiver_a31fba601a6e82bc043c7d017d91ce015}{cleanup}}();}
-\DoxyCodeLine{123 \textcolor{preprocessor}{\#if IR\_ENABLE\_SENDER == 1}}
+\DoxyCodeLine{123 \textcolor{preprocessor}{\#if IR\_ENABLE\_SENDER == 1}}
 \DoxyCodeLine{124   \mbox{\hyperlink{classVortexEngine_a032a6821d3f8bcfec936973bfcfe56bc}{m\_irSender}}.\mbox{\hyperlink{classIRSender_a4d6de9609f8e501e494cb431082d800a}{cleanup}}();}
-\DoxyCodeLine{125 \textcolor{preprocessor}{\#endif}}
-\DoxyCodeLine{126 \textcolor{preprocessor}{\#endif}}
-\DoxyCodeLine{127 \textcolor{preprocessor}{\#if IR\_ENABLE\_RECEIVER == 1}}
+\DoxyCodeLine{125 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{126 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{127 \textcolor{preprocessor}{\#if IR\_ENABLE\_RECEIVER == 1}}
 \DoxyCodeLine{128   \mbox{\hyperlink{classVortexEngine_a0defff546d320851c22740e908ffcc92}{m\_irReceiver}}.\mbox{\hyperlink{classIRReceiver_ad2ff2918f176f499520fcc457c56a089}{cleanup}}();}
-\DoxyCodeLine{129 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{129 \textcolor{preprocessor}{\#endif}}
 \DoxyCodeLine{130   \mbox{\hyperlink{classVortexEngine_a065e21d9585246728c6b6244d1d4e738}{m\_storage}}.\mbox{\hyperlink{classStorage_a2a1ce108c9a17f6175bfb9a9aba51703}{cleanup}}();}
 \DoxyCodeLine{131   \mbox{\hyperlink{classVortexEngine_a0d9515adbe5864e186e3998335cbe5b6}{m\_time}}.\mbox{\hyperlink{classTime_af813bd1f7e4c08f6d84f8831738fed32}{cleanup}}();}
 \DoxyCodeLine{132   \mbox{\hyperlink{classVortexEngine_a4924465e4a05e6ee9958c71e8e697d5a}{m\_serial}}.\mbox{\hyperlink{classSerialComs_a4da654c236a9ca2ce7b47bc775303adf}{cleanup}}();}
-\DoxyCodeLine{133 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{133 \textcolor{preprocessor}{\#endif}}
 \DoxyCodeLine{134 \}}
 
 \end{DoxyCode}
 
 
-References Serial\+Coms\+::cleanup(), Pattern\+Builder\+::cleanup(), I\+R\+Sender\+::cleanup(), Storage\+::cleanup(), V\+L\+Sender\+::cleanup(), Buttons\+::cleanup(), I\+R\+Receiver\+::cleanup(), V\+L\+Receiver\+::cleanup(), Modes\+::cleanup(), Time\+::cleanup(), Menus\+::cleanup(), Leds\+::cleanup(), m\+\_\+buttons, m\+\_\+ir\+Receiver, m\+\_\+ir\+Sender, m\+\_\+leds, m\+\_\+menus, m\+\_\+modes, m\+\_\+pattern\+Builder, m\+\_\+serial, m\+\_\+storage, m\+\_\+time, m\+\_\+vl\+Receiver, and m\+\_\+vl\+Sender.
+References Buttons\+::cleanup(), Leds\+::cleanup(), Menus\+::cleanup(), Modes\+::cleanup(), Pattern\+Builder\+::cleanup(), Serial\+Coms\+::cleanup(), Storage\+::cleanup(), Time\+::cleanup(), IRReceiver\+::cleanup(), IRSender\+::cleanup(), VLReceiver\+::cleanup(), VLSender\+::cleanup(), m\+\_\+buttons, m\+\_\+ir\+Receiver, m\+\_\+ir\+Sender, m\+\_\+leds, m\+\_\+menus, m\+\_\+modes, m\+\_\+pattern\+Builder, m\+\_\+serial, m\+\_\+storage, m\+\_\+time, m\+\_\+vl\+Receiver, and m\+\_\+vl\+Sender.
 
 
 
@@ -297,12 +303,12 @@ Definition at line 237 of file Vortex\+Engine.\+cpp.
 
 \begin{DoxyCode}{0}
 \DoxyCodeLine{238 \{}
-\DoxyCodeLine{239 \textcolor{preprocessor}{\#ifdef VORTEX\_LIB}}
+\DoxyCodeLine{239 \textcolor{preprocessor}{\#ifdef VORTEX\_LIB}}
 \DoxyCodeLine{240   \textcolor{keywordflow}{return} \mbox{\hyperlink{classVortexEngine_aa6ab9fa0d15c5628ed65a41206df33c4}{m\_modes}}.\mbox{\hyperlink{classModes_a1e520dc2ee457bc93a795e9945249dbd}{curMode}}();}
-\DoxyCodeLine{241 \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{241 \textcolor{preprocessor}{\#else}}
 \DoxyCodeLine{242   \textcolor{comment}{// don't need this outside vortex lib}}
 \DoxyCodeLine{243   \textcolor{keywordflow}{return} \textcolor{keyword}{nullptr};}
-\DoxyCodeLine{244 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{244 \textcolor{preprocessor}{\#endif}}
 \DoxyCodeLine{245 \}}
 
 \end{DoxyCode}
@@ -323,7 +329,7 @@ Definition at line 259 of file Vortex\+Engine.\+cpp.
 
 \begin{DoxyCode}{0}
 \DoxyCodeLine{260 \{}
-\DoxyCodeLine{261   \mbox{\hyperlink{Log_8h_a5d2f30bd1cbcf49f829a7e8eb6173c06}{DEBUG\_LOG}}(\textcolor{stringliteral}{"Sleeping"});}
+\DoxyCodeLine{261   \mbox{\hyperlink{Log_8h_a5d2f30bd1cbcf49f829a7e8eb6173c06}{DEBUG\_LOG}}(\textcolor{stringliteral}{"{}Sleeping"{}});}
 \DoxyCodeLine{262   \textcolor{keywordflow}{if} (save) \{}
 \DoxyCodeLine{263     \textcolor{comment}{// update the startup mode when going to sleep}}
 \DoxyCodeLine{264     \mbox{\hyperlink{classVortexEngine_aa6ab9fa0d15c5628ed65a41206df33c4}{m\_modes}}.\mbox{\hyperlink{classModes_a86dc60444399ab04d49f77935f68e8dd}{setStartupMode}}(\mbox{\hyperlink{classVortexEngine_aa6ab9fa0d15c5628ed65a41206df33c4}{m\_modes}}.\mbox{\hyperlink{classModes_a6e0cd170d30903d763863663c245987c}{curModeIndex}}());}
@@ -340,7 +346,7 @@ Definition at line 259 of file Vortex\+Engine.\+cpp.
 \end{DoxyCode}
 
 
-References Leds\+::clear\+All(), Modes\+::cur\+Mode\+Index(), D\+E\+B\+U\+G\+\_\+\+L\+OG, m\+\_\+leds, m\+\_\+modes, m\+\_\+sleeping, Modes\+::save\+Storage(), Modes\+::set\+Startup\+Mode(), and Leds\+::update().
+References Leds\+::clear\+All(), Modes\+::cur\+Mode\+Index(), DEBUG\+\_\+\+LOG, m\+\_\+leds, m\+\_\+modes, m\+\_\+sleeping, Modes\+::save\+Storage(), Modes\+::set\+Startup\+Mode(), and Leds\+::update().
 
 
 
@@ -361,73 +367,73 @@ Definition at line 32 of file Vortex\+Engine.\+cpp.
 \DoxyCodeLine{33 \{}
 \DoxyCodeLine{34   \textcolor{comment}{// all of the global controllers}}
 \DoxyCodeLine{35   \textcolor{keywordflow}{if} (!\mbox{\hyperlink{classVortexEngine_a4924465e4a05e6ee9958c71e8e697d5a}{m\_serial}}.\mbox{\hyperlink{classSerialComs_a6403cc48e107d19f9f1bb7e69006d0bc}{init}}()) \{}
-\DoxyCodeLine{36     \mbox{\hyperlink{Log_8h_a5d2f30bd1cbcf49f829a7e8eb6173c06}{DEBUG\_LOG}}(\textcolor{stringliteral}{"Serial failed to initialize"});}
+\DoxyCodeLine{36     \mbox{\hyperlink{Log_8h_a5d2f30bd1cbcf49f829a7e8eb6173c06}{DEBUG\_LOG}}(\textcolor{stringliteral}{"{}Serial failed to initialize"{}});}
 \DoxyCodeLine{37     \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
 \DoxyCodeLine{38   \}}
 \DoxyCodeLine{39   \textcolor{keywordflow}{if} (!\mbox{\hyperlink{classVortexEngine_a0d9515adbe5864e186e3998335cbe5b6}{m\_time}}.\mbox{\hyperlink{classTime_a0058db559daacf8050e8a0b1d4b9fd8c}{init}}()) \{}
-\DoxyCodeLine{40     \mbox{\hyperlink{Log_8h_a5d2f30bd1cbcf49f829a7e8eb6173c06}{DEBUG\_LOG}}(\textcolor{stringliteral}{"Time failed to initialize"});}
+\DoxyCodeLine{40     \mbox{\hyperlink{Log_8h_a5d2f30bd1cbcf49f829a7e8eb6173c06}{DEBUG\_LOG}}(\textcolor{stringliteral}{"{}Time failed to initialize"{}});}
 \DoxyCodeLine{41     \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
 \DoxyCodeLine{42   \}}
 \DoxyCodeLine{43   \textcolor{keywordflow}{if} (!\mbox{\hyperlink{classVortexEngine_a065e21d9585246728c6b6244d1d4e738}{m\_storage}}.\mbox{\hyperlink{classStorage_a065812a8dbd82d731291b5aa7ce3edf9}{init}}()) \{}
-\DoxyCodeLine{44     \mbox{\hyperlink{Log_8h_a5d2f30bd1cbcf49f829a7e8eb6173c06}{DEBUG\_LOG}}(\textcolor{stringliteral}{"Storage failed to initialize"});}
+\DoxyCodeLine{44     \mbox{\hyperlink{Log_8h_a5d2f30bd1cbcf49f829a7e8eb6173c06}{DEBUG\_LOG}}(\textcolor{stringliteral}{"{}Storage failed to initialize"{}});}
 \DoxyCodeLine{45     \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
 \DoxyCodeLine{46   \}}
-\DoxyCodeLine{47 \textcolor{preprocessor}{\#if IR\_ENABLE\_RECEIVER == 1}}
+\DoxyCodeLine{47 \textcolor{preprocessor}{\#if IR\_ENABLE\_RECEIVER == 1}}
 \DoxyCodeLine{48   \textcolor{keywordflow}{if} (!\mbox{\hyperlink{classVortexEngine_a0defff546d320851c22740e908ffcc92}{m\_irReceiver}}.\mbox{\hyperlink{classIRReceiver_aad4e38923e65bec4c02197c56ec6a4af}{init}}()) \{}
-\DoxyCodeLine{49     \mbox{\hyperlink{Log_8h_a5d2f30bd1cbcf49f829a7e8eb6173c06}{DEBUG\_LOG}}(\textcolor{stringliteral}{"IRReceiver failed to initialize"});}
+\DoxyCodeLine{49     \mbox{\hyperlink{Log_8h_a5d2f30bd1cbcf49f829a7e8eb6173c06}{DEBUG\_LOG}}(\textcolor{stringliteral}{"{}IRReceiver failed to initialize"{}});}
 \DoxyCodeLine{50     \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
 \DoxyCodeLine{51   \}}
-\DoxyCodeLine{52 \textcolor{preprocessor}{\#endif}}
-\DoxyCodeLine{53 \textcolor{preprocessor}{\#if IR\_ENABLE\_SENDER == 1}}
+\DoxyCodeLine{52 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{53 \textcolor{preprocessor}{\#if IR\_ENABLE\_SENDER == 1}}
 \DoxyCodeLine{54   \textcolor{keywordflow}{if} (!\mbox{\hyperlink{classVortexEngine_a032a6821d3f8bcfec936973bfcfe56bc}{m\_irSender}}.\mbox{\hyperlink{classIRSender_afcdf3f0f7c226c706f905c33e784057a}{init}}()) \{}
-\DoxyCodeLine{55     \mbox{\hyperlink{Log_8h_a5d2f30bd1cbcf49f829a7e8eb6173c06}{DEBUG\_LOG}}(\textcolor{stringliteral}{"IRSender failed to initialize"});}
+\DoxyCodeLine{55     \mbox{\hyperlink{Log_8h_a5d2f30bd1cbcf49f829a7e8eb6173c06}{DEBUG\_LOG}}(\textcolor{stringliteral}{"{}IRSender failed to initialize"{}});}
 \DoxyCodeLine{56     \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
 \DoxyCodeLine{57   \}}
-\DoxyCodeLine{58 \textcolor{preprocessor}{\#endif}}
-\DoxyCodeLine{59 \textcolor{preprocessor}{\#if VL\_ENABLE\_RECEIVER == 1}}
+\DoxyCodeLine{58 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{59 \textcolor{preprocessor}{\#if VL\_ENABLE\_RECEIVER == 1}}
 \DoxyCodeLine{60   \textcolor{keywordflow}{if} (!\mbox{\hyperlink{classVortexEngine_a3e1a61fe72aa758c009ed0e243f17104}{m\_vlReceiver}}.\mbox{\hyperlink{classVLReceiver_a406cd003a5d26bfe07470261fdb022c1}{init}}()) \{}
-\DoxyCodeLine{61     \mbox{\hyperlink{Log_8h_a5d2f30bd1cbcf49f829a7e8eb6173c06}{DEBUG\_LOG}}(\textcolor{stringliteral}{"VLReceiver failed to initialize"});}
+\DoxyCodeLine{61     \mbox{\hyperlink{Log_8h_a5d2f30bd1cbcf49f829a7e8eb6173c06}{DEBUG\_LOG}}(\textcolor{stringliteral}{"{}VLReceiver failed to initialize"{}});}
 \DoxyCodeLine{62     \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
 \DoxyCodeLine{63   \}}
-\DoxyCodeLine{64 \textcolor{preprocessor}{\#endif}}
-\DoxyCodeLine{65 \textcolor{preprocessor}{\#if VL\_ENABLE\_SENDER == 1}}
+\DoxyCodeLine{64 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{65 \textcolor{preprocessor}{\#if VL\_ENABLE\_SENDER == 1}}
 \DoxyCodeLine{66   \textcolor{keywordflow}{if} (!\mbox{\hyperlink{classVortexEngine_ab2d695e86cbf7a1429199c8132b7ad6e}{m\_vlSender}}.\mbox{\hyperlink{classVLSender_afe2303e108c0aad37695e257f1ba4dad}{init}}()) \{}
-\DoxyCodeLine{67     \mbox{\hyperlink{Log_8h_a5d2f30bd1cbcf49f829a7e8eb6173c06}{DEBUG\_LOG}}(\textcolor{stringliteral}{"VLSender failed to initialize"});}
+\DoxyCodeLine{67     \mbox{\hyperlink{Log_8h_a5d2f30bd1cbcf49f829a7e8eb6173c06}{DEBUG\_LOG}}(\textcolor{stringliteral}{"{}VLSender failed to initialize"{}});}
 \DoxyCodeLine{68     \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
 \DoxyCodeLine{69   \}}
-\DoxyCodeLine{70 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{70 \textcolor{preprocessor}{\#endif}}
 \DoxyCodeLine{71   \textcolor{keywordflow}{if} (!\mbox{\hyperlink{classVortexEngine_a191e480857fb7f173dae7846bb6e9843}{m\_leds}}.\mbox{\hyperlink{classLeds_aa470a02f29041f373be156dc698ed4c7}{init}}()) \{}
-\DoxyCodeLine{72     \mbox{\hyperlink{Log_8h_a5d2f30bd1cbcf49f829a7e8eb6173c06}{DEBUG\_LOG}}(\textcolor{stringliteral}{"Leds failed to initialize"});}
+\DoxyCodeLine{72     \mbox{\hyperlink{Log_8h_a5d2f30bd1cbcf49f829a7e8eb6173c06}{DEBUG\_LOG}}(\textcolor{stringliteral}{"{}Leds failed to initialize"{}});}
 \DoxyCodeLine{73     \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
 \DoxyCodeLine{74   \}}
 \DoxyCodeLine{75   \textcolor{keywordflow}{if} (!\mbox{\hyperlink{classVortexEngine_a05f38a31481080ed3f9d9b881c6cf769}{m\_buttons}}.\mbox{\hyperlink{classButtons_ac5767a8af9ce64e39231833ad1b166ea}{init}}()) \{}
-\DoxyCodeLine{76     \mbox{\hyperlink{Log_8h_a5d2f30bd1cbcf49f829a7e8eb6173c06}{DEBUG\_LOG}}(\textcolor{stringliteral}{"Buttons failed to initialize"});}
+\DoxyCodeLine{76     \mbox{\hyperlink{Log_8h_a5d2f30bd1cbcf49f829a7e8eb6173c06}{DEBUG\_LOG}}(\textcolor{stringliteral}{"{}Buttons failed to initialize"{}});}
 \DoxyCodeLine{77     \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
 \DoxyCodeLine{78   \}}
 \DoxyCodeLine{79   \textcolor{keywordflow}{if} (!\mbox{\hyperlink{classVortexEngine_a90c37ecfdcefe9db975f71ed249dac96}{m\_menus}}.\mbox{\hyperlink{classMenus_a370c7e15fdcd035a2816b9db1adab189}{init}}()) \{}
-\DoxyCodeLine{80     \mbox{\hyperlink{Log_8h_a5d2f30bd1cbcf49f829a7e8eb6173c06}{DEBUG\_LOG}}(\textcolor{stringliteral}{"Menus failed to initialize"});}
+\DoxyCodeLine{80     \mbox{\hyperlink{Log_8h_a5d2f30bd1cbcf49f829a7e8eb6173c06}{DEBUG\_LOG}}(\textcolor{stringliteral}{"{}Menus failed to initialize"{}});}
 \DoxyCodeLine{81     \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
 \DoxyCodeLine{82   \}}
 \DoxyCodeLine{83   \textcolor{keywordflow}{if} (!\mbox{\hyperlink{classVortexEngine_aa6ab9fa0d15c5628ed65a41206df33c4}{m\_modes}}.\mbox{\hyperlink{classModes_a8b920de981d96ca9365b766a3f59fb73}{init}}()) \{}
-\DoxyCodeLine{84     \mbox{\hyperlink{Log_8h_a5d2f30bd1cbcf49f829a7e8eb6173c06}{DEBUG\_LOG}}(\textcolor{stringliteral}{"Settings failed to initialize"});}
+\DoxyCodeLine{84     \mbox{\hyperlink{Log_8h_a5d2f30bd1cbcf49f829a7e8eb6173c06}{DEBUG\_LOG}}(\textcolor{stringliteral}{"{}Settings failed to initialize"{}});}
 \DoxyCodeLine{85     \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
 \DoxyCodeLine{86   \}}
 \DoxyCodeLine{87   \textcolor{keywordflow}{if} (!\mbox{\hyperlink{classVortexEngine_aaa71bd5ce5778c4e804e71f608f11ef2}{m\_patternBuilder}}.\mbox{\hyperlink{classPatternBuilder_a30261a91dd18cf29b1fa15bbc90fa8cc}{init}}()) \{}
-\DoxyCodeLine{88     \mbox{\hyperlink{Log_8h_a5d2f30bd1cbcf49f829a7e8eb6173c06}{DEBUG\_LOG}}(\textcolor{stringliteral}{"Pattern builder failed to initialize"});}
+\DoxyCodeLine{88     \mbox{\hyperlink{Log_8h_a5d2f30bd1cbcf49f829a7e8eb6173c06}{DEBUG\_LOG}}(\textcolor{stringliteral}{"{}Pattern builder failed to initialize"{}});}
 \DoxyCodeLine{89     \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
 \DoxyCodeLine{90   \}}
 \DoxyCodeLine{91 }
-\DoxyCodeLine{92 \textcolor{preprocessor}{\#if COMPRESSION\_TEST == 1}}
+\DoxyCodeLine{92 \textcolor{preprocessor}{\#if COMPRESSION\_TEST == 1}}
 \DoxyCodeLine{93   compressionTest();}
-\DoxyCodeLine{94 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{94 \textcolor{preprocessor}{\#endif}}
 \DoxyCodeLine{95 }
-\DoxyCodeLine{96 \textcolor{preprocessor}{\#if SERIALIZATION\_TEST == 1}}
+\DoxyCodeLine{96 \textcolor{preprocessor}{\#if SERIALIZATION\_TEST == 1}}
 \DoxyCodeLine{97   serializationTest();}
-\DoxyCodeLine{98 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{98 \textcolor{preprocessor}{\#endif}}
 \DoxyCodeLine{99 }
-\DoxyCodeLine{100 \textcolor{preprocessor}{\#if TIMER\_TEST == 1}}
+\DoxyCodeLine{100 \textcolor{preprocessor}{\#if TIMER\_TEST == 1}}
 \DoxyCodeLine{101   timerTest();}
-\DoxyCodeLine{102 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{102 \textcolor{preprocessor}{\#endif}}
 \DoxyCodeLine{103 }
 \DoxyCodeLine{104   \textcolor{keywordflow}{return} \textcolor{keyword}{true};}
 \DoxyCodeLine{105 \}}
@@ -435,7 +441,7 @@ Definition at line 32 of file Vortex\+Engine.\+cpp.
 \end{DoxyCode}
 
 
-References D\+E\+B\+U\+G\+\_\+\+L\+OG, Serial\+Coms\+::init(), Pattern\+Builder\+::init(), I\+R\+Sender\+::init(), Storage\+::init(), V\+L\+Sender\+::init(), Buttons\+::init(), I\+R\+Receiver\+::init(), V\+L\+Receiver\+::init(), Modes\+::init(), Time\+::init(), Menus\+::init(), Leds\+::init(), m\+\_\+buttons, m\+\_\+ir\+Receiver, m\+\_\+ir\+Sender, m\+\_\+leds, m\+\_\+menus, m\+\_\+modes, m\+\_\+pattern\+Builder, m\+\_\+serial, m\+\_\+storage, m\+\_\+time, m\+\_\+vl\+Receiver, and m\+\_\+vl\+Sender.
+References DEBUG\+\_\+\+LOG, Buttons\+::init(), Leds\+::init(), Menus\+::init(), Modes\+::init(), Pattern\+Builder\+::init(), Serial\+Coms\+::init(), Storage\+::init(), Time\+::init(), IRReceiver\+::init(), IRSender\+::init(), VLReceiver\+::init(), VLSender\+::init(), m\+\_\+buttons, m\+\_\+ir\+Receiver, m\+\_\+ir\+Sender, m\+\_\+leds, m\+\_\+menus, m\+\_\+modes, m\+\_\+pattern\+Builder, m\+\_\+serial, m\+\_\+storage, m\+\_\+time, m\+\_\+vl\+Receiver, and m\+\_\+vl\+Sender.
 
 
 
@@ -445,7 +451,7 @@ Referenced by Vortex\+::init(), and wakeup().
 \index{VortexEngine@{VortexEngine}!irReceiver@{irReceiver}}
 \index{irReceiver@{irReceiver}!VortexEngine@{VortexEngine}}
 \doxysubsubsection{\texorpdfstring{irReceiver()}{irReceiver()}}
-{\footnotesize\ttfamily \mbox{\hyperlink{classIRReceiver}{I\+R\+Receiver}}\& Vortex\+Engine\+::ir\+Receiver (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classIRReceiver}{IRReceiver}}\& Vortex\+Engine\+::ir\+Receiver (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
 
 
@@ -462,13 +468,13 @@ References m\+\_\+ir\+Receiver.
 
 
 
-Referenced by Mode\+Sharing\+::begin\+Receiving\+I\+R(), Vortex\+::\+I\+R\+Deliver(), Mode\+Sharing\+::on\+Short\+Click(), Mode\+Sharing\+::receive\+Mode\+I\+R(), and Mode\+Sharing\+::show\+Receive\+Mode().
+Referenced by Mode\+Sharing\+::begin\+Receiving\+IR(), Vortex\+::\+IRDeliver(), Mode\+Sharing\+::on\+Short\+Click(), Mode\+Sharing\+::receive\+Mode\+IR(), and Mode\+Sharing\+::show\+Receive\+Mode().
 
 \mbox{\Hypertarget{classVortexEngine_a7c455b376183699c9e0b7d23578028dc}\label{classVortexEngine_a7c455b376183699c9e0b7d23578028dc}} 
 \index{VortexEngine@{VortexEngine}!irSender@{irSender}}
 \index{irSender@{irSender}!VortexEngine@{VortexEngine}}
 \doxysubsubsection{\texorpdfstring{irSender()}{irSender()}}
-{\footnotesize\ttfamily \mbox{\hyperlink{classIRSender}{I\+R\+Sender}}\& Vortex\+Engine\+::ir\+Sender (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classIRSender}{IRSender}}\& Vortex\+Engine\+::ir\+Sender (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
 
 
@@ -485,7 +491,7 @@ References m\+\_\+ir\+Sender.
 
 
 
-Referenced by Mode\+Sharing\+::begin\+Sending\+I\+R(), and Mode\+Sharing\+::continue\+Sending\+I\+R().
+Referenced by Mode\+Sharing\+::begin\+Sending\+IR(), and Mode\+Sharing\+::continue\+Sending\+IR().
 
 \mbox{\Hypertarget{classVortexEngine_a6db4e68fe048d9ff0fbb15cc126f28fb}\label{classVortexEngine_a6db4e68fe048d9ff0fbb15cc126f28fb}} 
 \index{VortexEngine@{VortexEngine}!leds@{leds}}
@@ -508,7 +514,7 @@ References m\+\_\+leds.
 
 
 
-Referenced by Basic\+Pattern\+::begin\+Dash(), Basic\+Pattern\+::begin\+Gap(), Meteor\+Pattern\+::blink\+Off(), Lighthouse\+Pattern\+::blink\+Off(), Drip\+Morph\+Pattern\+::blink\+Off(), Blink\+Step\+Pattern\+::blink\+Off(), Bounce\+Pattern\+::blink\+On(), Snowball\+Pattern\+::blink\+On(), Sparkle\+Trace\+Pattern\+::blink\+On(), Warp\+Pattern\+::blink\+On(), Warp\+Worm\+Pattern\+::blink\+On(), Double\+Strobe\+Pattern\+::blink\+On(), Drip\+Pattern\+::blink\+On(), Fill\+Pattern\+::blink\+On(), Meteor\+Pattern\+::blink\+On(), Theater\+Chase\+Pattern\+::blink\+On(), Vortex\+Pattern\+::blink\+On(), Vortex\+Wipe\+Pattern\+::blink\+On(), Cross\+Dops\+Pattern\+::blink\+On(), Lighthouse\+Pattern\+::blink\+On(), Drip\+Morph\+Pattern\+::blink\+On(), Vortex\+::check\+Led\+Count(), Modes\+::clear\+Modes(), Menus\+::close\+Cur\+Menu(), Zigzag\+Pattern\+::\+Snake\+::draw(), Zigzag\+Pattern\+::\+Snake\+::draw\+Snake(), Vortex\+::get\+Led\+Count(), Mode\+::get\+Single\+Led\+Map(), Global\+Brightness\+::init(), Vortex\+::load\+From\+Json(), Menu\+::next\+Bulb\+Selection(), Basic\+Pattern\+::on\+Blink\+Off(), Blend\+Pattern\+::on\+Blink\+On(), Basic\+Pattern\+::on\+Blink\+On(), Color\+Select\+::on\+Led\+Selected(), Pattern\+Select\+::on\+Led\+Selected(), Factory\+Reset\+::on\+Long\+Click(), Global\+Brightness\+::on\+Long\+Click(), Pattern\+Select\+::on\+Long\+Click(), Mode\+Sharing\+::on\+Short\+Click(), Pattern\+Select\+::on\+Short\+Click(), Randomizer\+::on\+Short\+Click(), Menus\+::open\+Menu(), Menus\+::open\+Menu\+Selection(), Pulsish\+Pattern\+::play(), Hue\+Shift\+Pattern\+::play(), Modes\+::play(), Mode\+::play(), Sequenced\+Pattern\+::play\+Sequence\+Step(), Sparkle\+Trace\+Pattern\+::poststep(), Color\+Select\+::run(), Menus\+::run\+Menu\+Selection(), Vortex\+::save\+To\+Json(), Modes\+::serialize\+Save\+Header(), Colorset\+Map\+::set\+Colorset\+At(), Modes\+::set\+Cur\+Mode(), Vortex\+::set\+Led\+Count(), Pattern\+Map\+::set\+Pattern\+At(), Global\+Brightness\+::show\+Brightness\+Selection(), Menu\+::show\+Bulb\+Selection(), Editor\+Connection\+::show\+Editor(), Menu\+::show\+Exit(), Color\+Select\+::show\+Full\+Set(), Randomizer\+::show\+Randomization\+Select(), Mode\+Sharing\+::show\+Receive\+Mode(), Factory\+Reset\+::show\+Reset(), Color\+Select\+::show\+Selection(), Menus\+::show\+Selection(), Mode\+Sharing\+::show\+Send\+Mode\+I\+R(), Mode\+Sharing\+::show\+Send\+Mode\+V\+L(), Color\+Select\+::show\+Slot\+Selection(), and Modes\+::unserialize\+Save\+Header().
+Referenced by Basic\+Pattern\+::begin\+Dash(), Basic\+Pattern\+::begin\+Gap(), Blink\+Step\+Pattern\+::blink\+Off(), Drip\+Morph\+Pattern\+::blink\+Off(), Lighthouse\+Pattern\+::blink\+Off(), Meteor\+Pattern\+::blink\+Off(), Drip\+Morph\+Pattern\+::blink\+On(), Bounce\+Pattern\+::blink\+On(), Cross\+Dops\+Pattern\+::blink\+On(), Double\+Strobe\+Pattern\+::blink\+On(), Drip\+Pattern\+::blink\+On(), Fill\+Pattern\+::blink\+On(), Lighthouse\+Pattern\+::blink\+On(), Meteor\+Pattern\+::blink\+On(), Snowball\+Pattern\+::blink\+On(), Sparkle\+Trace\+Pattern\+::blink\+On(), Theater\+Chase\+Pattern\+::blink\+On(), Vortex\+Pattern\+::blink\+On(), Vortex\+Wipe\+Pattern\+::blink\+On(), Warp\+Pattern\+::blink\+On(), Warp\+Worm\+Pattern\+::blink\+On(), Vortex\+::check\+Led\+Count(), Modes\+::clear\+Modes(), Menus\+::close\+Cur\+Menu(), Zigzag\+Pattern\+::\+Snake\+::draw(), Zigzag\+Pattern\+::\+Snake\+::draw\+Snake(), Vortex\+::get\+Led\+Count(), Mode\+::get\+Single\+Led\+Map(), Global\+Brightness\+::init(), Vortex\+::load\+From\+Json(), Menu\+::next\+Bulb\+Selection(), Basic\+Pattern\+::on\+Blink\+Off(), Basic\+Pattern\+::on\+Blink\+On(), Blend\+Pattern\+::on\+Blink\+On(), Color\+Select\+::on\+Led\+Selected(), Pattern\+Select\+::on\+Led\+Selected(), Factory\+Reset\+::on\+Long\+Click(), Global\+Brightness\+::on\+Long\+Click(), Pattern\+Select\+::on\+Long\+Click(), Mode\+Sharing\+::on\+Short\+Click(), Pattern\+Select\+::on\+Short\+Click(), Randomizer\+::on\+Short\+Click(), Menus\+::open\+Menu(), Menus\+::open\+Menu\+Selection(), Mode\+::play(), Modes\+::play(), Hue\+Shift\+Pattern\+::play(), Pulsish\+Pattern\+::play(), Sequenced\+Pattern\+::play\+Sequence\+Step(), Sparkle\+Trace\+Pattern\+::poststep(), Color\+Select\+::run(), Menus\+::run\+Menu\+Selection(), Vortex\+::save\+To\+Json(), Modes\+::serialize\+Save\+Header(), Colorset\+Map\+::set\+Colorset\+At(), Modes\+::set\+Cur\+Mode(), Vortex\+::set\+Led\+Count(), Pattern\+Map\+::set\+Pattern\+At(), Global\+Brightness\+::show\+Brightness\+Selection(), Menu\+::show\+Bulb\+Selection(), Editor\+Connection\+::show\+Editor(), Menu\+::show\+Exit(), Color\+Select\+::show\+Full\+Set(), Randomizer\+::show\+Randomization\+Select(), Mode\+Sharing\+::show\+Receive\+Mode(), Factory\+Reset\+::show\+Reset(), Color\+Select\+::show\+Selection(), Menus\+::show\+Selection(), Mode\+Sharing\+::show\+Send\+Mode\+IR(), Mode\+Sharing\+::show\+Send\+Mode\+VL(), Color\+Select\+::show\+Slot\+Selection(), and Modes\+::unserialize\+Save\+Header().
 
 \mbox{\Hypertarget{classVortexEngine_aac47da6a6d2360bfda3fcf4dd6e803e1}\label{classVortexEngine_aac47da6a6d2360bfda3fcf4dd6e803e1}} 
 \index{VortexEngine@{VortexEngine}!menus@{menus}}
@@ -531,7 +537,7 @@ References m\+\_\+menus.
 
 
 
-Referenced by Vortex\+::add\+Menu\+Target\+Leds(), Vortex\+::clear\+Menu\+Target\+Leds(), Vortex\+::get\+Menu\+Demo\+Mode(), Vortex\+::open\+Color\+Select(), Vortex\+::open\+Editor\+Connection(), Vortex\+::open\+Factory\+Reset(), Vortex\+::open\+Global\+Brightness(), Vortex\+::open\+Mode\+Sharing(), Vortex\+::open\+Pattern\+Select(), Vortex\+::open\+Randomizer(), Global\+Brightness\+::run(), Color\+Select\+::run(), Pattern\+Select\+::run(), Randomizer\+::run(), Vortex\+::set\+Menu\+Demo\+Mode(), Vortex\+::set\+Menu\+Target\+Leds(), Menu\+::show\+Bulb\+Selection(), and Randomizer\+::show\+Randomization\+Select().
+Referenced by Vortex\+::add\+Menu\+Target\+Leds(), Vortex\+::clear\+Menu\+Target\+Leds(), Vortex\+::get\+Menu\+Demo\+Mode(), Vortex\+::open\+Color\+Select(), Vortex\+::open\+Editor\+Connection(), Vortex\+::open\+Factory\+Reset(), Vortex\+::open\+Global\+Brightness(), Vortex\+::open\+Mode\+Sharing(), Vortex\+::open\+Pattern\+Select(), Vortex\+::open\+Randomizer(), Color\+Select\+::run(), Global\+Brightness\+::run(), Pattern\+Select\+::run(), Randomizer\+::run(), Vortex\+::set\+Menu\+Demo\+Mode(), Vortex\+::set\+Menu\+Target\+Leds(), Menu\+::show\+Bulb\+Selection(), and Randomizer\+::show\+Randomization\+Select().
 
 \mbox{\Hypertarget{classVortexEngine_ae2f6242adc5499cd5de7256e2bebb8a9}\label{classVortexEngine_ae2f6242adc5499cd5de7256e2bebb8a9}} 
 \index{VortexEngine@{VortexEngine}!modes@{modes}}
@@ -554,7 +560,7 @@ References m\+\_\+modes.
 
 
 
-Referenced by Vortex\+::add\+Mode(), Vortex\+::add\+New\+Mode(), Mode\+Sharing\+::begin\+Sending\+I\+R(), Mode\+Sharing\+::begin\+Sending\+V\+L(), Vortex\+::check\+Led\+Count(), Vortex\+::cur\+Mode\+Index(), Vortex\+::del\+Cur\+Mode(), Vortex\+::do\+Save(), Vortex\+::get\+Colorset(), Vortex\+::get\+Cur\+Mode(), Vortex\+::get\+Mode\+Name(), Vortex\+::get\+Modes(), Vortex\+::get\+Pattern\+Args(), Vortex\+::get\+Pattern\+I\+D(), Factory\+Reset\+::init(), Color\+Select\+::init(), Menu\+::init(), Vortex\+C\+L\+I\+::init(), Randomizer\+::init(), Vortex\+::init(), Vortex\+::is\+Cur\+Mode\+Multi(), Menu\+::leave\+Menu(), Vortex\+::load\+From\+Json(), Vortex\+::load\+Mode\+From\+Json(), Vortex\+::load\+Storage(), Menu\+::next\+Bulb\+Selection(), Vortex\+::next\+Mode(), Vortex\+::num\+Leds\+In\+Mode(), Vortex\+::num\+Modes(), Color\+Select\+::on\+Led\+Selected(), Mode\+Sharing\+::on\+Long\+Click(), Factory\+Reset\+::on\+Long\+Click(), Color\+Select\+::on\+Long\+Click(), Pattern\+Select\+::on\+Long\+Click(), Randomizer\+::on\+Long\+Click(), Vortex\+::parse\+Mode\+Json(), Vortex\+::parse\+Pattern\+Json(), Vortex\+::print\+Mode\+Json(), Vortex\+::print\+Pattern\+Json(), Mode\+Sharing\+::receive\+Mode\+I\+R(), Editor\+Connection\+::receive\+Modes(), run\+Main\+Logic(), Menus\+::run\+Menu\+Selection(), Vortex\+::save\+Mode\+To\+Json(), Vortex\+::save\+To\+Json(), Editor\+Connection\+::send\+Modes(), Vortex\+::set\+Colorset(), Vortex\+::set\+Cur\+Mode(), Vortex\+::set\+Led\+Count(), Vortex\+::set\+Modes(), Vortex\+::set\+Pattern(), Vortex\+::set\+Pattern\+Args(), Vortex\+::set\+Pattern\+At(), and Vortex\+::shift\+Cur\+Mode().
+Referenced by Vortex\+::add\+Mode(), Vortex\+::add\+New\+Mode(), Mode\+Sharing\+::begin\+Sending\+IR(), Mode\+Sharing\+::begin\+Sending\+VL(), Vortex\+::check\+Led\+Count(), Vortex\+::cur\+Mode\+Index(), Vortex\+::del\+Cur\+Mode(), Vortex\+::do\+Save(), Vortex\+::get\+Colorset(), Vortex\+::get\+Cur\+Mode(), Vortex\+::get\+Mode\+Name(), Vortex\+::get\+Modes(), Vortex\+::get\+Pattern\+Args(), Vortex\+::get\+Pattern\+ID(), Menu\+::init(), Color\+Select\+::init(), Factory\+Reset\+::init(), Randomizer\+::init(), Vortex\+CLI\+::init(), Vortex\+::init(), Vortex\+::is\+Cur\+Mode\+Multi(), Menu\+::leave\+Menu(), Vortex\+::load\+From\+Json(), Vortex\+::load\+Mode\+From\+Json(), Vortex\+::load\+Storage(), Menu\+::next\+Bulb\+Selection(), Vortex\+::next\+Mode(), Vortex\+::num\+Leds\+In\+Mode(), Vortex\+::num\+Modes(), Color\+Select\+::on\+Led\+Selected(), Color\+Select\+::on\+Long\+Click(), Factory\+Reset\+::on\+Long\+Click(), Mode\+Sharing\+::on\+Long\+Click(), Pattern\+Select\+::on\+Long\+Click(), Randomizer\+::on\+Long\+Click(), Vortex\+::parse\+Mode\+Json(), Vortex\+::parse\+Pattern\+Json(), Vortex\+::print\+Mode\+Json(), Vortex\+::print\+Pattern\+Json(), Mode\+Sharing\+::receive\+Mode\+IR(), Editor\+Connection\+::receive\+Modes(), run\+Main\+Logic(), Menus\+::run\+Menu\+Selection(), Vortex\+::save\+Mode\+To\+Json(), Vortex\+::save\+To\+Json(), Editor\+Connection\+::send\+Modes(), Vortex\+::set\+Colorset(), Vortex\+::set\+Cur\+Mode(), Vortex\+::set\+Led\+Count(), Vortex\+::set\+Modes(), Vortex\+::set\+Pattern(), Vortex\+::set\+Pattern\+Args(), Vortex\+::set\+Pattern\+At(), and Vortex\+::shift\+Cur\+Mode().
 
 \mbox{\Hypertarget{classVortexEngine_a0898c499130adb075ef02614aee5daad}\label{classVortexEngine_a0898c499130adb075ef02614aee5daad}} 
 \index{VortexEngine@{VortexEngine}!patternBuilder@{patternBuilder}}
@@ -608,7 +614,7 @@ Definition at line 177 of file Vortex\+Engine.\+cpp.
 \DoxyCodeLine{192 }
 \DoxyCodeLine{193   \textcolor{comment}{// check if we should enter the menu}}
 \DoxyCodeLine{194   \textcolor{keywordflow}{if} (\mbox{\hyperlink{classVortexEngine_a8a356e459660541f8a513ba88584e432}{m\_engine}}.\mbox{\hyperlink{classVortexEngine_aa8257eae68c0e55bbec0f5cc6bca87dc}{button}}().\mbox{\hyperlink{classButton_a6ed2a4b4e00facf5c42a11ecd1f4e1c7}{isPressed}}() \&\& \mbox{\hyperlink{classVortexEngine_a8a356e459660541f8a513ba88584e432}{m\_engine}}.\mbox{\hyperlink{classVortexEngine_aa8257eae68c0e55bbec0f5cc6bca87dc}{button}}().\mbox{\hyperlink{classButton_a2e0dae337117cd85f69c8346d369504a}{holdDuration}}() > \mbox{\hyperlink{Timings_8h_a155fc794adbdc762cfbc71f55a04bc22}{MENU\_TRIGGER\_THRESHOLD\_TICKS}}) \{}
-\DoxyCodeLine{195     \mbox{\hyperlink{Log_8h_a5d2f30bd1cbcf49f829a7e8eb6173c06}{DEBUG\_LOG}}(\textcolor{stringliteral}{"Entering Menu Selection..."});}
+\DoxyCodeLine{195     \mbox{\hyperlink{Log_8h_a5d2f30bd1cbcf49f829a7e8eb6173c06}{DEBUG\_LOG}}(\textcolor{stringliteral}{"{}Entering Menu Selection..."{}});}
 \DoxyCodeLine{196     \mbox{\hyperlink{classVortexEngine_a90c37ecfdcefe9db975f71ed249dac96}{m\_menus}}.\mbox{\hyperlink{classMenus_a1f8dacb375bd4d1ec18da2ed5a3e8cb3}{openMenuSelection}}();}
 \DoxyCodeLine{197     \textcolor{keywordflow}{return};}
 \DoxyCodeLine{198   \}}
@@ -632,7 +638,7 @@ Definition at line 177 of file Vortex\+Engine.\+cpp.
 \end{DoxyCode}
 
 
-References A\+U\+T\+O\+\_\+\+C\+Y\+C\+L\+E\+\_\+\+M\+O\+D\+E\+S\+\_\+\+C\+L\+I\+C\+KS, A\+U\+T\+O\+\_\+\+R\+A\+N\+D\+O\+M\+\_\+\+D\+E\+L\+AY, button(), D\+E\+B\+U\+G\+\_\+\+L\+OG, Time\+::get\+Curtime(), Leds\+::hold\+All(), Button\+::hold\+Duration(), Button\+::is\+Pressed(), Modes\+::last\+Switch\+Time(), Modes\+::load(), m\+\_\+auto\+Cycle, m\+\_\+engine, m\+\_\+leds, m\+\_\+menus, m\+\_\+modes, m\+\_\+time, M\+E\+N\+U\+\_\+\+T\+R\+I\+G\+G\+E\+R\+\_\+\+T\+H\+R\+E\+S\+H\+O\+L\+D\+\_\+\+T\+I\+C\+KS, modes(), Modes\+::next\+Mode(), Button\+::on\+Consecutive\+Presses(), Button\+::on\+Release(), Menus\+::open\+Menu\+Selection(), Modes\+::play(), R\+G\+B\+\_\+\+G\+R\+E\+EN, R\+G\+B\+\_\+\+R\+ED, and Menus\+::run().
+References AUTO\+\_\+\+CYCLE\+\_\+\+MODES\+\_\+\+CLICKS, AUTO\+\_\+\+RANDOM\+\_\+\+DELAY, button(), DEBUG\+\_\+\+LOG, Time\+::get\+Curtime(), Leds\+::hold\+All(), Button\+::hold\+Duration(), Button\+::is\+Pressed(), Modes\+::last\+Switch\+Time(), Modes\+::load(), m\+\_\+auto\+Cycle, m\+\_\+engine, m\+\_\+leds, m\+\_\+menus, m\+\_\+modes, m\+\_\+time, MENU\+\_\+\+TRIGGER\+\_\+\+THRESHOLD\+\_\+\+TICKS, modes(), Modes\+::next\+Mode(), Button\+::on\+Consecutive\+Presses(), Button\+::on\+Release(), Menus\+::open\+Menu\+Selection(), Modes\+::play(), RGB\+\_\+\+GREEN, RGB\+\_\+\+RED, and Menus\+::run().
 
 
 
@@ -687,7 +693,7 @@ Definition at line 216 of file Vortex\+Engine.\+cpp.
 \end{DoxyCode}
 
 
-References Byte\+Stream\+::serialize8(), V\+O\+R\+T\+E\+X\+\_\+\+V\+E\+R\+S\+I\+O\+N\+\_\+\+M\+A\+J\+OR, and V\+O\+R\+T\+E\+X\+\_\+\+V\+E\+R\+S\+I\+O\+N\+\_\+\+M\+I\+N\+OR.
+References Byte\+Stream\+::serialize8(), VORTEX\+\_\+\+VERSION\+\_\+\+MAJOR, and VORTEX\+\_\+\+VERSION\+\_\+\+MINOR.
 
 
 
@@ -752,7 +758,7 @@ Definition at line 136 of file Vortex\+Engine.\+cpp.
 
 \begin{DoxyCode}{0}
 \DoxyCodeLine{137 \{}
-\DoxyCodeLine{138 \textcolor{preprocessor}{\#ifdef VORTEX\_LIB}}
+\DoxyCodeLine{138 \textcolor{preprocessor}{\#ifdef VORTEX\_LIB}}
 \DoxyCodeLine{139   \textcolor{keywordflow}{if} (\mbox{\hyperlink{classVortexEngine_a68bdf824c4c7b2303a1b1a37da67f496}{m\_sleeping}}) \{}
 \DoxyCodeLine{140     \textcolor{comment}{// update the buttons to check for wake}}
 \DoxyCodeLine{141     \mbox{\hyperlink{classVortexEngine_a05f38a31481080ed3f9d9b881c6cf769}{m\_buttons}}.\mbox{\hyperlink{classButtons_a4e775beebe1f2c6dce04c82ed14741cb}{update}}();}
@@ -767,16 +773,16 @@ Definition at line 136 of file Vortex\+Engine.\+cpp.
 \DoxyCodeLine{150     \}}
 \DoxyCodeLine{151     \textcolor{keywordflow}{return};}
 \DoxyCodeLine{152   \}}
-\DoxyCodeLine{153 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{153 \textcolor{preprocessor}{\#endif}}
 \DoxyCodeLine{154   \textcolor{comment}{// handle any fatal errors that may have occurred}}
 \DoxyCodeLine{155   \textcolor{comment}{// but only if the error blinker is enabled}}
-\DoxyCodeLine{156 \textcolor{preprocessor}{\#if VORTEX\_ERROR\_BLINK == 1}}
+\DoxyCodeLine{156 \textcolor{preprocessor}{\#if VORTEX\_ERROR\_BLINK == 1}}
 \DoxyCodeLine{157   \textcolor{keywordflow}{if} (getError() != ERROR\_NONE) \{}
 \DoxyCodeLine{158     \textcolor{comment}{// just blink the error and don't run anything}}
 \DoxyCodeLine{159     blinkError();}
 \DoxyCodeLine{160     \textcolor{keywordflow}{return};}
 \DoxyCodeLine{161   \}}
-\DoxyCodeLine{162 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{162 \textcolor{preprocessor}{\#endif}}
 \DoxyCodeLine{163 }
 \DoxyCodeLine{164   \textcolor{comment}{// tick the current time counter forward}}
 \DoxyCodeLine{165   \mbox{\hyperlink{classVortexEngine_a0d9515adbe5864e186e3998335cbe5b6}{m\_time}}.\mbox{\hyperlink{classTime_a823b10e685d34b667e16e36fea96e150}{tickClock}}();}
@@ -794,7 +800,7 @@ Definition at line 136 of file Vortex\+Engine.\+cpp.
 \end{DoxyCode}
 
 
-References button(), Button\+::check(), D\+E\+V\+I\+C\+E\+\_\+\+L\+O\+C\+K\+\_\+\+C\+L\+I\+C\+KS, Modes\+::locked(), m\+\_\+buttons, m\+\_\+engine, m\+\_\+leds, m\+\_\+modes, m\+\_\+sleeping, m\+\_\+time, m\+\_\+vortex\+Lib, Button\+::on\+Consecutive\+Presses(), Button\+::on\+Release(), run\+Main\+Logic(), Modes\+::set\+Locked(), Vortex\+::sleep\+Enabled(), Time\+::tick\+Clock(), Buttons\+::update(), Leds\+::update(), and wakeup().
+References button(), Button\+::check(), DEVICE\+\_\+\+LOCK\+\_\+\+CLICKS, Modes\+::locked(), m\+\_\+buttons, m\+\_\+engine, m\+\_\+leds, m\+\_\+modes, m\+\_\+sleeping, m\+\_\+time, m\+\_\+vortex\+Lib, Button\+::on\+Consecutive\+Presses(), Button\+::on\+Release(), run\+Main\+Logic(), Modes\+::set\+Locked(), Vortex\+::sleep\+Enabled(), Time\+::tick\+Clock(), Buttons\+::update(), Leds\+::update(), and wakeup().
 
 
 
@@ -821,13 +827,13 @@ References m\+\_\+time.
 
 
 
-Referenced by Timer\+::alarm(), I\+R\+Sender\+::begin\+Send(), V\+L\+Sender\+::begin\+Send(), Leds\+::blink\+All(), Leds\+::blink\+Index(), Leds\+::blink\+Map(), Leds\+::blink\+Pair(), Leds\+::blink\+Pairs(), Leds\+::blink\+Range(), Serial\+Coms\+::check\+Serial(), Timer\+::get\+Start\+Time(), Vortex\+::get\+Tickrate(), Vortex\+::handle\+Input\+Queue(), Leds\+::hold\+All(), Timer\+::on\+End(), Timer\+::on\+Start(), Menus\+::open\+Menu\+Selection(), Mode\+Sharing\+::receive\+Mode\+I\+R(), V\+L\+Receiver\+::recv\+P\+C\+I\+Handler(), I\+R\+Receiver\+::recv\+P\+C\+I\+Handler(), Randomizer\+::run(), Menus\+::run\+Menu\+Selection(), I\+R\+Sender\+::send(), V\+L\+Sender\+::send(), V\+L\+Sender\+::send\+Mark(), V\+L\+Sender\+::send\+Space(), Modes\+::set\+Cur\+Mode(), Vortex\+::set\+Instant\+Timestep(), Timer\+::set\+Start\+Time(), Vortex\+::set\+Tickrate(), Menu\+::show\+Bulb\+Selection(), Color\+Select\+::show\+Full\+Set(), Color\+Select\+::show\+Selection(), Timer\+::start(), and Button\+::update().
+Referenced by Timer\+::alarm(), IRSender\+::begin\+Send(), VLSender\+::begin\+Send(), Leds\+::blink\+All(), Leds\+::blink\+Index(), Leds\+::blink\+Map(), Leds\+::blink\+Pair(), Leds\+::blink\+Pairs(), Leds\+::blink\+Range(), Serial\+Coms\+::check\+Serial(), Timer\+::get\+Start\+Time(), Vortex\+::get\+Tickrate(), Vortex\+::handle\+Input\+Queue(), Leds\+::hold\+All(), Timer\+::on\+End(), Timer\+::on\+Start(), Menus\+::open\+Menu\+Selection(), Mode\+Sharing\+::receive\+Mode\+IR(), IRReceiver\+::recv\+PCIHandler(), VLReceiver\+::recv\+PCIHandler(), Randomizer\+::run(), Menus\+::run\+Menu\+Selection(), IRSender\+::send(), VLSender\+::send(), VLSender\+::send\+Mark(), VLSender\+::send\+Space(), Modes\+::set\+Cur\+Mode(), Vortex\+::set\+Instant\+Timestep(), Timer\+::set\+Start\+Time(), Vortex\+::set\+Tickrate(), Menu\+::show\+Bulb\+Selection(), Color\+Select\+::show\+Full\+Set(), Color\+Select\+::show\+Selection(), Timer\+::start(), and Button\+::update().
 
 \mbox{\Hypertarget{classVortexEngine_a61596df61187e37b53430d5d8e861058}\label{classVortexEngine_a61596df61187e37b53430d5d8e861058}} 
 \index{VortexEngine@{VortexEngine}!vlReceiver@{vlReceiver}}
 \index{vlReceiver@{vlReceiver}!VortexEngine@{VortexEngine}}
 \doxysubsubsection{\texorpdfstring{vlReceiver()}{vlReceiver()}}
-{\footnotesize\ttfamily \mbox{\hyperlink{classVLReceiver}{V\+L\+Receiver}}\& Vortex\+Engine\+::vl\+Receiver (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classVLReceiver}{VLReceiver}}\& Vortex\+Engine\+::vl\+Receiver (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
 
 
@@ -844,13 +850,13 @@ References m\+\_\+vl\+Receiver.
 
 
 
-Referenced by Vortex\+::\+V\+L\+Deliver().
+Referenced by Vortex\+::\+VLDeliver().
 
 \mbox{\Hypertarget{classVortexEngine_adb440ed90584458a9d4287beb4ddeb5b}\label{classVortexEngine_adb440ed90584458a9d4287beb4ddeb5b}} 
 \index{VortexEngine@{VortexEngine}!vlSender@{vlSender}}
 \index{vlSender@{vlSender}!VortexEngine@{VortexEngine}}
 \doxysubsubsection{\texorpdfstring{vlSender()}{vlSender()}}
-{\footnotesize\ttfamily \mbox{\hyperlink{classVLSender}{V\+L\+Sender}}\& Vortex\+Engine\+::vl\+Sender (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classVLSender}{VLSender}}\& Vortex\+Engine\+::vl\+Sender (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
 
 
@@ -867,7 +873,7 @@ References m\+\_\+vl\+Sender.
 
 
 
-Referenced by Mode\+Sharing\+::begin\+Sending\+V\+L(), Mode\+Sharing\+::continue\+Sending\+V\+L(), Editor\+Connection\+::run(), and Editor\+Connection\+::send\+Cur\+Mode\+V\+L().
+Referenced by Mode\+Sharing\+::begin\+Sending\+VL(), Mode\+Sharing\+::continue\+Sending\+VL(), Editor\+Connection\+::run(), and Editor\+Connection\+::send\+Cur\+Mode\+VL().
 
 \mbox{\Hypertarget{classVortexEngine_af7adb6b02350ab5f55ac364ac72df325}\label{classVortexEngine_af7adb6b02350ab5f55ac364ac72df325}} 
 \index{VortexEngine@{VortexEngine}!vortexLib@{vortexLib}}
@@ -890,7 +896,7 @@ References m\+\_\+vortex\+Lib.
 
 
 
-Referenced by Button\+::check(), Serial\+Coms\+::check\+Serial(), Serial\+Coms\+::data\+Ready(), Storage\+::init(), Leds\+::init(), Storage\+::read(), Serial\+Coms\+::read(), I\+R\+Sender\+::send\+Mark(), V\+L\+Sender\+::send\+Mark(), V\+L\+Sender\+::send\+Space(), I\+R\+Sender\+::send\+Space(), Leds\+::set\+Led\+Count(), Buttons\+::update(), Leds\+::update(), Storage\+::write(), and Serial\+Coms\+::write().
+Referenced by Button\+::check(), Serial\+Coms\+::check\+Serial(), Serial\+Coms\+::data\+Ready(), Leds\+::init(), Storage\+::init(), Serial\+Coms\+::read(), Storage\+::read(), IRSender\+::send\+Mark(), VLSender\+::send\+Mark(), IRSender\+::send\+Space(), VLSender\+::send\+Space(), Leds\+::set\+Led\+Count(), Buttons\+::update(), Leds\+::update(), Serial\+Coms\+::write(), and Storage\+::write().
 
 \mbox{\Hypertarget{classVortexEngine_a32e7878bb1f4e4c4d141e849ff7808fb}\label{classVortexEngine_a32e7878bb1f4e4c4d141e849ff7808fb}} 
 \index{VortexEngine@{VortexEngine}!wakeup@{wakeup}}
@@ -905,7 +911,7 @@ Definition at line 275 of file Vortex\+Engine.\+cpp.
 
 \begin{DoxyCode}{0}
 \DoxyCodeLine{276 \{}
-\DoxyCodeLine{277   \mbox{\hyperlink{Log_8h_a5d2f30bd1cbcf49f829a7e8eb6173c06}{DEBUG\_LOG}}(\textcolor{stringliteral}{"Waking up"});}
+\DoxyCodeLine{277   \mbox{\hyperlink{Log_8h_a5d2f30bd1cbcf49f829a7e8eb6173c06}{DEBUG\_LOG}}(\textcolor{stringliteral}{"{}Waking up"{}});}
 \DoxyCodeLine{278   \mbox{\hyperlink{classVortexEngine_a68bdf824c4c7b2303a1b1a37da67f496}{m\_sleeping}} = \textcolor{keyword}{false};}
 \DoxyCodeLine{279   \textcolor{comment}{// need to fake the reset in vortexlib, lol this works I guess}}
 \DoxyCodeLine{280   \textcolor{keywordflow}{if} (reset) \{}
@@ -917,7 +923,7 @@ Definition at line 275 of file Vortex\+Engine.\+cpp.
 \end{DoxyCode}
 
 
-References cleanup(), D\+E\+B\+U\+G\+\_\+\+L\+OG, init(), and m\+\_\+sleeping.
+References cleanup(), DEBUG\+\_\+\+LOG, init(), and m\+\_\+sleeping.
 
 
 
@@ -972,7 +978,7 @@ Referenced by run\+Main\+Logic(), and tick().
 \index{VortexEngine@{VortexEngine}!m\_irReceiver@{m\_irReceiver}}
 \index{m\_irReceiver@{m\_irReceiver}!VortexEngine@{VortexEngine}}
 \doxysubsubsection{\texorpdfstring{m\_irReceiver}{m\_irReceiver}}
-{\footnotesize\ttfamily \mbox{\hyperlink{classIRReceiver}{I\+R\+Receiver}} Vortex\+Engine\+::m\+\_\+ir\+Receiver\hspace{0.3cm}{\ttfamily [private]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classIRReceiver}{IRReceiver}} Vortex\+Engine\+::m\+\_\+ir\+Receiver\hspace{0.3cm}{\ttfamily [private]}}
 
 
 
@@ -986,7 +992,7 @@ Referenced by cleanup(), init(), and ir\+Receiver().
 \index{VortexEngine@{VortexEngine}!m\_irSender@{m\_irSender}}
 \index{m\_irSender@{m\_irSender}!VortexEngine@{VortexEngine}}
 \doxysubsubsection{\texorpdfstring{m\_irSender}{m\_irSender}}
-{\footnotesize\ttfamily \mbox{\hyperlink{classIRSender}{I\+R\+Sender}} Vortex\+Engine\+::m\+\_\+ir\+Sender\hspace{0.3cm}{\ttfamily [private]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classIRSender}{IRSender}} Vortex\+Engine\+::m\+\_\+ir\+Sender\hspace{0.3cm}{\ttfamily [private]}}
 
 
 
@@ -1112,7 +1118,7 @@ Referenced by cleanup(), init(), run\+Main\+Logic(), tick(), and time().
 \index{VortexEngine@{VortexEngine}!m\_vlReceiver@{m\_vlReceiver}}
 \index{m\_vlReceiver@{m\_vlReceiver}!VortexEngine@{VortexEngine}}
 \doxysubsubsection{\texorpdfstring{m\_vlReceiver}{m\_vlReceiver}}
-{\footnotesize\ttfamily \mbox{\hyperlink{classVLReceiver}{V\+L\+Receiver}} Vortex\+Engine\+::m\+\_\+vl\+Receiver\hspace{0.3cm}{\ttfamily [private]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classVLReceiver}{VLReceiver}} Vortex\+Engine\+::m\+\_\+vl\+Receiver\hspace{0.3cm}{\ttfamily [private]}}
 
 
 
@@ -1126,7 +1132,7 @@ Referenced by cleanup(), init(), and vl\+Receiver().
 \index{VortexEngine@{VortexEngine}!m\_vlSender@{m\_vlSender}}
 \index{m\_vlSender@{m\_vlSender}!VortexEngine@{VortexEngine}}
 \doxysubsubsection{\texorpdfstring{m\_vlSender}{m\_vlSender}}
-{\footnotesize\ttfamily \mbox{\hyperlink{classVLSender}{V\+L\+Sender}} Vortex\+Engine\+::m\+\_\+vl\+Sender\hspace{0.3cm}{\ttfamily [private]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classVLSender}{VLSender}} Vortex\+Engine\+::m\+\_\+vl\+Sender\hspace{0.3cm}{\ttfamily [private]}}
 
 
 

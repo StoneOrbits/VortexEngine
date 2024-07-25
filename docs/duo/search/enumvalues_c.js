@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['waiting_5fheader_5fmark_2572',['WAITING_HEADER_MARK',['../classVLReceiver.html#aa4e2da364b508e8f469d28e0eaf3a6f8a47c2b836e3c6a3cd2b63e572fcaaa434',1,'VLReceiver']]],
-  ['waiting_5fheader_5fspace_2573',['WAITING_HEADER_SPACE',['../classVLReceiver.html#aa4e2da364b508e8f469d28e0eaf3a6f8aabd2b5abd329faa79b2af1f985e3d64d',1,'VLReceiver']]]
+  ['tetradic_2966',['TETRADIC',['../classColorset.html#abf504edde130e5e302c5a1c78ab725d8acd5395dcd4b6248a985c0e789c7d0ef1',1,'Colorset']]],
+  ['theory_2967',['THEORY',['../classColorset.html#ad0ad727054d88606053bbb67ae1fb11ca0af1de95991c0cc7207f8dd0ae3f0607',1,'Colorset']]]
 ];

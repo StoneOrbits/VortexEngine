@@ -90,7 +90,7 @@ Definition at line 45 of file Storage.\+cpp.
 \begin{DoxyCode}{0}
 \DoxyCodeLine{46 \{}
 \DoxyCodeLine{47 \textcolor{preprocessor}{\#ifdef VORTEX\_LIB}}
-\DoxyCodeLine{48   \textcolor{keywordflow}{if} (!m\_storageFilename.length() \&\& Vortex::storageEnabled()) \{}
+\DoxyCodeLine{48   \textcolor{keywordflow}{if} (!m\_storageFilename.length() \&\& \mbox{\hyperlink{classVortex_aa287fb05ef87acfb1380aeac868d17a1}{Vortex::storageEnabled}}()) \{}
 \DoxyCodeLine{49     m\_storageFilename = \mbox{\hyperlink{Storage_8cpp_a3afbe062209d42a72bc5b4a03a86206a}{DEFAULT\_STORAGE\_FILENAME}};}
 \DoxyCodeLine{50   \}}
 \DoxyCodeLine{51 \textcolor{preprocessor}{\#endif}}
@@ -100,7 +100,7 @@ Definition at line 45 of file Storage.\+cpp.
 \end{DoxyCode}
 
 
-References DEFAULT\+\_\+\+STORAGE\+\_\+\+FILENAME.
+References DEFAULT\+\_\+\+STORAGE\+\_\+\+FILENAME, and Vortex\+::storage\+Enabled().
 
 
 
@@ -141,7 +141,7 @@ Definition at line 156 of file Storage.\+cpp.
 \begin{DoxyCode}{0}
 \DoxyCodeLine{157 \{}
 \DoxyCodeLine{158 \textcolor{preprocessor}{\#ifdef VORTEX\_LIB}}
-\DoxyCodeLine{159   \textcolor{keywordflow}{if} (!Vortex::storageEnabled()) \{}
+\DoxyCodeLine{159   \textcolor{keywordflow}{if} (!\mbox{\hyperlink{classVortex_aa287fb05ef87acfb1380aeac868d17a1}{Vortex::storageEnabled}}()) \{}
 \DoxyCodeLine{160     \textcolor{comment}{// return false here, but true in write because we don't want to return}}
 \DoxyCodeLine{161     \textcolor{comment}{// an empty buffer after returning true}}
 \DoxyCodeLine{162     \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
@@ -201,7 +201,7 @@ Definition at line 156 of file Storage.\+cpp.
 \end{DoxyCode}
 
 
-References Byte\+Stream\+::check\+CRC(), Byte\+Stream\+::clear(), DEBUG\+\_\+\+LOGF, ERROR\+\_\+\+LOG, Byte\+Stream\+::init(), m\+\_\+last\+Save\+Size, MAX\+\_\+\+MODE\+\_\+\+SIZE, NUM\+\_\+\+MODE\+\_\+\+SLOTS, Byte\+Stream\+::raw\+Data(), Byte\+Stream\+::sanity(), Byte\+Stream\+::size(), STORAGE\+\_\+\+FILENAME, and STORAGE\+\_\+\+SIZE.
+References Byte\+Stream\+::check\+CRC(), Byte\+Stream\+::clear(), DEBUG\+\_\+\+LOGF, ERROR\+\_\+\+LOG, Byte\+Stream\+::init(), m\+\_\+last\+Save\+Size, MAX\+\_\+\+MODE\+\_\+\+SIZE, NUM\+\_\+\+MODE\+\_\+\+SLOTS, Byte\+Stream\+::raw\+Data(), Byte\+Stream\+::sanity(), Byte\+Stream\+::size(), STORAGE\+\_\+\+FILENAME, STORAGE\+\_\+\+SIZE, and Vortex\+::storage\+Enabled().
 
 
 
@@ -221,7 +221,7 @@ Definition at line 60 of file Storage.\+cpp.
 \begin{DoxyCode}{0}
 \DoxyCodeLine{61 \{}
 \DoxyCodeLine{62 \textcolor{preprocessor}{\#ifdef VORTEX\_LIB}}
-\DoxyCodeLine{63   \textcolor{keywordflow}{if} (!Vortex::storageEnabled()) \{}
+\DoxyCodeLine{63   \textcolor{keywordflow}{if} (!\mbox{\hyperlink{classVortex_aa287fb05ef87acfb1380aeac868d17a1}{Vortex::storageEnabled}}()) \{}
 \DoxyCodeLine{64     \textcolor{comment}{// success so the system thinks it all worked}}
 \DoxyCodeLine{65     \textcolor{keywordflow}{return} \textcolor{keyword}{true};}
 \DoxyCodeLine{66   \}}
@@ -316,7 +316,7 @@ Definition at line 60 of file Storage.\+cpp.
 \end{DoxyCode}
 
 
-References DEBUG\+\_\+\+LOGF, ERROR\+\_\+\+LOG, m\+\_\+last\+Save\+Size, MAX\+\_\+\+MODE\+\_\+\+SIZE, NUM\+\_\+\+MODE\+\_\+\+SLOTS, PAGE\+\_\+\+SIZE, Byte\+Stream\+::raw\+Data(), Byte\+Stream\+::raw\+Size(), Byte\+Stream\+::recalc\+CRC(), Byte\+Stream\+::size(), STORAGE\+\_\+\+FILENAME, and STORAGE\+\_\+\+SIZE.
+References DEBUG\+\_\+\+LOGF, ERROR\+\_\+\+LOG, m\+\_\+last\+Save\+Size, MAX\+\_\+\+MODE\+\_\+\+SIZE, NUM\+\_\+\+MODE\+\_\+\+SLOTS, PAGE\+\_\+\+SIZE, Byte\+Stream\+::raw\+Data(), Byte\+Stream\+::raw\+Size(), Byte\+Stream\+::recalc\+CRC(), Byte\+Stream\+::size(), STORAGE\+\_\+\+FILENAME, STORAGE\+\_\+\+SIZE, and Vortex\+::storage\+Enabled().
 
 
 

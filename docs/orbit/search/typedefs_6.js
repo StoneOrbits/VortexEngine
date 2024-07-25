@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['s32_2695',['S32',['../Compression_8cpp.html#a39c786017723555afb9e8b85accec0de',1,'Compression.cpp']]]
+  ['reg_5ft_3074',['reg_t',['../Compression_8cpp.html#a2835baf742d73416e69ab571e9a9dacb',1,'Compression.cpp']]]
 ];

@@ -7,7 +7,8 @@
 {\ttfamily \#include $<$limits.\+h$>$}\newline
 {\ttfamily \#include $<$stdint.\+h$>$}\newline
 {\ttfamily \#include $<$stddef.\+h$>$}\newline
-Include dependency graph for Compression.\+cpp\+:\nopagebreak
+Include dependency graph for Compression.\+cpp\+:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -23,19 +24,19 @@ Include dependency graph for Compression.\+cpp\+:\nopagebreak
 \item 
 \#define \mbox{\hyperlink{Compression_8cpp_ad8700448546b3b5111404cc021061fd5}{unlikely}}(expr)~\mbox{\hyperlink{Compression_8cpp_a7d26a1c40d6107cf2f19558492591e67}{expect}}((expr) != 0, 0)
 \item 
-\#define \mbox{\hyperlink{Compression_8cpp_a6c439b01b6c27280593774a911bfa4ac}{L\+Z4\+\_\+\+A\+L\+I\+G\+N\+\_\+\+T\+E\+ST}}~0
+\#define \mbox{\hyperlink{Compression_8cpp_a6c439b01b6c27280593774a911bfa4ac}{LZ4\+\_\+\+ALIGN\+\_\+\+TEST}}~0
 \item 
-\#define \mbox{\hyperlink{Compression_8cpp_a2d835b35b6582451a75dc6ff464a9e75}{M\+I\+N\+M\+A\+T\+CH}}~4
+\#define \mbox{\hyperlink{Compression_8cpp_a2d835b35b6582451a75dc6ff464a9e75}{MINMATCH}}~4
 \item 
-\#define \mbox{\hyperlink{Compression_8cpp_ade83a0730ce39465e00284b8d1b29784}{W\+I\+L\+D\+C\+O\+P\+Y\+L\+E\+N\+G\+TH}}~8
+\#define \mbox{\hyperlink{Compression_8cpp_ade83a0730ce39465e00284b8d1b29784}{WILDCOPYLENGTH}}~8
 \item 
-\#define \mbox{\hyperlink{Compression_8cpp_a7a912d9a1f869b93be505568dce7fa8c}{L\+A\+S\+T\+L\+I\+T\+E\+R\+A\+LS}}~5   /$\ast$ see ../doc/lz4\+\_\+\+Block\+\_\+format.\+md\#parsing-\/restrictions $\ast$/
+\#define \mbox{\hyperlink{Compression_8cpp_a7a912d9a1f869b93be505568dce7fa8c}{LASTLITERALS}}~5   /$\ast$ see ../doc/lz4\+\_\+\+Block\+\_\+format.\+md\#parsing-\/restrictions $\ast$/
 \item 
-\#define \mbox{\hyperlink{Compression_8cpp_a6bb5847a99cd90aca07870a394cbe70d}{M\+F\+L\+I\+M\+IT}}~12   /$\ast$ see ../doc/lz4\+\_\+\+Block\+\_\+format.\+md\#parsing-\/restrictions $\ast$/
+\#define \mbox{\hyperlink{Compression_8cpp_a6bb5847a99cd90aca07870a394cbe70d}{MFLIMIT}}~12   /$\ast$ see ../doc/lz4\+\_\+\+Block\+\_\+format.\+md\#parsing-\/restrictions $\ast$/
 \item 
-\#define \mbox{\hyperlink{Compression_8cpp_acd67b050f5c5a9c22357493223a620c0}{M\+A\+T\+C\+H\+\_\+\+S\+A\+F\+E\+G\+U\+A\+R\+D\+\_\+\+D\+I\+S\+T\+A\+N\+CE}}~((2$\ast$\mbox{\hyperlink{Compression_8cpp_ade83a0730ce39465e00284b8d1b29784}{W\+I\+L\+D\+C\+O\+P\+Y\+L\+E\+N\+G\+TH}}) -\/ \mbox{\hyperlink{Compression_8cpp_a2d835b35b6582451a75dc6ff464a9e75}{M\+I\+N\+M\+A\+T\+CH}})   /$\ast$ ensure it\textquotesingle{}s possible to write 2 x wildcopy\+Length without overflowing output buffer $\ast$/
+\#define \mbox{\hyperlink{Compression_8cpp_acd67b050f5c5a9c22357493223a620c0}{MATCH\+\_\+\+SAFEGUARD\+\_\+\+DISTANCE}}~((2$\ast$\mbox{\hyperlink{Compression_8cpp_ade83a0730ce39465e00284b8d1b29784}{WILDCOPYLENGTH}}) -\/ \mbox{\hyperlink{Compression_8cpp_a2d835b35b6582451a75dc6ff464a9e75}{MINMATCH}})   /$\ast$ ensure it\textquotesingle{}s possible to write 2 x wildcopy\+Length without overflowing output buffer $\ast$/
 \item 
-\#define \mbox{\hyperlink{Compression_8cpp_aa7091dfd46e0c63c7974aa8cecae6207}{F\+A\+S\+T\+L\+O\+O\+P\+\_\+\+S\+A\+F\+E\+\_\+\+D\+I\+S\+T\+A\+N\+CE}}~64
+\#define \mbox{\hyperlink{Compression_8cpp_aa7091dfd46e0c63c7974aa8cecae6207}{FASTLOOP\+\_\+\+SAFE\+\_\+\+DISTANCE}}~64
 \item 
 \#define \mbox{\hyperlink{Compression_8cpp_a1841fd1a462d245d8c73dce55e2f45da}{KB}}~$\ast$(1 $<$$<$10)
 \item 
@@ -43,32 +44,32 @@ Include dependency graph for Compression.\+cpp\+:\nopagebreak
 \item 
 \#define \mbox{\hyperlink{Compression_8cpp_a44172ac633c517cb4c9e278cef36b000}{GB}}~$\ast$(1U$<$$<$30)
 \item 
-\#define \mbox{\hyperlink{Compression_8cpp_a677dd41923a5dc079254ea9f689d78dd}{L\+Z4\+\_\+\+D\+I\+S\+T\+A\+N\+C\+E\+\_\+\+A\+B\+S\+O\+L\+U\+T\+E\+\_\+\+M\+AX}}~65535
+\#define \mbox{\hyperlink{Compression_8cpp_a677dd41923a5dc079254ea9f689d78dd}{LZ4\+\_\+\+DISTANCE\+\_\+\+ABSOLUTE\+\_\+\+MAX}}~65535
 \item 
-\#define \mbox{\hyperlink{Compression_8cpp_aa84b594ef328b62b23e36c78abe2aaf0}{M\+L\+\_\+\+B\+I\+TS}}~4
+\#define \mbox{\hyperlink{Compression_8cpp_aa84b594ef328b62b23e36c78abe2aaf0}{ML\+\_\+\+BITS}}~4
 \item 
-\#define \mbox{\hyperlink{Compression_8cpp_aa939dccc909b8b36baadb3265a72b37a}{M\+L\+\_\+\+M\+A\+SK}}~((1U$<$$<$\mbox{\hyperlink{Compression_8cpp_aa84b594ef328b62b23e36c78abe2aaf0}{M\+L\+\_\+\+B\+I\+TS}})-\/1)
+\#define \mbox{\hyperlink{Compression_8cpp_aa939dccc909b8b36baadb3265a72b37a}{ML\+\_\+\+MASK}}~((1U$<$$<$\mbox{\hyperlink{Compression_8cpp_aa84b594ef328b62b23e36c78abe2aaf0}{ML\+\_\+\+BITS}})-\/1)
 \item 
-\#define \mbox{\hyperlink{Compression_8cpp_ae6261d794dfe7c6816e3b342c643f56f}{R\+U\+N\+\_\+\+B\+I\+TS}}~(8-\/\mbox{\hyperlink{Compression_8cpp_aa84b594ef328b62b23e36c78abe2aaf0}{M\+L\+\_\+\+B\+I\+TS}})
+\#define \mbox{\hyperlink{Compression_8cpp_ae6261d794dfe7c6816e3b342c643f56f}{RUN\+\_\+\+BITS}}~(8-\/\mbox{\hyperlink{Compression_8cpp_aa84b594ef328b62b23e36c78abe2aaf0}{ML\+\_\+\+BITS}})
 \item 
-\#define \mbox{\hyperlink{Compression_8cpp_aec45fd08a68c07b74493e631ae52aca1}{R\+U\+N\+\_\+\+M\+A\+SK}}~((1U$<$$<$\mbox{\hyperlink{Compression_8cpp_ae6261d794dfe7c6816e3b342c643f56f}{R\+U\+N\+\_\+\+B\+I\+TS}})-\/1)
+\#define \mbox{\hyperlink{Compression_8cpp_aec45fd08a68c07b74493e631ae52aca1}{RUN\+\_\+\+MASK}}~((1U$<$$<$\mbox{\hyperlink{Compression_8cpp_ae6261d794dfe7c6816e3b342c643f56f}{RUN\+\_\+\+BITS}})-\/1)
 \item 
 \#define \mbox{\hyperlink{Compression_8cpp_acdcc5aaebf3f273c1762f24a6ece2e5e}{assert}}(condition)~((void)0)
 \item 
-\#define \mbox{\hyperlink{Compression_8cpp_a233a86aeac0d8f5c00236b4d8d055761}{L\+Z4\+\_\+\+S\+T\+A\+T\+I\+C\+\_\+\+A\+S\+S\+E\+RT}}(c)~\{ enum \{ L\+Z4\+\_\+static\+\_\+assert = 1/(int)(!!(c)) \}; \}   /$\ast$ use after variable declarations $\ast$/
+\#define \mbox{\hyperlink{Compression_8cpp_a233a86aeac0d8f5c00236b4d8d055761}{LZ4\+\_\+\+STATIC\+\_\+\+ASSERT}}(c)~\{ enum \{ LZ4\+\_\+static\+\_\+assert = 1/(int)(!!(c)) \}; \}   /$\ast$ use after variable declarations $\ast$/
 \item 
-\#define \mbox{\hyperlink{Compression_8cpp_a8728fe9e99fe783be28c0f38bb0d0761}{D\+E\+B\+U\+G\+L\+OG}}(l, ...)~\{\}    /$\ast$ disabled $\ast$/
+\#define \mbox{\hyperlink{Compression_8cpp_a8728fe9e99fe783be28c0f38bb0d0761}{DEBUGLOG}}(l, ...)~\{\}    /$\ast$ disabled $\ast$/
 \item 
-\#define \mbox{\hyperlink{Compression_8cpp_a5ed8599ff9813a458df4a9d4d81bef58}{L\+Z4\+\_\+memcpy}}(dst,  src,  size)~memcpy(dst, src, size)
+\#define \mbox{\hyperlink{Compression_8cpp_a5ed8599ff9813a458df4a9d4d81bef58}{LZ4\+\_\+memcpy}}(dst,  src,  size)~memcpy(dst, src, size)
 \item 
-\#define \mbox{\hyperlink{Compression_8cpp_a0b31438dd90256ed47b3bea0eb62be06}{S\+T\+E\+P\+S\+I\+ZE}}~sizeof(\mbox{\hyperlink{Compression_8cpp_a2835baf742d73416e69ab571e9a9dacb}{reg\+\_\+t}})
+\#define \mbox{\hyperlink{Compression_8cpp_a0b31438dd90256ed47b3bea0eb62be06}{STEPSIZE}}~sizeof(\mbox{\hyperlink{Compression_8cpp_a2835baf742d73416e69ab571e9a9dacb}{reg\+\_\+t}})
 \item 
-\#define \mbox{\hyperlink{Compression_8cpp_a3acffbd305ee72dcd4593c0d8af64a4f}{M\+IN}}(a,  b)~( (a) $<$ (b) ? (a) \+: (b) )
+\#define \mbox{\hyperlink{Compression_8cpp_a3acffbd305ee72dcd4593c0d8af64a4f}{MIN}}(a,  b)~( (a) $<$ (b) ? (a) \+: (b) )
 \end{DoxyCompactItemize}
 \doxysubsection*{Typedefs}
 \begin{DoxyCompactItemize}
 \item 
-typedef uint8\+\_\+t \mbox{\hyperlink{Compression_8cpp_aae9749d96e15ccb4f482dd5f55d98f9b}{B\+Y\+TE}}
+typedef uint8\+\_\+t \mbox{\hyperlink{Compression_8cpp_aae9749d96e15ccb4f482dd5f55d98f9b}{BYTE}}
 \item 
 typedef uint16\+\_\+t \mbox{\hyperlink{Compression_8cpp_a0a0a322d5fa4a546d293a77ba8b4a71f}{U16}}
 \item 
@@ -85,127 +86,127 @@ typedef size\+\_\+t \mbox{\hyperlink{Compression_8cpp_a2835baf742d73416e69ab571e
 \doxysubsection*{Enumerations}
 \begin{DoxyCompactItemize}
 \item 
-enum \mbox{\hyperlink{Compression_8cpp_ab93acf685743debab05876250a1cbe28}{limited\+Output\+\_\+directive}} \{ \mbox{\hyperlink{Compression_8cpp_ab93acf685743debab05876250a1cbe28adc568f9214a2932542608f43124efcff}{not\+Limited}} = 0, 
-\mbox{\hyperlink{Compression_8cpp_ab93acf685743debab05876250a1cbe28a06ce6334cca200bdb7d30cf1422ca5aa}{limited\+Output}} = 1, 
-\mbox{\hyperlink{Compression_8cpp_ab93acf685743debab05876250a1cbe28a76ae01d59d140527a5540583923a0294}{fill\+Output}} = 2
+enum \mbox{\hyperlink{Compression_8cpp_ab93acf685743debab05876250a1cbe28}{limited\+Output\+\_\+directive}} \{ \mbox{\hyperlink{Compression_8cpp_ab93acf685743debab05876250a1cbe28adc568f9214a2932542608f43124efcff}{not\+Limited}} = 0
+, \mbox{\hyperlink{Compression_8cpp_ab93acf685743debab05876250a1cbe28a06ce6334cca200bdb7d30cf1422ca5aa}{limited\+Output}} = 1
+, \mbox{\hyperlink{Compression_8cpp_ab93acf685743debab05876250a1cbe28a76ae01d59d140527a5540583923a0294}{fill\+Output}} = 2
  \}
 \item 
-enum \mbox{\hyperlink{Compression_8cpp_ae86e1d8a28953326b685d6ebb243a699}{table\+Type\+\_\+t}} \{ \mbox{\hyperlink{Compression_8cpp_ae86e1d8a28953326b685d6ebb243a699a160636a34765ad36416d316e62406d31}{cleared\+Table}} = 0, 
-\mbox{\hyperlink{Compression_8cpp_ae86e1d8a28953326b685d6ebb243a699a5c952c05e312cfc0589ef1d283397560}{by\+Ptr}}, 
-\mbox{\hyperlink{Compression_8cpp_ae86e1d8a28953326b685d6ebb243a699ae7520fe8d6957f5029ddeb0652c65471}{by\+U32}}, 
-\mbox{\hyperlink{Compression_8cpp_ae86e1d8a28953326b685d6ebb243a699a48aff40d7237850c996a1f6c266a598f}{by\+U16}}
+enum \mbox{\hyperlink{Compression_8cpp_ae86e1d8a28953326b685d6ebb243a699}{table\+Type\+\_\+t}} \{ \mbox{\hyperlink{Compression_8cpp_ae86e1d8a28953326b685d6ebb243a699a160636a34765ad36416d316e62406d31}{cleared\+Table}} = 0
+, \mbox{\hyperlink{Compression_8cpp_ae86e1d8a28953326b685d6ebb243a699a5c952c05e312cfc0589ef1d283397560}{by\+Ptr}}
+, \mbox{\hyperlink{Compression_8cpp_ae86e1d8a28953326b685d6ebb243a699ae7520fe8d6957f5029ddeb0652c65471}{by\+U32}}
+, \mbox{\hyperlink{Compression_8cpp_ae86e1d8a28953326b685d6ebb243a699a48aff40d7237850c996a1f6c266a598f}{by\+U16}}
  \}
 \item 
-enum \mbox{\hyperlink{Compression_8cpp_ab22d25a446ad3e8288401052deccda4c}{dict\+\_\+directive}} \{ \mbox{\hyperlink{Compression_8cpp_ab22d25a446ad3e8288401052deccda4ca0c48f9478a9b96dcb96a1a8781aba13f}{no\+Dict}} = 0, 
-\mbox{\hyperlink{Compression_8cpp_ab22d25a446ad3e8288401052deccda4ca34c34b9cfe0046130ff97acf6914519d}{with\+Prefix64k}}, 
-\mbox{\hyperlink{Compression_8cpp_ab22d25a446ad3e8288401052deccda4caa8cc166c33fdfcd904c260136978913b}{using\+Ext\+Dict}}, 
-\mbox{\hyperlink{Compression_8cpp_ab22d25a446ad3e8288401052deccda4caf6d955259638feac01c4e4cace77c617}{using\+Dict\+Ctx}}
+enum \mbox{\hyperlink{Compression_8cpp_ab22d25a446ad3e8288401052deccda4c}{dict\+\_\+directive}} \{ \mbox{\hyperlink{Compression_8cpp_ab22d25a446ad3e8288401052deccda4ca0c48f9478a9b96dcb96a1a8781aba13f}{no\+Dict}} = 0
+, \mbox{\hyperlink{Compression_8cpp_ab22d25a446ad3e8288401052deccda4ca34c34b9cfe0046130ff97acf6914519d}{with\+Prefix64k}}
+, \mbox{\hyperlink{Compression_8cpp_ab22d25a446ad3e8288401052deccda4caa8cc166c33fdfcd904c260136978913b}{using\+Ext\+Dict}}
+, \mbox{\hyperlink{Compression_8cpp_ab22d25a446ad3e8288401052deccda4caf6d955259638feac01c4e4cace77c617}{using\+Dict\+Ctx}}
  \}
 \item 
-enum \mbox{\hyperlink{Compression_8cpp_a9f23ad1797bc66e6b6dff6cf3acfd351}{dict\+Issue\+\_\+directive}} \{ \mbox{\hyperlink{Compression_8cpp_a9f23ad1797bc66e6b6dff6cf3acfd351a2a95ee19c5c0704200f9154a4abcf115}{no\+Dict\+Issue}} = 0, 
-\mbox{\hyperlink{Compression_8cpp_a9f23ad1797bc66e6b6dff6cf3acfd351a4609b423b2c861fd5968b33837c76236}{dict\+Small}}
+enum \mbox{\hyperlink{Compression_8cpp_a9f23ad1797bc66e6b6dff6cf3acfd351}{dict\+Issue\+\_\+directive}} \{ \mbox{\hyperlink{Compression_8cpp_a9f23ad1797bc66e6b6dff6cf3acfd351a2a95ee19c5c0704200f9154a4abcf115}{no\+Dict\+Issue}} = 0
+, \mbox{\hyperlink{Compression_8cpp_a9f23ad1797bc66e6b6dff6cf3acfd351a4609b423b2c861fd5968b33837c76236}{dict\+Small}}
  \}
 \item 
-enum \mbox{\hyperlink{Compression_8cpp_a23fcfcea9fce4ad48b37485e3b6e8746}{end\+Condition\+\_\+directive}} \{ \mbox{\hyperlink{Compression_8cpp_a23fcfcea9fce4ad48b37485e3b6e8746a92d766b3022f9d86ccf764d716a46b2a}{end\+On\+Output\+Size}} = 0, 
-\mbox{\hyperlink{Compression_8cpp_a23fcfcea9fce4ad48b37485e3b6e8746a2a30c7b77002529763d202e7ac636539}{end\+On\+Input\+Size}} = 1
+enum \mbox{\hyperlink{Compression_8cpp_a23fcfcea9fce4ad48b37485e3b6e8746}{end\+Condition\+\_\+directive}} \{ \mbox{\hyperlink{Compression_8cpp_a23fcfcea9fce4ad48b37485e3b6e8746a92d766b3022f9d86ccf764d716a46b2a}{end\+On\+Output\+Size}} = 0
+, \mbox{\hyperlink{Compression_8cpp_a23fcfcea9fce4ad48b37485e3b6e8746a2a30c7b77002529763d202e7ac636539}{end\+On\+Input\+Size}} = 1
  \}
 \item 
-enum \mbox{\hyperlink{Compression_8cpp_a2719d1421671f2c7fa3c68ca7465994c}{early\+End\+\_\+directive}} \{ \mbox{\hyperlink{Compression_8cpp_a2719d1421671f2c7fa3c68ca7465994ca5551916aeb552806ac850d0875151113}{decode\+\_\+full\+\_\+block}} = 0, 
-\mbox{\hyperlink{Compression_8cpp_a2719d1421671f2c7fa3c68ca7465994ca032ce1b03f03cde2ed5ab8cfdf0d5e7f}{partial\+\_\+decode}} = 1
+enum \mbox{\hyperlink{Compression_8cpp_a2719d1421671f2c7fa3c68ca7465994c}{early\+End\+\_\+directive}} \{ \mbox{\hyperlink{Compression_8cpp_a2719d1421671f2c7fa3c68ca7465994ca5551916aeb552806ac850d0875151113}{decode\+\_\+full\+\_\+block}} = 0
+, \mbox{\hyperlink{Compression_8cpp_a2719d1421671f2c7fa3c68ca7465994ca032ce1b03f03cde2ed5ab8cfdf0d5e7f}{partial\+\_\+decode}} = 1
  \}
 \item 
-enum \mbox{\hyperlink{Compression_8cpp_a9d0df14b4296f06cf7c7b141f26d29b3}{variable\+\_\+length\+\_\+error}} \{ \mbox{\hyperlink{Compression_8cpp_a9d0df14b4296f06cf7c7b141f26d29b3a19c5cc5c8516ea67ef3b2ec2de6fc484}{loop\+\_\+error}} = -\/2, 
-\mbox{\hyperlink{Compression_8cpp_a9d0df14b4296f06cf7c7b141f26d29b3a4dd6136f5d290f53a4ac8864c0a12f99}{initial\+\_\+error}} = -\/1, 
-\mbox{\hyperlink{Compression_8cpp_a9d0df14b4296f06cf7c7b141f26d29b3ad8b76af209cd7ba83b4ebf33ba1637b2}{ok}} = 0
+enum \mbox{\hyperlink{Compression_8cpp_a9d0df14b4296f06cf7c7b141f26d29b3}{variable\+\_\+length\+\_\+error}} \{ \mbox{\hyperlink{Compression_8cpp_a9d0df14b4296f06cf7c7b141f26d29b3a19c5cc5c8516ea67ef3b2ec2de6fc484}{loop\+\_\+error}} = -\/2
+, \mbox{\hyperlink{Compression_8cpp_a9d0df14b4296f06cf7c7b141f26d29b3a4dd6136f5d290f53a4ac8864c0a12f99}{initial\+\_\+error}} = -\/1
+, \mbox{\hyperlink{Compression_8cpp_a9d0df14b4296f06cf7c7b141f26d29b3ad8b76af209cd7ba83b4ebf33ba1637b2}{ok}} = 0
  \}
 \end{DoxyCompactItemize}
 \doxysubsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
-static int \mbox{\hyperlink{Compression_8cpp_ac33d4ec2f474813cee3ee86163eba2ef}{L\+Z4\+\_\+is\+Aligned}} (const void $\ast$ptr, size\+\_\+t alignment)
+static int \mbox{\hyperlink{Compression_8cpp_ac33d4ec2f474813cee3ee86163eba2ef}{LZ4\+\_\+is\+Aligned}} (const void $\ast$ptr, size\+\_\+t alignment)
 \item 
-static unsigned \mbox{\hyperlink{Compression_8cpp_aa8a9ba402bf00e8e6c21691085ae9601}{L\+Z4\+\_\+is\+Little\+Endian}} (void)
+static unsigned \mbox{\hyperlink{Compression_8cpp_aa8a9ba402bf00e8e6c21691085ae9601}{LZ4\+\_\+is\+Little\+Endian}} (void)
 \item 
-static \mbox{\hyperlink{Compression_8cpp_a0a0a322d5fa4a546d293a77ba8b4a71f}{U16}} \mbox{\hyperlink{Compression_8cpp_adceb4c7713e1bed1554da37458db6fb6}{L\+Z4\+\_\+read16}} (const void $\ast$mem\+Ptr)
+static \mbox{\hyperlink{Compression_8cpp_a0a0a322d5fa4a546d293a77ba8b4a71f}{U16}} \mbox{\hyperlink{Compression_8cpp_adceb4c7713e1bed1554da37458db6fb6}{LZ4\+\_\+read16}} (const void $\ast$mem\+Ptr)
 \item 
-static \mbox{\hyperlink{Compression_8cpp_a696390429f2f3b644bde8d0322a24124}{U32}} \mbox{\hyperlink{Compression_8cpp_a91090d7f3d29948be259526ace41da4c}{L\+Z4\+\_\+read32}} (const void $\ast$mem\+Ptr)
+static \mbox{\hyperlink{Compression_8cpp_a696390429f2f3b644bde8d0322a24124}{U32}} \mbox{\hyperlink{Compression_8cpp_a91090d7f3d29948be259526ace41da4c}{LZ4\+\_\+read32}} (const void $\ast$mem\+Ptr)
 \item 
-static \mbox{\hyperlink{Compression_8cpp_a2835baf742d73416e69ab571e9a9dacb}{reg\+\_\+t}} \mbox{\hyperlink{Compression_8cpp_a9f1c5198d0fac6d72364edbb87a390e4}{L\+Z4\+\_\+read\+\_\+\+A\+R\+CH}} (const void $\ast$mem\+Ptr)
+static \mbox{\hyperlink{Compression_8cpp_a2835baf742d73416e69ab571e9a9dacb}{reg\+\_\+t}} \mbox{\hyperlink{Compression_8cpp_a9f1c5198d0fac6d72364edbb87a390e4}{LZ4\+\_\+read\+\_\+\+ARCH}} (const void $\ast$mem\+Ptr)
 \item 
-static void \mbox{\hyperlink{Compression_8cpp_abdc399170f6061c35dd18315896339f8}{L\+Z4\+\_\+write16}} (void $\ast$mem\+Ptr, \mbox{\hyperlink{Compression_8cpp_a0a0a322d5fa4a546d293a77ba8b4a71f}{U16}} value)
+static void \mbox{\hyperlink{Compression_8cpp_abdc399170f6061c35dd18315896339f8}{LZ4\+\_\+write16}} (void $\ast$mem\+Ptr, \mbox{\hyperlink{Compression_8cpp_a0a0a322d5fa4a546d293a77ba8b4a71f}{U16}} value)
 \item 
-static void \mbox{\hyperlink{Compression_8cpp_a2e50fa2df2ee7536797308f96806df83}{L\+Z4\+\_\+write32}} (void $\ast$mem\+Ptr, \mbox{\hyperlink{Compression_8cpp_a696390429f2f3b644bde8d0322a24124}{U32}} value)
+static void \mbox{\hyperlink{Compression_8cpp_a2e50fa2df2ee7536797308f96806df83}{LZ4\+\_\+write32}} (void $\ast$mem\+Ptr, \mbox{\hyperlink{Compression_8cpp_a696390429f2f3b644bde8d0322a24124}{U32}} value)
 \item 
-static \mbox{\hyperlink{Compression_8cpp_a0a0a322d5fa4a546d293a77ba8b4a71f}{U16}} \mbox{\hyperlink{Compression_8cpp_a69a8c81f7731ff4ae0d292541bbb2d69}{L\+Z4\+\_\+read\+L\+E16}} (const void $\ast$mem\+Ptr)
+static \mbox{\hyperlink{Compression_8cpp_a0a0a322d5fa4a546d293a77ba8b4a71f}{U16}} \mbox{\hyperlink{Compression_8cpp_a69a8c81f7731ff4ae0d292541bbb2d69}{LZ4\+\_\+read\+LE16}} (const void $\ast$mem\+Ptr)
 \item 
-static void \mbox{\hyperlink{Compression_8cpp_a3a6a0833a6f5ee0e99c80cbae73ca3a7}{L\+Z4\+\_\+write\+L\+E16}} (void $\ast$mem\+Ptr, \mbox{\hyperlink{Compression_8cpp_a0a0a322d5fa4a546d293a77ba8b4a71f}{U16}} value)
+static void \mbox{\hyperlink{Compression_8cpp_a3a6a0833a6f5ee0e99c80cbae73ca3a7}{LZ4\+\_\+write\+LE16}} (void $\ast$mem\+Ptr, \mbox{\hyperlink{Compression_8cpp_a0a0a322d5fa4a546d293a77ba8b4a71f}{U16}} value)
 \item 
-void \mbox{\hyperlink{Compression_8cpp_a107b5345286641379a50762ff7f5e906}{L\+Z4\+\_\+wild\+Copy8}} (void $\ast$dst\+Ptr, const void $\ast$src\+Ptr, void $\ast$dst\+End)
+void \mbox{\hyperlink{Compression_8cpp_a107b5345286641379a50762ff7f5e906}{LZ4\+\_\+wild\+Copy8}} (void $\ast$dst\+Ptr, const void $\ast$src\+Ptr, void $\ast$dst\+End)
 \item 
-void \mbox{\hyperlink{Compression_8cpp_a4623ba84527053b711afd61375ac7d10}{L\+Z4\+\_\+memcpy\+\_\+using\+\_\+offset\+\_\+base}} (\mbox{\hyperlink{Compression_8cpp_aae9749d96e15ccb4f482dd5f55d98f9b}{B\+Y\+TE}} $\ast$dst\+Ptr, const \mbox{\hyperlink{Compression_8cpp_aae9749d96e15ccb4f482dd5f55d98f9b}{B\+Y\+TE}} $\ast$src\+Ptr, \mbox{\hyperlink{Compression_8cpp_aae9749d96e15ccb4f482dd5f55d98f9b}{B\+Y\+TE}} $\ast$dst\+End, const size\+\_\+t offset)
+void \mbox{\hyperlink{Compression_8cpp_a4623ba84527053b711afd61375ac7d10}{LZ4\+\_\+memcpy\+\_\+using\+\_\+offset\+\_\+base}} (\mbox{\hyperlink{Compression_8cpp_aae9749d96e15ccb4f482dd5f55d98f9b}{BYTE}} $\ast$dst\+Ptr, const \mbox{\hyperlink{Compression_8cpp_aae9749d96e15ccb4f482dd5f55d98f9b}{BYTE}} $\ast$src\+Ptr, \mbox{\hyperlink{Compression_8cpp_aae9749d96e15ccb4f482dd5f55d98f9b}{BYTE}} $\ast$dst\+End, const size\+\_\+t offset)
 \item 
-void \mbox{\hyperlink{Compression_8cpp_a5279938c8ccf6c4a556db8eecd1190a8}{L\+Z4\+\_\+wild\+Copy32}} (void $\ast$dst\+Ptr, const void $\ast$src\+Ptr, void $\ast$dst\+End)
+void \mbox{\hyperlink{Compression_8cpp_a5279938c8ccf6c4a556db8eecd1190a8}{LZ4\+\_\+wild\+Copy32}} (void $\ast$dst\+Ptr, const void $\ast$src\+Ptr, void $\ast$dst\+End)
 \item 
-void \mbox{\hyperlink{Compression_8cpp_ac7c1a188fa7bd65cf4bf9f923040674c}{L\+Z4\+\_\+memcpy\+\_\+using\+\_\+offset}} (\mbox{\hyperlink{Compression_8cpp_aae9749d96e15ccb4f482dd5f55d98f9b}{B\+Y\+TE}} $\ast$dst\+Ptr, const \mbox{\hyperlink{Compression_8cpp_aae9749d96e15ccb4f482dd5f55d98f9b}{B\+Y\+TE}} $\ast$src\+Ptr, \mbox{\hyperlink{Compression_8cpp_aae9749d96e15ccb4f482dd5f55d98f9b}{B\+Y\+TE}} $\ast$dst\+End, const size\+\_\+t offset)
+void \mbox{\hyperlink{Compression_8cpp_ac7c1a188fa7bd65cf4bf9f923040674c}{LZ4\+\_\+memcpy\+\_\+using\+\_\+offset}} (\mbox{\hyperlink{Compression_8cpp_aae9749d96e15ccb4f482dd5f55d98f9b}{BYTE}} $\ast$dst\+Ptr, const \mbox{\hyperlink{Compression_8cpp_aae9749d96e15ccb4f482dd5f55d98f9b}{BYTE}} $\ast$src\+Ptr, \mbox{\hyperlink{Compression_8cpp_aae9749d96e15ccb4f482dd5f55d98f9b}{BYTE}} $\ast$dst\+End, const size\+\_\+t offset)
 \item 
-static unsigned \mbox{\hyperlink{Compression_8cpp_a9a5ac6aa4f9fe1d17496b0deb44babf7}{L\+Z4\+\_\+\+Nb\+Common\+Bytes}} (\mbox{\hyperlink{Compression_8cpp_a2835baf742d73416e69ab571e9a9dacb}{reg\+\_\+t}} val)
+static unsigned \mbox{\hyperlink{Compression_8cpp_a9a5ac6aa4f9fe1d17496b0deb44babf7}{LZ4\+\_\+\+Nb\+Common\+Bytes}} (\mbox{\hyperlink{Compression_8cpp_a2835baf742d73416e69ab571e9a9dacb}{reg\+\_\+t}} val)
 \item 
-unsigned \mbox{\hyperlink{Compression_8cpp_a51be50a3bfabcb0a79edbe86e7d03d05}{L\+Z4\+\_\+count}} (const \mbox{\hyperlink{Compression_8cpp_aae9749d96e15ccb4f482dd5f55d98f9b}{B\+Y\+TE}} $\ast$p\+In, const \mbox{\hyperlink{Compression_8cpp_aae9749d96e15ccb4f482dd5f55d98f9b}{B\+Y\+TE}} $\ast$p\+Match, const \mbox{\hyperlink{Compression_8cpp_aae9749d96e15ccb4f482dd5f55d98f9b}{B\+Y\+TE}} $\ast$p\+In\+Limit)
+unsigned \mbox{\hyperlink{Compression_8cpp_a51be50a3bfabcb0a79edbe86e7d03d05}{LZ4\+\_\+count}} (const \mbox{\hyperlink{Compression_8cpp_aae9749d96e15ccb4f482dd5f55d98f9b}{BYTE}} $\ast$p\+In, const \mbox{\hyperlink{Compression_8cpp_aae9749d96e15ccb4f482dd5f55d98f9b}{BYTE}} $\ast$p\+Match, const \mbox{\hyperlink{Compression_8cpp_aae9749d96e15ccb4f482dd5f55d98f9b}{BYTE}} $\ast$p\+In\+Limit)
 \item 
-int \mbox{\hyperlink{Compression_8cpp_a2b09f5ca41ce609bb136d3637beffe04}{L\+Z4\+\_\+compress\+Bound}} (int isize)
+int \mbox{\hyperlink{Compression_8cpp_a2b09f5ca41ce609bb136d3637beffe04}{LZ4\+\_\+compress\+Bound}} (int isize)
 \item 
-\mbox{\hyperlink{Compression_8cpp_a696390429f2f3b644bde8d0322a24124}{U32}} \mbox{\hyperlink{Compression_8cpp_a3aa75886f3a0aa7a1e0fb0fdfb1964b0}{L\+Z4\+\_\+hash4}} (\mbox{\hyperlink{Compression_8cpp_a696390429f2f3b644bde8d0322a24124}{U32}} sequence, \mbox{\hyperlink{Compression_8cpp_ae86e1d8a28953326b685d6ebb243a699}{table\+Type\+\_\+t}} const table\+Type)
+\mbox{\hyperlink{Compression_8cpp_a696390429f2f3b644bde8d0322a24124}{U32}} \mbox{\hyperlink{Compression_8cpp_a3aa75886f3a0aa7a1e0fb0fdfb1964b0}{LZ4\+\_\+hash4}} (\mbox{\hyperlink{Compression_8cpp_a696390429f2f3b644bde8d0322a24124}{U32}} sequence, \mbox{\hyperlink{Compression_8cpp_ae86e1d8a28953326b685d6ebb243a699}{table\+Type\+\_\+t}} const table\+Type)
 \item 
-\mbox{\hyperlink{Compression_8cpp_a696390429f2f3b644bde8d0322a24124}{U32}} \mbox{\hyperlink{Compression_8cpp_ac709e2d2a37fd4d14a5e41a3b410b8a2}{L\+Z4\+\_\+hash5}} (\mbox{\hyperlink{Compression_8cpp_a25809e0734a149248fcf5831efa4e33d}{U64}} sequence, \mbox{\hyperlink{Compression_8cpp_ae86e1d8a28953326b685d6ebb243a699}{table\+Type\+\_\+t}} const table\+Type)
+\mbox{\hyperlink{Compression_8cpp_a696390429f2f3b644bde8d0322a24124}{U32}} \mbox{\hyperlink{Compression_8cpp_ac709e2d2a37fd4d14a5e41a3b410b8a2}{LZ4\+\_\+hash5}} (\mbox{\hyperlink{Compression_8cpp_a25809e0734a149248fcf5831efa4e33d}{U64}} sequence, \mbox{\hyperlink{Compression_8cpp_ae86e1d8a28953326b685d6ebb243a699}{table\+Type\+\_\+t}} const table\+Type)
 \item 
-\mbox{\hyperlink{Compression_8cpp_a696390429f2f3b644bde8d0322a24124}{U32}} \mbox{\hyperlink{Compression_8cpp_a70b1bbe91862d5cb5e473ce2deb556a7}{L\+Z4\+\_\+hash\+Position}} (const void $\ast$const p, \mbox{\hyperlink{Compression_8cpp_ae86e1d8a28953326b685d6ebb243a699}{table\+Type\+\_\+t}} const table\+Type)
+\mbox{\hyperlink{Compression_8cpp_a696390429f2f3b644bde8d0322a24124}{U32}} \mbox{\hyperlink{Compression_8cpp_a70b1bbe91862d5cb5e473ce2deb556a7}{LZ4\+\_\+hash\+Position}} (const void $\ast$const p, \mbox{\hyperlink{Compression_8cpp_ae86e1d8a28953326b685d6ebb243a699}{table\+Type\+\_\+t}} const table\+Type)
 \item 
-void \mbox{\hyperlink{Compression_8cpp_aa78ea8add85520d31f262506d5adb830}{L\+Z4\+\_\+clear\+Hash}} (\mbox{\hyperlink{Compression_8cpp_a696390429f2f3b644bde8d0322a24124}{U32}} h, void $\ast$table\+Base, \mbox{\hyperlink{Compression_8cpp_ae86e1d8a28953326b685d6ebb243a699}{table\+Type\+\_\+t}} const table\+Type)
+void \mbox{\hyperlink{Compression_8cpp_aa78ea8add85520d31f262506d5adb830}{LZ4\+\_\+clear\+Hash}} (\mbox{\hyperlink{Compression_8cpp_a696390429f2f3b644bde8d0322a24124}{U32}} h, void $\ast$table\+Base, \mbox{\hyperlink{Compression_8cpp_ae86e1d8a28953326b685d6ebb243a699}{table\+Type\+\_\+t}} const table\+Type)
 \item 
-void \mbox{\hyperlink{Compression_8cpp_afb1abdff740d4120870a053ff9afb1e5}{L\+Z4\+\_\+put\+Index\+On\+Hash}} (\mbox{\hyperlink{Compression_8cpp_a696390429f2f3b644bde8d0322a24124}{U32}} idx, \mbox{\hyperlink{Compression_8cpp_a696390429f2f3b644bde8d0322a24124}{U32}} h, void $\ast$table\+Base, \mbox{\hyperlink{Compression_8cpp_ae86e1d8a28953326b685d6ebb243a699}{table\+Type\+\_\+t}} const table\+Type)
+void \mbox{\hyperlink{Compression_8cpp_afb1abdff740d4120870a053ff9afb1e5}{LZ4\+\_\+put\+Index\+On\+Hash}} (\mbox{\hyperlink{Compression_8cpp_a696390429f2f3b644bde8d0322a24124}{U32}} idx, \mbox{\hyperlink{Compression_8cpp_a696390429f2f3b644bde8d0322a24124}{U32}} h, void $\ast$table\+Base, \mbox{\hyperlink{Compression_8cpp_ae86e1d8a28953326b685d6ebb243a699}{table\+Type\+\_\+t}} const table\+Type)
 \item 
-void \mbox{\hyperlink{Compression_8cpp_ac31271a152c15422122862ef508fe13a}{L\+Z4\+\_\+put\+Position\+On\+Hash}} (const \mbox{\hyperlink{Compression_8cpp_aae9749d96e15ccb4f482dd5f55d98f9b}{B\+Y\+TE}} $\ast$p, \mbox{\hyperlink{Compression_8cpp_a696390429f2f3b644bde8d0322a24124}{U32}} h, void $\ast$table\+Base, \mbox{\hyperlink{Compression_8cpp_ae86e1d8a28953326b685d6ebb243a699}{table\+Type\+\_\+t}} const table\+Type, const \mbox{\hyperlink{Compression_8cpp_aae9749d96e15ccb4f482dd5f55d98f9b}{B\+Y\+TE}} $\ast$src\+Base)
+void \mbox{\hyperlink{Compression_8cpp_ac31271a152c15422122862ef508fe13a}{LZ4\+\_\+put\+Position\+On\+Hash}} (const \mbox{\hyperlink{Compression_8cpp_aae9749d96e15ccb4f482dd5f55d98f9b}{BYTE}} $\ast$p, \mbox{\hyperlink{Compression_8cpp_a696390429f2f3b644bde8d0322a24124}{U32}} h, void $\ast$table\+Base, \mbox{\hyperlink{Compression_8cpp_ae86e1d8a28953326b685d6ebb243a699}{table\+Type\+\_\+t}} const table\+Type, const \mbox{\hyperlink{Compression_8cpp_aae9749d96e15ccb4f482dd5f55d98f9b}{BYTE}} $\ast$src\+Base)
 \item 
-void \mbox{\hyperlink{Compression_8cpp_a758ae6d5b0a32072c833b9a03be20a37}{L\+Z4\+\_\+put\+Position}} (const \mbox{\hyperlink{Compression_8cpp_aae9749d96e15ccb4f482dd5f55d98f9b}{B\+Y\+TE}} $\ast$p, void $\ast$table\+Base, \mbox{\hyperlink{Compression_8cpp_ae86e1d8a28953326b685d6ebb243a699}{table\+Type\+\_\+t}} table\+Type, const \mbox{\hyperlink{Compression_8cpp_aae9749d96e15ccb4f482dd5f55d98f9b}{B\+Y\+TE}} $\ast$src\+Base)
+void \mbox{\hyperlink{Compression_8cpp_a758ae6d5b0a32072c833b9a03be20a37}{LZ4\+\_\+put\+Position}} (const \mbox{\hyperlink{Compression_8cpp_aae9749d96e15ccb4f482dd5f55d98f9b}{BYTE}} $\ast$p, void $\ast$table\+Base, \mbox{\hyperlink{Compression_8cpp_ae86e1d8a28953326b685d6ebb243a699}{table\+Type\+\_\+t}} table\+Type, const \mbox{\hyperlink{Compression_8cpp_aae9749d96e15ccb4f482dd5f55d98f9b}{BYTE}} $\ast$src\+Base)
 \item 
-\mbox{\hyperlink{Compression_8cpp_a696390429f2f3b644bde8d0322a24124}{U32}} \mbox{\hyperlink{Compression_8cpp_a473d1db23ade92ad1be19e7720e56201}{L\+Z4\+\_\+get\+Index\+On\+Hash}} (\mbox{\hyperlink{Compression_8cpp_a696390429f2f3b644bde8d0322a24124}{U32}} h, const void $\ast$table\+Base, \mbox{\hyperlink{Compression_8cpp_ae86e1d8a28953326b685d6ebb243a699}{table\+Type\+\_\+t}} table\+Type)
+\mbox{\hyperlink{Compression_8cpp_a696390429f2f3b644bde8d0322a24124}{U32}} \mbox{\hyperlink{Compression_8cpp_a473d1db23ade92ad1be19e7720e56201}{LZ4\+\_\+get\+Index\+On\+Hash}} (\mbox{\hyperlink{Compression_8cpp_a696390429f2f3b644bde8d0322a24124}{U32}} h, const void $\ast$table\+Base, \mbox{\hyperlink{Compression_8cpp_ae86e1d8a28953326b685d6ebb243a699}{table\+Type\+\_\+t}} table\+Type)
 \item 
-static const \mbox{\hyperlink{Compression_8cpp_aae9749d96e15ccb4f482dd5f55d98f9b}{B\+Y\+TE}} $\ast$ \mbox{\hyperlink{Compression_8cpp_abdc1313fe20c80eb1790fdf0fbdb30a0}{L\+Z4\+\_\+get\+Position\+On\+Hash}} (\mbox{\hyperlink{Compression_8cpp_a696390429f2f3b644bde8d0322a24124}{U32}} h, const void $\ast$table\+Base, \mbox{\hyperlink{Compression_8cpp_ae86e1d8a28953326b685d6ebb243a699}{table\+Type\+\_\+t}} table\+Type, const \mbox{\hyperlink{Compression_8cpp_aae9749d96e15ccb4f482dd5f55d98f9b}{B\+Y\+TE}} $\ast$src\+Base)
+static const \mbox{\hyperlink{Compression_8cpp_aae9749d96e15ccb4f482dd5f55d98f9b}{BYTE}} $\ast$ \mbox{\hyperlink{Compression_8cpp_abdc1313fe20c80eb1790fdf0fbdb30a0}{LZ4\+\_\+get\+Position\+On\+Hash}} (\mbox{\hyperlink{Compression_8cpp_a696390429f2f3b644bde8d0322a24124}{U32}} h, const void $\ast$table\+Base, \mbox{\hyperlink{Compression_8cpp_ae86e1d8a28953326b685d6ebb243a699}{table\+Type\+\_\+t}} table\+Type, const \mbox{\hyperlink{Compression_8cpp_aae9749d96e15ccb4f482dd5f55d98f9b}{BYTE}} $\ast$src\+Base)
 \item 
-const \mbox{\hyperlink{Compression_8cpp_aae9749d96e15ccb4f482dd5f55d98f9b}{B\+Y\+TE}} $\ast$ \mbox{\hyperlink{Compression_8cpp_ad90828b9bc0e6eaa8a880300d1292d4e}{L\+Z4\+\_\+get\+Position}} (const \mbox{\hyperlink{Compression_8cpp_aae9749d96e15ccb4f482dd5f55d98f9b}{B\+Y\+TE}} $\ast$p, const void $\ast$table\+Base, \mbox{\hyperlink{Compression_8cpp_ae86e1d8a28953326b685d6ebb243a699}{table\+Type\+\_\+t}} table\+Type, const \mbox{\hyperlink{Compression_8cpp_aae9749d96e15ccb4f482dd5f55d98f9b}{B\+Y\+TE}} $\ast$src\+Base)
+const \mbox{\hyperlink{Compression_8cpp_aae9749d96e15ccb4f482dd5f55d98f9b}{BYTE}} $\ast$ \mbox{\hyperlink{Compression_8cpp_ad90828b9bc0e6eaa8a880300d1292d4e}{LZ4\+\_\+get\+Position}} (const \mbox{\hyperlink{Compression_8cpp_aae9749d96e15ccb4f482dd5f55d98f9b}{BYTE}} $\ast$p, const void $\ast$table\+Base, \mbox{\hyperlink{Compression_8cpp_ae86e1d8a28953326b685d6ebb243a699}{table\+Type\+\_\+t}} table\+Type, const \mbox{\hyperlink{Compression_8cpp_aae9749d96e15ccb4f482dd5f55d98f9b}{BYTE}} $\ast$src\+Base)
 \item 
-int \mbox{\hyperlink{Compression_8cpp_a9a690f1f67712d1ace9c4442696a4b88}{L\+Z4\+\_\+compress\+\_\+generic\+\_\+validated}} (\mbox{\hyperlink{structLZ4__stream__t__internal}{L\+Z4\+\_\+stream\+\_\+t\+\_\+internal}} $\ast$const cctx, const char $\ast$const source, char $\ast$const dest, const int input\+Size, int $\ast$input\+Consumed, const int max\+Output\+Size, const \mbox{\hyperlink{Compression_8cpp_ab93acf685743debab05876250a1cbe28}{limited\+Output\+\_\+directive}} output\+Directive, const \mbox{\hyperlink{Compression_8cpp_ae86e1d8a28953326b685d6ebb243a699}{table\+Type\+\_\+t}} table\+Type, const \mbox{\hyperlink{Compression_8cpp_ab22d25a446ad3e8288401052deccda4c}{dict\+\_\+directive}} dict\+Directive, const \mbox{\hyperlink{Compression_8cpp_a9f23ad1797bc66e6b6dff6cf3acfd351}{dict\+Issue\+\_\+directive}} dict\+Issue, const int acceleration)
+int \mbox{\hyperlink{Compression_8cpp_a9a690f1f67712d1ace9c4442696a4b88}{LZ4\+\_\+compress\+\_\+generic\+\_\+validated}} (\mbox{\hyperlink{structLZ4__stream__t__internal}{LZ4\+\_\+stream\+\_\+t\+\_\+internal}} $\ast$const cctx, const char $\ast$const source, char $\ast$const dest, const int input\+Size, int $\ast$input\+Consumed, const int max\+Output\+Size, const \mbox{\hyperlink{Compression_8cpp_ab93acf685743debab05876250a1cbe28}{limited\+Output\+\_\+directive}} output\+Directive, const \mbox{\hyperlink{Compression_8cpp_ae86e1d8a28953326b685d6ebb243a699}{table\+Type\+\_\+t}} table\+Type, const \mbox{\hyperlink{Compression_8cpp_ab22d25a446ad3e8288401052deccda4c}{dict\+\_\+directive}} dict\+Directive, const \mbox{\hyperlink{Compression_8cpp_a9f23ad1797bc66e6b6dff6cf3acfd351}{dict\+Issue\+\_\+directive}} dict\+Issue, const int acceleration)
 \item 
-int \mbox{\hyperlink{Compression_8cpp_a7d75fe9e5e79ce7eaecfb3e3bdc92432}{L\+Z4\+\_\+compress\+\_\+generic}} (\mbox{\hyperlink{structLZ4__stream__t__internal}{L\+Z4\+\_\+stream\+\_\+t\+\_\+internal}} $\ast$const cctx, const char $\ast$const src, char $\ast$const dst, const int src\+Size, int $\ast$input\+Consumed, const int dst\+Capacity, const \mbox{\hyperlink{Compression_8cpp_ab93acf685743debab05876250a1cbe28}{limited\+Output\+\_\+directive}} output\+Directive, const \mbox{\hyperlink{Compression_8cpp_ae86e1d8a28953326b685d6ebb243a699}{table\+Type\+\_\+t}} table\+Type, const \mbox{\hyperlink{Compression_8cpp_ab22d25a446ad3e8288401052deccda4c}{dict\+\_\+directive}} dict\+Directive, const \mbox{\hyperlink{Compression_8cpp_a9f23ad1797bc66e6b6dff6cf3acfd351}{dict\+Issue\+\_\+directive}} dict\+Issue, const int acceleration)
+int \mbox{\hyperlink{Compression_8cpp_a7d75fe9e5e79ce7eaecfb3e3bdc92432}{LZ4\+\_\+compress\+\_\+generic}} (\mbox{\hyperlink{structLZ4__stream__t__internal}{LZ4\+\_\+stream\+\_\+t\+\_\+internal}} $\ast$const cctx, const char $\ast$const src, char $\ast$const dst, const int src\+Size, int $\ast$input\+Consumed, const int dst\+Capacity, const \mbox{\hyperlink{Compression_8cpp_ab93acf685743debab05876250a1cbe28}{limited\+Output\+\_\+directive}} output\+Directive, const \mbox{\hyperlink{Compression_8cpp_ae86e1d8a28953326b685d6ebb243a699}{table\+Type\+\_\+t}} table\+Type, const \mbox{\hyperlink{Compression_8cpp_ab22d25a446ad3e8288401052deccda4c}{dict\+\_\+directive}} dict\+Directive, const \mbox{\hyperlink{Compression_8cpp_a9f23ad1797bc66e6b6dff6cf3acfd351}{dict\+Issue\+\_\+directive}} dict\+Issue, const int acceleration)
 \item 
-int \mbox{\hyperlink{Compression_8cpp_a19a6258c0092d5b3255a41d7566248d7}{L\+Z4\+\_\+compress\+\_\+fast\+\_\+ext\+State}} (void $\ast$state, const char $\ast$source, char $\ast$dest, int input\+Size, int max\+Output\+Size, int acceleration)
+int \mbox{\hyperlink{Compression_8cpp_a19a6258c0092d5b3255a41d7566248d7}{LZ4\+\_\+compress\+\_\+fast\+\_\+ext\+State}} (void $\ast$state, const char $\ast$source, char $\ast$dest, int input\+Size, int max\+Output\+Size, int acceleration)
 \item 
-int \mbox{\hyperlink{Compression_8cpp_a7466a8eca8f7b2eeec7887c9371d21e1}{L\+Z4\+\_\+compress\+\_\+fast}} (const char $\ast$source, char $\ast$dest, int input\+Size, int max\+Output\+Size, int acceleration)
+int \mbox{\hyperlink{Compression_8cpp_a7466a8eca8f7b2eeec7887c9371d21e1}{LZ4\+\_\+compress\+\_\+fast}} (const char $\ast$source, char $\ast$dest, int input\+Size, int max\+Output\+Size, int acceleration)
 \item 
-int \mbox{\hyperlink{Compression_8cpp_a4a0eddbe2e6f52ce91e259fa57459fbd}{L\+Z4\+\_\+compress\+\_\+default}} (const char $\ast$src, char $\ast$dst, int src\+Size, int max\+Output\+Size)
+int \mbox{\hyperlink{Compression_8cpp_a4a0eddbe2e6f52ce91e259fa57459fbd}{LZ4\+\_\+compress\+\_\+default}} (const char $\ast$src, char $\ast$dst, int src\+Size, int max\+Output\+Size)
 \item 
-static size\+\_\+t \mbox{\hyperlink{Compression_8cpp_adc972484e4b4a228506ba1a99f18661a}{L\+Z4\+\_\+stream\+\_\+t\+\_\+alignment}} (void)
+static size\+\_\+t \mbox{\hyperlink{Compression_8cpp_adc972484e4b4a228506ba1a99f18661a}{LZ4\+\_\+stream\+\_\+t\+\_\+alignment}} (void)
 \item 
-\mbox{\hyperlink{Compression_8h_a4fb9ac4ce6d5e25edc9188f9d6633498}{L\+Z4\+\_\+stream\+\_\+t}} $\ast$ \mbox{\hyperlink{Compression_8cpp_a43fc7d0a99a5a66f6056d73ce3e8aa5c}{L\+Z4\+\_\+init\+Stream}} (void $\ast$buffer, size\+\_\+t size)
+\mbox{\hyperlink{Compression_8h_a4fb9ac4ce6d5e25edc9188f9d6633498}{LZ4\+\_\+stream\+\_\+t}} $\ast$ \mbox{\hyperlink{Compression_8cpp_a43fc7d0a99a5a66f6056d73ce3e8aa5c}{LZ4\+\_\+init\+Stream}} (void $\ast$buffer, size\+\_\+t size)
 \item 
-unsigned \mbox{\hyperlink{Compression_8cpp_a5c5ad2e93f6fef517f3227f90e0791b1}{read\+\_\+variable\+\_\+length}} (const \mbox{\hyperlink{Compression_8cpp_aae9749d96e15ccb4f482dd5f55d98f9b}{B\+Y\+TE}} $\ast$$\ast$ip, const \mbox{\hyperlink{Compression_8cpp_aae9749d96e15ccb4f482dd5f55d98f9b}{B\+Y\+TE}} $\ast$lencheck, int loop\+\_\+check, int initial\+\_\+check, \mbox{\hyperlink{Compression_8cpp_a9d0df14b4296f06cf7c7b141f26d29b3}{variable\+\_\+length\+\_\+error}} $\ast$error)
+unsigned \mbox{\hyperlink{Compression_8cpp_a5c5ad2e93f6fef517f3227f90e0791b1}{read\+\_\+variable\+\_\+length}} (const \mbox{\hyperlink{Compression_8cpp_aae9749d96e15ccb4f482dd5f55d98f9b}{BYTE}} $\ast$$\ast$ip, const \mbox{\hyperlink{Compression_8cpp_aae9749d96e15ccb4f482dd5f55d98f9b}{BYTE}} $\ast$lencheck, int loop\+\_\+check, int initial\+\_\+check, \mbox{\hyperlink{Compression_8cpp_a9d0df14b4296f06cf7c7b141f26d29b3}{variable\+\_\+length\+\_\+error}} $\ast$error)
 \item 
-int \mbox{\hyperlink{Compression_8cpp_a3d19938a7f5d37bf6485ef0e7cecde4c}{L\+Z4\+\_\+decompress\+\_\+generic}} (const char $\ast$const src, char $\ast$const dst, int src\+Size, int output\+Size, \mbox{\hyperlink{Compression_8cpp_a23fcfcea9fce4ad48b37485e3b6e8746}{end\+Condition\+\_\+directive}} end\+On\+Input, \mbox{\hyperlink{Compression_8cpp_a2719d1421671f2c7fa3c68ca7465994c}{early\+End\+\_\+directive}} partial\+Decoding, \mbox{\hyperlink{Compression_8cpp_ab22d25a446ad3e8288401052deccda4c}{dict\+\_\+directive}} dict, const \mbox{\hyperlink{Compression_8cpp_aae9749d96e15ccb4f482dd5f55d98f9b}{B\+Y\+TE}} $\ast$const low\+Prefix, const \mbox{\hyperlink{Compression_8cpp_aae9749d96e15ccb4f482dd5f55d98f9b}{B\+Y\+TE}} $\ast$const dict\+Start, const size\+\_\+t dict\+Size)
+int \mbox{\hyperlink{Compression_8cpp_a3d19938a7f5d37bf6485ef0e7cecde4c}{LZ4\+\_\+decompress\+\_\+generic}} (const char $\ast$const src, char $\ast$const dst, int src\+Size, int output\+Size, \mbox{\hyperlink{Compression_8cpp_a23fcfcea9fce4ad48b37485e3b6e8746}{end\+Condition\+\_\+directive}} end\+On\+Input, \mbox{\hyperlink{Compression_8cpp_a2719d1421671f2c7fa3c68ca7465994c}{early\+End\+\_\+directive}} partial\+Decoding, \mbox{\hyperlink{Compression_8cpp_ab22d25a446ad3e8288401052deccda4c}{dict\+\_\+directive}} dict, const \mbox{\hyperlink{Compression_8cpp_aae9749d96e15ccb4f482dd5f55d98f9b}{BYTE}} $\ast$const low\+Prefix, const \mbox{\hyperlink{Compression_8cpp_aae9749d96e15ccb4f482dd5f55d98f9b}{BYTE}} $\ast$const dict\+Start, const size\+\_\+t dict\+Size)
 \item 
-int \mbox{\hyperlink{Compression_8cpp_a0826f3dc340fdea6dfa985f6ac26642f}{L\+Z4\+\_\+decompress\+\_\+safe}} (const char $\ast$source, char $\ast$dest, int compressed\+Size, int max\+Decompressed\+Size)
+int \mbox{\hyperlink{Compression_8cpp_a0826f3dc340fdea6dfa985f6ac26642f}{LZ4\+\_\+decompress\+\_\+safe}} (const char $\ast$source, char $\ast$dest, int compressed\+Size, int max\+Decompressed\+Size)
 \end{DoxyCompactItemize}
 \doxysubsection*{Variables}
 \begin{DoxyCompactItemize}
 \item 
-static const int \mbox{\hyperlink{Compression_8cpp_a008b9fd5094e20eec7d8f504530d113c}{L\+Z4\+\_\+min\+Length}} = (\mbox{\hyperlink{Compression_8cpp_a6bb5847a99cd90aca07870a394cbe70d}{M\+F\+L\+I\+M\+IT}} + 1)
+static const int \mbox{\hyperlink{Compression_8cpp_a008b9fd5094e20eec7d8f504530d113c}{LZ4\+\_\+min\+Length}} = (\mbox{\hyperlink{Compression_8cpp_a6bb5847a99cd90aca07870a394cbe70d}{MFLIMIT}} + 1)
 \item 
 static const unsigned \mbox{\hyperlink{Compression_8cpp_a451c82499501c4916ad44f7c1202f88a}{inc32table}} \mbox{[}8\mbox{]} = \{ 0, 1, 2, 1, 0, 4, 4, 4 \}
 \item 
 static const int \mbox{\hyperlink{Compression_8cpp_a541b3dda85be857eac8aabcf43ee83d8}{dec64table}} \mbox{[}8\mbox{]} = \{ 0, 0, 0, -\/1, -\/4, 1, 2, 3 \}
 \item 
-static const int \mbox{\hyperlink{Compression_8cpp_ac55e8e70f9d03d1f06d823de23222fee}{L\+Z4\+\_\+64\+Klimit}} = ((64 \mbox{\hyperlink{Compression_8cpp_a1841fd1a462d245d8c73dce55e2f45da}{KB}}) + (\mbox{\hyperlink{Compression_8cpp_a6bb5847a99cd90aca07870a394cbe70d}{M\+F\+L\+I\+M\+IT}} -\/ 1))
+static const int \mbox{\hyperlink{Compression_8cpp_ac55e8e70f9d03d1f06d823de23222fee}{LZ4\+\_\+64\+Klimit}} = ((64 \mbox{\hyperlink{Compression_8cpp_a1841fd1a462d245d8c73dce55e2f45da}{KB}}) + (\mbox{\hyperlink{Compression_8cpp_a6bb5847a99cd90aca07870a394cbe70d}{MFLIMIT}} -\/ 1))
 \item 
-static const \mbox{\hyperlink{Compression_8cpp_a696390429f2f3b644bde8d0322a24124}{U32}} \mbox{\hyperlink{Compression_8cpp_aa32dfc3b58308fccc1eb52d8aa2c7e3c}{L\+Z4\+\_\+skip\+Trigger}} = 6
+static const \mbox{\hyperlink{Compression_8cpp_a696390429f2f3b644bde8d0322a24124}{U32}} \mbox{\hyperlink{Compression_8cpp_aa32dfc3b58308fccc1eb52d8aa2c7e3c}{LZ4\+\_\+skip\+Trigger}} = 6
 \end{DoxyCompactItemize}
 
 
@@ -224,7 +225,7 @@ Definition at line 68 of file Compression.\+cpp.
 \index{Compression.cpp@{Compression.cpp}!DEBUGLOG@{DEBUGLOG}}
 \index{DEBUGLOG@{DEBUGLOG}!Compression.cpp@{Compression.cpp}}
 \doxysubsubsection{\texorpdfstring{DEBUGLOG}{DEBUGLOG}}
-{\footnotesize\ttfamily \#define D\+E\+B\+U\+G\+L\+OG(\begin{DoxyParamCaption}\item[{}]{l,  }\item[{}]{... }\end{DoxyParamCaption})~\{\}    /$\ast$ disabled $\ast$/}
+{\footnotesize\ttfamily \#define DEBUGLOG(\begin{DoxyParamCaption}\item[{}]{l,  }\item[{}]{... }\end{DoxyParamCaption})~\{\}    /$\ast$ disabled $\ast$/}
 
 
 
@@ -244,7 +245,7 @@ Definition at line 21 of file Compression.\+cpp.
 \index{Compression.cpp@{Compression.cpp}!FASTLOOP\_SAFE\_DISTANCE@{FASTLOOP\_SAFE\_DISTANCE}}
 \index{FASTLOOP\_SAFE\_DISTANCE@{FASTLOOP\_SAFE\_DISTANCE}!Compression.cpp@{Compression.cpp}}
 \doxysubsubsection{\texorpdfstring{FASTLOOP\_SAFE\_DISTANCE}{FASTLOOP\_SAFE\_DISTANCE}}
-{\footnotesize\ttfamily \#define F\+A\+S\+T\+L\+O\+O\+P\+\_\+\+S\+A\+F\+E\+\_\+\+D\+I\+S\+T\+A\+N\+CE~64}
+{\footnotesize\ttfamily \#define FASTLOOP\+\_\+\+SAFE\+\_\+\+DISTANCE~64}
 
 
 
@@ -274,7 +275,7 @@ Definition at line 46 of file Compression.\+cpp.
 \index{Compression.cpp@{Compression.cpp}!LASTLITERALS@{LASTLITERALS}}
 \index{LASTLITERALS@{LASTLITERALS}!Compression.cpp@{Compression.cpp}}
 \doxysubsubsection{\texorpdfstring{LASTLITERALS}{LASTLITERALS}}
-{\footnotesize\ttfamily \#define L\+A\+S\+T\+L\+I\+T\+E\+R\+A\+LS~5   /$\ast$ see ../doc/lz4\+\_\+\+Block\+\_\+format.\+md\#parsing-\/restrictions $\ast$/}
+{\footnotesize\ttfamily \#define LASTLITERALS~5   /$\ast$ see ../doc/lz4\+\_\+\+Block\+\_\+format.\+md\#parsing-\/restrictions $\ast$/}
 
 
 
@@ -294,7 +295,7 @@ Definition at line 25 of file Compression.\+cpp.
 \index{Compression.cpp@{Compression.cpp}!LZ4\_ALIGN\_TEST@{LZ4\_ALIGN\_TEST}}
 \index{LZ4\_ALIGN\_TEST@{LZ4\_ALIGN\_TEST}!Compression.cpp@{Compression.cpp}}
 \doxysubsubsection{\texorpdfstring{LZ4\_ALIGN\_TEST}{LZ4\_ALIGN\_TEST}}
-{\footnotesize\ttfamily \#define L\+Z4\+\_\+\+A\+L\+I\+G\+N\+\_\+\+T\+E\+ST~0}
+{\footnotesize\ttfamily \#define LZ4\+\_\+\+ALIGN\+\_\+\+TEST~0}
 
 
 
@@ -304,7 +305,7 @@ Definition at line 34 of file Compression.\+cpp.
 \index{Compression.cpp@{Compression.cpp}!LZ4\_DISTANCE\_ABSOLUTE\_MAX@{LZ4\_DISTANCE\_ABSOLUTE\_MAX}}
 \index{LZ4\_DISTANCE\_ABSOLUTE\_MAX@{LZ4\_DISTANCE\_ABSOLUTE\_MAX}!Compression.cpp@{Compression.cpp}}
 \doxysubsubsection{\texorpdfstring{LZ4\_DISTANCE\_ABSOLUTE\_MAX}{LZ4\_DISTANCE\_ABSOLUTE\_MAX}}
-{\footnotesize\ttfamily \#define L\+Z4\+\_\+\+D\+I\+S\+T\+A\+N\+C\+E\+\_\+\+A\+B\+S\+O\+L\+U\+T\+E\+\_\+\+M\+AX~65535}
+{\footnotesize\ttfamily \#define LZ4\+\_\+\+DISTANCE\+\_\+\+ABSOLUTE\+\_\+\+MAX~65535}
 
 
 
@@ -314,9 +315,9 @@ Definition at line 50 of file Compression.\+cpp.
 \index{Compression.cpp@{Compression.cpp}!LZ4\_memcpy@{LZ4\_memcpy}}
 \index{LZ4\_memcpy@{LZ4\_memcpy}!Compression.cpp@{Compression.cpp}}
 \doxysubsubsection{\texorpdfstring{LZ4\_memcpy}{LZ4\_memcpy}}
-{\footnotesize\ttfamily \#define L\+Z4\+\_\+memcpy(\begin{DoxyParamCaption}\item[{}]{dst,  }\item[{}]{src,  }\item[{}]{size }\end{DoxyParamCaption})~memcpy(dst, src, size)}
+{\footnotesize\ttfamily \#define LZ4\+\_\+memcpy(\begin{DoxyParamCaption}\item[{}]{dst,  }\item[{}]{src,  }\item[{}]{size }\end{DoxyParamCaption})~memcpy(dst, src, size)}
 
-L\+Z4 relies on memcpy with a constant size being inlined. In freestanding environments, the compiler can\textquotesingle{}t assume the implementation of memcpy() is standard compliant, so it can\textquotesingle{}t apply its specialized memcpy() inlining logic. When possible, use \+\_\+\+\_\+builtin\+\_\+memcpy() to tell the compiler to analyze memcpy() as if it were standard compliant, so it can inline it in freestanding environments. This is needed when decompressing the Linux Kernel, for example. 
+LZ4 relies on memcpy with a constant size being inlined. In freestanding environments, the compiler can\textquotesingle{}t assume the implementation of memcpy() is standard compliant, so it can\textquotesingle{}t apply its specialized memcpy() inlining logic. When possible, use \+\_\+\+\_\+builtin\+\_\+memcpy() to tell the compiler to analyze memcpy() as if it were standard compliant, so it can inline it in freestanding environments. This is needed when decompressing the Linux Kernel, for example. 
 
 Definition at line 119 of file Compression.\+cpp.
 
@@ -324,7 +325,7 @@ Definition at line 119 of file Compression.\+cpp.
 \index{Compression.cpp@{Compression.cpp}!LZ4\_STATIC\_ASSERT@{LZ4\_STATIC\_ASSERT}}
 \index{LZ4\_STATIC\_ASSERT@{LZ4\_STATIC\_ASSERT}!Compression.cpp@{Compression.cpp}}
 \doxysubsubsection{\texorpdfstring{LZ4\_STATIC\_ASSERT}{LZ4\_STATIC\_ASSERT}}
-{\footnotesize\ttfamily \#define L\+Z4\+\_\+\+S\+T\+A\+T\+I\+C\+\_\+\+A\+S\+S\+E\+RT(\begin{DoxyParamCaption}\item[{}]{c }\end{DoxyParamCaption})~\{ enum \{ L\+Z4\+\_\+static\+\_\+assert = 1/(int)(!!(c)) \}; \}   /$\ast$ use after variable declarations $\ast$/}
+{\footnotesize\ttfamily \#define LZ4\+\_\+\+STATIC\+\_\+\+ASSERT(\begin{DoxyParamCaption}\item[{}]{c }\end{DoxyParamCaption})~\{ enum \{ LZ4\+\_\+static\+\_\+assert = 1/(int)(!!(c)) \}; \}   /$\ast$ use after variable declarations $\ast$/}
 
 
 
@@ -334,7 +335,7 @@ Definition at line 72 of file Compression.\+cpp.
 \index{Compression.cpp@{Compression.cpp}!MATCH\_SAFEGUARD\_DISTANCE@{MATCH\_SAFEGUARD\_DISTANCE}}
 \index{MATCH\_SAFEGUARD\_DISTANCE@{MATCH\_SAFEGUARD\_DISTANCE}!Compression.cpp@{Compression.cpp}}
 \doxysubsubsection{\texorpdfstring{MATCH\_SAFEGUARD\_DISTANCE}{MATCH\_SAFEGUARD\_DISTANCE}}
-{\footnotesize\ttfamily \#define M\+A\+T\+C\+H\+\_\+\+S\+A\+F\+E\+G\+U\+A\+R\+D\+\_\+\+D\+I\+S\+T\+A\+N\+CE~((2$\ast$\mbox{\hyperlink{Compression_8cpp_ade83a0730ce39465e00284b8d1b29784}{W\+I\+L\+D\+C\+O\+P\+Y\+L\+E\+N\+G\+TH}}) -\/ \mbox{\hyperlink{Compression_8cpp_a2d835b35b6582451a75dc6ff464a9e75}{M\+I\+N\+M\+A\+T\+CH}})   /$\ast$ ensure it\textquotesingle{}s possible to write 2 x wildcopy\+Length without overflowing output buffer $\ast$/}
+{\footnotesize\ttfamily \#define MATCH\+\_\+\+SAFEGUARD\+\_\+\+DISTANCE~((2$\ast$\mbox{\hyperlink{Compression_8cpp_ade83a0730ce39465e00284b8d1b29784}{WILDCOPYLENGTH}}) -\/ \mbox{\hyperlink{Compression_8cpp_a2d835b35b6582451a75dc6ff464a9e75}{MINMATCH}})   /$\ast$ ensure it\textquotesingle{}s possible to write 2 x wildcopy\+Length without overflowing output buffer $\ast$/}
 
 
 
@@ -354,7 +355,7 @@ Definition at line 47 of file Compression.\+cpp.
 \index{Compression.cpp@{Compression.cpp}!MFLIMIT@{MFLIMIT}}
 \index{MFLIMIT@{MFLIMIT}!Compression.cpp@{Compression.cpp}}
 \doxysubsubsection{\texorpdfstring{MFLIMIT}{MFLIMIT}}
-{\footnotesize\ttfamily \#define M\+F\+L\+I\+M\+IT~12   /$\ast$ see ../doc/lz4\+\_\+\+Block\+\_\+format.\+md\#parsing-\/restrictions $\ast$/}
+{\footnotesize\ttfamily \#define MFLIMIT~12   /$\ast$ see ../doc/lz4\+\_\+\+Block\+\_\+format.\+md\#parsing-\/restrictions $\ast$/}
 
 
 
@@ -364,7 +365,7 @@ Definition at line 41 of file Compression.\+cpp.
 \index{Compression.cpp@{Compression.cpp}!MIN@{MIN}}
 \index{MIN@{MIN}!Compression.cpp@{Compression.cpp}}
 \doxysubsubsection{\texorpdfstring{MIN}{MIN}}
-{\footnotesize\ttfamily \#define M\+IN(\begin{DoxyParamCaption}\item[{}]{a,  }\item[{}]{b }\end{DoxyParamCaption})~( (a) $<$ (b) ? (a) \+: (b) )}
+{\footnotesize\ttfamily \#define MIN(\begin{DoxyParamCaption}\item[{}]{a,  }\item[{}]{b }\end{DoxyParamCaption})~( (a) $<$ (b) ? (a) \+: (b) )}
 
 
 
@@ -374,7 +375,7 @@ Definition at line 993 of file Compression.\+cpp.
 \index{Compression.cpp@{Compression.cpp}!MINMATCH@{MINMATCH}}
 \index{MINMATCH@{MINMATCH}!Compression.cpp@{Compression.cpp}}
 \doxysubsubsection{\texorpdfstring{MINMATCH}{MINMATCH}}
-{\footnotesize\ttfamily \#define M\+I\+N\+M\+A\+T\+CH~4}
+{\footnotesize\ttfamily \#define MINMATCH~4}
 
 
 
@@ -384,7 +385,7 @@ Definition at line 37 of file Compression.\+cpp.
 \index{Compression.cpp@{Compression.cpp}!ML\_BITS@{ML\_BITS}}
 \index{ML\_BITS@{ML\_BITS}!Compression.cpp@{Compression.cpp}}
 \doxysubsubsection{\texorpdfstring{ML\_BITS}{ML\_BITS}}
-{\footnotesize\ttfamily \#define M\+L\+\_\+\+B\+I\+TS~4}
+{\footnotesize\ttfamily \#define ML\+\_\+\+BITS~4}
 
 
 
@@ -394,7 +395,7 @@ Definition at line 55 of file Compression.\+cpp.
 \index{Compression.cpp@{Compression.cpp}!ML\_MASK@{ML\_MASK}}
 \index{ML\_MASK@{ML\_MASK}!Compression.cpp@{Compression.cpp}}
 \doxysubsubsection{\texorpdfstring{ML\_MASK}{ML\_MASK}}
-{\footnotesize\ttfamily \#define M\+L\+\_\+\+M\+A\+SK~((1U$<$$<$\mbox{\hyperlink{Compression_8cpp_aa84b594ef328b62b23e36c78abe2aaf0}{M\+L\+\_\+\+B\+I\+TS}})-\/1)}
+{\footnotesize\ttfamily \#define ML\+\_\+\+MASK~((1U$<$$<$\mbox{\hyperlink{Compression_8cpp_aa84b594ef328b62b23e36c78abe2aaf0}{ML\+\_\+\+BITS}})-\/1)}
 
 
 
@@ -404,7 +405,7 @@ Definition at line 56 of file Compression.\+cpp.
 \index{Compression.cpp@{Compression.cpp}!RUN\_BITS@{RUN\_BITS}}
 \index{RUN\_BITS@{RUN\_BITS}!Compression.cpp@{Compression.cpp}}
 \doxysubsubsection{\texorpdfstring{RUN\_BITS}{RUN\_BITS}}
-{\footnotesize\ttfamily \#define R\+U\+N\+\_\+\+B\+I\+TS~(8-\/\mbox{\hyperlink{Compression_8cpp_aa84b594ef328b62b23e36c78abe2aaf0}{M\+L\+\_\+\+B\+I\+TS}})}
+{\footnotesize\ttfamily \#define RUN\+\_\+\+BITS~(8-\/\mbox{\hyperlink{Compression_8cpp_aa84b594ef328b62b23e36c78abe2aaf0}{ML\+\_\+\+BITS}})}
 
 
 
@@ -414,7 +415,7 @@ Definition at line 57 of file Compression.\+cpp.
 \index{Compression.cpp@{Compression.cpp}!RUN\_MASK@{RUN\_MASK}}
 \index{RUN\_MASK@{RUN\_MASK}!Compression.cpp@{Compression.cpp}}
 \doxysubsubsection{\texorpdfstring{RUN\_MASK}{RUN\_MASK}}
-{\footnotesize\ttfamily \#define R\+U\+N\+\_\+\+M\+A\+SK~((1U$<$$<$\mbox{\hyperlink{Compression_8cpp_ae6261d794dfe7c6816e3b342c643f56f}{R\+U\+N\+\_\+\+B\+I\+TS}})-\/1)}
+{\footnotesize\ttfamily \#define RUN\+\_\+\+MASK~((1U$<$$<$\mbox{\hyperlink{Compression_8cpp_ae6261d794dfe7c6816e3b342c643f56f}{RUN\+\_\+\+BITS}})-\/1)}
 
 
 
@@ -424,7 +425,7 @@ Definition at line 58 of file Compression.\+cpp.
 \index{Compression.cpp@{Compression.cpp}!STEPSIZE@{STEPSIZE}}
 \index{STEPSIZE@{STEPSIZE}!Compression.cpp@{Compression.cpp}}
 \doxysubsubsection{\texorpdfstring{STEPSIZE}{STEPSIZE}}
-{\footnotesize\ttfamily \#define S\+T\+E\+P\+S\+I\+ZE~sizeof(\mbox{\hyperlink{Compression_8cpp_a2835baf742d73416e69ab571e9a9dacb}{reg\+\_\+t}})}
+{\footnotesize\ttfamily \#define STEPSIZE~sizeof(\mbox{\hyperlink{Compression_8cpp_a2835baf742d73416e69ab571e9a9dacb}{reg\+\_\+t}})}
 
 
 
@@ -444,7 +445,7 @@ Definition at line 28 of file Compression.\+cpp.
 \index{Compression.cpp@{Compression.cpp}!WILDCOPYLENGTH@{WILDCOPYLENGTH}}
 \index{WILDCOPYLENGTH@{WILDCOPYLENGTH}!Compression.cpp@{Compression.cpp}}
 \doxysubsubsection{\texorpdfstring{WILDCOPYLENGTH}{WILDCOPYLENGTH}}
-{\footnotesize\ttfamily \#define W\+I\+L\+D\+C\+O\+P\+Y\+L\+E\+N\+G\+TH~8}
+{\footnotesize\ttfamily \#define WILDCOPYLENGTH~8}
 
 
 
@@ -457,7 +458,7 @@ Definition at line 39 of file Compression.\+cpp.
 \index{Compression.cpp@{Compression.cpp}!BYTE@{BYTE}}
 \index{BYTE@{BYTE}!Compression.cpp@{Compression.cpp}}
 \doxysubsubsection{\texorpdfstring{BYTE}{BYTE}}
-{\footnotesize\ttfamily typedef uint8\+\_\+t \mbox{\hyperlink{Compression_8cpp_aae9749d96e15ccb4f482dd5f55d98f9b}{B\+Y\+TE}}}
+{\footnotesize\ttfamily typedef uint8\+\_\+t \mbox{\hyperlink{Compression_8cpp_aae9749d96e15ccb4f482dd5f55d98f9b}{BYTE}}}
 
 
 
@@ -744,7 +745,7 @@ Definition at line 1003 of file Compression.\+cpp.
 \index{Compression.cpp@{Compression.cpp}!LZ4\_clearHash@{LZ4\_clearHash}}
 \index{LZ4\_clearHash@{LZ4\_clearHash}!Compression.cpp@{Compression.cpp}}
 \doxysubsubsection{\texorpdfstring{LZ4\_clearHash()}{LZ4\_clearHash()}}
-{\footnotesize\ttfamily void L\+Z4\+\_\+clear\+Hash (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{Compression_8cpp_a696390429f2f3b644bde8d0322a24124}{U32}}}]{h,  }\item[{void $\ast$}]{table\+Base,  }\item[{\mbox{\hyperlink{Compression_8cpp_ae86e1d8a28953326b685d6ebb243a699}{table\+Type\+\_\+t}} const}]{table\+Type }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily void LZ4\+\_\+clear\+Hash (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{Compression_8cpp_a696390429f2f3b644bde8d0322a24124}{U32}}}]{h,  }\item[{void $\ast$}]{table\+Base,  }\item[{\mbox{\hyperlink{Compression_8cpp_ae86e1d8a28953326b685d6ebb243a699}{table\+Type\+\_\+t}} const}]{table\+Type }\end{DoxyParamCaption})}
 
 
 
@@ -769,15 +770,15 @@ References assert, by\+Ptr, by\+U16, by\+U32, and cleared\+Table.
 
 
 
-Referenced by L\+Z4\+\_\+compress\+\_\+generic\+\_\+validated().
+Referenced by LZ4\+\_\+compress\+\_\+generic\+\_\+validated().
 
 \mbox{\Hypertarget{Compression_8cpp_a4a0eddbe2e6f52ce91e259fa57459fbd}\label{Compression_8cpp_a4a0eddbe2e6f52ce91e259fa57459fbd}} 
 \index{Compression.cpp@{Compression.cpp}!LZ4\_compress\_default@{LZ4\_compress\_default}}
 \index{LZ4\_compress\_default@{LZ4\_compress\_default}!Compression.cpp@{Compression.cpp}}
 \doxysubsubsection{\texorpdfstring{LZ4\_compress\_default()}{LZ4\_compress\_default()}}
-{\footnotesize\ttfamily int L\+Z4\+\_\+compress\+\_\+default (\begin{DoxyParamCaption}\item[{const char $\ast$}]{src,  }\item[{char $\ast$}]{dst,  }\item[{int}]{src\+Size,  }\item[{int}]{dst\+Capacity }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily int LZ4\+\_\+compress\+\_\+default (\begin{DoxyParamCaption}\item[{const char $\ast$}]{src,  }\item[{char $\ast$}]{dst,  }\item[{int}]{src\+Size,  }\item[{int}]{dst\+Capacity }\end{DoxyParamCaption})}
 
-\mbox{\hyperlink{Compression_8h_aacc5de6f21665d10fd8ec9e5ac0b9d40}{L\+Z4\+\_\+compress\+\_\+default()}} \+: Compresses \textquotesingle{}src\+Size\textquotesingle{} bytes from buffer \textquotesingle{}src\textquotesingle{} into already allocated \textquotesingle{}dst\textquotesingle{} buffer of size \textquotesingle{}dst\+Capacity\textquotesingle{}. Compression is guaranteed to succeed if \textquotesingle{}dst\+Capacity\textquotesingle{} $>$= L\+Z4\+\_\+compress\+Bound(src\+Size). It also runs faster, so it\textquotesingle{}s a recommended setting. If the function cannot compress \textquotesingle{}src\textquotesingle{} into a more limited \textquotesingle{}dst\textquotesingle{} budget, compression stops {\itshape immediately}, and the function result is zero. In which case, \textquotesingle{}dst\textquotesingle{} content is undefined (invalid). src\+Size \+: max supported value is L\+Z4\+\_\+\+M\+A\+X\+\_\+\+I\+N\+P\+U\+T\+\_\+\+S\+I\+ZE. dst\+Capacity \+: size of buffer \textquotesingle{}dst\textquotesingle{} (which must be already allocated) \begin{DoxyReturn}{Returns}
+\mbox{\hyperlink{Compression_8h_aacc5de6f21665d10fd8ec9e5ac0b9d40}{LZ4\+\_\+compress\+\_\+default()}} \+: Compresses \textquotesingle{}src\+Size\textquotesingle{} bytes from buffer \textquotesingle{}src\textquotesingle{} into already allocated \textquotesingle{}dst\textquotesingle{} buffer of size \textquotesingle{}dst\+Capacity\textquotesingle{}. Compression is guaranteed to succeed if \textquotesingle{}dst\+Capacity\textquotesingle{} $>$= LZ4\+\_\+compress\+Bound(src\+Size). It also runs faster, so it\textquotesingle{}s a recommended setting. If the function cannot compress \textquotesingle{}src\textquotesingle{} into a more limited \textquotesingle{}dst\textquotesingle{} budget, compression stops {\itshape immediately}, and the function result is zero. In which case, \textquotesingle{}dst\textquotesingle{} content is undefined (invalid). src\+Size \+: max supported value is LZ4\+\_\+\+MAX\+\_\+\+INPUT\+\_\+\+SIZE. dst\+Capacity \+: size of buffer \textquotesingle{}dst\textquotesingle{} (which must be already allocated) \begin{DoxyReturn}{Returns}
 \+: the number of bytes written into buffer \textquotesingle{}dst\textquotesingle{} (necessarily $<$= dst\+Capacity) or 0 if compression fails Note \+: This function is protected against buffer overflow scenarios (never writes outside \textquotesingle{}dst\textquotesingle{} buffer, nor read outside \textquotesingle{}source\textquotesingle{} buffer). 
 \end{DoxyReturn}
 
@@ -793,15 +794,15 @@ Definition at line 955 of file Compression.\+cpp.
 \end{DoxyCode}
 
 
-References L\+Z4\+\_\+compress\+\_\+fast().
+References LZ4\+\_\+compress\+\_\+fast().
 
 \mbox{\Hypertarget{Compression_8cpp_a7466a8eca8f7b2eeec7887c9371d21e1}\label{Compression_8cpp_a7466a8eca8f7b2eeec7887c9371d21e1}} 
 \index{Compression.cpp@{Compression.cpp}!LZ4\_compress\_fast@{LZ4\_compress\_fast}}
 \index{LZ4\_compress\_fast@{LZ4\_compress\_fast}!Compression.cpp@{Compression.cpp}}
 \doxysubsubsection{\texorpdfstring{LZ4\_compress\_fast()}{LZ4\_compress\_fast()}}
-{\footnotesize\ttfamily int L\+Z4\+\_\+compress\+\_\+fast (\begin{DoxyParamCaption}\item[{const char $\ast$}]{src,  }\item[{char $\ast$}]{dst,  }\item[{int}]{src\+Size,  }\item[{int}]{dst\+Capacity,  }\item[{int}]{acceleration }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily int LZ4\+\_\+compress\+\_\+fast (\begin{DoxyParamCaption}\item[{const char $\ast$}]{src,  }\item[{char $\ast$}]{dst,  }\item[{int}]{src\+Size,  }\item[{int}]{dst\+Capacity,  }\item[{int}]{acceleration }\end{DoxyParamCaption})}
 
-\mbox{\hyperlink{Compression_8h_a1af5fb2f539203c891e9c9c5b6e598a5}{L\+Z4\+\_\+compress\+\_\+fast()}} \+: Same as \mbox{\hyperlink{Compression_8h_aacc5de6f21665d10fd8ec9e5ac0b9d40}{L\+Z4\+\_\+compress\+\_\+default()}}, but allows selection of \char`\"{}acceleration\char`\"{} factor. The larger the acceleration value, the faster the algorithm, but also the lesser the compression. It\textquotesingle{}s a trade-\/off. It can be fine tuned, with each successive value providing roughly +$\sim$3\% to speed. An acceleration value of \char`\"{}1\char`\"{} is the same as regular \mbox{\hyperlink{Compression_8h_aacc5de6f21665d10fd8ec9e5ac0b9d40}{L\+Z4\+\_\+compress\+\_\+default()}} Values $<$= 0 will be replaced by L\+Z4\+\_\+\+A\+C\+C\+E\+L\+E\+R\+A\+T\+I\+O\+N\+\_\+\+D\+E\+F\+A\+U\+LT (currently == 1, see lz4.\+c). Values $>$ L\+Z4\+\_\+\+A\+C\+C\+E\+L\+E\+R\+A\+T\+I\+O\+N\+\_\+\+M\+AX will be replaced by L\+Z4\+\_\+\+A\+C\+C\+E\+L\+E\+R\+A\+T\+I\+O\+N\+\_\+\+M\+AX (currently == 65537, see lz4.\+c). 
+\mbox{\hyperlink{Compression_8h_a1af5fb2f539203c891e9c9c5b6e598a5}{LZ4\+\_\+compress\+\_\+fast()}} \+: Same as \mbox{\hyperlink{Compression_8h_aacc5de6f21665d10fd8ec9e5ac0b9d40}{LZ4\+\_\+compress\+\_\+default()}}, but allows selection of \char`\"{}acceleration\char`\"{} factor. The larger the acceleration value, the faster the algorithm, but also the lesser the compression. It\textquotesingle{}s a trade-\/off. It can be fine tuned, with each successive value providing roughly +$\sim$3\% to speed. An acceleration value of \char`\"{}1\char`\"{} is the same as regular \mbox{\hyperlink{Compression_8h_aacc5de6f21665d10fd8ec9e5ac0b9d40}{LZ4\+\_\+compress\+\_\+default()}} Values $<$= 0 will be replaced by LZ4\+\_\+\+ACCELERATION\+\_\+\+DEFAULT (currently == 1, see lz4.\+c). Values $>$ LZ4\+\_\+\+ACCELERATION\+\_\+\+MAX will be replaced by LZ4\+\_\+\+ACCELERATION\+\_\+\+MAX (currently == 65537, see lz4.\+c). 
 
 Definition at line 945 of file Compression.\+cpp.
 
@@ -819,19 +820,19 @@ Definition at line 945 of file Compression.\+cpp.
 \end{DoxyCode}
 
 
-References L\+Z4\+\_\+compress\+\_\+fast\+\_\+ext\+State(), vfree, and vmalloc.
+References LZ4\+\_\+compress\+\_\+fast\+\_\+ext\+State(), vfree, and vmalloc.
 
 
 
-Referenced by L\+Z4\+\_\+compress\+\_\+default().
+Referenced by LZ4\+\_\+compress\+\_\+default().
 
 \mbox{\Hypertarget{Compression_8cpp_a19a6258c0092d5b3255a41d7566248d7}\label{Compression_8cpp_a19a6258c0092d5b3255a41d7566248d7}} 
 \index{Compression.cpp@{Compression.cpp}!LZ4\_compress\_fast\_extState@{LZ4\_compress\_fast\_extState}}
 \index{LZ4\_compress\_fast\_extState@{LZ4\_compress\_fast\_extState}!Compression.cpp@{Compression.cpp}}
 \doxysubsubsection{\texorpdfstring{LZ4\_compress\_fast\_extState()}{LZ4\_compress\_fast\_extState()}}
-{\footnotesize\ttfamily int L\+Z4\+\_\+compress\+\_\+fast\+\_\+ext\+State (\begin{DoxyParamCaption}\item[{void $\ast$}]{state,  }\item[{const char $\ast$}]{src,  }\item[{char $\ast$}]{dst,  }\item[{int}]{src\+Size,  }\item[{int}]{dst\+Capacity,  }\item[{int}]{acceleration }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily int LZ4\+\_\+compress\+\_\+fast\+\_\+ext\+State (\begin{DoxyParamCaption}\item[{void $\ast$}]{state,  }\item[{const char $\ast$}]{src,  }\item[{char $\ast$}]{dst,  }\item[{int}]{src\+Size,  }\item[{int}]{dst\+Capacity,  }\item[{int}]{acceleration }\end{DoxyParamCaption})}
 
-\mbox{\hyperlink{Compression_8h_a2b241266a74fc87e1c126a17b852c934}{L\+Z4\+\_\+compress\+\_\+fast\+\_\+ext\+State()}} \+: Same as \mbox{\hyperlink{Compression_8h_a1af5fb2f539203c891e9c9c5b6e598a5}{L\+Z4\+\_\+compress\+\_\+fast()}}, using an externally allocated memory space for its state. Use L\+Z4\+\_\+sizeof\+State() to know how much memory must be allocated, and allocate it on 8-\/bytes boundaries (using {\ttfamily malloc()} typically). Then, provide this buffer as {\ttfamily void$\ast$ state} to compression function. 
+\mbox{\hyperlink{Compression_8h_a2b241266a74fc87e1c126a17b852c934}{LZ4\+\_\+compress\+\_\+fast\+\_\+ext\+State()}} \+: Same as \mbox{\hyperlink{Compression_8h_a1af5fb2f539203c891e9c9c5b6e598a5}{LZ4\+\_\+compress\+\_\+fast()}}, using an externally allocated memory space for its state. Use LZ4\+\_\+sizeof\+State() to know how much memory must be allocated, and allocate it on 8-\/bytes boundaries (using {\ttfamily malloc()} typically). Then, provide this buffer as {\ttfamily void$\ast$ state} to compression function. 
 
 Definition at line 922 of file Compression.\+cpp.
 
@@ -862,32 +863,32 @@ Definition at line 922 of file Compression.\+cpp.
 \end{DoxyCode}
 
 
-References assert, by\+Ptr, by\+U16, by\+U32, L\+Z4\+\_\+stream\+\_\+u\+::internal\+\_\+donotuse, limited\+Output, L\+Z4\+\_\+64\+Klimit, L\+Z4\+\_\+compress\+\_\+generic(), L\+Z4\+\_\+compress\+Bound(), L\+Z4\+\_\+\+D\+I\+S\+T\+A\+N\+C\+E\+\_\+\+M\+AX, L\+Z4\+\_\+init\+Stream(), no\+Dict, no\+Dict\+Issue, and not\+Limited.
+References assert, by\+Ptr, by\+U16, by\+U32, LZ4\+\_\+stream\+\_\+u\+::internal\+\_\+donotuse, limited\+Output, LZ4\+\_\+64\+Klimit, LZ4\+\_\+compress\+\_\+generic(), LZ4\+\_\+compress\+Bound(), LZ4\+\_\+\+DISTANCE\+\_\+\+MAX, LZ4\+\_\+init\+Stream(), no\+Dict, no\+Dict\+Issue, and not\+Limited.
 
 
 
-Referenced by L\+Z4\+\_\+compress\+\_\+fast().
+Referenced by LZ4\+\_\+compress\+\_\+fast().
 
 \mbox{\Hypertarget{Compression_8cpp_a7d75fe9e5e79ce7eaecfb3e3bdc92432}\label{Compression_8cpp_a7d75fe9e5e79ce7eaecfb3e3bdc92432}} 
 \index{Compression.cpp@{Compression.cpp}!LZ4\_compress\_generic@{LZ4\_compress\_generic}}
 \index{LZ4\_compress\_generic@{LZ4\_compress\_generic}!Compression.cpp@{Compression.cpp}}
 \doxysubsubsection{\texorpdfstring{LZ4\_compress\_generic()}{LZ4\_compress\_generic()}}
-{\footnotesize\ttfamily int L\+Z4\+\_\+compress\+\_\+generic (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structLZ4__stream__t__internal}{L\+Z4\+\_\+stream\+\_\+t\+\_\+internal}} $\ast$const}]{cctx,  }\item[{const char $\ast$const}]{src,  }\item[{char $\ast$const}]{dst,  }\item[{const int}]{src\+Size,  }\item[{int $\ast$}]{input\+Consumed,  }\item[{const int}]{dst\+Capacity,  }\item[{const \mbox{\hyperlink{Compression_8cpp_ab93acf685743debab05876250a1cbe28}{limited\+Output\+\_\+directive}}}]{output\+Directive,  }\item[{const \mbox{\hyperlink{Compression_8cpp_ae86e1d8a28953326b685d6ebb243a699}{table\+Type\+\_\+t}}}]{table\+Type,  }\item[{const \mbox{\hyperlink{Compression_8cpp_ab22d25a446ad3e8288401052deccda4c}{dict\+\_\+directive}}}]{dict\+Directive,  }\item[{const \mbox{\hyperlink{Compression_8cpp_a9f23ad1797bc66e6b6dff6cf3acfd351}{dict\+Issue\+\_\+directive}}}]{dict\+Issue,  }\item[{const int}]{acceleration }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily int LZ4\+\_\+compress\+\_\+generic (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structLZ4__stream__t__internal}{LZ4\+\_\+stream\+\_\+t\+\_\+internal}} $\ast$const}]{cctx,  }\item[{const char $\ast$const}]{src,  }\item[{char $\ast$const}]{dst,  }\item[{const int}]{src\+Size,  }\item[{int $\ast$}]{input\+Consumed,  }\item[{const int}]{dst\+Capacity,  }\item[{const \mbox{\hyperlink{Compression_8cpp_ab93acf685743debab05876250a1cbe28}{limited\+Output\+\_\+directive}}}]{output\+Directive,  }\item[{const \mbox{\hyperlink{Compression_8cpp_ae86e1d8a28953326b685d6ebb243a699}{table\+Type\+\_\+t}}}]{table\+Type,  }\item[{const \mbox{\hyperlink{Compression_8cpp_ab22d25a446ad3e8288401052deccda4c}{dict\+\_\+directive}}}]{dict\+Directive,  }\item[{const \mbox{\hyperlink{Compression_8cpp_a9f23ad1797bc66e6b6dff6cf3acfd351}{dict\+Issue\+\_\+directive}}}]{dict\+Issue,  }\item[{const int}]{acceleration }\end{DoxyParamCaption})}
 
-\mbox{\hyperlink{Compression_8cpp_a7d75fe9e5e79ce7eaecfb3e3bdc92432}{L\+Z4\+\_\+compress\+\_\+generic()}} \+: inlined, to ensure branches are decided at compilation time; takes care of src == (N\+U\+LL, 0) and forward the rest to L\+Z4\+\_\+compress\+\_\+generic\+\_\+validated 
+\mbox{\hyperlink{Compression_8cpp_a7d75fe9e5e79ce7eaecfb3e3bdc92432}{LZ4\+\_\+compress\+\_\+generic()}} \+: inlined, to ensure branches are decided at compilation time; takes care of src == (NULL, 0) and forward the rest to LZ4\+\_\+compress\+\_\+generic\+\_\+validated 
 
 Definition at line 885 of file Compression.\+cpp.
 
 
 \begin{DoxyCode}{0}
 \DoxyCodeLine{897 \{}
-\DoxyCodeLine{898   \mbox{\hyperlink{Compression_8cpp_a8728fe9e99fe783be28c0f38bb0d0761}{DEBUGLOG}}(5, \textcolor{stringliteral}{"LZ4\_compress\_generic: srcSize=\%i, dstCapacity=\%i"},}
+\DoxyCodeLine{898   \mbox{\hyperlink{Compression_8cpp_a8728fe9e99fe783be28c0f38bb0d0761}{DEBUGLOG}}(5, \textcolor{stringliteral}{"{}LZ4\_compress\_generic: srcSize=\%i, dstCapacity=\%i"{}},}
 \DoxyCodeLine{899     srcSize, dstCapacity);}
 \DoxyCodeLine{900 }
 \DoxyCodeLine{901   \textcolor{keywordflow}{if} ((\mbox{\hyperlink{Compression_8cpp_a696390429f2f3b644bde8d0322a24124}{U32}})srcSize > (\mbox{\hyperlink{Compression_8cpp_a696390429f2f3b644bde8d0322a24124}{U32}})\mbox{\hyperlink{Compression_8h_a88ee51e36ca74cd0533e731c20572ea6}{LZ4\_MAX\_INPUT\_SIZE}}) \{ \textcolor{keywordflow}{return} 0; \}  \textcolor{comment}{/* Unsupported srcSize, too large (or negative) */}}
 \DoxyCodeLine{902   \textcolor{keywordflow}{if} (srcSize == 0) \{   \textcolor{comment}{/* src == NULL supported if srcSize == 0 */}}
 \DoxyCodeLine{903     \textcolor{keywordflow}{if} (outputDirective != \mbox{\hyperlink{Compression_8cpp_ab93acf685743debab05876250a1cbe28adc568f9214a2932542608f43124efcff}{notLimited}} \&\& dstCapacity <= 0) \textcolor{keywordflow}{return} 0;  \textcolor{comment}{/* no output, can't write anything */}}
-\DoxyCodeLine{904     \mbox{\hyperlink{Compression_8cpp_a8728fe9e99fe783be28c0f38bb0d0761}{DEBUGLOG}}(5, \textcolor{stringliteral}{"Generating an empty block"});}
+\DoxyCodeLine{904     \mbox{\hyperlink{Compression_8cpp_a8728fe9e99fe783be28c0f38bb0d0761}{DEBUGLOG}}(5, \textcolor{stringliteral}{"{}Generating an empty block"{}});}
 \DoxyCodeLine{905     \mbox{\hyperlink{Compression_8cpp_acdcc5aaebf3f273c1762f24a6ece2e5e}{assert}}(outputDirective == \mbox{\hyperlink{Compression_8cpp_ab93acf685743debab05876250a1cbe28adc568f9214a2932542608f43124efcff}{notLimited}} || dstCapacity >= 1);}
 \DoxyCodeLine{906     \mbox{\hyperlink{Compression_8cpp_acdcc5aaebf3f273c1762f24a6ece2e5e}{assert}}(dst != NULL);}
 \DoxyCodeLine{907     dst[0] = 0;}
@@ -908,21 +909,21 @@ Definition at line 885 of file Compression.\+cpp.
 \end{DoxyCode}
 
 
-References assert, D\+E\+B\+U\+G\+L\+OG, fill\+Output, L\+Z4\+\_\+compress\+\_\+generic\+\_\+validated(), L\+Z4\+\_\+\+M\+A\+X\+\_\+\+I\+N\+P\+U\+T\+\_\+\+S\+I\+ZE, and not\+Limited.
+References assert, DEBUGLOG, fill\+Output, LZ4\+\_\+compress\+\_\+generic\+\_\+validated(), LZ4\+\_\+\+MAX\+\_\+\+INPUT\+\_\+\+SIZE, and not\+Limited.
 
 
 
-Referenced by L\+Z4\+\_\+compress\+\_\+fast\+\_\+ext\+State().
+Referenced by LZ4\+\_\+compress\+\_\+fast\+\_\+ext\+State().
 
 \mbox{\Hypertarget{Compression_8cpp_a9a690f1f67712d1ace9c4442696a4b88}\label{Compression_8cpp_a9a690f1f67712d1ace9c4442696a4b88}} 
 \index{Compression.cpp@{Compression.cpp}!LZ4\_compress\_generic\_validated@{LZ4\_compress\_generic\_validated}}
 \index{LZ4\_compress\_generic\_validated@{LZ4\_compress\_generic\_validated}!Compression.cpp@{Compression.cpp}}
 \doxysubsubsection{\texorpdfstring{LZ4\_compress\_generic\_validated()}{LZ4\_compress\_generic\_validated()}}
-{\footnotesize\ttfamily int L\+Z4\+\_\+compress\+\_\+generic\+\_\+validated (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structLZ4__stream__t__internal}{L\+Z4\+\_\+stream\+\_\+t\+\_\+internal}} $\ast$const}]{cctx,  }\item[{const char $\ast$const}]{source,  }\item[{char $\ast$const}]{dest,  }\item[{const int}]{input\+Size,  }\item[{int $\ast$}]{input\+Consumed,  }\item[{const int}]{max\+Output\+Size,  }\item[{const \mbox{\hyperlink{Compression_8cpp_ab93acf685743debab05876250a1cbe28}{limited\+Output\+\_\+directive}}}]{output\+Directive,  }\item[{const \mbox{\hyperlink{Compression_8cpp_ae86e1d8a28953326b685d6ebb243a699}{table\+Type\+\_\+t}}}]{table\+Type,  }\item[{const \mbox{\hyperlink{Compression_8cpp_ab22d25a446ad3e8288401052deccda4c}{dict\+\_\+directive}}}]{dict\+Directive,  }\item[{const \mbox{\hyperlink{Compression_8cpp_a9f23ad1797bc66e6b6dff6cf3acfd351}{dict\+Issue\+\_\+directive}}}]{dict\+Issue,  }\item[{const int}]{acceleration }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily int LZ4\+\_\+compress\+\_\+generic\+\_\+validated (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structLZ4__stream__t__internal}{LZ4\+\_\+stream\+\_\+t\+\_\+internal}} $\ast$const}]{cctx,  }\item[{const char $\ast$const}]{source,  }\item[{char $\ast$const}]{dest,  }\item[{const int}]{input\+Size,  }\item[{int $\ast$}]{input\+Consumed,  }\item[{const int}]{max\+Output\+Size,  }\item[{const \mbox{\hyperlink{Compression_8cpp_ab93acf685743debab05876250a1cbe28}{limited\+Output\+\_\+directive}}}]{output\+Directive,  }\item[{const \mbox{\hyperlink{Compression_8cpp_ae86e1d8a28953326b685d6ebb243a699}{table\+Type\+\_\+t}}}]{table\+Type,  }\item[{const \mbox{\hyperlink{Compression_8cpp_ab22d25a446ad3e8288401052deccda4c}{dict\+\_\+directive}}}]{dict\+Directive,  }\item[{const \mbox{\hyperlink{Compression_8cpp_a9f23ad1797bc66e6b6dff6cf3acfd351}{dict\+Issue\+\_\+directive}}}]{dict\+Issue,  }\item[{const int}]{acceleration }\end{DoxyParamCaption})}
 
-\mbox{\hyperlink{Compression_8cpp_a7d75fe9e5e79ce7eaecfb3e3bdc92432}{L\+Z4\+\_\+compress\+\_\+generic()}} \+: inlined, to ensure branches are decided at compilation time. Presumed already validated at this stage\+:
+\mbox{\hyperlink{Compression_8cpp_a7d75fe9e5e79ce7eaecfb3e3bdc92432}{LZ4\+\_\+compress\+\_\+generic()}} \+: inlined, to ensure branches are decided at compilation time. Presumed already validated at this stage\+:
 \begin{DoxyItemize}
-\item source != N\+U\+LL
+\item source != NULL
 \item input\+Size $>$ 0 
 \end{DoxyItemize}
 
@@ -953,7 +954,7 @@ Definition at line 484 of file Compression.\+cpp.
 \DoxyCodeLine{516   \textcolor{keyword}{const} \mbox{\hyperlink{Compression_8cpp_aae9749d96e15ccb4f482dd5f55d98f9b}{BYTE}} *\textcolor{keyword}{const} mflimitPlusOne = iend -\/ \mbox{\hyperlink{Compression_8cpp_a6bb5847a99cd90aca07870a394cbe70d}{MFLIMIT}} + 1;}
 \DoxyCodeLine{517   \textcolor{keyword}{const} \mbox{\hyperlink{Compression_8cpp_aae9749d96e15ccb4f482dd5f55d98f9b}{BYTE}} *\textcolor{keyword}{const} matchlimit = iend -\/ \mbox{\hyperlink{Compression_8cpp_a7a912d9a1f869b93be505568dce7fa8c}{LASTLITERALS}};}
 \DoxyCodeLine{518 }
-\DoxyCodeLine{519   \textcolor{comment}{/* the dictCtx currentOffset is indexed on the start of the dictionary,}}
+\DoxyCodeLine{519   \textcolor{comment}{/* the dictCtx currentOffset is indexed on the start of the dictionary,}}
 \DoxyCodeLine{520 \textcolor{comment}{   * while a dictionary in the current context precedes the currentOffset */}}
 \DoxyCodeLine{521   \textcolor{keyword}{const} \mbox{\hyperlink{Compression_8cpp_aae9749d96e15ccb4f482dd5f55d98f9b}{BYTE}} *dictBase = (dictionary == NULL) ? NULL :}
 \DoxyCodeLine{522     (dictDirective == \mbox{\hyperlink{Compression_8cpp_ab22d25a446ad3e8288401052deccda4caf6d955259638feac01c4e4cace77c617}{usingDictCtx}}) ?}
@@ -966,9 +967,9 @@ Definition at line 484 of file Compression.\+cpp.
 \DoxyCodeLine{529   \mbox{\hyperlink{Compression_8cpp_a696390429f2f3b644bde8d0322a24124}{U32}} offset = 0;}
 \DoxyCodeLine{530   \mbox{\hyperlink{Compression_8cpp_a696390429f2f3b644bde8d0322a24124}{U32}} forwardH;}
 \DoxyCodeLine{531 }
-\DoxyCodeLine{532   \mbox{\hyperlink{Compression_8cpp_a8728fe9e99fe783be28c0f38bb0d0761}{DEBUGLOG}}(5, \textcolor{stringliteral}{"LZ4\_compress\_generic\_validated: srcSize=\%i, tableType=\%u"}, inputSize, tableType);}
+\DoxyCodeLine{532   \mbox{\hyperlink{Compression_8cpp_a8728fe9e99fe783be28c0f38bb0d0761}{DEBUGLOG}}(5, \textcolor{stringliteral}{"{}LZ4\_compress\_generic\_validated: srcSize=\%i, tableType=\%u"{}}, inputSize, tableType);}
 \DoxyCodeLine{533   \mbox{\hyperlink{Compression_8cpp_acdcc5aaebf3f273c1762f24a6ece2e5e}{assert}}(ip != NULL);}
-\DoxyCodeLine{534   \textcolor{comment}{/* If init conditions are not met, we don't have to mark stream}}
+\DoxyCodeLine{534   \textcolor{comment}{/* If init conditions are not met, we don't have to mark stream}}
 \DoxyCodeLine{535 \textcolor{comment}{   * as having dirty context, since no action was taken yet */}}
 \DoxyCodeLine{536   \textcolor{keywordflow}{if} (outputDirective == \mbox{\hyperlink{Compression_8cpp_ab93acf685743debab05876250a1cbe28a76ae01d59d140527a5540583923a0294}{fillOutput}} \&\& maxOutputSize < 1) \{ \textcolor{keywordflow}{return} 0; \} \textcolor{comment}{/* Impossible to store anything */}}
 \DoxyCodeLine{537   \textcolor{keywordflow}{if} ((tableType == \mbox{\hyperlink{Compression_8cpp_ae86e1d8a28953326b685d6ebb243a699a48aff40d7237850c996a1f6c266a598f}{byU16}}) \&\& (inputSize >= \mbox{\hyperlink{Compression_8cpp_ac55e8e70f9d03d1f06d823de23222fee}{LZ4\_64Klimit}})) \{ \textcolor{keywordflow}{return} 0; \}  \textcolor{comment}{/* Size too large (not within 64K limit) */}}
@@ -1054,7 +1055,7 @@ Definition at line 484 of file Compression.\+cpp.
 \DoxyCodeLine{617           \}}
 \DoxyCodeLine{618         \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (dictDirective == \mbox{\hyperlink{Compression_8cpp_ab22d25a446ad3e8288401052deccda4caa8cc166c33fdfcd904c260136978913b}{usingExtDict}}) \{}
 \DoxyCodeLine{619           \textcolor{keywordflow}{if} (matchIndex < startIndex) \{}
-\DoxyCodeLine{620             \mbox{\hyperlink{Compression_8cpp_a8728fe9e99fe783be28c0f38bb0d0761}{DEBUGLOG}}(7, \textcolor{stringliteral}{"extDict candidate: matchIndex=\%5u  <  startIndex=\%5u"}, matchIndex, startIndex);}
+\DoxyCodeLine{620             \mbox{\hyperlink{Compression_8cpp_a8728fe9e99fe783be28c0f38bb0d0761}{DEBUGLOG}}(7, \textcolor{stringliteral}{"{}extDict candidate: matchIndex=\%5u  <  startIndex=\%5u"{}}, matchIndex, startIndex);}
 \DoxyCodeLine{621             \mbox{\hyperlink{Compression_8cpp_acdcc5aaebf3f273c1762f24a6ece2e5e}{assert}}(startIndex -\/ matchIndex >= \mbox{\hyperlink{Compression_8cpp_a2d835b35b6582451a75dc6ff464a9e75}{MINMATCH}});}
 \DoxyCodeLine{622             \mbox{\hyperlink{Compression_8cpp_acdcc5aaebf3f273c1762f24a6ece2e5e}{assert}}(dictBase);}
 \DoxyCodeLine{623             match = dictBase + matchIndex;}
@@ -1069,7 +1070,7 @@ Definition at line 484 of file Compression.\+cpp.
 \DoxyCodeLine{632         forwardH = \mbox{\hyperlink{Compression_8cpp_a70b1bbe91862d5cb5e473ce2deb556a7}{LZ4\_hashPosition}}(forwardIp, tableType);}
 \DoxyCodeLine{633         \mbox{\hyperlink{Compression_8cpp_afb1abdff740d4120870a053ff9afb1e5}{LZ4\_putIndexOnHash}}(current, h, cctx-\/>\mbox{\hyperlink{structLZ4__stream__t__internal_afb3b54934c388fea25aa5bdc2afa0e32}{hashTable}}, tableType);}
 \DoxyCodeLine{634 }
-\DoxyCodeLine{635         \mbox{\hyperlink{Compression_8cpp_a8728fe9e99fe783be28c0f38bb0d0761}{DEBUGLOG}}(7, \textcolor{stringliteral}{"candidate at pos=\%u  (offset=\%u \(\backslash\)n"}, matchIndex, current -\/ matchIndex);}
+\DoxyCodeLine{635         \mbox{\hyperlink{Compression_8cpp_a8728fe9e99fe783be28c0f38bb0d0761}{DEBUGLOG}}(7, \textcolor{stringliteral}{"{}candidate at pos=\%u  (offset=\%u \(\backslash\)n"{}}, matchIndex, current -\/ matchIndex);}
 \DoxyCodeLine{636         \textcolor{keywordflow}{if} ((dictIssue == \mbox{\hyperlink{Compression_8cpp_a9f23ad1797bc66e6b6dff6cf3acfd351a4609b423b2c861fd5968b33837c76236}{dictSmall}}) \&\& (matchIndex < prefixIdxLimit)) \{ \textcolor{keywordflow}{continue}; \}    \textcolor{comment}{/* match outside of valid area */}}
 \DoxyCodeLine{637         \mbox{\hyperlink{Compression_8cpp_acdcc5aaebf3f273c1762f24a6ece2e5e}{assert}}(matchIndex < current);}
 \DoxyCodeLine{638         \textcolor{keywordflow}{if} (((tableType != \mbox{\hyperlink{Compression_8cpp_ae86e1d8a28953326b685d6ebb243a699a48aff40d7237850c996a1f6c266a598f}{byU16}}) || (\mbox{\hyperlink{Compression_8h_aef230e9fd51b7bf939654ecc08a3778f}{LZ4\_DISTANCE\_MAX}} < \mbox{\hyperlink{Compression_8cpp_a677dd41923a5dc079254ea9f689d78dd}{LZ4\_DISTANCE\_ABSOLUTE\_MAX}}))}
@@ -1113,17 +1114,17 @@ Definition at line 484 of file Compression.\+cpp.
 \DoxyCodeLine{676       \textcolor{comment}{/* Copy Literals */}}
 \DoxyCodeLine{677       \mbox{\hyperlink{Compression_8cpp_a107b5345286641379a50762ff7f5e906}{LZ4\_wildCopy8}}(op, anchor, op + litLength);}
 \DoxyCodeLine{678       op += litLength;}
-\DoxyCodeLine{679       \mbox{\hyperlink{Compression_8cpp_a8728fe9e99fe783be28c0f38bb0d0761}{DEBUGLOG}}(6, \textcolor{stringliteral}{"seq.start:\%i, literals=\%u, match.start:\%i"},}
+\DoxyCodeLine{679       \mbox{\hyperlink{Compression_8cpp_a8728fe9e99fe783be28c0f38bb0d0761}{DEBUGLOG}}(6, \textcolor{stringliteral}{"{}seq.start:\%i, literals=\%u, match.start:\%i"{}},}
 \DoxyCodeLine{680         (\textcolor{keywordtype}{int})(anchor -\/ (\textcolor{keyword}{const} \mbox{\hyperlink{Compression_8cpp_aae9749d96e15ccb4f482dd5f55d98f9b}{BYTE}} *)source), litLength, (\textcolor{keywordtype}{int})(ip -\/ (\textcolor{keyword}{const} \mbox{\hyperlink{Compression_8cpp_aae9749d96e15ccb4f482dd5f55d98f9b}{BYTE}} *)source));}
 \DoxyCodeLine{681     \}}
 \DoxyCodeLine{682 }
 \DoxyCodeLine{683   \_next\_match:}
-\DoxyCodeLine{684     \textcolor{comment}{/* at this stage, the following variables must be correctly set :}}
-\DoxyCodeLine{685 \textcolor{comment}{     * -\/ ip : at start of LZ operation}}
-\DoxyCodeLine{686 \textcolor{comment}{     * -\/ match : at start of previous pattern occurrence; can be within current prefix, or within extDict}}
-\DoxyCodeLine{687 \textcolor{comment}{     * -\/ offset : if maybe\_ext\_memSegment==1 (constant)}}
-\DoxyCodeLine{688 \textcolor{comment}{     * -\/ lowLimit : must be == dictionary to mean "match is within extDict"; must be == source otherwise}}
-\DoxyCodeLine{689 \textcolor{comment}{     * -\/ token and *token : position to write 4-\/bits for match length; higher 4-\/bits for literal length supposed already written}}
+\DoxyCodeLine{684     \textcolor{comment}{/* at this stage, the following variables must be correctly set :}}
+\DoxyCodeLine{685 \textcolor{comment}{     * -\/ ip : at start of LZ operation}}
+\DoxyCodeLine{686 \textcolor{comment}{     * -\/ match : at start of previous pattern occurrence; can be within current prefix, or within extDict}}
+\DoxyCodeLine{687 \textcolor{comment}{     * -\/ offset : if maybe\_ext\_memSegment==1 (constant)}}
+\DoxyCodeLine{688 \textcolor{comment}{     * -\/ lowLimit : must be == dictionary to mean "{}match is within extDict"{}; must be == source otherwise}}
+\DoxyCodeLine{689 \textcolor{comment}{     * -\/ token and *token : position to write 4-\/bits for match length; higher 4-\/bits for literal length supposed already written}}
 \DoxyCodeLine{690 \textcolor{comment}{     */}}
 \DoxyCodeLine{691 }
 \DoxyCodeLine{692     \textcolor{keywordflow}{if} ((outputDirective == \mbox{\hyperlink{Compression_8cpp_ab93acf685743debab05876250a1cbe28a76ae01d59d140527a5540583923a0294}{fillOutput}}) \&\&}
@@ -1135,11 +1136,11 @@ Definition at line 484 of file Compression.\+cpp.
 \DoxyCodeLine{698 }
 \DoxyCodeLine{699     \textcolor{comment}{/* Encode Offset */}}
 \DoxyCodeLine{700     \textcolor{keywordflow}{if} (maybe\_extMem) \{   \textcolor{comment}{/* static test */}}
-\DoxyCodeLine{701       \mbox{\hyperlink{Compression_8cpp_a8728fe9e99fe783be28c0f38bb0d0761}{DEBUGLOG}}(6, \textcolor{stringliteral}{"             with offset=\%u  (ext if > \%i)"}, offset, (\textcolor{keywordtype}{int})(ip -\/ (\textcolor{keyword}{const} \mbox{\hyperlink{Compression_8cpp_aae9749d96e15ccb4f482dd5f55d98f9b}{BYTE}} *)source));}
+\DoxyCodeLine{701       \mbox{\hyperlink{Compression_8cpp_a8728fe9e99fe783be28c0f38bb0d0761}{DEBUGLOG}}(6, \textcolor{stringliteral}{"{}             with offset=\%u  (ext if > \%i)"{}}, offset, (\textcolor{keywordtype}{int})(ip -\/ (\textcolor{keyword}{const} \mbox{\hyperlink{Compression_8cpp_aae9749d96e15ccb4f482dd5f55d98f9b}{BYTE}} *)source));}
 \DoxyCodeLine{702       \mbox{\hyperlink{Compression_8cpp_acdcc5aaebf3f273c1762f24a6ece2e5e}{assert}}(offset <= LZ4\_DISTANCE\_MAX \&\& offset > 0);}
 \DoxyCodeLine{703       \mbox{\hyperlink{Compression_8cpp_a3a6a0833a6f5ee0e99c80cbae73ca3a7}{LZ4\_writeLE16}}(op, (\mbox{\hyperlink{Compression_8cpp_a0a0a322d5fa4a546d293a77ba8b4a71f}{U16}})offset); op += 2;}
 \DoxyCodeLine{704     \} \textcolor{keywordflow}{else} \{}
-\DoxyCodeLine{705       \mbox{\hyperlink{Compression_8cpp_a8728fe9e99fe783be28c0f38bb0d0761}{DEBUGLOG}}(6, \textcolor{stringliteral}{"             with offset=\%u  (same segment)"}, (\mbox{\hyperlink{Compression_8cpp_a696390429f2f3b644bde8d0322a24124}{U32}})(ip -\/ match));}
+\DoxyCodeLine{705       \mbox{\hyperlink{Compression_8cpp_a8728fe9e99fe783be28c0f38bb0d0761}{DEBUGLOG}}(6, \textcolor{stringliteral}{"{}             with offset=\%u  (same segment)"{}}, (\mbox{\hyperlink{Compression_8cpp_a696390429f2f3b644bde8d0322a24124}{U32}})(ip -\/ match));}
 \DoxyCodeLine{706       \mbox{\hyperlink{Compression_8cpp_acdcc5aaebf3f273c1762f24a6ece2e5e}{assert}}(ip -\/ match <= \mbox{\hyperlink{Compression_8h_aef230e9fd51b7bf939654ecc08a3778f}{LZ4\_DISTANCE\_MAX}});}
 \DoxyCodeLine{707       \mbox{\hyperlink{Compression_8cpp_a3a6a0833a6f5ee0e99c80cbae73ca3a7}{LZ4\_writeLE16}}(op, (\mbox{\hyperlink{Compression_8cpp_a0a0a322d5fa4a546d293a77ba8b4a71f}{U16}})(ip -\/ match)); op += 2;}
 \DoxyCodeLine{708     \}}
@@ -1160,11 +1161,11 @@ Definition at line 484 of file Compression.\+cpp.
 \DoxyCodeLine{723           matchCode += more;}
 \DoxyCodeLine{724           ip += more;}
 \DoxyCodeLine{725         \}}
-\DoxyCodeLine{726         \mbox{\hyperlink{Compression_8cpp_a8728fe9e99fe783be28c0f38bb0d0761}{DEBUGLOG}}(6, \textcolor{stringliteral}{"             with matchLength=\%u starting in extDict"}, matchCode + \mbox{\hyperlink{Compression_8cpp_a2d835b35b6582451a75dc6ff464a9e75}{MINMATCH}});}
+\DoxyCodeLine{726         \mbox{\hyperlink{Compression_8cpp_a8728fe9e99fe783be28c0f38bb0d0761}{DEBUGLOG}}(6, \textcolor{stringliteral}{"{}             with matchLength=\%u starting in extDict"{}}, matchCode + \mbox{\hyperlink{Compression_8cpp_a2d835b35b6582451a75dc6ff464a9e75}{MINMATCH}});}
 \DoxyCodeLine{727       \} \textcolor{keywordflow}{else} \{}
 \DoxyCodeLine{728         matchCode = \mbox{\hyperlink{Compression_8cpp_a51be50a3bfabcb0a79edbe86e7d03d05}{LZ4\_count}}(ip + \mbox{\hyperlink{Compression_8cpp_a2d835b35b6582451a75dc6ff464a9e75}{MINMATCH}}, match + \mbox{\hyperlink{Compression_8cpp_a2d835b35b6582451a75dc6ff464a9e75}{MINMATCH}}, matchlimit);}
 \DoxyCodeLine{729         ip += (size\_t)matchCode + \mbox{\hyperlink{Compression_8cpp_a2d835b35b6582451a75dc6ff464a9e75}{MINMATCH}};}
-\DoxyCodeLine{730         \mbox{\hyperlink{Compression_8cpp_a8728fe9e99fe783be28c0f38bb0d0761}{DEBUGLOG}}(6, \textcolor{stringliteral}{"             with matchLength=\%u"}, matchCode + \mbox{\hyperlink{Compression_8cpp_a2d835b35b6582451a75dc6ff464a9e75}{MINMATCH}});}
+\DoxyCodeLine{730         \mbox{\hyperlink{Compression_8cpp_a8728fe9e99fe783be28c0f38bb0d0761}{DEBUGLOG}}(6, \textcolor{stringliteral}{"{}             with matchLength=\%u"{}}, matchCode + \mbox{\hyperlink{Compression_8cpp_a2d835b35b6582451a75dc6ff464a9e75}{MINMATCH}});}
 \DoxyCodeLine{731       \}}
 \DoxyCodeLine{732 }
 \DoxyCodeLine{733       \textcolor{keywordflow}{if} ((outputDirective) \&\&    \textcolor{comment}{/* Check output buffer overflow */}}
@@ -1176,13 +1177,13 @@ Definition at line 484 of file Compression.\+cpp.
 \DoxyCodeLine{739           \mbox{\hyperlink{Compression_8cpp_acdcc5aaebf3f273c1762f24a6ece2e5e}{assert}}(newMatchCode < matchCode);}
 \DoxyCodeLine{740           matchCode = newMatchCode;}
 \DoxyCodeLine{741           \textcolor{keywordflow}{if} (\mbox{\hyperlink{Compression_8cpp_ad8700448546b3b5111404cc021061fd5}{unlikely}}(ip <= filledIp)) \{}
-\DoxyCodeLine{742             \textcolor{comment}{/* We have already filled up to filledIp so if ip ends up less than filledIp}}
-\DoxyCodeLine{743 \textcolor{comment}{             * we have positions in the hash table beyond the current position. This is}}
-\DoxyCodeLine{744 \textcolor{comment}{             * a problem if we reuse the hash table. So we have to remove these positions}}
-\DoxyCodeLine{745 \textcolor{comment}{             * from the hash table.}}
+\DoxyCodeLine{742             \textcolor{comment}{/* We have already filled up to filledIp so if ip ends up less than filledIp}}
+\DoxyCodeLine{743 \textcolor{comment}{             * we have positions in the hash table beyond the current position. This is}}
+\DoxyCodeLine{744 \textcolor{comment}{             * a problem if we reuse the hash table. So we have to remove these positions}}
+\DoxyCodeLine{745 \textcolor{comment}{             * from the hash table.}}
 \DoxyCodeLine{746 \textcolor{comment}{             */}}
 \DoxyCodeLine{747             \textcolor{keyword}{const} \mbox{\hyperlink{Compression_8cpp_aae9749d96e15ccb4f482dd5f55d98f9b}{BYTE}} *ptr;}
-\DoxyCodeLine{748             \mbox{\hyperlink{Compression_8cpp_a8728fe9e99fe783be28c0f38bb0d0761}{DEBUGLOG}}(5, \textcolor{stringliteral}{"Clearing \%u positions"}, (\mbox{\hyperlink{Compression_8cpp_a696390429f2f3b644bde8d0322a24124}{U32}})(filledIp -\/ ip));}
+\DoxyCodeLine{748             \mbox{\hyperlink{Compression_8cpp_a8728fe9e99fe783be28c0f38bb0d0761}{DEBUGLOG}}(5, \textcolor{stringliteral}{"{}Clearing \%u positions"{}}, (\mbox{\hyperlink{Compression_8cpp_a696390429f2f3b644bde8d0322a24124}{U32}})(filledIp -\/ ip));}
 \DoxyCodeLine{749             \textcolor{keywordflow}{for} (ptr = ip; ptr <= filledIp; ++ptr) \{}
 \DoxyCodeLine{750               \mbox{\hyperlink{Compression_8cpp_a696390429f2f3b644bde8d0322a24124}{U32}} \textcolor{keyword}{const} h = \mbox{\hyperlink{Compression_8cpp_a70b1bbe91862d5cb5e473ce2deb556a7}{LZ4\_hashPosition}}(ptr, tableType);}
 \DoxyCodeLine{751               \mbox{\hyperlink{Compression_8cpp_aa78ea8add85520d31f262506d5adb830}{LZ4\_clearHash}}(h, cctx-\/>\mbox{\hyperlink{structLZ4__stream__t__internal_afb3b54934c388fea25aa5bdc2afa0e32}{hashTable}}, tableType);}
@@ -1265,7 +1266,7 @@ Definition at line 484 of file Compression.\+cpp.
 \DoxyCodeLine{828         token = op++;}
 \DoxyCodeLine{829         *token = 0;}
 \DoxyCodeLine{830         \textcolor{keywordflow}{if} (maybe\_extMem) offset = current -\/ matchIndex;}
-\DoxyCodeLine{831         \mbox{\hyperlink{Compression_8cpp_a8728fe9e99fe783be28c0f38bb0d0761}{DEBUGLOG}}(6, \textcolor{stringliteral}{"seq.start:\%i, literals=\%u, match.start:\%i"},}
+\DoxyCodeLine{831         \mbox{\hyperlink{Compression_8cpp_a8728fe9e99fe783be28c0f38bb0d0761}{DEBUGLOG}}(6, \textcolor{stringliteral}{"{}seq.start:\%i, literals=\%u, match.start:\%i"{}},}
 \DoxyCodeLine{832           (\textcolor{keywordtype}{int})(anchor -\/ (\textcolor{keyword}{const} \mbox{\hyperlink{Compression_8cpp_aae9749d96e15ccb4f482dd5f55d98f9b}{BYTE}} *)source), 0, (\textcolor{keywordtype}{int})(ip -\/ (\textcolor{keyword}{const} \mbox{\hyperlink{Compression_8cpp_aae9749d96e15ccb4f482dd5f55d98f9b}{BYTE}} *)source));}
 \DoxyCodeLine{833         \textcolor{keywordflow}{goto} \_next\_match;}
 \DoxyCodeLine{834       \}}
@@ -1292,7 +1293,7 @@ Definition at line 484 of file Compression.\+cpp.
 \DoxyCodeLine{855         \textcolor{keywordflow}{return} 0;   \textcolor{comment}{/* cannot compress within `dst` budget. Stored indexes in hash table are nonetheless fine */}}
 \DoxyCodeLine{856       \}}
 \DoxyCodeLine{857     \}}
-\DoxyCodeLine{858     \mbox{\hyperlink{Compression_8cpp_a8728fe9e99fe783be28c0f38bb0d0761}{DEBUGLOG}}(6, \textcolor{stringliteral}{"Final literal run : \%i literals"}, (\textcolor{keywordtype}{int})lastRun);}
+\DoxyCodeLine{858     \mbox{\hyperlink{Compression_8cpp_a8728fe9e99fe783be28c0f38bb0d0761}{DEBUGLOG}}(6, \textcolor{stringliteral}{"{}Final literal run : \%i literals"{}}, (\textcolor{keywordtype}{int})lastRun);}
 \DoxyCodeLine{859     \textcolor{keywordflow}{if} (lastRun >= \mbox{\hyperlink{Compression_8cpp_aec45fd08a68c07b74493e631ae52aca1}{RUN\_MASK}}) \{}
 \DoxyCodeLine{860       \textcolor{keywordtype}{size\_t} accumulator = lastRun -\/ \mbox{\hyperlink{Compression_8cpp_aec45fd08a68c07b74493e631ae52aca1}{RUN\_MASK}};}
 \DoxyCodeLine{861       *op++ = \mbox{\hyperlink{Compression_8cpp_aec45fd08a68c07b74493e631ae52aca1}{RUN\_MASK}} << \mbox{\hyperlink{Compression_8cpp_aa84b594ef328b62b23e36c78abe2aaf0}{ML\_BITS}};}
@@ -1311,26 +1312,26 @@ Definition at line 484 of file Compression.\+cpp.
 \DoxyCodeLine{874   \}}
 \DoxyCodeLine{875   result = (int)(((\textcolor{keywordtype}{char} *)op) -\/ dest);}
 \DoxyCodeLine{876   \mbox{\hyperlink{Compression_8cpp_acdcc5aaebf3f273c1762f24a6ece2e5e}{assert}}(result > 0);}
-\DoxyCodeLine{877   \mbox{\hyperlink{Compression_8cpp_a8728fe9e99fe783be28c0f38bb0d0761}{DEBUGLOG}}(5, \textcolor{stringliteral}{"LZ4\_compress\_generic: compressed \%i bytes into \%i bytes"}, inputSize, result);}
+\DoxyCodeLine{877   \mbox{\hyperlink{Compression_8cpp_a8728fe9e99fe783be28c0f38bb0d0761}{DEBUGLOG}}(5, \textcolor{stringliteral}{"{}LZ4\_compress\_generic: compressed \%i bytes into \%i bytes"{}}, inputSize, result);}
 \DoxyCodeLine{878   \textcolor{keywordflow}{return} result;}
 \DoxyCodeLine{879 \}}
 
 \end{DoxyCode}
 
 
-References assert, by\+Ptr, by\+U16, by\+U32, L\+Z4\+\_\+stream\+\_\+t\+\_\+internal\+::current\+Offset, D\+E\+B\+U\+G\+L\+OG, L\+Z4\+\_\+stream\+\_\+t\+\_\+internal\+::dict\+Ctx, L\+Z4\+\_\+stream\+\_\+t\+\_\+internal\+::dictionary, L\+Z4\+\_\+stream\+\_\+t\+\_\+internal\+::dict\+Size, dict\+Small, fill\+Output, GB, L\+Z4\+\_\+stream\+\_\+t\+\_\+internal\+::hash\+Table, L\+A\+S\+T\+L\+I\+T\+E\+R\+A\+LS, limited\+Output, L\+Z4\+\_\+64\+Klimit, L\+Z4\+\_\+clear\+Hash(), L\+Z4\+\_\+count(), L\+Z4\+\_\+\+D\+I\+S\+T\+A\+N\+C\+E\+\_\+\+A\+B\+S\+O\+L\+U\+T\+E\+\_\+\+M\+AX, L\+Z4\+\_\+\+D\+I\+S\+T\+A\+N\+C\+E\+\_\+\+M\+AX, L\+Z4\+\_\+get\+Index\+On\+Hash(), L\+Z4\+\_\+get\+Position(), L\+Z4\+\_\+get\+Position\+On\+Hash(), L\+Z4\+\_\+hash\+Position(), L\+Z4\+\_\+memcpy, L\+Z4\+\_\+min\+Length, L\+Z4\+\_\+put\+Index\+On\+Hash(), L\+Z4\+\_\+put\+Position(), L\+Z4\+\_\+put\+Position\+On\+Hash(), L\+Z4\+\_\+read32(), L\+Z4\+\_\+skip\+Trigger, L\+Z4\+\_\+wild\+Copy8(), L\+Z4\+\_\+write32(), L\+Z4\+\_\+write\+L\+E16(), M\+F\+L\+I\+M\+IT, M\+I\+N\+M\+A\+T\+CH, M\+L\+\_\+\+B\+I\+TS, M\+L\+\_\+\+M\+A\+SK, no\+Dict, R\+U\+N\+\_\+\+M\+A\+SK, L\+Z4\+\_\+stream\+\_\+t\+\_\+internal\+::table\+Type, unlikely, using\+Dict\+Ctx, using\+Ext\+Dict, and with\+Prefix64k.
+References assert, by\+Ptr, by\+U16, by\+U32, LZ4\+\_\+stream\+\_\+t\+\_\+internal\+::current\+Offset, DEBUGLOG, LZ4\+\_\+stream\+\_\+t\+\_\+internal\+::dict\+Ctx, LZ4\+\_\+stream\+\_\+t\+\_\+internal\+::dictionary, LZ4\+\_\+stream\+\_\+t\+\_\+internal\+::dict\+Size, dict\+Small, fill\+Output, GB, LZ4\+\_\+stream\+\_\+t\+\_\+internal\+::hash\+Table, LASTLITERALS, limited\+Output, LZ4\+\_\+64\+Klimit, LZ4\+\_\+clear\+Hash(), LZ4\+\_\+count(), LZ4\+\_\+\+DISTANCE\+\_\+\+ABSOLUTE\+\_\+\+MAX, LZ4\+\_\+\+DISTANCE\+\_\+\+MAX, LZ4\+\_\+get\+Index\+On\+Hash(), LZ4\+\_\+get\+Position(), LZ4\+\_\+get\+Position\+On\+Hash(), LZ4\+\_\+hash\+Position(), LZ4\+\_\+memcpy, LZ4\+\_\+min\+Length, LZ4\+\_\+put\+Index\+On\+Hash(), LZ4\+\_\+put\+Position(), LZ4\+\_\+put\+Position\+On\+Hash(), LZ4\+\_\+read32(), LZ4\+\_\+skip\+Trigger, LZ4\+\_\+wild\+Copy8(), LZ4\+\_\+write32(), LZ4\+\_\+write\+LE16(), MFLIMIT, MINMATCH, ML\+\_\+\+BITS, ML\+\_\+\+MASK, no\+Dict, RUN\+\_\+\+MASK, LZ4\+\_\+stream\+\_\+t\+\_\+internal\+::table\+Type, unlikely, using\+Dict\+Ctx, using\+Ext\+Dict, and with\+Prefix64k.
 
 
 
-Referenced by L\+Z4\+\_\+compress\+\_\+generic().
+Referenced by LZ4\+\_\+compress\+\_\+generic().
 
 \mbox{\Hypertarget{Compression_8cpp_a2b09f5ca41ce609bb136d3637beffe04}\label{Compression_8cpp_a2b09f5ca41ce609bb136d3637beffe04}} 
 \index{Compression.cpp@{Compression.cpp}!LZ4\_compressBound@{LZ4\_compressBound}}
 \index{LZ4\_compressBound@{LZ4\_compressBound}!Compression.cpp@{Compression.cpp}}
 \doxysubsubsection{\texorpdfstring{LZ4\_compressBound()}{LZ4\_compressBound()}}
-{\footnotesize\ttfamily int L\+Z4\+\_\+compress\+Bound (\begin{DoxyParamCaption}\item[{int}]{input\+Size }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily int LZ4\+\_\+compress\+Bound (\begin{DoxyParamCaption}\item[{int}]{input\+Size }\end{DoxyParamCaption})}
 
-\mbox{\hyperlink{Compression_8h_a362093578d68480b493984b4853edc1f}{L\+Z4\+\_\+compress\+Bound()}} \+: Provides the maximum size that L\+Z4 compression may output in a \char`\"{}worst case\char`\"{} scenario (input data not compressible) This function is primarily useful for memory allocation purposes (destination buffer size). Macro \mbox{\hyperlink{Compression_8h_a2453a423fd34640a0afbbf57ed0a5399}{L\+Z4\+\_\+\+C\+O\+M\+P\+R\+E\+S\+S\+B\+O\+U\+N\+D()}} is also provided for compilation-\/time evaluation (stack memory allocation for example). Note that \mbox{\hyperlink{Compression_8h_aacc5de6f21665d10fd8ec9e5ac0b9d40}{L\+Z4\+\_\+compress\+\_\+default()}} compresses faster when dst\+Capacity is $>$= L\+Z4\+\_\+compress\+Bound(src\+Size) input\+Size \+: max supported value is L\+Z4\+\_\+\+M\+A\+X\+\_\+\+I\+N\+P\+U\+T\+\_\+\+S\+I\+ZE return \+: maximum output size in a \char`\"{}worst case\char`\"{} scenario or 0, if input size is incorrect (too large or negative) 
+\mbox{\hyperlink{Compression_8h_a362093578d68480b493984b4853edc1f}{LZ4\+\_\+compress\+Bound()}} \+: Provides the maximum size that LZ4 compression may output in a \char`\"{}worst case\char`\"{} scenario (input data not compressible) This function is primarily useful for memory allocation purposes (destination buffer size). Macro \mbox{\hyperlink{Compression_8h_a2453a423fd34640a0afbbf57ed0a5399}{LZ4\+\_\+\+COMPRESSBOUND()}} is also provided for compilation-\/time evaluation (stack memory allocation for example). Note that \mbox{\hyperlink{Compression_8h_aacc5de6f21665d10fd8ec9e5ac0b9d40}{LZ4\+\_\+compress\+\_\+default()}} compresses faster when dst\+Capacity is $>$= LZ4\+\_\+compress\+Bound(src\+Size) input\+Size \+: max supported value is LZ4\+\_\+\+MAX\+\_\+\+INPUT\+\_\+\+SIZE return \+: maximum output size in a \char`\"{}worst case\char`\"{} scenario or 0, if input size is incorrect (too large or negative) 
 
 Definition at line 370 of file Compression.\+cpp.
 
@@ -1341,17 +1342,17 @@ Definition at line 370 of file Compression.\+cpp.
 \end{DoxyCode}
 
 
-References L\+Z4\+\_\+\+C\+O\+M\+P\+R\+E\+S\+S\+B\+O\+U\+ND.
+References LZ4\+\_\+\+COMPRESSBOUND.
 
 
 
-Referenced by L\+Z4\+\_\+compress\+\_\+fast\+\_\+ext\+State().
+Referenced by LZ4\+\_\+compress\+\_\+fast\+\_\+ext\+State().
 
 \mbox{\Hypertarget{Compression_8cpp_a51be50a3bfabcb0a79edbe86e7d03d05}\label{Compression_8cpp_a51be50a3bfabcb0a79edbe86e7d03d05}} 
 \index{Compression.cpp@{Compression.cpp}!LZ4\_count@{LZ4\_count}}
 \index{LZ4\_count@{LZ4\_count}!Compression.cpp@{Compression.cpp}}
 \doxysubsubsection{\texorpdfstring{LZ4\_count()}{LZ4\_count()}}
-{\footnotesize\ttfamily unsigned L\+Z4\+\_\+count (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{Compression_8cpp_aae9749d96e15ccb4f482dd5f55d98f9b}{B\+Y\+TE}} $\ast$}]{p\+In,  }\item[{const \mbox{\hyperlink{Compression_8cpp_aae9749d96e15ccb4f482dd5f55d98f9b}{B\+Y\+TE}} $\ast$}]{p\+Match,  }\item[{const \mbox{\hyperlink{Compression_8cpp_aae9749d96e15ccb4f482dd5f55d98f9b}{B\+Y\+TE}} $\ast$}]{p\+In\+Limit }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily unsigned LZ4\+\_\+count (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{Compression_8cpp_aae9749d96e15ccb4f482dd5f55d98f9b}{BYTE}} $\ast$}]{p\+In,  }\item[{const \mbox{\hyperlink{Compression_8cpp_aae9749d96e15ccb4f482dd5f55d98f9b}{BYTE}} $\ast$}]{p\+Match,  }\item[{const \mbox{\hyperlink{Compression_8cpp_aae9749d96e15ccb4f482dd5f55d98f9b}{BYTE}} $\ast$}]{p\+In\+Limit }\end{DoxyParamCaption})}
 
 
 
@@ -1387,19 +1388,19 @@ Definition at line 301 of file Compression.\+cpp.
 \end{DoxyCode}
 
 
-References likely, L\+Z4\+\_\+\+Nb\+Common\+Bytes(), L\+Z4\+\_\+read16(), L\+Z4\+\_\+read32(), L\+Z4\+\_\+read\+\_\+\+A\+R\+C\+H(), and S\+T\+E\+P\+S\+I\+ZE.
+References likely, LZ4\+\_\+\+Nb\+Common\+Bytes(), LZ4\+\_\+read16(), LZ4\+\_\+read32(), LZ4\+\_\+read\+\_\+\+ARCH(), and STEPSIZE.
 
 
 
-Referenced by L\+Z4\+\_\+compress\+\_\+generic\+\_\+validated().
+Referenced by LZ4\+\_\+compress\+\_\+generic\+\_\+validated().
 
 \mbox{\Hypertarget{Compression_8cpp_a3d19938a7f5d37bf6485ef0e7cecde4c}\label{Compression_8cpp_a3d19938a7f5d37bf6485ef0e7cecde4c}} 
 \index{Compression.cpp@{Compression.cpp}!LZ4\_decompress\_generic@{LZ4\_decompress\_generic}}
 \index{LZ4\_decompress\_generic@{LZ4\_decompress\_generic}!Compression.cpp@{Compression.cpp}}
 \doxysubsubsection{\texorpdfstring{LZ4\_decompress\_generic()}{LZ4\_decompress\_generic()}}
-{\footnotesize\ttfamily int L\+Z4\+\_\+decompress\+\_\+generic (\begin{DoxyParamCaption}\item[{const char $\ast$const}]{src,  }\item[{char $\ast$const}]{dst,  }\item[{int}]{src\+Size,  }\item[{int}]{output\+Size,  }\item[{\mbox{\hyperlink{Compression_8cpp_a23fcfcea9fce4ad48b37485e3b6e8746}{end\+Condition\+\_\+directive}}}]{end\+On\+Input,  }\item[{\mbox{\hyperlink{Compression_8cpp_a2719d1421671f2c7fa3c68ca7465994c}{early\+End\+\_\+directive}}}]{partial\+Decoding,  }\item[{\mbox{\hyperlink{Compression_8cpp_ab22d25a446ad3e8288401052deccda4c}{dict\+\_\+directive}}}]{dict,  }\item[{const \mbox{\hyperlink{Compression_8cpp_aae9749d96e15ccb4f482dd5f55d98f9b}{B\+Y\+TE}} $\ast$const}]{low\+Prefix,  }\item[{const \mbox{\hyperlink{Compression_8cpp_aae9749d96e15ccb4f482dd5f55d98f9b}{B\+Y\+TE}} $\ast$const}]{dict\+Start,  }\item[{const size\+\_\+t}]{dict\+Size }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily int LZ4\+\_\+decompress\+\_\+generic (\begin{DoxyParamCaption}\item[{const char $\ast$const}]{src,  }\item[{char $\ast$const}]{dst,  }\item[{int}]{src\+Size,  }\item[{int}]{output\+Size,  }\item[{\mbox{\hyperlink{Compression_8cpp_a23fcfcea9fce4ad48b37485e3b6e8746}{end\+Condition\+\_\+directive}}}]{end\+On\+Input,  }\item[{\mbox{\hyperlink{Compression_8cpp_a2719d1421671f2c7fa3c68ca7465994c}{early\+End\+\_\+directive}}}]{partial\+Decoding,  }\item[{\mbox{\hyperlink{Compression_8cpp_ab22d25a446ad3e8288401052deccda4c}{dict\+\_\+directive}}}]{dict,  }\item[{const \mbox{\hyperlink{Compression_8cpp_aae9749d96e15ccb4f482dd5f55d98f9b}{BYTE}} $\ast$const}]{low\+Prefix,  }\item[{const \mbox{\hyperlink{Compression_8cpp_aae9749d96e15ccb4f482dd5f55d98f9b}{BYTE}} $\ast$const}]{dict\+Start,  }\item[{const size\+\_\+t}]{dict\+Size }\end{DoxyParamCaption})}
 
-\mbox{\hyperlink{Compression_8cpp_a3d19938a7f5d37bf6485ef0e7cecde4c}{L\+Z4\+\_\+decompress\+\_\+generic()}} \+: This generic decompression function covers all use cases. It shall be instantiated several times, using different sets of directives. Note that it is important for performance that this function really get inlined, in order to remove useless branches during compilation optimization. 
+\mbox{\hyperlink{Compression_8cpp_a3d19938a7f5d37bf6485ef0e7cecde4c}{LZ4\+\_\+decompress\+\_\+generic()}} \+: This generic decompression function covers all use cases. It shall be instantiated several times, using different sets of directives. Note that it is important for performance that this function really get inlined, in order to remove useless branches during compilation optimization. 
 
 Definition at line 1033 of file Compression.\+cpp.
 
@@ -1422,7 +1423,7 @@ Definition at line 1033 of file Compression.\+cpp.
 \DoxyCodeLine{1060     \textcolor{keyword}{const} \textcolor{keywordtype}{int} checkOffset = ((safeDecode) \&\& (dictSize < (\textcolor{keywordtype}{int})(64 \mbox{\hyperlink{Compression_8cpp_a1841fd1a462d245d8c73dce55e2f45da}{KB}})));}
 \DoxyCodeLine{1061 }
 \DoxyCodeLine{1062 }
-\DoxyCodeLine{1063     \textcolor{comment}{/* Set up the "end" pointers for the shortcut. */}}
+\DoxyCodeLine{1063     \textcolor{comment}{/* Set up the "{}end"{} pointers for the shortcut. */}}
 \DoxyCodeLine{1064     \textcolor{keyword}{const} \mbox{\hyperlink{Compression_8cpp_aae9749d96e15ccb4f482dd5f55d98f9b}{BYTE}} *\textcolor{keyword}{const} shortiend = iend -\/ (endOnInput ? 14 : 8) \textcolor{comment}{/*maxLL*/} -\/ 2 \textcolor{comment}{/*offset*/};}
 \DoxyCodeLine{1065     \textcolor{keyword}{const} \mbox{\hyperlink{Compression_8cpp_aae9749d96e15ccb4f482dd5f55d98f9b}{BYTE}} *\textcolor{keyword}{const} shortoend = oend -\/ (endOnInput ? 14 : 8) \textcolor{comment}{/*maxLL*/} -\/ 18 \textcolor{comment}{/*maxML*/};}
 \DoxyCodeLine{1066 }
@@ -1432,7 +1433,7 @@ Definition at line 1033 of file Compression.\+cpp.
 \DoxyCodeLine{1070     \textcolor{keywordtype}{size\_t} length;}
 \DoxyCodeLine{1071 }
 \DoxyCodeLine{1072 }
-\DoxyCodeLine{1073     \mbox{\hyperlink{Compression_8cpp_a8728fe9e99fe783be28c0f38bb0d0761}{DEBUGLOG}}(5, \textcolor{stringliteral}{"LZ4\_decompress\_generic (srcSize:\%i, dstSize:\%i)"}, srcSize, outputSize);}
+\DoxyCodeLine{1073     \mbox{\hyperlink{Compression_8cpp_a8728fe9e99fe783be28c0f38bb0d0761}{DEBUGLOG}}(5, \textcolor{stringliteral}{"{}LZ4\_decompress\_generic (srcSize:\%i, dstSize:\%i)"{}}, srcSize, outputSize);}
 \DoxyCodeLine{1074 }
 \DoxyCodeLine{1075     \textcolor{comment}{/* Special cases */}}
 \DoxyCodeLine{1076     \mbox{\hyperlink{Compression_8cpp_acdcc5aaebf3f273c1762f24a6ece2e5e}{assert}}(lowPrefix <= op);}
@@ -1446,7 +1447,7 @@ Definition at line 1033 of file Compression.\+cpp.
 \DoxyCodeLine{1084 }
 \DoxyCodeLine{1085     \textcolor{comment}{/* Currently the fast loop shows a regression on qualcomm arm chips. */}}
 \DoxyCodeLine{1086     \textcolor{keywordflow}{if} ((oend -\/ op) < \mbox{\hyperlink{Compression_8cpp_aa7091dfd46e0c63c7974aa8cecae6207}{FASTLOOP\_SAFE\_DISTANCE}}) \{}
-\DoxyCodeLine{1087       \mbox{\hyperlink{Compression_8cpp_a8728fe9e99fe783be28c0f38bb0d0761}{DEBUGLOG}}(6, \textcolor{stringliteral}{"skip fast decode loop"});}
+\DoxyCodeLine{1087       \mbox{\hyperlink{Compression_8cpp_a8728fe9e99fe783be28c0f38bb0d0761}{DEBUGLOG}}(6, \textcolor{stringliteral}{"{}skip fast decode loop"{}});}
 \DoxyCodeLine{1088       \textcolor{keywordflow}{goto} safe\_decode;}
 \DoxyCodeLine{1089     \}}
 \DoxyCodeLine{1090 }
@@ -1476,20 +1477,20 @@ Definition at line 1033 of file Compression.\+cpp.
 \DoxyCodeLine{1114           \mbox{\hyperlink{Compression_8cpp_a5279938c8ccf6c4a556db8eecd1190a8}{LZ4\_wildCopy32}}(op, ip, cpy);}
 \DoxyCodeLine{1115         \} \textcolor{keywordflow}{else} \{   \textcolor{comment}{/* LZ4\_decompress\_fast() */}}
 \DoxyCodeLine{1116           \textcolor{keywordflow}{if} (cpy > oend -\/ 8) \{ \textcolor{keywordflow}{goto} safe\_literal\_copy; \}}
-\DoxyCodeLine{1117           \mbox{\hyperlink{Compression_8cpp_a107b5345286641379a50762ff7f5e906}{LZ4\_wildCopy8}}(op, ip, cpy); \textcolor{comment}{/* LZ4\_decompress\_fast() cannot copy more than 8 bytes at a time :}}
+\DoxyCodeLine{1117           \mbox{\hyperlink{Compression_8cpp_a107b5345286641379a50762ff7f5e906}{LZ4\_wildCopy8}}(op, ip, cpy); \textcolor{comment}{/* LZ4\_decompress\_fast() cannot copy more than 8 bytes at a time :}}
 \DoxyCodeLine{1118 \textcolor{comment}{                                       * it doesn't know input length, and only relies on end-\/of-\/block properties */}}
 \DoxyCodeLine{1119         \}}
 \DoxyCodeLine{1120         ip += length; op = cpy;}
 \DoxyCodeLine{1121       \} \textcolor{keywordflow}{else} \{}
 \DoxyCodeLine{1122         cpy = op + length;}
 \DoxyCodeLine{1123         \textcolor{keywordflow}{if} (endOnInput) \{  \textcolor{comment}{/* LZ4\_decompress\_safe() */}}
-\DoxyCodeLine{1124           \mbox{\hyperlink{Compression_8cpp_a8728fe9e99fe783be28c0f38bb0d0761}{DEBUGLOG}}(7, \textcolor{stringliteral}{"copy \%u bytes in a 16-\/bytes stripe"}, (\textcolor{keywordtype}{unsigned})length);}
+\DoxyCodeLine{1124           \mbox{\hyperlink{Compression_8cpp_a8728fe9e99fe783be28c0f38bb0d0761}{DEBUGLOG}}(7, \textcolor{stringliteral}{"{}copy \%u bytes in a 16-\/bytes stripe"{}}, (\textcolor{keywordtype}{unsigned})length);}
 \DoxyCodeLine{1125           \textcolor{comment}{/* We don't need to check oend, since we check it once for each loop below */}}
 \DoxyCodeLine{1126           \textcolor{keywordflow}{if} (ip > iend -\/ (16 + 1\textcolor{comment}{/*max lit + offset + nextToken*/})) \{ \textcolor{keywordflow}{goto} safe\_literal\_copy; \}}
 \DoxyCodeLine{1127           \textcolor{comment}{/* Literals can only be 14, but hope compilers optimize if we copy by a register size */}}
 \DoxyCodeLine{1128           \mbox{\hyperlink{Compression_8cpp_a5ed8599ff9813a458df4a9d4d81bef58}{LZ4\_memcpy}}(op, ip, 16);}
 \DoxyCodeLine{1129         \} \textcolor{keywordflow}{else} \{  \textcolor{comment}{/* LZ4\_decompress\_fast() */}}
-\DoxyCodeLine{1130             \textcolor{comment}{/* LZ4\_decompress\_fast() cannot copy more than 8 bytes at a time :}}
+\DoxyCodeLine{1130             \textcolor{comment}{/* LZ4\_decompress\_fast() cannot copy more than 8 bytes at a time :}}
 \DoxyCodeLine{1131 \textcolor{comment}{             * it doesn't know input length, and relies on end-\/of-\/block properties */}}
 \DoxyCodeLine{1132           \mbox{\hyperlink{Compression_8cpp_a5ed8599ff9813a458df4a9d4d81bef58}{LZ4\_memcpy}}(op, ip, 8);}
 \DoxyCodeLine{1133           \textcolor{keywordflow}{if} (length > 8) \{ \mbox{\hyperlink{Compression_8cpp_a5ed8599ff9813a458df4a9d4d81bef58}{LZ4\_memcpy}}(op + 8, ip + 8, 8); \}}
@@ -1542,7 +1543,7 @@ Definition at line 1033 of file Compression.\+cpp.
 \DoxyCodeLine{1180       \textcolor{keywordflow}{if} ((dict == \mbox{\hyperlink{Compression_8cpp_ab22d25a446ad3e8288401052deccda4caa8cc166c33fdfcd904c260136978913b}{usingExtDict}}) \&\& (match < lowPrefix)) \{}
 \DoxyCodeLine{1181         \textcolor{keywordflow}{if} (\mbox{\hyperlink{Compression_8cpp_ad8700448546b3b5111404cc021061fd5}{unlikely}}(op + length > oend -\/ \mbox{\hyperlink{Compression_8cpp_a7a912d9a1f869b93be505568dce7fa8c}{LASTLITERALS}})) \{}
 \DoxyCodeLine{1182           \textcolor{keywordflow}{if} (partialDecoding) \{}
-\DoxyCodeLine{1183             \mbox{\hyperlink{Compression_8cpp_a8728fe9e99fe783be28c0f38bb0d0761}{DEBUGLOG}}(7, \textcolor{stringliteral}{"partialDecoding: dictionary match, close to dstEnd"});}
+\DoxyCodeLine{1183             \mbox{\hyperlink{Compression_8cpp_a8728fe9e99fe783be28c0f38bb0d0761}{DEBUGLOG}}(7, \textcolor{stringliteral}{"{}partialDecoding: dictionary match, close to dstEnd"{}});}
 \DoxyCodeLine{1184             length = \mbox{\hyperlink{Compression_8cpp_a3acffbd305ee72dcd4593c0d8af64a4f}{MIN}}(length, (\textcolor{keywordtype}{size\_t})(oend -\/ op));}
 \DoxyCodeLine{1185           \} \textcolor{keywordflow}{else} \{}
 \DoxyCodeLine{1186             \textcolor{keywordflow}{goto} \_output\_error;  \textcolor{comment}{/* end-\/of-\/block condition violated */}}
@@ -1592,23 +1593,23 @@ Definition at line 1033 of file Compression.\+cpp.
 \DoxyCodeLine{1230 }
 \DoxyCodeLine{1231       \mbox{\hyperlink{Compression_8cpp_acdcc5aaebf3f273c1762f24a6ece2e5e}{assert}}(!endOnInput || ip <= iend); \textcolor{comment}{/* ip < iend before the increment */}}
 \DoxyCodeLine{1232 }
-\DoxyCodeLine{1233       \textcolor{comment}{/* A two-\/stage shortcut for the most common case:}}
-\DoxyCodeLine{1234 \textcolor{comment}{       * 1) If the literal length is 0..14, and there is enough space,}}
-\DoxyCodeLine{1235 \textcolor{comment}{       * enter the shortcut and copy 16 bytes on behalf of the literals}}
-\DoxyCodeLine{1236 \textcolor{comment}{       * (in the fast mode, only 8 bytes can be safely copied this way).}}
-\DoxyCodeLine{1237 \textcolor{comment}{       * 2) Further if the match length is 4..18, copy 18 bytes in a similar}}
-\DoxyCodeLine{1238 \textcolor{comment}{       * manner; but we ensure that there's enough space in the output for}}
-\DoxyCodeLine{1239 \textcolor{comment}{       * those 18 bytes earlier, upon entering the shortcut (in other words,}}
-\DoxyCodeLine{1240 \textcolor{comment}{       * there is a combined check for both stages).}}
+\DoxyCodeLine{1233       \textcolor{comment}{/* A two-\/stage shortcut for the most common case:}}
+\DoxyCodeLine{1234 \textcolor{comment}{       * 1) If the literal length is 0..14, and there is enough space,}}
+\DoxyCodeLine{1235 \textcolor{comment}{       * enter the shortcut and copy 16 bytes on behalf of the literals}}
+\DoxyCodeLine{1236 \textcolor{comment}{       * (in the fast mode, only 8 bytes can be safely copied this way).}}
+\DoxyCodeLine{1237 \textcolor{comment}{       * 2) Further if the match length is 4..18, copy 18 bytes in a similar}}
+\DoxyCodeLine{1238 \textcolor{comment}{       * manner; but we ensure that there's enough space in the output for}}
+\DoxyCodeLine{1239 \textcolor{comment}{       * those 18 bytes earlier, upon entering the shortcut (in other words,}}
+\DoxyCodeLine{1240 \textcolor{comment}{       * there is a combined check for both stages).}}
 \DoxyCodeLine{1241 \textcolor{comment}{       */}}
 \DoxyCodeLine{1242       \textcolor{keywordflow}{if} ((endOnInput ? length != \mbox{\hyperlink{Compression_8cpp_aec45fd08a68c07b74493e631ae52aca1}{RUN\_MASK}} : length <= 8)}
-\DoxyCodeLine{1243         \textcolor{comment}{/* strictly "less than" on input, to re-\/enter the loop with at least one byte */}}
+\DoxyCodeLine{1243         \textcolor{comment}{/* strictly "{}less than"{} on input, to re-\/enter the loop with at least one byte */}}
 \DoxyCodeLine{1244         \&\& \mbox{\hyperlink{Compression_8cpp_aa0672ea7123854cc5f51902a06c473fb}{likely}}((endOnInput ? ip < shortiend : 1) \& (op <= shortoend))) \{}
 \DoxyCodeLine{1245         \textcolor{comment}{/* Copy the literals */}}
 \DoxyCodeLine{1246         \mbox{\hyperlink{Compression_8cpp_a5ed8599ff9813a458df4a9d4d81bef58}{LZ4\_memcpy}}(op, ip, endOnInput ? 16 : 8);}
 \DoxyCodeLine{1247         op += length; ip += length;}
 \DoxyCodeLine{1248 }
-\DoxyCodeLine{1249         \textcolor{comment}{/* The second stage: prepare for match copying, decode full info.}}
+\DoxyCodeLine{1249         \textcolor{comment}{/* The second stage: prepare for match copying, decode full info.}}
 \DoxyCodeLine{1250 \textcolor{comment}{         * If it doesn't work out, the info won't be wasted. */}}
 \DoxyCodeLine{1251         length = token \& \mbox{\hyperlink{Compression_8cpp_aa939dccc909b8b36baadb3265a72b37a}{ML\_MASK}}; \textcolor{comment}{/* match length */}}
 \DoxyCodeLine{1252         offset = \mbox{\hyperlink{Compression_8cpp_a69a8c81f7731ff4ae0d292541bbb2d69}{LZ4\_readLE16}}(ip); ip += 2;}
@@ -1628,7 +1629,7 @@ Definition at line 1033 of file Compression.\+cpp.
 \DoxyCodeLine{1266           \textcolor{keywordflow}{continue};}
 \DoxyCodeLine{1267         \}}
 \DoxyCodeLine{1268 }
-\DoxyCodeLine{1269         \textcolor{comment}{/* The second stage didn't work out, but the info is ready.}}
+\DoxyCodeLine{1269         \textcolor{comment}{/* The second stage didn't work out, but the info is ready.}}
 \DoxyCodeLine{1270 \textcolor{comment}{         * Propel it right to the point of match copying. */}}
 \DoxyCodeLine{1271         \textcolor{keywordflow}{goto} \_copy\_match;}
 \DoxyCodeLine{1272       \}}
@@ -1648,29 +1649,29 @@ Definition at line 1033 of file Compression.\+cpp.
 \DoxyCodeLine{1286       \mbox{\hyperlink{Compression_8cpp_a233a86aeac0d8f5c00236b4d8d055761}{LZ4\_STATIC\_ASSERT}}(\mbox{\hyperlink{Compression_8cpp_a6bb5847a99cd90aca07870a394cbe70d}{MFLIMIT}} >= \mbox{\hyperlink{Compression_8cpp_ade83a0730ce39465e00284b8d1b29784}{WILDCOPYLENGTH}});}
 \DoxyCodeLine{1287       \textcolor{keywordflow}{if} (((endOnInput) \&\& ((cpy > oend -\/ \mbox{\hyperlink{Compression_8cpp_a6bb5847a99cd90aca07870a394cbe70d}{MFLIMIT}}) || (ip + length > iend -\/ (2 + 1 + \mbox{\hyperlink{Compression_8cpp_a7a912d9a1f869b93be505568dce7fa8c}{LASTLITERALS}}))))}
 \DoxyCodeLine{1288         || ((!endOnInput) \&\& (cpy > oend -\/ \mbox{\hyperlink{Compression_8cpp_ade83a0730ce39465e00284b8d1b29784}{WILDCOPYLENGTH}}))) \{}
-\DoxyCodeLine{1289         \textcolor{comment}{/* We've either hit the input parsing restriction or the output parsing restriction.}}
-\DoxyCodeLine{1290 \textcolor{comment}{         * In the normal scenario, decoding a full block, it must be the last sequence,}}
-\DoxyCodeLine{1291 \textcolor{comment}{         * otherwise it's an error (invalid input or dimensions).}}
-\DoxyCodeLine{1292 \textcolor{comment}{         * In partialDecoding scenario, it's necessary to ensure there is no buffer overflow.}}
+\DoxyCodeLine{1289         \textcolor{comment}{/* We've either hit the input parsing restriction or the output parsing restriction.}}
+\DoxyCodeLine{1290 \textcolor{comment}{         * In the normal scenario, decoding a full block, it must be the last sequence,}}
+\DoxyCodeLine{1291 \textcolor{comment}{         * otherwise it's an error (invalid input or dimensions).}}
+\DoxyCodeLine{1292 \textcolor{comment}{         * In partialDecoding scenario, it's necessary to ensure there is no buffer overflow.}}
 \DoxyCodeLine{1293 \textcolor{comment}{         */}}
 \DoxyCodeLine{1294         \textcolor{keywordflow}{if} (partialDecoding) \{}
-\DoxyCodeLine{1295           \textcolor{comment}{/* Since we are partial decoding we may be in this block because of the output parsing}}
-\DoxyCodeLine{1296 \textcolor{comment}{           * restriction, which is not valid since the output buffer is allowed to be undersized.}}
+\DoxyCodeLine{1295           \textcolor{comment}{/* Since we are partial decoding we may be in this block because of the output parsing}}
+\DoxyCodeLine{1296 \textcolor{comment}{           * restriction, which is not valid since the output buffer is allowed to be undersized.}}
 \DoxyCodeLine{1297 \textcolor{comment}{           */}}
 \DoxyCodeLine{1298           \mbox{\hyperlink{Compression_8cpp_acdcc5aaebf3f273c1762f24a6ece2e5e}{assert}}(endOnInput);}
-\DoxyCodeLine{1299           \mbox{\hyperlink{Compression_8cpp_a8728fe9e99fe783be28c0f38bb0d0761}{DEBUGLOG}}(7, \textcolor{stringliteral}{"partialDecoding: copying literals, close to input or output end"})}
-\DoxyCodeLine{1300             \mbox{\hyperlink{Compression_8cpp_a8728fe9e99fe783be28c0f38bb0d0761}{DEBUGLOG}}(7, "partialDecoding: literal length = \%u", (\textcolor{keywordtype}{unsigned})length);}
-\DoxyCodeLine{1301           \mbox{\hyperlink{Compression_8cpp_a8728fe9e99fe783be28c0f38bb0d0761}{DEBUGLOG}}(7, "partialDecoding: remaining space in dstBuffer : \%i", (\textcolor{keywordtype}{int})(oend -\/ op));}
-\DoxyCodeLine{1302           \mbox{\hyperlink{Compression_8cpp_a8728fe9e99fe783be28c0f38bb0d0761}{DEBUGLOG}}(7, "partialDecoding: remaining space in srcBuffer : \%i", (\textcolor{keywordtype}{int})(iend -\/ ip));}
-\DoxyCodeLine{1303           \textcolor{comment}{/* Finishing in the middle of a literals segment,}}
-\DoxyCodeLine{1304 \textcolor{comment}{           * due to lack of input.}}
+\DoxyCodeLine{1299           \mbox{\hyperlink{Compression_8cpp_a8728fe9e99fe783be28c0f38bb0d0761}{DEBUGLOG}}(7, \textcolor{stringliteral}{"{}partialDecoding: copying literals, close to input or output end"{}})}
+\DoxyCodeLine{1300             \mbox{\hyperlink{Compression_8cpp_a8728fe9e99fe783be28c0f38bb0d0761}{DEBUGLOG}}(7, "{}partialDecoding: literal length = \%u"{}, (\textcolor{keywordtype}{unsigned})length);}
+\DoxyCodeLine{1301           \mbox{\hyperlink{Compression_8cpp_a8728fe9e99fe783be28c0f38bb0d0761}{DEBUGLOG}}(7, "{}partialDecoding: remaining space in dstBuffer : \%i"{}, (\textcolor{keywordtype}{int})(oend -\/ op));}
+\DoxyCodeLine{1302           \mbox{\hyperlink{Compression_8cpp_a8728fe9e99fe783be28c0f38bb0d0761}{DEBUGLOG}}(7, "{}partialDecoding: remaining space in srcBuffer : \%i"{}, (\textcolor{keywordtype}{int})(iend -\/ ip));}
+\DoxyCodeLine{1303           \textcolor{comment}{/* Finishing in the middle of a literals segment,}}
+\DoxyCodeLine{1304 \textcolor{comment}{           * due to lack of input.}}
 \DoxyCodeLine{1305 \textcolor{comment}{           */}}
 \DoxyCodeLine{1306           if (ip + length > iend) \{}
 \DoxyCodeLine{1307             length = (size\_t)(iend -\/ ip);}
 \DoxyCodeLine{1308             cpy = op + length;}
 \DoxyCodeLine{1309           \}}
-\DoxyCodeLine{1310           \textcolor{comment}{/* Finishing in the middle of a literals segment,}}
-\DoxyCodeLine{1311 \textcolor{comment}{           * due to lack of output space.}}
+\DoxyCodeLine{1310           \textcolor{comment}{/* Finishing in the middle of a literals segment,}}
+\DoxyCodeLine{1311 \textcolor{comment}{           * due to lack of output space.}}
 \DoxyCodeLine{1312 \textcolor{comment}{           */}}
 \DoxyCodeLine{1313           \textcolor{keywordflow}{if} (cpy > oend) \{}
 \DoxyCodeLine{1314             cpy = oend;}
@@ -1678,27 +1679,27 @@ Definition at line 1033 of file Compression.\+cpp.
 \DoxyCodeLine{1316             length = (size\_t)(oend -\/ op);}
 \DoxyCodeLine{1317           \}}
 \DoxyCodeLine{1318         \} \textcolor{keywordflow}{else} \{}
-\DoxyCodeLine{1319           \textcolor{comment}{/* We must be on the last sequence because of the parsing limitations so check}}
-\DoxyCodeLine{1320 \textcolor{comment}{           * that we exactly regenerate the original size (must be exact when !endOnInput).}}
+\DoxyCodeLine{1319           \textcolor{comment}{/* We must be on the last sequence because of the parsing limitations so check}}
+\DoxyCodeLine{1320 \textcolor{comment}{           * that we exactly regenerate the original size (must be exact when !endOnInput).}}
 \DoxyCodeLine{1321 \textcolor{comment}{           */}}
 \DoxyCodeLine{1322           \textcolor{keywordflow}{if} ((!endOnInput) \&\& (cpy != oend)) \{ \textcolor{keywordflow}{goto} \_output\_error; \}}
-\DoxyCodeLine{1323           \textcolor{comment}{/* We must be on the last sequence (or invalid) because of the parsing limitations}}
-\DoxyCodeLine{1324 \textcolor{comment}{           * so check that we exactly consume the input and don't overrun the output buffer.}}
+\DoxyCodeLine{1323           \textcolor{comment}{/* We must be on the last sequence (or invalid) because of the parsing limitations}}
+\DoxyCodeLine{1324 \textcolor{comment}{           * so check that we exactly consume the input and don't overrun the output buffer.}}
 \DoxyCodeLine{1325 \textcolor{comment}{           */}}
 \DoxyCodeLine{1326           \textcolor{keywordflow}{if} ((endOnInput) \&\& ((ip + length != iend) || (cpy > oend))) \{}
-\DoxyCodeLine{1327             \mbox{\hyperlink{Compression_8cpp_a8728fe9e99fe783be28c0f38bb0d0761}{DEBUGLOG}}(6, \textcolor{stringliteral}{"should have been last run of literals"})}
-\DoxyCodeLine{1328               \mbox{\hyperlink{Compression_8cpp_a8728fe9e99fe783be28c0f38bb0d0761}{DEBUGLOG}}(6, "ip(\%p) + length(\%i) = \%p != iend (\%p)", ip, (\textcolor{keywordtype}{int})length, ip + length, iend);}
-\DoxyCodeLine{1329             \mbox{\hyperlink{Compression_8cpp_a8728fe9e99fe783be28c0f38bb0d0761}{DEBUGLOG}}(6, "or cpy(\%p) > oend(\%p)", cpy, oend);}
+\DoxyCodeLine{1327             \mbox{\hyperlink{Compression_8cpp_a8728fe9e99fe783be28c0f38bb0d0761}{DEBUGLOG}}(6, \textcolor{stringliteral}{"{}should have been last run of literals"{}})}
+\DoxyCodeLine{1328               \mbox{\hyperlink{Compression_8cpp_a8728fe9e99fe783be28c0f38bb0d0761}{DEBUGLOG}}(6, "{}ip(\%p) + length(\%i) = \%p != iend (\%p)"{}, ip, (\textcolor{keywordtype}{int})length, ip + length, iend);}
+\DoxyCodeLine{1329             \mbox{\hyperlink{Compression_8cpp_a8728fe9e99fe783be28c0f38bb0d0761}{DEBUGLOG}}(6, "{}or cpy(\%p) > oend(\%p)"{}, cpy, oend);}
 \DoxyCodeLine{1330             goto \_output\_error;}
 \DoxyCodeLine{1331           \}}
 \DoxyCodeLine{1332         \}}
 \DoxyCodeLine{1333         memmove(op, ip, length);  \textcolor{comment}{/* supports overlapping memory regions; only matters for in-\/place decompression scenarios */}}
 \DoxyCodeLine{1334         ip += length;}
 \DoxyCodeLine{1335         op += length;}
-\DoxyCodeLine{1336         \textcolor{comment}{/* Necessarily EOF when !partialDecoding.}}
-\DoxyCodeLine{1337 \textcolor{comment}{         * When partialDecoding, it is EOF if we've either}}
-\DoxyCodeLine{1338 \textcolor{comment}{         * filled the output buffer or}}
-\DoxyCodeLine{1339 \textcolor{comment}{         * can't proceed with reading an offset for following match.}}
+\DoxyCodeLine{1336         \textcolor{comment}{/* Necessarily EOF when !partialDecoding.}}
+\DoxyCodeLine{1337 \textcolor{comment}{         * When partialDecoding, it is EOF if we've either}}
+\DoxyCodeLine{1338 \textcolor{comment}{         * filled the output buffer or}}
+\DoxyCodeLine{1339 \textcolor{comment}{         * can't proceed with reading an offset for following match.}}
 \DoxyCodeLine{1340 \textcolor{comment}{         */}}
 \DoxyCodeLine{1341         if (!partialDecoding || (cpy == oend) || (ip >= (iend -\/ 2))) \{}
 \DoxyCodeLine{1342           \textcolor{keywordflow}{break};}
@@ -1808,7 +1809,7 @@ Definition at line 1033 of file Compression.\+cpp.
 \DoxyCodeLine{1446 }
 \DoxyCodeLine{1447     \textcolor{comment}{/* end of decoding */}}
 \DoxyCodeLine{1448     \textcolor{keywordflow}{if} (endOnInput) \{}
-\DoxyCodeLine{1449       \mbox{\hyperlink{Compression_8cpp_a8728fe9e99fe783be28c0f38bb0d0761}{DEBUGLOG}}(5, \textcolor{stringliteral}{"decoded \%i bytes"}, (\textcolor{keywordtype}{int})(((\textcolor{keywordtype}{char} *)op) -\/ dst));}
+\DoxyCodeLine{1449       \mbox{\hyperlink{Compression_8cpp_a8728fe9e99fe783be28c0f38bb0d0761}{DEBUGLOG}}(5, \textcolor{stringliteral}{"{}decoded \%i bytes"{}}, (\textcolor{keywordtype}{int})(((\textcolor{keywordtype}{char} *)op) -\/ dst));}
 \DoxyCodeLine{1450       \textcolor{keywordflow}{return} (\textcolor{keywordtype}{int})(((\textcolor{keywordtype}{char} *)op) -\/ dst);     \textcolor{comment}{/* Nb of output bytes decoded */}}
 \DoxyCodeLine{1451     \} \textcolor{keywordflow}{else} \{}
 \DoxyCodeLine{1452       \textcolor{keywordflow}{return} (\textcolor{keywordtype}{int})(((\textcolor{keyword}{const} \textcolor{keywordtype}{char} *)ip) -\/ src);   \textcolor{comment}{/* Nb of input bytes read */}}
@@ -1823,19 +1824,19 @@ Definition at line 1033 of file Compression.\+cpp.
 \end{DoxyCode}
 
 
-References assert, D\+E\+B\+U\+G\+L\+OG, dec64table, end\+On\+Input\+Size, F\+A\+S\+T\+L\+O\+O\+P\+\_\+\+S\+A\+F\+E\+\_\+\+D\+I\+S\+T\+A\+N\+CE, inc32table, initial\+\_\+error, KB, L\+A\+S\+T\+L\+I\+T\+E\+R\+A\+LS, likely, L\+Z4\+\_\+memcpy, L\+Z4\+\_\+memcpy\+\_\+using\+\_\+offset(), L\+Z4\+\_\+read\+L\+E16(), L\+Z4\+\_\+\+S\+T\+A\+T\+I\+C\+\_\+\+A\+S\+S\+E\+RT, L\+Z4\+\_\+wild\+Copy32(), L\+Z4\+\_\+wild\+Copy8(), L\+Z4\+\_\+write32(), M\+A\+T\+C\+H\+\_\+\+S\+A\+F\+E\+G\+U\+A\+R\+D\+\_\+\+D\+I\+S\+T\+A\+N\+CE, M\+F\+L\+I\+M\+IT, M\+IN, M\+I\+N\+M\+A\+T\+CH, M\+L\+\_\+\+B\+I\+TS, M\+L\+\_\+\+M\+A\+SK, ok, read\+\_\+variable\+\_\+length(), R\+U\+N\+\_\+\+M\+A\+SK, unlikely, using\+Ext\+Dict, W\+I\+L\+D\+C\+O\+P\+Y\+L\+E\+N\+G\+TH, and with\+Prefix64k.
+References assert, DEBUGLOG, dec64table, end\+On\+Input\+Size, FASTLOOP\+\_\+\+SAFE\+\_\+\+DISTANCE, inc32table, initial\+\_\+error, KB, LASTLITERALS, likely, LZ4\+\_\+memcpy, LZ4\+\_\+memcpy\+\_\+using\+\_\+offset(), LZ4\+\_\+read\+LE16(), LZ4\+\_\+\+STATIC\+\_\+\+ASSERT, LZ4\+\_\+wild\+Copy32(), LZ4\+\_\+wild\+Copy8(), LZ4\+\_\+write32(), MATCH\+\_\+\+SAFEGUARD\+\_\+\+DISTANCE, MFLIMIT, MIN, MINMATCH, ML\+\_\+\+BITS, ML\+\_\+\+MASK, ok, read\+\_\+variable\+\_\+length(), RUN\+\_\+\+MASK, unlikely, using\+Ext\+Dict, WILDCOPYLENGTH, and with\+Prefix64k.
 
 
 
-Referenced by L\+Z4\+\_\+decompress\+\_\+safe().
+Referenced by LZ4\+\_\+decompress\+\_\+safe().
 
 \mbox{\Hypertarget{Compression_8cpp_a0826f3dc340fdea6dfa985f6ac26642f}\label{Compression_8cpp_a0826f3dc340fdea6dfa985f6ac26642f}} 
 \index{Compression.cpp@{Compression.cpp}!LZ4\_decompress\_safe@{LZ4\_decompress\_safe}}
 \index{LZ4\_decompress\_safe@{LZ4\_decompress\_safe}!Compression.cpp@{Compression.cpp}}
 \doxysubsubsection{\texorpdfstring{LZ4\_decompress\_safe()}{LZ4\_decompress\_safe()}}
-{\footnotesize\ttfamily int L\+Z4\+\_\+decompress\+\_\+safe (\begin{DoxyParamCaption}\item[{const char $\ast$}]{src,  }\item[{char $\ast$}]{dst,  }\item[{int}]{compressed\+Size,  }\item[{int}]{dst\+Capacity }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily int LZ4\+\_\+decompress\+\_\+safe (\begin{DoxyParamCaption}\item[{const char $\ast$}]{src,  }\item[{char $\ast$}]{dst,  }\item[{int}]{compressed\+Size,  }\item[{int}]{dst\+Capacity }\end{DoxyParamCaption})}
 
-\mbox{\hyperlink{Compression_8h_acd2bf35d3f502d03dc980c1f71dc16e5}{L\+Z4\+\_\+decompress\+\_\+safe()}} \+: compressed\+Size \+: is the exact complete size of the compressed block. dst\+Capacity \+: is the size of destination buffer (which must be already allocated), presumed an upper bound of decompressed size. \begin{DoxyReturn}{Returns}
+\mbox{\hyperlink{Compression_8h_acd2bf35d3f502d03dc980c1f71dc16e5}{LZ4\+\_\+decompress\+\_\+safe()}} \+: compressed\+Size \+: is the exact complete size of the compressed block. dst\+Capacity \+: is the size of destination buffer (which must be already allocated), presumed an upper bound of decompressed size. \begin{DoxyReturn}{Returns}
 \+: the number of bytes decompressed into destination buffer (necessarily $<$= dst\+Capacity) If destination buffer is not large enough, decoding will stop and output an error code (negative value). If the source stream is detected malformed, the function will stop decoding and return a negative result. Note 1 \+: This function is protected against malicious data packets \+: it will never writes outside \textquotesingle{}dst\textquotesingle{} buffer, nor read outside \textquotesingle{}source\textquotesingle{} buffer, even if the compressed block is maliciously modified to order the decoder to do these actions. In such case, the decoder stops immediately, and considers the compressed block malformed. Note 2 \+: compressed\+Size and dst\+Capacity must be provided to the function, the compressed block does not contain them. The implementation is free to send / store / derive this information in whichever way is most beneficial. If there is a need for a different format which bundles together both compressed data and its metadata, consider looking at lz4frame.\+h instead. 
 \end{DoxyReturn}
 
@@ -1853,13 +1854,13 @@ Definition at line 1461 of file Compression.\+cpp.
 \end{DoxyCode}
 
 
-References decode\+\_\+full\+\_\+block, end\+On\+Input\+Size, L\+Z4\+\_\+decompress\+\_\+generic(), and no\+Dict.
+References decode\+\_\+full\+\_\+block, end\+On\+Input\+Size, LZ4\+\_\+decompress\+\_\+generic(), and no\+Dict.
 
 \mbox{\Hypertarget{Compression_8cpp_a473d1db23ade92ad1be19e7720e56201}\label{Compression_8cpp_a473d1db23ade92ad1be19e7720e56201}} 
 \index{Compression.cpp@{Compression.cpp}!LZ4\_getIndexOnHash@{LZ4\_getIndexOnHash}}
 \index{LZ4\_getIndexOnHash@{LZ4\_getIndexOnHash}!Compression.cpp@{Compression.cpp}}
 \doxysubsubsection{\texorpdfstring{LZ4\_getIndexOnHash()}{LZ4\_getIndexOnHash()}}
-{\footnotesize\ttfamily \mbox{\hyperlink{Compression_8cpp_a696390429f2f3b644bde8d0322a24124}{U32}} L\+Z4\+\_\+get\+Index\+On\+Hash (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{Compression_8cpp_a696390429f2f3b644bde8d0322a24124}{U32}}}]{h,  }\item[{const void $\ast$}]{table\+Base,  }\item[{\mbox{\hyperlink{Compression_8cpp_ae86e1d8a28953326b685d6ebb243a699}{table\+Type\+\_\+t}}}]{table\+Type }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \mbox{\hyperlink{Compression_8cpp_a696390429f2f3b644bde8d0322a24124}{U32}} LZ4\+\_\+get\+Index\+On\+Hash (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{Compression_8cpp_a696390429f2f3b644bde8d0322a24124}{U32}}}]{h,  }\item[{const void $\ast$}]{table\+Base,  }\item[{\mbox{\hyperlink{Compression_8cpp_ae86e1d8a28953326b685d6ebb243a699}{table\+Type\+\_\+t}}}]{table\+Type }\end{DoxyParamCaption})}
 
 
 
@@ -1885,17 +1886,17 @@ Definition at line 447 of file Compression.\+cpp.
 \end{DoxyCode}
 
 
-References assert, by\+U16, by\+U32, L\+Z4\+\_\+\+M\+E\+M\+O\+R\+Y\+\_\+\+U\+S\+A\+GE, and L\+Z4\+\_\+\+S\+T\+A\+T\+I\+C\+\_\+\+A\+S\+S\+E\+RT.
+References assert, by\+U16, by\+U32, LZ4\+\_\+\+MEMORY\+\_\+\+USAGE, and LZ4\+\_\+\+STATIC\+\_\+\+ASSERT.
 
 
 
-Referenced by L\+Z4\+\_\+compress\+\_\+generic\+\_\+validated().
+Referenced by LZ4\+\_\+compress\+\_\+generic\+\_\+validated().
 
 \mbox{\Hypertarget{Compression_8cpp_ad90828b9bc0e6eaa8a880300d1292d4e}\label{Compression_8cpp_ad90828b9bc0e6eaa8a880300d1292d4e}} 
 \index{Compression.cpp@{Compression.cpp}!LZ4\_getPosition@{LZ4\_getPosition}}
 \index{LZ4\_getPosition@{LZ4\_getPosition}!Compression.cpp@{Compression.cpp}}
 \doxysubsubsection{\texorpdfstring{LZ4\_getPosition()}{LZ4\_getPosition()}}
-{\footnotesize\ttfamily const \mbox{\hyperlink{Compression_8cpp_aae9749d96e15ccb4f482dd5f55d98f9b}{B\+Y\+TE}}$\ast$ L\+Z4\+\_\+get\+Position (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{Compression_8cpp_aae9749d96e15ccb4f482dd5f55d98f9b}{B\+Y\+TE}} $\ast$}]{p,  }\item[{const void $\ast$}]{table\+Base,  }\item[{\mbox{\hyperlink{Compression_8cpp_ae86e1d8a28953326b685d6ebb243a699}{table\+Type\+\_\+t}}}]{table\+Type,  }\item[{const \mbox{\hyperlink{Compression_8cpp_aae9749d96e15ccb4f482dd5f55d98f9b}{B\+Y\+TE}} $\ast$}]{src\+Base }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily const \mbox{\hyperlink{Compression_8cpp_aae9749d96e15ccb4f482dd5f55d98f9b}{BYTE}}$\ast$ LZ4\+\_\+get\+Position (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{Compression_8cpp_aae9749d96e15ccb4f482dd5f55d98f9b}{BYTE}} $\ast$}]{p,  }\item[{const void $\ast$}]{table\+Base,  }\item[{\mbox{\hyperlink{Compression_8cpp_ae86e1d8a28953326b685d6ebb243a699}{table\+Type\+\_\+t}}}]{table\+Type,  }\item[{const \mbox{\hyperlink{Compression_8cpp_aae9749d96e15ccb4f482dd5f55d98f9b}{BYTE}} $\ast$}]{src\+Base }\end{DoxyParamCaption})}
 
 
 
@@ -1911,17 +1912,17 @@ Definition at line 470 of file Compression.\+cpp.
 \end{DoxyCode}
 
 
-References L\+Z4\+\_\+get\+Position\+On\+Hash(), and L\+Z4\+\_\+hash\+Position().
+References LZ4\+\_\+get\+Position\+On\+Hash(), and LZ4\+\_\+hash\+Position().
 
 
 
-Referenced by L\+Z4\+\_\+compress\+\_\+generic\+\_\+validated().
+Referenced by LZ4\+\_\+compress\+\_\+generic\+\_\+validated().
 
 \mbox{\Hypertarget{Compression_8cpp_abdc1313fe20c80eb1790fdf0fbdb30a0}\label{Compression_8cpp_abdc1313fe20c80eb1790fdf0fbdb30a0}} 
 \index{Compression.cpp@{Compression.cpp}!LZ4\_getPositionOnHash@{LZ4\_getPositionOnHash}}
 \index{LZ4\_getPositionOnHash@{LZ4\_getPositionOnHash}!Compression.cpp@{Compression.cpp}}
 \doxysubsubsection{\texorpdfstring{LZ4\_getPositionOnHash()}{LZ4\_getPositionOnHash()}}
-{\footnotesize\ttfamily static const \mbox{\hyperlink{Compression_8cpp_aae9749d96e15ccb4f482dd5f55d98f9b}{B\+Y\+TE}}$\ast$ L\+Z4\+\_\+get\+Position\+On\+Hash (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{Compression_8cpp_a696390429f2f3b644bde8d0322a24124}{U32}}}]{h,  }\item[{const void $\ast$}]{table\+Base,  }\item[{\mbox{\hyperlink{Compression_8cpp_ae86e1d8a28953326b685d6ebb243a699}{table\+Type\+\_\+t}}}]{table\+Type,  }\item[{const \mbox{\hyperlink{Compression_8cpp_aae9749d96e15ccb4f482dd5f55d98f9b}{B\+Y\+TE}} $\ast$}]{src\+Base }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+{\footnotesize\ttfamily static const \mbox{\hyperlink{Compression_8cpp_aae9749d96e15ccb4f482dd5f55d98f9b}{BYTE}}$\ast$ LZ4\+\_\+get\+Position\+On\+Hash (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{Compression_8cpp_a696390429f2f3b644bde8d0322a24124}{U32}}}]{h,  }\item[{const void $\ast$}]{table\+Base,  }\item[{\mbox{\hyperlink{Compression_8cpp_ae86e1d8a28953326b685d6ebb243a699}{table\+Type\+\_\+t}}}]{table\+Type,  }\item[{const \mbox{\hyperlink{Compression_8cpp_aae9749d96e15ccb4f482dd5f55d98f9b}{BYTE}} $\ast$}]{src\+Base }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
 
 
 
@@ -1942,13 +1943,13 @@ References by\+Ptr, and by\+U32.
 
 
 
-Referenced by L\+Z4\+\_\+compress\+\_\+generic\+\_\+validated(), and L\+Z4\+\_\+get\+Position().
+Referenced by LZ4\+\_\+compress\+\_\+generic\+\_\+validated(), and LZ4\+\_\+get\+Position().
 
 \mbox{\Hypertarget{Compression_8cpp_a3aa75886f3a0aa7a1e0fb0fdfb1964b0}\label{Compression_8cpp_a3aa75886f3a0aa7a1e0fb0fdfb1964b0}} 
 \index{Compression.cpp@{Compression.cpp}!LZ4\_hash4@{LZ4\_hash4}}
 \index{LZ4\_hash4@{LZ4\_hash4}!Compression.cpp@{Compression.cpp}}
 \doxysubsubsection{\texorpdfstring{LZ4\_hash4()}{LZ4\_hash4()}}
-{\footnotesize\ttfamily \mbox{\hyperlink{Compression_8cpp_a696390429f2f3b644bde8d0322a24124}{U32}} L\+Z4\+\_\+hash4 (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{Compression_8cpp_a696390429f2f3b644bde8d0322a24124}{U32}}}]{sequence,  }\item[{\mbox{\hyperlink{Compression_8cpp_ae86e1d8a28953326b685d6ebb243a699}{table\+Type\+\_\+t}} const}]{table\+Type }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \mbox{\hyperlink{Compression_8cpp_a696390429f2f3b644bde8d0322a24124}{U32}} LZ4\+\_\+hash4 (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{Compression_8cpp_a696390429f2f3b644bde8d0322a24124}{U32}}}]{sequence,  }\item[{\mbox{\hyperlink{Compression_8cpp_ae86e1d8a28953326b685d6ebb243a699}{table\+Type\+\_\+t}} const}]{table\+Type }\end{DoxyParamCaption})}
 
 
 
@@ -1966,17 +1967,17 @@ Definition at line 375 of file Compression.\+cpp.
 \end{DoxyCode}
 
 
-References by\+U16, L\+Z4\+\_\+\+H\+A\+S\+H\+L\+OG, and M\+I\+N\+M\+A\+T\+CH.
+References by\+U16, LZ4\+\_\+\+HASHLOG, and MINMATCH.
 
 
 
-Referenced by L\+Z4\+\_\+hash\+Position().
+Referenced by LZ4\+\_\+hash\+Position().
 
 \mbox{\Hypertarget{Compression_8cpp_ac709e2d2a37fd4d14a5e41a3b410b8a2}\label{Compression_8cpp_ac709e2d2a37fd4d14a5e41a3b410b8a2}} 
 \index{Compression.cpp@{Compression.cpp}!LZ4\_hash5@{LZ4\_hash5}}
 \index{LZ4\_hash5@{LZ4\_hash5}!Compression.cpp@{Compression.cpp}}
 \doxysubsubsection{\texorpdfstring{LZ4\_hash5()}{LZ4\_hash5()}}
-{\footnotesize\ttfamily \mbox{\hyperlink{Compression_8cpp_a696390429f2f3b644bde8d0322a24124}{U32}} L\+Z4\+\_\+hash5 (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{Compression_8cpp_a25809e0734a149248fcf5831efa4e33d}{U64}}}]{sequence,  }\item[{\mbox{\hyperlink{Compression_8cpp_ae86e1d8a28953326b685d6ebb243a699}{table\+Type\+\_\+t}} const}]{table\+Type }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \mbox{\hyperlink{Compression_8cpp_a696390429f2f3b644bde8d0322a24124}{U32}} LZ4\+\_\+hash5 (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{Compression_8cpp_a25809e0734a149248fcf5831efa4e33d}{U64}}}]{sequence,  }\item[{\mbox{\hyperlink{Compression_8cpp_ae86e1d8a28953326b685d6ebb243a699}{table\+Type\+\_\+t}} const}]{table\+Type }\end{DoxyParamCaption})}
 
 
 
@@ -1998,17 +1999,17 @@ Definition at line 383 of file Compression.\+cpp.
 \end{DoxyCode}
 
 
-References by\+U16, L\+Z4\+\_\+\+H\+A\+S\+H\+L\+OG, and L\+Z4\+\_\+is\+Little\+Endian().
+References by\+U16, LZ4\+\_\+\+HASHLOG, and LZ4\+\_\+is\+Little\+Endian().
 
 
 
-Referenced by L\+Z4\+\_\+hash\+Position().
+Referenced by LZ4\+\_\+hash\+Position().
 
 \mbox{\Hypertarget{Compression_8cpp_a70b1bbe91862d5cb5e473ce2deb556a7}\label{Compression_8cpp_a70b1bbe91862d5cb5e473ce2deb556a7}} 
 \index{Compression.cpp@{Compression.cpp}!LZ4\_hashPosition@{LZ4\_hashPosition}}
 \index{LZ4\_hashPosition@{LZ4\_hashPosition}!Compression.cpp@{Compression.cpp}}
 \doxysubsubsection{\texorpdfstring{LZ4\_hashPosition()}{LZ4\_hashPosition()}}
-{\footnotesize\ttfamily \mbox{\hyperlink{Compression_8cpp_a696390429f2f3b644bde8d0322a24124}{U32}} L\+Z4\+\_\+hash\+Position (\begin{DoxyParamCaption}\item[{const void $\ast$const}]{p,  }\item[{\mbox{\hyperlink{Compression_8cpp_ae86e1d8a28953326b685d6ebb243a699}{table\+Type\+\_\+t}} const}]{table\+Type }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \mbox{\hyperlink{Compression_8cpp_a696390429f2f3b644bde8d0322a24124}{U32}} LZ4\+\_\+hash\+Position (\begin{DoxyParamCaption}\item[{const void $\ast$const}]{p,  }\item[{\mbox{\hyperlink{Compression_8cpp_ae86e1d8a28953326b685d6ebb243a699}{table\+Type\+\_\+t}} const}]{table\+Type }\end{DoxyParamCaption})}
 
 
 
@@ -2024,25 +2025,25 @@ Definition at line 395 of file Compression.\+cpp.
 \end{DoxyCode}
 
 
-References by\+U16, L\+Z4\+\_\+hash4(), L\+Z4\+\_\+hash5(), L\+Z4\+\_\+read32(), and L\+Z4\+\_\+read\+\_\+\+A\+R\+C\+H().
+References by\+U16, LZ4\+\_\+hash4(), LZ4\+\_\+hash5(), LZ4\+\_\+read32(), and LZ4\+\_\+read\+\_\+\+ARCH().
 
 
 
-Referenced by L\+Z4\+\_\+compress\+\_\+generic\+\_\+validated(), L\+Z4\+\_\+get\+Position(), and L\+Z4\+\_\+put\+Position().
+Referenced by LZ4\+\_\+compress\+\_\+generic\+\_\+validated(), LZ4\+\_\+get\+Position(), and LZ4\+\_\+put\+Position().
 
 \mbox{\Hypertarget{Compression_8cpp_a43fc7d0a99a5a66f6056d73ce3e8aa5c}\label{Compression_8cpp_a43fc7d0a99a5a66f6056d73ce3e8aa5c}} 
 \index{Compression.cpp@{Compression.cpp}!LZ4\_initStream@{LZ4\_initStream}}
 \index{LZ4\_initStream@{LZ4\_initStream}!Compression.cpp@{Compression.cpp}}
 \doxysubsubsection{\texorpdfstring{LZ4\_initStream()}{LZ4\_initStream()}}
-{\footnotesize\ttfamily \mbox{\hyperlink{Compression_8h_a4fb9ac4ce6d5e25edc9188f9d6633498}{L\+Z4\+\_\+stream\+\_\+t}}$\ast$ L\+Z4\+\_\+init\+Stream (\begin{DoxyParamCaption}\item[{void $\ast$}]{buffer,  }\item[{size\+\_\+t}]{size }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \mbox{\hyperlink{Compression_8h_a4fb9ac4ce6d5e25edc9188f9d6633498}{LZ4\+\_\+stream\+\_\+t}}$\ast$ LZ4\+\_\+init\+Stream (\begin{DoxyParamCaption}\item[{void $\ast$}]{buffer,  }\item[{size\+\_\+t}]{size }\end{DoxyParamCaption})}
 
-\mbox{\hyperlink{Compression_8h_a43fc7d0a99a5a66f6056d73ce3e8aa5c}{L\+Z4\+\_\+init\+Stream()}} \+: v1.\+9.\+0+ An L\+Z4\+\_\+stream\+\_\+t structure must be initialized at least once. This is automatically done when invoking L\+Z4\+\_\+create\+Stream(), but it\textquotesingle{}s not when the structure is simply declared on stack (for example).
+\mbox{\hyperlink{Compression_8h_a43fc7d0a99a5a66f6056d73ce3e8aa5c}{LZ4\+\_\+init\+Stream()}} \+: v1.\+9.\+0+ An LZ4\+\_\+stream\+\_\+t structure must be initialized at least once. This is automatically done when invoking LZ4\+\_\+create\+Stream(), but it\textquotesingle{}s not when the structure is simply declared on stack (for example).
 
-Use \mbox{\hyperlink{Compression_8h_a43fc7d0a99a5a66f6056d73ce3e8aa5c}{L\+Z4\+\_\+init\+Stream()}} to properly initialize a newly declared L\+Z4\+\_\+stream\+\_\+t. It can also initialize any arbitrary buffer of sufficient size, and will \begin{DoxyReturn}{Returns}
+Use \mbox{\hyperlink{Compression_8h_a43fc7d0a99a5a66f6056d73ce3e8aa5c}{LZ4\+\_\+init\+Stream()}} to properly initialize a newly declared LZ4\+\_\+stream\+\_\+t. It can also initialize any arbitrary buffer of sufficient size, and will \begin{DoxyReturn}{Returns}
 a pointer of proper type upon initialization.
 \end{DoxyReturn}
 Note \+: initialization fails if size and alignment conditions are not respected. In which case, the function will \begin{DoxyReturn}{Returns}
-N\+U\+LL. Note2\+: An L\+Z4\+\_\+stream\+\_\+t structure guarantees correct alignment and size. Note3\+: Before v1.\+9.\+0, use L\+Z4\+\_\+reset\+Stream() instead 
+NULL. Note2\+: An LZ4\+\_\+stream\+\_\+t structure guarantees correct alignment and size. Note3\+: Before v1.\+9.\+0, use LZ4\+\_\+reset\+Stream() instead 
 \end{DoxyReturn}
 
 
@@ -2051,7 +2052,7 @@ Definition at line 974 of file Compression.\+cpp.
 
 \begin{DoxyCode}{0}
 \DoxyCodeLine{975 \{}
-\DoxyCodeLine{976   \mbox{\hyperlink{Compression_8cpp_a8728fe9e99fe783be28c0f38bb0d0761}{DEBUGLOG}}(5, \textcolor{stringliteral}{"LZ4\_initStream"});}
+\DoxyCodeLine{976   \mbox{\hyperlink{Compression_8cpp_a8728fe9e99fe783be28c0f38bb0d0761}{DEBUGLOG}}(5, \textcolor{stringliteral}{"{}LZ4\_initStream"{}});}
 \DoxyCodeLine{977   \textcolor{keywordflow}{if} (buffer == NULL) \{ \textcolor{keywordflow}{return} NULL; \}}
 \DoxyCodeLine{978   \textcolor{keywordflow}{if} (size < \textcolor{keyword}{sizeof}(\mbox{\hyperlink{unionLZ4__stream__u}{LZ4\_stream\_t}})) \{ \textcolor{keywordflow}{return} NULL; \}}
 \DoxyCodeLine{979   \textcolor{keywordflow}{if} (!\mbox{\hyperlink{Compression_8cpp_ac33d4ec2f474813cee3ee86163eba2ef}{LZ4\_isAligned}}(buffer, \mbox{\hyperlink{Compression_8cpp_adc972484e4b4a228506ba1a99f18661a}{LZ4\_stream\_t\_alignment}}())) \textcolor{keywordflow}{return} NULL;}
@@ -2062,17 +2063,17 @@ Definition at line 974 of file Compression.\+cpp.
 \end{DoxyCode}
 
 
-References D\+E\+B\+U\+G\+L\+OG, L\+Z4\+\_\+is\+Aligned(), and L\+Z4\+\_\+stream\+\_\+t\+\_\+alignment().
+References DEBUGLOG, LZ4\+\_\+is\+Aligned(), and LZ4\+\_\+stream\+\_\+t\+\_\+alignment().
 
 
 
-Referenced by L\+Z4\+\_\+compress\+\_\+fast\+\_\+ext\+State().
+Referenced by LZ4\+\_\+compress\+\_\+fast\+\_\+ext\+State().
 
 \mbox{\Hypertarget{Compression_8cpp_ac33d4ec2f474813cee3ee86163eba2ef}\label{Compression_8cpp_ac33d4ec2f474813cee3ee86163eba2ef}} 
 \index{Compression.cpp@{Compression.cpp}!LZ4\_isAligned@{LZ4\_isAligned}}
 \index{LZ4\_isAligned@{LZ4\_isAligned}!Compression.cpp@{Compression.cpp}}
 \doxysubsubsection{\texorpdfstring{LZ4\_isAligned()}{LZ4\_isAligned()}}
-{\footnotesize\ttfamily static int L\+Z4\+\_\+is\+Aligned (\begin{DoxyParamCaption}\item[{const void $\ast$}]{ptr,  }\item[{size\+\_\+t}]{alignment }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+{\footnotesize\ttfamily static int LZ4\+\_\+is\+Aligned (\begin{DoxyParamCaption}\item[{const void $\ast$}]{ptr,  }\item[{size\+\_\+t}]{alignment }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
 
 
 
@@ -2087,13 +2088,13 @@ Definition at line 75 of file Compression.\+cpp.
 \end{DoxyCode}
 
 
-Referenced by L\+Z4\+\_\+init\+Stream().
+Referenced by LZ4\+\_\+init\+Stream().
 
 \mbox{\Hypertarget{Compression_8cpp_aa8a9ba402bf00e8e6c21691085ae9601}\label{Compression_8cpp_aa8a9ba402bf00e8e6c21691085ae9601}} 
 \index{Compression.cpp@{Compression.cpp}!LZ4\_isLittleEndian@{LZ4\_isLittleEndian}}
 \index{LZ4\_isLittleEndian@{LZ4\_isLittleEndian}!Compression.cpp@{Compression.cpp}}
 \doxysubsubsection{\texorpdfstring{LZ4\_isLittleEndian()}{LZ4\_isLittleEndian()}}
-{\footnotesize\ttfamily static unsigned L\+Z4\+\_\+is\+Little\+Endian (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+{\footnotesize\ttfamily static unsigned LZ4\+\_\+is\+Little\+Endian (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
 
 
 
@@ -2109,13 +2110,13 @@ Definition at line 122 of file Compression.\+cpp.
 \end{DoxyCode}
 
 
-Referenced by L\+Z4\+\_\+hash5(), L\+Z4\+\_\+\+Nb\+Common\+Bytes(), L\+Z4\+\_\+read\+L\+E16(), and L\+Z4\+\_\+write\+L\+E16().
+Referenced by LZ4\+\_\+hash5(), LZ4\+\_\+\+Nb\+Common\+Bytes(), LZ4\+\_\+read\+LE16(), and LZ4\+\_\+write\+LE16().
 
 \mbox{\Hypertarget{Compression_8cpp_ac7c1a188fa7bd65cf4bf9f923040674c}\label{Compression_8cpp_ac7c1a188fa7bd65cf4bf9f923040674c}} 
 \index{Compression.cpp@{Compression.cpp}!LZ4\_memcpy\_using\_offset@{LZ4\_memcpy\_using\_offset}}
 \index{LZ4\_memcpy\_using\_offset@{LZ4\_memcpy\_using\_offset}!Compression.cpp@{Compression.cpp}}
 \doxysubsubsection{\texorpdfstring{LZ4\_memcpy\_using\_offset()}{LZ4\_memcpy\_using\_offset()}}
-{\footnotesize\ttfamily void L\+Z4\+\_\+memcpy\+\_\+using\+\_\+offset (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{Compression_8cpp_aae9749d96e15ccb4f482dd5f55d98f9b}{B\+Y\+TE}} $\ast$}]{dst\+Ptr,  }\item[{const \mbox{\hyperlink{Compression_8cpp_aae9749d96e15ccb4f482dd5f55d98f9b}{B\+Y\+TE}} $\ast$}]{src\+Ptr,  }\item[{\mbox{\hyperlink{Compression_8cpp_aae9749d96e15ccb4f482dd5f55d98f9b}{B\+Y\+TE}} $\ast$}]{dst\+End,  }\item[{const size\+\_\+t}]{offset }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily void LZ4\+\_\+memcpy\+\_\+using\+\_\+offset (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{Compression_8cpp_aae9749d96e15ccb4f482dd5f55d98f9b}{BYTE}} $\ast$}]{dst\+Ptr,  }\item[{const \mbox{\hyperlink{Compression_8cpp_aae9749d96e15ccb4f482dd5f55d98f9b}{BYTE}} $\ast$}]{src\+Ptr,  }\item[{\mbox{\hyperlink{Compression_8cpp_aae9749d96e15ccb4f482dd5f55d98f9b}{BYTE}} $\ast$}]{dst\+End,  }\item[{const size\+\_\+t}]{offset }\end{DoxyParamCaption})}
 
 
 
@@ -2157,17 +2158,17 @@ Definition at line 224 of file Compression.\+cpp.
 \end{DoxyCode}
 
 
-References assert, L\+Z4\+\_\+memcpy, L\+Z4\+\_\+memcpy\+\_\+using\+\_\+offset\+\_\+base(), and M\+I\+N\+M\+A\+T\+CH.
+References assert, LZ4\+\_\+memcpy, LZ4\+\_\+memcpy\+\_\+using\+\_\+offset\+\_\+base(), and MINMATCH.
 
 
 
-Referenced by L\+Z4\+\_\+decompress\+\_\+generic().
+Referenced by LZ4\+\_\+decompress\+\_\+generic().
 
 \mbox{\Hypertarget{Compression_8cpp_a4623ba84527053b711afd61375ac7d10}\label{Compression_8cpp_a4623ba84527053b711afd61375ac7d10}} 
 \index{Compression.cpp@{Compression.cpp}!LZ4\_memcpy\_using\_offset\_base@{LZ4\_memcpy\_using\_offset\_base}}
 \index{LZ4\_memcpy\_using\_offset\_base@{LZ4\_memcpy\_using\_offset\_base}!Compression.cpp@{Compression.cpp}}
 \doxysubsubsection{\texorpdfstring{LZ4\_memcpy\_using\_offset\_base()}{LZ4\_memcpy\_using\_offset\_base()}}
-{\footnotesize\ttfamily void L\+Z4\+\_\+memcpy\+\_\+using\+\_\+offset\+\_\+base (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{Compression_8cpp_aae9749d96e15ccb4f482dd5f55d98f9b}{B\+Y\+TE}} $\ast$}]{dst\+Ptr,  }\item[{const \mbox{\hyperlink{Compression_8cpp_aae9749d96e15ccb4f482dd5f55d98f9b}{B\+Y\+TE}} $\ast$}]{src\+Ptr,  }\item[{\mbox{\hyperlink{Compression_8cpp_aae9749d96e15ccb4f482dd5f55d98f9b}{B\+Y\+TE}} $\ast$}]{dst\+End,  }\item[{const size\+\_\+t}]{offset }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily void LZ4\+\_\+memcpy\+\_\+using\+\_\+offset\+\_\+base (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{Compression_8cpp_aae9749d96e15ccb4f482dd5f55d98f9b}{BYTE}} $\ast$}]{dst\+Ptr,  }\item[{const \mbox{\hyperlink{Compression_8cpp_aae9749d96e15ccb4f482dd5f55d98f9b}{BYTE}} $\ast$}]{src\+Ptr,  }\item[{\mbox{\hyperlink{Compression_8cpp_aae9749d96e15ccb4f482dd5f55d98f9b}{BYTE}} $\ast$}]{dst\+End,  }\item[{const size\+\_\+t}]{offset }\end{DoxyParamCaption})}
 
 
 
@@ -2199,17 +2200,17 @@ Definition at line 187 of file Compression.\+cpp.
 \end{DoxyCode}
 
 
-References assert, dec64table, inc32table, L\+Z4\+\_\+memcpy, L\+Z4\+\_\+wild\+Copy8(), and L\+Z4\+\_\+write32().
+References assert, dec64table, inc32table, LZ4\+\_\+memcpy, LZ4\+\_\+wild\+Copy8(), and LZ4\+\_\+write32().
 
 
 
-Referenced by L\+Z4\+\_\+memcpy\+\_\+using\+\_\+offset().
+Referenced by LZ4\+\_\+memcpy\+\_\+using\+\_\+offset().
 
 \mbox{\Hypertarget{Compression_8cpp_a9a5ac6aa4f9fe1d17496b0deb44babf7}\label{Compression_8cpp_a9a5ac6aa4f9fe1d17496b0deb44babf7}} 
 \index{Compression.cpp@{Compression.cpp}!LZ4\_NbCommonBytes@{LZ4\_NbCommonBytes}}
 \index{LZ4\_NbCommonBytes@{LZ4\_NbCommonBytes}!Compression.cpp@{Compression.cpp}}
 \doxysubsubsection{\texorpdfstring{LZ4\_NbCommonBytes()}{LZ4\_NbCommonBytes()}}
-{\footnotesize\ttfamily static unsigned L\+Z4\+\_\+\+Nb\+Common\+Bytes (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{Compression_8cpp_a2835baf742d73416e69ab571e9a9dacb}{reg\+\_\+t}}}]{val }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+{\footnotesize\ttfamily static unsigned LZ4\+\_\+\+Nb\+Common\+Bytes (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{Compression_8cpp_a2835baf742d73416e69ab571e9a9dacb}{reg\+\_\+t}}}]{val }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
 
 
 
@@ -2222,9 +2223,9 @@ Definition at line 260 of file Compression.\+cpp.
 \DoxyCodeLine{263   \textcolor{keywordflow}{if} (\mbox{\hyperlink{Compression_8cpp_aa8a9ba402bf00e8e6c21691085ae9601}{LZ4\_isLittleEndian}}()) \{}
 \DoxyCodeLine{264     \textcolor{keywordflow}{if} (\textcolor{keyword}{sizeof}(val) == 8) \{}
 \DoxyCodeLine{265       \textcolor{comment}{/*-\/*************************************************************************************************}}
-\DoxyCodeLine{266 \textcolor{comment}{      * ARM64EC is a Microsoft-\/designed ARM64 ABI compatible with AMD64 applications on ARM64 Windows 11.}}
-\DoxyCodeLine{267 \textcolor{comment}{      * The ARM64EC ABI does not support AVX/AVX2/AVX512 instructions, nor their relevant intrinsics}}
-\DoxyCodeLine{268 \textcolor{comment}{      * including \_tzcnt\_u64. Therefore, we need to neuter the \_tzcnt\_u64 code path for ARM64EC.}}
+\DoxyCodeLine{266 \textcolor{comment}{      * ARM64EC is a Microsoft-\/designed ARM64 ABI compatible with AMD64 applications on ARM64 Windows 11.}}
+\DoxyCodeLine{267 \textcolor{comment}{      * The ARM64EC ABI does not support AVX/AVX2/AVX512 instructions, nor their relevant intrinsics}}
+\DoxyCodeLine{268 \textcolor{comment}{      * including \_tzcnt\_u64. Therefore, we need to neuter the \_tzcnt\_u64 code path for ARM64EC.}}
 \DoxyCodeLine{269 \textcolor{comment}{      ****************************************************************************************************/}}
 \DoxyCodeLine{270       \textcolor{keyword}{const} \mbox{\hyperlink{Compression_8cpp_a25809e0734a149248fcf5831efa4e33d}{U64}} m = 0x0101010101010101ULL;}
 \DoxyCodeLine{271       val \string^= val -\/ 1;}
@@ -2235,11 +2236,11 @@ Definition at line 260 of file Compression.\+cpp.
 \DoxyCodeLine{276     \}}
 \DoxyCodeLine{277   \} \textcolor{keywordflow}{else}   \textcolor{comment}{/* Big Endian CPU */} \{}
 \DoxyCodeLine{278     \textcolor{keywordflow}{if} (\textcolor{keyword}{sizeof}(val) == 8) \{}
-\DoxyCodeLine{279       \textcolor{comment}{/* this method doesn't consume memory space like the previous one,}}
-\DoxyCodeLine{280 \textcolor{comment}{       * but it contains several branches,}}
+\DoxyCodeLine{279       \textcolor{comment}{/* this method doesn't consume memory space like the previous one,}}
+\DoxyCodeLine{280 \textcolor{comment}{       * but it contains several branches,}}
 \DoxyCodeLine{281 \textcolor{comment}{       * that may end up slowing execution */}}
-\DoxyCodeLine{282       \textcolor{keyword}{static} \textcolor{keyword}{const} \mbox{\hyperlink{Compression_8cpp_a696390429f2f3b644bde8d0322a24124}{U32}} by32 = \textcolor{keyword}{sizeof}(val) * 4;  \textcolor{comment}{/* 32 on 64 bits (goal), 16 on 32 bits.}}
-\DoxyCodeLine{283 \textcolor{comment}{      Just to avoid some static analyzer complaining about shift by 32 on 32-\/bits target.}}
+\DoxyCodeLine{282       \textcolor{keyword}{static} \textcolor{keyword}{const} \mbox{\hyperlink{Compression_8cpp_a696390429f2f3b644bde8d0322a24124}{U32}} by32 = \textcolor{keyword}{sizeof}(val) * 4;  \textcolor{comment}{/* 32 on 64 bits (goal), 16 on 32 bits.}}
+\DoxyCodeLine{283 \textcolor{comment}{      Just to avoid some static analyzer complaining about shift by 32 on 32-\/bits target.}}
 \DoxyCodeLine{284 \textcolor{comment}{      Note that this code path is never triggered in 32-\/bits mode. */}}
 \DoxyCodeLine{285       \textcolor{keywordtype}{unsigned} r;}
 \DoxyCodeLine{286       \textcolor{keywordflow}{if} (!(val >> by32)) \{ r = 4; \} \textcolor{keywordflow}{else} \{ r = 0; val >>= by32; \}}
@@ -2258,17 +2259,17 @@ Definition at line 260 of file Compression.\+cpp.
 \end{DoxyCode}
 
 
-References assert, and L\+Z4\+\_\+is\+Little\+Endian().
+References assert, and LZ4\+\_\+is\+Little\+Endian().
 
 
 
-Referenced by L\+Z4\+\_\+count().
+Referenced by LZ4\+\_\+count().
 
 \mbox{\Hypertarget{Compression_8cpp_afb1abdff740d4120870a053ff9afb1e5}\label{Compression_8cpp_afb1abdff740d4120870a053ff9afb1e5}} 
 \index{Compression.cpp@{Compression.cpp}!LZ4\_putIndexOnHash@{LZ4\_putIndexOnHash}}
 \index{LZ4\_putIndexOnHash@{LZ4\_putIndexOnHash}!Compression.cpp@{Compression.cpp}}
 \doxysubsubsection{\texorpdfstring{LZ4\_putIndexOnHash()}{LZ4\_putIndexOnHash()}}
-{\footnotesize\ttfamily void L\+Z4\+\_\+put\+Index\+On\+Hash (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{Compression_8cpp_a696390429f2f3b644bde8d0322a24124}{U32}}}]{idx,  }\item[{\mbox{\hyperlink{Compression_8cpp_a696390429f2f3b644bde8d0322a24124}{U32}}}]{h,  }\item[{void $\ast$}]{table\+Base,  }\item[{\mbox{\hyperlink{Compression_8cpp_ae86e1d8a28953326b685d6ebb243a699}{table\+Type\+\_\+t}} const}]{table\+Type }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily void LZ4\+\_\+put\+Index\+On\+Hash (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{Compression_8cpp_a696390429f2f3b644bde8d0322a24124}{U32}}}]{idx,  }\item[{\mbox{\hyperlink{Compression_8cpp_a696390429f2f3b644bde8d0322a24124}{U32}}}]{h,  }\item[{void $\ast$}]{table\+Base,  }\item[{\mbox{\hyperlink{Compression_8cpp_ae86e1d8a28953326b685d6ebb243a699}{table\+Type\+\_\+t}} const}]{table\+Type }\end{DoxyParamCaption})}
 
 
 
@@ -2293,13 +2294,13 @@ References assert, by\+Ptr, by\+U16, by\+U32, and cleared\+Table.
 
 
 
-Referenced by L\+Z4\+\_\+compress\+\_\+generic\+\_\+validated().
+Referenced by LZ4\+\_\+compress\+\_\+generic\+\_\+validated().
 
 \mbox{\Hypertarget{Compression_8cpp_a758ae6d5b0a32072c833b9a03be20a37}\label{Compression_8cpp_a758ae6d5b0a32072c833b9a03be20a37}} 
 \index{Compression.cpp@{Compression.cpp}!LZ4\_putPosition@{LZ4\_putPosition}}
 \index{LZ4\_putPosition@{LZ4\_putPosition}!Compression.cpp@{Compression.cpp}}
 \doxysubsubsection{\texorpdfstring{LZ4\_putPosition()}{LZ4\_putPosition()}}
-{\footnotesize\ttfamily void L\+Z4\+\_\+put\+Position (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{Compression_8cpp_aae9749d96e15ccb4f482dd5f55d98f9b}{B\+Y\+TE}} $\ast$}]{p,  }\item[{void $\ast$}]{table\+Base,  }\item[{\mbox{\hyperlink{Compression_8cpp_ae86e1d8a28953326b685d6ebb243a699}{table\+Type\+\_\+t}}}]{table\+Type,  }\item[{const \mbox{\hyperlink{Compression_8cpp_aae9749d96e15ccb4f482dd5f55d98f9b}{B\+Y\+TE}} $\ast$}]{src\+Base }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily void LZ4\+\_\+put\+Position (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{Compression_8cpp_aae9749d96e15ccb4f482dd5f55d98f9b}{BYTE}} $\ast$}]{p,  }\item[{void $\ast$}]{table\+Base,  }\item[{\mbox{\hyperlink{Compression_8cpp_ae86e1d8a28953326b685d6ebb243a699}{table\+Type\+\_\+t}}}]{table\+Type,  }\item[{const \mbox{\hyperlink{Compression_8cpp_aae9749d96e15ccb4f482dd5f55d98f9b}{BYTE}} $\ast$}]{src\+Base }\end{DoxyParamCaption})}
 
 
 
@@ -2315,17 +2316,17 @@ Definition at line 435 of file Compression.\+cpp.
 \end{DoxyCode}
 
 
-References L\+Z4\+\_\+hash\+Position(), and L\+Z4\+\_\+put\+Position\+On\+Hash().
+References LZ4\+\_\+hash\+Position(), and LZ4\+\_\+put\+Position\+On\+Hash().
 
 
 
-Referenced by L\+Z4\+\_\+compress\+\_\+generic\+\_\+validated().
+Referenced by LZ4\+\_\+compress\+\_\+generic\+\_\+validated().
 
 \mbox{\Hypertarget{Compression_8cpp_ac31271a152c15422122862ef508fe13a}\label{Compression_8cpp_ac31271a152c15422122862ef508fe13a}} 
 \index{Compression.cpp@{Compression.cpp}!LZ4\_putPositionOnHash@{LZ4\_putPositionOnHash}}
 \index{LZ4\_putPositionOnHash@{LZ4\_putPositionOnHash}!Compression.cpp@{Compression.cpp}}
 \doxysubsubsection{\texorpdfstring{LZ4\_putPositionOnHash()}{LZ4\_putPositionOnHash()}}
-{\footnotesize\ttfamily void L\+Z4\+\_\+put\+Position\+On\+Hash (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{Compression_8cpp_aae9749d96e15ccb4f482dd5f55d98f9b}{B\+Y\+TE}} $\ast$}]{p,  }\item[{\mbox{\hyperlink{Compression_8cpp_a696390429f2f3b644bde8d0322a24124}{U32}}}]{h,  }\item[{void $\ast$}]{table\+Base,  }\item[{\mbox{\hyperlink{Compression_8cpp_ae86e1d8a28953326b685d6ebb243a699}{table\+Type\+\_\+t}} const}]{table\+Type,  }\item[{const \mbox{\hyperlink{Compression_8cpp_aae9749d96e15ccb4f482dd5f55d98f9b}{B\+Y\+TE}} $\ast$}]{src\+Base }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily void LZ4\+\_\+put\+Position\+On\+Hash (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{Compression_8cpp_aae9749d96e15ccb4f482dd5f55d98f9b}{BYTE}} $\ast$}]{p,  }\item[{\mbox{\hyperlink{Compression_8cpp_a696390429f2f3b644bde8d0322a24124}{U32}}}]{h,  }\item[{void $\ast$}]{table\+Base,  }\item[{\mbox{\hyperlink{Compression_8cpp_ae86e1d8a28953326b685d6ebb243a699}{table\+Type\+\_\+t}} const}]{table\+Type,  }\item[{const \mbox{\hyperlink{Compression_8cpp_aae9749d96e15ccb4f482dd5f55d98f9b}{BYTE}} $\ast$}]{src\+Base }\end{DoxyParamCaption})}
 
 
 
@@ -2349,13 +2350,13 @@ References assert, by\+Ptr, by\+U16, by\+U32, and cleared\+Table.
 
 
 
-Referenced by L\+Z4\+\_\+compress\+\_\+generic\+\_\+validated(), and L\+Z4\+\_\+put\+Position().
+Referenced by LZ4\+\_\+compress\+\_\+generic\+\_\+validated(), and LZ4\+\_\+put\+Position().
 
 \mbox{\Hypertarget{Compression_8cpp_adceb4c7713e1bed1554da37458db6fb6}\label{Compression_8cpp_adceb4c7713e1bed1554da37458db6fb6}} 
 \index{Compression.cpp@{Compression.cpp}!LZ4\_read16@{LZ4\_read16}}
 \index{LZ4\_read16@{LZ4\_read16}!Compression.cpp@{Compression.cpp}}
 \doxysubsubsection{\texorpdfstring{LZ4\_read16()}{LZ4\_read16()}}
-{\footnotesize\ttfamily static \mbox{\hyperlink{Compression_8cpp_a0a0a322d5fa4a546d293a77ba8b4a71f}{U16}} L\+Z4\+\_\+read16 (\begin{DoxyParamCaption}\item[{const void $\ast$}]{mem\+Ptr }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+{\footnotesize\ttfamily static \mbox{\hyperlink{Compression_8cpp_a0a0a322d5fa4a546d293a77ba8b4a71f}{U16}} LZ4\+\_\+read16 (\begin{DoxyParamCaption}\item[{const void $\ast$}]{mem\+Ptr }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
 
 
 
@@ -2370,17 +2371,17 @@ Definition at line 128 of file Compression.\+cpp.
 \end{DoxyCode}
 
 
-References L\+Z4\+\_\+memcpy.
+References LZ4\+\_\+memcpy.
 
 
 
-Referenced by L\+Z4\+\_\+count(), and L\+Z4\+\_\+read\+L\+E16().
+Referenced by LZ4\+\_\+count(), and LZ4\+\_\+read\+LE16().
 
 \mbox{\Hypertarget{Compression_8cpp_a91090d7f3d29948be259526ace41da4c}\label{Compression_8cpp_a91090d7f3d29948be259526ace41da4c}} 
 \index{Compression.cpp@{Compression.cpp}!LZ4\_read32@{LZ4\_read32}}
 \index{LZ4\_read32@{LZ4\_read32}!Compression.cpp@{Compression.cpp}}
 \doxysubsubsection{\texorpdfstring{LZ4\_read32()}{LZ4\_read32()}}
-{\footnotesize\ttfamily static \mbox{\hyperlink{Compression_8cpp_a696390429f2f3b644bde8d0322a24124}{U32}} L\+Z4\+\_\+read32 (\begin{DoxyParamCaption}\item[{const void $\ast$}]{mem\+Ptr }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+{\footnotesize\ttfamily static \mbox{\hyperlink{Compression_8cpp_a696390429f2f3b644bde8d0322a24124}{U32}} LZ4\+\_\+read32 (\begin{DoxyParamCaption}\item[{const void $\ast$}]{mem\+Ptr }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
 
 
 
@@ -2395,17 +2396,17 @@ Definition at line 133 of file Compression.\+cpp.
 \end{DoxyCode}
 
 
-References L\+Z4\+\_\+memcpy.
+References LZ4\+\_\+memcpy.
 
 
 
-Referenced by L\+Z4\+\_\+compress\+\_\+generic\+\_\+validated(), L\+Z4\+\_\+count(), and L\+Z4\+\_\+hash\+Position().
+Referenced by LZ4\+\_\+compress\+\_\+generic\+\_\+validated(), LZ4\+\_\+count(), and LZ4\+\_\+hash\+Position().
 
 \mbox{\Hypertarget{Compression_8cpp_a9f1c5198d0fac6d72364edbb87a390e4}\label{Compression_8cpp_a9f1c5198d0fac6d72364edbb87a390e4}} 
 \index{Compression.cpp@{Compression.cpp}!LZ4\_read\_ARCH@{LZ4\_read\_ARCH}}
 \index{LZ4\_read\_ARCH@{LZ4\_read\_ARCH}!Compression.cpp@{Compression.cpp}}
 \doxysubsubsection{\texorpdfstring{LZ4\_read\_ARCH()}{LZ4\_read\_ARCH()}}
-{\footnotesize\ttfamily static \mbox{\hyperlink{Compression_8cpp_a2835baf742d73416e69ab571e9a9dacb}{reg\+\_\+t}} L\+Z4\+\_\+read\+\_\+\+A\+R\+CH (\begin{DoxyParamCaption}\item[{const void $\ast$}]{mem\+Ptr }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+{\footnotesize\ttfamily static \mbox{\hyperlink{Compression_8cpp_a2835baf742d73416e69ab571e9a9dacb}{reg\+\_\+t}} LZ4\+\_\+read\+\_\+\+ARCH (\begin{DoxyParamCaption}\item[{const void $\ast$}]{mem\+Ptr }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
 
 
 
@@ -2420,17 +2421,17 @@ Definition at line 138 of file Compression.\+cpp.
 \end{DoxyCode}
 
 
-References L\+Z4\+\_\+memcpy.
+References LZ4\+\_\+memcpy.
 
 
 
-Referenced by L\+Z4\+\_\+count(), and L\+Z4\+\_\+hash\+Position().
+Referenced by LZ4\+\_\+count(), and LZ4\+\_\+hash\+Position().
 
 \mbox{\Hypertarget{Compression_8cpp_a69a8c81f7731ff4ae0d292541bbb2d69}\label{Compression_8cpp_a69a8c81f7731ff4ae0d292541bbb2d69}} 
 \index{Compression.cpp@{Compression.cpp}!LZ4\_readLE16@{LZ4\_readLE16}}
 \index{LZ4\_readLE16@{LZ4\_readLE16}!Compression.cpp@{Compression.cpp}}
 \doxysubsubsection{\texorpdfstring{LZ4\_readLE16()}{LZ4\_readLE16()}}
-{\footnotesize\ttfamily static \mbox{\hyperlink{Compression_8cpp_a0a0a322d5fa4a546d293a77ba8b4a71f}{U16}} L\+Z4\+\_\+read\+L\+E16 (\begin{DoxyParamCaption}\item[{const void $\ast$}]{mem\+Ptr }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+{\footnotesize\ttfamily static \mbox{\hyperlink{Compression_8cpp_a0a0a322d5fa4a546d293a77ba8b4a71f}{U16}} LZ4\+\_\+read\+LE16 (\begin{DoxyParamCaption}\item[{const void $\ast$}]{mem\+Ptr }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
 
 
 
@@ -2450,17 +2451,17 @@ Definition at line 153 of file Compression.\+cpp.
 \end{DoxyCode}
 
 
-References L\+Z4\+\_\+is\+Little\+Endian(), and L\+Z4\+\_\+read16().
+References LZ4\+\_\+is\+Little\+Endian(), and LZ4\+\_\+read16().
 
 
 
-Referenced by L\+Z4\+\_\+decompress\+\_\+generic().
+Referenced by LZ4\+\_\+decompress\+\_\+generic().
 
 \mbox{\Hypertarget{Compression_8cpp_adc972484e4b4a228506ba1a99f18661a}\label{Compression_8cpp_adc972484e4b4a228506ba1a99f18661a}} 
 \index{Compression.cpp@{Compression.cpp}!LZ4\_stream\_t\_alignment@{LZ4\_stream\_t\_alignment}}
 \index{LZ4\_stream\_t\_alignment@{LZ4\_stream\_t\_alignment}!Compression.cpp@{Compression.cpp}}
 \doxysubsubsection{\texorpdfstring{LZ4\_stream\_t\_alignment()}{LZ4\_stream\_t\_alignment()}}
-{\footnotesize\ttfamily static size\+\_\+t L\+Z4\+\_\+stream\+\_\+t\+\_\+alignment (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+{\footnotesize\ttfamily static size\+\_\+t LZ4\+\_\+stream\+\_\+t\+\_\+alignment (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
 
 
 
@@ -2469,24 +2470,24 @@ Definition at line 964 of file Compression.\+cpp.
 
 \begin{DoxyCode}{0}
 \DoxyCodeLine{965 \{}
-\DoxyCodeLine{966 \textcolor{preprocessor}{\#if LZ4\_ALIGN\_TEST}}
+\DoxyCodeLine{966 \textcolor{preprocessor}{\#if LZ4\_ALIGN\_TEST}}
 \DoxyCodeLine{967   \textcolor{keyword}{typedef} \textcolor{keyword}{struct }\{ \textcolor{keywordtype}{char} c; \mbox{\hyperlink{unionLZ4__stream__u}{LZ4\_stream\_t}} t; \} t\_a;}
 \DoxyCodeLine{968   \textcolor{keywordflow}{return} \textcolor{keyword}{sizeof}(t\_a) -\/ \textcolor{keyword}{sizeof}(\mbox{\hyperlink{unionLZ4__stream__u}{LZ4\_stream\_t}});}
-\DoxyCodeLine{969 \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{969 \textcolor{preprocessor}{\#else}}
 \DoxyCodeLine{970   \textcolor{keywordflow}{return} 1;  \textcolor{comment}{/* effectively disabled */}}
-\DoxyCodeLine{971 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{971 \textcolor{preprocessor}{\#endif}}
 \DoxyCodeLine{972 \}}
 
 \end{DoxyCode}
 
 
-Referenced by L\+Z4\+\_\+init\+Stream().
+Referenced by LZ4\+\_\+init\+Stream().
 
 \mbox{\Hypertarget{Compression_8cpp_a5279938c8ccf6c4a556db8eecd1190a8}\label{Compression_8cpp_a5279938c8ccf6c4a556db8eecd1190a8}} 
 \index{Compression.cpp@{Compression.cpp}!LZ4\_wildCopy32@{LZ4\_wildCopy32}}
 \index{LZ4\_wildCopy32@{LZ4\_wildCopy32}!Compression.cpp@{Compression.cpp}}
 \doxysubsubsection{\texorpdfstring{LZ4\_wildCopy32()}{LZ4\_wildCopy32()}}
-{\footnotesize\ttfamily void L\+Z4\+\_\+wild\+Copy32 (\begin{DoxyParamCaption}\item[{void $\ast$}]{dst\+Ptr,  }\item[{const void $\ast$}]{src\+Ptr,  }\item[{void $\ast$}]{dst\+End }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily void LZ4\+\_\+wild\+Copy32 (\begin{DoxyParamCaption}\item[{void $\ast$}]{dst\+Ptr,  }\item[{const void $\ast$}]{src\+Ptr,  }\item[{void $\ast$}]{dst\+End }\end{DoxyParamCaption})}
 
 
 
@@ -2505,17 +2506,17 @@ Definition at line 212 of file Compression.\+cpp.
 \end{DoxyCode}
 
 
-References L\+Z4\+\_\+memcpy.
+References LZ4\+\_\+memcpy.
 
 
 
-Referenced by L\+Z4\+\_\+decompress\+\_\+generic().
+Referenced by LZ4\+\_\+decompress\+\_\+generic().
 
 \mbox{\Hypertarget{Compression_8cpp_a107b5345286641379a50762ff7f5e906}\label{Compression_8cpp_a107b5345286641379a50762ff7f5e906}} 
 \index{Compression.cpp@{Compression.cpp}!LZ4\_wildCopy8@{LZ4\_wildCopy8}}
 \index{LZ4\_wildCopy8@{LZ4\_wildCopy8}!Compression.cpp@{Compression.cpp}}
 \doxysubsubsection{\texorpdfstring{LZ4\_wildCopy8()}{LZ4\_wildCopy8()}}
-{\footnotesize\ttfamily void L\+Z4\+\_\+wild\+Copy8 (\begin{DoxyParamCaption}\item[{void $\ast$}]{dst\+Ptr,  }\item[{const void $\ast$}]{src\+Ptr,  }\item[{void $\ast$}]{dst\+End }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily void LZ4\+\_\+wild\+Copy8 (\begin{DoxyParamCaption}\item[{void $\ast$}]{dst\+Ptr,  }\item[{const void $\ast$}]{src\+Ptr,  }\item[{void $\ast$}]{dst\+End }\end{DoxyParamCaption})}
 
 
 
@@ -2534,17 +2535,17 @@ Definition at line 175 of file Compression.\+cpp.
 \end{DoxyCode}
 
 
-References L\+Z4\+\_\+memcpy.
+References LZ4\+\_\+memcpy.
 
 
 
-Referenced by L\+Z4\+\_\+compress\+\_\+generic\+\_\+validated(), L\+Z4\+\_\+decompress\+\_\+generic(), and L\+Z4\+\_\+memcpy\+\_\+using\+\_\+offset\+\_\+base().
+Referenced by LZ4\+\_\+compress\+\_\+generic\+\_\+validated(), LZ4\+\_\+decompress\+\_\+generic(), and LZ4\+\_\+memcpy\+\_\+using\+\_\+offset\+\_\+base().
 
 \mbox{\Hypertarget{Compression_8cpp_abdc399170f6061c35dd18315896339f8}\label{Compression_8cpp_abdc399170f6061c35dd18315896339f8}} 
 \index{Compression.cpp@{Compression.cpp}!LZ4\_write16@{LZ4\_write16}}
 \index{LZ4\_write16@{LZ4\_write16}!Compression.cpp@{Compression.cpp}}
 \doxysubsubsection{\texorpdfstring{LZ4\_write16()}{LZ4\_write16()}}
-{\footnotesize\ttfamily static void L\+Z4\+\_\+write16 (\begin{DoxyParamCaption}\item[{void $\ast$}]{mem\+Ptr,  }\item[{\mbox{\hyperlink{Compression_8cpp_a0a0a322d5fa4a546d293a77ba8b4a71f}{U16}}}]{value }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+{\footnotesize\ttfamily static void LZ4\+\_\+write16 (\begin{DoxyParamCaption}\item[{void $\ast$}]{mem\+Ptr,  }\item[{\mbox{\hyperlink{Compression_8cpp_a0a0a322d5fa4a546d293a77ba8b4a71f}{U16}}}]{value }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
 
 
 
@@ -2559,17 +2560,17 @@ Definition at line 143 of file Compression.\+cpp.
 \end{DoxyCode}
 
 
-References L\+Z4\+\_\+memcpy.
+References LZ4\+\_\+memcpy.
 
 
 
-Referenced by L\+Z4\+\_\+write\+L\+E16().
+Referenced by LZ4\+\_\+write\+LE16().
 
 \mbox{\Hypertarget{Compression_8cpp_a2e50fa2df2ee7536797308f96806df83}\label{Compression_8cpp_a2e50fa2df2ee7536797308f96806df83}} 
 \index{Compression.cpp@{Compression.cpp}!LZ4\_write32@{LZ4\_write32}}
 \index{LZ4\_write32@{LZ4\_write32}!Compression.cpp@{Compression.cpp}}
 \doxysubsubsection{\texorpdfstring{LZ4\_write32()}{LZ4\_write32()}}
-{\footnotesize\ttfamily static void L\+Z4\+\_\+write32 (\begin{DoxyParamCaption}\item[{void $\ast$}]{mem\+Ptr,  }\item[{\mbox{\hyperlink{Compression_8cpp_a696390429f2f3b644bde8d0322a24124}{U32}}}]{value }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+{\footnotesize\ttfamily static void LZ4\+\_\+write32 (\begin{DoxyParamCaption}\item[{void $\ast$}]{mem\+Ptr,  }\item[{\mbox{\hyperlink{Compression_8cpp_a696390429f2f3b644bde8d0322a24124}{U32}}}]{value }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
 
 
 
@@ -2584,17 +2585,17 @@ Definition at line 148 of file Compression.\+cpp.
 \end{DoxyCode}
 
 
-References L\+Z4\+\_\+memcpy.
+References LZ4\+\_\+memcpy.
 
 
 
-Referenced by L\+Z4\+\_\+compress\+\_\+generic\+\_\+validated(), L\+Z4\+\_\+decompress\+\_\+generic(), and L\+Z4\+\_\+memcpy\+\_\+using\+\_\+offset\+\_\+base().
+Referenced by LZ4\+\_\+compress\+\_\+generic\+\_\+validated(), LZ4\+\_\+decompress\+\_\+generic(), and LZ4\+\_\+memcpy\+\_\+using\+\_\+offset\+\_\+base().
 
 \mbox{\Hypertarget{Compression_8cpp_a3a6a0833a6f5ee0e99c80cbae73ca3a7}\label{Compression_8cpp_a3a6a0833a6f5ee0e99c80cbae73ca3a7}} 
 \index{Compression.cpp@{Compression.cpp}!LZ4\_writeLE16@{LZ4\_writeLE16}}
 \index{LZ4\_writeLE16@{LZ4\_writeLE16}!Compression.cpp@{Compression.cpp}}
 \doxysubsubsection{\texorpdfstring{LZ4\_writeLE16()}{LZ4\_writeLE16()}}
-{\footnotesize\ttfamily static void L\+Z4\+\_\+write\+L\+E16 (\begin{DoxyParamCaption}\item[{void $\ast$}]{mem\+Ptr,  }\item[{\mbox{\hyperlink{Compression_8cpp_a0a0a322d5fa4a546d293a77ba8b4a71f}{U16}}}]{value }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+{\footnotesize\ttfamily static void LZ4\+\_\+write\+LE16 (\begin{DoxyParamCaption}\item[{void $\ast$}]{mem\+Ptr,  }\item[{\mbox{\hyperlink{Compression_8cpp_a0a0a322d5fa4a546d293a77ba8b4a71f}{U16}}}]{value }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
 
 
 
@@ -2615,17 +2616,17 @@ Definition at line 163 of file Compression.\+cpp.
 \end{DoxyCode}
 
 
-References L\+Z4\+\_\+is\+Little\+Endian(), and L\+Z4\+\_\+write16().
+References LZ4\+\_\+is\+Little\+Endian(), and LZ4\+\_\+write16().
 
 
 
-Referenced by L\+Z4\+\_\+compress\+\_\+generic\+\_\+validated().
+Referenced by LZ4\+\_\+compress\+\_\+generic\+\_\+validated().
 
 \mbox{\Hypertarget{Compression_8cpp_a5c5ad2e93f6fef517f3227f90e0791b1}\label{Compression_8cpp_a5c5ad2e93f6fef517f3227f90e0791b1}} 
 \index{Compression.cpp@{Compression.cpp}!read\_variable\_length@{read\_variable\_length}}
 \index{read\_variable\_length@{read\_variable\_length}!Compression.cpp@{Compression.cpp}}
 \doxysubsubsection{\texorpdfstring{read\_variable\_length()}{read\_variable\_length()}}
-{\footnotesize\ttfamily unsigned read\+\_\+variable\+\_\+length (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{Compression_8cpp_aae9749d96e15ccb4f482dd5f55d98f9b}{B\+Y\+TE}} $\ast$$\ast$}]{ip,  }\item[{const \mbox{\hyperlink{Compression_8cpp_aae9749d96e15ccb4f482dd5f55d98f9b}{B\+Y\+TE}} $\ast$}]{lencheck,  }\item[{int}]{loop\+\_\+check,  }\item[{int}]{initial\+\_\+check,  }\item[{\mbox{\hyperlink{Compression_8cpp_a9d0df14b4296f06cf7c7b141f26d29b3}{variable\+\_\+length\+\_\+error}} $\ast$}]{error }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily unsigned read\+\_\+variable\+\_\+length (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{Compression_8cpp_aae9749d96e15ccb4f482dd5f55d98f9b}{BYTE}} $\ast$$\ast$}]{ip,  }\item[{const \mbox{\hyperlink{Compression_8cpp_aae9749d96e15ccb4f482dd5f55d98f9b}{BYTE}} $\ast$}]{lencheck,  }\item[{int}]{loop\+\_\+check,  }\item[{int}]{initial\+\_\+check,  }\item[{\mbox{\hyperlink{Compression_8cpp_a9d0df14b4296f06cf7c7b141f26d29b3}{variable\+\_\+length\+\_\+error}} $\ast$}]{error }\end{DoxyParamCaption})}
 
 
 
@@ -2660,7 +2661,7 @@ References initial\+\_\+error, loop\+\_\+error, and unlikely.
 
 
 
-Referenced by L\+Z4\+\_\+decompress\+\_\+generic().
+Referenced by LZ4\+\_\+decompress\+\_\+generic().
 
 
 
@@ -2677,7 +2678,7 @@ Definition at line 185 of file Compression.\+cpp.
 
 
 
-Referenced by L\+Z4\+\_\+decompress\+\_\+generic(), and L\+Z4\+\_\+memcpy\+\_\+using\+\_\+offset\+\_\+base().
+Referenced by LZ4\+\_\+decompress\+\_\+generic(), and LZ4\+\_\+memcpy\+\_\+using\+\_\+offset\+\_\+base().
 
 \mbox{\Hypertarget{Compression_8cpp_a451c82499501c4916ad44f7c1202f88a}\label{Compression_8cpp_a451c82499501c4916ad44f7c1202f88a}} 
 \index{Compression.cpp@{Compression.cpp}!inc32table@{inc32table}}
@@ -2691,13 +2692,13 @@ Definition at line 184 of file Compression.\+cpp.
 
 
 
-Referenced by L\+Z4\+\_\+decompress\+\_\+generic(), and L\+Z4\+\_\+memcpy\+\_\+using\+\_\+offset\+\_\+base().
+Referenced by LZ4\+\_\+decompress\+\_\+generic(), and LZ4\+\_\+memcpy\+\_\+using\+\_\+offset\+\_\+base().
 
 \mbox{\Hypertarget{Compression_8cpp_ac55e8e70f9d03d1f06d823de23222fee}\label{Compression_8cpp_ac55e8e70f9d03d1f06d823de23222fee}} 
 \index{Compression.cpp@{Compression.cpp}!LZ4\_64Klimit@{LZ4\_64Klimit}}
 \index{LZ4\_64Klimit@{LZ4\_64Klimit}!Compression.cpp@{Compression.cpp}}
 \doxysubsubsection{\texorpdfstring{LZ4\_64Klimit}{LZ4\_64Klimit}}
-{\footnotesize\ttfamily const int L\+Z4\+\_\+64\+Klimit = ((64 \mbox{\hyperlink{Compression_8cpp_a1841fd1a462d245d8c73dce55e2f45da}{KB}}) + (\mbox{\hyperlink{Compression_8cpp_a6bb5847a99cd90aca07870a394cbe70d}{M\+F\+L\+I\+M\+IT}} -\/ 1))\hspace{0.3cm}{\ttfamily [static]}}
+{\footnotesize\ttfamily const int LZ4\+\_\+64\+Klimit = ((64 \mbox{\hyperlink{Compression_8cpp_a1841fd1a462d245d8c73dce55e2f45da}{KB}}) + (\mbox{\hyperlink{Compression_8cpp_a6bb5847a99cd90aca07870a394cbe70d}{MFLIMIT}} -\/ 1))\hspace{0.3cm}{\ttfamily [static]}}
 
 
 
@@ -2705,13 +2706,13 @@ Definition at line 331 of file Compression.\+cpp.
 
 
 
-Referenced by L\+Z4\+\_\+compress\+\_\+fast\+\_\+ext\+State(), and L\+Z4\+\_\+compress\+\_\+generic\+\_\+validated().
+Referenced by LZ4\+\_\+compress\+\_\+fast\+\_\+ext\+State(), and LZ4\+\_\+compress\+\_\+generic\+\_\+validated().
 
 \mbox{\Hypertarget{Compression_8cpp_a008b9fd5094e20eec7d8f504530d113c}\label{Compression_8cpp_a008b9fd5094e20eec7d8f504530d113c}} 
 \index{Compression.cpp@{Compression.cpp}!LZ4\_minLength@{LZ4\_minLength}}
 \index{LZ4\_minLength@{LZ4\_minLength}!Compression.cpp@{Compression.cpp}}
 \doxysubsubsection{\texorpdfstring{LZ4\_minLength}{LZ4\_minLength}}
-{\footnotesize\ttfamily const int L\+Z4\+\_\+min\+Length = (\mbox{\hyperlink{Compression_8cpp_a6bb5847a99cd90aca07870a394cbe70d}{M\+F\+L\+I\+M\+IT}} + 1)\hspace{0.3cm}{\ttfamily [static]}}
+{\footnotesize\ttfamily const int LZ4\+\_\+min\+Length = (\mbox{\hyperlink{Compression_8cpp_a6bb5847a99cd90aca07870a394cbe70d}{MFLIMIT}} + 1)\hspace{0.3cm}{\ttfamily [static]}}
 
 
 
@@ -2719,13 +2720,13 @@ Definition at line 44 of file Compression.\+cpp.
 
 
 
-Referenced by L\+Z4\+\_\+compress\+\_\+generic\+\_\+validated().
+Referenced by LZ4\+\_\+compress\+\_\+generic\+\_\+validated().
 
 \mbox{\Hypertarget{Compression_8cpp_aa32dfc3b58308fccc1eb52d8aa2c7e3c}\label{Compression_8cpp_aa32dfc3b58308fccc1eb52d8aa2c7e3c}} 
 \index{Compression.cpp@{Compression.cpp}!LZ4\_skipTrigger@{LZ4\_skipTrigger}}
 \index{LZ4\_skipTrigger@{LZ4\_skipTrigger}!Compression.cpp@{Compression.cpp}}
 \doxysubsubsection{\texorpdfstring{LZ4\_skipTrigger}{LZ4\_skipTrigger}}
-{\footnotesize\ttfamily const \mbox{\hyperlink{Compression_8cpp_a696390429f2f3b644bde8d0322a24124}{U32}} L\+Z4\+\_\+skip\+Trigger = 6\hspace{0.3cm}{\ttfamily [static]}}
+{\footnotesize\ttfamily const \mbox{\hyperlink{Compression_8cpp_a696390429f2f3b644bde8d0322a24124}{U32}} LZ4\+\_\+skip\+Trigger = 6\hspace{0.3cm}{\ttfamily [static]}}
 
 
 
@@ -2733,5 +2734,5 @@ Definition at line 332 of file Compression.\+cpp.
 
 
 
-Referenced by L\+Z4\+\_\+compress\+\_\+generic\+\_\+validated().
+Referenced by LZ4\+\_\+compress\+\_\+generic\+\_\+validated().
 

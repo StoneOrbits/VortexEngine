@@ -1,13 +1,5 @@
 var NAVTREEINDEX2 =
 {
-"LighthousePattern_8h_source.html":[1,0,0,0,7,0,22],
-"Log_8cpp.html":[1,0,0,0,3,0],
-"Log_8cpp_source.html":[1,0,0,0,3,0],
-"Log_8h.html":[1,0,0,0,3,1],
-"Log_8h.html#a5d2f30bd1cbcf49f829a7e8eb6173c06":[1,0,0,0,3,1,0],
-"Log_8h.html#a804825e040f1cce9e3d2bb53c4858710":[1,0,0,0,3,1,4],
-"Log_8h.html#a8bdccae09f7cdda8fb311e0bd81c35dc":[1,0,0,0,3,1,1],
-"Log_8h.html#aa12d9b2ced7332bfbb9391da9617561a":[1,0,0,0,3,1,2],
 "Log_8h.html#aae4791cf4f80ed032e48ef42b57e0a4e":[1,0,0,0,3,1,5],
 "Log_8h.html#ae8e35463cf3fb63337641a1f6b7042fe":[1,0,0,0,3,1,6],
 "Log_8h.html#aed976922ae10c35e5e5241d15f5a06af":[1,0,0,0,3,1,3],
@@ -249,5 +241,13 @@ var NAVTREEINDEX2 =
 "Storage_8cpp.html":[1,0,0,0,10,0],
 "Storage_8cpp.html#a3afbe062209d42a72bc5b4a03a86206a":[1,0,0,0,10,0,0],
 "Storage_8cpp.html#a4a8bec941d32acc2e0c33423a61e661f":[1,0,0,0,10,0,1],
-"Storage_8cpp_source.html":[1,0,0,0,10,0]
+"Storage_8cpp_source.html":[1,0,0,0,10,0],
+"Storage_8h.html":[1,0,0,0,10,1],
+"Storage_8h_source.html":[1,0,0,0,10,1],
+"TheaterChasePattern_8cpp.html":[1,0,0,0,7,0,33],
+"TheaterChasePattern_8cpp.html#ad8380baaee024c749901e849abfbfe46":[1,0,0,0,7,0,33,0],
+"TheaterChasePattern_8cpp_source.html":[1,0,0,0,7,0,33],
+"TheaterChasePattern_8h.html":[1,0,0,0,7,0,34],
+"TheaterChasePattern_8h_source.html":[1,0,0,0,7,0,34],
+"TimeControl_8cpp.html":[1,0,0,0,11,0]
 };

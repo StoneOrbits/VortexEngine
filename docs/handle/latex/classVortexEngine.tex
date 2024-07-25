@@ -85,7 +85,7 @@ References VORTEX\+\_\+\+VERSION\+\_\+\+MAJOR.
 
 
 
-Referenced by Mode\+::load\+From\+Buffer(), and Modes\+::unserialize\+Save\+Header().
+Referenced by Mode\+::load\+From\+Buffer(), Vortex\+::load\+Json(), and Modes\+::unserialize\+Save\+Header().
 
 \mbox{\Hypertarget{classVortexEngine_ae80679477cd0c0f726e610b26fc1a6db}\label{classVortexEngine_ae80679477cd0c0f726e610b26fc1a6db}} 
 \index{VortexEngine@{VortexEngine}!cleanup@{cleanup}}
@@ -133,7 +133,7 @@ References Buttons\+::cleanup(), Leds\+::cleanup(), Menus\+::cleanup(), Modes\+:
 
 
 
-Referenced by wakeup().
+Referenced by Vortex\+::cleanup(), and wakeup().
 
 \mbox{\Hypertarget{classVortexEngine_affa9de921adbc32fd04e0b10143a8e58}\label{classVortexEngine_affa9de921adbc32fd04e0b10143a8e58}} 
 \index{VortexEngine@{VortexEngine}!curMode@{curMode}}
@@ -192,6 +192,10 @@ Definition at line 255 of file Vortex\+Engine.\+cpp.
 
 
 References Leds\+::clear\+All(), Modes\+::cur\+Mode\+Index(), DEBUG\+\_\+\+LOG, m\+\_\+sleeping, Modes\+::save\+Storage(), Modes\+::set\+Startup\+Mode(), and Leds\+::update().
+
+
+
+Referenced by Vortex\+::enter\+Sleep().
 
 \mbox{\Hypertarget{classVortexEngine_a7d0883a55ea519ac58a24637c0cc38d2}\label{classVortexEngine_a7d0883a55ea519ac58a24637c0cc38d2}} 
 \index{VortexEngine@{VortexEngine}!init@{init}}
@@ -282,7 +286,7 @@ References DEBUG\+\_\+\+LOG, Buttons\+::init(), Leds\+::init(), Menus\+::init(),
 
 
 
-Referenced by wakeup().
+Referenced by Vortex\+::init(), and wakeup().
 
 \mbox{\Hypertarget{classVortexEngine_ad8500f86579f3e6d9f887698e181b4d2}\label{classVortexEngine_ad8500f86579f3e6d9f887698e181b4d2}} 
 \index{VortexEngine@{VortexEngine}!runMainLogic@{runMainLogic}}
@@ -424,7 +428,7 @@ Definition at line 129 of file Vortex\+Engine.\+cpp.
 \DoxyCodeLine{138       \mbox{\hyperlink{classModes_a1ae90978222b457a941f0cbf7dd9b46b}{Modes::setLocked}}(\textcolor{keyword}{false});}
 \DoxyCodeLine{139     \}}
 \DoxyCodeLine{140     \textcolor{comment}{// check for any kind of press to wakeup}}
-\DoxyCodeLine{141     \textcolor{keywordflow}{if} (\mbox{\hyperlink{Button_8h_a0f2e1bfb2e10150496ad7fb75420713b}{g\_pButton}}-\/>\mbox{\hyperlink{classButton_a0a4fbfb56d10cb2c6e69a35eb62b7292}{check}}() || \mbox{\hyperlink{Button_8h_a0f2e1bfb2e10150496ad7fb75420713b}{g\_pButton}}-\/>\mbox{\hyperlink{classButton_a277f0bc922ec0cb3a20b6aaf43e9b94e}{onRelease}}() || !Vortex::sleepEnabled()) \{}
+\DoxyCodeLine{141     \textcolor{keywordflow}{if} (\mbox{\hyperlink{Button_8h_a0f2e1bfb2e10150496ad7fb75420713b}{g\_pButton}}-\/>\mbox{\hyperlink{classButton_a0a4fbfb56d10cb2c6e69a35eb62b7292}{check}}() || \mbox{\hyperlink{Button_8h_a0f2e1bfb2e10150496ad7fb75420713b}{g\_pButton}}-\/>\mbox{\hyperlink{classButton_a277f0bc922ec0cb3a20b6aaf43e9b94e}{onRelease}}() || !\mbox{\hyperlink{classVortex_a4505d4c0636f135eb71163617277dd67}{Vortex::sleepEnabled}}()) \{}
 \DoxyCodeLine{142       \mbox{\hyperlink{classVortexEngine_a32e7878bb1f4e4c4d141e849ff7808fb}{wakeup}}();}
 \DoxyCodeLine{143     \}}
 \DoxyCodeLine{144     \textcolor{keywordflow}{return};}
@@ -456,7 +460,11 @@ Definition at line 129 of file Vortex\+Engine.\+cpp.
 \end{DoxyCode}
 
 
-References Button\+::check(), DEVICE\+\_\+\+LOCK\+\_\+\+CLICKS, g\+\_\+p\+Button, Modes\+::locked(), m\+\_\+sleeping, Button\+::on\+Consecutive\+Presses(), Button\+::on\+Release(), run\+Main\+Logic(), Modes\+::set\+Locked(), Time\+::tick\+Clock(), Buttons\+::update(), Leds\+::update(), and wakeup().
+References Button\+::check(), DEVICE\+\_\+\+LOCK\+\_\+\+CLICKS, g\+\_\+p\+Button, Modes\+::locked(), m\+\_\+sleeping, Button\+::on\+Consecutive\+Presses(), Button\+::on\+Release(), run\+Main\+Logic(), Modes\+::set\+Locked(), Vortex\+::sleep\+Enabled(), Time\+::tick\+Clock(), Buttons\+::update(), Leds\+::update(), and wakeup().
+
+
+
+Referenced by Vortex\+::handle\+Input\+Queue(), and Vortex\+::tick().
 
 \mbox{\Hypertarget{classVortexEngine_a32e7878bb1f4e4c4d141e849ff7808fb}\label{classVortexEngine_a32e7878bb1f4e4c4d141e849ff7808fb}} 
 \index{VortexEngine@{VortexEngine}!wakeup@{wakeup}}

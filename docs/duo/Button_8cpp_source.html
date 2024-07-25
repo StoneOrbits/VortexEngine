@@ -94,7 +94,7 @@ $(document).ready(function(){initNavTree('Button_8cpp_source.html',''); initResi
 <div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &quot;../Log/Log.h&quot;</span></div>
 <div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160; </div>
 <div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#ifdef VORTEX_LIB</span></div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#include &quot;VortexLib.h&quot;</span></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="VortexLib_8h.html">VortexLib.h</a>&quot;</span></div>
 <div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">#endif</span></div>
 <div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160; </div>
 <div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="preprocessor">#ifdef VORTEX_EMBEDDED</span></div>
@@ -182,7 +182,7 @@ $(document).ready(function(){initNavTree('Button_8cpp_source.html',''); initResi
 <div class="line"><a name="l00093"></a><span class="lineno"><a class="line" href="classButton.html#a0a4fbfb56d10cb2c6e69a35eb62b7292">   93</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="classButton.html#a0a4fbfb56d10cb2c6e69a35eb62b7292">Button::check</a>()</div>
 <div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;{</div>
 <div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;<span class="preprocessor">#ifdef VORTEX_LIB</span></div>
-<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;  <span class="keywordflow">return</span> (Vortex::vcallbacks()-&gt;checkPinHook(0) == 0);</div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;  <span class="keywordflow">return</span> (<a class="code" href="classVortex.html#a84b31157edd8814f3e7b545ca4c3fa00">Vortex::vcallbacks</a>()-&gt;checkPinHook(0) == 0);</div>
 <div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;<span class="preprocessor">#else</span></div>
 <div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;  <span class="keywordflow">return</span> ((<a class="code" href="Button_8cpp.html#adea042b65d3f540c98e35834a7967925">BUTTON_VPORT</a>.IN &amp; <a class="code" href="Button_8cpp.html#abc2ad14f0789907024ac765711ffd3da">BUTTON_PIN</a>) == 0);</div>
 <div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;<span class="preprocessor">#endif</span></div>
@@ -273,6 +273,7 @@ $(document).ready(function(){initNavTree('Button_8cpp_source.html',''); initResi
 <div class="ttc" id="aLog_8h_html_a5d2f30bd1cbcf49f829a7e8eb6173c06"><div class="ttname"><a href="Log_8h.html#a5d2f30bd1cbcf49f829a7e8eb6173c06">DEBUG_LOG</a></div><div class="ttdeci">#define DEBUG_LOG(msg)</div><div class="ttdef"><b>Definition:</b> <a href="Log_8h_source.html#l00036">Log.h:36</a></div></div>
 <div class="ttc" id="aTimings_8h_html_a301a9e590b96bcdd14ae850adb42e9ff"><div class="ttname"><a href="Timings_8h.html#a301a9e590b96bcdd14ae850adb42e9ff">SHORT_CLICK_THRESHOLD_TICKS</a></div><div class="ttdeci">#define SHORT_CLICK_THRESHOLD_TICKS</div><div class="ttdef"><b>Definition:</b> <a href="Timings_8h_source.html#l00013">Timings.h:13</a></div></div>
 <div class="ttc" id="aTimings_8h_html_ae76f1a92ba0f97abcfa5007efb8acb35"><div class="ttname"><a href="Timings_8h.html#ae76f1a92ba0f97abcfa5007efb8acb35">CONSECUTIVE_WINDOW_TICKS</a></div><div class="ttdeci">#define CONSECUTIVE_WINDOW_TICKS</div><div class="ttdef"><b>Definition:</b> <a href="Timings_8h_source.html#l00014">Timings.h:14</a></div></div>
+<div class="ttc" id="aVortexLib_8h_html"><div class="ttname"><a href="VortexLib_8h.html">VortexLib.h</a></div></div>
 <div class="ttc" id="aclassButton_html_a0a4fbfb56d10cb2c6e69a35eb62b7292"><div class="ttname"><a href="classButton.html#a0a4fbfb56d10cb2c6e69a35eb62b7292">Button::check</a></div><div class="ttdeci">bool check()</div><div class="ttdef"><b>Definition:</b> <a href="Button_8cpp_source.html#l00093">Button.cpp:93</a></div></div>
 <div class="ttc" id="aclassButton_html_a0be422900425e08305de1d4667b9fb8e"><div class="ttname"><a href="classButton.html#a0be422900425e08305de1d4667b9fb8e">Button::m_longClick</a></div><div class="ttdeci">bool m_longClick</div><div class="ttdef"><b>Definition:</b> <a href="Button_8h_source.html#l00094">Button.h:94</a></div></div>
 <div class="ttc" id="aclassButton_html_a0dfe411510dfde7feaa94478b52142cc"><div class="ttname"><a href="classButton.html#a0dfe411510dfde7feaa94478b52142cc">Button::m_newRelease</a></div><div class="ttdeci">bool m_newRelease</div><div class="ttdef"><b>Definition:</b> <a href="Button_8h_source.html#l00088">Button.h:88</a></div></div>
@@ -294,6 +295,7 @@ $(document).ready(function(){initNavTree('Button_8cpp_source.html',''); initResi
 <div class="ttc" id="aclassButton_html_afc1f76677aed5c89139aed6daa5f5d4a"><div class="ttname"><a href="classButton.html#afc1f76677aed5c89139aed6daa5f5d4a">Button::enableWake</a></div><div class="ttdeci">void enableWake()</div><div class="ttdef"><b>Definition:</b> <a href="Button_8cpp_source.html#l00044">Button.cpp:44</a></div></div>
 <div class="ttc" id="aclassTime_html_a7c7a8e067bdbd5aaf119521539d30940"><div class="ttname"><a href="classTime.html#a7c7a8e067bdbd5aaf119521539d30940">Time::getCurtime</a></div><div class="ttdeci">static uint32_t getCurtime()</div><div class="ttdef"><b>Definition:</b> <a href="TimeControl_8h_source.html#l00040">TimeControl.h:40</a></div></div>
 <div class="ttc" id="aclassVortexEngine_html_a32e7878bb1f4e4c4d141e849ff7808fb"><div class="ttname"><a href="classVortexEngine.html#a32e7878bb1f4e4c4d141e849ff7808fb">VortexEngine::wakeup</a></div><div class="ttdeci">static void wakeup(bool reset=true)</div><div class="ttdef"><b>Definition:</b> <a href="VortexEngine_8cpp_source.html#l00440">VortexEngine.cpp:440</a></div></div>
+<div class="ttc" id="aclassVortex_html_a84b31157edd8814f3e7b545ca4c3fa00"><div class="ttname"><a href="classVortex.html#a84b31157edd8814f3e7b545ca4c3fa00">Vortex::vcallbacks</a></div><div class="ttdeci">static VortexCallbacks * vcallbacks()</div><div class="ttdef"><b>Definition:</b> <a href="VortexLib_8h_source.html#l00221">VortexLib.h:221</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

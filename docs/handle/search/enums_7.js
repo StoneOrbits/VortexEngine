@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['randomizeflags_2586',['RandomizeFlags',['../classRandomizer.html#a284ed130367e4cf0914f77fc3f7a155e',1,'Randomizer']]],
-  ['recvstate_2587',['RecvState',['../classIRReceiver.html#a56148488dd4f2a403202a0467b4940b9',1,'IRReceiver']]]
+  ['outputtype_2963',['OutputType',['../classVortexCLI.html#a372fba86705e5b895eb79178b10e9675',1,'VortexCLI']]]
 ];

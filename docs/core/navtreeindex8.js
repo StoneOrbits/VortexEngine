@@ -1,13 +1,5 @@
 var NAVTREEINDEX8 =
 {
-"classStorage.html":[0,0,59],
-"classStorage.html#a065812a8dbd82d731291b5aa7ce3edf9":[0,0,59,2],
-"classStorage.html#a2a1ce108c9a17f6175bfb9a9aba51703":[0,0,59,1],
-"classStorage.html#a463f451de890486dd483575e47defbc7":[0,0,59,4],
-"classStorage.html#a79176e030af1f92f563c2b19316fe3dd":[0,0,59,3],
-"classStorage.html#a80ef6af5e4c9fd4424ae16e808d05291":[0,0,59,0],
-"classStorage.html#a97a1b036dedd7b94a91899638c2248c1":[0,0,59,5],
-"classStorage.html#ae85ca521ae89c408fb045d2890951458":[0,0,59,6],
 "classTheaterChasePattern.html":[0,0,60],
 "classTheaterChasePattern.html#a2b3c41cd22d66a18f7f8aa591e125a38":[0,0,60,0],
 "classTheaterChasePattern.html#a3412251626ea06df702e02628dd11bcc":[0,0,60,3],
@@ -249,5 +241,13 @@ var NAVTREEINDEX8 =
 "classVortexCLI.html#a27180aeefaa6537c3febb8ee31612e70":[0,0,67,28],
 "classVortexCLI.html#a27d474399664d1839c3559fdf89c2172":[0,0,67,32],
 "classVortexCLI.html#a2dacf7f531bf35c9882355dfcafd25a0":[0,0,67,22],
-"classVortexCLI.html#a317d8ed8db692d0dfcc81461a3d3ffbc":[0,0,67,15]
+"classVortexCLI.html#a317d8ed8db692d0dfcc81461a3d3ffbc":[0,0,67,15],
+"classVortexCLI.html#a372fba86705e5b895eb79178b10e9675":[0,0,67,2],
+"classVortexCLI.html#a372fba86705e5b895eb79178b10e9675a21edef2894c2a6f266ffa71868802778":[0,0,67,2,1],
+"classVortexCLI.html#a372fba86705e5b895eb79178b10e9675aa257d1ec7764e92553459e4e01efcc34":[0,0,67,2,0],
+"classVortexCLI.html#a372fba86705e5b895eb79178b10e9675ac7db193700d7283d6db4ceb77d3b83c4":[0,0,67,2,3],
+"classVortexCLI.html#a372fba86705e5b895eb79178b10e9675ad244c5bd0d22e5403f840fd36cbbf86b":[0,0,67,2,2],
+"classVortexCLI.html#a5021498b90d142e95b6858a101dd69f3":[0,0,67,1],
+"classVortexCLI.html#a5021498b90d142e95b6858a101dd69f3a5eafb03ffe2c76d356c89185ed9e1e67":[0,0,67,1,4],
+"classVortexCLI.html#a5021498b90d142e95b6858a101dd69f3a9b2cde183aa61cdb57495ffd9e877dbb":[0,0,67,1,0]
 };

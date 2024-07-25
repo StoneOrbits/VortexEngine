@@ -156,7 +156,7 @@ $(document).ready(function(){initNavTree('Leds_8cpp_source.html',''); initResiza
 <div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;  SPI.begin();</div>
 <div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;<span class="preprocessor">#endif</span></div>
 <div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;<span class="preprocessor">#ifdef VORTEX_LIB</span></div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;  Vortex::vcallbacks()-&gt;ledsInit(<a class="code" href="classLeds.html#a473837bba0c89759fad92e135b1b4829">m_ledColors</a>, <a class="code" href="LedTypes_8h.html#a9fb57934b9165e8fcecafeafaf3a6a2ca0bc6b9364ec72b19c74a14f15aa3832c">LED_COUNT</a>);</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;  <a class="code" href="classVortex.html#a84b31157edd8814f3e7b545ca4c3fa00">Vortex::vcallbacks</a>()-&gt;<a class="code" href="classVortexCallbacks.html#a8f69cf219c2e762fbb60c2dec3265093">ledsInit</a>(<a class="code" href="classLeds.html#a473837bba0c89759fad92e135b1b4829">m_ledColors</a>, <a class="code" href="LedTypes_8h.html#a9fb57934b9165e8fcecafeafaf3a6a2ca0bc6b9364ec72b19c74a14f15aa3832c">LED_COUNT</a>);</div>
 <div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;<span class="preprocessor">#endif</span></div>
 <div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;  <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
 <div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;}</div>
@@ -472,7 +472,7 @@ $(document).ready(function(){initNavTree('Leds_8cpp_source.html',''); initResiza
 <div class="line"><a name="l00383"></a><span class="lineno">  383</span>&#160;  SPI.endTransaction();</div>
 <div class="line"><a name="l00384"></a><span class="lineno">  384</span>&#160;<span class="preprocessor">#endif</span></div>
 <div class="line"><a name="l00385"></a><span class="lineno">  385</span>&#160;<span class="preprocessor">#ifdef VORTEX_LIB</span></div>
-<div class="line"><a name="l00386"></a><span class="lineno">  386</span>&#160;  Vortex::vcallbacks()-&gt;ledsShow();</div>
+<div class="line"><a name="l00386"></a><span class="lineno">  386</span>&#160;  <a class="code" href="classVortex.html#a84b31157edd8814f3e7b545ca4c3fa00">Vortex::vcallbacks</a>()-&gt;<a class="code" href="classVortexCallbacks.html#a41f5eca6551d85d62904cece931b63a0">ledsShow</a>();</div>
 <div class="line"><a name="l00387"></a><span class="lineno">  387</span>&#160;<span class="preprocessor">#endif</span></div>
 <div class="line"><a name="l00388"></a><span class="lineno">  388</span>&#160;}</div>
 <div class="ttc" id="aColorConstants_8h_html_a143edb2a30dcec26a3ec0a41d1082010"><div class="ttname"><a href="ColorConstants_8h.html#a143edb2a30dcec26a3ec0a41d1082010">RGB_OFF</a></div><div class="ttdeci">#define RGB_OFF</div><div class="ttdef"><b>Definition:</b> <a href="ColorConstants_8h_source.html#l00047">ColorConstants.h:47</a></div></div>
@@ -559,6 +559,9 @@ $(document).ready(function(){initNavTree('Leds_8cpp_source.html',''); initResiza
 <div class="ttc" id="aclassRGBColor_html_a40523a2298929c35b06f4b3302708cf0"><div class="ttname"><a href="classRGBColor.html#a40523a2298929c35b06f4b3302708cf0">RGBColor::clear</a></div><div class="ttdeci">void clear()</div><div class="ttdef"><b>Definition:</b> <a href="ColorTypes_8cpp_source.html#l00186">ColorTypes.cpp:186</a></div></div>
 <div class="ttc" id="aclassTime_html_a7c7a8e067bdbd5aaf119521539d30940"><div class="ttname"><a href="classTime.html#a7c7a8e067bdbd5aaf119521539d30940">Time::getCurtime</a></div><div class="ttdeci">static uint32_t getCurtime()</div><div class="ttdef"><b>Definition:</b> <a href="TimeControl_8h_source.html#l00040">TimeControl.h:40</a></div></div>
 <div class="ttc" id="aclassTime_html_aa90c5d6860ae306048c96d80da2ea1b0"><div class="ttname"><a href="classTime.html#aa90c5d6860ae306048c96d80da2ea1b0">Time::delayMilliseconds</a></div><div class="ttdeci">static void delayMilliseconds(uint32_t ms)</div><div class="ttdef"><b>Definition:</b> <a href="TimeControl_8cpp_source.html#l00207">TimeControl.cpp:207</a></div></div>
+<div class="ttc" id="aclassVortexCallbacks_html_a41f5eca6551d85d62904cece931b63a0"><div class="ttname"><a href="classVortexCallbacks.html#a41f5eca6551d85d62904cece931b63a0">VortexCallbacks::ledsShow</a></div><div class="ttdeci">virtual void ledsShow()</div><div class="ttdef"><b>Definition:</b> <a href="VortexLib_8h_source.html#l00062">VortexLib.h:62</a></div></div>
+<div class="ttc" id="aclassVortexCallbacks_html_a8f69cf219c2e762fbb60c2dec3265093"><div class="ttname"><a href="classVortexCallbacks.html#a8f69cf219c2e762fbb60c2dec3265093">VortexCallbacks::ledsInit</a></div><div class="ttdeci">virtual void ledsInit(void *cl, int count)</div><div class="ttdef"><b>Definition:</b> <a href="VortexLib_8h_source.html#l00058">VortexLib.h:58</a></div></div>
+<div class="ttc" id="aclassVortex_html_a84b31157edd8814f3e7b545ca4c3fa00"><div class="ttname"><a href="classVortex.html#a84b31157edd8814f3e7b545ca4c3fa00">Vortex::vcallbacks</a></div><div class="ttdeci">static VortexCallbacks * vcallbacks()</div><div class="ttdef"><b>Definition:</b> <a href="VortexLib_8h_source.html#l00221">VortexLib.h:221</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

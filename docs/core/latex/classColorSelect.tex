@@ -6,7 +6,8 @@
 
 
 
-Inheritance diagram for Color\+Select\+:\nopagebreak
+Inheritance diagram for Color\+Select\+:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -15,7 +16,8 @@ Inheritance diagram for Color\+Select\+:\nopagebreak
 \end{figure}
 
 
-Collaboration diagram for Color\+Select\+:\nopagebreak
+Collaboration diagram for Color\+Select\+:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -25,7 +27,7 @@ Collaboration diagram for Color\+Select\+:\nopagebreak
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{classColorSelect_a67017079263e040e359450511532b08f}{Color\+Select}} (const \mbox{\hyperlink{classRGBColor}{R\+G\+B\+Color}} \&col, bool advanced)
+\mbox{\hyperlink{classColorSelect_a67017079263e040e359450511532b08f}{Color\+Select}} (const \mbox{\hyperlink{classRGBColor}{RGBColor}} \&col, bool advanced)
 \item 
 \mbox{\hyperlink{classColorSelect_aa2f06c0775c53865ba75d650c452853c}{$\sim$\+Color\+Select}} ()
 \item 
@@ -43,13 +45,13 @@ void \mbox{\hyperlink{classColorSelect_af6c4b0cb16d3e2d6a4bcbbd79b5907ff}{on\+Lo
 \begin{DoxyCompactItemize}
 \item 
 enum \mbox{\hyperlink{classColorSelect_a9199d6da07fbbeb3930e92d674c060ea}{Color\+Select\+State}} \+: uint32\+\_\+t \{ \newline
-\mbox{\hyperlink{classColorSelect_a9199d6da07fbbeb3930e92d674c060eaae11874bf43ee9371ade67deee4946710}{S\+T\+A\+T\+E\+\_\+\+I\+N\+IT}}, 
-\mbox{\hyperlink{classColorSelect_a9199d6da07fbbeb3930e92d674c060eaa654acaea4cddd708556eaebc0599351c}{S\+T\+A\+T\+E\+\_\+\+P\+I\+C\+K\+\_\+\+S\+L\+OT}}, 
-\mbox{\hyperlink{classColorSelect_a9199d6da07fbbeb3930e92d674c060eaafb801216d02b43a41d768ca442722354}{S\+T\+A\+T\+E\+\_\+\+P\+I\+C\+K\+\_\+\+H\+U\+E1}}, 
-\mbox{\hyperlink{classColorSelect_a9199d6da07fbbeb3930e92d674c060eaa357afd4c0e747368fc58dd50e07761f1}{S\+T\+A\+T\+E\+\_\+\+P\+I\+C\+K\+\_\+\+H\+U\+E2}}, 
-\newline
-\mbox{\hyperlink{classColorSelect_a9199d6da07fbbeb3930e92d674c060eaa72d99473ae0d6d8edb38d236a2a8d1a2}{S\+T\+A\+T\+E\+\_\+\+P\+I\+C\+K\+\_\+\+S\+AT}}, 
-\mbox{\hyperlink{classColorSelect_a9199d6da07fbbeb3930e92d674c060eaa902dc373210b60836c9d9c801e6c711b}{S\+T\+A\+T\+E\+\_\+\+P\+I\+C\+K\+\_\+\+V\+AL}}
+\mbox{\hyperlink{classColorSelect_a9199d6da07fbbeb3930e92d674c060eaae11874bf43ee9371ade67deee4946710}{STATE\+\_\+\+INIT}}
+, \mbox{\hyperlink{classColorSelect_a9199d6da07fbbeb3930e92d674c060eaa654acaea4cddd708556eaebc0599351c}{STATE\+\_\+\+PICK\+\_\+\+SLOT}}
+, \mbox{\hyperlink{classColorSelect_a9199d6da07fbbeb3930e92d674c060eaafb801216d02b43a41d768ca442722354}{STATE\+\_\+\+PICK\+\_\+\+HUE1}}
+, \mbox{\hyperlink{classColorSelect_a9199d6da07fbbeb3930e92d674c060eaa357afd4c0e747368fc58dd50e07761f1}{STATE\+\_\+\+PICK\+\_\+\+HUE2}}
+, \newline
+\mbox{\hyperlink{classColorSelect_a9199d6da07fbbeb3930e92d674c060eaa72d99473ae0d6d8edb38d236a2a8d1a2}{STATE\+\_\+\+PICK\+\_\+\+SAT}}
+, \mbox{\hyperlink{classColorSelect_a9199d6da07fbbeb3930e92d674c060eaa902dc373210b60836c9d9c801e6c711b}{STATE\+\_\+\+PICK\+\_\+\+VAL}}
  \}
 \end{DoxyCompactItemize}
 \doxysubsection*{Private Member Functions}
@@ -72,7 +74,7 @@ const uint8\+\_\+t \mbox{\hyperlink{classColorSelect_a156d875177e2b57b15388ba0f6
 \item 
 \mbox{\hyperlink{classColorSelect_a9199d6da07fbbeb3930e92d674c060ea}{Color\+Select\+State}} \mbox{\hyperlink{classColorSelect_a9c4e59f3a40a22ba28f235d4226f613e}{m\+\_\+state}}
 \item 
-\mbox{\hyperlink{classHSVColor}{H\+S\+V\+Color}} \mbox{\hyperlink{classColorSelect_a5028370fb1e99c5ed51f484e35c75784}{m\+\_\+new\+Color}}
+\mbox{\hyperlink{classHSVColor}{HSVColor}} \mbox{\hyperlink{classColorSelect_a5028370fb1e99c5ed51f484e35c75784}{m\+\_\+new\+Color}}
 \item 
 \mbox{\hyperlink{classColorset}{Colorset}} \mbox{\hyperlink{classColorSelect_a4d7461c1acff67f5497e1b43f3d71422}{m\+\_\+colorset}}
 \item 
@@ -99,27 +101,27 @@ Definition at line 8 of file Color\+Select.\+h.
 
 \begin{DoxyEnumFields}{Enumerator}
 \raisebox{\heightof{T}}[0pt][0pt]{\index{STATE\_INIT@{STATE\_INIT}!ColorSelect@{ColorSelect}}\index{ColorSelect@{ColorSelect}!STATE\_INIT@{STATE\_INIT}}}\mbox{\Hypertarget{classColorSelect_a9199d6da07fbbeb3930e92d674c060eaae11874bf43ee9371ade67deee4946710}\label{classColorSelect_a9199d6da07fbbeb3930e92d674c060eaae11874bf43ee9371ade67deee4946710}} 
-S\+T\+A\+T\+E\+\_\+\+I\+N\+IT&\\
+STATE\+\_\+\+INIT&\\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{STATE\_PICK\_SLOT@{STATE\_PICK\_SLOT}!ColorSelect@{ColorSelect}}\index{ColorSelect@{ColorSelect}!STATE\_PICK\_SLOT@{STATE\_PICK\_SLOT}}}\mbox{\Hypertarget{classColorSelect_a9199d6da07fbbeb3930e92d674c060eaa654acaea4cddd708556eaebc0599351c}\label{classColorSelect_a9199d6da07fbbeb3930e92d674c060eaa654acaea4cddd708556eaebc0599351c}} 
-S\+T\+A\+T\+E\+\_\+\+P\+I\+C\+K\+\_\+\+S\+L\+OT&\\
+STATE\+\_\+\+PICK\+\_\+\+SLOT&\\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{STATE\_PICK\_HUE1@{STATE\_PICK\_HUE1}!ColorSelect@{ColorSelect}}\index{ColorSelect@{ColorSelect}!STATE\_PICK\_HUE1@{STATE\_PICK\_HUE1}}}\mbox{\Hypertarget{classColorSelect_a9199d6da07fbbeb3930e92d674c060eaafb801216d02b43a41d768ca442722354}\label{classColorSelect_a9199d6da07fbbeb3930e92d674c060eaafb801216d02b43a41d768ca442722354}} 
-S\+T\+A\+T\+E\+\_\+\+P\+I\+C\+K\+\_\+\+H\+U\+E1&\\
+STATE\+\_\+\+PICK\+\_\+\+HUE1&\\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{STATE\_PICK\_HUE2@{STATE\_PICK\_HUE2}!ColorSelect@{ColorSelect}}\index{ColorSelect@{ColorSelect}!STATE\_PICK\_HUE2@{STATE\_PICK\_HUE2}}}\mbox{\Hypertarget{classColorSelect_a9199d6da07fbbeb3930e92d674c060eaa357afd4c0e747368fc58dd50e07761f1}\label{classColorSelect_a9199d6da07fbbeb3930e92d674c060eaa357afd4c0e747368fc58dd50e07761f1}} 
-S\+T\+A\+T\+E\+\_\+\+P\+I\+C\+K\+\_\+\+H\+U\+E2&\\
+STATE\+\_\+\+PICK\+\_\+\+HUE2&\\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{STATE\_PICK\_SAT@{STATE\_PICK\_SAT}!ColorSelect@{ColorSelect}}\index{ColorSelect@{ColorSelect}!STATE\_PICK\_SAT@{STATE\_PICK\_SAT}}}\mbox{\Hypertarget{classColorSelect_a9199d6da07fbbeb3930e92d674c060eaa72d99473ae0d6d8edb38d236a2a8d1a2}\label{classColorSelect_a9199d6da07fbbeb3930e92d674c060eaa72d99473ae0d6d8edb38d236a2a8d1a2}} 
-S\+T\+A\+T\+E\+\_\+\+P\+I\+C\+K\+\_\+\+S\+AT&\\
+STATE\+\_\+\+PICK\+\_\+\+SAT&\\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{STATE\_PICK\_VAL@{STATE\_PICK\_VAL}!ColorSelect@{ColorSelect}}\index{ColorSelect@{ColorSelect}!STATE\_PICK\_VAL@{STATE\_PICK\_VAL}}}\mbox{\Hypertarget{classColorSelect_a9199d6da07fbbeb3930e92d674c060eaa902dc373210b60836c9d9c801e6c711b}\label{classColorSelect_a9199d6da07fbbeb3930e92d674c060eaa902dc373210b60836c9d9c801e6c711b}} 
-S\+T\+A\+T\+E\+\_\+\+P\+I\+C\+K\+\_\+\+V\+AL&\\
+STATE\+\_\+\+PICK\+\_\+\+VAL&\\
 \hline
 
 \end{DoxyEnumFields}
@@ -129,7 +131,6 @@ Definition at line 29 of file Color\+Select.\+h.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{29                         : uint32\_t}
 \DoxyCodeLine{30   \{}
 \DoxyCodeLine{31     \mbox{\hyperlink{classColorSelect_a9199d6da07fbbeb3930e92d674c060eaae11874bf43ee9371ade67deee4946710}{STATE\_INIT}},}
 \DoxyCodeLine{32     \mbox{\hyperlink{classColorSelect_a9199d6da07fbbeb3930e92d674c060eaa654acaea4cddd708556eaebc0599351c}{STATE\_PICK\_SLOT}},}
@@ -147,7 +148,7 @@ Definition at line 29 of file Color\+Select.\+h.
 \index{ColorSelect@{ColorSelect}!ColorSelect@{ColorSelect}}
 \index{ColorSelect@{ColorSelect}!ColorSelect@{ColorSelect}}
 \doxysubsubsection{\texorpdfstring{ColorSelect()}{ColorSelect()}}
-{\footnotesize\ttfamily Color\+Select\+::\+Color\+Select (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classRGBColor}{R\+G\+B\+Color}} \&}]{col,  }\item[{bool}]{advanced }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily Color\+Select\+::\+Color\+Select (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classRGBColor}{RGBColor}} \&}]{col,  }\item[{bool}]{advanced }\end{DoxyParamCaption})}
 
 
 
@@ -161,7 +162,7 @@ Definition at line 14 of file Color\+Select.\+cpp.
 \DoxyCodeLine{17   \mbox{\hyperlink{classColorSelect_a5028370fb1e99c5ed51f484e35c75784}{m\_newColor}}(),}
 \DoxyCodeLine{18   \mbox{\hyperlink{classColorSelect_a4d7461c1acff67f5497e1b43f3d71422}{m\_colorset}}(),}
 \DoxyCodeLine{19   \mbox{\hyperlink{classColorSelect_a50c5d3816c3c3d343d1286f140097a88}{m\_targetSlot}}(0),}
-\DoxyCodeLine{20   \mbox{\hyperlink{classColorSelect_a55474150c59c7e92ae945c5dcb290018}{m\_targetHue1}}(0)}
+\DoxyCodeLine{20   \mbox{\hyperlink{classColorSelect_a55474150c59c7e92ae945c5dcb290018}{m\_targetHue1}}(0)}
 \DoxyCodeLine{21 \{}
 \DoxyCodeLine{22   \textcolor{comment}{// NOTE! Specifically using hsv\_to\_rgb\_rainbow instead of generic because}}
 \DoxyCodeLine{23   \textcolor{comment}{// it will generate nicer looking colors and a nicer rainbow to select}}
@@ -175,7 +176,7 @@ Definition at line 14 of file Color\+Select.\+cpp.
 \end{DoxyCode}
 
 
-References g\+\_\+hsv\+\_\+rgb\+\_\+alg, and H\+S\+V\+\_\+\+T\+O\+\_\+\+R\+G\+B\+\_\+\+R\+A\+I\+N\+B\+OW.
+References g\+\_\+hsv\+\_\+rgb\+\_\+alg, and HSV\+\_\+\+TO\+\_\+\+RGB\+\_\+\+RAINBOW.
 
 \mbox{\Hypertarget{classColorSelect_aa2f06c0775c53865ba75d650c452853c}\label{classColorSelect_aa2f06c0775c53865ba75d650c452853c}} 
 \index{ColorSelect@{ColorSelect}!````~ColorSelect@{$\sim$ColorSelect}}
@@ -197,7 +198,7 @@ Definition at line 31 of file Color\+Select.\+cpp.
 \end{DoxyCode}
 
 
-References g\+\_\+hsv\+\_\+rgb\+\_\+alg, and H\+S\+V\+\_\+\+T\+O\+\_\+\+R\+G\+B\+\_\+\+G\+E\+N\+E\+R\+IC.
+References g\+\_\+hsv\+\_\+rgb\+\_\+alg, and HSV\+\_\+\+TO\+\_\+\+RGB\+\_\+\+GENERIC.
 
 
 
@@ -232,14 +233,14 @@ Definition at line 37 of file Color\+Select.\+cpp.
 \DoxyCodeLine{49     \mbox{\hyperlink{classMenu_a2ccb6eafbf5e2396785d3c48d6741fb4}{m\_ledSelected}} = \textcolor{keyword}{true};}
 \DoxyCodeLine{50   \}}
 \DoxyCodeLine{51   \mbox{\hyperlink{classColorSelect_a9c4e59f3a40a22ba28f235d4226f613e}{m\_state}} = \mbox{\hyperlink{classColorSelect_a9199d6da07fbbeb3930e92d674c060eaae11874bf43ee9371ade67deee4946710}{STATE\_INIT}};}
-\DoxyCodeLine{52   \mbox{\hyperlink{Log_8h_a5d2f30bd1cbcf49f829a7e8eb6173c06}{DEBUG\_LOG}}(\textcolor{stringliteral}{"Entered color select"});}
+\DoxyCodeLine{52   \mbox{\hyperlink{Log_8h_a5d2f30bd1cbcf49f829a7e8eb6173c06}{DEBUG\_LOG}}(\textcolor{stringliteral}{"{}Entered color select"{}});}
 \DoxyCodeLine{53   \textcolor{keywordflow}{return} \textcolor{keyword}{true};}
 \DoxyCodeLine{54 \}}
 
 \end{DoxyCode}
 
 
-References Modes\+::cur\+Mode(), D\+E\+B\+U\+G\+\_\+\+L\+OG, Menu\+::init(), Mode\+::is\+Empty(), Mode\+::is\+Multi\+Led(), L\+E\+D\+\_\+\+M\+U\+L\+TI, Menu\+::m\+\_\+led\+Selected, m\+\_\+state, Menu\+::m\+\_\+target\+Leds, M\+A\+P\+\_\+\+L\+ED, and S\+T\+A\+T\+E\+\_\+\+I\+N\+IT.
+References Modes\+::cur\+Mode(), DEBUG\+\_\+\+LOG, Menu\+::init(), Mode\+::is\+Empty(), Mode\+::is\+Multi\+Led(), LED\+\_\+\+MULTI, Menu\+::m\+\_\+led\+Selected, m\+\_\+state, Menu\+::m\+\_\+target\+Leds, MAP\+\_\+\+LED, and STATE\+\_\+\+INIT.
 
 \mbox{\Hypertarget{classColorSelect_a82e8499fec6bcc61f65c5a6b085e5bc4}\label{classColorSelect_a82e8499fec6bcc61f65c5a6b085e5bc4}} 
 \index{ColorSelect@{ColorSelect}!isValidLedSelection@{isValidLedSelection}}
@@ -267,7 +268,7 @@ Definition at line 264 of file Color\+Select.\+cpp.
 \end{DoxyCode}
 
 
-References Mode\+::is\+Multi\+Led(), L\+E\+D\+\_\+\+M\+U\+L\+TI, Menu\+::m\+\_\+preview\+Mode, and M\+A\+P\+\_\+\+L\+ED.
+References Mode\+::is\+Multi\+Led(), LED\+\_\+\+MULTI, Menu\+::m\+\_\+preview\+Mode, and MAP\+\_\+\+LED.
 
 \mbox{\Hypertarget{classColorSelect_a7df43ca34cf42c00047fe9373d98d458}\label{classColorSelect_a7df43ca34cf42c00047fe9373d98d458}} 
 \index{ColorSelect@{ColorSelect}!onLedSelected@{onLedSelected}}
@@ -298,7 +299,7 @@ Definition at line 90 of file Color\+Select.\+cpp.
 \end{DoxyCode}
 
 
-References Modes\+::cur\+Mode(), Mode\+::get\+Colorset(), ledmap\+Get\+First\+Led(), m\+\_\+colorset, Menu\+::m\+\_\+target\+Leds, and M\+A\+P\+\_\+\+L\+E\+D\+\_\+\+A\+LL.
+References Modes\+::cur\+Mode(), Mode\+::get\+Colorset(), ledmap\+Get\+First\+Led(), m\+\_\+colorset, Menu\+::m\+\_\+target\+Leds, and MAP\+\_\+\+LED\+\_\+\+ALL.
 
 \mbox{\Hypertarget{classColorSelect_af6c4b0cb16d3e2d6a4bcbbd79b5907ff}\label{classColorSelect_af6c4b0cb16d3e2d6a4bcbbd79b5907ff}} 
 \index{ColorSelect@{ColorSelect}!onLongClick@{onLongClick}}
@@ -387,7 +388,7 @@ Definition at line 112 of file Color\+Select.\+cpp.
 \end{DoxyCode}
 
 
-References Modes\+::cur\+Mode(), D\+E\+L\+E\+T\+E\+\_\+\+C\+Y\+C\+L\+E\+\_\+\+T\+I\+C\+KS, D\+E\+L\+E\+T\+E\+\_\+\+T\+H\+R\+E\+S\+H\+O\+L\+D\+\_\+\+T\+I\+C\+KS, g\+\_\+p\+Button, Button\+::hold\+Duration(), H\+S\+V\+Color\+::hue, Mode\+::init(), Menu\+::leave\+Menu(), m\+\_\+colorset, Menu\+::m\+\_\+cur\+Selection, m\+\_\+new\+Color, m\+\_\+state, m\+\_\+target\+Hue1, Menu\+::m\+\_\+target\+Leds, m\+\_\+target\+Slot, M\+A\+X\+\_\+\+C\+O\+L\+O\+R\+\_\+\+S\+L\+O\+TS, Colorset\+::num\+Colors(), Colorset\+::remove\+Color(), H\+S\+V\+Color\+::sat, sats, Colorset\+::set(), Mode\+::set\+Colorset\+Map(), S\+T\+A\+T\+E\+\_\+\+I\+N\+IT, S\+T\+A\+T\+E\+\_\+\+P\+I\+C\+K\+\_\+\+H\+U\+E1, S\+T\+A\+T\+E\+\_\+\+P\+I\+C\+K\+\_\+\+H\+U\+E2, S\+T\+A\+T\+E\+\_\+\+P\+I\+C\+K\+\_\+\+S\+AT, S\+T\+A\+T\+E\+\_\+\+P\+I\+C\+K\+\_\+\+S\+L\+OT, S\+T\+A\+T\+E\+\_\+\+P\+I\+C\+K\+\_\+\+V\+AL, H\+S\+V\+Color\+::val, and vals.
+References Modes\+::cur\+Mode(), DELETE\+\_\+\+CYCLE\+\_\+\+TICKS, DELETE\+\_\+\+THRESHOLD\+\_\+\+TICKS, g\+\_\+p\+Button, Button\+::hold\+Duration(), HSVColor\+::hue, Mode\+::init(), Menu\+::leave\+Menu(), m\+\_\+colorset, Menu\+::m\+\_\+cur\+Selection, m\+\_\+new\+Color, m\+\_\+state, m\+\_\+target\+Hue1, Menu\+::m\+\_\+target\+Leds, m\+\_\+target\+Slot, MAX\+\_\+\+COLOR\+\_\+\+SLOTS, Colorset\+::num\+Colors(), Colorset\+::remove\+Color(), HSVColor\+::sat, sats, Colorset\+::set(), Mode\+::set\+Colorset\+Map(), STATE\+\_\+\+INIT, STATE\+\_\+\+PICK\+\_\+\+HUE1, STATE\+\_\+\+PICK\+\_\+\+HUE2, STATE\+\_\+\+PICK\+\_\+\+SAT, STATE\+\_\+\+PICK\+\_\+\+SLOT, STATE\+\_\+\+PICK\+\_\+\+VAL, HSVColor\+::val, and vals.
 
 \mbox{\Hypertarget{classColorSelect_a64e506c095e3dea194c3f570d52e5519}\label{classColorSelect_a64e506c095e3dea194c3f570d52e5519}} 
 \index{ColorSelect@{ColorSelect}!onShortClick@{onShortClick}}
@@ -418,7 +419,7 @@ Definition at line 101 of file Color\+Select.\+cpp.
 \end{DoxyCode}
 
 
-References m\+\_\+colorset, Menu\+::m\+\_\+cur\+Selection, m\+\_\+state, M\+A\+X\+\_\+\+C\+O\+L\+O\+R\+\_\+\+S\+L\+O\+TS, Colorset\+::num\+Colors(), and S\+T\+A\+T\+E\+\_\+\+P\+I\+C\+K\+\_\+\+S\+L\+OT.
+References m\+\_\+colorset, Menu\+::m\+\_\+cur\+Selection, m\+\_\+state, MAX\+\_\+\+COLOR\+\_\+\+SLOTS, Colorset\+::num\+Colors(), and STATE\+\_\+\+PICK\+\_\+\+SLOT.
 
 \mbox{\Hypertarget{classColorSelect_abe72716659bd20493c6d81ad5c582d2f}\label{classColorSelect_abe72716659bd20493c6d81ad5c582d2f}} 
 \index{ColorSelect@{ColorSelect}!run@{run}}
@@ -471,7 +472,7 @@ Definition at line 56 of file Color\+Select.\+cpp.
 \end{DoxyCode}
 
 
-References Leds\+::clear\+All(), m\+\_\+new\+Color, m\+\_\+state, m\+\_\+target\+Hue1, m\+\_\+target\+Slot, Menu\+::\+M\+E\+N\+U\+\_\+\+C\+O\+N\+T\+I\+N\+UE, Menu\+::run(), show\+Selection(), Menus\+::show\+Selection(), show\+Slot\+Selection(), S\+T\+A\+T\+E\+\_\+\+I\+N\+IT, S\+T\+A\+T\+E\+\_\+\+P\+I\+C\+K\+\_\+\+H\+U\+E1, S\+T\+A\+T\+E\+\_\+\+P\+I\+C\+K\+\_\+\+H\+U\+E2, S\+T\+A\+T\+E\+\_\+\+P\+I\+C\+K\+\_\+\+S\+AT, S\+T\+A\+T\+E\+\_\+\+P\+I\+C\+K\+\_\+\+S\+L\+OT, and S\+T\+A\+T\+E\+\_\+\+P\+I\+C\+K\+\_\+\+V\+AL.
+References Leds\+::clear\+All(), m\+\_\+new\+Color, m\+\_\+state, m\+\_\+target\+Hue1, m\+\_\+target\+Slot, Menu\+::\+MENU\+\_\+\+CONTINUE, Menu\+::run(), show\+Selection(), Menus\+::show\+Selection(), show\+Slot\+Selection(), STATE\+\_\+\+INIT, STATE\+\_\+\+PICK\+\_\+\+HUE1, STATE\+\_\+\+PICK\+\_\+\+HUE2, STATE\+\_\+\+PICK\+\_\+\+SAT, STATE\+\_\+\+PICK\+\_\+\+SLOT, and STATE\+\_\+\+PICK\+\_\+\+VAL.
 
 \mbox{\Hypertarget{classColorSelect_a361e51c42c6e6853f979ed58df1eff24}\label{classColorSelect_a361e51c42c6e6853f979ed58df1eff24}} 
 \index{ColorSelect@{ColorSelect}!showFullSet@{showFullSet}}
@@ -500,7 +501,7 @@ Definition at line 251 of file Color\+Select.\+cpp.
 \end{DoxyCode}
 
 
-References Colorset\+::get(), Time\+::get\+Curtime(), m\+\_\+colorset, M\+S\+\_\+\+T\+O\+\_\+\+T\+I\+C\+KS, Colorset\+::num\+Colors(), and Leds\+::set\+All().
+References Colorset\+::get(), Time\+::get\+Curtime(), m\+\_\+colorset, MS\+\_\+\+TO\+\_\+\+TICKS, Colorset\+::num\+Colors(), and Leds\+::set\+All().
 
 
 
@@ -561,7 +562,7 @@ Definition at line 210 of file Color\+Select.\+cpp.
 \end{DoxyCode}
 
 
-References Leds\+::breathe\+Index(), Time\+::get\+Curtime(), H\+S\+V\+Color\+::hue, L\+E\+D\+\_\+1, Menu\+::m\+\_\+cur\+Selection, m\+\_\+new\+Color, m\+\_\+target\+Hue1, M\+A\+P\+\_\+\+F\+O\+R\+E\+A\+C\+H\+\_\+\+L\+ED, M\+A\+P\+\_\+\+P\+A\+I\+R\+\_\+\+E\+V\+E\+NS, M\+A\+P\+\_\+\+P\+A\+I\+R\+\_\+\+O\+D\+DS, R\+G\+B\+\_\+\+W\+H\+I\+T\+E0, H\+S\+V\+Color\+::sat, sats, Leds\+::set\+Index(), Leds\+::set\+Map(), Menu\+::show\+Exit(), S\+T\+A\+T\+E\+\_\+\+P\+I\+C\+K\+\_\+\+H\+U\+E1, S\+T\+A\+T\+E\+\_\+\+P\+I\+C\+K\+\_\+\+H\+U\+E2, S\+T\+A\+T\+E\+\_\+\+P\+I\+C\+K\+\_\+\+S\+AT, S\+T\+A\+T\+E\+\_\+\+P\+I\+C\+K\+\_\+\+V\+AL, and vals.
+References Leds\+::breathe\+Index(), Time\+::get\+Curtime(), HSVColor\+::hue, LED\+\_\+1, Menu\+::m\+\_\+cur\+Selection, m\+\_\+new\+Color, m\+\_\+target\+Hue1, MAP\+\_\+\+FOREACH\+\_\+\+LED, MAP\+\_\+\+PAIR\+\_\+\+EVENS, MAP\+\_\+\+PAIR\+\_\+\+ODDS, RGB\+\_\+\+WHITE0, HSVColor\+::sat, sats, Leds\+::set\+Index(), Leds\+::set\+Map(), Menu\+::show\+Exit(), STATE\+\_\+\+PICK\+\_\+\+HUE1, STATE\+\_\+\+PICK\+\_\+\+HUE2, STATE\+\_\+\+PICK\+\_\+\+SAT, STATE\+\_\+\+PICK\+\_\+\+VAL, and vals.
 
 
 
@@ -610,7 +611,7 @@ Definition at line 181 of file Color\+Select.\+cpp.
 \end{DoxyCode}
 
 
-References Leds\+::blink\+All(), Leds\+::breathe\+Index(), D\+E\+L\+E\+T\+E\+\_\+\+C\+Y\+C\+L\+E\+\_\+\+T\+I\+C\+KS, D\+E\+L\+E\+T\+E\+\_\+\+T\+H\+R\+E\+S\+H\+O\+L\+D\+\_\+\+T\+I\+C\+KS, R\+G\+B\+Color\+::empty(), g\+\_\+p\+Button, Button\+::hold\+Duration(), Button\+::is\+Pressed(), L\+E\+D\+\_\+\+A\+LL, m\+\_\+colorset, Menu\+::m\+\_\+cur\+Selection, M\+A\+X\+\_\+\+C\+O\+L\+O\+R\+\_\+\+S\+L\+O\+TS, Colorset\+::num\+Colors(), R\+G\+B\+\_\+\+W\+H\+I\+T\+E0, R\+G\+B\+\_\+\+W\+H\+I\+T\+E2, Leds\+::set\+All(), and show\+Full\+Set().
+References Leds\+::blink\+All(), Leds\+::breathe\+Index(), DELETE\+\_\+\+CYCLE\+\_\+\+TICKS, DELETE\+\_\+\+THRESHOLD\+\_\+\+TICKS, RGBColor\+::empty(), g\+\_\+p\+Button, Button\+::hold\+Duration(), Button\+::is\+Pressed(), LED\+\_\+\+ALL, m\+\_\+colorset, Menu\+::m\+\_\+cur\+Selection, MAX\+\_\+\+COLOR\+\_\+\+SLOTS, Colorset\+::num\+Colors(), RGB\+\_\+\+WHITE0, RGB\+\_\+\+WHITE2, Leds\+::set\+All(), and show\+Full\+Set().
 
 
 
@@ -637,7 +638,7 @@ Referenced by on\+Led\+Selected(), on\+Long\+Click(), on\+Short\+Click(), show\+
 \index{ColorSelect@{ColorSelect}!m\_newColor@{m\_newColor}}
 \index{m\_newColor@{m\_newColor}!ColorSelect@{ColorSelect}}
 \doxysubsubsection{\texorpdfstring{m\_newColor}{m\_newColor}}
-{\footnotesize\ttfamily \mbox{\hyperlink{classHSVColor}{H\+S\+V\+Color}} Color\+Select\+::m\+\_\+new\+Color\hspace{0.3cm}{\ttfamily [private]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classHSVColor}{HSVColor}} Color\+Select\+::m\+\_\+new\+Color\hspace{0.3cm}{\ttfamily [private]}}
 
 
 

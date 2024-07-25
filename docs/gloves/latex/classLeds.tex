@@ -875,7 +875,7 @@ References m\+\_\+brightness.
 
 
 
-Referenced by Global\+Brightness\+::init(), Modes\+::serialize\+Save\+Header(), and VLSender\+::start\+PWM().
+Referenced by Global\+Brightness\+::init(), Vortex\+::save\+Json(), Modes\+::serialize\+Save\+Header(), and VLSender\+::start\+PWM().
 
 \mbox{\Hypertarget{classLeds_a36df44829f24f786e889d216f9e42fdb}\label{classLeds_a36df44829f24f786e889d216f9e42fdb}} 
 \index{Leds@{Leds}!getLed@{getLed}}
@@ -949,7 +949,7 @@ Definition at line 68 of file Leds.\+cpp.
 \DoxyCodeLine{76   pinMode(\mbox{\hyperlink{Leds_8cpp_a5f55b07707df2f2cf371f707207ed508}{LED\_DATA\_PIN}}, OUTPUT);}
 \DoxyCodeLine{77 \textcolor{preprocessor}{\#endif}}
 \DoxyCodeLine{78 \textcolor{preprocessor}{\#ifdef VORTEX\_LIB}}
-\DoxyCodeLine{79   Vortex::vcallbacks()-\/>ledsInit(\mbox{\hyperlink{classLeds_a473837bba0c89759fad92e135b1b4829}{m\_ledColors}}, \mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2ca0bc6b9364ec72b19c74a14f15aa3832c}{LED\_COUNT}});}
+\DoxyCodeLine{79   \mbox{\hyperlink{classVortex_a84b31157edd8814f3e7b545ca4c3fa00}{Vortex::vcallbacks}}()-\/>\mbox{\hyperlink{classVortexCallbacks_a8f69cf219c2e762fbb60c2dec3265093}{ledsInit}}(\mbox{\hyperlink{classLeds_a473837bba0c89759fad92e135b1b4829}{m\_ledColors}}, \mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2ca0bc6b9364ec72b19c74a14f15aa3832c}{LED\_COUNT}});}
 \DoxyCodeLine{80 \textcolor{preprocessor}{\#endif}}
 \DoxyCodeLine{81   \textcolor{keywordflow}{return} \textcolor{keyword}{true};}
 \DoxyCodeLine{82 \}}
@@ -957,7 +957,7 @@ Definition at line 68 of file Leds.\+cpp.
 \end{DoxyCode}
 
 
-References LED\+\_\+\+COUNT, LED\+\_\+\+DATA\+\_\+\+PIN, m\+\_\+led\+Colors, and turn\+Off\+Onboard\+LED().
+References LED\+\_\+\+COUNT, LED\+\_\+\+DATA\+\_\+\+PIN, Vortex\+Callbacks\+::leds\+Init(), m\+\_\+led\+Colors, turn\+Off\+Onboard\+LED(), and Vortex\+::vcallbacks().
 
 
 
@@ -1121,7 +1121,7 @@ References m\+\_\+brightness.
 
 
 
-Referenced by Factory\+Reset\+::on\+Long\+Click(), Global\+Brightness\+::on\+Long\+Click(), VLSender\+::start\+PWM(), and Modes\+::unserialize\+Save\+Header().
+Referenced by Vortex\+::load\+Json(), Factory\+Reset\+::on\+Long\+Click(), Global\+Brightness\+::on\+Long\+Click(), VLSender\+::start\+PWM(), and Modes\+::unserialize\+Save\+Header().
 
 \mbox{\Hypertarget{classLeds_ac1f1c4d39f3f4042886e20a4af6a50df}\label{classLeds_ac1f1c4d39f3f4042886e20a4af6a50df}} 
 \index{Leds@{Leds}!setFinger@{setFinger}}
@@ -1375,14 +1375,14 @@ Definition at line 332 of file Leds.\+cpp.
 \DoxyCodeLine{335   FastLED.show(\mbox{\hyperlink{classLeds_af930c3c14d077fa5d4db6bdf7bc5aa81}{m\_brightness}});}
 \DoxyCodeLine{336 \textcolor{preprocessor}{\#endif}}
 \DoxyCodeLine{337 \textcolor{preprocessor}{\#ifdef VORTEX\_LIB}}
-\DoxyCodeLine{338   Vortex::vcallbacks()-\/>ledsShow();}
+\DoxyCodeLine{338   \mbox{\hyperlink{classVortex_a84b31157edd8814f3e7b545ca4c3fa00}{Vortex::vcallbacks}}()-\/>\mbox{\hyperlink{classVortexCallbacks_a41f5eca6551d85d62904cece931b63a0}{ledsShow}}();}
 \DoxyCodeLine{339 \textcolor{preprocessor}{\#endif}}
 \DoxyCodeLine{340 \}}
 
 \end{DoxyCode}
 
 
-References m\+\_\+brightness.
+References Vortex\+Callbacks\+::leds\+Show(), m\+\_\+brightness, and Vortex\+::vcallbacks().
 
 
 

@@ -244,10 +244,10 @@ var NAVTREEINDEX2 =
 "VLSender_8cpp_source.html":[1,0,0,0,12,8],
 "VLSender_8h.html":[1,0,0,0,12,9],
 "VLSender_8h_source.html":[1,0,0,0,12,9],
-"VortexConfig_8h.html":[1,0,0,0,13],
-"VortexConfig_8h.html#a0be17f7cbaf6e5a5e8d4f0405d16107e":[1,0,0,0,13,33],
-"VortexConfig_8h.html#a0d801866c302fc22f8bfb9a4a25a0462":[1,0,0,0,13,89],
-"VortexConfig_8h.html#a0e67a9d736bfe02f58872add97f72878":[1,0,0,0,13,10],
-"VortexConfig_8h.html#a0efe647434a0e0ab74083af0fcd47c09":[1,0,0,0,13,39],
-"VortexConfig_8h.html#a0f03f33479c772421539f8e6bdb8b343":[1,0,0,0,13,12]
+"VortexCLI_8cpp.html":[1,0,0,1,0],
+"VortexCLI_8cpp.html#a0424b327dfcc4cdb3c0278aedcc3efe5":[1,0,0,1,0,8],
+"VortexCLI_8cpp.html#a0ddf1224851353fc92bfbff6f499fa97":[1,0,0,1,0,6],
+"VortexCLI_8cpp.html#a12800665000e18af34ce02e781bf00c0":[1,0,0,1,0,9],
+"VortexCLI_8cpp.html#a356e3c645f1a65f4dabc2fde120020d6":[1,0,0,1,0,3],
+"VortexCLI_8cpp.html#a458a22ee05565406d3cb49cf1c99d4bc":[1,0,0,1,0,13]
 };

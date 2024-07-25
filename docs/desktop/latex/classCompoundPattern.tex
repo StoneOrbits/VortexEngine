@@ -6,7 +6,8 @@
 
 
 
-Inheritance diagram for Compound\+Pattern\+:\nopagebreak
+Inheritance diagram for Compound\+Pattern\+:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -16,7 +17,13 @@ Inheritance diagram for Compound\+Pattern\+:\nopagebreak
 
 
 Collaboration diagram for Compound\+Pattern\+:
-% FIG 0
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classCompoundPattern__coll__graph}
+\end{center}
+\end{figure}
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
@@ -68,7 +75,7 @@ Definition at line 9 of file Compound\+Pattern.\+cpp.
 \begin{DoxyCode}{0}
 \DoxyCodeLine{9                                                                               :}
 \DoxyCodeLine{10   \mbox{\hyperlink{classMultiLedPattern_ae3130dbbdc974177a3765d690ef4422c}{MultiLedPattern}}(engine, args),}
-\DoxyCodeLine{11   \mbox{\hyperlink{classCompoundPattern_a68b122e4fc164161e57a94e772cd8c27}{m\_ledPatterns}}()}
+\DoxyCodeLine{11   \mbox{\hyperlink{classCompoundPattern_a68b122e4fc164161e57a94e772cd8c27}{m\_ledPatterns}}()}
 \DoxyCodeLine{12 \{}
 \DoxyCodeLine{13   \textcolor{comment}{// Hybrid is an abstract class it cannot be directly}}
 \DoxyCodeLine{14   \textcolor{comment}{// instantiated so we do not need to assign a pattern id}}
@@ -98,7 +105,7 @@ Definition at line 17 of file Compound\+Pattern.\+cpp.
 \end{DoxyCode}
 
 
-References L\+E\+D\+\_\+\+F\+I\+R\+ST, and m\+\_\+led\+Patterns.
+References LED\+\_\+\+FIRST, and m\+\_\+led\+Patterns.
 
 
 
@@ -128,7 +135,7 @@ Definition at line 48 of file Compound\+Pattern.\+cpp.
 \end{DoxyCode}
 
 
-References L\+E\+D\+\_\+\+F\+I\+R\+ST, L\+E\+D\+\_\+\+L\+A\+ST, and m\+\_\+led\+Patterns.
+References LED\+\_\+\+FIRST, LED\+\_\+\+LAST, and m\+\_\+led\+Patterns.
 
 \mbox{\Hypertarget{classCompoundPattern_a543d47cc3f7f4bf29fc7ed667362edf6}\label{classCompoundPattern_a543d47cc3f7f4bf29fc7ed667362edf6}} 
 \index{CompoundPattern@{CompoundPattern}!init@{init}}
@@ -160,7 +167,7 @@ Definition at line 27 of file Compound\+Pattern.\+cpp.
 \end{DoxyCode}
 
 
-References Multi\+Led\+Pattern\+::init(), L\+E\+D\+\_\+\+C\+O\+U\+NT, and m\+\_\+led\+Patterns.
+References Multi\+Led\+Pattern\+::init(), LED\+\_\+\+COUNT, and m\+\_\+led\+Patterns.
 
 
 
@@ -200,7 +207,7 @@ Definition at line 36 of file Compound\+Pattern.\+cpp.
 \end{DoxyCode}
 
 
-References L\+E\+D\+\_\+\+F\+I\+R\+ST, L\+E\+D\+\_\+\+L\+A\+ST, m\+\_\+led\+Patterns, and Pattern\+::play().
+References LED\+\_\+\+FIRST, LED\+\_\+\+LAST, m\+\_\+led\+Patterns, and Pattern\+::play().
 
 
 
@@ -230,7 +237,7 @@ Definition at line 85 of file Compound\+Pattern.\+cpp.
 \end{DoxyCode}
 
 
-References is\+Even, L\+E\+D\+\_\+\+F\+I\+R\+ST, L\+E\+D\+\_\+\+L\+A\+ST, Pattern\+::m\+\_\+engine, Pattern\+Builder\+::make\+Single(), Vortex\+Engine\+::pattern\+Builder(), and set\+Pattern\+At().
+References is\+Even, LED\+\_\+\+FIRST, LED\+\_\+\+LAST, Pattern\+::m\+\_\+engine, Pattern\+Builder\+::make\+Single(), Vortex\+Engine\+::pattern\+Builder(), and set\+Pattern\+At().
 
 
 
@@ -258,7 +265,7 @@ Definition at line 76 of file Compound\+Pattern.\+cpp.
 \end{DoxyCode}
 
 
-References L\+E\+D\+\_\+\+C\+O\+U\+NT, Pattern\+::m\+\_\+engine, Pattern\+Builder\+::make\+Single(), Vortex\+Engine\+::pattern\+Builder(), and set\+Pattern\+At().
+References LED\+\_\+\+COUNT, Pattern\+::m\+\_\+engine, Pattern\+Builder\+::make\+Single(), Vortex\+Engine\+::pattern\+Builder(), and set\+Pattern\+At().
 
 \mbox{\Hypertarget{classCompoundPattern_af6309f0ba65191342a39481b67cfcd5e}\label{classCompoundPattern_af6309f0ba65191342a39481b67cfcd5e}} 
 \index{CompoundPattern@{CompoundPattern}!setPatternAt@{setPatternAt}}
@@ -290,7 +297,7 @@ Definition at line 59 of file Compound\+Pattern.\+cpp.
 \end{DoxyCode}
 
 
-References Pattern\+::bind(), Single\+Led\+Pattern\+::init(), L\+E\+D\+\_\+\+C\+O\+U\+NT, Pattern\+::m\+\_\+colorset, m\+\_\+led\+Patterns, and Pattern\+::set\+Colorset().
+References Pattern\+::bind(), Single\+Led\+Pattern\+::init(), LED\+\_\+\+COUNT, Pattern\+::m\+\_\+colorset, m\+\_\+led\+Patterns, and Pattern\+::set\+Colorset().
 
 
 

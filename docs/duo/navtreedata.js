@@ -58,12 +58,13 @@ var NAVTREEINDEX =
 "BackStrobePattern_8cpp.html",
 "FillPattern_8h.html",
 "PatternSelect_8h_source.html",
-"VortexConfig_8h.html#a1827d1ccfb41f62353aa6904450fbc92",
-"classButtons.html#a158367c94decbc43a142c79d65d9d49f",
-"classGlobalBrightness.html#a383c77164792d56792f56a48b6db15e8",
-"classModes.html#a25f0e61bb0ff6ebc3d27b862b7b83838",
-"classRandomizer.html#abc096623f4e5121366f9131b2abd411e",
-"classZigzagPattern_1_1Snake.html#ac952be44096dc7ae7c1f749c0f34b1f4"
+"VortexCLI_8cpp.html#a5b1832141880ea1bcc07284b52366f92",
+"classButton.html#a2a001eb9c3cc8ae54768a850dd345002",
+"classEditorConnection.html#aba2f5b971c7c0707f695f1f6f1a94c72ac1f27c31c0d1a2c7d9864bad88dbbe89",
+"classModeSharing.html#a0aec0f78ee31d37e06799dd0f0f01b91",
+"classRGBColor.html#aa641389effd78c707230ab389e176b65",
+"classVortex.html#a544f884875a07cbd856f8c7e7e8e63d5",
+"dir_0f91852d877cbfac2c00effa84ccfa3b.html"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

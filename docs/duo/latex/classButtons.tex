@@ -113,6 +113,10 @@ Definition at line 25 of file Buttons.\+h.
 
 References NUM\+\_\+\+BUTTONS.
 
+
+
+Referenced by Vortex\+::select\+Button().
+
 \mbox{\Hypertarget{classButtons_a4e775beebe1f2c6dce04c82ed14741cb}\label{classButtons_a4e775beebe1f2c6dce04c82ed14741cb}} 
 \index{Buttons@{Buttons}!update@{update}}
 \index{update@{update}!Buttons@{Buttons}}
@@ -129,14 +133,14 @@ Definition at line 33 of file Buttons.\+cpp.
 \DoxyCodeLine{35   \mbox{\hyperlink{Buttons_8cpp_a0f2e1bfb2e10150496ad7fb75420713b}{g\_pButton}}-\/>\mbox{\hyperlink{classButton_ad8e030c1c8846d43f3126047d4a3667f}{update}}();}
 \DoxyCodeLine{36 \textcolor{preprocessor}{\#ifdef VORTEX\_LIB}}
 \DoxyCodeLine{37   \textcolor{comment}{// read input from the vortex lib interface, for example Vortex::shortClick()}}
-\DoxyCodeLine{38   Vortex::handleInputQueue(\mbox{\hyperlink{Buttons_8cpp_a0f2e1bfb2e10150496ad7fb75420713b}{g\_pButton}}, \mbox{\hyperlink{Buttons_8h_a45add6b39f5b0c0137de978b90e26b5d}{NUM\_BUTTONS}});}
+\DoxyCodeLine{38   \mbox{\hyperlink{classVortex_aa334b5f76d4d9d7f0a95296afd1f7ed0}{Vortex::handleInputQueue}}(\mbox{\hyperlink{Buttons_8cpp_a0f2e1bfb2e10150496ad7fb75420713b}{g\_pButton}}, \mbox{\hyperlink{Buttons_8h_a45add6b39f5b0c0137de978b90e26b5d}{NUM\_BUTTONS}});}
 \DoxyCodeLine{39 \textcolor{preprocessor}{\#endif}}
 \DoxyCodeLine{40 \}}
 
 \end{DoxyCode}
 
 
-References g\+\_\+p\+Button, NUM\+\_\+\+BUTTONS, and Button\+::update().
+References g\+\_\+p\+Button, Vortex\+::handle\+Input\+Queue(), NUM\+\_\+\+BUTTONS, and Button\+::update().
 
 
 

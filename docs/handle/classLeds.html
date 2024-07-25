@@ -1608,7 +1608,7 @@ Static Private Attributes</h2></td></tr>
 </div><!-- fragment -->
 <p class="reference">References <a class="el" href="Leds_8h_source.html#l00124">m_brightness</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="GlobalBrightness_8cpp_source.html#l00020">GlobalBrightness::init()</a>, <a class="el" href="Modes_8cpp_source.html#l00257">Modes::serializeSaveHeader()</a>, and <a class="el" href="VLSender_8cpp_source.html#l00170">VLSender::startPWM()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="GlobalBrightness_8cpp_source.html#l00020">GlobalBrightness::init()</a>, <a class="el" href="VortexLib_8cpp_source.html#l01954">Vortex::saveJson()</a>, <a class="el" href="Modes_8cpp_source.html#l00257">Modes::serializeSaveHeader()</a>, and <a class="el" href="VLSender_8cpp_source.html#l00170">VLSender::startPWM()</a>.</p>
 
 </div>
 </div>
@@ -1712,13 +1712,15 @@ Static Private Attributes</h2></td></tr>
 <div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;  SPI.begin();</div>
 <div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;<span class="preprocessor">#endif</span></div>
 <div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;<span class="preprocessor">#ifdef VORTEX_LIB</span></div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;  Vortex::vcallbacks()-&gt;ledsInit(<a class="code" href="classLeds.html#a473837bba0c89759fad92e135b1b4829">m_ledColors</a>, <a class="code" href="LedTypes_8h.html#a9fb57934b9165e8fcecafeafaf3a6a2ca0bc6b9364ec72b19c74a14f15aa3832c">LED_COUNT</a>);</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;  <a class="code" href="classVortex.html#a84b31157edd8814f3e7b545ca4c3fa00">Vortex::vcallbacks</a>()-&gt;<a class="code" href="classVortexCallbacks.html#a8f69cf219c2e762fbb60c2dec3265093">ledsInit</a>(<a class="code" href="classLeds.html#a473837bba0c89759fad92e135b1b4829">m_ledColors</a>, <a class="code" href="LedTypes_8h.html#a9fb57934b9165e8fcecafeafaf3a6a2ca0bc6b9364ec72b19c74a14f15aa3832c">LED_COUNT</a>);</div>
 <div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;<span class="preprocessor">#endif</span></div>
 <div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;  <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
 <div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;}</div>
 <div class="ttc" id="aLeds_8cpp_html_ab8f63a85e405af3f93826b2f94f7e361"><div class="ttname"><a href="Leds_8cpp.html#ab8f63a85e405af3f93826b2f94f7e361">turnOffOnboardLED</a></div><div class="ttdeci">static void turnOffOnboardLED()</div><div class="ttdef"><b>Definition:</b> <a href="Leds_8cpp_source.html#l00035">Leds.cpp:35</a></div></div>
+<div class="ttc" id="aclassVortexCallbacks_html_a8f69cf219c2e762fbb60c2dec3265093"><div class="ttname"><a href="classVortexCallbacks.html#a8f69cf219c2e762fbb60c2dec3265093">VortexCallbacks::ledsInit</a></div><div class="ttdeci">virtual void ledsInit(void *cl, int count)</div><div class="ttdef"><b>Definition:</b> <a href="VortexLib_8h_source.html#l00058">VortexLib.h:58</a></div></div>
+<div class="ttc" id="aclassVortex_html_a84b31157edd8814f3e7b545ca4c3fa00"><div class="ttname"><a href="classVortex.html#a84b31157edd8814f3e7b545ca4c3fa00">Vortex::vcallbacks</a></div><div class="ttdeci">static VortexCallbacks * vcallbacks()</div><div class="ttdef"><b>Definition:</b> <a href="VortexLib_8h_source.html#l00221">VortexLib.h:221</a></div></div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="LedTypes_8h_source.html#l00021">LED_COUNT</a>, <a class="el" href="Leds_8h_source.html#l00127">m_ledColors</a>, and <a class="el" href="Leds_8cpp_source.html#l00035">turnOffOnboardLED()</a>.</p>
+<p class="reference">References <a class="el" href="LedTypes_8h_source.html#l00021">LED_COUNT</a>, <a class="el" href="VortexLib_8h_source.html#l00058">VortexCallbacks::ledsInit()</a>, <a class="el" href="Leds_8h_source.html#l00127">m_ledColors</a>, <a class="el" href="Leds_8cpp_source.html#l00035">turnOffOnboardLED()</a>, and <a class="el" href="VortexLib_8h_source.html#l00221">Vortex::vcallbacks()</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="VortexEngine_8cpp_source.html#l00030">VortexEngine::init()</a>.</p>
 
@@ -1938,7 +1940,7 @@ Static Private Attributes</h2></td></tr>
 </div><!-- fragment -->
 <p class="reference">References <a class="el" href="Leds_8h_source.html#l00124">m_brightness</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="FactoryReset_8cpp_source.html#l00065">FactoryReset::onLongClick()</a>, <a class="el" href="GlobalBrightness_8cpp_source.html#l00058">GlobalBrightness::onLongClick()</a>, <a class="el" href="VLSender_8cpp_source.html#l00170">VLSender::startPWM()</a>, and <a class="el" href="Modes_8cpp_source.html#l00276">Modes::unserializeSaveHeader()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="VortexLib_8cpp_source.html#l01983">Vortex::loadJson()</a>, <a class="el" href="FactoryReset_8cpp_source.html#l00065">FactoryReset::onLongClick()</a>, <a class="el" href="GlobalBrightness_8cpp_source.html#l00058">GlobalBrightness::onLongClick()</a>, <a class="el" href="VLSender_8cpp_source.html#l00170">VLSender::startPWM()</a>, and <a class="el" href="Modes_8cpp_source.html#l00276">Modes::unserializeSaveHeader()</a>.</p>
 
 </div>
 </div>
@@ -2377,11 +2379,12 @@ Static Private Attributes</h2></td></tr>
 <div class="line"><a name="l00332"></a><span class="lineno">  332</span>&#160;  SPI.endTransaction();</div>
 <div class="line"><a name="l00333"></a><span class="lineno">  333</span>&#160;<span class="preprocessor">#endif</span></div>
 <div class="line"><a name="l00334"></a><span class="lineno">  334</span>&#160;<span class="preprocessor">#ifdef VORTEX_LIB</span></div>
-<div class="line"><a name="l00335"></a><span class="lineno">  335</span>&#160;  Vortex::vcallbacks()-&gt;ledsShow();</div>
+<div class="line"><a name="l00335"></a><span class="lineno">  335</span>&#160;  <a class="code" href="classVortex.html#a84b31157edd8814f3e7b545ca4c3fa00">Vortex::vcallbacks</a>()-&gt;<a class="code" href="classVortexCallbacks.html#a41f5eca6551d85d62904cece931b63a0">ledsShow</a>();</div>
 <div class="line"><a name="l00336"></a><span class="lineno">  336</span>&#160;<span class="preprocessor">#endif</span></div>
 <div class="line"><a name="l00337"></a><span class="lineno">  337</span>&#160;}</div>
+<div class="ttc" id="aclassVortexCallbacks_html_a41f5eca6551d85d62904cece931b63a0"><div class="ttname"><a href="classVortexCallbacks.html#a41f5eca6551d85d62904cece931b63a0">VortexCallbacks::ledsShow</a></div><div class="ttdeci">virtual void ledsShow()</div><div class="ttdef"><b>Definition:</b> <a href="VortexLib_8h_source.html#l00062">VortexLib.h:62</a></div></div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="LedTypes_8h_source.html#l00021">LED_COUNT</a>, <a class="el" href="LedTypes_8h_source.html#l00013">LED_FIRST</a>, <a class="el" href="Leds_8h_source.html#l00124">m_brightness</a>, and <a class="el" href="Leds_8h_source.html#l00127">m_ledColors</a>.</p>
+<p class="reference">References <a class="el" href="LedTypes_8h_source.html#l00021">LED_COUNT</a>, <a class="el" href="LedTypes_8h_source.html#l00013">LED_FIRST</a>, <a class="el" href="VortexLib_8h_source.html#l00062">VortexCallbacks::ledsShow()</a>, <a class="el" href="Leds_8h_source.html#l00124">m_brightness</a>, <a class="el" href="Leds_8h_source.html#l00127">m_ledColors</a>, and <a class="el" href="VortexLib_8h_source.html#l00221">Vortex::vcallbacks()</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="ModeSharing_8cpp_source.html#l00120">ModeSharing::beginSendingIR()</a>, <a class="el" href="VortexEngine_8cpp_source.html#l00255">VortexEngine::enterSleep()</a>, <a class="el" href="Leds_8cpp_source.html#l00304">holdAll()</a>, <a class="el" href="VLSender_8cpp_source.html#l00170">VLSender::startPWM()</a>, <a class="el" href="VLSender_8cpp_source.html#l00185">VLSender::stopPWM()</a>, and <a class="el" href="VortexEngine_8cpp_source.html#l00129">VortexEngine::tick()</a>.</p>
 

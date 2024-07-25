@@ -21,7 +21,7 @@
 <!-- Node2 -->
 <g id="node2" class="node">
 <title>Node2</title>
-<g id="a_node2"><a xlink:href="FactoryReset_8cpp.html" target="_top" target="_top" xlink:title=" ">
+<g id="a_node2"><a xlink:href="FactoryReset_8cpp.html" target="_top" xlink:title=" ">
 <polygon fill="none" stroke="black" points="0,-0.5 0,-30.5 150,-30.5 150,-0.5 0,-0.5"/>
 <text text-anchor="start" x="8" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">VortexEngine/src/Menus</text>
 <text text-anchor="middle" x="75" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">/MenuList/FactoryReset.cpp</text>
@@ -37,7 +37,7 @@
 <!-- Node3 -->
 <g id="node3" class="node">
 <title>Node3</title>
-<g id="a_node3"><a xlink:href="DefaultModes_8cpp.html" target="_top" target="_top" xlink:title=" ">
+<g id="a_node3"><a xlink:href="DefaultModes_8cpp.html" target="_top" xlink:title=" ">
 <polygon fill="none" stroke="black" points="168,-0.5 168,-30.5 302,-30.5 302,-0.5 168,-0.5"/>
 <text text-anchor="start" x="176" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">VortexEngine/src/Modes</text>
 <text text-anchor="middle" x="235" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">/DefaultModes.cpp</text>
@@ -53,7 +53,7 @@
 <!-- Node4 -->
 <g id="node4" class="node">
 <title>Node4</title>
-<g id="a_node4"><a xlink:href="Modes_8cpp.html" target="_top" target="_top" xlink:title=" ">
+<g id="a_node4"><a xlink:href="Modes_8cpp.html" target="_top" xlink:title=" ">
 <polygon fill="none" stroke="black" points="320,-0.5 320,-30.5 454,-30.5 454,-0.5 320,-0.5"/>
 <text text-anchor="start" x="328" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">VortexEngine/src/Modes</text>
 <text text-anchor="middle" x="387" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">/Modes.cpp</text>

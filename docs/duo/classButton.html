@@ -284,15 +284,16 @@ Private Attributes</h2></td></tr>
 <p class="definition">Definition at line <a class="el" href="Button_8cpp_source.html#l00093">93</a> of file <a class="el" href="Button_8cpp_source.html">Button.cpp</a>.</p>
 <div class="fragment"><div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;{</div>
 <div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;<span class="preprocessor">#ifdef VORTEX_LIB</span></div>
-<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;  <span class="keywordflow">return</span> (Vortex::vcallbacks()-&gt;checkPinHook(0) == 0);</div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;  <span class="keywordflow">return</span> (<a class="code" href="classVortex.html#a84b31157edd8814f3e7b545ca4c3fa00">Vortex::vcallbacks</a>()-&gt;checkPinHook(0) == 0);</div>
 <div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;<span class="preprocessor">#else</span></div>
 <div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;  <span class="keywordflow">return</span> ((<a class="code" href="Button_8cpp.html#adea042b65d3f540c98e35834a7967925">BUTTON_VPORT</a>.IN &amp; <a class="code" href="Button_8cpp.html#abc2ad14f0789907024ac765711ffd3da">BUTTON_PIN</a>) == 0);</div>
 <div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;<span class="preprocessor">#endif</span></div>
 <div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;}</div>
 <div class="ttc" id="aButton_8cpp_html_abc2ad14f0789907024ac765711ffd3da"><div class="ttname"><a href="Button_8cpp.html#abc2ad14f0789907024ac765711ffd3da">BUTTON_PIN</a></div><div class="ttdeci">#define BUTTON_PIN</div><div class="ttdef"><b>Definition:</b> <a href="Button_8cpp_source.html#l00029">Button.cpp:29</a></div></div>
 <div class="ttc" id="aButton_8cpp_html_adea042b65d3f540c98e35834a7967925"><div class="ttname"><a href="Button_8cpp.html#adea042b65d3f540c98e35834a7967925">BUTTON_VPORT</a></div><div class="ttdeci">#define BUTTON_VPORT</div><div class="ttdef"><b>Definition:</b> <a href="Button_8cpp_source.html#l00028">Button.cpp:28</a></div></div>
+<div class="ttc" id="aclassVortex_html_a84b31157edd8814f3e7b545ca4c3fa00"><div class="ttname"><a href="classVortex.html#a84b31157edd8814f3e7b545ca4c3fa00">Vortex::vcallbacks</a></div><div class="ttdeci">static VortexCallbacks * vcallbacks()</div><div class="ttdef"><b>Definition:</b> <a href="VortexLib_8h_source.html#l00221">VortexLib.h:221</a></div></div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="Button_8cpp_source.html#l00029">BUTTON_PIN</a>, and <a class="el" href="Button_8cpp_source.html#l00028">BUTTON_VPORT</a>.</p>
+<p class="reference">References <a class="el" href="Button_8cpp_source.html#l00029">BUTTON_PIN</a>, <a class="el" href="Button_8cpp_source.html#l00028">BUTTON_VPORT</a>, and <a class="el" href="VortexLib_8h_source.html#l00221">Vortex::vcallbacks()</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="Button_8cpp_source.html#l00071">init()</a>, <a class="el" href="VortexEngine_8cpp_source.html#l00158">VortexEngine::tick()</a>, and <a class="el" href="Button_8cpp_source.html#l00102">update()</a>.</p>
 
@@ -461,7 +462,7 @@ Private Attributes</h2></td></tr>
 </div><!-- fragment -->
 <p class="reference">References <a class="el" href="Button_8h_source.html#l00090">m_isPressed</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="GlobalBrightness_8cpp_source.html#l00124">GlobalBrightness::runKeychainMode()</a>, <a class="el" href="VortexEngine_8cpp_source.html#l00200">VortexEngine::runMainLogic()</a>, <a class="el" href="Menus_8cpp_source.html#l00103">Menus::runMenuSelection()</a>, <a class="el" href="Menu_8cpp_source.html#l00107">Menu::showExit()</a>, <a class="el" href="Randomizer_8cpp_source.html#l00160">Randomizer::showRandomizationSelect()</a>, <a class="el" href="FactoryReset_8cpp_source.html#l00098">FactoryReset::showReset()</a>, <a class="el" href="Menus_8cpp_source.html#l00246">Menus::showSelection()</a>, and <a class="el" href="ColorSelect_8cpp_source.html#l00187">ColorSelect::showSlotSelection()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="VortexLib_8cpp_source.html#l01558">Vortex::handleInputQueue()</a>, <a class="el" href="GlobalBrightness_8cpp_source.html#l00124">GlobalBrightness::runKeychainMode()</a>, <a class="el" href="VortexEngine_8cpp_source.html#l00200">VortexEngine::runMainLogic()</a>, <a class="el" href="Menus_8cpp_source.html#l00103">Menus::runMenuSelection()</a>, <a class="el" href="Menu_8cpp_source.html#l00107">Menu::showExit()</a>, <a class="el" href="Randomizer_8cpp_source.html#l00160">Randomizer::showRandomizationSelect()</a>, <a class="el" href="FactoryReset_8cpp_source.html#l00098">FactoryReset::showReset()</a>, <a class="el" href="Menus_8cpp_source.html#l00246">Menus::showSelection()</a>, and <a class="el" href="ColorSelect_8cpp_source.html#l00187">ColorSelect::showSlotSelection()</a>.</p>
 
 </div>
 </div>
@@ -892,7 +893,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="Button_8h_source.html#l00083">83</a> of file <a class="el" href="Button_8h_source.html">Button.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="Button_8cpp_source.html#l00071">init()</a>, and <a class="el" href="Button_8cpp_source.html#l00102">update()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="VortexLib_8cpp_source.html#l01558">Vortex::handleInputQueue()</a>, <a class="el" href="Button_8cpp_source.html#l00071">init()</a>, and <a class="el" href="Button_8cpp_source.html#l00102">update()</a>.</p>
 
 </div>
 </div>
@@ -918,7 +919,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="Button_8h_source.html#l00078">78</a> of file <a class="el" href="Button_8h_source.html">Button.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="Button_8h_source.html#l00059">consecutivePresses()</a>, <a class="el" href="Button_8cpp_source.html#l00071">init()</a>, <a class="el" href="Button_8cpp_source.html#l00170">onConsecutivePresses()</a>, and <a class="el" href="Button_8cpp_source.html#l00102">update()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="Button_8h_source.html#l00059">consecutivePresses()</a>, <a class="el" href="VortexLib_8cpp_source.html#l01558">Vortex::handleInputQueue()</a>, <a class="el" href="Button_8cpp_source.html#l00071">init()</a>, <a class="el" href="Button_8cpp_source.html#l00170">onConsecutivePresses()</a>, and <a class="el" href="Button_8cpp_source.html#l00102">update()</a>.</p>
 
 </div>
 </div>
@@ -944,7 +945,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="Button_8h_source.html#l00073">73</a> of file <a class="el" href="Button_8h_source.html">Button.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="Button_8h_source.html#l00054">holdDuration()</a>, <a class="el" href="Button_8cpp_source.html#l00071">init()</a>, and <a class="el" href="Button_8cpp_source.html#l00102">update()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="VortexLib_8cpp_source.html#l01558">Vortex::handleInputQueue()</a>, <a class="el" href="Button_8h_source.html#l00054">holdDuration()</a>, <a class="el" href="Button_8cpp_source.html#l00071">init()</a>, and <a class="el" href="Button_8cpp_source.html#l00102">update()</a>.</p>
 
 </div>
 </div>
@@ -970,7 +971,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="Button_8h_source.html#l00090">90</a> of file <a class="el" href="Button_8h_source.html">Button.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="Button_8cpp_source.html#l00071">init()</a>, <a class="el" href="Button_8h_source.html#l00038">isPressed()</a>, and <a class="el" href="Button_8cpp_source.html#l00102">update()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="VortexLib_8cpp_source.html#l01558">Vortex::handleInputQueue()</a>, <a class="el" href="Button_8cpp_source.html#l00071">init()</a>, <a class="el" href="Button_8h_source.html#l00038">isPressed()</a>, and <a class="el" href="Button_8cpp_source.html#l00102">update()</a>.</p>
 
 </div>
 </div>
@@ -996,7 +997,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="Button_8h_source.html#l00094">94</a> of file <a class="el" href="Button_8h_source.html">Button.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="Button_8cpp_source.html#l00071">init()</a>, <a class="el" href="Button_8h_source.html#l00043">onLongClick()</a>, and <a class="el" href="Button_8cpp_source.html#l00102">update()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="VortexLib_8cpp_source.html#l01558">Vortex::handleInputQueue()</a>, <a class="el" href="Button_8cpp_source.html#l00071">init()</a>, <a class="el" href="Button_8h_source.html#l00043">onLongClick()</a>, and <a class="el" href="Button_8cpp_source.html#l00102">update()</a>.</p>
 
 </div>
 </div>
@@ -1022,7 +1023,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="Button_8h_source.html#l00086">86</a> of file <a class="el" href="Button_8h_source.html">Button.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="Button_8cpp_source.html#l00071">init()</a>, <a class="el" href="Button_8h_source.html#l00034">onPress()</a>, and <a class="el" href="Button_8cpp_source.html#l00102">update()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="VortexLib_8cpp_source.html#l01558">Vortex::handleInputQueue()</a>, <a class="el" href="Button_8cpp_source.html#l00071">init()</a>, <a class="el" href="Button_8h_source.html#l00034">onPress()</a>, and <a class="el" href="Button_8cpp_source.html#l00102">update()</a>.</p>
 
 </div>
 </div>
@@ -1048,7 +1049,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="Button_8h_source.html#l00088">88</a> of file <a class="el" href="Button_8h_source.html">Button.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="Button_8cpp_source.html#l00071">init()</a>, <a class="el" href="Button_8h_source.html#l00036">onRelease()</a>, and <a class="el" href="Button_8cpp_source.html#l00102">update()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="VortexLib_8cpp_source.html#l01558">Vortex::handleInputQueue()</a>, <a class="el" href="Button_8cpp_source.html#l00071">init()</a>, <a class="el" href="Button_8h_source.html#l00036">onRelease()</a>, and <a class="el" href="Button_8cpp_source.html#l00102">update()</a>.</p>
 
 </div>
 </div>
@@ -1074,7 +1075,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="Button_8h_source.html#l00068">68</a> of file <a class="el" href="Button_8h_source.html">Button.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="Button_8cpp_source.html#l00071">init()</a>, <a class="el" href="Button_8h_source.html#l00049">pressTime()</a>, and <a class="el" href="Button_8cpp_source.html#l00102">update()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="VortexLib_8cpp_source.html#l01558">Vortex::handleInputQueue()</a>, <a class="el" href="Button_8cpp_source.html#l00071">init()</a>, <a class="el" href="Button_8h_source.html#l00049">pressTime()</a>, and <a class="el" href="Button_8cpp_source.html#l00102">update()</a>.</p>
 
 </div>
 </div>
@@ -1126,7 +1127,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="Button_8h_source.html#l00075">75</a> of file <a class="el" href="Button_8h_source.html">Button.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="Button_8cpp_source.html#l00071">init()</a>, <a class="el" href="Button_8h_source.html#l00056">releaseDuration()</a>, and <a class="el" href="Button_8cpp_source.html#l00102">update()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="VortexLib_8cpp_source.html#l01558">Vortex::handleInputQueue()</a>, <a class="el" href="Button_8cpp_source.html#l00071">init()</a>, <a class="el" href="Button_8h_source.html#l00056">releaseDuration()</a>, and <a class="el" href="Button_8cpp_source.html#l00102">update()</a>.</p>
 
 </div>
 </div>
@@ -1152,7 +1153,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="Button_8h_source.html#l00070">70</a> of file <a class="el" href="Button_8h_source.html">Button.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="Button_8cpp_source.html#l00071">init()</a>, <a class="el" href="Button_8h_source.html#l00051">releaseTime()</a>, and <a class="el" href="Button_8cpp_source.html#l00102">update()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="VortexLib_8cpp_source.html#l01558">Vortex::handleInputQueue()</a>, <a class="el" href="Button_8cpp_source.html#l00071">init()</a>, <a class="el" href="Button_8h_source.html#l00051">releaseTime()</a>, and <a class="el" href="Button_8cpp_source.html#l00102">update()</a>.</p>
 
 </div>
 </div>
@@ -1178,7 +1179,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="Button_8h_source.html#l00092">92</a> of file <a class="el" href="Button_8h_source.html">Button.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="Button_8cpp_source.html#l00071">init()</a>, <a class="el" href="Button_8h_source.html#l00041">onShortClick()</a>, and <a class="el" href="Button_8cpp_source.html#l00102">update()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="VortexLib_8cpp_source.html#l01558">Vortex::handleInputQueue()</a>, <a class="el" href="Button_8cpp_source.html#l00071">init()</a>, <a class="el" href="Button_8h_source.html#l00041">onShortClick()</a>, and <a class="el" href="Button_8cpp_source.html#l00102">update()</a>.</p>
 
 </div>
 </div>

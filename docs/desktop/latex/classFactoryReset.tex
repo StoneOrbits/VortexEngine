@@ -6,7 +6,8 @@
 
 
 
-Inheritance diagram for Factory\+Reset\+:\nopagebreak
+Inheritance diagram for Factory\+Reset\+:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -16,11 +17,17 @@ Inheritance diagram for Factory\+Reset\+:\nopagebreak
 
 
 Collaboration diagram for Factory\+Reset\+:
-% FIG 0
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classFactoryReset__coll__graph}
+\end{center}
+\end{figure}
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{classFactoryReset_a57ddd704293e2446ca2b03a38cde0131}{Factory\+Reset}} (\mbox{\hyperlink{classVortexEngine}{Vortex\+Engine}} \&engine, const \mbox{\hyperlink{classRGBColor}{R\+G\+B\+Color}} \&col, bool advanced)
+\mbox{\hyperlink{classFactoryReset_a57ddd704293e2446ca2b03a38cde0131}{Factory\+Reset}} (\mbox{\hyperlink{classVortexEngine}{Vortex\+Engine}} \&engine, const \mbox{\hyperlink{classRGBColor}{RGBColor}} \&col, bool advanced)
 \item 
 \mbox{\hyperlink{classFactoryReset_a8523c4243c40edb6fd146bbb6800e06f}{$\sim$\+Factory\+Reset}} ()
 \item 
@@ -52,7 +59,7 @@ Definition at line 6 of file Factory\+Reset.\+h.
 \index{FactoryReset@{FactoryReset}!FactoryReset@{FactoryReset}}
 \index{FactoryReset@{FactoryReset}!FactoryReset@{FactoryReset}}
 \doxysubsubsection{\texorpdfstring{FactoryReset()}{FactoryReset()}}
-{\footnotesize\ttfamily Factory\+Reset\+::\+Factory\+Reset (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classVortexEngine}{Vortex\+Engine}} \&}]{engine,  }\item[{const \mbox{\hyperlink{classRGBColor}{R\+G\+B\+Color}} \&}]{col,  }\item[{bool}]{advanced }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily Factory\+Reset\+::\+Factory\+Reset (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classVortexEngine}{Vortex\+Engine}} \&}]{engine,  }\item[{const \mbox{\hyperlink{classRGBColor}{RGBColor}} \&}]{col,  }\item[{bool}]{advanced }\end{DoxyParamCaption})}
 
 
 
@@ -61,7 +68,7 @@ Definition at line 18 of file Factory\+Reset.\+cpp.
 
 \begin{DoxyCode}{0}
 \DoxyCodeLine{18                                                                                    :}
-\DoxyCodeLine{19   \mbox{\hyperlink{classMenu_a015cc9ee4e9800ad776e8e8097ca49fe}{Menu}}(engine, col, advanced)}
+\DoxyCodeLine{19   \mbox{\hyperlink{classMenu_a015cc9ee4e9800ad776e8e8097ca49fe}{Menu}}(engine, col, advanced)}
 \DoxyCodeLine{20 \{}
 \DoxyCodeLine{21 \}}
 
@@ -121,14 +128,14 @@ Definition at line 27 of file Factory\+Reset.\+cpp.
 \DoxyCodeLine{45   \}}
 \DoxyCodeLine{46   \textcolor{comment}{// Start on exit by default}}
 \DoxyCodeLine{47   \mbox{\hyperlink{classMenu_aeb313423fa52e4c1940785456b70cd7a}{m\_curSelection}} = \textcolor{keyword}{false};}
-\DoxyCodeLine{48   \mbox{\hyperlink{Log_8h_a5d2f30bd1cbcf49f829a7e8eb6173c06}{DEBUG\_LOG}}(\textcolor{stringliteral}{"Entered factory reset"});}
+\DoxyCodeLine{48   \mbox{\hyperlink{Log_8h_a5d2f30bd1cbcf49f829a7e8eb6173c06}{DEBUG\_LOG}}(\textcolor{stringliteral}{"{}Entered factory reset"{}});}
 \DoxyCodeLine{49   \textcolor{keywordflow}{return} \textcolor{keyword}{true};}
 \DoxyCodeLine{50 \}}
 
 \end{DoxyCode}
 
 
-References Modes\+::cur\+Mode(), D\+E\+B\+U\+G\+\_\+\+L\+OG, Menu\+::init(), Mode\+::is\+Multi\+Led(), L\+E\+D\+\_\+\+M\+U\+L\+TI, Menu\+::m\+\_\+advanced, Menu\+::m\+\_\+cur\+Selection, Menu\+::m\+\_\+engine, Menu\+::m\+\_\+led\+Selected, Menu\+::m\+\_\+target\+Leds, M\+A\+P\+\_\+\+L\+ED, and Vortex\+Engine\+::modes().
+References Modes\+::cur\+Mode(), DEBUG\+\_\+\+LOG, Menu\+::init(), Mode\+::is\+Multi\+Led(), LED\+\_\+\+MULTI, Menu\+::m\+\_\+advanced, Menu\+::m\+\_\+cur\+Selection, Menu\+::m\+\_\+engine, Menu\+::m\+\_\+led\+Selected, Menu\+::m\+\_\+target\+Leds, MAP\+\_\+\+LED, and Vortex\+Engine\+::modes().
 
 \mbox{\Hypertarget{classFactoryReset_a4444f4ac79061c07b9e6c14c44e7a65c}\label{classFactoryReset_a4444f4ac79061c07b9e6c14c44e7a65c}} 
 \index{FactoryReset@{FactoryReset}!onLongClick@{onLongClick}}
@@ -180,7 +187,7 @@ Definition at line 67 of file Factory\+Reset.\+cpp.
 \end{DoxyCode}
 
 
-References Vortex\+Engine\+::button(), default\+\_\+mode\+\_\+entry\+::cols, Modes\+::cur\+Mode(), Modes\+::cur\+Mode\+Index(), D\+E\+F\+A\+U\+L\+T\+\_\+\+B\+R\+I\+G\+H\+T\+N\+E\+SS, default\+\_\+modes, F\+A\+C\+T\+O\+R\+Y\+\_\+\+R\+E\+S\+E\+T\+\_\+\+T\+H\+R\+E\+S\+H\+O\+L\+D\+\_\+\+T\+I\+C\+KS, Button\+::hold\+Duration(), Mode\+::init(), Menu\+::leave\+Menu(), Vortex\+Engine\+::leds(), Menu\+::m\+\_\+advanced, Menu\+::m\+\_\+cur\+Selection, Menu\+::m\+\_\+engine, Menu\+::m\+\_\+target\+Leds, Vortex\+Engine\+::modes(), M\+S\+\_\+\+T\+O\+\_\+\+T\+I\+C\+KS, default\+\_\+mode\+\_\+entry\+::num\+Colors, default\+\_\+mode\+\_\+entry\+::pattern\+ID, Modes\+::reset\+Flags(), Vortex\+Engine\+::set\+Auto\+Cycle(), Leds\+::set\+Brightness(), Modes\+::set\+Cur\+Mode(), Modes\+::set\+Defaults(), and Mode\+::set\+Pattern\+Map().
+References Vortex\+Engine\+::button(), default\+\_\+mode\+\_\+entry\+::cols, Modes\+::cur\+Mode(), Modes\+::cur\+Mode\+Index(), DEFAULT\+\_\+\+BRIGHTNESS, default\+\_\+modes, FACTORY\+\_\+\+RESET\+\_\+\+THRESHOLD\+\_\+\+TICKS, Button\+::hold\+Duration(), Mode\+::init(), Menu\+::leave\+Menu(), Vortex\+Engine\+::leds(), Menu\+::m\+\_\+advanced, Menu\+::m\+\_\+cur\+Selection, Menu\+::m\+\_\+engine, Menu\+::m\+\_\+target\+Leds, Vortex\+Engine\+::modes(), MS\+\_\+\+TO\+\_\+\+TICKS, default\+\_\+mode\+\_\+entry\+::num\+Colors, default\+\_\+mode\+\_\+entry\+::pattern\+ID, Modes\+::reset\+Flags(), Vortex\+Engine\+::set\+Auto\+Cycle(), Leds\+::set\+Brightness(), Modes\+::set\+Cur\+Mode(), Modes\+::set\+Defaults(), and Mode\+::set\+Pattern\+Map().
 
 \mbox{\Hypertarget{classFactoryReset_ade67dba03cdbab9d7cb09b78357e299b}\label{classFactoryReset_ade67dba03cdbab9d7cb09b78357e299b}} 
 \index{FactoryReset@{FactoryReset}!onShortClick@{onShortClick}}
@@ -235,7 +242,7 @@ Definition at line 52 of file Factory\+Reset.\+cpp.
 \end{DoxyCode}
 
 
-References Menu\+::\+M\+E\+N\+U\+\_\+\+C\+O\+N\+T\+I\+N\+UE, Menu\+::run(), and show\+Reset().
+References Menu\+::\+MENU\+\_\+\+CONTINUE, Menu\+::run(), and show\+Reset().
 
 \mbox{\Hypertarget{classFactoryReset_aef67b200c0630aba2f5c37d15c5d5a97}\label{classFactoryReset_aef67b200c0630aba2f5c37d15c5d5a97}} 
 \index{FactoryReset@{FactoryReset}!showReset@{showReset}}
@@ -267,7 +274,7 @@ Definition at line 99 of file Factory\+Reset.\+cpp.
 \DoxyCodeLine{115     \textcolor{keywordflow}{return};}
 \DoxyCodeLine{116   \}}
 \DoxyCodeLine{117   uint16\_t progress = ((holdDur * 100) / \mbox{\hyperlink{Timings_8h_a17f3a90cc9ef4f627d73c95f69ccbcbd}{FACTORY\_RESET\_THRESHOLD\_TICKS}});}
-\DoxyCodeLine{118   \mbox{\hyperlink{Log_8h_a8bdccae09f7cdda8fb311e0bd81c35dc}{DEBUG\_LOGF}}(\textcolor{stringliteral}{"progress: \%d"}, progress);}
+\DoxyCodeLine{118   \mbox{\hyperlink{Log_8h_a8bdccae09f7cdda8fb311e0bd81c35dc}{DEBUG\_LOGF}}(\textcolor{stringliteral}{"{}progress: \%d"{}}, progress);}
 \DoxyCodeLine{119   \textcolor{keywordflow}{if} (progress >= 100) \{}
 \DoxyCodeLine{120     \mbox{\hyperlink{classMenu_a6cf289bf5f0ea0b53718893a72442a68}{m\_engine}}.\mbox{\hyperlink{classVortexEngine_a6db4e68fe048d9ff0fbb15cc126f28fb}{leds}}().\mbox{\hyperlink{classLeds_a4543ff3cbf57aa0da33b86b5d6f56007}{setAll}}(\mbox{\hyperlink{ColorConstants_8h_ac1771f95d9887118764bd8a074e537e1}{RGB\_WHITE}});}
 \DoxyCodeLine{121     \textcolor{keywordflow}{return};}
@@ -282,7 +289,7 @@ Definition at line 99 of file Factory\+Reset.\+cpp.
 \end{DoxyCode}
 
 
-References Leds\+::blink\+All(), Vortex\+Engine\+::button(), Leds\+::clear\+All(), D\+E\+B\+U\+G\+\_\+\+L\+O\+GF, F\+A\+C\+T\+O\+R\+Y\+\_\+\+R\+E\+S\+E\+T\+\_\+\+T\+H\+R\+E\+S\+H\+O\+L\+D\+\_\+\+T\+I\+C\+KS, Button\+::hold\+Duration(), Button\+::is\+Pressed(), Vortex\+Engine\+::leds(), Menu\+::m\+\_\+cur\+Selection, Menu\+::m\+\_\+engine, M\+S\+\_\+\+T\+O\+\_\+\+T\+I\+C\+KS, R\+G\+B\+\_\+\+R\+E\+D4, R\+G\+B\+\_\+\+W\+H\+I\+TE, R\+G\+B\+\_\+\+W\+H\+I\+T\+E0, and Leds\+::set\+All().
+References Leds\+::blink\+All(), Vortex\+Engine\+::button(), Leds\+::clear\+All(), DEBUG\+\_\+\+LOGF, FACTORY\+\_\+\+RESET\+\_\+\+THRESHOLD\+\_\+\+TICKS, Button\+::hold\+Duration(), Button\+::is\+Pressed(), Vortex\+Engine\+::leds(), Menu\+::m\+\_\+cur\+Selection, Menu\+::m\+\_\+engine, MS\+\_\+\+TO\+\_\+\+TICKS, RGB\+\_\+\+RED4, RGB\+\_\+\+WHITE, RGB\+\_\+\+WHITE0, and Leds\+::set\+All().
 
 
 

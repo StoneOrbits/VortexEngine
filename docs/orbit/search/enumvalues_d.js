@@ -1,16 +1,11 @@
 var searchData=
 [
-  ['randomize_5fboth_2900',['RANDOMIZE_BOTH',['../classRandomizer.html#a284ed130367e4cf0914f77fc3f7a155eab8df70cbcb518bbcbee073dc080d6dd2',1,'Randomizer']]],
-  ['randomize_5fcolorset_2901',['RANDOMIZE_COLORSET',['../classRandomizer.html#a284ed130367e4cf0914f77fc3f7a155eada798a9ab10cbdbf591fe865575add29',1,'Randomizer']]],
-  ['randomize_5fnone_2902',['RANDOMIZE_NONE',['../classRandomizer.html#a284ed130367e4cf0914f77fc3f7a155ea66875a6a6b78464cd75164ad62f95872',1,'Randomizer']]],
-  ['randomize_5fpattern_2903',['RANDOMIZE_PATTERN',['../classRandomizer.html#a284ed130367e4cf0914f77fc3f7a155ea597c86ce6a0203fd3e712bbad0240a3e',1,'Randomizer']]],
-  ['reading_5fdata_5fmark_2904',['READING_DATA_MARK',['../classIRReceiver.html#a56148488dd4f2a403202a0467b4940b9a821fa6d4dd086c1aef792ee19dc9857b',1,'IRReceiver']]],
-  ['reading_5fdata_5fspace_2905',['READING_DATA_SPACE',['../classIRReceiver.html#a56148488dd4f2a403202a0467b4940b9a37b0cc5cf63cb62eb144be82420875f0',1,'IRReceiver']]],
-  ['ring_5f1_2906',['RING_1',['../LedTypes_8h.html#a24c6950661e5126485873539625be1b3ab4d82dad46d78507dccbc6e6e9aa6fb1',1,'LedTypes.h']]],
-  ['ring_5f2_2907',['RING_2',['../LedTypes_8h.html#a24c6950661e5126485873539625be1b3a358e13c299053a753852e5494e5872cb',1,'LedTypes.h']]],
-  ['ring_5f3_2908',['RING_3',['../LedTypes_8h.html#a24c6950661e5126485873539625be1b3afe56393a1a27beef66587f60bf750851',1,'LedTypes.h']]],
-  ['ring_5f4_2909',['RING_4',['../LedTypes_8h.html#a24c6950661e5126485873539625be1b3a02de7a7642c0c0813980ae65d221348e',1,'LedTypes.h']]],
-  ['ring_5fcount_2910',['RING_COUNT',['../LedTypes_8h.html#a24c6950661e5126485873539625be1b3ac3774c43a898a445b1da757c79b878ac',1,'LedTypes.h']]],
-  ['ring_5ffirst_2911',['RING_FIRST',['../LedTypes_8h.html#a24c6950661e5126485873539625be1b3a7800dfb5dfc048b93c7a181a684f8505',1,'LedTypes.h']]],
-  ['ring_5flast_2912',['RING_LAST',['../LedTypes_8h.html#a24c6950661e5126485873539625be1b3ab17fcf52612cf3d1f0cacdcee1aecec8',1,'LedTypes.h']]]
+  ['quadrant_5f1_3297',['QUADRANT_1',['../LedTypes_8h.html#ac3213859704678ff234b435c290cd9eda481a008cf4ea50cc136d2ad735b1f863',1,'LedTypes.h']]],
+  ['quadrant_5f2_3298',['QUADRANT_2',['../LedTypes_8h.html#ac3213859704678ff234b435c290cd9edaca7c6484d8acb010166ebb615a30abcf',1,'LedTypes.h']]],
+  ['quadrant_5f3_3299',['QUADRANT_3',['../LedTypes_8h.html#ac3213859704678ff234b435c290cd9eda0345b6f696638d06adfe51a8765b372b',1,'LedTypes.h']]],
+  ['quadrant_5f4_3300',['QUADRANT_4',['../LedTypes_8h.html#ac3213859704678ff234b435c290cd9eda217f462d19ea17c21479f1f4561af804',1,'LedTypes.h']]],
+  ['quadrant_5f5_3301',['QUADRANT_5',['../LedTypes_8h.html#ac3213859704678ff234b435c290cd9edae4f6676acb00953e2107378a2325451c',1,'LedTypes.h']]],
+  ['quadrant_5fcount_3302',['QUADRANT_COUNT',['../LedTypes_8h.html#ac3213859704678ff234b435c290cd9eda8ba2e539519ac3ed14f9a7782aac21b5',1,'LedTypes.h']]],
+  ['quadrant_5ffirst_3303',['QUADRANT_FIRST',['../LedTypes_8h.html#ac3213859704678ff234b435c290cd9edac9aa97115cc05dfe2644dc54810c9dd1',1,'LedTypes.h']]],
+  ['quadrant_5flast_3304',['QUADRANT_LAST',['../LedTypes_8h.html#ac3213859704678ff234b435c290cd9eda6e7ff8ff64a5fe251b90ef39d30be65b',1,'LedTypes.h']]]
 ];

@@ -6,7 +6,8 @@
 
 
 
-Inheritance diagram for Menu\+:\nopagebreak
+Inheritance diagram for Menu\+:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -15,7 +16,8 @@ Inheritance diagram for Menu\+:\nopagebreak
 \end{figure}
 
 
-Collaboration diagram for Menu\+:\nopagebreak
+Collaboration diagram for Menu\+:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -25,15 +27,15 @@ Collaboration diagram for Menu\+:\nopagebreak
 \doxysubsection*{Public Types}
 \begin{DoxyCompactItemize}
 \item 
-enum \mbox{\hyperlink{classMenu_ad24d35b191e44e1b2bc81633d83df4ff}{Menu\+Action}} \+: uint8\+\_\+t \{ \mbox{\hyperlink{classMenu_ad24d35b191e44e1b2bc81633d83df4ffa3850044a30cc507f35adce781faf3693}{M\+E\+N\+U\+\_\+\+Q\+U\+IT}}, 
-\mbox{\hyperlink{classMenu_ad24d35b191e44e1b2bc81633d83df4ffaf3d88dcb06634cba00876a7d78cb0b22}{M\+E\+N\+U\+\_\+\+C\+O\+N\+T\+I\+N\+UE}}, 
-\mbox{\hyperlink{classMenu_ad24d35b191e44e1b2bc81633d83df4ffab2293aaedd6c65bea5f8d6c8dd811598}{M\+E\+N\+U\+\_\+\+S\+K\+IP}}
+enum \mbox{\hyperlink{classMenu_ad24d35b191e44e1b2bc81633d83df4ff}{Menu\+Action}} \+: uint8\+\_\+t \{ \mbox{\hyperlink{classMenu_ad24d35b191e44e1b2bc81633d83df4ffa3850044a30cc507f35adce781faf3693}{MENU\+\_\+\+QUIT}}
+, \mbox{\hyperlink{classMenu_ad24d35b191e44e1b2bc81633d83df4ffaf3d88dcb06634cba00876a7d78cb0b22}{MENU\+\_\+\+CONTINUE}}
+, \mbox{\hyperlink{classMenu_ad24d35b191e44e1b2bc81633d83df4ffab2293aaedd6c65bea5f8d6c8dd811598}{MENU\+\_\+\+SKIP}}
  \}
 \end{DoxyCompactItemize}
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{classMenu_a7227170bc9fb45617828b755317156a3}{Menu}} (const \mbox{\hyperlink{classRGBColor}{R\+G\+B\+Color}} \&col, bool advanced)
+\mbox{\hyperlink{classMenu_a7227170bc9fb45617828b755317156a3}{Menu}} (const \mbox{\hyperlink{classRGBColor}{RGBColor}} \&col, bool advanced)
 \item 
 virtual \mbox{\hyperlink{classMenu_a831387f51358cfb88cd018e1777bc980}{$\sim$\+Menu}} ()
 \item 
@@ -65,7 +67,7 @@ virtual bool \mbox{\hyperlink{classMenu_a855d557fbaaf91b7444bef908929591d}{is\+V
 \item 
 \mbox{\hyperlink{classMode}{Mode}} \mbox{\hyperlink{classMenu_ac8a829f4f7405393db1c8729828494e4}{m\+\_\+preview\+Mode}}
 \item 
-\mbox{\hyperlink{classRGBColor}{R\+G\+B\+Color}} \mbox{\hyperlink{classMenu_afe0e1650a47d09300ec8cf25aaa8331a}{m\+\_\+menu\+Color}}
+\mbox{\hyperlink{classRGBColor}{RGBColor}} \mbox{\hyperlink{classMenu_afe0e1650a47d09300ec8cf25aaa8331a}{m\+\_\+menu\+Color}}
 \item 
 \mbox{\hyperlink{LedTypes_8h_adedc81525af6b15084e05deff607a32d}{Led\+Map}} \mbox{\hyperlink{classMenu_ab2586ae2b8c777db240885bd000ea57d}{m\+\_\+target\+Leds}}
 \item 
@@ -98,15 +100,15 @@ Definition at line 10 of file Menu.\+h.
 
 \begin{DoxyEnumFields}{Enumerator}
 \raisebox{\heightof{T}}[0pt][0pt]{\index{MENU\_QUIT@{MENU\_QUIT}!Menu@{Menu}}\index{Menu@{Menu}!MENU\_QUIT@{MENU\_QUIT}}}\mbox{\Hypertarget{classMenu_ad24d35b191e44e1b2bc81633d83df4ffa3850044a30cc507f35adce781faf3693}\label{classMenu_ad24d35b191e44e1b2bc81633d83df4ffa3850044a30cc507f35adce781faf3693}} 
-M\+E\+N\+U\+\_\+\+Q\+U\+IT&\\
+MENU\+\_\+\+QUIT&\\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{MENU\_CONTINUE@{MENU\_CONTINUE}!Menu@{Menu}}\index{Menu@{Menu}!MENU\_CONTINUE@{MENU\_CONTINUE}}}\mbox{\Hypertarget{classMenu_ad24d35b191e44e1b2bc81633d83df4ffaf3d88dcb06634cba00876a7d78cb0b22}\label{classMenu_ad24d35b191e44e1b2bc81633d83df4ffaf3d88dcb06634cba00876a7d78cb0b22}} 
-M\+E\+N\+U\+\_\+\+C\+O\+N\+T\+I\+N\+UE&\\
+MENU\+\_\+\+CONTINUE&\\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{MENU\_SKIP@{MENU\_SKIP}!Menu@{Menu}}\index{Menu@{Menu}!MENU\_SKIP@{MENU\_SKIP}}}\mbox{\Hypertarget{classMenu_ad24d35b191e44e1b2bc81633d83df4ffab2293aaedd6c65bea5f8d6c8dd811598}\label{classMenu_ad24d35b191e44e1b2bc81633d83df4ffab2293aaedd6c65bea5f8d6c8dd811598}} 
-M\+E\+N\+U\+\_\+\+S\+K\+IP&\\
+MENU\+\_\+\+SKIP&\\
 \hline
 
 \end{DoxyEnumFields}
@@ -134,7 +136,7 @@ Definition at line 19 of file Menu.\+h.
 \index{Menu@{Menu}!Menu@{Menu}}
 \index{Menu@{Menu}!Menu@{Menu}}
 \doxysubsubsection{\texorpdfstring{Menu()}{Menu()}}
-{\footnotesize\ttfamily Menu\+::\+Menu (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classRGBColor}{R\+G\+B\+Color}} \&}]{col,  }\item[{bool}]{advanced }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily Menu\+::\+Menu (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classRGBColor}{RGBColor}} \&}]{col,  }\item[{bool}]{advanced }\end{DoxyParamCaption})}
 
 
 
@@ -149,7 +151,7 @@ Definition at line 12 of file Menu.\+cpp.
 \DoxyCodeLine{16   \mbox{\hyperlink{classMenu_aeb313423fa52e4c1940785456b70cd7a}{m\_curSelection}}(0),}
 \DoxyCodeLine{17   \mbox{\hyperlink{classMenu_a2ccb6eafbf5e2396785d3c48d6741fb4}{m\_ledSelected}}(\textcolor{keyword}{false}),}
 \DoxyCodeLine{18   \mbox{\hyperlink{classMenu_ad084e8bd2245c147f52567d4406641bd}{m\_advanced}}(advanced),}
-\DoxyCodeLine{19   \mbox{\hyperlink{classMenu_a145ce4672bd57b3a5123031a490ba224}{m\_shouldClose}}(\textcolor{keyword}{false})}
+\DoxyCodeLine{19   \mbox{\hyperlink{classMenu_a145ce4672bd57b3a5123031a490ba224}{m\_shouldClose}}(\textcolor{keyword}{false})}
 \DoxyCodeLine{20 \{}
 \DoxyCodeLine{21 \}}
 
@@ -181,7 +183,7 @@ Definition at line 23 of file Menu.\+cpp.
 
 
 
-Reimplemented in \mbox{\hyperlink{classRandomizer_af2f999705ed6c646ffe31006753481ba}{Randomizer}}, \mbox{\hyperlink{classEditorConnection_aa2536edad0ed3953d4b994a353cd0320}{Editor\+Connection}}, \mbox{\hyperlink{classPatternSelect_a68aeb189ee268a6261023a1b89289e68}{Pattern\+Select}}, \mbox{\hyperlink{classColorSelect_a18b476ecc26286973828375444944844}{Color\+Select}}, \mbox{\hyperlink{classFactoryReset_a9c9194fecdf1553c3e26c2cb222a6ef8}{Factory\+Reset}}, \mbox{\hyperlink{classGlobalBrightness_abc956eaf700b1c00c626f595b131d66e}{Global\+Brightness}}, and \mbox{\hyperlink{classModeSharing_a9f1473717a62b4ede1a3fe782b8a260d}{Mode\+Sharing}}.
+Reimplemented in \mbox{\hyperlink{classRandomizer_af2f999705ed6c646ffe31006753481ba}{Randomizer}}, \mbox{\hyperlink{classPatternSelect_a68aeb189ee268a6261023a1b89289e68}{Pattern\+Select}}, \mbox{\hyperlink{classModeSharing_a9f1473717a62b4ede1a3fe782b8a260d}{Mode\+Sharing}}, \mbox{\hyperlink{classGlobalBrightness_abc956eaf700b1c00c626f595b131d66e}{Global\+Brightness}}, \mbox{\hyperlink{classFactoryReset_a9c9194fecdf1553c3e26c2cb222a6ef8}{Factory\+Reset}}, \mbox{\hyperlink{classEditorConnection_aa2536edad0ed3953d4b994a353cd0320}{Editor\+Connection}}, and \mbox{\hyperlink{classColorSelect_a18b476ecc26286973828375444944844}{Color\+Select}}.
 
 
 
@@ -217,11 +219,11 @@ Definition at line 27 of file Menu.\+cpp.
 \end{DoxyCode}
 
 
-References Modes\+::add\+Mode(), Modes\+::cur\+Mode(), Mode\+::init(), m\+\_\+preview\+Mode, m\+\_\+should\+Close, Modes\+::num\+Modes(), P\+A\+T\+T\+E\+R\+N\+\_\+\+S\+T\+R\+O\+BE, and R\+G\+B\+\_\+\+O\+FF.
+References Modes\+::add\+Mode(), Modes\+::cur\+Mode(), Mode\+::init(), m\+\_\+preview\+Mode, m\+\_\+should\+Close, Modes\+::num\+Modes(), PATTERN\+\_\+\+STROBE, and RGB\+\_\+\+OFF.
 
 
 
-Referenced by Factory\+Reset\+::init(), Global\+Brightness\+::init(), Mode\+Sharing\+::init(), Color\+Select\+::init(), Editor\+Connection\+::init(), Pattern\+Select\+::init(), Randomizer\+::init(), and Menus\+::open\+Menu().
+Referenced by Color\+Select\+::init(), Editor\+Connection\+::init(), Factory\+Reset\+::init(), Global\+Brightness\+::init(), Mode\+Sharing\+::init(), Pattern\+Select\+::init(), Randomizer\+::init(), and Menus\+::open\+Menu().
 
 \mbox{\Hypertarget{classMenu_a855d557fbaaf91b7444bef908929591d}\label{classMenu_a855d557fbaaf91b7444bef908929591d}} 
 \index{Menu@{Menu}!isValidLedSelection@{isValidLedSelection}}
@@ -276,7 +278,7 @@ References m\+\_\+should\+Close, and Modes\+::save\+Storage().
 
 
 
-Referenced by Editor\+Connection\+::leave\+Menu(), Factory\+Reset\+::on\+Long\+Click(), Global\+Brightness\+::on\+Long\+Click(), Mode\+Sharing\+::on\+Long\+Click(), Randomizer\+::on\+Long\+Click(), Color\+Select\+::on\+Long\+Click(), Pattern\+Select\+::on\+Long\+Click(), on\+Long\+Click(), and Mode\+Sharing\+::receive\+Mode\+I\+R().
+Referenced by Editor\+Connection\+::leave\+Menu(), on\+Long\+Click(), Color\+Select\+::on\+Long\+Click(), Factory\+Reset\+::on\+Long\+Click(), Global\+Brightness\+::on\+Long\+Click(), Mode\+Sharing\+::on\+Long\+Click(), Pattern\+Select\+::on\+Long\+Click(), Randomizer\+::on\+Long\+Click(), and Mode\+Sharing\+::receive\+Mode\+IR().
 
 \mbox{\Hypertarget{classMenu_a2f75413684df37d5e11e03451addd65f}\label{classMenu_a2f75413684df37d5e11e03451addd65f}} 
 \index{Menu@{Menu}!nextBulbSelection@{nextBulbSelection}}
@@ -329,7 +331,7 @@ Definition at line 125 of file Menu.\+cpp.
 \end{DoxyCode}
 
 
-References Modes\+::cur\+Mode(), Mode\+::is\+Multi\+Led(), L\+E\+D\+\_\+\+C\+O\+U\+NT, L\+E\+D\+\_\+\+F\+I\+R\+ST, L\+E\+D\+\_\+\+L\+A\+ST, L\+E\+D\+\_\+\+M\+U\+L\+TI, ledmap\+Get\+First\+Led(), m\+\_\+target\+Leds, M\+A\+P\+\_\+\+L\+ED, M\+A\+P\+\_\+\+L\+E\+D\+\_\+\+A\+LL, M\+A\+P\+\_\+\+P\+A\+I\+R\+\_\+\+E\+V\+E\+NS, and M\+A\+P\+\_\+\+P\+A\+I\+R\+\_\+\+O\+D\+DS.
+References Modes\+::cur\+Mode(), Mode\+::is\+Multi\+Led(), LED\+\_\+\+COUNT, LED\+\_\+\+FIRST, LED\+\_\+\+LAST, LED\+\_\+\+MULTI, ledmap\+Get\+First\+Led(), m\+\_\+target\+Leds, MAP\+\_\+\+LED, MAP\+\_\+\+LED\+\_\+\+ALL, MAP\+\_\+\+PAIR\+\_\+\+EVENS, and MAP\+\_\+\+PAIR\+\_\+\+ODDS.
 
 
 
@@ -367,7 +369,7 @@ Referenced by run().
 
 
 
-Reimplemented in \mbox{\hyperlink{classEditorConnection_ae2abe22c58ab557a1c4ada9c9ec6e58f}{Editor\+Connection}}, \mbox{\hyperlink{classPatternSelect_a4fb519f51d4370737d92880917dda79a}{Pattern\+Select}}, \mbox{\hyperlink{classColorSelect_af6c4b0cb16d3e2d6a4bcbbd79b5907ff}{Color\+Select}}, \mbox{\hyperlink{classRandomizer_a238dc0d614d87458d0706be9de26f742}{Randomizer}}, \mbox{\hyperlink{classFactoryReset_a4444f4ac79061c07b9e6c14c44e7a65c}{Factory\+Reset}}, \mbox{\hyperlink{classGlobalBrightness_a9d4c553bf95caecfcd8c881b46b68976}{Global\+Brightness}}, and \mbox{\hyperlink{classModeSharing_ae442e6e009d96e0a618c130ca45b66b1}{Mode\+Sharing}}.
+Reimplemented in \mbox{\hyperlink{classRandomizer_a238dc0d614d87458d0706be9de26f742}{Randomizer}}, \mbox{\hyperlink{classPatternSelect_a4fb519f51d4370737d92880917dda79a}{Pattern\+Select}}, \mbox{\hyperlink{classModeSharing_ae442e6e009d96e0a618c130ca45b66b1}{Mode\+Sharing}}, \mbox{\hyperlink{classGlobalBrightness_a9d4c553bf95caecfcd8c881b46b68976}{Global\+Brightness}}, \mbox{\hyperlink{classFactoryReset_a4444f4ac79061c07b9e6c14c44e7a65c}{Factory\+Reset}}, \mbox{\hyperlink{classEditorConnection_ae2abe22c58ab557a1c4ada9c9ec6e58f}{Editor\+Connection}}, and \mbox{\hyperlink{classColorSelect_af6c4b0cb16d3e2d6a4bcbbd79b5907ff}{Color\+Select}}.
 
 
 
@@ -396,7 +398,7 @@ Referenced by Menus\+::run\+Cur\+Menu().
 
 
 
-Reimplemented in \mbox{\hyperlink{classEditorConnection_a4cab09fcac77a0326fb54d65d18b963e}{Editor\+Connection}}, \mbox{\hyperlink{classPatternSelect_a968d77ec34c46fb2b03bbf85aebe3aaf}{Pattern\+Select}}, \mbox{\hyperlink{classColorSelect_a64e506c095e3dea194c3f570d52e5519}{Color\+Select}}, \mbox{\hyperlink{classRandomizer_a3dd0dc5eb4b0722f297eb9ebdecfa13a}{Randomizer}}, \mbox{\hyperlink{classFactoryReset_ade67dba03cdbab9d7cb09b78357e299b}{Factory\+Reset}}, \mbox{\hyperlink{classGlobalBrightness_a768968db9f44b239023891fd2326660d}{Global\+Brightness}}, and \mbox{\hyperlink{classModeSharing_aa5ff26439d03402077b06a3af55f68c9}{Mode\+Sharing}}.
+Reimplemented in \mbox{\hyperlink{classRandomizer_a3dd0dc5eb4b0722f297eb9ebdecfa13a}{Randomizer}}, \mbox{\hyperlink{classPatternSelect_a968d77ec34c46fb2b03bbf85aebe3aaf}{Pattern\+Select}}, \mbox{\hyperlink{classModeSharing_aa5ff26439d03402077b06a3af55f68c9}{Mode\+Sharing}}, \mbox{\hyperlink{classGlobalBrightness_a768968db9f44b239023891fd2326660d}{Global\+Brightness}}, \mbox{\hyperlink{classFactoryReset_ade67dba03cdbab9d7cb09b78357e299b}{Factory\+Reset}}, \mbox{\hyperlink{classEditorConnection_a4cab09fcac77a0326fb54d65d18b963e}{Editor\+Connection}}, and \mbox{\hyperlink{classColorSelect_a64e506c095e3dea194c3f570d52e5519}{Color\+Select}}.
 
 
 
@@ -420,7 +422,7 @@ Referenced by Menus\+::run\+Cur\+Menu().
 
 
 
-Reimplemented in \mbox{\hyperlink{classRandomizer_ad676d78ec0f18e78340c335f6b3cfa11}{Randomizer}}, \mbox{\hyperlink{classEditorConnection_af634ec7181239c80d02e5f7d7f2ad308}{Editor\+Connection}}, \mbox{\hyperlink{classPatternSelect_a83e663abcad2ca3049dcd407108b4258}{Pattern\+Select}}, \mbox{\hyperlink{classColorSelect_abe72716659bd20493c6d81ad5c582d2f}{Color\+Select}}, \mbox{\hyperlink{classFactoryReset_a969d554fb5e11ee2cb5d3e43cfaef274}{Factory\+Reset}}, \mbox{\hyperlink{classGlobalBrightness_a383c77164792d56792f56a48b6db15e8}{Global\+Brightness}}, and \mbox{\hyperlink{classModeSharing_adf4425210b3945561a2ca1a6b2b165a3}{Mode\+Sharing}}.
+Reimplemented in \mbox{\hyperlink{classRandomizer_ad676d78ec0f18e78340c335f6b3cfa11}{Randomizer}}, \mbox{\hyperlink{classPatternSelect_a83e663abcad2ca3049dcd407108b4258}{Pattern\+Select}}, \mbox{\hyperlink{classModeSharing_adf4425210b3945561a2ca1a6b2b165a3}{Mode\+Sharing}}, \mbox{\hyperlink{classGlobalBrightness_a383c77164792d56792f56a48b6db15e8}{Global\+Brightness}}, \mbox{\hyperlink{classFactoryReset_a969d554fb5e11ee2cb5d3e43cfaef274}{Factory\+Reset}}, \mbox{\hyperlink{classEditorConnection_af634ec7181239c80d02e5f7d7f2ad308}{Editor\+Connection}}, and \mbox{\hyperlink{classColorSelect_abe72716659bd20493c6d81ad5c582d2f}{Color\+Select}}.
 
 
 
@@ -458,10 +460,10 @@ Definition at line 53 of file Menu.\+cpp.
 \DoxyCodeLine{81     \textcolor{comment}{// call led selected callback}}
 \DoxyCodeLine{82     \mbox{\hyperlink{classMenu_af8614529ac11d563d9025c3905834b05}{onLedSelected}}();}
 \DoxyCodeLine{83     \textcolor{comment}{// log about the selection}}
-\DoxyCodeLine{84     \mbox{\hyperlink{Log_8h_a8bdccae09f7cdda8fb311e0bd81c35dc}{DEBUG\_LOGF}}(\textcolor{stringliteral}{"Led Selected: 0x\%x (\%s)"}, \mbox{\hyperlink{classMenu_ab2586ae2b8c777db240885bd000ea57d}{m\_targetLeds}},}
-\DoxyCodeLine{85       (\mbox{\hyperlink{classMenu_ab2586ae2b8c777db240885bd000ea57d}{m\_targetLeds}} == \mbox{\hyperlink{LedTypes_8h_ae3e48bdbee97fcc922ac8a9f4c8cf8fa}{MAP\_LED}}(\mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2ca2132b8a8565f61fc6b6ea5ff1f32132e}{LED\_MULTI}})) ? \textcolor{stringliteral}{"multi"}}
-\DoxyCodeLine{86         : (\mbox{\hyperlink{classMenu_ab2586ae2b8c777db240885bd000ea57d}{m\_targetLeds}} == \mbox{\hyperlink{LedTypes_8h_ac9a910b2dc4fabac704e56a0fcb3b97e}{MAP\_LED\_ALL}}) ? \textcolor{stringliteral}{"all"}}
-\DoxyCodeLine{87           : \textcolor{stringliteral}{"some singles"});}
+\DoxyCodeLine{84     \mbox{\hyperlink{Log_8h_a8bdccae09f7cdda8fb311e0bd81c35dc}{DEBUG\_LOGF}}(\textcolor{stringliteral}{"{}Led Selected: 0x\%x (\%s)"{}}, \mbox{\hyperlink{classMenu_ab2586ae2b8c777db240885bd000ea57d}{m\_targetLeds}},}
+\DoxyCodeLine{85       (\mbox{\hyperlink{classMenu_ab2586ae2b8c777db240885bd000ea57d}{m\_targetLeds}} == \mbox{\hyperlink{LedTypes_8h_ae3e48bdbee97fcc922ac8a9f4c8cf8fa}{MAP\_LED}}(\mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2ca2132b8a8565f61fc6b6ea5ff1f32132e}{LED\_MULTI}})) ? \textcolor{stringliteral}{"{}multi"{}}}
+\DoxyCodeLine{86         : (\mbox{\hyperlink{classMenu_ab2586ae2b8c777db240885bd000ea57d}{m\_targetLeds}} == \mbox{\hyperlink{LedTypes_8h_ac9a910b2dc4fabac704e56a0fcb3b97e}{MAP\_LED\_ALL}}) ? \textcolor{stringliteral}{"{}all"{}}}
+\DoxyCodeLine{87           : \textcolor{stringliteral}{"{}some singles"{}});}
 \DoxyCodeLine{88   \}}
 \DoxyCodeLine{89 }
 \DoxyCodeLine{90   \textcolor{comment}{// render the bulb selection}}
@@ -476,11 +478,11 @@ Definition at line 53 of file Menu.\+cpp.
 \end{DoxyCode}
 
 
-References D\+E\+B\+U\+G\+\_\+\+L\+O\+GF, g\+\_\+p\+Button, is\+Valid\+Led\+Selection(), L\+E\+D\+\_\+\+M\+U\+L\+TI, m\+\_\+led\+Selected, m\+\_\+should\+Close, m\+\_\+target\+Leds, M\+A\+P\+\_\+\+L\+ED, M\+A\+P\+\_\+\+L\+E\+D\+\_\+\+A\+LL, M\+E\+N\+U\+\_\+\+C\+O\+N\+T\+I\+N\+UE, M\+E\+N\+U\+\_\+\+Q\+U\+IT, M\+E\+N\+U\+\_\+\+S\+K\+IP, next\+Bulb\+Selection(), on\+Led\+Selected(), Button\+::on\+Long\+Click(), Button\+::on\+Short\+Click(), and show\+Bulb\+Selection().
+References DEBUG\+\_\+\+LOGF, g\+\_\+p\+Button, is\+Valid\+Led\+Selection(), LED\+\_\+\+MULTI, m\+\_\+led\+Selected, m\+\_\+should\+Close, m\+\_\+target\+Leds, MAP\+\_\+\+LED, MAP\+\_\+\+LED\+\_\+\+ALL, MENU\+\_\+\+CONTINUE, MENU\+\_\+\+QUIT, MENU\+\_\+\+SKIP, next\+Bulb\+Selection(), on\+Led\+Selected(), Button\+::on\+Long\+Click(), Button\+::on\+Short\+Click(), and show\+Bulb\+Selection().
 
 
 
-Referenced by Factory\+Reset\+::run(), Global\+Brightness\+::run(), Mode\+Sharing\+::run(), Color\+Select\+::run(), Editor\+Connection\+::run(), Pattern\+Select\+::run(), Randomizer\+::run(), and Menus\+::run\+Cur\+Menu().
+Referenced by Color\+Select\+::run(), Editor\+Connection\+::run(), Factory\+Reset\+::run(), Global\+Brightness\+::run(), Mode\+Sharing\+::run(), Pattern\+Select\+::run(), Randomizer\+::run(), and Menus\+::run\+Cur\+Menu().
 
 \mbox{\Hypertarget{classMenu_a9282eb359af69108f57e8de7f41e4195}\label{classMenu_a9282eb359af69108f57e8de7f41e4195}} 
 \index{Menu@{Menu}!showBulbSelection@{showBulbSelection}}
@@ -511,7 +513,7 @@ Definition at line 99 of file Menu.\+cpp.
 \end{DoxyCode}
 
 
-References Leds\+::blink\+Index\+Offset(), Leds\+::blink\+Map(), R\+G\+B\+Color\+::blue, B\+U\+L\+B\+\_\+\+S\+E\+L\+E\+C\+T\+\_\+\+O\+F\+F\+\_\+\+MS, B\+U\+L\+B\+\_\+\+S\+E\+L\+E\+C\+T\+\_\+\+O\+N\+\_\+\+MS, Leds\+::clear\+All(), Time\+::get\+Curtime(), R\+G\+B\+Color\+::green, L\+E\+D\+\_\+\+C\+O\+U\+NT, L\+E\+D\+\_\+\+M\+U\+L\+TI, m\+\_\+menu\+Color, m\+\_\+target\+Leds, M\+A\+P\+\_\+\+L\+ED, R\+G\+B\+Color\+::red, and Menus\+::show\+Selection().
+References Leds\+::blink\+Index\+Offset(), Leds\+::blink\+Map(), RGBColor\+::blue, BULB\+\_\+\+SELECT\+\_\+\+OFF\+\_\+\+MS, BULB\+\_\+\+SELECT\+\_\+\+ON\+\_\+\+MS, Leds\+::clear\+All(), Time\+::get\+Curtime(), RGBColor\+::green, LED\+\_\+\+COUNT, LED\+\_\+\+MULTI, m\+\_\+menu\+Color, m\+\_\+target\+Leds, MAP\+\_\+\+LED, RGBColor\+::red, and Menus\+::show\+Selection().
 
 
 
@@ -542,7 +544,7 @@ Definition at line 114 of file Menu.\+cpp.
 \end{DoxyCode}
 
 
-References Leds\+::blink\+All(), Leds\+::clear\+All(), E\+X\+I\+T\+\_\+\+M\+E\+N\+U\+\_\+\+O\+F\+F\+\_\+\+MS, E\+X\+I\+T\+\_\+\+M\+E\+N\+U\+\_\+\+O\+N\+\_\+\+MS, g\+\_\+p\+Button, Button\+::hold\+Duration(), Button\+::is\+Pressed(), R\+G\+B\+\_\+\+R\+ED, R\+G\+B\+\_\+\+R\+E\+D0, R\+G\+B\+\_\+\+W\+H\+I\+T\+E0, Leds\+::set\+All(), and S\+H\+O\+R\+T\+\_\+\+C\+L\+I\+C\+K\+\_\+\+T\+H\+R\+E\+S\+H\+O\+L\+D\+\_\+\+T\+I\+C\+KS.
+References Leds\+::blink\+All(), Leds\+::clear\+All(), EXIT\+\_\+\+MENU\+\_\+\+OFF\+\_\+\+MS, EXIT\+\_\+\+MENU\+\_\+\+ON\+\_\+\+MS, g\+\_\+p\+Button, Button\+::hold\+Duration(), Button\+::is\+Pressed(), RGB\+\_\+\+RED, RGB\+\_\+\+RED0, RGB\+\_\+\+WHITE0, Leds\+::set\+All(), and SHORT\+\_\+\+CLICK\+\_\+\+THRESHOLD\+\_\+\+TICKS.
 
 
 
@@ -563,7 +565,7 @@ Definition at line 63 of file Menu.\+h.
 
 
 
-Referenced by Factory\+Reset\+::init(), Factory\+Reset\+::on\+Long\+Click(), Pattern\+Select\+::on\+Long\+Click(), Pattern\+Select\+::on\+Short\+Click(), Mode\+Sharing\+::receive\+Mode\+I\+R(), Randomizer\+::re\+Roll\+Singles(), Pattern\+Select\+::run(), and Mode\+Sharing\+::show\+Receive\+Mode().
+Referenced by Factory\+Reset\+::init(), Factory\+Reset\+::on\+Long\+Click(), Pattern\+Select\+::on\+Long\+Click(), Pattern\+Select\+::on\+Short\+Click(), Mode\+Sharing\+::receive\+Mode\+IR(), Randomizer\+::re\+Roll\+Singles(), Pattern\+Select\+::run(), and Mode\+Sharing\+::show\+Receive\+Mode().
 
 \mbox{\Hypertarget{classMenu_aeb313423fa52e4c1940785456b70cd7a}\label{classMenu_aeb313423fa52e4c1940785456b70cd7a}} 
 \index{Menu@{Menu}!m\_curSelection@{m\_curSelection}}
@@ -577,7 +579,7 @@ Definition at line 59 of file Menu.\+h.
 
 
 
-Referenced by Factory\+Reset\+::init(), Global\+Brightness\+::init(), Global\+Brightness\+::on\+Long\+Click(), Factory\+Reset\+::on\+Long\+Click(), Color\+Select\+::on\+Long\+Click(), Global\+Brightness\+::on\+Short\+Click(), Factory\+Reset\+::on\+Short\+Click(), Color\+Select\+::on\+Short\+Click(), Global\+Brightness\+::show\+Brightness\+Selection(), Factory\+Reset\+::show\+Reset(), Color\+Select\+::show\+Selection(), and Color\+Select\+::show\+Slot\+Selection().
+Referenced by Factory\+Reset\+::init(), Global\+Brightness\+::init(), Color\+Select\+::on\+Long\+Click(), Factory\+Reset\+::on\+Long\+Click(), Global\+Brightness\+::on\+Long\+Click(), Color\+Select\+::on\+Short\+Click(), Factory\+Reset\+::on\+Short\+Click(), Global\+Brightness\+::on\+Short\+Click(), Global\+Brightness\+::show\+Brightness\+Selection(), Factory\+Reset\+::show\+Reset(), Color\+Select\+::show\+Selection(), and Color\+Select\+::show\+Slot\+Selection().
 
 \mbox{\Hypertarget{classMenu_a2ccb6eafbf5e2396785d3c48d6741fb4}\label{classMenu_a2ccb6eafbf5e2396785d3c48d6741fb4}} 
 \index{Menu@{Menu}!m\_ledSelected@{m\_ledSelected}}
@@ -591,13 +593,13 @@ Definition at line 61 of file Menu.\+h.
 
 
 
-Referenced by Factory\+Reset\+::init(), Global\+Brightness\+::init(), Mode\+Sharing\+::init(), Color\+Select\+::init(), Editor\+Connection\+::init(), and run().
+Referenced by Color\+Select\+::init(), Editor\+Connection\+::init(), Factory\+Reset\+::init(), Global\+Brightness\+::init(), Mode\+Sharing\+::init(), and run().
 
 \mbox{\Hypertarget{classMenu_afe0e1650a47d09300ec8cf25aaa8331a}\label{classMenu_afe0e1650a47d09300ec8cf25aaa8331a}} 
 \index{Menu@{Menu}!m\_menuColor@{m\_menuColor}}
 \index{m\_menuColor@{m\_menuColor}!Menu@{Menu}}
 \doxysubsubsection{\texorpdfstring{m\_menuColor}{m\_menuColor}}
-{\footnotesize\ttfamily \mbox{\hyperlink{classRGBColor}{R\+G\+B\+Color}} Menu\+::m\+\_\+menu\+Color\hspace{0.3cm}{\ttfamily [protected]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classRGBColor}{RGBColor}} Menu\+::m\+\_\+menu\+Color\hspace{0.3cm}{\ttfamily [protected]}}
 
 
 
@@ -619,7 +621,7 @@ Definition at line 52 of file Menu.\+h.
 
 
 
-Referenced by Editor\+Connection\+::clear\+Demo(), Vortex\+::get\+Menu\+Demo\+Mode(), init(), Color\+Select\+::is\+Valid\+Led\+Selection(), Mode\+Sharing\+::on\+Long\+Click(), Randomizer\+::on\+Long\+Click(), Pattern\+Select\+::on\+Long\+Click(), Pattern\+Select\+::on\+Short\+Click(), Editor\+Connection\+::receive\+Demo\+Mode(), Mode\+Sharing\+::receive\+Mode\+I\+R(), Randomizer\+::re\+Roll(), Randomizer\+::re\+Roll\+Multi(), Randomizer\+::re\+Roll\+Singles(), Pattern\+Select\+::run(), Randomizer\+::run(), Editor\+Connection\+::send\+Cur\+Mode\+V\+L(), Vortex\+::set\+Menu\+Demo\+Mode(), Editor\+Connection\+::show\+Editor(), and Mode\+Sharing\+::show\+Receive\+Mode().
+Referenced by Editor\+Connection\+::clear\+Demo(), Vortex\+::get\+Menu\+Demo\+Mode(), init(), Color\+Select\+::is\+Valid\+Led\+Selection(), Mode\+Sharing\+::on\+Long\+Click(), Pattern\+Select\+::on\+Long\+Click(), Randomizer\+::on\+Long\+Click(), Pattern\+Select\+::on\+Short\+Click(), Editor\+Connection\+::receive\+Demo\+Mode(), Mode\+Sharing\+::receive\+Mode\+IR(), Randomizer\+::re\+Roll(), Randomizer\+::re\+Roll\+Multi(), Randomizer\+::re\+Roll\+Singles(), Pattern\+Select\+::run(), Randomizer\+::run(), Editor\+Connection\+::send\+Cur\+Mode\+VL(), Vortex\+::set\+Menu\+Demo\+Mode(), Editor\+Connection\+::show\+Editor(), and Mode\+Sharing\+::show\+Receive\+Mode().
 
 \mbox{\Hypertarget{classMenu_a145ce4672bd57b3a5123031a490ba224}\label{classMenu_a145ce4672bd57b3a5123031a490ba224}} 
 \index{Menu@{Menu}!m\_shouldClose@{m\_shouldClose}}
@@ -647,7 +649,7 @@ Definition at line 57 of file Menu.\+h.
 
 
 
-Referenced by Factory\+Reset\+::init(), Color\+Select\+::init(), next\+Bulb\+Selection(), Color\+Select\+::on\+Led\+Selected(), Pattern\+Select\+::on\+Led\+Selected(), Factory\+Reset\+::on\+Long\+Click(), Color\+Select\+::on\+Long\+Click(), Pattern\+Select\+::on\+Short\+Click(), Randomizer\+::re\+Roll(), Randomizer\+::re\+Roll\+Singles(), Randomizer\+::run(), run(), and show\+Bulb\+Selection().
+Referenced by Color\+Select\+::init(), Factory\+Reset\+::init(), next\+Bulb\+Selection(), Color\+Select\+::on\+Led\+Selected(), Pattern\+Select\+::on\+Led\+Selected(), Color\+Select\+::on\+Long\+Click(), Factory\+Reset\+::on\+Long\+Click(), Pattern\+Select\+::on\+Short\+Click(), Randomizer\+::re\+Roll(), Randomizer\+::re\+Roll\+Singles(), run(), Randomizer\+::run(), and show\+Bulb\+Selection().
 
 
 

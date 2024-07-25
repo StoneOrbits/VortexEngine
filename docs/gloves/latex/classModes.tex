@@ -259,7 +259,7 @@ Definition at line 484 of file Modes.\+cpp.
 \end{DoxyCode}
 
 
-Referenced by add\+Mode(), add\+Serialized\+Mode(), Menu\+::init(), and set\+Defaults().
+Referenced by add\+Mode(), Vortex\+::add\+New\+Mode(), add\+Serialized\+Mode(), Menu\+::init(), Vortex\+::load\+Json(), and set\+Defaults().
 
 \mbox{\Hypertarget{classModes_a31830ee4f7ac55519bc385e4491a0513}\label{classModes_a31830ee4f7ac55519bc385e4491a0513}} 
 \index{Modes@{Modes}!addModeFromBuffer@{addModeFromBuffer}}
@@ -300,6 +300,10 @@ Definition at line 419 of file Modes.\+cpp.
 
 
 References Modes\+::\+Mode\+Link\+::append(), ERROR\+\_\+\+OUT\+\_\+\+OF\+\_\+\+MEMORY, m\+\_\+num\+Modes, m\+\_\+stored\+Modes, and MAX\+\_\+\+MODES.
+
+
+
+Referenced by Vortex\+::add\+New\+Mode().
 
 \mbox{\Hypertarget{classModes_a26c54d5906a00353965d679e7f0a63a6}\label{classModes_a26c54d5906a00353965d679e7f0a63a6}} 
 \index{Modes@{Modes}!addSerializedMode@{addSerializedMode}}
@@ -423,7 +427,7 @@ References Leds\+::clear\+All(), m\+\_\+num\+Modes, m\+\_\+p\+Cur\+Mode\+Link, a
 
 
 
-Referenced by cleanup(), load\+Header(), load\+Storage(), set\+Defaults(), and unserialize().
+Referenced by cleanup(), Vortex\+CLI\+::init(), load\+Header(), Vortex\+::load\+Json(), load\+Storage(), set\+Defaults(), Vortex\+::set\+Modes(), and unserialize().
 
 \mbox{\Hypertarget{classModes_a1e520dc2ee457bc93a795e9945249dbd}\label{classModes_a1e520dc2ee457bc93a795e9945249dbd}} 
 \index{Modes@{Modes}!curMode@{curMode}}
@@ -459,7 +463,7 @@ References ERROR\+\_\+\+LOG, init\+Cur\+Mode(), Modes\+::\+Mode\+Link\+::instant
 
 
 
-Referenced by Mode\+Sharing\+::begin\+Sending(), Vortex\+Engine\+::cur\+Mode(), Menu\+::init(), Color\+Select\+::init(), Factory\+Reset\+::init(), Randomizer\+::init(), next\+Mode\+Skip\+Empty(), Color\+Select\+::on\+Led\+Selected(), Color\+Select\+::on\+Long\+Click(), Factory\+Reset\+::on\+Long\+Click(), Pattern\+Select\+::on\+Long\+Click(), Color\+Select\+::run(), and update\+Cur\+Mode().
+Referenced by Mode\+Sharing\+::begin\+Sending(), Vortex\+Engine\+::cur\+Mode(), Vortex\+::get\+Colorset(), Vortex\+::get\+Cur\+Mode(), Vortex\+::get\+Mode\+Name(), Vortex\+::get\+Pattern\+Args(), Vortex\+::get\+Pattern\+ID(), Menu\+::init(), Color\+Select\+::init(), Factory\+Reset\+::init(), Randomizer\+::init(), Vortex\+::is\+Cur\+Mode\+Multi(), next\+Mode\+Skip\+Empty(), Vortex\+::num\+Leds\+In\+Mode(), Color\+Select\+::on\+Led\+Selected(), Color\+Select\+::on\+Long\+Click(), Factory\+Reset\+::on\+Long\+Click(), Pattern\+Select\+::on\+Long\+Click(), Color\+Select\+::run(), Vortex\+::save\+Json(), Vortex\+::set\+Colorset(), Vortex\+::set\+Pattern(), Vortex\+::set\+Pattern\+Args(), Vortex\+::set\+Pattern\+At(), and update\+Cur\+Mode().
 
 \mbox{\Hypertarget{classModes_a7a1b8d5c48237ab106adbfc44ceb1055}\label{classModes_a7a1b8d5c48237ab106adbfc44ceb1055}} 
 \index{Modes@{Modes}!curModeIndex@{curModeIndex}}
@@ -482,7 +486,7 @@ References m\+\_\+cur\+Mode.
 
 
 
-Referenced by Vortex\+Engine\+::enter\+Sleep(), and Factory\+Reset\+::on\+Long\+Click().
+Referenced by Vortex\+::cur\+Mode\+Index(), Vortex\+Engine\+::enter\+Sleep(), and Factory\+Reset\+::on\+Long\+Click().
 
 \mbox{\Hypertarget{classModes_a0d8e74c4fa7fff65fdf81336b3b808b9}\label{classModes_a0d8e74c4fa7fff65fdf81336b3b808b9}} 
 \index{Modes@{Modes}!deleteCurMode@{deleteCurMode}}
@@ -520,6 +524,10 @@ Definition at line 643 of file Modes.\+cpp.
 
 
 References m\+\_\+cur\+Mode, m\+\_\+num\+Modes, m\+\_\+p\+Cur\+Mode\+Link, m\+\_\+stored\+Modes, and Modes\+::\+Mode\+Link\+::unlink\+Self().
+
+
+
+Referenced by Vortex\+::del\+Cur\+Mode().
 
 \mbox{\Hypertarget{classModes_aa1a09a3beb165d50179a9c6d69b20807}\label{classModes_aa1a09a3beb165d50179a9c6d69b20807}} 
 \index{Modes@{Modes}!getFlag@{getFlag}}
@@ -735,7 +743,7 @@ References load\+Storage(), m\+\_\+loaded, save\+Storage(), and set\+Defaults().
 
 
 
-Referenced by Vortex\+Engine\+::run\+Main\+Logic().
+Referenced by Vortex\+::init(), and Vortex\+Engine\+::run\+Main\+Logic().
 
 \mbox{\Hypertarget{classModes_a7a8e136c877b6cb04ac31a37020b89e6}\label{classModes_a7a8e136c877b6cb04ac31a37020b89e6}} 
 \index{Modes@{Modes}!loadFromBuffer@{loadFromBuffer}}
@@ -776,7 +784,7 @@ References Byte\+Stream\+::decompress(), one\+Click\+Mode\+Enabled(), switch\+To
 
 
 
-Referenced by Editor\+Connection\+::receive\+Modes().
+Referenced by Editor\+Connection\+::receive\+Modes(), and Vortex\+::set\+Modes().
 
 \mbox{\Hypertarget{classModes_a0f730af197520f0c74c227187fbbfbd7}\label{classModes_a0f730af197520f0c74c227187fbbfbd7}} 
 \index{Modes@{Modes}!loadHeader@{loadHeader}}
@@ -878,7 +886,7 @@ References add\+Serialized\+Mode(), clear\+Modes(), DEBUG\+\_\+\+LOG, MAX\+\_\+\
 
 
 
-Referenced by load().
+Referenced by load(), and Vortex\+::load\+Storage().
 
 \mbox{\Hypertarget{classModes_abe515fae0059b1213ba544b613051e97}\label{classModes_abe515fae0059b1213ba544b613051e97}} 
 \index{Modes@{Modes}!locked@{locked}}
@@ -932,7 +940,7 @@ References m\+\_\+cur\+Mode, m\+\_\+num\+Modes, and set\+Cur\+Mode().
 
 
 
-Referenced by play(), and Vortex\+Engine\+::run\+Main\+Logic().
+Referenced by Vortex\+::next\+Mode(), play(), Vortex\+Engine\+::run\+Main\+Logic(), and Vortex\+::save\+Json().
 
 \mbox{\Hypertarget{classModes_a70c51e7490681e5ee6a6e6d8084b8fc4}\label{classModes_a70c51e7490681e5ee6a6e6d8084b8fc4}} 
 \index{Modes@{Modes}!nextModeSkipEmpty@{nextModeSkipEmpty}}
@@ -981,7 +989,7 @@ References m\+\_\+num\+Modes.
 
 
 
-Referenced by Menu\+::init(), load\+Storage(), previous\+Mode(), and unserialize().
+Referenced by Vortex\+::del\+Cur\+Mode(), Menu\+::init(), Vortex\+::load\+Json(), load\+Storage(), Vortex\+::next\+Mode(), Vortex\+::num\+Modes(), previous\+Mode(), Vortex\+::save\+Json(), Vortex\+::set\+Cur\+Mode(), Vortex\+::shift\+Cur\+Mode(), and unserialize().
 
 \mbox{\Hypertarget{classModes_a05f64b5430343cc94e77902b02fb8ce1}\label{classModes_a05f64b5430343cc94e77902b02fb8ce1}} 
 \index{Modes@{Modes}!oneClickModeEnabled@{oneClickModeEnabled}}
@@ -1225,7 +1233,7 @@ References DEBUG\+\_\+\+LOG, DEBUG\+\_\+\+LOGF, ERROR\+\_\+\+OUT\+\_\+\+OF\+\_\+
 
 
 
-Referenced by Vortex\+Engine\+::enter\+Sleep(), Menu\+::leave\+Menu(), load(), and Editor\+Connection\+::receive\+Modes().
+Referenced by Vortex\+::do\+Save(), Vortex\+Engine\+::enter\+Sleep(), Vortex\+::get\+Cur\+Mode(), Menu\+::leave\+Menu(), load(), and Editor\+Connection\+::receive\+Modes().
 
 \mbox{\Hypertarget{classModes_a9b64018ed3d72c3667f0eaef5fd6495f}\label{classModes_a9b64018ed3d72c3667f0eaef5fd6495f}} 
 \index{Modes@{Modes}!saveToBuffer@{saveToBuffer}}
@@ -1262,7 +1270,7 @@ References Byte\+Stream\+::compress(), DEBUG\+\_\+\+LOGF, serialize(), serialize
 
 
 
-Referenced by Editor\+Connection\+::send\+Modes().
+Referenced by Vortex\+::get\+Modes(), and Editor\+Connection\+::send\+Modes().
 
 \mbox{\Hypertarget{classModes_afb881f5315e4197bb01625b1268eca9d}\label{classModes_afb881f5315e4197bb01625b1268eca9d}} 
 \index{Modes@{Modes}!serialize@{serialize}}
@@ -1442,7 +1450,7 @@ References Leds\+::clear\+All(), DEBUG\+\_\+\+LOGF, ERROR\+\_\+\+OUT\+\_\+\+OF\+
 
 
 
-Referenced by next\+Mode(), next\+Mode\+Skip\+Empty(), Factory\+Reset\+::on\+Long\+Click(), previous\+Mode(), and switch\+To\+Startup\+Mode().
+Referenced by next\+Mode(), next\+Mode\+Skip\+Empty(), Factory\+Reset\+::on\+Long\+Click(), previous\+Mode(), Vortex\+::save\+Json(), Vortex\+::set\+Cur\+Mode(), and switch\+To\+Startup\+Mode().
 
 \mbox{\Hypertarget{classModes_a790f299aa425bdc73af7f584ee30472b}\label{classModes_a790f299aa425bdc73af7f584ee30472b}} 
 \index{Modes@{Modes}!setDefaults@{setDefaults}}
@@ -1507,7 +1515,7 @@ References DEBUG\+\_\+\+LOGF, m\+\_\+global\+Flags, and save\+Header().
 
 
 
-Referenced by set\+Advanced\+Menus(), set\+Keychain\+Mode(), set\+Locked(), and set\+One\+Click\+Mode().
+Referenced by Vortex\+::load\+Json(), set\+Advanced\+Menus(), set\+Keychain\+Mode(), set\+Locked(), and set\+One\+Click\+Mode().
 
 \mbox{\Hypertarget{classModes_aefc12e51c34ebf47e07659ac699a6c85}\label{classModes_aefc12e51c34ebf47e07659ac699a6c85}} 
 \index{Modes@{Modes}!setKeychainMode@{setKeychainMode}}
@@ -1658,6 +1666,10 @@ Definition at line 445 of file Modes.\+cpp.
 
 
 References get\+Mode\+Link(), Modes\+::\+Mode\+Link\+::link\+After(), Modes\+::\+Mode\+Link\+::link\+Before(), m\+\_\+cur\+Mode, m\+\_\+num\+Modes, m\+\_\+p\+Cur\+Mode\+Link, m\+\_\+stored\+Modes, Modes\+::\+Mode\+Link\+::next(), and Modes\+::\+Mode\+Link\+::unlink\+Self().
+
+
+
+Referenced by Vortex\+::shift\+Cur\+Mode().
 
 \mbox{\Hypertarget{classModes_a354ffb53eeff1a351ef81ce55eae472a}\label{classModes_a354ffb53eeff1a351ef81ce55eae472a}} 
 \index{Modes@{Modes}!startupMode@{startupMode}}

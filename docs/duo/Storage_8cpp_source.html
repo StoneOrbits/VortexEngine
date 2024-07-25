@@ -145,7 +145,7 @@ $(document).ready(function(){initNavTree('Storage_8cpp_source.html',''); initRes
 <div class="line"><a name="l00056"></a><span class="lineno"><a class="line" href="classStorage.html#a065812a8dbd82d731291b5aa7ce3edf9">   56</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="classStorage.html#a065812a8dbd82d731291b5aa7ce3edf9">Storage::init</a>()</div>
 <div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;{</div>
 <div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;<span class="preprocessor">#ifdef VORTEX_LIB</span></div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;  <span class="keywordflow">if</span> (!m_storageFilename.length() &amp;&amp; Vortex::storageEnabled()) {</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;  <span class="keywordflow">if</span> (!m_storageFilename.length() &amp;&amp; <a class="code" href="classVortex.html#aa287fb05ef87acfb1380aeac868d17a1">Vortex::storageEnabled</a>()) {</div>
 <div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;    m_storageFilename = <a class="code" href="Storage_8cpp.html#a3afbe062209d42a72bc5b4a03a86206a">DEFAULT_STORAGE_FILENAME</a>;</div>
 <div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;  }</div>
 <div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;<span class="preprocessor">#endif</span></div>
@@ -163,7 +163,7 @@ $(document).ready(function(){initNavTree('Storage_8cpp_source.html',''); initRes
 <div class="line"><a name="l00074"></a><span class="lineno"><a class="line" href="classStorage.html#acbeeb0de638cf1a1861759150721c0b7">   74</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="classStorage.html#acbeeb0de638cf1a1861759150721c0b7">Storage::write</a>(uint8_t slot, <a class="code" href="classByteStream.html">ByteStream</a> &amp;buffer)</div>
 <div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;{</div>
 <div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;<span class="preprocessor">#ifdef VORTEX_LIB</span></div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;  <span class="keywordflow">if</span> (!Vortex::storageEnabled()) {</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;  <span class="keywordflow">if</span> (!<a class="code" href="classVortex.html#aa287fb05ef87acfb1380aeac868d17a1">Vortex::storageEnabled</a>()) {</div>
 <div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;    <span class="comment">// success so the system thinks it all worked</span></div>
 <div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
 <div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;  }</div>
@@ -276,7 +276,7 @@ $(document).ready(function(){initNavTree('Storage_8cpp_source.html',''); initRes
 <div class="line"><a name="l00187"></a><span class="lineno"><a class="line" href="classStorage.html#a7c0c5463f59c7028bdcf812fb928ffcd">  187</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="classStorage.html#a7c0c5463f59c7028bdcf812fb928ffcd">Storage::read</a>(uint8_t slot, <a class="code" href="classByteStream.html">ByteStream</a> &amp;buffer)</div>
 <div class="line"><a name="l00188"></a><span class="lineno">  188</span>&#160;{</div>
 <div class="line"><a name="l00189"></a><span class="lineno">  189</span>&#160;<span class="preprocessor">#ifdef VORTEX_LIB</span></div>
-<div class="line"><a name="l00190"></a><span class="lineno">  190</span>&#160;  <span class="keywordflow">if</span> (!Vortex::storageEnabled()) {</div>
+<div class="line"><a name="l00190"></a><span class="lineno">  190</span>&#160;  <span class="keywordflow">if</span> (!<a class="code" href="classVortex.html#aa287fb05ef87acfb1380aeac868d17a1">Vortex::storageEnabled</a>()) {</div>
 <div class="line"><a name="l00191"></a><span class="lineno">  191</span>&#160;    <span class="comment">// return false here, but true in write because we don&#39;t want to return</span></div>
 <div class="line"><a name="l00192"></a><span class="lineno">  192</span>&#160;    <span class="comment">// an empty buffer after returning true</span></div>
 <div class="line"><a name="l00193"></a><span class="lineno">  193</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
@@ -411,6 +411,7 @@ $(document).ready(function(){initNavTree('Storage_8cpp_source.html',''); initRes
 <div class="ttc" id="aclassStorage_html_acbeeb0de638cf1a1861759150721c0b7"><div class="ttname"><a href="classStorage.html#acbeeb0de638cf1a1861759150721c0b7">Storage::write</a></div><div class="ttdeci">static bool write(uint8_t slot, ByteStream &amp;buffer)</div><div class="ttdef"><b>Definition:</b> <a href="Storage_8cpp_source.html#l00074">Storage.cpp:74</a></div></div>
 <div class="ttc" id="aclassStorage_html_ad564f35a9671864cb0bed1ffa671c63d"><div class="ttname"><a href="classStorage.html#ad564f35a9671864cb0bed1ffa671c63d">Storage::eepromReadByte</a></div><div class="ttdeci">static uint8_t eepromReadByte(uint16_t index)</div><div class="ttdef"><b>Definition:</b> <a href="Storage_8cpp_source.html#l00291">Storage.cpp:291</a></div></div>
 <div class="ttc" id="aclassStorage_html_ae85ca521ae89c408fb045d2890951458"><div class="ttname"><a href="classStorage.html#ae85ca521ae89c408fb045d2890951458">Storage::m_lastSaveSize</a></div><div class="ttdeci">static uint32_t m_lastSaveSize</div><div class="ttdef"><b>Definition:</b> <a href="Storage_8h_source.html#l00044">Storage.h:44</a></div></div>
+<div class="ttc" id="aclassVortex_html_aa287fb05ef87acfb1380aeac868d17a1"><div class="ttname"><a href="classVortex.html#aa287fb05ef87acfb1380aeac868d17a1">Vortex::storageEnabled</a></div><div class="ttdeci">static bool storageEnabled()</div><div class="ttdef"><b>Definition:</b> <a href="VortexLib_8h_source.html#l00249">VortexLib.h:249</a></div></div>
 <div class="ttc" id="astructByteStream_1_1RawBuffer_html"><div class="ttname"><a href="structByteStream_1_1RawBuffer.html">ByteStream::RawBuffer</a></div><div class="ttdef"><b>Definition:</b> <a href="ByteStream_8h_source.html#l00128">ByteStream.h:129</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->

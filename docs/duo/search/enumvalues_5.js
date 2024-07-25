@@ -1,12 +1,8 @@
 var searchData=
 [
-  ['led_5f0_2429',['LED_0',['../LedTypes_8h.html#a9fb57934b9165e8fcecafeafaf3a6a2ca8312fbd732e656f38ddd252142c92424',1,'LedTypes.h']]],
-  ['led_5f1_2430',['LED_1',['../LedTypes_8h.html#a9fb57934b9165e8fcecafeafaf3a6a2ca11a9adb9054de1fe01d6a6750075f57b',1,'LedTypes.h']]],
-  ['led_5fall_2431',['LED_ALL',['../LedTypes_8h.html#a9fb57934b9165e8fcecafeafaf3a6a2cae4fd580189cac85429ebfa5cb71cd772',1,'LedTypes.h']]],
-  ['led_5fall_5fsingle_2432',['LED_ALL_SINGLE',['../LedTypes_8h.html#a9fb57934b9165e8fcecafeafaf3a6a2ca240d4ba97b43dbc25d2d6cd065171249',1,'LedTypes.h']]],
-  ['led_5fany_2433',['LED_ANY',['../LedTypes_8h.html#a9fb57934b9165e8fcecafeafaf3a6a2ca652516306597153ba832b404a27c85c8',1,'LedTypes.h']]],
-  ['led_5fcount_2434',['LED_COUNT',['../LedTypes_8h.html#a9fb57934b9165e8fcecafeafaf3a6a2ca0bc6b9364ec72b19c74a14f15aa3832c',1,'LedTypes.h']]],
-  ['led_5ffirst_2435',['LED_FIRST',['../LedTypes_8h.html#a9fb57934b9165e8fcecafeafaf3a6a2ca4bef9658b4b82ade748dfc8d1ce9523f',1,'LedTypes.h']]],
-  ['led_5flast_2436',['LED_LAST',['../LedTypes_8h.html#a9fb57934b9165e8fcecafeafaf3a6a2caea3aa995eb2385598300bbabffa053dc',1,'LedTypes.h']]],
-  ['led_5fmulti_2437',['LED_MULTI',['../LedTypes_8h.html#a9fb57934b9165e8fcecafeafaf3a6a2ca2132b8a8565f61fc6b6ea5ff1f32132e',1,'LedTypes.h']]]
+  ['keychain_5fmode_5fstate_5fcount_2824',['KEYCHAIN_MODE_STATE_COUNT',['../classGlobalBrightness.html#af652c0391d561dc18d0887508e403d34aaf075e4df663f1c36af362a64db58339',1,'GlobalBrightness']]],
+  ['keychain_5fmode_5fstate_5fdops_2825',['KEYCHAIN_MODE_STATE_DOPS',['../classGlobalBrightness.html#af652c0391d561dc18d0887508e403d34a1334271bca78524849b81c3a1babfb69',1,'GlobalBrightness']]],
+  ['keychain_5fmode_5fstate_5foff_2826',['KEYCHAIN_MODE_STATE_OFF',['../classGlobalBrightness.html#af652c0391d561dc18d0887508e403d34a3b6055f48d6b32f275728a47588a7f1b',1,'GlobalBrightness']]],
+  ['keychain_5fmode_5fstate_5fsignal_2827',['KEYCHAIN_MODE_STATE_SIGNAL',['../classGlobalBrightness.html#af652c0391d561dc18d0887508e403d34a356f69344a8733fcd5d8480c9ab10237',1,'GlobalBrightness']]],
+  ['keychain_5fmode_5fstate_5fsolid_2828',['KEYCHAIN_MODE_STATE_SOLID',['../classGlobalBrightness.html#af652c0391d561dc18d0887508e403d34a1fc86c00a64b39090ef0bbfbabc4db9a',1,'GlobalBrightness']]]
 ];

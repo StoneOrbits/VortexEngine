@@ -93,14 +93,14 @@ Definition at line 191 of file Time\+Control.\+cpp.
 
 \begin{DoxyCode}{0}
 \DoxyCodeLine{192 \{}
-\DoxyCodeLine{193 \textcolor{preprocessor}{\#ifdef \_WIN32}}
+\DoxyCodeLine{193 \textcolor{preprocessor}{\#ifdef \_WIN32}}
 \DoxyCodeLine{194   uint32\_t newtime = \mbox{\hyperlink{classTime_ac44f4e49538456714372bb1aad3dd839}{microseconds}}() + us;}
 \DoxyCodeLine{195   \textcolor{keywordflow}{while} (\mbox{\hyperlink{classTime_ac44f4e49538456714372bb1aad3dd839}{microseconds}}() < newtime) \{}
 \DoxyCodeLine{196     \textcolor{comment}{// busy loop}}
 \DoxyCodeLine{197   \}}
-\DoxyCodeLine{198 \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{198 \textcolor{preprocessor}{\#else}}
 \DoxyCodeLine{199   usleep(us);}
-\DoxyCodeLine{200 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{200 \textcolor{preprocessor}{\#endif}}
 \DoxyCodeLine{201 \}}
 
 \end{DoxyCode}
@@ -110,7 +110,7 @@ References microseconds().
 
 
 
-Referenced by delay\+Milliseconds(), V\+L\+Sender\+::send\+Mark(), V\+L\+Sender\+::send\+Space(), and tick\+Clock().
+Referenced by delay\+Milliseconds(), VLSender\+::send\+Mark(), VLSender\+::send\+Space(), and tick\+Clock().
 
 \mbox{\Hypertarget{classTime_aa90c5d6860ae306048c96d80da2ea1b0}\label{classTime_aa90c5d6860ae306048c96d80da2ea1b0}} 
 \index{Time@{Time}!delayMilliseconds@{delayMilliseconds}}
@@ -125,16 +125,16 @@ Definition at line 203 of file Time\+Control.\+cpp.
 
 \begin{DoxyCode}{0}
 \DoxyCodeLine{204 \{}
-\DoxyCodeLine{205 \textcolor{preprocessor}{\#ifdef VORTEX\_EMBEDDED}}
+\DoxyCodeLine{205 \textcolor{preprocessor}{\#ifdef VORTEX\_EMBEDDED}}
 \DoxyCodeLine{206   \textcolor{comment}{// not very accurate}}
 \DoxyCodeLine{207   \textcolor{keywordflow}{for} (uint16\_t i = 0; i < ms; ++i) \{}
 \DoxyCodeLine{208     \mbox{\hyperlink{classTime_a1db7b0672f8b2d38994119ccc226f8ee}{delayMicroseconds}}(1000);}
 \DoxyCodeLine{209   \}}
-\DoxyCodeLine{210 \textcolor{preprocessor}{\#elif defined(\_WIN32)}}
+\DoxyCodeLine{210 \textcolor{preprocessor}{\#elif defined(\_WIN32)}}
 \DoxyCodeLine{211   Sleep(ms);}
-\DoxyCodeLine{212 \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{212 \textcolor{preprocessor}{\#else}}
 \DoxyCodeLine{213   usleep(ms * 1000);}
-\DoxyCodeLine{214 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{214 \textcolor{preprocessor}{\#endif}}
 \DoxyCodeLine{215 \}}
 
 \end{DoxyCode}
@@ -163,11 +163,11 @@ Definition at line 40 of file Time\+Control.\+h.
 \end{DoxyCode}
 
 
-References m\+\_\+cur\+Tick, and S\+I\+M\+U\+L\+A\+T\+I\+O\+N\+\_\+\+T\+I\+CK.
+References m\+\_\+cur\+Tick, and SIMULATION\+\_\+\+TICK.
 
 
 
-Referenced by Timer\+::alarm(), Leds\+::blink\+All(), Leds\+::blink\+Index(), Leds\+::blink\+Map(), Leds\+::blink\+Pair(), Leds\+::blink\+Pairs(), Leds\+::blink\+Range(), Serial\+Coms\+::check\+Serial(), Vortex\+::handle\+Input\+Queue(), Timer\+::on\+End(), Timer\+::on\+Start(), Menus\+::open\+Menu\+Selection(), Mode\+Sharing\+::receive\+Mode\+I\+R(), Randomizer\+::run(), Vortex\+Engine\+::run\+Main\+Logic(), Menus\+::run\+Menu\+Selection(), I\+R\+Sender\+::send(), V\+L\+Sender\+::send(), Modes\+::set\+Cur\+Mode(), Menu\+::show\+Bulb\+Selection(), Color\+Select\+::show\+Full\+Set(), Color\+Select\+::show\+Selection(), Timer\+::start(), and Button\+::update().
+Referenced by Timer\+::alarm(), Leds\+::blink\+All(), Leds\+::blink\+Index(), Leds\+::blink\+Map(), Leds\+::blink\+Pair(), Leds\+::blink\+Pairs(), Leds\+::blink\+Range(), Serial\+Coms\+::check\+Serial(), Vortex\+::handle\+Input\+Queue(), Timer\+::on\+End(), Timer\+::on\+Start(), Menus\+::open\+Menu\+Selection(), Mode\+Sharing\+::receive\+Mode\+IR(), Randomizer\+::run(), Vortex\+Engine\+::run\+Main\+Logic(), Menus\+::run\+Menu\+Selection(), IRSender\+::send(), VLSender\+::send(), Modes\+::set\+Cur\+Mode(), Menu\+::show\+Bulb\+Selection(), Color\+Select\+::show\+Full\+Set(), Color\+Select\+::show\+Selection(), Timer\+::start(), and Button\+::update().
 
 \mbox{\Hypertarget{classTime_a719c88f4e11a83f7167f45a2a58f5d60}\label{classTime_a719c88f4e11a83f7167f45a2a58f5d60}} 
 \index{Time@{Time}!getRealCurtime@{getRealCurtime}}
@@ -209,7 +209,7 @@ Definition at line 130 of file Time\+Control.\+cpp.
 \end{DoxyCode}
 
 
-References T\+I\+C\+K\+R\+A\+TE.
+References TICKRATE.
 
 
 
@@ -230,27 +230,27 @@ Definition at line 46 of file Time\+Control.\+cpp.
 \DoxyCodeLine{47 \{}
 \DoxyCodeLine{48   \mbox{\hyperlink{classTime_a9482556717a3933d303d18133d2e83eb}{m\_firstTime}} = \mbox{\hyperlink{classTime_ac9ca1a16592b1653e33926064d3b99ad}{m\_prevTime}} = \mbox{\hyperlink{classTime_ac44f4e49538456714372bb1aad3dd839}{microseconds}}();}
 \DoxyCodeLine{49   \mbox{\hyperlink{classTime_ac3f1dc3ad6b2ba8787643e73b17a4f1c}{m\_curTick}} = 0;}
-\DoxyCodeLine{50 \textcolor{preprocessor}{\#if VARIABLE\_TICKRATE == 1}}
+\DoxyCodeLine{50 \textcolor{preprocessor}{\#if VARIABLE\_TICKRATE == 1}}
 \DoxyCodeLine{51   m\_tickrate = \mbox{\hyperlink{VortexConfig_8h_a97f6a37590c60f131bba4007c88d16eb}{DEFAULT\_TICKRATE}};}
-\DoxyCodeLine{52 \textcolor{preprocessor}{\#endif}}
-\DoxyCodeLine{53 \textcolor{preprocessor}{\#ifdef VORTEX\_LIB}}
+\DoxyCodeLine{52 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{53 \textcolor{preprocessor}{\#ifdef VORTEX\_LIB}}
 \DoxyCodeLine{54   m\_simulationTick = 0;}
 \DoxyCodeLine{55   m\_isSimulation = \textcolor{keyword}{false};}
 \DoxyCodeLine{56   m\_instantTimestep = \textcolor{keyword}{false};}
-\DoxyCodeLine{57 \textcolor{preprocessor}{\#endif}}
-\DoxyCodeLine{58 \textcolor{preprocessor}{\#if !defined(\_WIN32) || defined(WASM)}}
+\DoxyCodeLine{57 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{58 \textcolor{preprocessor}{\#if !defined(\_WIN32) || defined(WASM)}}
 \DoxyCodeLine{59   \mbox{\hyperlink{TimeControl_8cpp_a6a51e9baeec9b06ae477cf6475efc71d}{start}} = \mbox{\hyperlink{classTime_ac44f4e49538456714372bb1aad3dd839}{microseconds}}();}
-\DoxyCodeLine{60 \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{60 \textcolor{preprocessor}{\#else}}
 \DoxyCodeLine{61   QueryPerformanceFrequency(\&tps);}
 \DoxyCodeLine{62   QueryPerformanceCounter(\&\mbox{\hyperlink{TimeControl_8cpp_a6a51e9baeec9b06ae477cf6475efc71d}{start}});}
-\DoxyCodeLine{63 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{63 \textcolor{preprocessor}{\#endif}}
 \DoxyCodeLine{64   \textcolor{keywordflow}{return} \textcolor{keyword}{true};}
 \DoxyCodeLine{65 \}}
 
 \end{DoxyCode}
 
 
-References D\+E\+F\+A\+U\+L\+T\+\_\+\+T\+I\+C\+K\+R\+A\+TE, m\+\_\+cur\+Tick, m\+\_\+first\+Time, m\+\_\+prev\+Time, microseconds(), and start.
+References DEFAULT\+\_\+\+TICKRATE, m\+\_\+cur\+Tick, m\+\_\+first\+Time, m\+\_\+prev\+Time, microseconds(), and start.
 
 
 
@@ -269,10 +269,10 @@ Definition at line 170 of file Time\+Control.\+cpp.
 
 \begin{DoxyCode}{0}
 \DoxyCodeLine{171 \{}
-\DoxyCodeLine{172 \textcolor{preprocessor}{\#ifndef VORTEX\_LIB // Embedded avr devices}}
+\DoxyCodeLine{172 \textcolor{preprocessor}{\#ifndef VORTEX\_LIB }\textcolor{comment}{// Embedded avr devices}}
 \DoxyCodeLine{173   \textcolor{comment}{// arduino micros, or whatever micro implementation you have chosen for the embedded device}}
 \DoxyCodeLine{174   \textcolor{keywordflow}{return} micros();}
-\DoxyCodeLine{175 \textcolor{preprocessor}{\#elif defined(\_WIN32) // windows}}
+\DoxyCodeLine{175 \textcolor{preprocessor}{\#elif defined(\_WIN32) }\textcolor{comment}{// windows}}
 \DoxyCodeLine{176   LARGE\_INTEGER now;}
 \DoxyCodeLine{177   QueryPerformanceCounter(\&now);}
 \DoxyCodeLine{178   \textcolor{keywordflow}{if} (!tps.QuadPart) \{}
@@ -280,22 +280,22 @@ Definition at line 170 of file Time\+Control.\+cpp.
 \DoxyCodeLine{180   \}}
 \DoxyCodeLine{181   \textcolor{comment}{// yes, this will overflow, that's how arduino microseconds() works *shrug*}}
 \DoxyCodeLine{182   \textcolor{keywordflow}{return} (\textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{long})((now.QuadPart -\/ \mbox{\hyperlink{TimeControl_8cpp_a6a51e9baeec9b06ae477cf6475efc71d}{start}}.QuadPart) * 1000000 / tps.QuadPart);}
-\DoxyCodeLine{183 \textcolor{preprocessor}{\#else // linux/wasm/etc}}
+\DoxyCodeLine{183 \textcolor{preprocessor}{\#else }\textcolor{comment}{// linux/wasm/etc}}
 \DoxyCodeLine{184   \textcolor{keyword}{struct }timespec ts;}
 \DoxyCodeLine{185   clock\_gettime(CLOCK\_MONOTONIC\_RAW, \&ts);}
 \DoxyCodeLine{186   uint64\_t us = \mbox{\hyperlink{TimeControl_8cpp_ad4fb94c1ab9cbc945f797df08da3fcf1}{SEC\_TO\_US}}((uint64\_t)ts.tv\_sec) + \mbox{\hyperlink{TimeControl_8cpp_aba379c651cac0789cf71828509fec881}{NS\_TO\_US}}((uint64\_t)ts.tv\_nsec);}
 \DoxyCodeLine{187   \textcolor{keywordflow}{return} (\textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{long})us;}
-\DoxyCodeLine{188 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{188 \textcolor{preprocessor}{\#endif}}
 \DoxyCodeLine{189 \}}
 
 \end{DoxyCode}
 
 
-References N\+S\+\_\+\+T\+O\+\_\+\+US, S\+E\+C\+\_\+\+T\+O\+\_\+\+US, and start.
+References NS\+\_\+\+TO\+\_\+\+US, SEC\+\_\+\+TO\+\_\+\+US, and start.
 
 
 
-Referenced by I\+R\+Sender\+::begin\+Send(), V\+L\+Sender\+::begin\+Send(), delay\+Microseconds(), init(), V\+L\+Receiver\+::recv\+P\+C\+I\+Handler(), I\+R\+Receiver\+::recv\+P\+C\+I\+Handler(), and tick\+Clock().
+Referenced by IRSender\+::begin\+Send(), VLSender\+::begin\+Send(), delay\+Microseconds(), init(), IRReceiver\+::recv\+PCIHandler(), VLReceiver\+::recv\+PCIHandler(), and tick\+Clock().
 
 \mbox{\Hypertarget{classTime_aaf106aff340ea506f16a010b12f51769}\label{classTime_aaf106aff340ea506f16a010b12f51769}} 
 \index{Time@{Time}!setTickrate@{setTickrate}}
@@ -310,7 +310,7 @@ Definition at line 137 of file Time\+Control.\+cpp.
 
 \begin{DoxyCode}{0}
 \DoxyCodeLine{138 \{}
-\DoxyCodeLine{139 \textcolor{preprocessor}{\#if VARIABLE\_TICKRATE == 1}}
+\DoxyCodeLine{139 \textcolor{preprocessor}{\#if VARIABLE\_TICKRATE == 1}}
 \DoxyCodeLine{140   \textcolor{keywordflow}{if} (!tickrate) \{}
 \DoxyCodeLine{141     \textcolor{comment}{// can't set 0 tickrate, so 0 sets default}}
 \DoxyCodeLine{142     tickrate = \mbox{\hyperlink{VortexConfig_8h_a97f6a37590c60f131bba4007c88d16eb}{DEFAULT\_TICKRATE}};}
@@ -320,13 +320,13 @@ Definition at line 137 of file Time\+Control.\+cpp.
 \DoxyCodeLine{146   \}}
 \DoxyCodeLine{147   \textcolor{comment}{// update the tickrate}}
 \DoxyCodeLine{148   m\_tickrate = tickrate;}
-\DoxyCodeLine{149 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{149 \textcolor{preprocessor}{\#endif}}
 \DoxyCodeLine{150 \}}
 
 \end{DoxyCode}
 
 
-References D\+E\+F\+A\+U\+L\+T\+\_\+\+T\+I\+C\+K\+R\+A\+TE.
+References DEFAULT\+\_\+\+TICKRATE.
 
 
 
@@ -348,17 +348,17 @@ Definition at line 71 of file Time\+Control.\+cpp.
 \DoxyCodeLine{73   \textcolor{comment}{// tick clock forward}}
 \DoxyCodeLine{74   \mbox{\hyperlink{classTime_ac3f1dc3ad6b2ba8787643e73b17a4f1c}{m\_curTick}}++;}
 \DoxyCodeLine{75 }
-\DoxyCodeLine{76 \textcolor{preprocessor}{\#if DEBUG\_ALLOCATIONS == 1}}
+\DoxyCodeLine{76 \textcolor{preprocessor}{\#if DEBUG\_ALLOCATIONS == 1}}
 \DoxyCodeLine{77   \textcolor{keywordflow}{if} ((\mbox{\hyperlink{classTime_ac3f1dc3ad6b2ba8787643e73b17a4f1c}{m\_curTick}} \% \mbox{\hyperlink{TimeControl_8h_a73adf9c10352865ff95b5f46e642c560}{MS\_TO\_TICKS}}(1000)) == 0) \{}
-\DoxyCodeLine{78     \mbox{\hyperlink{Log_8h_a8bdccae09f7cdda8fb311e0bd81c35dc}{DEBUG\_LOGF}}(\textcolor{stringliteral}{"Cur Memory: \%u (\%u)"}, cur\_memory\_usage(), cur\_memory\_usage\_background());}
+\DoxyCodeLine{78     \mbox{\hyperlink{Log_8h_a8bdccae09f7cdda8fb311e0bd81c35dc}{DEBUG\_LOGF}}(\textcolor{stringliteral}{"{}Cur Memory: \%u (\%u)"{}}, cur\_memory\_usage(), cur\_memory\_usage\_background());}
 \DoxyCodeLine{79   \}}
-\DoxyCodeLine{80 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{80 \textcolor{preprocessor}{\#endif}}
 \DoxyCodeLine{81 }
-\DoxyCodeLine{82 \textcolor{preprocessor}{\#ifdef VORTEX\_LIB}}
+\DoxyCodeLine{82 \textcolor{preprocessor}{\#ifdef VORTEX\_LIB}}
 \DoxyCodeLine{83   \textcolor{keywordflow}{if} (m\_instantTimestep) \{}
 \DoxyCodeLine{84     \textcolor{keywordflow}{return};}
 \DoxyCodeLine{85   \}}
-\DoxyCodeLine{86 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{86 \textcolor{preprocessor}{\#endif}}
 \DoxyCodeLine{87 }
 \DoxyCodeLine{88   \textcolor{comment}{// perform timestep}}
 \DoxyCodeLine{89   uint32\_t elapsed\_us;}
@@ -376,7 +376,7 @@ Definition at line 71 of file Time\+Control.\+cpp.
 \DoxyCodeLine{101     \textcolor{comment}{// if building anywhere except visual studio then we can run alternate sleep code}}
 \DoxyCodeLine{102     \textcolor{comment}{// because in visual studio + windows it's better to just spin and check the high}}
 \DoxyCodeLine{103     \textcolor{comment}{// resolution clock instead of trying to sleep for microseconds.}}
-\DoxyCodeLine{104 \textcolor{preprocessor}{\#if !defined(\_WIN32) \&\& defined(VORTEX\_LIB)}}
+\DoxyCodeLine{104 \textcolor{preprocessor}{\#if !defined(\_WIN32) \&\& defined(VORTEX\_LIB)}}
 \DoxyCodeLine{105     uint32\_t required = (1000000 / \mbox{\hyperlink{TimeControl_8cpp_a7f21fe9fdb3605017d51d802b41910ac}{TICKRATE}});}
 \DoxyCodeLine{106     uint32\_t sleepTime = 0;}
 \DoxyCodeLine{107     \textcolor{keywordflow}{if} (required > elapsed\_us) \{}
@@ -387,7 +387,7 @@ Definition at line 71 of file Time\+Control.\+cpp.
 \DoxyCodeLine{112     \}}
 \DoxyCodeLine{113     \mbox{\hyperlink{classTime_a1db7b0672f8b2d38994119ccc226f8ee}{Time::delayMicroseconds}}(sleepTime);}
 \DoxyCodeLine{114     \textcolor{keywordflow}{break};}
-\DoxyCodeLine{115 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{115 \textcolor{preprocessor}{\#endif}}
 \DoxyCodeLine{116     \textcolor{comment}{// 1000us per ms, divided by tickrate gives}}
 \DoxyCodeLine{117     \textcolor{comment}{// the number of microseconds per tick}}
 \DoxyCodeLine{118   \} \textcolor{keywordflow}{while} (elapsed\_us < (1000000 / \mbox{\hyperlink{TimeControl_8cpp_a7f21fe9fdb3605017d51d802b41910ac}{TICKRATE}}));}
@@ -399,7 +399,7 @@ Definition at line 71 of file Time\+Control.\+cpp.
 \end{DoxyCode}
 
 
-References D\+E\+B\+U\+G\+\_\+\+L\+O\+GF, delay\+Microseconds(), m\+\_\+cur\+Tick, m\+\_\+prev\+Time, microseconds(), M\+S\+\_\+\+T\+O\+\_\+\+T\+I\+C\+KS, and T\+I\+C\+K\+R\+A\+TE.
+References DEBUG\+\_\+\+LOGF, delay\+Microseconds(), m\+\_\+cur\+Tick, m\+\_\+prev\+Time, microseconds(), MS\+\_\+\+TO\+\_\+\+TICKS, and TICKRATE.
 
 
 

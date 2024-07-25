@@ -7,7 +7,13 @@
 
 
 Collaboration diagram for Vortex\+:
-% FIG 0
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=225pt]{classVortex__coll__graph}
+\end{center}
+\end{figure}
 \doxysubsection*{Classes}
 \begin{DoxyCompactItemize}
 \item 
@@ -63,9 +69,9 @@ static bool \mbox{\hyperlink{classVortex_a7b3faa63171d5ff95e0b1ffb52357b5d}{set\
 \item 
 static void \mbox{\hyperlink{classVortex_a537f21444ed431ad28f2ca1c129f5294}{quit\+Click}} ()
 \item 
-static void \mbox{\hyperlink{classVortex_a0cd3f45016f31ac3962319f9eed6842b}{I\+R\+Deliver}} (uint32\+\_\+t timing)
+static void \mbox{\hyperlink{classVortex_a0cd3f45016f31ac3962319f9eed6842b}{IRDeliver}} (uint32\+\_\+t timing)
 \item 
-static void \mbox{\hyperlink{classVortex_adccfae5f5a993f9619c73545184dd1d1}{V\+L\+Deliver}} (uint32\+\_\+t timing)
+static void \mbox{\hyperlink{classVortex_adccfae5f5a993f9619c73545184dd1d1}{VLDeliver}} (uint32\+\_\+t timing)
 \item 
 static void \mbox{\hyperlink{classVortex_a4b89ee2940ed41e32dc42d05b68c8ce7}{get\+Storage\+Stats}} (uint32\+\_\+t $\ast$out\+Total, uint32\+\_\+t $\ast$out\+Used)
 \item 
@@ -111,9 +117,9 @@ static bool \mbox{\hyperlink{classVortex_aecf059dc512675ca39f0ab80057151f1}{shif
 \item 
 static bool \mbox{\hyperlink{classVortex_aec7e2b2db0ab8511e121550b206a1532}{set\+Pattern}} (\mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8c}{Pattern\+ID}} id, const \mbox{\hyperlink{classPatternArgs}{Pattern\+Args}} $\ast$args=nullptr, const \mbox{\hyperlink{classColorset}{Colorset}} $\ast$set=nullptr, bool save=true)
 \item 
-static \mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8c}{Pattern\+ID}} \mbox{\hyperlink{classVortex_a21d5765cf1089f91676018c2ba54da8e}{get\+Pattern\+ID}} (\mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2c}{Led\+Pos}} pos=\mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2ca652516306597153ba832b404a27c85c8}{L\+E\+D\+\_\+\+A\+NY}})
+static \mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8c}{Pattern\+ID}} \mbox{\hyperlink{classVortex_a21d5765cf1089f91676018c2ba54da8e}{get\+Pattern\+ID}} (\mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2c}{Led\+Pos}} pos=\mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2ca652516306597153ba832b404a27c85c8}{LED\+\_\+\+ANY}})
 \item 
-static std\+::string \mbox{\hyperlink{classVortex_a2f81523b65490f448fccd30973f444c0}{get\+Pattern\+Name}} (\mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2c}{Led\+Pos}} pos=\mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2ca652516306597153ba832b404a27c85c8}{L\+E\+D\+\_\+\+A\+NY}})
+static std\+::string \mbox{\hyperlink{classVortex_a2f81523b65490f448fccd30973f444c0}{get\+Pattern\+Name}} (\mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2c}{Led\+Pos}} pos=\mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2ca652516306597153ba832b404a27c85c8}{LED\+\_\+\+ANY}})
 \item 
 static std\+::string \mbox{\hyperlink{classVortex_a3d89b2794ec31fb7701e3f1a518cc64c}{get\+Mode\+Name}} ()
 \item 
@@ -129,7 +135,7 @@ static bool \mbox{\hyperlink{classVortex_a634241777f83a7a3ca576323b239c2b1}{set\
 \item 
 static bool \mbox{\hyperlink{classVortex_a06bb249638783bbe4dff10f41e449e03}{is\+Cur\+Mode\+Multi}} ()
 \item 
-static std\+::string \mbox{\hyperlink{classVortex_a53ae4e3e4fa71806aeb6ef1bbeb23318}{pattern\+To\+String}} (\mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8c}{Pattern\+ID}} id=\mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8caf9610f0445822da8efff6bac441ca3de}{P\+A\+T\+T\+E\+R\+N\+\_\+\+N\+O\+NE}})
+static std\+::string \mbox{\hyperlink{classVortex_a53ae4e3e4fa71806aeb6ef1bbeb23318}{pattern\+To\+String}} (\mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8c}{Pattern\+ID}} id=\mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8caf9610f0445822da8efff6bac441ca3de}{PATTERN\+\_\+\+NONE}})
 \item 
 static \mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8c}{Pattern\+ID}} \mbox{\hyperlink{classVortex_a50d72f459382644b3be71893aba86d7d}{string\+To\+Pattern}} (const std\+::string \&pattern)
 \item 
@@ -215,22 +221,22 @@ static bool \mbox{\hyperlink{classVortex_af65139240004a466d87f5c9d5f58fe6a}{appl
 \begin{DoxyCompactItemize}
 \item 
 enum \mbox{\hyperlink{classVortex_a8410b9612ae0956a1ad07e72fc50213d}{Vortex\+Button\+Event\+Type}} \{ \newline
-\mbox{\hyperlink{classVortex_a8410b9612ae0956a1ad07e72fc50213da8b569ed5d0fa3f8f6b71262dd8b55b0e}{E\+V\+E\+N\+T\+\_\+\+N\+O\+NE}}, 
-\mbox{\hyperlink{classVortex_a8410b9612ae0956a1ad07e72fc50213daadd36c57ffdedd944c8666b25a513897}{E\+V\+E\+N\+T\+\_\+\+S\+H\+O\+R\+T\+\_\+\+C\+L\+I\+CK}}, 
-\mbox{\hyperlink{classVortex_a8410b9612ae0956a1ad07e72fc50213da308a7d1ff6c74a5f02f82142114a8ef3}{E\+V\+E\+N\+T\+\_\+\+L\+O\+N\+G\+\_\+\+C\+L\+I\+CK}}, 
-\mbox{\hyperlink{classVortex_a8410b9612ae0956a1ad07e72fc50213dab7f51ddb62e1981c5362ee9632e13894}{E\+V\+E\+N\+T\+\_\+\+M\+E\+N\+U\+\_\+\+E\+N\+T\+E\+R\+\_\+\+C\+L\+I\+CK}}, 
-\newline
-\mbox{\hyperlink{classVortex_a8410b9612ae0956a1ad07e72fc50213da8cc2097c6157318dddc51b751003eb00}{E\+V\+E\+N\+T\+\_\+\+A\+D\+V\+\_\+\+M\+E\+N\+U\+\_\+\+E\+N\+T\+E\+R\+\_\+\+C\+L\+I\+CK}}, 
-\mbox{\hyperlink{classVortex_a8410b9612ae0956a1ad07e72fc50213daab29b279c410d529caf184ef5c22ecd2}{E\+V\+E\+N\+T\+\_\+\+D\+E\+L\+E\+T\+E\+\_\+\+C\+OL}}, 
-\mbox{\hyperlink{classVortex_a8410b9612ae0956a1ad07e72fc50213da37b295a278105832cbfefda66df5b6e7}{E\+V\+E\+N\+T\+\_\+\+S\+L\+E\+E\+P\+\_\+\+C\+L\+I\+CK}}, 
-\mbox{\hyperlink{classVortex_a8410b9612ae0956a1ad07e72fc50213daed25327bb75151abb1633a2bda47e967}{E\+V\+E\+N\+T\+\_\+\+F\+O\+R\+C\+E\+\_\+\+S\+L\+E\+E\+P\+\_\+\+C\+L\+I\+CK}}, 
-\newline
-\mbox{\hyperlink{classVortex_a8410b9612ae0956a1ad07e72fc50213dad271e3378892800c8c648c0ee4a7016a}{E\+V\+E\+N\+T\+\_\+\+W\+A\+IT}}, 
-\mbox{\hyperlink{classVortex_a8410b9612ae0956a1ad07e72fc50213da77ce64213287711fceb0044ed864bd9a}{E\+V\+E\+N\+T\+\_\+\+T\+O\+G\+G\+L\+E\+\_\+\+C\+L\+I\+CK}}, 
-\mbox{\hyperlink{classVortex_a8410b9612ae0956a1ad07e72fc50213da498ce4c5cc815871450d3e368024c94f}{E\+V\+E\+N\+T\+\_\+\+R\+A\+P\+I\+D\+\_\+\+C\+L\+I\+CK}}, 
-\mbox{\hyperlink{classVortex_a8410b9612ae0956a1ad07e72fc50213dabd7f9852a66b60d8c1d8c27df299c3e0}{E\+V\+E\+N\+T\+\_\+\+Q\+U\+I\+T\+\_\+\+C\+L\+I\+CK}}, 
-\newline
-\mbox{\hyperlink{classVortex_a8410b9612ae0956a1ad07e72fc50213da591665967f5b99e95c6092e8a98471de}{E\+V\+E\+N\+T\+\_\+\+R\+E\+S\+E\+T\+\_\+\+C\+L\+I\+CK}}
+\mbox{\hyperlink{classVortex_a8410b9612ae0956a1ad07e72fc50213da8b569ed5d0fa3f8f6b71262dd8b55b0e}{EVENT\+\_\+\+NONE}}
+, \mbox{\hyperlink{classVortex_a8410b9612ae0956a1ad07e72fc50213daadd36c57ffdedd944c8666b25a513897}{EVENT\+\_\+\+SHORT\+\_\+\+CLICK}}
+, \mbox{\hyperlink{classVortex_a8410b9612ae0956a1ad07e72fc50213da308a7d1ff6c74a5f02f82142114a8ef3}{EVENT\+\_\+\+LONG\+\_\+\+CLICK}}
+, \mbox{\hyperlink{classVortex_a8410b9612ae0956a1ad07e72fc50213dab7f51ddb62e1981c5362ee9632e13894}{EVENT\+\_\+\+MENU\+\_\+\+ENTER\+\_\+\+CLICK}}
+, \newline
+\mbox{\hyperlink{classVortex_a8410b9612ae0956a1ad07e72fc50213da8cc2097c6157318dddc51b751003eb00}{EVENT\+\_\+\+ADV\+\_\+\+MENU\+\_\+\+ENTER\+\_\+\+CLICK}}
+, \mbox{\hyperlink{classVortex_a8410b9612ae0956a1ad07e72fc50213daab29b279c410d529caf184ef5c22ecd2}{EVENT\+\_\+\+DELETE\+\_\+\+COL}}
+, \mbox{\hyperlink{classVortex_a8410b9612ae0956a1ad07e72fc50213da37b295a278105832cbfefda66df5b6e7}{EVENT\+\_\+\+SLEEP\+\_\+\+CLICK}}
+, \mbox{\hyperlink{classVortex_a8410b9612ae0956a1ad07e72fc50213daed25327bb75151abb1633a2bda47e967}{EVENT\+\_\+\+FORCE\+\_\+\+SLEEP\+\_\+\+CLICK}}
+, \newline
+\mbox{\hyperlink{classVortex_a8410b9612ae0956a1ad07e72fc50213dad271e3378892800c8c648c0ee4a7016a}{EVENT\+\_\+\+WAIT}}
+, \mbox{\hyperlink{classVortex_a8410b9612ae0956a1ad07e72fc50213da77ce64213287711fceb0044ed864bd9a}{EVENT\+\_\+\+TOGGLE\+\_\+\+CLICK}}
+, \mbox{\hyperlink{classVortex_a8410b9612ae0956a1ad07e72fc50213da498ce4c5cc815871450d3e368024c94f}{EVENT\+\_\+\+RAPID\+\_\+\+CLICK}}
+, \mbox{\hyperlink{classVortex_a8410b9612ae0956a1ad07e72fc50213dabd7f9852a66b60d8c1d8c27df299c3e0}{EVENT\+\_\+\+QUIT\+\_\+\+CLICK}}
+, \newline
+\mbox{\hyperlink{classVortex_a8410b9612ae0956a1ad07e72fc50213da591665967f5b99e95c6092e8a98471de}{EVENT\+\_\+\+RESET\+\_\+\+CLICK}}
  \}
 \end{DoxyCompactItemize}
 \doxysubsection*{Private Member Functions}
@@ -264,7 +270,7 @@ static bool \mbox{\hyperlink{classVortex_aad694dd4bca7bdf6d32ec5a7e6a20b0e}{m\+\
 \item 
 static \mbox{\hyperlink{classVortexCallbacks}{Vortex\+Callbacks}} $\ast$ \mbox{\hyperlink{classVortex_a18f8dce36f15966e344286b33532b727}{m\+\_\+stored\+Callbacks}}
 \item 
-static F\+I\+LE $\ast$ \mbox{\hyperlink{classVortex_aaca3fa606d8a2dceb7e17d0bb05b5d7f}{m\+\_\+console\+Handle}} = nullptr
+static FILE $\ast$ \mbox{\hyperlink{classVortex_aaca3fa606d8a2dceb7e17d0bb05b5d7f}{m\+\_\+console\+Handle}} = nullptr
 \item 
 static std\+::deque$<$ \mbox{\hyperlink{classVortex_1_1VortexButtonEvent}{Vortex\+Button\+Event}} $>$ \mbox{\hyperlink{classVortex_ac5a07cdd48ba4cc376bf2e08831ac85e}{m\+\_\+button\+Event\+Queue}}
 \item 
@@ -309,55 +315,55 @@ Definition at line 79 of file Vortex\+Lib.\+h.
 
 \begin{DoxyEnumFields}{Enumerator}
 \raisebox{\heightof{T}}[0pt][0pt]{\index{EVENT\_NONE@{EVENT\_NONE}!Vortex@{Vortex}}\index{Vortex@{Vortex}!EVENT\_NONE@{EVENT\_NONE}}}\mbox{\Hypertarget{classVortex_a8410b9612ae0956a1ad07e72fc50213da8b569ed5d0fa3f8f6b71262dd8b55b0e}\label{classVortex_a8410b9612ae0956a1ad07e72fc50213da8b569ed5d0fa3f8f6b71262dd8b55b0e}} 
-E\+V\+E\+N\+T\+\_\+\+N\+O\+NE&\\
+EVENT\+\_\+\+NONE&\\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{EVENT\_SHORT\_CLICK@{EVENT\_SHORT\_CLICK}!Vortex@{Vortex}}\index{Vortex@{Vortex}!EVENT\_SHORT\_CLICK@{EVENT\_SHORT\_CLICK}}}\mbox{\Hypertarget{classVortex_a8410b9612ae0956a1ad07e72fc50213daadd36c57ffdedd944c8666b25a513897}\label{classVortex_a8410b9612ae0956a1ad07e72fc50213daadd36c57ffdedd944c8666b25a513897}} 
-E\+V\+E\+N\+T\+\_\+\+S\+H\+O\+R\+T\+\_\+\+C\+L\+I\+CK&\\
+EVENT\+\_\+\+SHORT\+\_\+\+CLICK&\\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{EVENT\_LONG\_CLICK@{EVENT\_LONG\_CLICK}!Vortex@{Vortex}}\index{Vortex@{Vortex}!EVENT\_LONG\_CLICK@{EVENT\_LONG\_CLICK}}}\mbox{\Hypertarget{classVortex_a8410b9612ae0956a1ad07e72fc50213da308a7d1ff6c74a5f02f82142114a8ef3}\label{classVortex_a8410b9612ae0956a1ad07e72fc50213da308a7d1ff6c74a5f02f82142114a8ef3}} 
-E\+V\+E\+N\+T\+\_\+\+L\+O\+N\+G\+\_\+\+C\+L\+I\+CK&\\
+EVENT\+\_\+\+LONG\+\_\+\+CLICK&\\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{EVENT\_MENU\_ENTER\_CLICK@{EVENT\_MENU\_ENTER\_CLICK}!Vortex@{Vortex}}\index{Vortex@{Vortex}!EVENT\_MENU\_ENTER\_CLICK@{EVENT\_MENU\_ENTER\_CLICK}}}\mbox{\Hypertarget{classVortex_a8410b9612ae0956a1ad07e72fc50213dab7f51ddb62e1981c5362ee9632e13894}\label{classVortex_a8410b9612ae0956a1ad07e72fc50213dab7f51ddb62e1981c5362ee9632e13894}} 
-E\+V\+E\+N\+T\+\_\+\+M\+E\+N\+U\+\_\+\+E\+N\+T\+E\+R\+\_\+\+C\+L\+I\+CK&\\
+EVENT\+\_\+\+MENU\+\_\+\+ENTER\+\_\+\+CLICK&\\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{EVENT\_ADV\_MENU\_ENTER\_CLICK@{EVENT\_ADV\_MENU\_ENTER\_CLICK}!Vortex@{Vortex}}\index{Vortex@{Vortex}!EVENT\_ADV\_MENU\_ENTER\_CLICK@{EVENT\_ADV\_MENU\_ENTER\_CLICK}}}\mbox{\Hypertarget{classVortex_a8410b9612ae0956a1ad07e72fc50213da8cc2097c6157318dddc51b751003eb00}\label{classVortex_a8410b9612ae0956a1ad07e72fc50213da8cc2097c6157318dddc51b751003eb00}} 
-E\+V\+E\+N\+T\+\_\+\+A\+D\+V\+\_\+\+M\+E\+N\+U\+\_\+\+E\+N\+T\+E\+R\+\_\+\+C\+L\+I\+CK&\\
+EVENT\+\_\+\+ADV\+\_\+\+MENU\+\_\+\+ENTER\+\_\+\+CLICK&\\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{EVENT\_DELETE\_COL@{EVENT\_DELETE\_COL}!Vortex@{Vortex}}\index{Vortex@{Vortex}!EVENT\_DELETE\_COL@{EVENT\_DELETE\_COL}}}\mbox{\Hypertarget{classVortex_a8410b9612ae0956a1ad07e72fc50213daab29b279c410d529caf184ef5c22ecd2}\label{classVortex_a8410b9612ae0956a1ad07e72fc50213daab29b279c410d529caf184ef5c22ecd2}} 
-E\+V\+E\+N\+T\+\_\+\+D\+E\+L\+E\+T\+E\+\_\+\+C\+OL&\\
+EVENT\+\_\+\+DELETE\+\_\+\+COL&\\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{EVENT\_SLEEP\_CLICK@{EVENT\_SLEEP\_CLICK}!Vortex@{Vortex}}\index{Vortex@{Vortex}!EVENT\_SLEEP\_CLICK@{EVENT\_SLEEP\_CLICK}}}\mbox{\Hypertarget{classVortex_a8410b9612ae0956a1ad07e72fc50213da37b295a278105832cbfefda66df5b6e7}\label{classVortex_a8410b9612ae0956a1ad07e72fc50213da37b295a278105832cbfefda66df5b6e7}} 
-E\+V\+E\+N\+T\+\_\+\+S\+L\+E\+E\+P\+\_\+\+C\+L\+I\+CK&\\
+EVENT\+\_\+\+SLEEP\+\_\+\+CLICK&\\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{EVENT\_FORCE\_SLEEP\_CLICK@{EVENT\_FORCE\_SLEEP\_CLICK}!Vortex@{Vortex}}\index{Vortex@{Vortex}!EVENT\_FORCE\_SLEEP\_CLICK@{EVENT\_FORCE\_SLEEP\_CLICK}}}\mbox{\Hypertarget{classVortex_a8410b9612ae0956a1ad07e72fc50213daed25327bb75151abb1633a2bda47e967}\label{classVortex_a8410b9612ae0956a1ad07e72fc50213daed25327bb75151abb1633a2bda47e967}} 
-E\+V\+E\+N\+T\+\_\+\+F\+O\+R\+C\+E\+\_\+\+S\+L\+E\+E\+P\+\_\+\+C\+L\+I\+CK&\\
+EVENT\+\_\+\+FORCE\+\_\+\+SLEEP\+\_\+\+CLICK&\\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{EVENT\_WAIT@{EVENT\_WAIT}!Vortex@{Vortex}}\index{Vortex@{Vortex}!EVENT\_WAIT@{EVENT\_WAIT}}}\mbox{\Hypertarget{classVortex_a8410b9612ae0956a1ad07e72fc50213dad271e3378892800c8c648c0ee4a7016a}\label{classVortex_a8410b9612ae0956a1ad07e72fc50213dad271e3378892800c8c648c0ee4a7016a}} 
-E\+V\+E\+N\+T\+\_\+\+W\+A\+IT&\\
+EVENT\+\_\+\+WAIT&\\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{EVENT\_TOGGLE\_CLICK@{EVENT\_TOGGLE\_CLICK}!Vortex@{Vortex}}\index{Vortex@{Vortex}!EVENT\_TOGGLE\_CLICK@{EVENT\_TOGGLE\_CLICK}}}\mbox{\Hypertarget{classVortex_a8410b9612ae0956a1ad07e72fc50213da77ce64213287711fceb0044ed864bd9a}\label{classVortex_a8410b9612ae0956a1ad07e72fc50213da77ce64213287711fceb0044ed864bd9a}} 
-E\+V\+E\+N\+T\+\_\+\+T\+O\+G\+G\+L\+E\+\_\+\+C\+L\+I\+CK&\\
+EVENT\+\_\+\+TOGGLE\+\_\+\+CLICK&\\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{EVENT\_RAPID\_CLICK@{EVENT\_RAPID\_CLICK}!Vortex@{Vortex}}\index{Vortex@{Vortex}!EVENT\_RAPID\_CLICK@{EVENT\_RAPID\_CLICK}}}\mbox{\Hypertarget{classVortex_a8410b9612ae0956a1ad07e72fc50213da498ce4c5cc815871450d3e368024c94f}\label{classVortex_a8410b9612ae0956a1ad07e72fc50213da498ce4c5cc815871450d3e368024c94f}} 
-E\+V\+E\+N\+T\+\_\+\+R\+A\+P\+I\+D\+\_\+\+C\+L\+I\+CK&\\
+EVENT\+\_\+\+RAPID\+\_\+\+CLICK&\\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{EVENT\_QUIT\_CLICK@{EVENT\_QUIT\_CLICK}!Vortex@{Vortex}}\index{Vortex@{Vortex}!EVENT\_QUIT\_CLICK@{EVENT\_QUIT\_CLICK}}}\mbox{\Hypertarget{classVortex_a8410b9612ae0956a1ad07e72fc50213dabd7f9852a66b60d8c1d8c27df299c3e0}\label{classVortex_a8410b9612ae0956a1ad07e72fc50213dabd7f9852a66b60d8c1d8c27df299c3e0}} 
-E\+V\+E\+N\+T\+\_\+\+Q\+U\+I\+T\+\_\+\+C\+L\+I\+CK&\\
+EVENT\+\_\+\+QUIT\+\_\+\+CLICK&\\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{EVENT\_RESET\_CLICK@{EVENT\_RESET\_CLICK}!Vortex@{Vortex}}\index{Vortex@{Vortex}!EVENT\_RESET\_CLICK@{EVENT\_RESET\_CLICK}}}\mbox{\Hypertarget{classVortex_a8410b9612ae0956a1ad07e72fc50213da591665967f5b99e95c6092e8a98471de}\label{classVortex_a8410b9612ae0956a1ad07e72fc50213da591665967f5b99e95c6092e8a98471de}} 
-E\+V\+E\+N\+T\+\_\+\+R\+E\+S\+E\+T\+\_\+\+C\+L\+I\+CK&\\
+EVENT\+\_\+\+RESET\+\_\+\+CLICK&\\
 \hline
 
 \end{DoxyEnumFields}
@@ -503,11 +509,11 @@ Definition at line 1134 of file Vortex\+Lib.\+cpp.
 \end{DoxyCode}
 
 
-References Modes\+::add\+Mode(), Random\+::next16(), P\+A\+T\+T\+E\+R\+N\+\_\+\+C\+O\+U\+NT, P\+A\+T\+T\+E\+R\+N\+\_\+\+F\+I\+R\+ST, P\+A\+T\+T\+E\+R\+N\+\_\+\+S\+O\+L\+ID, and Colorset\+::randomize().
+References Modes\+::add\+Mode(), Random\+::next16(), PATTERN\+\_\+\+COUNT, PATTERN\+\_\+\+FIRST, PATTERN\+\_\+\+SOLID, and Colorset\+::randomize().
 
 
 
-Referenced by Vortex\+C\+L\+I\+::init().
+Referenced by Vortex\+CLI\+::init().
 
 \mbox{\Hypertarget{classVortex_a386246bce58457a3dd06b294ad8cf3b8}\label{classVortex_a386246bce58457a3dd06b294ad8cf3b8}} 
 \index{Vortex@{Vortex}!addUndoBuffer@{addUndoBuffer}}
@@ -532,7 +538,7 @@ Definition at line 1447 of file Vortex\+Lib.\+cpp.
 \DoxyCodeLine{1456   \}}
 \DoxyCodeLine{1457   \textcolor{comment}{// only save an undo if the buffer is different}}
 \DoxyCodeLine{1458   \textcolor{keywordflow}{if} (\mbox{\hyperlink{classVortex_a544f884875a07cbd856f8c7e7e8e63d5}{m\_undoBuffer}}.size() > 0 \&\& modes.\mbox{\hyperlink{classByteStream_a2531b8b48b38cbfe25a0e642e10a94eb}{CRC}}() == \mbox{\hyperlink{classVortex_a544f884875a07cbd856f8c7e7e8e63d5}{m\_undoBuffer}}.back().CRC()) \{}
-\DoxyCodeLine{1459     \textcolor{comment}{//printf("Not saving duplicate undo buffer\(\backslash\)n");}}
+\DoxyCodeLine{1459     \textcolor{comment}{//printf("{}Not saving duplicate undo buffer\(\backslash\)n"{});}}
 \DoxyCodeLine{1460     \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
 \DoxyCodeLine{1461   \}}
 \DoxyCodeLine{1462   \textcolor{comment}{// must rewind to that step before pushing next step}}
@@ -541,30 +547,30 @@ Definition at line 1447 of file Vortex\+Lib.\+cpp.
 \DoxyCodeLine{1465     \mbox{\hyperlink{classVortex_ae1508135bacdcbb697c2394de2294094}{m\_undoIndex}}-\/-\/;}
 \DoxyCodeLine{1466   \}}
 \DoxyCodeLine{1467   \mbox{\hyperlink{classVortex_a544f884875a07cbd856f8c7e7e8e63d5}{m\_undoBuffer}}.push\_back(modes);}
-\DoxyCodeLine{1468   \textcolor{comment}{//printf("Pushing undo buffer (pos: \%u)\(\backslash\)n", m\_undoIndex);}}
+\DoxyCodeLine{1468   \textcolor{comment}{//printf("{}Pushing undo buffer (pos: \%u)\(\backslash\)n"{}, m\_undoIndex);}}
 \DoxyCodeLine{1469   \textcolor{comment}{// make sure list doesn't grow too big}}
 \DoxyCodeLine{1470   \textcolor{keywordflow}{if} (\mbox{\hyperlink{classVortex_a88ed73fa6f48e6c763e689d82f74de9e}{m\_undoLimit}} \&\& \mbox{\hyperlink{classVortex_a544f884875a07cbd856f8c7e7e8e63d5}{m\_undoBuffer}}.size() > \mbox{\hyperlink{classVortex_a88ed73fa6f48e6c763e689d82f74de9e}{m\_undoLimit}}) \{}
-\DoxyCodeLine{1471     \textcolor{comment}{//printf("Popping front of undo buffer\(\backslash\)n");}}
+\DoxyCodeLine{1471     \textcolor{comment}{//printf("{}Popping front of undo buffer\(\backslash\)n"{});}}
 \DoxyCodeLine{1472     \mbox{\hyperlink{classVortex_a544f884875a07cbd856f8c7e7e8e63d5}{m\_undoBuffer}}.pop\_front();}
 \DoxyCodeLine{1473   \}}
-\DoxyCodeLine{1474 \textcolor{preprocessor}{\#if 0}}
-\DoxyCodeLine{1475   printf(\textcolor{stringliteral}{"Buffer:\(\backslash\)n"});}
+\DoxyCodeLine{1474 \textcolor{preprocessor}{\#if 0}}
+\DoxyCodeLine{1475   printf(\textcolor{stringliteral}{"{}Buffer:\(\backslash\)n"{}});}
 \DoxyCodeLine{1476   \textcolor{keywordflow}{for} (uint32\_t i = 0; i < \mbox{\hyperlink{classVortex_a544f884875a07cbd856f8c7e7e8e63d5}{m\_undoBuffer}}.size(); ++i) \{}
-\DoxyCodeLine{1477     printf(\textcolor{stringliteral}{"\(\backslash\)t\%u: \%x"}, i, \mbox{\hyperlink{classVortex_a544f884875a07cbd856f8c7e7e8e63d5}{m\_undoBuffer}}[i].CRC());}
+\DoxyCodeLine{1477     printf(\textcolor{stringliteral}{"{}\(\backslash\)t\%u: \%x"{}}, i, \mbox{\hyperlink{classVortex_a544f884875a07cbd856f8c7e7e8e63d5}{m\_undoBuffer}}[i].CRC());}
 \DoxyCodeLine{1478     \textcolor{keywordflow}{if} ((\mbox{\hyperlink{classVortex_a544f884875a07cbd856f8c7e7e8e63d5}{m\_undoBuffer}}.size() -\/ 1) -\/ \mbox{\hyperlink{classVortex_ae1508135bacdcbb697c2394de2294094}{m\_undoIndex}} == i) \{}
-\DoxyCodeLine{1479       printf(\textcolor{stringliteral}{" <-\/-\/\(\backslash\)n"});}
+\DoxyCodeLine{1479       printf(\textcolor{stringliteral}{"{} <-\/-\/\(\backslash\)n"{}});}
 \DoxyCodeLine{1480     \} \textcolor{keywordflow}{else} \{}
-\DoxyCodeLine{1481       printf(\textcolor{stringliteral}{"\(\backslash\)n"});}
+\DoxyCodeLine{1481       printf(\textcolor{stringliteral}{"{}\(\backslash\)n"{}});}
 \DoxyCodeLine{1482     \}}
 \DoxyCodeLine{1483   \}}
-\DoxyCodeLine{1484 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{1484 \textcolor{preprocessor}{\#endif}}
 \DoxyCodeLine{1485   \textcolor{keywordflow}{return} \textcolor{keyword}{true};}
 \DoxyCodeLine{1486 \}}
 
 \end{DoxyCode}
 
 
-References Byte\+Stream\+::\+C\+R\+C(), and Byte\+Stream\+::size().
+References Byte\+Stream\+::\+CRC(), and Byte\+Stream\+::size().
 
 \mbox{\Hypertarget{classVortex_a650f133b7536569e8211060c591767c0}\label{classVortex_a650f133b7536569e8211060c591767c0}} 
 \index{Vortex@{Vortex}!advMenuEnterClick@{advMenuEnterClick}}
@@ -606,18 +612,18 @@ Definition at line 1488 of file Vortex\+Lib.\+cpp.
 \DoxyCodeLine{1494   \textcolor{keywordflow}{if} (\mbox{\hyperlink{classVortex_ae1508135bacdcbb697c2394de2294094}{m\_undoIndex}} > highestIndex) \{}
 \DoxyCodeLine{1495     \mbox{\hyperlink{classVortex_ae1508135bacdcbb697c2394de2294094}{m\_undoIndex}} = highestIndex;}
 \DoxyCodeLine{1496   \}}
-\DoxyCodeLine{1497   \textcolor{comment}{//printf("Undo position: \%u / \%u\(\backslash\)n", m\_undoIndex, highestIndex);}}
-\DoxyCodeLine{1498   \textcolor{comment}{//printf("Buffer:\(\backslash\)n");}}
-\DoxyCodeLine{1499 \textcolor{preprocessor}{\#if 0}}
+\DoxyCodeLine{1497   \textcolor{comment}{//printf("{}Undo position: \%u / \%u\(\backslash\)n"{}, m\_undoIndex, highestIndex);}}
+\DoxyCodeLine{1498   \textcolor{comment}{//printf("{}Buffer:\(\backslash\)n"{});}}
+\DoxyCodeLine{1499 \textcolor{preprocessor}{\#if 0}}
 \DoxyCodeLine{1500   \textcolor{keywordflow}{for} (uint32\_t i = 0; i < \mbox{\hyperlink{classVortex_a544f884875a07cbd856f8c7e7e8e63d5}{m\_undoBuffer}}.size(); ++i) \{}
-\DoxyCodeLine{1501     printf(\textcolor{stringliteral}{"\(\backslash\)t\%u: \%x"}, i, \mbox{\hyperlink{classVortex_a544f884875a07cbd856f8c7e7e8e63d5}{m\_undoBuffer}}[i].CRC());}
+\DoxyCodeLine{1501     printf(\textcolor{stringliteral}{"{}\(\backslash\)t\%u: \%x"{}}, i, \mbox{\hyperlink{classVortex_a544f884875a07cbd856f8c7e7e8e63d5}{m\_undoBuffer}}[i].CRC());}
 \DoxyCodeLine{1502     \textcolor{keywordflow}{if} ((\mbox{\hyperlink{classVortex_a544f884875a07cbd856f8c7e7e8e63d5}{m\_undoBuffer}}.size() -\/ 1) -\/ \mbox{\hyperlink{classVortex_ae1508135bacdcbb697c2394de2294094}{m\_undoIndex}} == i) \{}
-\DoxyCodeLine{1503       printf(\textcolor{stringliteral}{" <-\/-\/\(\backslash\)n"});}
+\DoxyCodeLine{1503       printf(\textcolor{stringliteral}{"{} <-\/-\/\(\backslash\)n"{}});}
 \DoxyCodeLine{1504     \} \textcolor{keywordflow}{else} \{}
-\DoxyCodeLine{1505       printf(\textcolor{stringliteral}{"\(\backslash\)n"});}
+\DoxyCodeLine{1505       printf(\textcolor{stringliteral}{"{}\(\backslash\)n"{}});}
 \DoxyCodeLine{1506     \}}
 \DoxyCodeLine{1507   \}}
-\DoxyCodeLine{1508 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{1508 \textcolor{preprocessor}{\#endif}}
 \DoxyCodeLine{1509   \textcolor{comment}{// index from the back instead of the front}}
 \DoxyCodeLine{1510   uint32\_t backIndex = highestIndex -\/ \mbox{\hyperlink{classVortex_ae1508135bacdcbb697c2394de2294094}{m\_undoIndex}};}
 \DoxyCodeLine{1511   \mbox{\hyperlink{classVortex_a544f884875a07cbd856f8c7e7e8e63d5}{m\_undoBuffer}}[backIndex].resetUnserializer();}
@@ -658,7 +664,7 @@ References Vortex\+Engine\+::cleanup().
 
 
 
-Referenced by Vortex\+C\+L\+I\+::cleanup().
+Referenced by Vortex\+CLI\+::cleanup().
 
 \mbox{\Hypertarget{classVortex_a2e0c9920dabb05050090e5bfdfa6a3c7}\label{classVortex_a2e0c9920dabb05050090e5bfdfa6a3c7}} 
 \index{Vortex@{Vortex}!clearCommandLog@{clearCommandLog}}
@@ -767,62 +773,62 @@ Definition at line 732 of file Vortex\+Lib.\+cpp.
 \DoxyCodeLine{740   \textcolor{keywordflow}{switch} (c) \{}
 \DoxyCodeLine{741   \textcolor{keywordflow}{case} \textcolor{charliteral}{'c'}:}
 \DoxyCodeLine{742     \textcolor{keywordflow}{if} (\mbox{\hyperlink{classVortex_a9769025d51b845d23232df00813ecafe}{m\_lastCommand}} != c) \{}
-\DoxyCodeLine{743       \mbox{\hyperlink{Log_8h_a5d2f30bd1cbcf49f829a7e8eb6173c06}{DEBUG\_LOG}}(\textcolor{stringliteral}{"Injecting short click"});}
+\DoxyCodeLine{743       \mbox{\hyperlink{Log_8h_a5d2f30bd1cbcf49f829a7e8eb6173c06}{DEBUG\_LOG}}(\textcolor{stringliteral}{"{}Injecting short click"{}});}
 \DoxyCodeLine{744     \}}
 \DoxyCodeLine{745     \mbox{\hyperlink{classVortex_ac6f0da714be3a9c55e1eb45efb250ddf}{shortClick}}();}
 \DoxyCodeLine{746     \textcolor{keywordflow}{break};}
 \DoxyCodeLine{747   \textcolor{keywordflow}{case} \textcolor{charliteral}{'l'}:}
 \DoxyCodeLine{748     \textcolor{keywordflow}{if} (\mbox{\hyperlink{classVortex_a9769025d51b845d23232df00813ecafe}{m\_lastCommand}} != c) \{}
-\DoxyCodeLine{749       \mbox{\hyperlink{Log_8h_a5d2f30bd1cbcf49f829a7e8eb6173c06}{DEBUG\_LOG}}(\textcolor{stringliteral}{"Injecting long click"});}
+\DoxyCodeLine{749       \mbox{\hyperlink{Log_8h_a5d2f30bd1cbcf49f829a7e8eb6173c06}{DEBUG\_LOG}}(\textcolor{stringliteral}{"{}Injecting long click"{}});}
 \DoxyCodeLine{750     \}}
 \DoxyCodeLine{751     \mbox{\hyperlink{classVortex_acf933d399c4579d46fb8d25b7f288767}{longClick}}();}
 \DoxyCodeLine{752     \textcolor{keywordflow}{break};}
 \DoxyCodeLine{753   \textcolor{keywordflow}{case} \textcolor{charliteral}{'m'}:}
 \DoxyCodeLine{754     \textcolor{keywordflow}{if} (\mbox{\hyperlink{classVortex_a9769025d51b845d23232df00813ecafe}{m\_lastCommand}} != c) \{}
-\DoxyCodeLine{755       \mbox{\hyperlink{Log_8h_a5d2f30bd1cbcf49f829a7e8eb6173c06}{DEBUG\_LOG}}(\textcolor{stringliteral}{"Injecting menu enter click"});}
+\DoxyCodeLine{755       \mbox{\hyperlink{Log_8h_a5d2f30bd1cbcf49f829a7e8eb6173c06}{DEBUG\_LOG}}(\textcolor{stringliteral}{"{}Injecting menu enter click"{}});}
 \DoxyCodeLine{756     \}}
 \DoxyCodeLine{757     \mbox{\hyperlink{classVortex_a1459161d603e6a08327442f4971531b4}{menuEnterClick}}();}
 \DoxyCodeLine{758     \textcolor{keywordflow}{break};}
 \DoxyCodeLine{759   \textcolor{keywordflow}{case} \textcolor{charliteral}{'a'}:}
 \DoxyCodeLine{760     \textcolor{keywordflow}{if} (\mbox{\hyperlink{classVortex_a9769025d51b845d23232df00813ecafe}{m\_lastCommand}} != c) \{}
-\DoxyCodeLine{761       \mbox{\hyperlink{Log_8h_a5d2f30bd1cbcf49f829a7e8eb6173c06}{DEBUG\_LOG}}(\textcolor{stringliteral}{"Injecting adv menu enter click"});}
+\DoxyCodeLine{761       \mbox{\hyperlink{Log_8h_a5d2f30bd1cbcf49f829a7e8eb6173c06}{DEBUG\_LOG}}(\textcolor{stringliteral}{"{}Injecting adv menu enter click"{}});}
 \DoxyCodeLine{762     \}}
 \DoxyCodeLine{763     \mbox{\hyperlink{classVortex_a650f133b7536569e8211060c591767c0}{advMenuEnterClick}}();}
 \DoxyCodeLine{764     \textcolor{keywordflow}{break};}
 \DoxyCodeLine{765   \textcolor{keywordflow}{case} \textcolor{charliteral}{'d'}:}
 \DoxyCodeLine{766     \textcolor{keywordflow}{if} (\mbox{\hyperlink{classVortex_a9769025d51b845d23232df00813ecafe}{m\_lastCommand}} != c) \{}
-\DoxyCodeLine{767       \mbox{\hyperlink{Log_8h_a5d2f30bd1cbcf49f829a7e8eb6173c06}{DEBUG\_LOG}}(\textcolor{stringliteral}{"Injecting adv menu enter click"});}
+\DoxyCodeLine{767       \mbox{\hyperlink{Log_8h_a5d2f30bd1cbcf49f829a7e8eb6173c06}{DEBUG\_LOG}}(\textcolor{stringliteral}{"{}Injecting adv menu enter click"{}});}
 \DoxyCodeLine{768     \}}
 \DoxyCodeLine{769     \mbox{\hyperlink{classVortex_a7b31c512d3b7a90ee5926ccbb0b7d2be}{deleteColClick}}();}
 \DoxyCodeLine{770     \textcolor{keywordflow}{break};}
 \DoxyCodeLine{771   \textcolor{keywordflow}{case} \textcolor{charliteral}{'s'}:}
 \DoxyCodeLine{772     \textcolor{keywordflow}{if} (\mbox{\hyperlink{classVortex_a9769025d51b845d23232df00813ecafe}{m\_lastCommand}} != c) \{}
-\DoxyCodeLine{773       \mbox{\hyperlink{Log_8h_a5d2f30bd1cbcf49f829a7e8eb6173c06}{DEBUG\_LOG}}(\textcolor{stringliteral}{"Injecting sleep click"});}
+\DoxyCodeLine{773       \mbox{\hyperlink{Log_8h_a5d2f30bd1cbcf49f829a7e8eb6173c06}{DEBUG\_LOG}}(\textcolor{stringliteral}{"{}Injecting sleep click"{}});}
 \DoxyCodeLine{774     \}}
 \DoxyCodeLine{775     \mbox{\hyperlink{classVortex_adf8c1941e6b1aa0d7048d8f47658119e}{sleepClick}}();}
 \DoxyCodeLine{776     \textcolor{keywordflow}{break};}
 \DoxyCodeLine{777   \textcolor{keywordflow}{case} \textcolor{charliteral}{'f'}:}
 \DoxyCodeLine{778     \textcolor{keywordflow}{if} (\mbox{\hyperlink{classVortex_a9769025d51b845d23232df00813ecafe}{m\_lastCommand}} != c) \{}
-\DoxyCodeLine{779       \mbox{\hyperlink{Log_8h_a5d2f30bd1cbcf49f829a7e8eb6173c06}{DEBUG\_LOG}}(\textcolor{stringliteral}{"Injecting force sleep click"});}
+\DoxyCodeLine{779       \mbox{\hyperlink{Log_8h_a5d2f30bd1cbcf49f829a7e8eb6173c06}{DEBUG\_LOG}}(\textcolor{stringliteral}{"{}Injecting force sleep click"{}});}
 \DoxyCodeLine{780     \}}
 \DoxyCodeLine{781     \mbox{\hyperlink{classVortex_ad26a1eca176293c904bbda112bbf4cd9}{forceSleepClick}}();}
 \DoxyCodeLine{782     \textcolor{keywordflow}{break};}
 \DoxyCodeLine{783   \textcolor{keywordflow}{case} \textcolor{charliteral}{'q'}:}
 \DoxyCodeLine{784     \textcolor{comment}{//case '\(\backslash\)n':}}
 \DoxyCodeLine{785     \textcolor{keywordflow}{if} (\mbox{\hyperlink{classVortex_a9769025d51b845d23232df00813ecafe}{m\_lastCommand}} != c) \{}
-\DoxyCodeLine{786       \mbox{\hyperlink{Log_8h_a5d2f30bd1cbcf49f829a7e8eb6173c06}{DEBUG\_LOG}}(\textcolor{stringliteral}{"Injecting quit click\(\backslash\)n"});}
+\DoxyCodeLine{786       \mbox{\hyperlink{Log_8h_a5d2f30bd1cbcf49f829a7e8eb6173c06}{DEBUG\_LOG}}(\textcolor{stringliteral}{"{}Injecting quit click\(\backslash\)n"{}});}
 \DoxyCodeLine{787     \}}
 \DoxyCodeLine{788     \mbox{\hyperlink{classVortex_a537f21444ed431ad28f2ca1c129f5294}{quitClick}}();}
 \DoxyCodeLine{789     \textcolor{keywordflow}{break};}
 \DoxyCodeLine{790   \textcolor{keywordflow}{case} \textcolor{charliteral}{'t'}:}
 \DoxyCodeLine{791     \textcolor{keywordflow}{if} (\mbox{\hyperlink{classVortex_ae430f7ca6212610b721717a00736729c}{isButtonPressed}}()) \{}
 \DoxyCodeLine{792       \textcolor{keywordflow}{if} (\mbox{\hyperlink{classVortex_a9769025d51b845d23232df00813ecafe}{m\_lastCommand}} != c) \{}
-\DoxyCodeLine{793         \mbox{\hyperlink{Log_8h_a5d2f30bd1cbcf49f829a7e8eb6173c06}{DEBUG\_LOG}}(\textcolor{stringliteral}{"Injecting release"});}
+\DoxyCodeLine{793         \mbox{\hyperlink{Log_8h_a5d2f30bd1cbcf49f829a7e8eb6173c06}{DEBUG\_LOG}}(\textcolor{stringliteral}{"{}Injecting release"{}});}
 \DoxyCodeLine{794       \}}
 \DoxyCodeLine{795       \mbox{\hyperlink{classVortex_ac730d0e5052d59c96e644d0c888628b4}{releaseButton}}();}
 \DoxyCodeLine{796     \} \textcolor{keywordflow}{else} \{}
 \DoxyCodeLine{797       \textcolor{keywordflow}{if} (\mbox{\hyperlink{classVortex_a9769025d51b845d23232df00813ecafe}{m\_lastCommand}} != c) \{}
-\DoxyCodeLine{798         \mbox{\hyperlink{Log_8h_a5d2f30bd1cbcf49f829a7e8eb6173c06}{DEBUG\_LOG}}(\textcolor{stringliteral}{"Injecting press"});}
+\DoxyCodeLine{798         \mbox{\hyperlink{Log_8h_a5d2f30bd1cbcf49f829a7e8eb6173c06}{DEBUG\_LOG}}(\textcolor{stringliteral}{"{}Injecting press"{}});}
 \DoxyCodeLine{799       \}}
 \DoxyCodeLine{800       \mbox{\hyperlink{classVortex_a1e0827118984b41eaf04dfbc20f2ca0e}{pressButton}}();}
 \DoxyCodeLine{801     \}}
@@ -838,7 +844,7 @@ Definition at line 732 of file Vortex\+Lib.\+cpp.
 \DoxyCodeLine{811     \textcolor{keywordflow}{break};}
 \DoxyCodeLine{812   \textcolor{keywordflow}{case} \textcolor{charliteral}{'w'}:}
 \DoxyCodeLine{813     \textcolor{keywordflow}{if} (\mbox{\hyperlink{classVortex_a9769025d51b845d23232df00813ecafe}{m\_lastCommand}} != c) \{}
-\DoxyCodeLine{814       \mbox{\hyperlink{Log_8h_a5d2f30bd1cbcf49f829a7e8eb6173c06}{DEBUG\_LOG}}(\textcolor{stringliteral}{"Injecting wait"});}
+\DoxyCodeLine{814       \mbox{\hyperlink{Log_8h_a5d2f30bd1cbcf49f829a7e8eb6173c06}{DEBUG\_LOG}}(\textcolor{stringliteral}{"{}Injecting wait"{}});}
 \DoxyCodeLine{815     \}}
 \DoxyCodeLine{816     \mbox{\hyperlink{classVortex_a94b777a904a6902282d6eb2924502c2f}{sendWait}}();}
 \DoxyCodeLine{817     \textcolor{keywordflow}{break};}
@@ -853,7 +859,7 @@ Definition at line 732 of file Vortex\+Lib.\+cpp.
 \end{DoxyCode}
 
 
-References D\+E\+B\+U\+G\+\_\+\+L\+OG.
+References DEBUG\+\_\+\+LOG.
 
 \mbox{\Hypertarget{classVortex_a071420f9d13264dccfae392c8b9601ff}\label{classVortex_a071420f9d13264dccfae392c8b9601ff}} 
 \index{Vortex@{Vortex}!doSave@{doSave}}
@@ -878,7 +884,7 @@ References Modes\+::save\+Storage().
 
 
 
-Referenced by Vortex\+C\+L\+I\+::cleanup().
+Referenced by Vortex\+CLI\+::cleanup().
 
 \mbox{\Hypertarget{classVortex_a9f3074f2db39196dad314ba0ab7ecb11}\label{classVortex_a9f3074f2db39196dad314ba0ab7ecb11}} 
 \index{Vortex@{Vortex}!dumpJson@{dumpJson}}
@@ -909,7 +915,7 @@ Definition at line 2034 of file Vortex\+Lib.\+cpp.
 \end{DoxyCode}
 
 
-Referenced by Vortex\+C\+L\+I\+::cleanup().
+Referenced by Vortex\+CLI\+::cleanup().
 
 \mbox{\Hypertarget{classVortex_acb0f5ba153a3f1bfffb5f9e67ddf44d3}\label{classVortex_acb0f5ba153a3f1bfffb5f9e67ddf44d3}} 
 \index{Vortex@{Vortex}!enableCommandLog@{enableCommandLog}}
@@ -932,7 +938,7 @@ References m\+\_\+command\+Log\+Enabled.
 
 
 
-Referenced by Vortex\+C\+L\+I\+::init().
+Referenced by Vortex\+CLI\+::init().
 
 \mbox{\Hypertarget{classVortex_a41cc6ab28c407ab98452c5f5b68be18c}\label{classVortex_a41cc6ab28c407ab98452c5f5b68be18c}} 
 \index{Vortex@{Vortex}!enableLockstep@{enableLockstep}}
@@ -955,7 +961,7 @@ References m\+\_\+lockstep\+Enabled.
 
 
 
-Referenced by Vortex\+C\+L\+I\+::init().
+Referenced by Vortex\+CLI\+::init().
 
 \mbox{\Hypertarget{classVortex_a54ddc4ebdeea2e0aea86a00681ae420e}\label{classVortex_a54ddc4ebdeea2e0aea86a00681ae420e}} 
 \index{Vortex@{Vortex}!enableStorage@{enableStorage}}
@@ -978,7 +984,7 @@ References m\+\_\+storage\+Enabled.
 
 
 
-Referenced by Vortex\+C\+L\+I\+::init().
+Referenced by Vortex\+CLI\+::init().
 
 \mbox{\Hypertarget{classVortex_abe18940996cf88a8000406d5eac9aea4}\label{classVortex_abe18940996cf88a8000406d5eac9aea4}} 
 \index{Vortex@{Vortex}!enableUndo@{enableUndo}}
@@ -1087,7 +1093,7 @@ References m\+\_\+command\+Log.
 
 
 
-Referenced by Vortex\+C\+L\+I\+::cleanup().
+Referenced by Vortex\+CLI\+::cleanup().
 
 \mbox{\Hypertarget{classVortex_a077cd681a96a6d0acdb587f7029d388e}\label{classVortex_a077cd681a96a6d0acdb587f7029d388e}} 
 \index{Vortex@{Vortex}!getCurMode@{getCurMode}}
@@ -1121,7 +1127,7 @@ References Modes\+::cur\+Mode(), Modes\+::save\+Storage(), and Mode\+::save\+To\
 
 
 
-Referenced by Vortex\+C\+L\+I\+::cleanup().
+Referenced by Vortex\+CLI\+::cleanup().
 
 \mbox{\Hypertarget{classVortex_a8031a8526a5277b6688ef59b819d0f7f}\label{classVortex_a8031a8526a5277b6688ef59b819d0f7f}} 
 \index{Vortex@{Vortex}!getCustomParams@{getCustomParams}}
@@ -1215,13 +1221,13 @@ Definition at line 1230 of file Vortex\+Lib.\+cpp.
 \DoxyCodeLine{1253     \textcolor{keywordflow}{return} \mbox{\hyperlink{classVortex_a53ae4e3e4fa71806aeb6ef1bbeb23318}{patternToString}}(\mbox{\hyperlink{classVortex_a21d5765cf1089f91676018c2ba54da8e}{getPatternID}}(\mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2ca4bef9658b4b82ade748dfc8d1ce9523f}{LED\_FIRST}}));}
 \DoxyCodeLine{1254   \}}
 \DoxyCodeLine{1255   \textcolor{comment}{// mixed single led pattern with different pattern names}}
-\DoxyCodeLine{1256   \textcolor{keywordflow}{return} \textcolor{stringliteral}{"custom"};}
+\DoxyCodeLine{1256   \textcolor{keywordflow}{return} \textcolor{stringliteral}{"{}custom"{}};}
 \DoxyCodeLine{1257 \}}
 
 \end{DoxyCode}
 
 
-References Modes\+::cur\+Mode(), Mode\+::get\+Pattern\+I\+D(), Mode\+::is\+Multi\+Led(), L\+E\+D\+\_\+\+F\+I\+R\+ST, L\+E\+D\+\_\+\+M\+U\+L\+TI, and P\+A\+T\+T\+E\+R\+N\+\_\+\+N\+O\+NE.
+References Modes\+::cur\+Mode(), Mode\+::get\+Pattern\+ID(), Mode\+::is\+Multi\+Led(), LED\+\_\+\+FIRST, LED\+\_\+\+MULTI, and PATTERN\+\_\+\+NONE.
 
 \mbox{\Hypertarget{classVortex_a294d97594c0bf9c6ca535d359c85d629}\label{classVortex_a294d97594c0bf9c6ca535d359c85d629}} 
 \index{Vortex@{Vortex}!getModes@{getModes}}
@@ -1248,7 +1254,7 @@ References Modes\+::save\+To\+Buffer().
 
 
 
-Referenced by Vortex\+C\+L\+I\+::cleanup().
+Referenced by Vortex\+CLI\+::cleanup().
 
 \mbox{\Hypertarget{classVortex_a459619066ee8ec38bacf59ca849efc2c}\label{classVortex_a459619066ee8ec38bacf59ca849efc2c}} 
 \index{Vortex@{Vortex}!getNumInputs@{getNumInputs}}
@@ -1265,9 +1271,9 @@ Definition at line 1714 of file Vortex\+Lib.\+cpp.
 \DoxyCodeLine{1715 \{}
 \DoxyCodeLine{1716   uint32\_t numInputs = 0;}
 \DoxyCodeLine{1717   \textcolor{comment}{// On linux we need to poll stdin for input to handle commands}}
-\DoxyCodeLine{1718 \textcolor{preprocessor}{\#if !defined(\_WIN32) \&\& !defined(WASM)}}
+\DoxyCodeLine{1718 \textcolor{preprocessor}{\#if !defined(\_WIN32) \&\& !defined(WASM)}}
 \DoxyCodeLine{1719   ioctl(STDIN\_FILENO, FIONREAD, \&numInputs);}
-\DoxyCodeLine{1720 \textcolor{preprocessor}{\#elif defined(\_WIN32)}}
+\DoxyCodeLine{1720 \textcolor{preprocessor}{\#elif defined(\_WIN32)}}
 \DoxyCodeLine{1721   HANDLE hStdin = GetStdHandle(STD\_INPUT\_HANDLE);}
 \DoxyCodeLine{1722 }
 \DoxyCodeLine{1723   \textcolor{keywordflow}{if} (GetFileType(hStdin) == FILE\_TYPE\_CHAR) \{}
@@ -1294,7 +1300,7 @@ Definition at line 1714 of file Vortex\+Lib.\+cpp.
 \DoxyCodeLine{1744       \textcolor{comment}{// Handle error here}}
 \DoxyCodeLine{1745     \}}
 \DoxyCodeLine{1746   \}}
-\DoxyCodeLine{1747 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{1747 \textcolor{preprocessor}{\#endif}}
 \DoxyCodeLine{1748   \textcolor{keywordflow}{return} numInputs;}
 \DoxyCodeLine{1749 \}}
 
@@ -1333,7 +1339,7 @@ References Modes\+::cur\+Mode(), Pattern\+::get\+Args(), and Mode\+::get\+Patter
 \index{Vortex@{Vortex}!getPatternID@{getPatternID}}
 \index{getPatternID@{getPatternID}!Vortex@{Vortex}}
 \doxysubsubsection{\texorpdfstring{getPatternID()}{getPatternID()}}
-{\footnotesize\ttfamily \mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8c}{Pattern\+ID}} Vortex\+::get\+Pattern\+ID (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2c}{Led\+Pos}}}]{pos = {\ttfamily \mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2ca652516306597153ba832b404a27c85c8}{L\+E\+D\+\_\+\+A\+NY}}} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8c}{Pattern\+ID}} Vortex\+::get\+Pattern\+ID (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2c}{Led\+Pos}}}]{pos = {\ttfamily \mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2ca652516306597153ba832b404a27c85c8}{LED\+\_\+\+ANY}}} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
 
 
 
@@ -1352,13 +1358,13 @@ Definition at line 1216 of file Vortex\+Lib.\+cpp.
 \end{DoxyCode}
 
 
-References Modes\+::cur\+Mode(), Mode\+::get\+Pattern\+I\+D(), and P\+A\+T\+T\+E\+R\+N\+\_\+\+N\+O\+NE.
+References Modes\+::cur\+Mode(), Mode\+::get\+Pattern\+ID(), and PATTERN\+\_\+\+NONE.
 
 \mbox{\Hypertarget{classVortex_a2f81523b65490f448fccd30973f444c0}\label{classVortex_a2f81523b65490f448fccd30973f444c0}} 
 \index{Vortex@{Vortex}!getPatternName@{getPatternName}}
 \index{getPatternName@{getPatternName}!Vortex@{Vortex}}
 \doxysubsubsection{\texorpdfstring{getPatternName()}{getPatternName()}}
-{\footnotesize\ttfamily string Vortex\+::get\+Pattern\+Name (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2c}{Led\+Pos}}}]{pos = {\ttfamily \mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2ca652516306597153ba832b404a27c85c8}{L\+E\+D\+\_\+\+A\+NY}}} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+{\footnotesize\ttfamily string Vortex\+::get\+Pattern\+Name (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2c}{Led\+Pos}}}]{pos = {\ttfamily \mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2ca652516306597153ba832b404a27c85c8}{LED\+\_\+\+ANY}}} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
 
 
 
@@ -1471,14 +1477,14 @@ Definition at line 1558 of file Vortex\+Lib.\+cpp.
 \DoxyCodeLine{1584     pButton-\/>\mbox{\hyperlink{classButton_a0e80fad6d54058eb7138109581ac4f85}{m\_shortClick}} = \textcolor{keyword}{true};}
 \DoxyCodeLine{1585     pButton-\/>\mbox{\hyperlink{classButton_a4a906c7f15856b933701b78b3e0351c1}{m\_pressTime}} = \mbox{\hyperlink{classTime_a7c7a8e067bdbd5aaf119521539d30940}{Time::getCurtime}}();}
 \DoxyCodeLine{1586     pButton-\/>\mbox{\hyperlink{classButton_a711d3a33c86019298fe490b7441f8ead}{m\_holdDuration}} = \mbox{\hyperlink{Timings_8h_a301a9e590b96bcdd14ae850adb42e9ff}{SHORT\_CLICK\_THRESHOLD\_TICKS}} -\/ 1;}
-\DoxyCodeLine{1587     \mbox{\hyperlink{Log_8h_a5d2f30bd1cbcf49f829a7e8eb6173c06}{DEBUG\_LOG}}(\textcolor{stringliteral}{"Injecting short click"});}
+\DoxyCodeLine{1587     \mbox{\hyperlink{Log_8h_a5d2f30bd1cbcf49f829a7e8eb6173c06}{DEBUG\_LOG}}(\textcolor{stringliteral}{"{}Injecting short click"{}});}
 \DoxyCodeLine{1588     \textcolor{keywordflow}{break};}
 \DoxyCodeLine{1589   \textcolor{keywordflow}{case} \mbox{\hyperlink{classVortex_a8410b9612ae0956a1ad07e72fc50213da308a7d1ff6c74a5f02f82142114a8ef3}{EVENT\_LONG\_CLICK}}:}
 \DoxyCodeLine{1590     pButton-\/>\mbox{\hyperlink{classButton_a0dfe411510dfde7feaa94478b52142cc}{m\_newRelease}} = \textcolor{keyword}{true};}
 \DoxyCodeLine{1591     pButton-\/>\mbox{\hyperlink{classButton_a0be422900425e08305de1d4667b9fb8e}{m\_longClick}} = \textcolor{keyword}{true};}
 \DoxyCodeLine{1592     pButton-\/>\mbox{\hyperlink{classButton_a4a906c7f15856b933701b78b3e0351c1}{m\_pressTime}} = \mbox{\hyperlink{classTime_a7c7a8e067bdbd5aaf119521539d30940}{Time::getCurtime}}();}
 \DoxyCodeLine{1593     pButton-\/>\mbox{\hyperlink{classButton_a711d3a33c86019298fe490b7441f8ead}{m\_holdDuration}} = \mbox{\hyperlink{Timings_8h_a301a9e590b96bcdd14ae850adb42e9ff}{SHORT\_CLICK\_THRESHOLD\_TICKS}} + 1;}
-\DoxyCodeLine{1594     \mbox{\hyperlink{Log_8h_a5d2f30bd1cbcf49f829a7e8eb6173c06}{DEBUG\_LOG}}(\textcolor{stringliteral}{"Injecting long click"});}
+\DoxyCodeLine{1594     \mbox{\hyperlink{Log_8h_a5d2f30bd1cbcf49f829a7e8eb6173c06}{DEBUG\_LOG}}(\textcolor{stringliteral}{"{}Injecting long click"{}});}
 \DoxyCodeLine{1595     \textcolor{keywordflow}{break};}
 \DoxyCodeLine{1596   \textcolor{keywordflow}{case} \mbox{\hyperlink{classVortex_a8410b9612ae0956a1ad07e72fc50213dab7f51ddb62e1981c5362ee9632e13894}{EVENT\_MENU\_ENTER\_CLICK}}:}
 \DoxyCodeLine{1597     \textcolor{comment}{// to do this we simply press the button and set the press time}}
@@ -1486,15 +1492,15 @@ Definition at line 1558 of file Vortex\+Lib.\+cpp.
 \DoxyCodeLine{1599     \textcolor{comment}{// us immediately enter the menus. But we need to unset the pressed}}
 \DoxyCodeLine{1600     \textcolor{comment}{// button right after so we push a reset click event to reset the button}}
 \DoxyCodeLine{1601     pButton-\/>\mbox{\hyperlink{classButton_a4a906c7f15856b933701b78b3e0351c1}{m\_pressTime}} = \mbox{\hyperlink{classTime_a7c7a8e067bdbd5aaf119521539d30940}{Time::getCurtime}}();}
-\DoxyCodeLine{1602 \textcolor{preprocessor}{\#if defined(SLEEP\_ENTER\_THRESHOLD\_TICKS) \&\& defined(SLEEP\_WINDOW\_THRESHOLD\_TICKS)}}
+\DoxyCodeLine{1602 \textcolor{preprocessor}{\#if defined(SLEEP\_ENTER\_THRESHOLD\_TICKS) \&\& defined(SLEEP\_WINDOW\_THRESHOLD\_TICKS)}}
 \DoxyCodeLine{1603     \textcolor{comment}{// microlight must hold longer (past sleep time)}}
 \DoxyCodeLine{1604     pButton-\/>\mbox{\hyperlink{classButton_a711d3a33c86019298fe490b7441f8ead}{m\_holdDuration}} = \mbox{\hyperlink{Timings_8h_a155fc794adbdc762cfbc71f55a04bc22}{MENU\_TRIGGER\_THRESHOLD\_TICKS}} + SLEEP\_ENTER\_THRESHOLD\_TICKS + SLEEP\_WINDOW\_THRESHOLD\_TICKS + 1;}
-\DoxyCodeLine{1605 \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{1605 \textcolor{preprocessor}{\#else}}
 \DoxyCodeLine{1606     pButton-\/>\mbox{\hyperlink{classButton_a711d3a33c86019298fe490b7441f8ead}{m\_holdDuration}} = \mbox{\hyperlink{Timings_8h_a155fc794adbdc762cfbc71f55a04bc22}{MENU\_TRIGGER\_THRESHOLD\_TICKS}} + 1;}
-\DoxyCodeLine{1607 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{1607 \textcolor{preprocessor}{\#endif}}
 \DoxyCodeLine{1608     pButton-\/>\mbox{\hyperlink{classButton_ab61668778546acefd5c8e5f1c082ab61}{m\_isPressed}} = \textcolor{keyword}{true};}
 \DoxyCodeLine{1609     \mbox{\hyperlink{classVortex_ac5a07cdd48ba4cc376bf2e08831ac85e}{m\_buttonEventQueue}}.push\_front(VortexButtonEvent(0, \mbox{\hyperlink{classVortex_a8410b9612ae0956a1ad07e72fc50213da591665967f5b99e95c6092e8a98471de}{EVENT\_RESET\_CLICK}}));}
-\DoxyCodeLine{1610     \mbox{\hyperlink{Log_8h_a5d2f30bd1cbcf49f829a7e8eb6173c06}{DEBUG\_LOG}}(\textcolor{stringliteral}{"Injecting menu enter click"});}
+\DoxyCodeLine{1610     \mbox{\hyperlink{Log_8h_a5d2f30bd1cbcf49f829a7e8eb6173c06}{DEBUG\_LOG}}(\textcolor{stringliteral}{"{}Injecting menu enter click"{}});}
 \DoxyCodeLine{1611     \textcolor{keywordflow}{break};}
 \DoxyCodeLine{1612   \textcolor{keywordflow}{case} \mbox{\hyperlink{classVortex_a8410b9612ae0956a1ad07e72fc50213da8cc2097c6157318dddc51b751003eb00}{EVENT\_ADV\_MENU\_ENTER\_CLICK}}:}
 \DoxyCodeLine{1613     \textcolor{comment}{// to do this we simply press the button and set the press time}}
@@ -1505,7 +1511,7 @@ Definition at line 1558 of file Vortex\+Lib.\+cpp.
 \DoxyCodeLine{1618     pButton-\/>\mbox{\hyperlink{classButton_a711d3a33c86019298fe490b7441f8ead}{m\_holdDuration}} = \mbox{\hyperlink{Timings_8h_af6000fabcf07a18fcd198c1ec0e4d048}{ADV\_MENU\_DURATION\_TICKS}} + 1;}
 \DoxyCodeLine{1619     pButton-\/>\mbox{\hyperlink{classButton_a0be422900425e08305de1d4667b9fb8e}{m\_longClick}} = \textcolor{keyword}{true};}
 \DoxyCodeLine{1620     pButton-\/>\mbox{\hyperlink{classButton_a0dfe411510dfde7feaa94478b52142cc}{m\_newRelease}} = \textcolor{keyword}{true};}
-\DoxyCodeLine{1621     \mbox{\hyperlink{Log_8h_a5d2f30bd1cbcf49f829a7e8eb6173c06}{DEBUG\_LOG}}(\textcolor{stringliteral}{"Injecting adv menu enter click"});}
+\DoxyCodeLine{1621     \mbox{\hyperlink{Log_8h_a5d2f30bd1cbcf49f829a7e8eb6173c06}{DEBUG\_LOG}}(\textcolor{stringliteral}{"{}Injecting adv menu enter click"{}});}
 \DoxyCodeLine{1622     \textcolor{keywordflow}{break};}
 \DoxyCodeLine{1623   \textcolor{keywordflow}{case} \mbox{\hyperlink{classVortex_a8410b9612ae0956a1ad07e72fc50213daab29b279c410d529caf184ef5c22ecd2}{EVENT\_DELETE\_COL}}:}
 \DoxyCodeLine{1624     \textcolor{comment}{// to do this we simply press the button and set the press time}}
@@ -1516,33 +1522,33 @@ Definition at line 1558 of file Vortex\+Lib.\+cpp.
 \DoxyCodeLine{1629     pButton-\/>\mbox{\hyperlink{classButton_a711d3a33c86019298fe490b7441f8ead}{m\_holdDuration}} = \mbox{\hyperlink{Timings_8h_a724ef82b8f1a5b8cd76673dfe480e7bb}{DELETE\_THRESHOLD\_TICKS}} + \mbox{\hyperlink{Timings_8h_a77fc08a3774a777798ebe8067423ce11}{DELETE\_CYCLE\_TICKS}} + 1;}
 \DoxyCodeLine{1630     pButton-\/>\mbox{\hyperlink{classButton_a0be422900425e08305de1d4667b9fb8e}{m\_longClick}} = \textcolor{keyword}{true};}
 \DoxyCodeLine{1631     pButton-\/>\mbox{\hyperlink{classButton_a0dfe411510dfde7feaa94478b52142cc}{m\_newRelease}} = \textcolor{keyword}{true};}
-\DoxyCodeLine{1632     \mbox{\hyperlink{Log_8h_a5d2f30bd1cbcf49f829a7e8eb6173c06}{DEBUG\_LOG}}(\textcolor{stringliteral}{"Injecting delete color click"});}
+\DoxyCodeLine{1632     \mbox{\hyperlink{Log_8h_a5d2f30bd1cbcf49f829a7e8eb6173c06}{DEBUG\_LOG}}(\textcolor{stringliteral}{"{}Injecting delete color click"{}});}
 \DoxyCodeLine{1633     \textcolor{keywordflow}{break};}
 \DoxyCodeLine{1634   \textcolor{keywordflow}{case} \mbox{\hyperlink{classVortex_a8410b9612ae0956a1ad07e72fc50213da37b295a278105832cbfefda66df5b6e7}{EVENT\_SLEEP\_CLICK}}:}
 \DoxyCodeLine{1635     \textcolor{comment}{// to do this we simply press the button and set the press time}}
 \DoxyCodeLine{1636     \textcolor{comment}{// to something more than the menu trigger threshold that will make}}
 \DoxyCodeLine{1637     \textcolor{comment}{// us immediately enter the menus. But we need to unset the pressed}}
 \DoxyCodeLine{1638     \textcolor{comment}{// button right after so we push a reset click event to reset the button}}
-\DoxyCodeLine{1639 \textcolor{preprocessor}{\#ifdef SLEEP\_ENTER\_THRESHOLD\_TICKS}}
+\DoxyCodeLine{1639 \textcolor{preprocessor}{\#ifdef SLEEP\_ENTER\_THRESHOLD\_TICKS}}
 \DoxyCodeLine{1640     pButton-\/>\mbox{\hyperlink{classButton_a4a906c7f15856b933701b78b3e0351c1}{m\_pressTime}} = \mbox{\hyperlink{classTime_a7c7a8e067bdbd5aaf119521539d30940}{Time::getCurtime}}();}
 \DoxyCodeLine{1641     pButton-\/>\mbox{\hyperlink{classButton_a711d3a33c86019298fe490b7441f8ead}{m\_holdDuration}} = SLEEP\_ENTER\_THRESHOLD\_TICKS + 1;}
 \DoxyCodeLine{1642     pButton-\/>\mbox{\hyperlink{classButton_a0be422900425e08305de1d4667b9fb8e}{m\_longClick}} = \textcolor{keyword}{true};}
 \DoxyCodeLine{1643     pButton-\/>\mbox{\hyperlink{classButton_a0dfe411510dfde7feaa94478b52142cc}{m\_newRelease}} = \textcolor{keyword}{true};}
-\DoxyCodeLine{1644     \mbox{\hyperlink{Log_8h_a5d2f30bd1cbcf49f829a7e8eb6173c06}{DEBUG\_LOG}}(\textcolor{stringliteral}{"Injecting sleep click"});}
-\DoxyCodeLine{1645 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{1644     \mbox{\hyperlink{Log_8h_a5d2f30bd1cbcf49f829a7e8eb6173c06}{DEBUG\_LOG}}(\textcolor{stringliteral}{"{}Injecting sleep click"{}});}
+\DoxyCodeLine{1645 \textcolor{preprocessor}{\#endif}}
 \DoxyCodeLine{1646     \textcolor{keywordflow}{break};}
 \DoxyCodeLine{1647   \textcolor{keywordflow}{case} \mbox{\hyperlink{classVortex_a8410b9612ae0956a1ad07e72fc50213daed25327bb75151abb1633a2bda47e967}{EVENT\_FORCE\_SLEEP\_CLICK}}:}
 \DoxyCodeLine{1648     \textcolor{comment}{// to do this we simply press the button and set the press time}}
 \DoxyCodeLine{1649     \textcolor{comment}{// to something more than the menu trigger threshold that will make}}
 \DoxyCodeLine{1650     \textcolor{comment}{// us immediately enter the menus. But we need to unset the pressed}}
 \DoxyCodeLine{1651     \textcolor{comment}{// button right after so we push a reset click event to reset the button}}
-\DoxyCodeLine{1652 \textcolor{preprocessor}{\#ifdef FORCE\_SLEEP\_THRESHOLD\_TICKS}}
+\DoxyCodeLine{1652 \textcolor{preprocessor}{\#ifdef FORCE\_SLEEP\_THRESHOLD\_TICKS}}
 \DoxyCodeLine{1653     pButton-\/>\mbox{\hyperlink{classButton_a4a906c7f15856b933701b78b3e0351c1}{m\_pressTime}} = \mbox{\hyperlink{classTime_a7c7a8e067bdbd5aaf119521539d30940}{Time::getCurtime}}();}
 \DoxyCodeLine{1654     pButton-\/>\mbox{\hyperlink{classButton_a711d3a33c86019298fe490b7441f8ead}{m\_holdDuration}} = FORCE\_SLEEP\_THRESHOLD\_TICKS + 1;}
 \DoxyCodeLine{1655     pButton-\/>\mbox{\hyperlink{classButton_a0be422900425e08305de1d4667b9fb8e}{m\_longClick}} = \textcolor{keyword}{true};}
 \DoxyCodeLine{1656     pButton-\/>\mbox{\hyperlink{classButton_a0dfe411510dfde7feaa94478b52142cc}{m\_newRelease}} = \textcolor{keyword}{true};}
-\DoxyCodeLine{1657     \mbox{\hyperlink{Log_8h_a5d2f30bd1cbcf49f829a7e8eb6173c06}{DEBUG\_LOG}}(\textcolor{stringliteral}{"Injecting force sleep click"});}
-\DoxyCodeLine{1658 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{1657     \mbox{\hyperlink{Log_8h_a5d2f30bd1cbcf49f829a7e8eb6173c06}{DEBUG\_LOG}}(\textcolor{stringliteral}{"{}Injecting force sleep click"{}});}
+\DoxyCodeLine{1658 \textcolor{preprocessor}{\#endif}}
 \DoxyCodeLine{1659     \textcolor{keywordflow}{break};}
 \DoxyCodeLine{1660   \textcolor{keywordflow}{case} \mbox{\hyperlink{classVortex_a8410b9612ae0956a1ad07e72fc50213dad271e3378892800c8c648c0ee4a7016a}{EVENT\_WAIT}}:}
 \DoxyCodeLine{1661     \textcolor{keywordflow}{if} (buttonEvent.target) \{}
@@ -1569,14 +1575,14 @@ Definition at line 1558 of file Vortex\+Lib.\+cpp.
 \DoxyCodeLine{1682       pButton-\/>\mbox{\hyperlink{classButton_a0dfe411510dfde7feaa94478b52142cc}{m\_newRelease}} = \textcolor{keyword}{true};}
 \DoxyCodeLine{1683       pButton-\/>\mbox{\hyperlink{classButton_a0e80fad6d54058eb7138109581ac4f85}{m\_shortClick}} = (pButton-\/>\mbox{\hyperlink{classButton_a711d3a33c86019298fe490b7441f8ead}{m\_holdDuration}} <= \mbox{\hyperlink{Timings_8h_a301a9e590b96bcdd14ae850adb42e9ff}{SHORT\_CLICK\_THRESHOLD\_TICKS}});}
 \DoxyCodeLine{1684       pButton-\/>\mbox{\hyperlink{classButton_a0be422900425e08305de1d4667b9fb8e}{m\_longClick}} = !pButton-\/>\mbox{\hyperlink{classButton_a0e80fad6d54058eb7138109581ac4f85}{m\_shortClick}};}
-\DoxyCodeLine{1685       \mbox{\hyperlink{Log_8h_a5d2f30bd1cbcf49f829a7e8eb6173c06}{DEBUG\_LOG}}(\textcolor{stringliteral}{"Injecting release"});}
+\DoxyCodeLine{1685       \mbox{\hyperlink{Log_8h_a5d2f30bd1cbcf49f829a7e8eb6173c06}{DEBUG\_LOG}}(\textcolor{stringliteral}{"{}Injecting release"{}});}
 \DoxyCodeLine{1686     \} \textcolor{keywordflow}{else} \{}
 \DoxyCodeLine{1687       pButton-\/>\mbox{\hyperlink{classButton_ae5c3b0f7031de49ebd62a5b4fb03f90d}{m\_buttonState}} = \textcolor{keyword}{true};}
 \DoxyCodeLine{1688       pButton-\/>\mbox{\hyperlink{classButton_ab61668778546acefd5c8e5f1c082ab61}{m\_isPressed}} = \textcolor{keyword}{true};}
 \DoxyCodeLine{1689       pButton-\/>\mbox{\hyperlink{classButton_a6482ef479511871ba18ad69213e75501}{m\_releaseDuration}} = (uint32\_t)(\mbox{\hyperlink{classTime_a7c7a8e067bdbd5aaf119521539d30940}{Time::getCurtime}}() -\/ pButton-\/>\mbox{\hyperlink{classButton_a5aa9ed7408a225103ea9c64f4a5a2d2a}{m\_releaseTime}});}
 \DoxyCodeLine{1690       pButton-\/>\mbox{\hyperlink{classButton_a4a906c7f15856b933701b78b3e0351c1}{m\_pressTime}} = \mbox{\hyperlink{classTime_a7c7a8e067bdbd5aaf119521539d30940}{Time::getCurtime}}();}
 \DoxyCodeLine{1691       pButton-\/>\mbox{\hyperlink{classButton_acf8feb2430f68f24f633772725d14b7e}{m\_newPress}} = \textcolor{keyword}{true};}
-\DoxyCodeLine{1692       \mbox{\hyperlink{Log_8h_a5d2f30bd1cbcf49f829a7e8eb6173c06}{DEBUG\_LOG}}(\textcolor{stringliteral}{"Injecting press"});}
+\DoxyCodeLine{1692       \mbox{\hyperlink{Log_8h_a5d2f30bd1cbcf49f829a7e8eb6173c06}{DEBUG\_LOG}}(\textcolor{stringliteral}{"{}Injecting press"{}});}
 \DoxyCodeLine{1693     \}}
 \DoxyCodeLine{1694     \textcolor{keywordflow}{break};}
 \DoxyCodeLine{1695   \textcolor{keywordflow}{case} \mbox{\hyperlink{classVortex_a8410b9612ae0956a1ad07e72fc50213da498ce4c5cc815871450d3e368024c94f}{EVENT\_RAPID\_CLICK}}:}
@@ -1585,12 +1591,12 @@ Definition at line 1558 of file Vortex\+Lib.\+cpp.
 \DoxyCodeLine{1698     pButton-\/>\mbox{\hyperlink{classButton_a0e80fad6d54058eb7138109581ac4f85}{m\_shortClick}} = \textcolor{keyword}{true};}
 \DoxyCodeLine{1699     pButton-\/>\mbox{\hyperlink{classButton_a4a906c7f15856b933701b78b3e0351c1}{m\_pressTime}} = \mbox{\hyperlink{classTime_a7c7a8e067bdbd5aaf119521539d30940}{Time::getCurtime}}();}
 \DoxyCodeLine{1700     pButton-\/>\mbox{\hyperlink{classButton_a711d3a33c86019298fe490b7441f8ead}{m\_holdDuration}} = 1;}
-\DoxyCodeLine{1701     \mbox{\hyperlink{Log_8h_a8bdccae09f7cdda8fb311e0bd81c35dc}{DEBUG\_LOGF}}(\textcolor{stringliteral}{"Injecting \%u x rapid click"}, buttonEvent.target);}
+\DoxyCodeLine{1701     \mbox{\hyperlink{Log_8h_a8bdccae09f7cdda8fb311e0bd81c35dc}{DEBUG\_LOGF}}(\textcolor{stringliteral}{"{}Injecting \%u x rapid click"{}}, buttonEvent.target);}
 \DoxyCodeLine{1702     \textcolor{keywordflow}{break};}
 \DoxyCodeLine{1703   \textcolor{keywordflow}{case} \mbox{\hyperlink{classVortex_a8410b9612ae0956a1ad07e72fc50213dabd7f9852a66b60d8c1d8c27df299c3e0}{EVENT\_QUIT\_CLICK}}:}
 \DoxyCodeLine{1704     \textcolor{comment}{// just uninitialize so tick returns false}}
 \DoxyCodeLine{1705     \mbox{\hyperlink{classVortex_ada33e6b9afd6d152d0a8cde429c5c02b}{m\_initialized}} = \textcolor{keyword}{false};}
-\DoxyCodeLine{1706     \mbox{\hyperlink{Log_8h_a5d2f30bd1cbcf49f829a7e8eb6173c06}{DEBUG\_LOG}}(\textcolor{stringliteral}{"Injecting quit"});}
+\DoxyCodeLine{1706     \mbox{\hyperlink{Log_8h_a5d2f30bd1cbcf49f829a7e8eb6173c06}{DEBUG\_LOG}}(\textcolor{stringliteral}{"{}Injecting quit"{}});}
 \DoxyCodeLine{1707     \textcolor{keywordflow}{break};}
 \DoxyCodeLine{1708   \textcolor{keywordflow}{case} \mbox{\hyperlink{classVortex_a8410b9612ae0956a1ad07e72fc50213da591665967f5b99e95c6092e8a98471de}{EVENT\_RESET\_CLICK}}:}
 \DoxyCodeLine{1709     pButton-\/>\mbox{\hyperlink{classButton_ab61668778546acefd5c8e5f1c082ab61}{m\_isPressed}} = \textcolor{keyword}{false};}
@@ -1601,7 +1607,7 @@ Definition at line 1558 of file Vortex\+Lib.\+cpp.
 \end{DoxyCode}
 
 
-References A\+D\+V\+\_\+\+M\+E\+N\+U\+\_\+\+D\+U\+R\+A\+T\+I\+O\+N\+\_\+\+T\+I\+C\+KS, D\+E\+B\+U\+G\+\_\+\+L\+OG, D\+E\+B\+U\+G\+\_\+\+L\+O\+GF, D\+E\+L\+E\+T\+E\+\_\+\+C\+Y\+C\+L\+E\+\_\+\+T\+I\+C\+KS, D\+E\+L\+E\+T\+E\+\_\+\+T\+H\+R\+E\+S\+H\+O\+L\+D\+\_\+\+T\+I\+C\+KS, Time\+::get\+Curtime(), Button\+::is\+Pressed(), Button\+::m\+\_\+button\+State, Button\+::m\+\_\+consecutive\+Presses, Button\+::m\+\_\+hold\+Duration, Button\+::m\+\_\+is\+Pressed, Button\+::m\+\_\+long\+Click, Button\+::m\+\_\+new\+Press, Button\+::m\+\_\+new\+Release, Button\+::m\+\_\+press\+Time, Button\+::m\+\_\+release\+Duration, Button\+::m\+\_\+release\+Time, Button\+::m\+\_\+short\+Click, M\+E\+N\+U\+\_\+\+T\+R\+I\+G\+G\+E\+R\+\_\+\+T\+H\+R\+E\+S\+H\+O\+L\+D\+\_\+\+T\+I\+C\+KS, S\+H\+O\+R\+T\+\_\+\+C\+L\+I\+C\+K\+\_\+\+T\+H\+R\+E\+S\+H\+O\+L\+D\+\_\+\+T\+I\+C\+KS, Vortex\+::\+Vortex\+Button\+Event\+::target, Vortex\+Engine\+::tick(), and Vortex\+::\+Vortex\+Button\+Event\+::type.
+References ADV\+\_\+\+MENU\+\_\+\+DURATION\+\_\+\+TICKS, DEBUG\+\_\+\+LOG, DEBUG\+\_\+\+LOGF, DELETE\+\_\+\+CYCLE\+\_\+\+TICKS, DELETE\+\_\+\+THRESHOLD\+\_\+\+TICKS, Time\+::get\+Curtime(), Button\+::is\+Pressed(), Button\+::m\+\_\+button\+State, Button\+::m\+\_\+consecutive\+Presses, Button\+::m\+\_\+hold\+Duration, Button\+::m\+\_\+is\+Pressed, Button\+::m\+\_\+long\+Click, Button\+::m\+\_\+new\+Press, Button\+::m\+\_\+new\+Release, Button\+::m\+\_\+press\+Time, Button\+::m\+\_\+release\+Duration, Button\+::m\+\_\+release\+Time, Button\+::m\+\_\+short\+Click, MENU\+\_\+\+TRIGGER\+\_\+\+THRESHOLD\+\_\+\+TICKS, SHORT\+\_\+\+CLICK\+\_\+\+THRESHOLD\+\_\+\+TICKS, Vortex\+::\+Vortex\+Button\+Event\+::target, Vortex\+Engine\+::tick(), and Vortex\+::\+Vortex\+Button\+Event\+::type.
 
 
 
@@ -1637,7 +1643,7 @@ Definition at line 683 of file Vortex\+Lib.\+cpp.
 \DoxyCodeLine{699   \}}
 \DoxyCodeLine{700   \textcolor{comment}{// shove the last non-\/digit back into the stream}}
 \DoxyCodeLine{701   ungetc(newc, stdin);}
-\DoxyCodeLine{702   \mbox{\hyperlink{Log_8h_a8bdccae09f7cdda8fb311e0bd81c35dc}{DEBUG\_LOGF}}(\textcolor{stringliteral}{"Repeating last command (\%c) x\%u times"}, \mbox{\hyperlink{classVortex_a9769025d51b845d23232df00813ecafe}{m\_lastCommand}}, number);}
+\DoxyCodeLine{702   \mbox{\hyperlink{Log_8h_a8bdccae09f7cdda8fb311e0bd81c35dc}{DEBUG\_LOGF}}(\textcolor{stringliteral}{"{}Repeating last command (\%c) x\%u times"{}}, \mbox{\hyperlink{classVortex_a9769025d51b845d23232df00813ecafe}{m\_lastCommand}}, number);}
 \DoxyCodeLine{703   \mbox{\hyperlink{classVortex_a564054d5a05a55bf65ef64f0af3042d7}{m\_commandLog}} += to\_string(number);}
 \DoxyCodeLine{704   \textcolor{comment}{// check to see if we are repeating a 'rapid click' which is a special case}}
 \DoxyCodeLine{705   \textcolor{comment}{// because the rapid click command itself is composed or 'r' and a repeat count}}
@@ -1668,7 +1674,7 @@ Definition at line 683 of file Vortex\+Lib.\+cpp.
 \end{DoxyCode}
 
 
-References D\+E\+B\+U\+G\+\_\+\+L\+O\+GF.
+References DEBUG\+\_\+\+LOGF.
 
 \mbox{\Hypertarget{classVortex_ad6625d958d7ccc2f7b356837c88d3c82}\label{classVortex_ad6625d958d7ccc2f7b356837c88d3c82}} 
 \index{Vortex@{Vortex}!init@{init}}
@@ -1717,32 +1723,32 @@ Definition at line 625 of file Vortex\+Lib.\+cpp.
 \DoxyCodeLine{630   \textcolor{comment}{// store the callbacks object}}
 \DoxyCodeLine{631   \mbox{\hyperlink{classVortex_a18f8dce36f15966e344286b33532b727}{m\_storedCallbacks}} = callbacks;}
 \DoxyCodeLine{632 }
-\DoxyCodeLine{633 \textcolor{preprocessor}{\#if LOG\_TO\_CONSOLE == 1}}
+\DoxyCodeLine{633 \textcolor{preprocessor}{\#if LOG\_TO\_CONSOLE == 1}}
 \DoxyCodeLine{634   \textcolor{keywordflow}{if} (!\mbox{\hyperlink{classVortex_aaca3fa606d8a2dceb7e17d0bb05b5d7f}{m\_consoleHandle}}) \{}
-\DoxyCodeLine{635 \textcolor{preprocessor}{\#ifdef \_WIN32}}
+\DoxyCodeLine{635 \textcolor{preprocessor}{\#ifdef \_WIN32}}
 \DoxyCodeLine{636     AllocConsole();}
-\DoxyCodeLine{637     freopen\_s(\&\mbox{\hyperlink{classVortex_aaca3fa606d8a2dceb7e17d0bb05b5d7f}{m\_consoleHandle}}, \textcolor{stringliteral}{"CONOUT\$"}, \textcolor{stringliteral}{"w"}, stdout);}
-\DoxyCodeLine{638 \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{637     freopen\_s(\&\mbox{\hyperlink{classVortex_aaca3fa606d8a2dceb7e17d0bb05b5d7f}{m\_consoleHandle}}, \textcolor{stringliteral}{"{}CONOUT\$"{}}, \textcolor{stringliteral}{"{}w"{}}, stdout);}
+\DoxyCodeLine{638 \textcolor{preprocessor}{\#else}}
 \DoxyCodeLine{639     \mbox{\hyperlink{classVortex_aaca3fa606d8a2dceb7e17d0bb05b5d7f}{m\_consoleHandle}} = stdout;}
-\DoxyCodeLine{640 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{640 \textcolor{preprocessor}{\#endif}}
 \DoxyCodeLine{641   \}}
-\DoxyCodeLine{642 \textcolor{preprocessor}{\#endif}}
-\DoxyCodeLine{643 \textcolor{preprocessor}{\#if LOG\_TO\_FILE == 1}}
+\DoxyCodeLine{642 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{643 \textcolor{preprocessor}{\#if LOG\_TO\_FILE == 1}}
 \DoxyCodeLine{644   \textcolor{keywordflow}{if} (!m\_logHandle) \{}
 \DoxyCodeLine{645     time\_t t = time(\textcolor{keyword}{nullptr});}
 \DoxyCodeLine{646     tm tm;}
 \DoxyCodeLine{647     localtime\_s(\&tm, \&t);}
 \DoxyCodeLine{648     ostringstream oss;}
-\DoxyCodeLine{649     oss << put\_time(\&tm, \textcolor{stringliteral}{"\%d-\/\%m-\/\%Y-\/\%H-\/\%M-\/\%S"});}
-\DoxyCodeLine{650     oss << \textcolor{stringliteral}{"."} << GetCurrentProcessId();}
-\DoxyCodeLine{651     \textcolor{keywordtype}{string} filename = \mbox{\hyperlink{VortexConfig_8h_acb9bb3a595d60e836f80ab9edac86964}{VORTEX\_LOG\_NAME}} \textcolor{stringliteral}{"."} + oss.str() + \textcolor{stringliteral}{".txt"};}
-\DoxyCodeLine{652     \textcolor{keywordtype}{int} err = fopen\_s(\&m\_logHandle, filename.c\_str(), \textcolor{stringliteral}{"w"});}
+\DoxyCodeLine{649     oss << put\_time(\&tm, \textcolor{stringliteral}{"{}\%d-\/\%m-\/\%Y-\/\%H-\/\%M-\/\%S"{}});}
+\DoxyCodeLine{650     oss << \textcolor{stringliteral}{"{}."{}} << GetCurrentProcessId();}
+\DoxyCodeLine{651     \textcolor{keywordtype}{string} filename = \mbox{\hyperlink{VortexConfig_8h_acb9bb3a595d60e836f80ab9edac86964}{VORTEX\_LOG\_NAME}} \textcolor{stringliteral}{"{}."{}} + oss.str() + \textcolor{stringliteral}{"{}.txt"{}};}
+\DoxyCodeLine{652     \textcolor{keywordtype}{int} err = fopen\_s(\&m\_logHandle, filename.c\_str(), \textcolor{stringliteral}{"{}w"{}});}
 \DoxyCodeLine{653     \textcolor{keywordflow}{if} (err != 0 || !m\_logHandle) \{}
-\DoxyCodeLine{654       MessageBox(NULL, \textcolor{stringliteral}{"Failed to open logfile"}, to\_string(err).c\_str(), 0);}
+\DoxyCodeLine{654       MessageBox(NULL, \textcolor{stringliteral}{"{}Failed to open logfile"{}}, to\_string(err).c\_str(), 0);}
 \DoxyCodeLine{655       \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
 \DoxyCodeLine{656     \}}
 \DoxyCodeLine{657   \}}
-\DoxyCodeLine{658 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{658 \textcolor{preprocessor}{\#endif}}
 \DoxyCodeLine{659 }
 \DoxyCodeLine{660   \textcolor{comment}{// init the engine}}
 \DoxyCodeLine{661   \mbox{\hyperlink{classVortexEngine_a7d0883a55ea519ac58a24637c0cc38d2}{VortexEngine::init}}();}
@@ -1760,7 +1766,7 @@ Definition at line 625 of file Vortex\+Lib.\+cpp.
 \end{DoxyCode}
 
 
-References Vortex\+Engine\+::init(), Modes\+::load(), and V\+O\+R\+T\+E\+X\+\_\+\+L\+O\+G\+\_\+\+N\+A\+ME.
+References Vortex\+Engine\+::init(), Modes\+::load(), and VORTEX\+\_\+\+LOG\+\_\+\+NAME.
 
 \mbox{\Hypertarget{classVortex_a9fc22179da85f6d59eec06895141cbf8}\label{classVortex_a9fc22179da85f6d59eec06895141cbf8}} 
 \index{Vortex@{Vortex}!installCallbacks@{installCallbacks}}
@@ -1783,7 +1789,7 @@ Definition at line 874 of file Vortex\+Lib.\+cpp.
 \index{Vortex@{Vortex}!IRDeliver@{IRDeliver}}
 \index{IRDeliver@{IRDeliver}!Vortex@{Vortex}}
 \doxysubsubsection{\texorpdfstring{IRDeliver()}{IRDeliver()}}
-{\footnotesize\ttfamily void Vortex\+::\+I\+R\+Deliver (\begin{DoxyParamCaption}\item[{uint32\+\_\+t}]{timing }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+{\footnotesize\ttfamily void Vortex\+::\+IRDeliver (\begin{DoxyParamCaption}\item[{uint32\+\_\+t}]{timing }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
 
 
 
@@ -1792,15 +1798,15 @@ Definition at line 1017 of file Vortex\+Lib.\+cpp.
 
 \begin{DoxyCode}{0}
 \DoxyCodeLine{1018 \{}
-\DoxyCodeLine{1019 \textcolor{preprocessor}{\#if IR\_ENABLE\_RECEIVER == 1}}
+\DoxyCodeLine{1019 \textcolor{preprocessor}{\#if IR\_ENABLE\_RECEIVER == 1}}
 \DoxyCodeLine{1020   \mbox{\hyperlink{classIRReceiver_a30e0cdba86a79ce518d642cd9ec1a22e}{IRReceiver::handleIRTiming}}(timing);}
-\DoxyCodeLine{1021 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{1021 \textcolor{preprocessor}{\#endif}}
 \DoxyCodeLine{1022 \}}
 
 \end{DoxyCode}
 
 
-References I\+R\+Receiver\+::handle\+I\+R\+Timing().
+References IRReceiver\+::handle\+IRTiming().
 
 \mbox{\Hypertarget{classVortex_ae430f7ca6212610b721717a00736729c}\label{classVortex_ae430f7ca6212610b721717a00736729c}} 
 \index{Vortex@{Vortex}!isButtonPressed@{isButtonPressed}}
@@ -1824,7 +1830,7 @@ Definition at line 966 of file Vortex\+Lib.\+cpp.
 \end{DoxyCode}
 
 
-Referenced by Vortex\+C\+L\+I\+::\+Vortex\+C\+L\+I\+Callbacks\+::check\+Pin\+Hook(), and Vortex\+C\+L\+I\+::is\+Button\+Pressed().
+Referenced by Vortex\+CLI\+::\+Vortex\+CLICallbacks\+::check\+Pin\+Hook(), and Vortex\+CLI\+::is\+Button\+Pressed().
 
 \mbox{\Hypertarget{classVortex_a06bb249638783bbe4dff10f41e449e03}\label{classVortex_a06bb249638783bbe4dff10f41e449e03}} 
 \index{Vortex@{Vortex}!isCurModeMulti@{isCurModeMulti}}
@@ -1900,7 +1906,7 @@ Definition at line 1417 of file Vortex\+Lib.\+cpp.
 
 \begin{DoxyCode}{0}
 \DoxyCodeLine{1418 \{}
-\DoxyCodeLine{1419   \textcolor{keywordflow}{return} \textcolor{stringliteral}{"led "} + to\_string(pos);}
+\DoxyCodeLine{1419   \textcolor{keywordflow}{return} \textcolor{stringliteral}{"{}led "{}} + to\_string(pos);}
 \DoxyCodeLine{1420 \}}
 
 \end{DoxyCode}
@@ -1923,36 +1929,36 @@ Definition at line 1983 of file Vortex\+Lib.\+cpp.
 \DoxyCodeLine{1988 }
 \DoxyCodeLine{1989   uint8\_t major = 0;}
 \DoxyCodeLine{1990   uint8\_t minor = 0;}
-\DoxyCodeLine{1991   \textcolor{keywordflow}{if} (js.contains(\textcolor{stringliteral}{"version\_major"}) \&\& js[\textcolor{stringliteral}{"version\_major"}].is\_number\_unsigned()) \{}
-\DoxyCodeLine{1992     major = js[\textcolor{stringliteral}{"version\_major"}].get<uint8\_t>();}
+\DoxyCodeLine{1991   \textcolor{keywordflow}{if} (js.contains(\textcolor{stringliteral}{"{}version\_major"{}}) \&\& js[\textcolor{stringliteral}{"{}version\_major"{}}].is\_number\_unsigned()) \{}
+\DoxyCodeLine{1992     major = js[\textcolor{stringliteral}{"{}version\_major"{}}].get<uint8\_t>();}
 \DoxyCodeLine{1993   \}}
 \DoxyCodeLine{1994 }
-\DoxyCodeLine{1995   \textcolor{keywordflow}{if} (js.contains(\textcolor{stringliteral}{"version\_minor"}) \&\& js[\textcolor{stringliteral}{"version\_minor"}].is\_number\_unsigned()) \{}
-\DoxyCodeLine{1996     minor = js[\textcolor{stringliteral}{"version\_minor"}].get<uint8\_t>();}
+\DoxyCodeLine{1995   \textcolor{keywordflow}{if} (js.contains(\textcolor{stringliteral}{"{}version\_minor"{}}) \&\& js[\textcolor{stringliteral}{"{}version\_minor"{}}].is\_number\_unsigned()) \{}
+\DoxyCodeLine{1996     minor = js[\textcolor{stringliteral}{"{}version\_minor"{}}].get<uint8\_t>();}
 \DoxyCodeLine{1997   \}}
 \DoxyCodeLine{1998 }
 \DoxyCodeLine{1999   \textcolor{keywordflow}{if} (!\mbox{\hyperlink{classVortexEngine_aa85a9e4f12bc72bedd7b0a9c5a9bd970}{VortexEngine::checkVersion}}(major, minor)) \{}
 \DoxyCodeLine{2000     \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
 \DoxyCodeLine{2001   \}}
 \DoxyCodeLine{2002 }
-\DoxyCodeLine{2003   \textcolor{keywordflow}{if} (js.contains(\textcolor{stringliteral}{"brightness"}) \&\& js[\textcolor{stringliteral}{"brightness"}].is\_number\_unsigned()) \{}
-\DoxyCodeLine{2004     uint8\_t brightness = js[\textcolor{stringliteral}{"brightness"}].get<uint8\_t>();}
+\DoxyCodeLine{2003   \textcolor{keywordflow}{if} (js.contains(\textcolor{stringliteral}{"{}brightness"{}}) \&\& js[\textcolor{stringliteral}{"{}brightness"{}}].is\_number\_unsigned()) \{}
+\DoxyCodeLine{2004     uint8\_t brightness = js[\textcolor{stringliteral}{"{}brightness"{}}].get<uint8\_t>();}
 \DoxyCodeLine{2005     \mbox{\hyperlink{classLeds_a71eae9e9f07864f4e0f5d64bffaf7eff}{Leds::setBrightness}}(brightness);}
 \DoxyCodeLine{2006   \}}
 \DoxyCodeLine{2007 }
-\DoxyCodeLine{2008   \textcolor{keywordflow}{if} (js.contains(\textcolor{stringliteral}{"global\_flags"}) \&\& js[\textcolor{stringliteral}{"global\_flags"}].is\_number\_unsigned()) \{}
-\DoxyCodeLine{2009     uint8\_t global\_flags = js[\textcolor{stringliteral}{"global\_flags"}].get<uint8\_t>();}
+\DoxyCodeLine{2008   \textcolor{keywordflow}{if} (js.contains(\textcolor{stringliteral}{"{}global\_flags"{}}) \&\& js[\textcolor{stringliteral}{"{}global\_flags"{}}].is\_number\_unsigned()) \{}
+\DoxyCodeLine{2009     uint8\_t global\_flags = js[\textcolor{stringliteral}{"{}global\_flags"{}}].get<uint8\_t>();}
 \DoxyCodeLine{2010     \mbox{\hyperlink{classModes_af6820eafbbb127aeec832813dd7685dc}{Modes::setFlag}}(global\_flags, \textcolor{keyword}{true}, \textcolor{keyword}{false});}
 \DoxyCodeLine{2011   \}}
 \DoxyCodeLine{2012 }
 \DoxyCodeLine{2013   uint8\_t num\_modes = 0;}
-\DoxyCodeLine{2014   \textcolor{keywordflow}{if} (js.contains(\textcolor{stringliteral}{"num\_modes"}) \&\& js[\textcolor{stringliteral}{"num\_modes"}].is\_number\_unsigned()) \{}
-\DoxyCodeLine{2015     num\_modes = js[\textcolor{stringliteral}{"num\_modes"}].get<uint8\_t>();}
+\DoxyCodeLine{2014   \textcolor{keywordflow}{if} (js.contains(\textcolor{stringliteral}{"{}num\_modes"{}}) \&\& js[\textcolor{stringliteral}{"{}num\_modes"{}}].is\_number\_unsigned()) \{}
+\DoxyCodeLine{2015     num\_modes = js[\textcolor{stringliteral}{"{}num\_modes"{}}].get<uint8\_t>();}
 \DoxyCodeLine{2016   \}}
 \DoxyCodeLine{2017 }
-\DoxyCodeLine{2018   \textcolor{keywordflow}{if} (js.contains(\textcolor{stringliteral}{"modes"}) \&\& js[\textcolor{stringliteral}{"modes"}].is\_array()) \{}
+\DoxyCodeLine{2018   \textcolor{keywordflow}{if} (js.contains(\textcolor{stringliteral}{"{}modes"{}}) \&\& js[\textcolor{stringliteral}{"{}modes"{}}].is\_array()) \{}
 \DoxyCodeLine{2019     \mbox{\hyperlink{classModes_abfb857566f5d83bb4ea6bf9417e5f9ac}{Modes::clearModes}}();}
-\DoxyCodeLine{2020     \textcolor{keywordflow}{for} (\textcolor{keyword}{const} \textcolor{keyword}{auto} \&modeValue : js[\textcolor{stringliteral}{"modes"}]) \{}
+\DoxyCodeLine{2020     \textcolor{keywordflow}{for} (\textcolor{keyword}{const} \textcolor{keyword}{auto} \&modeValue : js[\textcolor{stringliteral}{"{}modes"{}}]) \{}
 \DoxyCodeLine{2021       \textcolor{keywordflow}{if} (!modeValue.is\_null() \&\& modeValue.is\_object()) \{}
 \DoxyCodeLine{2022         \mbox{\hyperlink{classMode}{Mode}} *mode = \mbox{\hyperlink{classVortex_aa1c2d071d32fcc34e7b50c620b8503ee}{modeFromJson}}(modeValue);}
 \DoxyCodeLine{2023         \textcolor{keywordflow}{if} (mode) \{}
@@ -1993,7 +1999,7 @@ References Modes\+::load\+Storage().
 
 
 
-Referenced by Vortex\+C\+L\+I\+::init().
+Referenced by Vortex\+CLI\+::init().
 
 \mbox{\Hypertarget{classVortex_a85bb8b1b660d3a72f66f5dfe1d21086d}\label{classVortex_a85bb8b1b660d3a72f66f5dfe1d21086d}} 
 \index{Vortex@{Vortex}!lockEnabled@{lockEnabled}}
@@ -2076,15 +2082,15 @@ Definition at line 1817 of file Vortex\+Lib.\+cpp.
 \DoxyCodeLine{1825     \textcolor{keywordflow}{return} \textcolor{keyword}{nullptr};}
 \DoxyCodeLine{1826   \}}
 \DoxyCodeLine{1827 }
-\DoxyCodeLine{1828 \textcolor{preprocessor}{\#if FIXED\_LED\_COUNT == 0}}
-\DoxyCodeLine{1829   \textcolor{keywordflow}{if} (modeJson.contains(\textcolor{stringliteral}{"num\_leds"}) \&\& modeJson[\textcolor{stringliteral}{"num\_leds"}].is\_number\_unsigned()) \{}
-\DoxyCodeLine{1830     mode-\/>setLedCount(modeJson[\textcolor{stringliteral}{"num\_leds"}].get<uint8\_t>());}
+\DoxyCodeLine{1828 \textcolor{preprocessor}{\#if FIXED\_LED\_COUNT == 0}}
+\DoxyCodeLine{1829   \textcolor{keywordflow}{if} (modeJson.contains(\textcolor{stringliteral}{"{}num\_leds"{}}) \&\& modeJson[\textcolor{stringliteral}{"{}num\_leds"{}}].is\_number\_unsigned()) \{}
+\DoxyCodeLine{1830     mode-\/>setLedCount(modeJson[\textcolor{stringliteral}{"{}num\_leds"{}}].get<uint8\_t>());}
 \DoxyCodeLine{1831   \}}
-\DoxyCodeLine{1832 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{1832 \textcolor{preprocessor}{\#endif}}
 \DoxyCodeLine{1833 }
 \DoxyCodeLine{1834   \textcolor{comment}{// Extract and set multiPattern}}
-\DoxyCodeLine{1835   \textcolor{keywordflow}{if} (modeJson.contains(\textcolor{stringliteral}{"multi\_pat"}) \&\& modeJson[\textcolor{stringliteral}{"multi\_pat"}].is\_object()) \{}
-\DoxyCodeLine{1836     \textcolor{keyword}{const} \mbox{\hyperlink{VortexLib_8h_ab701e3ac61a85b337ec5c1abaad6742d}{json}} \&multiPatJson = modeJson[\textcolor{stringliteral}{"multi\_pat"}];}
+\DoxyCodeLine{1835   \textcolor{keywordflow}{if} (modeJson.contains(\textcolor{stringliteral}{"{}multi\_pat"{}}) \&\& modeJson[\textcolor{stringliteral}{"{}multi\_pat"{}}].is\_object()) \{}
+\DoxyCodeLine{1836     \textcolor{keyword}{const} \mbox{\hyperlink{VortexLib_8h_ab701e3ac61a85b337ec5c1abaad6742d}{json}} \&multiPatJson = modeJson[\textcolor{stringliteral}{"{}multi\_pat"{}}];}
 \DoxyCodeLine{1837     \mbox{\hyperlink{classPattern}{Pattern}} *multiPattern = \mbox{\hyperlink{classVortex_af10a03e6ef8b1cf228561e84933c2c38}{patternFromJson}}(multiPatJson);}
 \DoxyCodeLine{1838     \textcolor{keywordflow}{if} (multiPattern) \{}
 \DoxyCodeLine{1839       \mbox{\hyperlink{classPatternArgs}{PatternArgs}} args;}
@@ -2095,9 +2101,9 @@ Definition at line 1817 of file Vortex\+Lib.\+cpp.
 \DoxyCodeLine{1844   \}}
 \DoxyCodeLine{1845 }
 \DoxyCodeLine{1846   \textcolor{comment}{// Extract and set singlePatterns}}
-\DoxyCodeLine{1847   \textcolor{keywordflow}{if} (modeJson.contains(\textcolor{stringliteral}{"single\_pats"}) \&\& modeJson[\textcolor{stringliteral}{"single\_pats"}].is\_array()) \{}
+\DoxyCodeLine{1847   \textcolor{keywordflow}{if} (modeJson.contains(\textcolor{stringliteral}{"{}single\_pats"{}}) \&\& modeJson[\textcolor{stringliteral}{"{}single\_pats"{}}].is\_array()) \{}
 \DoxyCodeLine{1848     \mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2c}{LedPos}} pos = \mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2ca4bef9658b4b82ade748dfc8d1ce9523f}{LED\_FIRST}};}
-\DoxyCodeLine{1849     \textcolor{keywordflow}{for} (\textcolor{keyword}{const} \mbox{\hyperlink{VortexLib_8h_ab701e3ac61a85b337ec5c1abaad6742d}{json}} \&patJson : modeJson[\textcolor{stringliteral}{"single\_pats"}]) \{}
+\DoxyCodeLine{1849     \textcolor{keywordflow}{for} (\textcolor{keyword}{const} \mbox{\hyperlink{VortexLib_8h_ab701e3ac61a85b337ec5c1abaad6742d}{json}} \&patJson : modeJson[\textcolor{stringliteral}{"{}single\_pats"{}}]) \{}
 \DoxyCodeLine{1850       \textcolor{keywordflow}{if} (patJson.is\_object()) \{}
 \DoxyCodeLine{1851         \mbox{\hyperlink{classPattern}{Pattern}} *pattern = \mbox{\hyperlink{classVortex_af10a03e6ef8b1cf228561e84933c2c38}{patternFromJson}}(patJson);}
 \DoxyCodeLine{1852         \textcolor{keywordflow}{if} (pattern) \{}
@@ -2116,7 +2122,7 @@ Definition at line 1817 of file Vortex\+Lib.\+cpp.
 \end{DoxyCode}
 
 
-References Pattern\+::get\+Args(), Pattern\+::get\+Colorset(), Pattern\+::get\+Pattern\+I\+D(), L\+E\+D\+\_\+\+F\+I\+R\+ST, L\+E\+D\+\_\+\+M\+U\+L\+TI, and Mode\+::set\+Pattern().
+References Pattern\+::get\+Args(), Pattern\+::get\+Colorset(), Pattern\+::get\+Pattern\+ID(), LED\+\_\+\+FIRST, LED\+\_\+\+MULTI, and Mode\+::set\+Pattern().
 
 \mbox{\Hypertarget{classVortex_a5490f045e612cceed3d5d85fc51ec818}\label{classVortex_a5490f045e612cceed3d5d85fc51ec818}} 
 \index{Vortex@{Vortex}!modeToJson@{modeToJson}}
@@ -2136,12 +2142,12 @@ Definition at line 1788 of file Vortex\+Lib.\+cpp.
 \DoxyCodeLine{1792   \}}
 \DoxyCodeLine{1793 }
 \DoxyCodeLine{1794   \mbox{\hyperlink{VortexLib_8h_ab701e3ac61a85b337ec5c1abaad6742d}{json}} modeJson;}
-\DoxyCodeLine{1795   modeJson[\textcolor{stringliteral}{"num\_leds"}] = mode-\/>\mbox{\hyperlink{classMode_a02896a308abb58563215774352aaeabf}{getLedCount}}();}
-\DoxyCodeLine{1796   modeJson[\textcolor{stringliteral}{"flags"}] = (uint8\_t)mode-\/>\mbox{\hyperlink{classMode_a25fa9c7e3e991a9fd7bf36c1c281fc15}{getFlags}}();}
+\DoxyCodeLine{1795   modeJson[\textcolor{stringliteral}{"{}num\_leds"{}}] = mode-\/>\mbox{\hyperlink{classMode_a02896a308abb58563215774352aaeabf}{getLedCount}}();}
+\DoxyCodeLine{1796   modeJson[\textcolor{stringliteral}{"{}flags"{}}] = (uint8\_t)mode-\/>\mbox{\hyperlink{classMode_a25fa9c7e3e991a9fd7bf36c1c281fc15}{getFlags}}();}
 \DoxyCodeLine{1797 }
 \DoxyCodeLine{1798   \textcolor{keyword}{const} \mbox{\hyperlink{classPattern}{Pattern}} *multiPattern = mode-\/>\mbox{\hyperlink{classMode_a82938befd9f7166a96f2e9e99636e6ce}{getPattern}}(\mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2ca2132b8a8565f61fc6b6ea5ff1f32132e}{LED\_MULTI}});}
 \DoxyCodeLine{1799   \textcolor{keywordflow}{if} (multiPattern) \{}
-\DoxyCodeLine{1800     modeJson[\textcolor{stringliteral}{"multi\_pat"}] = \mbox{\hyperlink{classVortex_a1fa614d9d5b95ef6af6249de420436a3}{patternToJson}}(multiPattern);}
+\DoxyCodeLine{1800     modeJson[\textcolor{stringliteral}{"{}multi\_pat"{}}] = \mbox{\hyperlink{classVortex_a1fa614d9d5b95ef6af6249de420436a3}{patternToJson}}(multiPattern);}
 \DoxyCodeLine{1801   \}}
 \DoxyCodeLine{1802 }
 \DoxyCodeLine{1803   \mbox{\hyperlink{VortexLib_8h_ab701e3ac61a85b337ec5c1abaad6742d}{json}} singlePatterns = json::array();}
@@ -2154,14 +2160,14 @@ Definition at line 1788 of file Vortex\+Lib.\+cpp.
 \DoxyCodeLine{1810     \}}
 \DoxyCodeLine{1811   \}}
 \DoxyCodeLine{1812 }
-\DoxyCodeLine{1813   modeJson[\textcolor{stringliteral}{"single\_pats"}] = singlePatterns;}
+\DoxyCodeLine{1813   modeJson[\textcolor{stringliteral}{"{}single\_pats"{}}] = singlePatterns;}
 \DoxyCodeLine{1814   \textcolor{keywordflow}{return} modeJson;}
 \DoxyCodeLine{1815 \}}
 
 \end{DoxyCode}
 
 
-References Mode\+::get\+Flags(), Mode\+::get\+Led\+Count(), Mode\+::get\+Pattern(), L\+E\+D\+\_\+\+F\+I\+R\+ST, and L\+E\+D\+\_\+\+M\+U\+L\+TI.
+References Mode\+::get\+Flags(), Mode\+::get\+Led\+Count(), Mode\+::get\+Pattern(), LED\+\_\+\+FIRST, and LED\+\_\+\+MULTI.
 
 \mbox{\Hypertarget{classVortex_a9f3ef0d61299d7f08268800663a91b4a}\label{classVortex_a9f3ef0d61299d7f08268800663a91b4a}} 
 \index{Vortex@{Vortex}!nextMode@{nextMode}}
@@ -2274,7 +2280,7 @@ Definition at line 1051 of file Vortex\+Lib.\+cpp.
 \end{DoxyCode}
 
 
-References M\+E\+N\+U\+\_\+\+C\+O\+L\+O\+R\+\_\+\+S\+E\+L\+E\+CT, and Menus\+::open\+Menu().
+References MENU\+\_\+\+COLOR\+\_\+\+SELECT, and Menus\+::open\+Menu().
 
 \mbox{\Hypertarget{classVortex_a87d84d7f677bb07300a0acc3d7bab7e3}\label{classVortex_a87d84d7f677bb07300a0acc3d7bab7e3}} 
 \index{Vortex@{Vortex}!openEditorConnection@{openEditorConnection}}
@@ -2289,15 +2295,15 @@ Definition at line 1076 of file Vortex\+Lib.\+cpp.
 
 \begin{DoxyCode}{0}
 \DoxyCodeLine{1077 \{}
-\DoxyCodeLine{1078 \textcolor{preprocessor}{\#if ENABLE\_EDITOR\_CONNECTION == 1}}
+\DoxyCodeLine{1078 \textcolor{preprocessor}{\#if ENABLE\_EDITOR\_CONNECTION == 1}}
 \DoxyCodeLine{1079   \mbox{\hyperlink{classMenus_a218d5257123a6399289d0cba0988cbd3}{Menus::openMenu}}(\mbox{\hyperlink{Menus_8h_ab27add79b32f886cb88e53dca2e1ce0fa62abbdc67ad50ab20356e02e6c83ea60}{MENU\_EDITOR\_CONNECTION}});}
-\DoxyCodeLine{1080 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{1080 \textcolor{preprocessor}{\#endif}}
 \DoxyCodeLine{1081 \}}
 
 \end{DoxyCode}
 
 
-References M\+E\+N\+U\+\_\+\+E\+D\+I\+T\+O\+R\+\_\+\+C\+O\+N\+N\+E\+C\+T\+I\+ON, and Menus\+::open\+Menu().
+References MENU\+\_\+\+EDITOR\+\_\+\+CONNECTION, and Menus\+::open\+Menu().
 
 \mbox{\Hypertarget{classVortex_a9b02e274f0cfae67ade49892349d9e7f}\label{classVortex_a9b02e274f0cfae67ade49892349d9e7f}} 
 \index{Vortex@{Vortex}!openFactoryReset@{openFactoryReset}}
@@ -2318,7 +2324,7 @@ Definition at line 1066 of file Vortex\+Lib.\+cpp.
 \end{DoxyCode}
 
 
-References M\+E\+N\+U\+\_\+\+F\+A\+C\+T\+O\+R\+Y\+\_\+\+R\+E\+S\+ET, and Menus\+::open\+Menu().
+References MENU\+\_\+\+FACTORY\+\_\+\+RESET, and Menus\+::open\+Menu().
 
 \mbox{\Hypertarget{classVortex_ad83790c6615151b512a21ad8bf78eca6}\label{classVortex_ad83790c6615151b512a21ad8bf78eca6}} 
 \index{Vortex@{Vortex}!openGlobalBrightness@{openGlobalBrightness}}
@@ -2339,7 +2345,7 @@ Definition at line 1061 of file Vortex\+Lib.\+cpp.
 \end{DoxyCode}
 
 
-References M\+E\+N\+U\+\_\+\+G\+L\+O\+B\+A\+L\+\_\+\+B\+R\+I\+G\+H\+T\+N\+E\+SS, and Menus\+::open\+Menu().
+References MENU\+\_\+\+GLOBAL\+\_\+\+BRIGHTNESS, and Menus\+::open\+Menu().
 
 \mbox{\Hypertarget{classVortex_ace50f9e28765b20c7f594fef4d7496e4}\label{classVortex_ace50f9e28765b20c7f594fef4d7496e4}} 
 \index{Vortex@{Vortex}!openModeSharing@{openModeSharing}}
@@ -2360,7 +2366,7 @@ Definition at line 1071 of file Vortex\+Lib.\+cpp.
 \end{DoxyCode}
 
 
-References M\+E\+N\+U\+\_\+\+M\+O\+D\+E\+\_\+\+S\+H\+A\+R\+I\+NG, and Menus\+::open\+Menu().
+References MENU\+\_\+\+MODE\+\_\+\+SHARING, and Menus\+::open\+Menu().
 
 \mbox{\Hypertarget{classVortex_a8ad853924e45e3377d94614f28984eb7}\label{classVortex_a8ad853924e45e3377d94614f28984eb7}} 
 \index{Vortex@{Vortex}!openPatternSelect@{openPatternSelect}}
@@ -2381,7 +2387,7 @@ Definition at line 1056 of file Vortex\+Lib.\+cpp.
 \end{DoxyCode}
 
 
-References M\+E\+N\+U\+\_\+\+P\+A\+T\+T\+E\+R\+N\+\_\+\+S\+E\+L\+E\+CT, and Menus\+::open\+Menu().
+References MENU\+\_\+\+PATTERN\+\_\+\+SELECT, and Menus\+::open\+Menu().
 
 \mbox{\Hypertarget{classVortex_a9596ca179ab6715d6f9753e063f71f8d}\label{classVortex_a9596ca179ab6715d6f9753e063f71f8d}} 
 \index{Vortex@{Vortex}!openRandomizer@{openRandomizer}}
@@ -2402,7 +2408,7 @@ Definition at line 1046 of file Vortex\+Lib.\+cpp.
 \end{DoxyCode}
 
 
-References M\+E\+N\+U\+\_\+\+R\+A\+N\+D\+O\+M\+I\+Z\+ER, and Menus\+::open\+Menu().
+References MENU\+\_\+\+RANDOMIZER, and Menus\+::open\+Menu().
 
 \mbox{\Hypertarget{classVortex_aff1e2daf9e0f0f39d0f9007f9befaa26}\label{classVortex_aff1e2daf9e0f0f39d0f9007f9befaa26}} 
 \index{Vortex@{Vortex}!parseJson@{parseJson}}
@@ -2421,7 +2427,7 @@ Definition at line 2049 of file Vortex\+Lib.\+cpp.
 \DoxyCodeLine{2052     \mbox{\hyperlink{VortexLib_8h_ab701e3ac61a85b337ec5c1abaad6742d}{json}} jsonObj = json::parse(jsonStr);}
 \DoxyCodeLine{2053     \textcolor{keywordflow}{return} \mbox{\hyperlink{classVortex_a4c3c2725f26216aca101a033466a403f}{loadJson}}(jsonObj);}
 \DoxyCodeLine{2054   \} \textcolor{keywordflow}{catch} (json::parse\_error \&e) \{}
-\DoxyCodeLine{2055     std::cerr << \textcolor{stringliteral}{"JSON Parse Error: "} << e.what() << std::endl;}
+\DoxyCodeLine{2055     std::cerr << \textcolor{stringliteral}{"{}JSON Parse Error: "{}} << e.what() << std::endl;}
 \DoxyCodeLine{2056     \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
 \DoxyCodeLine{2057   \}}
 \DoxyCodeLine{2058 \}}
@@ -2449,7 +2455,7 @@ Definition at line 2060 of file Vortex\+Lib.\+cpp.
 \DoxyCodeLine{2068     \mbox{\hyperlink{VortexLib_8h_ab701e3ac61a85b337ec5c1abaad6742d}{json}} jsonObj = json::parse(file);}
 \DoxyCodeLine{2069     \textcolor{keywordflow}{return} \mbox{\hyperlink{classVortex_a4c3c2725f26216aca101a033466a403f}{loadJson}}(jsonObj);}
 \DoxyCodeLine{2070   \} \textcolor{keywordflow}{catch} (json::parse\_error \&e) \{}
-\DoxyCodeLine{2071     std::cerr << \textcolor{stringliteral}{"JSON Parse Error: "} << e.what() << std::endl;}
+\DoxyCodeLine{2071     std::cerr << \textcolor{stringliteral}{"{}JSON Parse Error: "{}} << e.what() << std::endl;}
 \DoxyCodeLine{2072     \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
 \DoxyCodeLine{2073   \}}
 \DoxyCodeLine{2074 \}}
@@ -2457,7 +2463,7 @@ Definition at line 2060 of file Vortex\+Lib.\+cpp.
 \end{DoxyCode}
 
 
-Referenced by Vortex\+C\+L\+I\+::init().
+Referenced by Vortex\+CLI\+::init().
 
 \mbox{\Hypertarget{classVortex_af10a03e6ef8b1cf228561e84933c2c38}\label{classVortex_af10a03e6ef8b1cf228561e84933c2c38}} 
 \index{Vortex@{Vortex}!patternFromJson@{patternFromJson}}
@@ -2478,8 +2484,8 @@ Definition at line 1899 of file Vortex\+Lib.\+cpp.
 \DoxyCodeLine{1904 }
 \DoxyCodeLine{1905   \textcolor{comment}{// Get pattern ID}}
 \DoxyCodeLine{1906   \mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8c}{PatternID}} \textcolor{keywordtype}{id} = \mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8caf9610f0445822da8efff6bac441ca3de}{PATTERN\_NONE}};}
-\DoxyCodeLine{1907   \textcolor{keywordflow}{if} (patternJson.contains(\textcolor{stringliteral}{"pattern\_id"}) \&\& patternJson[\textcolor{stringliteral}{"pattern\_id"}].is\_number\_unsigned()) \{}
-\DoxyCodeLine{1908     \textcolor{keywordtype}{id} = \textcolor{keyword}{static\_cast<}\mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8c}{PatternID}}\textcolor{keyword}{>}(patternJson[\textcolor{stringliteral}{"pattern\_id"}].get<uint8\_t>());}
+\DoxyCodeLine{1907   \textcolor{keywordflow}{if} (patternJson.contains(\textcolor{stringliteral}{"{}pattern\_id"{}}) \&\& patternJson[\textcolor{stringliteral}{"{}pattern\_id"{}}].is\_number\_unsigned()) \{}
+\DoxyCodeLine{1908     \textcolor{keywordtype}{id} = \textcolor{keyword}{static\_cast<}\mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8c}{PatternID}}\textcolor{keyword}{>}(patternJson[\textcolor{stringliteral}{"{}pattern\_id"{}}].get<uint8\_t>());}
 \DoxyCodeLine{1909   \}}
 \DoxyCodeLine{1910 }
 \DoxyCodeLine{1911   \textcolor{comment}{// Validate the pattern ID}}
@@ -2489,8 +2495,8 @@ Definition at line 1899 of file Vortex\+Lib.\+cpp.
 \DoxyCodeLine{1915 }
 \DoxyCodeLine{1916   \textcolor{comment}{// Parse out the args}}
 \DoxyCodeLine{1917   \mbox{\hyperlink{classPatternArgs}{PatternArgs}} args;}
-\DoxyCodeLine{1918   \textcolor{keywordflow}{if} (patternJson.contains(\textcolor{stringliteral}{"args"}) \&\& patternJson[\textcolor{stringliteral}{"args"}].is\_array()) \{}
-\DoxyCodeLine{1919     \textcolor{keywordflow}{for} (\textcolor{keyword}{const} \textcolor{keyword}{auto} \&arg : patternJson[\textcolor{stringliteral}{"args"}]) \{}
+\DoxyCodeLine{1918   \textcolor{keywordflow}{if} (patternJson.contains(\textcolor{stringliteral}{"{}args"{}}) \&\& patternJson[\textcolor{stringliteral}{"{}args"{}}].is\_array()) \{}
+\DoxyCodeLine{1919     \textcolor{keywordflow}{for} (\textcolor{keyword}{const} \textcolor{keyword}{auto} \&arg : patternJson[\textcolor{stringliteral}{"{}args"{}}]) \{}
 \DoxyCodeLine{1920       \textcolor{keywordflow}{if} (arg.is\_number\_unsigned()) \{}
 \DoxyCodeLine{1921         args.\mbox{\hyperlink{classPatternArgs_a465f64cec09c325cdc26a9492e19879f}{addArgs}}(\textcolor{keyword}{static\_cast<}uint8\_t\textcolor{keyword}{>}(arg.get<uint8\_t>()));}
 \DoxyCodeLine{1922       \}}
@@ -2499,11 +2505,11 @@ Definition at line 1899 of file Vortex\+Lib.\+cpp.
 \DoxyCodeLine{1925 }
 \DoxyCodeLine{1926   \textcolor{comment}{// Parse out the colorset}}
 \DoxyCodeLine{1927   \mbox{\hyperlink{classColorset}{Colorset}} set;}
-\DoxyCodeLine{1928   \textcolor{keywordflow}{if} (patternJson.contains(\textcolor{stringliteral}{"colorset"}) \&\& patternJson[\textcolor{stringliteral}{"colorset"}].is\_array()) \{}
-\DoxyCodeLine{1929     \textcolor{keywordflow}{for} (\textcolor{keyword}{const} \textcolor{keyword}{auto} \&colorElement : patternJson[\textcolor{stringliteral}{"colorset"}]) \{}
+\DoxyCodeLine{1928   \textcolor{keywordflow}{if} (patternJson.contains(\textcolor{stringliteral}{"{}colorset"{}}) \&\& patternJson[\textcolor{stringliteral}{"{}colorset"{}}].is\_array()) \{}
+\DoxyCodeLine{1929     \textcolor{keywordflow}{for} (\textcolor{keyword}{const} \textcolor{keyword}{auto} \&colorElement : patternJson[\textcolor{stringliteral}{"{}colorset"{}}]) \{}
 \DoxyCodeLine{1930       \textcolor{keywordflow}{if} (colorElement.is\_string()) \{}
 \DoxyCodeLine{1931         \textcolor{keywordtype}{string} strVal = colorElement.\mbox{\hyperlink{classColorset_a283bf54629fd4af75249492d49e14199}{get}}<\textcolor{keywordtype}{string}>();}
-\DoxyCodeLine{1932         \textcolor{keywordflow}{if} (strVal.find(\textcolor{stringliteral}{"0x"}) == 0) \{}
+\DoxyCodeLine{1932         \textcolor{keywordflow}{if} (strVal.find(\textcolor{stringliteral}{"{}0x"{}}) == 0) \{}
 \DoxyCodeLine{1933           strVal = strVal.substr(2);}
 \DoxyCodeLine{1934         \}}
 \DoxyCodeLine{1935         uint32\_t dwCol = strtoul(strVal.c\_str(), NULL, 16);}
@@ -2528,7 +2534,7 @@ Definition at line 1899 of file Vortex\+Lib.\+cpp.
 \end{DoxyCode}
 
 
-References Pattern\+Args\+::add\+Args(), Colorset\+::add\+Color(), Colorset\+::get(), Pattern\+::init(), Pattern\+Builder\+::make(), P\+A\+T\+T\+E\+R\+N\+\_\+\+C\+O\+U\+NT, P\+A\+T\+T\+E\+R\+N\+\_\+\+N\+O\+NE, and Pattern\+::set\+Colorset().
+References Pattern\+Args\+::add\+Args(), Colorset\+::add\+Color(), Colorset\+::get(), Pattern\+::init(), Pattern\+Builder\+::make(), PATTERN\+\_\+\+COUNT, PATTERN\+\_\+\+NONE, and Pattern\+::set\+Colorset().
 
 \mbox{\Hypertarget{classVortex_a1fa614d9d5b95ef6af6249de420436a3}\label{classVortex_a1fa614d9d5b95ef6af6249de420436a3}} 
 \index{Vortex@{Vortex}!patternToJson@{patternToJson}}
@@ -2548,29 +2554,29 @@ Definition at line 1865 of file Vortex\+Lib.\+cpp.
 \DoxyCodeLine{1869   \}}
 \DoxyCodeLine{1870 }
 \DoxyCodeLine{1871   \mbox{\hyperlink{VortexLib_8h_ab701e3ac61a85b337ec5c1abaad6742d}{json}} patternJson;}
-\DoxyCodeLine{1872   patternJson[\textcolor{stringliteral}{"pattern\_id"}] = pattern-\/>\mbox{\hyperlink{classPattern_a9ffb45ae9cbb7188038bf1009ce842b0}{getPatternID}}();}
-\DoxyCodeLine{1873   patternJson[\textcolor{stringliteral}{"flags"}] = pattern-\/>\mbox{\hyperlink{classPattern_aa3e343dd51fb2ee2a0dbef0c8ba535d8}{getFlags}}();}
+\DoxyCodeLine{1872   patternJson[\textcolor{stringliteral}{"{}pattern\_id"{}}] = pattern-\/>\mbox{\hyperlink{classPattern_a9ffb45ae9cbb7188038bf1009ce842b0}{getPatternID}}();}
+\DoxyCodeLine{1873   patternJson[\textcolor{stringliteral}{"{}flags"{}}] = pattern-\/>\mbox{\hyperlink{classPattern_aa3e343dd51fb2ee2a0dbef0c8ba535d8}{getFlags}}();}
 \DoxyCodeLine{1874 }
 \DoxyCodeLine{1875   \textcolor{keyword}{const} \mbox{\hyperlink{classColorset}{Colorset}} \&colorset = pattern-\/>\mbox{\hyperlink{classPattern_a74bdb41c74915065e3c983427a6973d3}{getColorset}}();}
-\DoxyCodeLine{1876   patternJson[\textcolor{stringliteral}{"numColors"}] = colorset.\mbox{\hyperlink{classColorset_ae2a0882d7c34a3a2b5e228a3b517d54c}{numColors}}();}
+\DoxyCodeLine{1876   patternJson[\textcolor{stringliteral}{"{}numColors"{}}] = colorset.\mbox{\hyperlink{classColorset_ae2a0882d7c34a3a2b5e228a3b517d54c}{numColors}}();}
 \DoxyCodeLine{1877 }
 \DoxyCodeLine{1878   \mbox{\hyperlink{VortexLib_8h_ab701e3ac61a85b337ec5c1abaad6742d}{json}} colorsetArray = json::array();}
 \DoxyCodeLine{1879   \textcolor{keywordflow}{for} (uint8\_t c = 0; c < colorset.\mbox{\hyperlink{classColorset_ae2a0882d7c34a3a2b5e228a3b517d54c}{numColors}}(); ++c) \{}
 \DoxyCodeLine{1880     \textcolor{keyword}{const} \mbox{\hyperlink{classRGBColor}{RGBColor}} \&color = colorset.\mbox{\hyperlink{classColorset_a283bf54629fd4af75249492d49e14199}{get}}(c);}
 \DoxyCodeLine{1881     std::stringstream colorString;}
-\DoxyCodeLine{1882     colorString << \textcolor{stringliteral}{"0x"}}
+\DoxyCodeLine{1882     colorString << \textcolor{stringliteral}{"{}0x"{}}}
 \DoxyCodeLine{1883       << std::setfill(\textcolor{charliteral}{'0'}) << std::setw(2) << std::hex << (int)color.\mbox{\hyperlink{classRGBColor_a5fed452f370de463fca724be4947bb54}{red}}}
 \DoxyCodeLine{1884       << std::setfill(\textcolor{charliteral}{'0'}) << std::setw(2) << std::hex << (int)color.\mbox{\hyperlink{classRGBColor_aca75024902a233f3449935b01387b687}{green}}}
 \DoxyCodeLine{1885       << std::setfill(\textcolor{charliteral}{'0'}) << std::setw(2) << std::hex << (int)color.\mbox{\hyperlink{classRGBColor_a417ad42fb2dab07155bdd0f35107adc9}{blue}};}
 \DoxyCodeLine{1886     colorsetArray.push\_back(colorString.str());}
 \DoxyCodeLine{1887   \}}
-\DoxyCodeLine{1888   patternJson[\textcolor{stringliteral}{"colorset"}] = colorsetArray;}
+\DoxyCodeLine{1888   patternJson[\textcolor{stringliteral}{"{}colorset"{}}] = colorsetArray;}
 \DoxyCodeLine{1889 }
 \DoxyCodeLine{1890   \mbox{\hyperlink{VortexLib_8h_ab701e3ac61a85b337ec5c1abaad6742d}{json}} argsArray = json::array();}
 \DoxyCodeLine{1891   \textcolor{keywordflow}{for} (uint8\_t a = 0; a < pattern-\/>\mbox{\hyperlink{classPattern_a869de9ef11e75b9b6fb9bc4435065add}{getNumArgs}}(); ++a) \{}
 \DoxyCodeLine{1892     argsArray.push\_back(pattern-\/>\mbox{\hyperlink{classPattern_a1aa3f7649795c67ce50a04d1503546b9}{getArg}}(a));}
 \DoxyCodeLine{1893   \}}
-\DoxyCodeLine{1894   patternJson[\textcolor{stringliteral}{"args"}] = argsArray;}
+\DoxyCodeLine{1894   patternJson[\textcolor{stringliteral}{"{}args"{}}] = argsArray;}
 \DoxyCodeLine{1895 }
 \DoxyCodeLine{1896   \textcolor{keywordflow}{return} patternJson;}
 \DoxyCodeLine{1897 \}}
@@ -2578,13 +2584,13 @@ Definition at line 1865 of file Vortex\+Lib.\+cpp.
 \end{DoxyCode}
 
 
-References R\+G\+B\+Color\+::blue, Colorset\+::get(), Pattern\+::get\+Arg(), Pattern\+::get\+Colorset(), Pattern\+::get\+Flags(), Pattern\+::get\+Num\+Args(), Pattern\+::get\+Pattern\+I\+D(), R\+G\+B\+Color\+::green, Colorset\+::num\+Colors(), and R\+G\+B\+Color\+::red.
+References RGBColor\+::blue, Colorset\+::get(), Pattern\+::get\+Arg(), Pattern\+::get\+Colorset(), Pattern\+::get\+Flags(), Pattern\+::get\+Num\+Args(), Pattern\+::get\+Pattern\+ID(), RGBColor\+::green, Colorset\+::num\+Colors(), and RGBColor\+::red.
 
 \mbox{\Hypertarget{classVortex_a53ae4e3e4fa71806aeb6ef1bbeb23318}\label{classVortex_a53ae4e3e4fa71806aeb6ef1bbeb23318}} 
 \index{Vortex@{Vortex}!patternToString@{patternToString}}
 \index{patternToString@{patternToString}!Vortex@{Vortex}}
 \doxysubsubsection{\texorpdfstring{patternToString()}{patternToString()}}
-{\footnotesize\ttfamily string Vortex\+::pattern\+To\+String (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8c}{Pattern\+ID}}}]{id = {\ttfamily \mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8caf9610f0445822da8efff6bac441ca3de}{P\+A\+T\+T\+E\+R\+N\+\_\+\+N\+O\+NE}}} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+{\footnotesize\ttfamily string Vortex\+::pattern\+To\+String (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8c}{Pattern\+ID}}}]{id = {\ttfamily \mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8caf9610f0445822da8efff6bac441ca3de}{PATTERN\+\_\+\+NONE}}} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
 
 
 
@@ -2598,10 +2604,10 @@ Definition at line 1384 of file Vortex\+Lib.\+cpp.
 \DoxyCodeLine{1388     \textcolor{comment}{// if you see this it means the list of strings above is not equal to}}
 \DoxyCodeLine{1389     \textcolor{comment}{// the number of patterns in the enum, so you need to update the list}}
 \DoxyCodeLine{1390     \textcolor{comment}{// above to match the enum.}}
-\DoxyCodeLine{1391     \textcolor{keywordflow}{return} \textcolor{stringliteral}{"fix patternToString()"};}
+\DoxyCodeLine{1391     \textcolor{keywordflow}{return} \textcolor{stringliteral}{"{}fix patternToString()"{}};}
 \DoxyCodeLine{1392   \}}
 \DoxyCodeLine{1393   \textcolor{keywordflow}{if} (id <= PATTERN\_NONE || id >= \mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8ca4276a1b6c1d1dfbda21baa8bfda0584c}{PATTERN\_COUNT}}) \{}
-\DoxyCodeLine{1394     \textcolor{keywordflow}{return} \textcolor{stringliteral}{"none"};}
+\DoxyCodeLine{1394     \textcolor{keywordflow}{return} \textcolor{stringliteral}{"{}none"{}};}
 \DoxyCodeLine{1395   \}}
 \DoxyCodeLine{1396   \textcolor{keywordflow}{return} \mbox{\hyperlink{VortexLib_8cpp_a2ac261b51ef7f1cff07858e44a5599a1}{patternNames}}[id];}
 \DoxyCodeLine{1397 \}}
@@ -2609,7 +2615,7 @@ Definition at line 1384 of file Vortex\+Lib.\+cpp.
 \end{DoxyCode}
 
 
-References P\+A\+T\+T\+E\+R\+N\+\_\+\+C\+O\+U\+NT, and pattern\+Names.
+References PATTERN\+\_\+\+COUNT, and pattern\+Names.
 
 \mbox{\Hypertarget{classVortex_a1e0827118984b41eaf04dfbc20f2ca0e}\label{classVortex_a1e0827118984b41eaf04dfbc20f2ca0e}} 
 \index{Vortex@{Vortex}!pressButton@{pressButton}}
@@ -2653,20 +2659,20 @@ Definition at line 1751 of file Vortex\+Lib.\+cpp.
 \DoxyCodeLine{1759     \textcolor{keywordflow}{if} (strMsg.find\_last\_of(\textcolor{charliteral}{'\(\backslash\)\(\backslash\)'}) != string::npos) \{}
 \DoxyCodeLine{1760       strMsg = strMsg.substr(strMsg.find\_last\_of(\textcolor{charliteral}{'\(\backslash\)\(\backslash\)'}) + 1);}
 \DoxyCodeLine{1761     \}}
-\DoxyCodeLine{1762     strMsg += \textcolor{stringliteral}{":"};}
+\DoxyCodeLine{1762     strMsg += \textcolor{stringliteral}{"{}:"{}};}
 \DoxyCodeLine{1763     strMsg += to\_string(line);}
 \DoxyCodeLine{1764   \}}
 \DoxyCodeLine{1765   \textcolor{keywordflow}{if} (func) \{}
-\DoxyCodeLine{1766     strMsg += \textcolor{stringliteral}{" "};}
+\DoxyCodeLine{1766     strMsg += \textcolor{stringliteral}{"{} "{}};}
 \DoxyCodeLine{1767     strMsg += func;}
-\DoxyCodeLine{1768     strMsg += \textcolor{stringliteral}{"(): "};}
+\DoxyCodeLine{1768     strMsg += \textcolor{stringliteral}{"{}(): "{}};}
 \DoxyCodeLine{1769   \}}
 \DoxyCodeLine{1770   strMsg += msg;}
-\DoxyCodeLine{1771   strMsg += \textcolor{stringliteral}{"\(\backslash\)n"};}
+\DoxyCodeLine{1771   strMsg += \textcolor{stringliteral}{"{}\(\backslash\)n"{}};}
 \DoxyCodeLine{1772   vfprintf(\mbox{\hyperlink{classVortex_aaca3fa606d8a2dceb7e17d0bb05b5d7f}{Vortex::m\_consoleHandle}}, strMsg.c\_str(), list);}
-\DoxyCodeLine{1773 \textcolor{preprocessor}{\#if LOG\_TO\_FILE == 1}}
+\DoxyCodeLine{1773 \textcolor{preprocessor}{\#if LOG\_TO\_FILE == 1}}
 \DoxyCodeLine{1774   vfprintf(Vortex::m\_logHandle, strMsg.c\_str(), list);}
-\DoxyCodeLine{1775 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{1775 \textcolor{preprocessor}{\#endif}}
 \DoxyCodeLine{1776 \}}
 
 \end{DoxyCode}
@@ -2768,13 +2774,13 @@ Definition at line 1954 of file Vortex\+Lib.\+cpp.
 \DoxyCodeLine{1955 \{}
 \DoxyCodeLine{1956   \mbox{\hyperlink{VortexLib_8h_ab701e3ac61a85b337ec5c1abaad6742d}{json}} \mbox{\hyperlink{classVortex_a588611760fd00427705d66c5c754d974}{saveJson}};}
 \DoxyCodeLine{1957 }
-\DoxyCodeLine{1958   \mbox{\hyperlink{classVortex_a588611760fd00427705d66c5c754d974}{saveJson}}[\textcolor{stringliteral}{"version\_major"}] = \textcolor{keyword}{static\_cast<}uint8\_t\textcolor{keyword}{>}(\mbox{\hyperlink{VortexConfig_8h_ad51691e0bf3c0a33a9b4929507a7d4d8}{VORTEX\_VERSION\_MAJOR}});}
-\DoxyCodeLine{1959   \mbox{\hyperlink{classVortex_a588611760fd00427705d66c5c754d974}{saveJson}}[\textcolor{stringliteral}{"version\_minor"}] = \textcolor{keyword}{static\_cast<}uint8\_t\textcolor{keyword}{>}(\mbox{\hyperlink{VortexConfig_8h_a5192bd4a7eea3a54e5b00405185d9d4d}{VORTEX\_VERSION\_MINOR}});}
-\DoxyCodeLine{1960   \mbox{\hyperlink{classVortex_a588611760fd00427705d66c5c754d974}{saveJson}}[\textcolor{stringliteral}{"global\_flags"}] = Modes::globalFlags();}
-\DoxyCodeLine{1961   \mbox{\hyperlink{classVortex_a588611760fd00427705d66c5c754d974}{saveJson}}[\textcolor{stringliteral}{"brightness"}] = \textcolor{keyword}{static\_cast<}uint8\_t\textcolor{keyword}{>}(\mbox{\hyperlink{classLeds_acdeb76107e3193ba4cf1e87361335cbb}{Leds::getBrightness}}());}
+\DoxyCodeLine{1958   \mbox{\hyperlink{classVortex_a588611760fd00427705d66c5c754d974}{saveJson}}[\textcolor{stringliteral}{"{}version\_major"{}}] = \textcolor{keyword}{static\_cast<}uint8\_t\textcolor{keyword}{>}(\mbox{\hyperlink{VortexConfig_8h_ad51691e0bf3c0a33a9b4929507a7d4d8}{VORTEX\_VERSION\_MAJOR}});}
+\DoxyCodeLine{1959   \mbox{\hyperlink{classVortex_a588611760fd00427705d66c5c754d974}{saveJson}}[\textcolor{stringliteral}{"{}version\_minor"{}}] = \textcolor{keyword}{static\_cast<}uint8\_t\textcolor{keyword}{>}(\mbox{\hyperlink{VortexConfig_8h_a5192bd4a7eea3a54e5b00405185d9d4d}{VORTEX\_VERSION\_MINOR}});}
+\DoxyCodeLine{1960   \mbox{\hyperlink{classVortex_a588611760fd00427705d66c5c754d974}{saveJson}}[\textcolor{stringliteral}{"{}global\_flags"{}}] = Modes::globalFlags();}
+\DoxyCodeLine{1961   \mbox{\hyperlink{classVortex_a588611760fd00427705d66c5c754d974}{saveJson}}[\textcolor{stringliteral}{"{}brightness"{}}] = \textcolor{keyword}{static\_cast<}uint8\_t\textcolor{keyword}{>}(\mbox{\hyperlink{classLeds_acdeb76107e3193ba4cf1e87361335cbb}{Leds::getBrightness}}());}
 \DoxyCodeLine{1962 }
 \DoxyCodeLine{1963   uint8\_t \mbox{\hyperlink{classVortex_ad5d96e83ab7c76f6e9e1b245eef1e74f}{numModes}} = \mbox{\hyperlink{classModes_ad92dff625654925a5fb473d114890ce7}{Modes::numModes}}();}
-\DoxyCodeLine{1964   \mbox{\hyperlink{classVortex_a588611760fd00427705d66c5c754d974}{saveJson}}[\textcolor{stringliteral}{"num\_modes"}] = \mbox{\hyperlink{classVortex_ad5d96e83ab7c76f6e9e1b245eef1e74f}{numModes}};}
+\DoxyCodeLine{1964   \mbox{\hyperlink{classVortex_a588611760fd00427705d66c5c754d974}{saveJson}}[\textcolor{stringliteral}{"{}num\_modes"{}}] = \mbox{\hyperlink{classVortex_ad5d96e83ab7c76f6e9e1b245eef1e74f}{numModes}};}
 \DoxyCodeLine{1965 }
 \DoxyCodeLine{1966   \mbox{\hyperlink{VortexLib_8h_ab701e3ac61a85b337ec5c1abaad6742d}{json}} modesArray = json::array();}
 \DoxyCodeLine{1967   \mbox{\hyperlink{classModes_a65f088d9076706c4976f7282be323e50}{Modes::setCurMode}}(0);}
@@ -2788,7 +2794,7 @@ Definition at line 1954 of file Vortex\+Lib.\+cpp.
 \DoxyCodeLine{1975     \}}
 \DoxyCodeLine{1976     \mbox{\hyperlink{classModes_ac9a4c95f7e899dc2732f65ebe78559c2}{Modes::nextMode}}();}
 \DoxyCodeLine{1977   \}}
-\DoxyCodeLine{1978   \mbox{\hyperlink{classVortex_a588611760fd00427705d66c5c754d974}{saveJson}}[\textcolor{stringliteral}{"modes"}] = modesArray;}
+\DoxyCodeLine{1978   \mbox{\hyperlink{classVortex_a588611760fd00427705d66c5c754d974}{saveJson}}[\textcolor{stringliteral}{"{}modes"{}}] = modesArray;}
 \DoxyCodeLine{1979 }
 \DoxyCodeLine{1980   \textcolor{keywordflow}{return} \mbox{\hyperlink{classVortex_a588611760fd00427705d66c5c754d974}{saveJson}};}
 \DoxyCodeLine{1981 \}}
@@ -2796,7 +2802,7 @@ Definition at line 1954 of file Vortex\+Lib.\+cpp.
 \end{DoxyCode}
 
 
-References Modes\+::cur\+Mode(), Leds\+::get\+Brightness(), Modes\+::next\+Mode(), Modes\+::num\+Modes(), Modes\+::set\+Cur\+Mode(), V\+O\+R\+T\+E\+X\+\_\+\+V\+E\+R\+S\+I\+O\+N\+\_\+\+M\+A\+J\+OR, and V\+O\+R\+T\+E\+X\+\_\+\+V\+E\+R\+S\+I\+O\+N\+\_\+\+M\+I\+N\+OR.
+References Modes\+::cur\+Mode(), Leds\+::get\+Brightness(), Modes\+::next\+Mode(), Modes\+::num\+Modes(), Modes\+::set\+Cur\+Mode(), VORTEX\+\_\+\+VERSION\+\_\+\+MAJOR, and VORTEX\+\_\+\+VERSION\+\_\+\+MINOR.
 
 \mbox{\Hypertarget{classVortex_a65b02affd06f6cb736091574c446a8ae}\label{classVortex_a65b02affd06f6cb736091574c446a8ae}} 
 \index{Vortex@{Vortex}!selectButton@{selectButton}}
@@ -2871,7 +2877,7 @@ References Modes\+::cur\+Mode(), Mode\+::init(), and Mode\+::set\+Colorset().
 
 
 
-Referenced by Vortex\+C\+L\+I\+::init().
+Referenced by Vortex\+CLI\+::init().
 
 \mbox{\Hypertarget{classVortex_a9fe85abebd3971c044cca2cd37734ee5}\label{classVortex_a9fe85abebd3971c044cca2cd37734ee5}} 
 \index{Vortex@{Vortex}!setCurMode@{setCurMode}}
@@ -2919,7 +2925,7 @@ Definition at line 879 of file Vortex\+Lib.\+cpp.
 \end{DoxyCode}
 
 
-Referenced by Vortex\+C\+L\+I\+::init().
+Referenced by Vortex\+CLI\+::init().
 
 \mbox{\Hypertarget{classVortex_ad86cf3a50a8291cf81bbe6d1149e0aae}\label{classVortex_ad86cf3a50a8291cf81bbe6d1149e0aae}} 
 \index{Vortex@{Vortex}!setLockEnabled@{setLockEnabled}}
@@ -2942,7 +2948,7 @@ References m\+\_\+lock\+Enabled.
 
 
 
-Referenced by Vortex\+C\+L\+I\+::init().
+Referenced by Vortex\+CLI\+::init().
 
 \mbox{\Hypertarget{classVortex_a7b3faa63171d5ff95e0b1ffb52357b5d}\label{classVortex_a7b3faa63171d5ff95e0b1ffb52357b5d}} 
 \index{Vortex@{Vortex}!setMenuDemoMode@{setMenuDemoMode}}
@@ -2993,7 +2999,7 @@ Definition at line 1090 of file Vortex\+Lib.\+cpp.
 \DoxyCodeLine{1092   \mbox{\hyperlink{classModes_abfb857566f5d83bb4ea6bf9417e5f9ac}{Modes::clearModes}}();}
 \DoxyCodeLine{1093   \textcolor{comment}{// now unserialize the stream of data that was read}}
 \DoxyCodeLine{1094   \textcolor{keywordflow}{if} (!\mbox{\hyperlink{classModes_a7a8e136c877b6cb04ac31a37020b89e6}{Modes::loadFromBuffer}}(stream)) \{}
-\DoxyCodeLine{1095     \textcolor{comment}{//printf("Unserialize failed\(\backslash\)n");}}
+\DoxyCodeLine{1095     \textcolor{comment}{//printf("{}Unserialize failed\(\backslash\)n"{});}}
 \DoxyCodeLine{1096     \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
 \DoxyCodeLine{1097   \}}
 \DoxyCodeLine{1098   \textcolor{keywordflow}{return} !save || \mbox{\hyperlink{classVortex_a071420f9d13264dccfae392c8b9601ff}{doSave}}();}
@@ -3006,7 +3012,7 @@ References Modes\+::clear\+Modes(), and Modes\+::load\+From\+Buffer().
 
 
 
-Referenced by apply\+Undo(), and Vortex\+C\+L\+I\+::init().
+Referenced by apply\+Undo(), and Vortex\+CLI\+::init().
 
 \mbox{\Hypertarget{classVortex_aec7e2b2db0ab8511e121550b206a1532}\label{classVortex_aec7e2b2db0ab8511e121550b206a1532}} 
 \index{Vortex@{Vortex}!setPattern@{setPattern}}
@@ -3035,7 +3041,7 @@ Definition at line 1203 of file Vortex\+Lib.\+cpp.
 \end{DoxyCode}
 
 
-References Modes\+::cur\+Mode(), Mode\+::init(), L\+E\+D\+\_\+\+A\+NY, and Mode\+::set\+Pattern().
+References Modes\+::cur\+Mode(), Mode\+::init(), LED\+\_\+\+ANY, and Mode\+::set\+Pattern().
 
 \mbox{\Hypertarget{classVortex_a634241777f83a7a3ca576323b239c2b1}\label{classVortex_a634241777f83a7a3ca576323b239c2b1}} 
 \index{Vortex@{Vortex}!setPatternArgs@{setPatternArgs}}
@@ -3057,7 +3063,7 @@ Definition at line 1310 of file Vortex\+Lib.\+cpp.
 \DoxyCodeLine{1316   \mbox{\hyperlink{classPattern}{Pattern}} *pat = \textcolor{keyword}{nullptr};}
 \DoxyCodeLine{1317   \textcolor{comment}{// Equivalent to cases LED\_ANY, LED\_ALL and LED\_MULTI}}
 \DoxyCodeLine{1318   \textcolor{keywordflow}{if} (pos == \mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2ca652516306597153ba832b404a27c85c8}{LED\_ANY}} || pos == \mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2cae4fd580189cac85429ebfa5cb71cd772}{LED\_ALL}} || pos == \mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2ca2132b8a8565f61fc6b6ea5ff1f32132e}{LED\_MULTI}}) \{}
-\DoxyCodeLine{1319 \textcolor{preprocessor}{\#if VORTEX\_SLIM == 0}}
+\DoxyCodeLine{1319 \textcolor{preprocessor}{\#if VORTEX\_SLIM == 0}}
 \DoxyCodeLine{1320     pat = pMode-\/>\mbox{\hyperlink{classMode_a82938befd9f7166a96f2e9e99636e6ce}{getPattern}}(\mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2ca2132b8a8565f61fc6b6ea5ff1f32132e}{LED\_MULTI}});}
 \DoxyCodeLine{1321     \textcolor{keywordflow}{if} (pat) \{}
 \DoxyCodeLine{1322       pat-\/>\mbox{\hyperlink{classPattern_a13963393f1bf765de2b33950e79607f1}{setArgs}}(args);}
@@ -3080,7 +3086,7 @@ Definition at line 1310 of file Vortex\+Lib.\+cpp.
 \DoxyCodeLine{1339       \textcolor{comment}{// actually break here}}
 \DoxyCodeLine{1340       \textcolor{keywordflow}{return} !save || \mbox{\hyperlink{classVortex_a071420f9d13264dccfae392c8b9601ff}{doSave}}();}
 \DoxyCodeLine{1341     \}}
-\DoxyCodeLine{1342 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{1342 \textcolor{preprocessor}{\#endif}}
 \DoxyCodeLine{1343   \}}
 \DoxyCodeLine{1344 }
 \DoxyCodeLine{1345   \textcolor{comment}{// equivalent to case LED\_ALL\_SINGLE}}
@@ -3116,11 +3122,11 @@ Definition at line 1310 of file Vortex\+Lib.\+cpp.
 \end{DoxyCode}
 
 
-References Modes\+::cur\+Mode(), Mode\+::get\+Pattern(), Mode\+::init(), L\+E\+D\+\_\+\+A\+LL, L\+E\+D\+\_\+\+A\+L\+L\+\_\+\+S\+I\+N\+G\+LE, L\+E\+D\+\_\+\+A\+NY, L\+E\+D\+\_\+\+C\+O\+U\+NT, L\+E\+D\+\_\+\+F\+I\+R\+ST, L\+E\+D\+\_\+\+M\+U\+L\+TI, and Pattern\+::set\+Args().
+References Modes\+::cur\+Mode(), Mode\+::get\+Pattern(), Mode\+::init(), LED\+\_\+\+ALL, LED\+\_\+\+ALL\+\_\+\+SINGLE, LED\+\_\+\+ANY, LED\+\_\+\+COUNT, LED\+\_\+\+FIRST, LED\+\_\+\+MULTI, and Pattern\+::set\+Args().
 
 
 
-Referenced by Vortex\+C\+L\+I\+::init().
+Referenced by Vortex\+CLI\+::init().
 
 \mbox{\Hypertarget{classVortex_a5ae32a919cde30ac5aec2dffc665bcb9}\label{classVortex_a5ae32a919cde30ac5aec2dffc665bcb9}} 
 \index{Vortex@{Vortex}!setPatternAt@{setPatternAt}}
@@ -3153,7 +3159,7 @@ References Modes\+::cur\+Mode(), Mode\+::init(), and Mode\+::set\+Pattern().
 
 
 
-Referenced by Vortex\+C\+L\+I\+::init().
+Referenced by Vortex\+CLI\+::init().
 
 \mbox{\Hypertarget{classVortex_a4b364f41141ac283dfae28de15a6f267}\label{classVortex_a4b364f41141ac283dfae28de15a6f267}} 
 \index{Vortex@{Vortex}!setSleepEnabled@{setSleepEnabled}}
@@ -3174,7 +3180,7 @@ Definition at line 827 of file Vortex\+Lib.\+cpp.
 \end{DoxyCode}
 
 
-Referenced by Vortex\+C\+L\+I\+::init().
+Referenced by Vortex\+CLI\+::init().
 
 \mbox{\Hypertarget{classVortex_af7c280603466904dba45273480137c3d}\label{classVortex_af7c280603466904dba45273480137c3d}} 
 \index{Vortex@{Vortex}!setStorageFilename@{setStorageFilename}}
@@ -3195,7 +3201,7 @@ Definition at line 1778 of file Vortex\+Lib.\+cpp.
 \end{DoxyCode}
 
 
-Referenced by Vortex\+C\+L\+I\+::init().
+Referenced by Vortex\+CLI\+::init().
 
 \mbox{\Hypertarget{classVortex_a561465537825041fe0f16062e2f45db3}\label{classVortex_a561465537825041fe0f16062e2f45db3}} 
 \index{Vortex@{Vortex}!setTickrate@{setTickrate}}
@@ -3378,11 +3384,11 @@ Definition at line 1399 of file Vortex\+Lib.\+cpp.
 \end{DoxyCode}
 
 
-References P\+A\+T\+T\+E\+R\+N\+\_\+\+C\+O\+U\+NT, P\+A\+T\+T\+E\+R\+N\+\_\+\+F\+I\+R\+ST, P\+A\+T\+T\+E\+R\+N\+\_\+\+N\+O\+NE, and pattern\+Names.
+References PATTERN\+\_\+\+COUNT, PATTERN\+\_\+\+FIRST, PATTERN\+\_\+\+NONE, and pattern\+Names.
 
 
 
-Referenced by Vortex\+C\+L\+I\+::init().
+Referenced by Vortex\+CLI\+::init().
 
 \mbox{\Hypertarget{classVortex_a3419ac1ebf4231ff2660de97a582fd0d}\label{classVortex_a3419ac1ebf4231ff2660de97a582fd0d}} 
 \index{Vortex@{Vortex}!tick@{tick}}
@@ -3427,7 +3433,7 @@ References Vortex\+Engine\+::tick().
 
 
 
-Referenced by Vortex\+C\+L\+I\+::run().
+Referenced by Vortex\+CLI\+::run().
 
 \mbox{\Hypertarget{classVortex_a8ec4ac99557422ffe17324958fa6482c}\label{classVortex_a8ec4ac99557422ffe17324958fa6482c}} 
 \index{Vortex@{Vortex}!undo@{undo}}
@@ -3477,13 +3483,13 @@ References m\+\_\+stored\+Callbacks.
 
 
 
-Referenced by Button\+::check(), Serial\+Coms\+::check\+Serial(), Serial\+Coms\+::data\+Ready(), Leds\+::init(), Serial\+Coms\+::read(), I\+R\+Sender\+::send\+Mark(), V\+L\+Sender\+::send\+Mark(), I\+R\+Sender\+::send\+Space(), V\+L\+Sender\+::send\+Space(), Leds\+::update(), and Serial\+Coms\+::write().
+Referenced by Button\+::check(), Serial\+Coms\+::check\+Serial(), Serial\+Coms\+::data\+Ready(), Leds\+::init(), Serial\+Coms\+::read(), IRSender\+::send\+Mark(), VLSender\+::send\+Mark(), IRSender\+::send\+Space(), VLSender\+::send\+Space(), Leds\+::update(), and Serial\+Coms\+::write().
 
 \mbox{\Hypertarget{classVortex_adccfae5f5a993f9619c73545184dd1d1}\label{classVortex_adccfae5f5a993f9619c73545184dd1d1}} 
 \index{Vortex@{Vortex}!VLDeliver@{VLDeliver}}
 \index{VLDeliver@{VLDeliver}!Vortex@{Vortex}}
 \doxysubsubsection{\texorpdfstring{VLDeliver()}{VLDeliver()}}
-{\footnotesize\ttfamily void Vortex\+::\+V\+L\+Deliver (\begin{DoxyParamCaption}\item[{uint32\+\_\+t}]{timing }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+{\footnotesize\ttfamily void Vortex\+::\+VLDeliver (\begin{DoxyParamCaption}\item[{uint32\+\_\+t}]{timing }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
 
 
 
@@ -3492,15 +3498,15 @@ Definition at line 1024 of file Vortex\+Lib.\+cpp.
 
 \begin{DoxyCode}{0}
 \DoxyCodeLine{1025 \{}
-\DoxyCodeLine{1026 \textcolor{preprocessor}{\#if VL\_ENABLE\_RECEIVER == 1}}
+\DoxyCodeLine{1026 \textcolor{preprocessor}{\#if VL\_ENABLE\_RECEIVER == 1}}
 \DoxyCodeLine{1027   \mbox{\hyperlink{classVLReceiver_a09b9dcb3e525815baf74092e70ef5ab0}{VLReceiver::handleVLTiming}}(timing);}
-\DoxyCodeLine{1028 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{1028 \textcolor{preprocessor}{\#endif}}
 \DoxyCodeLine{1029 \}}
 
 \end{DoxyCode}
 
 
-References V\+L\+Receiver\+::handle\+V\+L\+Timing().
+References VLReceiver\+::handle\+VLTiming().
 
 
 
@@ -3570,7 +3576,7 @@ Referenced by enable\+Command\+Log().
 \index{Vortex@{Vortex}!m\_consoleHandle@{m\_consoleHandle}}
 \index{m\_consoleHandle@{m\_consoleHandle}!Vortex@{Vortex}}
 \doxysubsubsection{\texorpdfstring{m\_consoleHandle}{m\_consoleHandle}}
-{\footnotesize\ttfamily F\+I\+LE $\ast$ Vortex\+::m\+\_\+console\+Handle = nullptr\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [private]}}
+{\footnotesize\ttfamily FILE $\ast$ Vortex\+::m\+\_\+console\+Handle = nullptr\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [private]}}
 
 
 

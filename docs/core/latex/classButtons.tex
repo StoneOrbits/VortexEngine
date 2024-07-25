@@ -6,7 +6,8 @@
 
 
 
-Collaboration diagram for Buttons\+:\nopagebreak
+Collaboration diagram for Buttons\+:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -32,7 +33,7 @@ static uint8\+\_\+t \mbox{\hyperlink{classButtons_a158367c94decbc43a142c79d65d9d
 \doxysubsection*{Static Private Attributes}
 \begin{DoxyCompactItemize}
 \item 
-static \mbox{\hyperlink{classButton}{Button}} \mbox{\hyperlink{classButtons_a7344cfab9ec5faf9741216860d6f4390}{m\+\_\+buttons}} \mbox{[}\mbox{\hyperlink{Buttons_8h_a45add6b39f5b0c0137de978b90e26b5d}{N\+U\+M\+\_\+\+B\+U\+T\+T\+O\+NS}}\mbox{]}
+static \mbox{\hyperlink{classButton}{Button}} \mbox{\hyperlink{classButtons_a7344cfab9ec5faf9741216860d6f4390}{m\+\_\+buttons}} \mbox{[}\mbox{\hyperlink{Buttons_8h_a45add6b39f5b0c0137de978b90e26b5d}{NUM\+\_\+\+BUTTONS}}\mbox{]}
 \end{DoxyCompactItemize}
 
 
@@ -120,7 +121,7 @@ Definition at line 25 of file Buttons.\+h.
 \end{DoxyCode}
 
 
-References N\+U\+M\+\_\+\+B\+U\+T\+T\+O\+NS.
+References NUM\+\_\+\+BUTTONS.
 
 
 
@@ -144,16 +145,16 @@ Definition at line 35 of file Buttons.\+cpp.
 \DoxyCodeLine{39   \textcolor{keywordflow}{for} (uint8\_t i = 0; i < \mbox{\hyperlink{Buttons_8h_a45add6b39f5b0c0137de978b90e26b5d}{NUM\_BUTTONS}}; ++i) \{}
 \DoxyCodeLine{40     \mbox{\hyperlink{classButtons_a7344cfab9ec5faf9741216860d6f4390}{m\_buttons}}[i].\mbox{\hyperlink{classButton_ad8e030c1c8846d43f3126047d4a3667f}{update}}();}
 \DoxyCodeLine{41   \}}
-\DoxyCodeLine{42 \textcolor{preprocessor}{\#ifdef VORTEX\_LIB}}
+\DoxyCodeLine{42 \textcolor{preprocessor}{\#ifdef VORTEX\_LIB}}
 \DoxyCodeLine{43   \textcolor{comment}{// read input from the vortex lib interface, for example Vortex::shortClick()}}
 \DoxyCodeLine{44   \mbox{\hyperlink{classVortex_aa334b5f76d4d9d7f0a95296afd1f7ed0}{Vortex::handleInputQueue}}(\mbox{\hyperlink{classButtons_a7344cfab9ec5faf9741216860d6f4390}{m\_buttons}}, \mbox{\hyperlink{Buttons_8h_a45add6b39f5b0c0137de978b90e26b5d}{NUM\_BUTTONS}});}
-\DoxyCodeLine{45 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{45 \textcolor{preprocessor}{\#endif}}
 \DoxyCodeLine{46 \}}
 
 \end{DoxyCode}
 
 
-References Vortex\+::handle\+Input\+Queue(), m\+\_\+buttons, N\+U\+M\+\_\+\+B\+U\+T\+T\+O\+NS, and Button\+::update().
+References Vortex\+::handle\+Input\+Queue(), m\+\_\+buttons, NUM\+\_\+\+BUTTONS, and Button\+::update().
 
 
 

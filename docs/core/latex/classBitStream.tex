@@ -85,7 +85,7 @@ Definition at line 8 of file Bit\+Stream.\+cpp.
 \DoxyCodeLine{8                      :}
 \DoxyCodeLine{9   \mbox{\hyperlink{classBitStream_aff40d73836e47617e30e56ff10ded126}{m\_buf}}(\textcolor{keyword}{nullptr}), \mbox{\hyperlink{classBitStream_ade32a7378ca13f84288c5a2f190416a2}{m\_buf\_size}}(0),}
 \DoxyCodeLine{10   \mbox{\hyperlink{classBitStream_a5400cbd344ad6486555968380d275dee}{m\_bit\_pos}}(0), \mbox{\hyperlink{classBitStream_ad9acfbab742707975bdd0d54446d6986}{m\_buf\_eof}}(\textcolor{keyword}{false}),}
-\DoxyCodeLine{11   \mbox{\hyperlink{classBitStream_a870639ae2729394a55bf7b0e6a217aca}{m\_allocated}}(\textcolor{keyword}{false})}
+\DoxyCodeLine{11   \mbox{\hyperlink{classBitStream_a870639ae2729394a55bf7b0e6a217aca}{m\_allocated}}(\textcolor{keyword}{false})}
 \DoxyCodeLine{12 \{}
 \DoxyCodeLine{13 \}}
 
@@ -103,7 +103,7 @@ Definition at line 21 of file Bit\+Stream.\+cpp.
 
 \begin{DoxyCode}{0}
 \DoxyCodeLine{21                                   :}
-\DoxyCodeLine{22   \mbox{\hyperlink{classBitStream_af1db2867532d571330d4676cf7a34093}{BitStream}}()}
+\DoxyCodeLine{22   \mbox{\hyperlink{classBitStream_af1db2867532d571330d4676cf7a34093}{BitStream}}()}
 \DoxyCodeLine{23 \{}
 \DoxyCodeLine{24   \mbox{\hyperlink{classBitStream_a5b8f42bd95138304249dd9bcd6dcbb2c}{init}}(\mbox{\hyperlink{classBitStream_a150d54e2999c2e8af75d419d9b757e91}{size}});}
 \DoxyCodeLine{25 \}}
@@ -126,7 +126,7 @@ Definition at line 15 of file Bit\+Stream.\+cpp.
 
 \begin{DoxyCode}{0}
 \DoxyCodeLine{15                                                 :}
-\DoxyCodeLine{16   \mbox{\hyperlink{classBitStream_af1db2867532d571330d4676cf7a34093}{BitStream}}()}
+\DoxyCodeLine{16   \mbox{\hyperlink{classBitStream_af1db2867532d571330d4676cf7a34093}{BitStream}}()}
 \DoxyCodeLine{17 \{}
 \DoxyCodeLine{18   \mbox{\hyperlink{classBitStream_a5b8f42bd95138304249dd9bcd6dcbb2c}{init}}(buf, \mbox{\hyperlink{classBitStream_a150d54e2999c2e8af75d419d9b757e91}{size}});}
 \DoxyCodeLine{19 \}}
@@ -221,7 +221,7 @@ References m\+\_\+bit\+\_\+pos.
 
 
 
-Referenced by I\+R\+Receiver\+::bytes\+Received(), V\+L\+Receiver\+::bytes\+Received(), I\+R\+Receiver\+::data\+Ready(), V\+L\+Receiver\+::data\+Ready(), I\+R\+Receiver\+::is\+Receiving(), V\+L\+Receiver\+::is\+Receiving(), V\+L\+Receiver\+::percent\+Received(), I\+R\+Receiver\+::percent\+Received(), I\+R\+Receiver\+::read(), and V\+L\+Receiver\+::read().
+Referenced by IRReceiver\+::bytes\+Received(), VLReceiver\+::bytes\+Received(), IRReceiver\+::data\+Ready(), VLReceiver\+::data\+Ready(), IRReceiver\+::is\+Receiving(), VLReceiver\+::is\+Receiving(), IRReceiver\+::percent\+Received(), VLReceiver\+::percent\+Received(), IRReceiver\+::read(), and VLReceiver\+::read().
 
 \mbox{\Hypertarget{classBitStream_a4be1b1c1cb2684d2997b1c8a6f0cd34d}\label{classBitStream_a4be1b1c1cb2684d2997b1c8a6f0cd34d}} 
 \index{BitStream@{BitStream}!data@{data}}
@@ -244,7 +244,7 @@ References m\+\_\+buf.
 
 
 
-Referenced by I\+R\+Receiver\+::data\+Ready(), V\+L\+Receiver\+::data\+Ready(), I\+R\+Receiver\+::percent\+Received(), V\+L\+Receiver\+::percent\+Received(), I\+R\+Receiver\+::read(), V\+L\+Receiver\+::read(), V\+L\+Sender\+::send(), and I\+R\+Sender\+::send().
+Referenced by IRReceiver\+::data\+Ready(), VLReceiver\+::data\+Ready(), IRReceiver\+::percent\+Received(), VLReceiver\+::percent\+Received(), IRReceiver\+::read(), VLReceiver\+::read(), IRSender\+::send(), and VLSender\+::send().
 
 \mbox{\Hypertarget{classBitStream_a0972c0f6e9f9896c27dec10d4b0dbfde}\label{classBitStream_a0972c0f6e9f9896c27dec10d4b0dbfde}} 
 \index{BitStream@{BitStream}!dwData@{dwData}}
@@ -333,7 +333,7 @@ Definition at line 42 of file Bit\+Stream.\+cpp.
 \end{DoxyCode}
 
 
-References E\+R\+R\+O\+R\+\_\+\+O\+U\+T\+\_\+\+O\+F\+\_\+\+M\+E\+M\+O\+RY, m\+\_\+allocated, m\+\_\+buf, m\+\_\+buf\+\_\+size, reset\+Pos(), size(), vcalloc, and vfree.
+References ERROR\+\_\+\+OUT\+\_\+\+OF\+\_\+\+MEMORY, m\+\_\+allocated, m\+\_\+buf, m\+\_\+buf\+\_\+size, reset\+Pos(), size(), vcalloc, and vfree.
 
 \mbox{\Hypertarget{classBitStream_a5b8f42bd95138304249dd9bcd6dcbb2c}\label{classBitStream_a5b8f42bd95138304249dd9bcd6dcbb2c}} 
 \index{BitStream@{BitStream}!init@{init}}
@@ -361,7 +361,7 @@ References m\+\_\+buf, m\+\_\+buf\+\_\+size, reset\+Pos(), and size().
 
 
 
-Referenced by Bit\+Stream(), I\+R\+Receiver\+::init(), V\+L\+Receiver\+::init(), I\+R\+Sender\+::load\+Mode(), and V\+L\+Sender\+::load\+Mode().
+Referenced by Bit\+Stream(), IRReceiver\+::init(), VLReceiver\+::init(), IRSender\+::load\+Mode(), and VLSender\+::load\+Mode().
 
 \mbox{\Hypertarget{classBitStream_a0f8ce989ed47b8768adadf536d6e1bd2}\label{classBitStream_a0f8ce989ed47b8768adadf536d6e1bd2}} 
 \index{BitStream@{BitStream}!read1Bit@{read1Bit}}
@@ -460,7 +460,7 @@ References m\+\_\+buf, m\+\_\+buf\+\_\+size, and reset\+Pos().
 
 
 
-Referenced by I\+R\+Receiver\+::reset\+I\+R\+State(), and V\+L\+Receiver\+::reset\+V\+L\+State().
+Referenced by IRReceiver\+::reset\+IRState(), and VLReceiver\+::reset\+VLState().
 
 \mbox{\Hypertarget{classBitStream_acdd7cdba5151c2890ea01c2894906d23}\label{classBitStream_acdd7cdba5151c2890ea01c2894906d23}} 
 \index{BitStream@{BitStream}!resetPos@{resetPos}}
@@ -545,7 +545,7 @@ References m\+\_\+bit\+\_\+pos, m\+\_\+buf, m\+\_\+buf\+\_\+eof, and m\+\_\+buf\
 
 
 
-Referenced by I\+R\+Receiver\+::handle\+I\+R\+Timing(), V\+L\+Receiver\+::handle\+V\+L\+Timing(), and write\+Bits().
+Referenced by IRReceiver\+::handle\+IRTiming(), VLReceiver\+::handle\+VLTiming(), and write\+Bits().
 
 \mbox{\Hypertarget{classBitStream_ace54cf587779ae21e2928f1325a177b8}\label{classBitStream_ace54cf587779ae21e2928f1325a177b8}} 
 \index{BitStream@{BitStream}!writeBits@{writeBits}}

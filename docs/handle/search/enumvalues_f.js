@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['usingdictctx_2761',['usingDictCtx',['../Compression_8cpp.html#ab22d25a446ad3e8288401052deccda4caf6d955259638feac01c4e4cace77c617',1,'Compression.cpp']]],
-  ['usingextdict_2762',['usingExtDict',['../Compression_8cpp.html#ab22d25a446ad3e8288401052deccda4caa8cc166c33fdfcd904c260136978913b',1,'Compression.cpp']]]
+  ['tetradic_3163',['TETRADIC',['../classColorset.html#abf504edde130e5e302c5a1c78ab725d8acd5395dcd4b6248a985c0e789c7d0ef1',1,'Colorset']]],
+  ['theory_3164',['THEORY',['../classColorset.html#ad0ad727054d88606053bbb67ae1fb11ca0af1de95991c0cc7207f8dd0ae3f0607',1,'Colorset']]]
 ];

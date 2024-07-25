@@ -97,7 +97,7 @@ $(document).ready(function(){initNavTree('IRSender_8cpp_source.html',''); initRe
 <div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#include &quot;../Log/Log.h&quot;</span></div>
 <div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160; </div>
 <div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="preprocessor">#ifdef VORTEX_LIB</span></div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="preprocessor">#include &quot;VortexLib.h&quot;</span></div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="VortexLib_8h.html">VortexLib.h</a>&quot;</span></div>
 <div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="preprocessor">#endif</span></div>
 <div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160; </div>
 <div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="preprocessor">#ifdef VORTEX_EMBEDDED</span></div>
@@ -245,7 +245,7 @@ $(document).ready(function(){initNavTree('IRSender_8cpp_source.html',''); initRe
 <div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;{</div>
 <div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160;<span class="preprocessor">#ifdef VORTEX_LIB</span></div>
 <div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160;  <span class="comment">// send mark timing over socket</span></div>
-<div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160;  Vortex::vcallbacks()-&gt;infraredWrite(<span class="keyword">true</span>, time);</div>
+<div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160;  <a class="code" href="classVortex.html#a84b31157edd8814f3e7b545ca4c3fa00">Vortex::vcallbacks</a>()-&gt;<a class="code" href="classVortexCallbacks.html#a97b9d8709dd8f4d940184cf6996da776">infraredWrite</a>(<span class="keyword">true</span>, time);</div>
 <div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160;<span class="preprocessor">#else</span></div>
 <div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160;  <a class="code" href="classIRSender.html#a1d44e1edc5eb96f000a933b1fac00127">startPWM</a>();</div>
 <div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160;  <a class="code" href="classTime.html#a1db7b0672f8b2d38994119ccc226f8ee">Time::delayMicroseconds</a>(time);</div>
@@ -256,7 +256,7 @@ $(document).ready(function(){initNavTree('IRSender_8cpp_source.html',''); initRe
 <div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160;{</div>
 <div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160;<span class="preprocessor">#ifdef VORTEX_LIB</span></div>
 <div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160;  <span class="comment">// send space timing over socket</span></div>
-<div class="line"><a name="l00170"></a><span class="lineno">  170</span>&#160;  Vortex::vcallbacks()-&gt;infraredWrite(<span class="keyword">false</span>, time);</div>
+<div class="line"><a name="l00170"></a><span class="lineno">  170</span>&#160;  <a class="code" href="classVortex.html#a84b31157edd8814f3e7b545ca4c3fa00">Vortex::vcallbacks</a>()-&gt;<a class="code" href="classVortexCallbacks.html#a97b9d8709dd8f4d940184cf6996da776">infraredWrite</a>(<span class="keyword">false</span>, time);</div>
 <div class="line"><a name="l00171"></a><span class="lineno">  171</span>&#160;<span class="preprocessor">#else</span></div>
 <div class="line"><a name="l00172"></a><span class="lineno">  172</span>&#160;  <a class="code" href="classIRSender.html#ab6a6c8f2a5aa4840ac7058438dc13c3f">stopPWM</a>();</div>
 <div class="line"><a name="l00173"></a><span class="lineno">  173</span>&#160;  <a class="code" href="classTime.html#a1db7b0672f8b2d38994119ccc226f8ee">Time::delayMicroseconds</a>(time);</div>
@@ -347,6 +347,7 @@ $(document).ready(function(){initNavTree('IRSender_8cpp_source.html',''); initRe
 <div class="ttc" id="aIRSender_8h_html"><div class="ttname"><a href="IRSender_8h.html">IRSender.h</a></div></div>
 <div class="ttc" id="aLog_8h_html_a5d2f30bd1cbcf49f829a7e8eb6173c06"><div class="ttname"><a href="Log_8h.html#a5d2f30bd1cbcf49f829a7e8eb6173c06">DEBUG_LOG</a></div><div class="ttdeci">#define DEBUG_LOG(msg)</div><div class="ttdef"><b>Definition:</b> <a href="Log_8h_source.html#l00036">Log.h:36</a></div></div>
 <div class="ttc" id="aLog_8h_html_a8bdccae09f7cdda8fb311e0bd81c35dc"><div class="ttname"><a href="Log_8h.html#a8bdccae09f7cdda8fb311e0bd81c35dc">DEBUG_LOGF</a></div><div class="ttdeci">#define DEBUG_LOGF(msg,...)</div><div class="ttdef"><b>Definition:</b> <a href="Log_8h_source.html#l00037">Log.h:37</a></div></div>
+<div class="ttc" id="aVortexLib_8h_html"><div class="ttname"><a href="VortexLib_8h.html">VortexLib.h</a></div></div>
 <div class="ttc" id="aclassBitStream_html"><div class="ttname"><a href="classBitStream.html">BitStream</a></div><div class="ttdef"><b>Definition:</b> <a href="BitStream_8h_source.html#l00007">BitStream.h:8</a></div></div>
 <div class="ttc" id="aclassBitStream_html_a4be1b1c1cb2684d2997b1c8a6f0cd34d"><div class="ttname"><a href="classBitStream.html#a4be1b1c1cb2684d2997b1c8a6f0cd34d">BitStream::data</a></div><div class="ttdeci">const uint8_t * data() const</div><div class="ttdef"><b>Definition:</b> <a href="BitStream_8h_source.html#l00036">BitStream.h:36</a></div></div>
 <div class="ttc" id="aclassBitStream_html_a5b8f42bd95138304249dd9bcd6dcbb2c"><div class="ttname"><a href="classBitStream.html#a5b8f42bd95138304249dd9bcd6dcbb2c">BitStream::init</a></div><div class="ttdeci">bool init(uint8_t *buf, uint32_t size)</div><div class="ttdef"><b>Definition:</b> <a href="BitStream_8cpp_source.html#l00034">BitStream.cpp:34</a></div></div>
@@ -379,6 +380,8 @@ $(document).ready(function(){initNavTree('IRSender_8cpp_source.html',''); initRe
 <div class="ttc" id="aclassTime_html_a1db7b0672f8b2d38994119ccc226f8ee"><div class="ttname"><a href="classTime.html#a1db7b0672f8b2d38994119ccc226f8ee">Time::delayMicroseconds</a></div><div class="ttdeci">static void delayMicroseconds(uint32_t us)</div><div class="ttdef"><b>Definition:</b> <a href="TimeControl_8cpp_source.html#l00195">TimeControl.cpp:195</a></div></div>
 <div class="ttc" id="aclassTime_html_a7c7a8e067bdbd5aaf119521539d30940"><div class="ttname"><a href="classTime.html#a7c7a8e067bdbd5aaf119521539d30940">Time::getCurtime</a></div><div class="ttdeci">static uint32_t getCurtime()</div><div class="ttdef"><b>Definition:</b> <a href="TimeControl_8h_source.html#l00040">TimeControl.h:40</a></div></div>
 <div class="ttc" id="aclassTime_html_ac44f4e49538456714372bb1aad3dd839"><div class="ttname"><a href="classTime.html#ac44f4e49538456714372bb1aad3dd839">Time::microseconds</a></div><div class="ttdeci">static uint32_t microseconds()</div><div class="ttdef"><b>Definition:</b> <a href="TimeControl_8cpp_source.html#l00174">TimeControl.cpp:174</a></div></div>
+<div class="ttc" id="aclassVortexCallbacks_html_a97b9d8709dd8f4d940184cf6996da776"><div class="ttname"><a href="classVortexCallbacks.html#a97b9d8709dd8f4d940184cf6996da776">VortexCallbacks::infraredWrite</a></div><div class="ttdeci">virtual void infraredWrite(bool mark, uint32_t amount)</div><div class="ttdef"><b>Definition:</b> <a href="VortexLib_8h_source.html#l00045">VortexLib.h:45</a></div></div>
+<div class="ttc" id="aclassVortex_html_a84b31157edd8814f3e7b545ca4c3fa00"><div class="ttname"><a href="classVortex.html#a84b31157edd8814f3e7b545ca4c3fa00">Vortex::vcallbacks</a></div><div class="ttdeci">static VortexCallbacks * vcallbacks()</div><div class="ttdef"><b>Definition:</b> <a href="VortexLib_8h_source.html#l00221">VortexLib.h:221</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

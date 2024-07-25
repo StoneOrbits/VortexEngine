@@ -68,7 +68,7 @@ Definition at line 55 of file Pattern\+Builder.\+cpp.
 \end{DoxyCode}
 
 
-References Pattern\+::bind(), Pattern\+::get\+Args(), Pattern\+::get\+Colorset(), Pattern\+::get\+Led\+Pos(), Pattern\+::get\+Pattern\+I\+D(), make(), and Pattern\+::set\+Colorset().
+References Pattern\+::bind(), Pattern\+::get\+Args(), Pattern\+::get\+Colorset(), Pattern\+::get\+Led\+Pos(), Pattern\+::get\+Pattern\+ID(), make(), and Pattern\+::set\+Colorset().
 
 
 
@@ -127,7 +127,7 @@ Definition at line 221 of file Pattern\+Builder.\+cpp.
 \DoxyCodeLine{260 }
 \DoxyCodeLine{261     \textcolor{comment}{// =====================}}
 \DoxyCodeLine{262     \textcolor{comment}{//  Multi Led Patterns:}}
-\DoxyCodeLine{263 \textcolor{preprocessor}{\#if VORTEX\_SLIM == 0}}
+\DoxyCodeLine{263 \textcolor{preprocessor}{\#if VORTEX\_SLIM == 0}}
 \DoxyCodeLine{264     \textcolor{keywordflow}{case} \mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8cac443649bb2a1d14c0b83d8f3432bf549}{PATTERN\_HUE\_SCROLL}}: \textcolor{keywordflow}{return} \textcolor{keyword}{new} \mbox{\hyperlink{classHueShiftPattern}{HueShiftPattern}}(args);}
 \DoxyCodeLine{265     \textcolor{keywordflow}{case} \mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8caa42dfe59c9c1c5c27d78dc6e0f91d651}{PATTERN\_THEATER\_CHASE}}: \textcolor{keywordflow}{return} \textcolor{keyword}{new} \mbox{\hyperlink{classTheaterChasePattern}{TheaterChasePattern}}(args);}
 \DoxyCodeLine{266     \textcolor{keywordflow}{case} \mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8cacae31f0640b7e95cec1ce44b1e89a963}{PATTERN\_CHASER}}: \textcolor{keywordflow}{return} \textcolor{keyword}{new} \mbox{\hyperlink{classChaserPattern}{ChaserPattern}}(args);}
@@ -151,19 +151,19 @@ Definition at line 221 of file Pattern\+Builder.\+cpp.
 \DoxyCodeLine{284     \textcolor{keywordflow}{case} \mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8caaa6e2e9a992e6f1af14a71b4f8420569}{PATTERN\_BACKSTROBE}}: \textcolor{keywordflow}{return} \textcolor{keyword}{new} \mbox{\hyperlink{classBackStrobePattern}{BackStrobePattern}}(args);}
 \DoxyCodeLine{285     \textcolor{keywordflow}{case} \mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8ca1220d8bf8d4b92f8f501523fce29588e}{PATTERN\_VORTEX}}: \textcolor{keywordflow}{return} \textcolor{keyword}{new} \mbox{\hyperlink{classVortexPattern}{VortexPattern}}(args);}
 \DoxyCodeLine{286     \textcolor{keywordflow}{case} \mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8caf9610f0445822da8efff6bac441ca3de}{PATTERN\_NONE}}: \textcolor{keywordflow}{return} \textcolor{keyword}{nullptr};}
-\DoxyCodeLine{287 \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{287 \textcolor{preprocessor}{\#else}}
 \DoxyCodeLine{288     \textcolor{comment}{// in vortex slim just use basic pattern for all multi led}}
 \DoxyCodeLine{289     \textcolor{keywordflow}{case} \mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8caf9610f0445822da8efff6bac441ca3de}{PATTERN\_NONE}}: \textcolor{keywordflow}{return} \textcolor{keyword}{nullptr};}
-\DoxyCodeLine{290 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{290 \textcolor{preprocessor}{\#endif}}
 \DoxyCodeLine{291   \}}
-\DoxyCodeLine{292   \mbox{\hyperlink{Log_8h_a8bdccae09f7cdda8fb311e0bd81c35dc}{DEBUG\_LOGF}}(\textcolor{stringliteral}{"Unknown pattern id: \%u"}, \textcolor{keywordtype}{id});}
+\DoxyCodeLine{292   \mbox{\hyperlink{Log_8h_a8bdccae09f7cdda8fb311e0bd81c35dc}{DEBUG\_LOGF}}(\textcolor{stringliteral}{"{}Unknown pattern id: \%u"{}}, \textcolor{keywordtype}{id});}
 \DoxyCodeLine{293   \textcolor{keywordflow}{return} \textcolor{keyword}{nullptr};}
 \DoxyCodeLine{294 \}}
 
 \end{DoxyCode}
 
 
-References D\+E\+B\+U\+G\+\_\+\+L\+O\+GF, get\+Default\+Args(), P\+A\+T\+T\+E\+R\+N\+\_\+\+B\+A\+C\+K\+S\+T\+R\+O\+BE, P\+A\+T\+T\+E\+R\+N\+\_\+\+B\+L\+E\+ND, P\+A\+T\+T\+E\+R\+N\+\_\+\+B\+L\+E\+N\+D\+S\+T\+R\+O\+BE, P\+A\+T\+T\+E\+R\+N\+\_\+\+B\+L\+E\+N\+D\+S\+T\+R\+O\+B\+E\+G\+AP, P\+A\+T\+T\+E\+R\+N\+\_\+\+B\+L\+I\+N\+K\+IE, P\+A\+T\+T\+E\+R\+N\+\_\+\+B\+O\+U\+N\+CE, P\+A\+T\+T\+E\+R\+N\+\_\+\+C\+H\+A\+S\+ER, P\+A\+T\+T\+E\+R\+N\+\_\+\+C\+H\+O\+P\+P\+ER, P\+A\+T\+T\+E\+R\+N\+\_\+\+C\+O\+M\+P\+L\+E\+M\+E\+N\+T\+A\+R\+Y\+\_\+\+B\+L\+E\+ND, P\+A\+T\+T\+E\+R\+N\+\_\+\+C\+O\+M\+P\+L\+E\+M\+E\+N\+T\+A\+R\+Y\+\_\+\+B\+L\+E\+N\+D\+S\+T\+R\+O\+BE, P\+A\+T\+T\+E\+R\+N\+\_\+\+C\+O\+M\+P\+L\+E\+M\+E\+N\+T\+A\+R\+Y\+\_\+\+B\+L\+E\+N\+D\+S\+T\+R\+O\+B\+E\+G\+AP, P\+A\+T\+T\+E\+R\+N\+\_\+\+C\+R\+O\+S\+S\+D\+O\+PS, P\+A\+T\+T\+E\+R\+N\+\_\+\+D\+A\+S\+H\+C\+R\+U\+SH, P\+A\+T\+T\+E\+R\+N\+\_\+\+D\+A\+S\+H\+C\+Y\+C\+LE, P\+A\+T\+T\+E\+R\+N\+\_\+\+D\+A\+S\+H\+D\+O\+PS, P\+A\+T\+T\+E\+R\+N\+\_\+\+D\+A\+S\+H\+G\+AP, P\+A\+T\+T\+E\+R\+N\+\_\+\+D\+O\+PS, P\+A\+T\+T\+E\+R\+N\+\_\+\+D\+O\+P\+S\+G\+AP, P\+A\+T\+T\+E\+R\+N\+\_\+\+D\+O\+U\+B\+L\+E\+D\+O\+PS, P\+A\+T\+T\+E\+R\+N\+\_\+\+D\+O\+U\+B\+L\+E\+S\+T\+R\+O\+BE, P\+A\+T\+T\+E\+R\+N\+\_\+\+D\+R\+IP, P\+A\+T\+T\+E\+R\+N\+\_\+\+D\+R\+I\+P\+M\+O\+R\+PH, P\+A\+T\+T\+E\+R\+N\+\_\+\+F\+I\+LL, P\+A\+T\+T\+E\+R\+N\+\_\+\+G\+A\+P\+C\+Y\+C\+LE, P\+A\+T\+T\+E\+R\+N\+\_\+\+G\+H\+O\+S\+T\+C\+R\+U\+SH, P\+A\+T\+T\+E\+R\+N\+\_\+\+H\+U\+E\+\_\+\+S\+C\+R\+O\+LL, P\+A\+T\+T\+E\+R\+N\+\_\+\+H\+Y\+P\+E\+R\+G\+AP, P\+A\+T\+T\+E\+R\+N\+\_\+\+H\+Y\+P\+E\+R\+S\+T\+R\+O\+BE, P\+A\+T\+T\+E\+R\+N\+\_\+\+L\+I\+G\+H\+T\+H\+O\+U\+SE, P\+A\+T\+T\+E\+R\+N\+\_\+\+M\+E\+T\+E\+OR, P\+A\+T\+T\+E\+R\+N\+\_\+\+M\+I\+N\+I\+R\+I\+B\+B\+ON, P\+A\+T\+T\+E\+R\+N\+\_\+\+N\+O\+NE, P\+A\+T\+T\+E\+R\+N\+\_\+\+P\+I\+C\+O\+G\+AP, P\+A\+T\+T\+E\+R\+N\+\_\+\+P\+I\+C\+O\+S\+T\+R\+O\+BE, P\+A\+T\+T\+E\+R\+N\+\_\+\+P\+U\+L\+S\+I\+SH, P\+A\+T\+T\+E\+R\+N\+\_\+\+R\+I\+B\+B\+ON, P\+A\+T\+T\+E\+R\+N\+\_\+\+S\+N\+O\+W\+B\+A\+LL, P\+A\+T\+T\+E\+R\+N\+\_\+\+S\+O\+L\+ID, P\+A\+T\+T\+E\+R\+N\+\_\+\+S\+P\+A\+R\+K\+L\+E\+T\+R\+A\+CE, P\+A\+T\+T\+E\+R\+N\+\_\+\+S\+P\+L\+I\+T\+S\+T\+R\+O\+B\+IE, P\+A\+T\+T\+E\+R\+N\+\_\+\+S\+T\+R\+O\+BE, P\+A\+T\+T\+E\+R\+N\+\_\+\+S\+T\+R\+O\+B\+E\+G\+AP, P\+A\+T\+T\+E\+R\+N\+\_\+\+S\+T\+R\+O\+B\+IE, P\+A\+T\+T\+E\+R\+N\+\_\+\+S\+T\+R\+O\+B\+I\+E\+G\+AP, P\+A\+T\+T\+E\+R\+N\+\_\+\+T\+H\+E\+A\+T\+E\+R\+\_\+\+C\+H\+A\+SE, P\+A\+T\+T\+E\+R\+N\+\_\+\+T\+R\+A\+C\+ER, P\+A\+T\+T\+E\+R\+N\+\_\+\+U\+L\+T\+R\+A\+D\+A\+SH, P\+A\+T\+T\+E\+R\+N\+\_\+\+U\+L\+T\+R\+A\+D\+O\+PS, P\+A\+T\+T\+E\+R\+N\+\_\+\+U\+L\+T\+R\+A\+G\+AP, P\+A\+T\+T\+E\+R\+N\+\_\+\+V\+O\+R\+T\+EX, P\+A\+T\+T\+E\+R\+N\+\_\+\+V\+O\+R\+T\+E\+X\+W\+I\+PE, P\+A\+T\+T\+E\+R\+N\+\_\+\+W\+A\+RP, P\+A\+T\+T\+E\+R\+N\+\_\+\+W\+A\+R\+P\+W\+O\+RM, P\+A\+T\+T\+E\+R\+N\+\_\+\+Z\+I\+G\+Z\+AG, and P\+A\+T\+T\+E\+R\+N\+\_\+\+Z\+I\+P\+F\+A\+DE.
+References DEBUG\+\_\+\+LOGF, get\+Default\+Args(), PATTERN\+\_\+\+BACKSTROBE, PATTERN\+\_\+\+BLEND, PATTERN\+\_\+\+BLENDSTROBE, PATTERN\+\_\+\+BLENDSTROBEGAP, PATTERN\+\_\+\+BLINKIE, PATTERN\+\_\+\+BOUNCE, PATTERN\+\_\+\+CHASER, PATTERN\+\_\+\+CHOPPER, PATTERN\+\_\+\+COMPLEMENTARY\+\_\+\+BLEND, PATTERN\+\_\+\+COMPLEMENTARY\+\_\+\+BLENDSTROBE, PATTERN\+\_\+\+COMPLEMENTARY\+\_\+\+BLENDSTROBEGAP, PATTERN\+\_\+\+CROSSDOPS, PATTERN\+\_\+\+DASHCRUSH, PATTERN\+\_\+\+DASHCYCLE, PATTERN\+\_\+\+DASHDOPS, PATTERN\+\_\+\+DASHGAP, PATTERN\+\_\+\+DOPS, PATTERN\+\_\+\+DOPSGAP, PATTERN\+\_\+\+DOUBLEDOPS, PATTERN\+\_\+\+DOUBLESTROBE, PATTERN\+\_\+\+DRIP, PATTERN\+\_\+\+DRIPMORPH, PATTERN\+\_\+\+FILL, PATTERN\+\_\+\+GAPCYCLE, PATTERN\+\_\+\+GHOSTCRUSH, PATTERN\+\_\+\+HUE\+\_\+\+SCROLL, PATTERN\+\_\+\+HYPERGAP, PATTERN\+\_\+\+HYPERSTROBE, PATTERN\+\_\+\+LIGHTHOUSE, PATTERN\+\_\+\+METEOR, PATTERN\+\_\+\+MINIRIBBON, PATTERN\+\_\+\+NONE, PATTERN\+\_\+\+PICOGAP, PATTERN\+\_\+\+PICOSTROBE, PATTERN\+\_\+\+PULSISH, PATTERN\+\_\+\+RIBBON, PATTERN\+\_\+\+SNOWBALL, PATTERN\+\_\+\+SOLID, PATTERN\+\_\+\+SPARKLETRACE, PATTERN\+\_\+\+SPLITSTROBIE, PATTERN\+\_\+\+STROBE, PATTERN\+\_\+\+STROBEGAP, PATTERN\+\_\+\+STROBIE, PATTERN\+\_\+\+STROBIEGAP, PATTERN\+\_\+\+THEATER\+\_\+\+CHASE, PATTERN\+\_\+\+TRACER, PATTERN\+\_\+\+ULTRADASH, PATTERN\+\_\+\+ULTRADOPS, PATTERN\+\_\+\+ULTRAGAP, PATTERN\+\_\+\+VORTEX, PATTERN\+\_\+\+VORTEXWIPE, PATTERN\+\_\+\+WARP, PATTERN\+\_\+\+WARPWORM, PATTERN\+\_\+\+ZIGZAG, and PATTERN\+\_\+\+ZIPFADE.
 
 
 
@@ -220,7 +220,7 @@ Definition at line 135 of file Pattern\+Builder.\+cpp.
 \DoxyCodeLine{172 }
 \DoxyCodeLine{173     \textcolor{comment}{// =====================}}
 \DoxyCodeLine{174     \textcolor{comment}{//  Multi Led Patterns:}}
-\DoxyCodeLine{175 \textcolor{preprocessor}{\#if VORTEX\_SLIM == 0}}
+\DoxyCodeLine{175 \textcolor{preprocessor}{\#if VORTEX\_SLIM == 0}}
 \DoxyCodeLine{176     \textcolor{keywordflow}{case} \mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8cac443649bb2a1d14c0b83d8f3432bf549}{PATTERN\_HUE\_SCROLL}}: \textcolor{keywordflow}{return} \mbox{\hyperlink{classPatternArgs}{PatternArgs}}(1, 1, 10);}
 \DoxyCodeLine{177     \textcolor{keywordflow}{case} \mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8caa42dfe59c9c1c5c27d78dc6e0f91d651}{PATTERN\_THEATER\_CHASE}}: \textcolor{keywordflow}{return} \mbox{\hyperlink{classPatternArgs}{PatternArgs}}(\mbox{\hyperlink{Timings_8h_a034d6fe9497c2240121003c72d74d147}{DOPS\_ON\_DURATION}}, \mbox{\hyperlink{Timings_8h_a7c2e9b421ae2ca92a05458b46613fa44}{DOPS\_OFF\_DURATION}}, 28);}
 \DoxyCodeLine{178     \textcolor{keywordflow}{case} \mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8cacae31f0640b7e95cec1ce44b1e89a963}{PATTERN\_CHASER}}: \textcolor{keywordflow}{return} \mbox{\hyperlink{classPatternArgs}{PatternArgs}}();}
@@ -245,11 +245,11 @@ Definition at line 135 of file Pattern\+Builder.\+cpp.
 \DoxyCodeLine{197     \textcolor{keywordflow}{case} \mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8ca1220d8bf8d4b92f8f501523fce29588e}{PATTERN\_VORTEX}}: \textcolor{keywordflow}{return} \mbox{\hyperlink{classPatternArgs}{PatternArgs}}(1, 1, 130);}
 \DoxyCodeLine{198     \textcolor{keywordflow}{case} \mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8caf9610f0445822da8efff6bac441ca3de}{PATTERN\_NONE}}: \textcolor{keywordflow}{break};}
 \DoxyCodeLine{199     \textcolor{keywordflow}{default}: \textcolor{keywordflow}{break};}
-\DoxyCodeLine{200 \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{200 \textcolor{preprocessor}{\#else}}
 \DoxyCodeLine{201     \textcolor{comment}{// in vortex slim just use DOPS for all mult-\/led}}
 \DoxyCodeLine{202     \textcolor{keywordflow}{case} \mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8caf9610f0445822da8efff6bac441ca3de}{PATTERN\_NONE}}: \textcolor{keywordflow}{break};}
 \DoxyCodeLine{203     \textcolor{keywordflow}{default}: \textcolor{keywordflow}{return} \mbox{\hyperlink{classPatternArgs}{PatternArgs}}(\mbox{\hyperlink{Timings_8h_a034d6fe9497c2240121003c72d74d147}{DOPS\_ON\_DURATION}}, \mbox{\hyperlink{Timings_8h_a7c2e9b421ae2ca92a05458b46613fa44}{DOPS\_OFF\_DURATION}});}
-\DoxyCodeLine{204 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{204 \textcolor{preprocessor}{\#endif}}
 \DoxyCodeLine{205   \}}
 \DoxyCodeLine{206   \textcolor{keywordflow}{return} \mbox{\hyperlink{classPatternArgs}{PatternArgs}}();}
 \DoxyCodeLine{207 \}}
@@ -257,7 +257,7 @@ Definition at line 135 of file Pattern\+Builder.\+cpp.
 \end{DoxyCode}
 
 
-References B\+L\+E\+N\+D\+\_\+\+O\+F\+F\+\_\+\+D\+U\+R\+A\+T\+I\+ON, B\+L\+E\+N\+D\+\_\+\+O\+N\+\_\+\+D\+U\+R\+A\+T\+I\+ON, D\+O\+P\+S\+\_\+\+O\+F\+F\+\_\+\+D\+U\+R\+A\+T\+I\+ON, D\+O\+P\+S\+\_\+\+O\+N\+\_\+\+D\+U\+R\+A\+T\+I\+ON, H\+Y\+P\+E\+R\+S\+T\+R\+O\+B\+E\+\_\+\+O\+F\+F\+\_\+\+D\+U\+R\+A\+T\+I\+ON, H\+Y\+P\+E\+R\+S\+T\+R\+O\+B\+E\+\_\+\+O\+N\+\_\+\+D\+U\+R\+A\+T\+I\+ON, P\+A\+T\+T\+E\+R\+N\+\_\+\+B\+A\+C\+K\+S\+T\+R\+O\+BE, P\+A\+T\+T\+E\+R\+N\+\_\+\+B\+L\+E\+ND, P\+A\+T\+T\+E\+R\+N\+\_\+\+B\+L\+E\+N\+D\+S\+T\+R\+O\+BE, P\+A\+T\+T\+E\+R\+N\+\_\+\+B\+L\+E\+N\+D\+S\+T\+R\+O\+B\+E\+G\+AP, P\+A\+T\+T\+E\+R\+N\+\_\+\+B\+L\+I\+N\+K\+IE, P\+A\+T\+T\+E\+R\+N\+\_\+\+B\+O\+U\+N\+CE, P\+A\+T\+T\+E\+R\+N\+\_\+\+C\+H\+A\+S\+ER, P\+A\+T\+T\+E\+R\+N\+\_\+\+C\+H\+O\+P\+P\+ER, P\+A\+T\+T\+E\+R\+N\+\_\+\+C\+O\+M\+P\+L\+E\+M\+E\+N\+T\+A\+R\+Y\+\_\+\+B\+L\+E\+ND, P\+A\+T\+T\+E\+R\+N\+\_\+\+C\+O\+M\+P\+L\+E\+M\+E\+N\+T\+A\+R\+Y\+\_\+\+B\+L\+E\+N\+D\+S\+T\+R\+O\+BE, P\+A\+T\+T\+E\+R\+N\+\_\+\+C\+O\+M\+P\+L\+E\+M\+E\+N\+T\+A\+R\+Y\+\_\+\+B\+L\+E\+N\+D\+S\+T\+R\+O\+B\+E\+G\+AP, P\+A\+T\+T\+E\+R\+N\+\_\+\+C\+R\+O\+S\+S\+D\+O\+PS, P\+A\+T\+T\+E\+R\+N\+\_\+\+D\+A\+S\+H\+C\+R\+U\+SH, P\+A\+T\+T\+E\+R\+N\+\_\+\+D\+A\+S\+H\+C\+Y\+C\+LE, P\+A\+T\+T\+E\+R\+N\+\_\+\+D\+A\+S\+H\+D\+O\+PS, P\+A\+T\+T\+E\+R\+N\+\_\+\+D\+A\+S\+H\+G\+AP, P\+A\+T\+T\+E\+R\+N\+\_\+\+D\+O\+PS, P\+A\+T\+T\+E\+R\+N\+\_\+\+D\+O\+P\+S\+G\+AP, P\+A\+T\+T\+E\+R\+N\+\_\+\+D\+O\+U\+B\+L\+E\+D\+O\+PS, P\+A\+T\+T\+E\+R\+N\+\_\+\+D\+O\+U\+B\+L\+E\+S\+T\+R\+O\+BE, P\+A\+T\+T\+E\+R\+N\+\_\+\+D\+R\+IP, P\+A\+T\+T\+E\+R\+N\+\_\+\+D\+R\+I\+P\+M\+O\+R\+PH, P\+A\+T\+T\+E\+R\+N\+\_\+\+F\+I\+LL, P\+A\+T\+T\+E\+R\+N\+\_\+\+G\+A\+P\+C\+Y\+C\+LE, P\+A\+T\+T\+E\+R\+N\+\_\+\+G\+H\+O\+S\+T\+C\+R\+U\+SH, P\+A\+T\+T\+E\+R\+N\+\_\+\+H\+U\+E\+\_\+\+S\+C\+R\+O\+LL, P\+A\+T\+T\+E\+R\+N\+\_\+\+H\+Y\+P\+E\+R\+G\+AP, P\+A\+T\+T\+E\+R\+N\+\_\+\+H\+Y\+P\+E\+R\+S\+T\+R\+O\+BE, P\+A\+T\+T\+E\+R\+N\+\_\+\+L\+I\+G\+H\+T\+H\+O\+U\+SE, P\+A\+T\+T\+E\+R\+N\+\_\+\+M\+E\+T\+E\+OR, P\+A\+T\+T\+E\+R\+N\+\_\+\+M\+I\+N\+I\+R\+I\+B\+B\+ON, P\+A\+T\+T\+E\+R\+N\+\_\+\+N\+O\+NE, P\+A\+T\+T\+E\+R\+N\+\_\+\+P\+I\+C\+O\+G\+AP, P\+A\+T\+T\+E\+R\+N\+\_\+\+P\+I\+C\+O\+S\+T\+R\+O\+BE, P\+A\+T\+T\+E\+R\+N\+\_\+\+P\+U\+L\+S\+I\+SH, P\+A\+T\+T\+E\+R\+N\+\_\+\+R\+I\+B\+B\+ON, P\+A\+T\+T\+E\+R\+N\+\_\+\+S\+N\+O\+W\+B\+A\+LL, P\+A\+T\+T\+E\+R\+N\+\_\+\+S\+O\+L\+ID, P\+A\+T\+T\+E\+R\+N\+\_\+\+S\+P\+A\+R\+K\+L\+E\+T\+R\+A\+CE, P\+A\+T\+T\+E\+R\+N\+\_\+\+S\+P\+L\+I\+T\+S\+T\+R\+O\+B\+IE, P\+A\+T\+T\+E\+R\+N\+\_\+\+S\+T\+R\+O\+BE, P\+A\+T\+T\+E\+R\+N\+\_\+\+S\+T\+R\+O\+B\+E\+G\+AP, P\+A\+T\+T\+E\+R\+N\+\_\+\+S\+T\+R\+O\+B\+IE, P\+A\+T\+T\+E\+R\+N\+\_\+\+S\+T\+R\+O\+B\+I\+E\+G\+AP, P\+A\+T\+T\+E\+R\+N\+\_\+\+T\+H\+E\+A\+T\+E\+R\+\_\+\+C\+H\+A\+SE, P\+A\+T\+T\+E\+R\+N\+\_\+\+T\+R\+A\+C\+ER, P\+A\+T\+T\+E\+R\+N\+\_\+\+U\+L\+T\+R\+A\+D\+A\+SH, P\+A\+T\+T\+E\+R\+N\+\_\+\+U\+L\+T\+R\+A\+D\+O\+PS, P\+A\+T\+T\+E\+R\+N\+\_\+\+U\+L\+T\+R\+A\+G\+AP, P\+A\+T\+T\+E\+R\+N\+\_\+\+V\+O\+R\+T\+EX, P\+A\+T\+T\+E\+R\+N\+\_\+\+V\+O\+R\+T\+E\+X\+W\+I\+PE, P\+A\+T\+T\+E\+R\+N\+\_\+\+W\+A\+RP, P\+A\+T\+T\+E\+R\+N\+\_\+\+W\+A\+R\+P\+W\+O\+RM, P\+A\+T\+T\+E\+R\+N\+\_\+\+Z\+I\+G\+Z\+AG, P\+A\+T\+T\+E\+R\+N\+\_\+\+Z\+I\+P\+F\+A\+DE, P\+I\+C\+O\+S\+T\+R\+O\+B\+E\+\_\+\+O\+F\+F\+\_\+\+D\+U\+R\+A\+T\+I\+ON, P\+I\+C\+O\+S\+T\+R\+O\+B\+E\+\_\+\+O\+N\+\_\+\+D\+U\+R\+A\+T\+I\+ON, R\+I\+B\+B\+O\+N\+\_\+\+D\+U\+R\+A\+T\+I\+ON, S\+T\+R\+O\+B\+E\+\_\+\+O\+F\+F\+\_\+\+D\+U\+R\+A\+T\+I\+ON, S\+T\+R\+O\+B\+E\+\_\+\+O\+N\+\_\+\+D\+U\+R\+A\+T\+I\+ON, S\+T\+R\+O\+B\+I\+E\+\_\+\+O\+F\+F\+\_\+\+D\+U\+R\+A\+T\+I\+ON, S\+T\+R\+O\+B\+I\+E\+\_\+\+O\+N\+\_\+\+D\+U\+R\+A\+T\+I\+ON, U\+L\+T\+R\+A\+D\+O\+P\+S\+\_\+\+O\+F\+F\+\_\+\+D\+U\+R\+A\+T\+I\+ON, and U\+L\+T\+R\+A\+D\+O\+P\+S\+\_\+\+O\+N\+\_\+\+D\+U\+R\+A\+T\+I\+ON.
+References BLEND\+\_\+\+OFF\+\_\+\+DURATION, BLEND\+\_\+\+ON\+\_\+\+DURATION, DOPS\+\_\+\+OFF\+\_\+\+DURATION, DOPS\+\_\+\+ON\+\_\+\+DURATION, HYPERSTROBE\+\_\+\+OFF\+\_\+\+DURATION, HYPERSTROBE\+\_\+\+ON\+\_\+\+DURATION, PATTERN\+\_\+\+BACKSTROBE, PATTERN\+\_\+\+BLEND, PATTERN\+\_\+\+BLENDSTROBE, PATTERN\+\_\+\+BLENDSTROBEGAP, PATTERN\+\_\+\+BLINKIE, PATTERN\+\_\+\+BOUNCE, PATTERN\+\_\+\+CHASER, PATTERN\+\_\+\+CHOPPER, PATTERN\+\_\+\+COMPLEMENTARY\+\_\+\+BLEND, PATTERN\+\_\+\+COMPLEMENTARY\+\_\+\+BLENDSTROBE, PATTERN\+\_\+\+COMPLEMENTARY\+\_\+\+BLENDSTROBEGAP, PATTERN\+\_\+\+CROSSDOPS, PATTERN\+\_\+\+DASHCRUSH, PATTERN\+\_\+\+DASHCYCLE, PATTERN\+\_\+\+DASHDOPS, PATTERN\+\_\+\+DASHGAP, PATTERN\+\_\+\+DOPS, PATTERN\+\_\+\+DOPSGAP, PATTERN\+\_\+\+DOUBLEDOPS, PATTERN\+\_\+\+DOUBLESTROBE, PATTERN\+\_\+\+DRIP, PATTERN\+\_\+\+DRIPMORPH, PATTERN\+\_\+\+FILL, PATTERN\+\_\+\+GAPCYCLE, PATTERN\+\_\+\+GHOSTCRUSH, PATTERN\+\_\+\+HUE\+\_\+\+SCROLL, PATTERN\+\_\+\+HYPERGAP, PATTERN\+\_\+\+HYPERSTROBE, PATTERN\+\_\+\+LIGHTHOUSE, PATTERN\+\_\+\+METEOR, PATTERN\+\_\+\+MINIRIBBON, PATTERN\+\_\+\+NONE, PATTERN\+\_\+\+PICOGAP, PATTERN\+\_\+\+PICOSTROBE, PATTERN\+\_\+\+PULSISH, PATTERN\+\_\+\+RIBBON, PATTERN\+\_\+\+SNOWBALL, PATTERN\+\_\+\+SOLID, PATTERN\+\_\+\+SPARKLETRACE, PATTERN\+\_\+\+SPLITSTROBIE, PATTERN\+\_\+\+STROBE, PATTERN\+\_\+\+STROBEGAP, PATTERN\+\_\+\+STROBIE, PATTERN\+\_\+\+STROBIEGAP, PATTERN\+\_\+\+THEATER\+\_\+\+CHASE, PATTERN\+\_\+\+TRACER, PATTERN\+\_\+\+ULTRADASH, PATTERN\+\_\+\+ULTRADOPS, PATTERN\+\_\+\+ULTRAGAP, PATTERN\+\_\+\+VORTEX, PATTERN\+\_\+\+VORTEXWIPE, PATTERN\+\_\+\+WARP, PATTERN\+\_\+\+WARPWORM, PATTERN\+\_\+\+ZIGZAG, PATTERN\+\_\+\+ZIPFADE, PICOSTROBE\+\_\+\+OFF\+\_\+\+DURATION, PICOSTROBE\+\_\+\+ON\+\_\+\+DURATION, RIBBON\+\_\+\+DURATION, STROBE\+\_\+\+OFF\+\_\+\+DURATION, STROBE\+\_\+\+ON\+\_\+\+DURATION, STROBIE\+\_\+\+OFF\+\_\+\+DURATION, STROBIE\+\_\+\+ON\+\_\+\+DURATION, ULTRADOPS\+\_\+\+OFF\+\_\+\+DURATION, and ULTRADOPS\+\_\+\+ON\+\_\+\+DURATION.
 
 
 
@@ -276,26 +276,26 @@ Definition at line 37 of file Pattern\+Builder.\+cpp.
 
 \begin{DoxyCode}{0}
 \DoxyCodeLine{38 \{}
-\DoxyCodeLine{39 \textcolor{preprocessor}{\#if VORTEX\_SLIM == 0}}
+\DoxyCodeLine{39 \textcolor{preprocessor}{\#if VORTEX\_SLIM == 0}}
 \DoxyCodeLine{40   \textcolor{keywordflow}{if} (\textcolor{keywordtype}{id} > \mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8cafccc82a7b620fc522ecc54d5328ecb79}{PATTERN\_LAST}}) \{}
-\DoxyCodeLine{41 \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{41 \textcolor{preprocessor}{\#else}}
 \DoxyCodeLine{42   \textcolor{keywordflow}{if} (\textcolor{keywordtype}{id} > \mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8ca63a5c7f0287e61ea810c90b211903308}{PATTERN\_SINGLE\_LAST}}) \{}
-\DoxyCodeLine{43 \textcolor{preprocessor}{\#endif}}
-\DoxyCodeLine{44     \mbox{\hyperlink{Log_8h_a8bdccae09f7cdda8fb311e0bd81c35dc}{DEBUG\_LOGF}}(\textcolor{stringliteral}{"Invalid pattern id: \%u"}, \textcolor{keywordtype}{id});}
+\DoxyCodeLine{43 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{44     \mbox{\hyperlink{Log_8h_a8bdccae09f7cdda8fb311e0bd81c35dc}{DEBUG\_LOGF}}(\textcolor{stringliteral}{"{}Invalid pattern id: \%u"{}}, \textcolor{keywordtype}{id});}
 \DoxyCodeLine{45     \textcolor{keywordtype}{id} = \mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8cadf768ce40ed692705072e056d20335b1}{PATTERN\_FIRST}};}
 \DoxyCodeLine{46   \}}
-\DoxyCodeLine{47 \textcolor{preprocessor}{\#if VORTEX\_SLIM == 0}}
+\DoxyCodeLine{47 \textcolor{preprocessor}{\#if VORTEX\_SLIM == 0}}
 \DoxyCodeLine{48   \textcolor{keywordflow}{if} (\mbox{\hyperlink{Patterns_8h_ad58c73f9c26d4937add3b71a58747c00}{isMultiLedPatternID}}(\textcolor{keywordtype}{id})) \{}
 \DoxyCodeLine{49     \textcolor{keywordflow}{return} \mbox{\hyperlink{classPatternBuilder_a642b5e131674e3a6dc4f2a5c14ad734f}{makeMulti}}(\textcolor{keywordtype}{id}, args);}
 \DoxyCodeLine{50   \}}
-\DoxyCodeLine{51 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{51 \textcolor{preprocessor}{\#endif}}
 \DoxyCodeLine{52   \textcolor{keywordflow}{return} \mbox{\hyperlink{classPatternBuilder_a1574c02c557d91c4c87a28af3b49a638}{makeSingle}}(\textcolor{keywordtype}{id}, args);}
 \DoxyCodeLine{53 \}}
 
 \end{DoxyCode}
 
 
-References D\+E\+B\+U\+G\+\_\+\+L\+O\+GF, is\+Multi\+Led\+Pattern\+I\+D(), make\+Multi(), make\+Single(), P\+A\+T\+T\+E\+R\+N\+\_\+\+F\+I\+R\+ST, P\+A\+T\+T\+E\+R\+N\+\_\+\+L\+A\+ST, and P\+A\+T\+T\+E\+R\+N\+\_\+\+S\+I\+N\+G\+L\+E\+\_\+\+L\+A\+ST.
+References DEBUG\+\_\+\+LOGF, is\+Multi\+Led\+Pattern\+ID(), make\+Multi(), make\+Single(), PATTERN\+\_\+\+FIRST, PATTERN\+\_\+\+LAST, and PATTERN\+\_\+\+SINGLE\+\_\+\+LAST.
 
 
 
@@ -331,7 +331,7 @@ Definition at line 115 of file Pattern\+Builder.\+cpp.
 \end{DoxyCode}
 
 
-References E\+R\+R\+O\+R\+\_\+\+O\+U\+T\+\_\+\+O\+F\+\_\+\+M\+E\+M\+O\+RY, generate(), Pattern\+::m\+\_\+pattern\+ID, and P\+A\+T\+T\+E\+R\+N\+\_\+\+N\+O\+NE.
+References ERROR\+\_\+\+OUT\+\_\+\+OF\+\_\+\+MEMORY, generate(), Pattern\+::m\+\_\+pattern\+ID, and PATTERN\+\_\+\+NONE.
 
 
 
@@ -363,7 +363,7 @@ Definition at line 86 of file Pattern\+Builder.\+cpp.
 \end{DoxyCode}
 
 
-References is\+Multi\+Led\+Pattern\+I\+D(), and make\+Internal().
+References is\+Multi\+Led\+Pattern\+ID(), and make\+Internal().
 
 
 
@@ -396,7 +396,7 @@ Definition at line 72 of file Pattern\+Builder.\+cpp.
 \end{DoxyCode}
 
 
-References is\+Single\+Led\+Pattern\+I\+D(), and make\+Internal().
+References is\+Single\+Led\+Pattern\+ID(), and make\+Internal().
 
 
 
@@ -464,7 +464,7 @@ Definition at line 98 of file Pattern\+Builder.\+cpp.
 \end{DoxyCode}
 
 
-References make(), P\+A\+T\+T\+E\+R\+N\+\_\+\+N\+O\+NE, Pattern\+::unserialize(), and Byte\+Stream\+::unserialize8().
+References make(), PATTERN\+\_\+\+NONE, Pattern\+::unserialize(), and Byte\+Stream\+::unserialize8().
 
 
 

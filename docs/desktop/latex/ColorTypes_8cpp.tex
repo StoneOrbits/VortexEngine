@@ -2,7 +2,8 @@
 \label{ColorTypes_8cpp}\index{VortexEngine/src/Colors/ColorTypes.cpp@{VortexEngine/src/Colors/ColorTypes.cpp}}
 {\ttfamily \#include \char`\"{}Color\+Types.\+h\char`\"{}}\newline
 {\ttfamily \#include \char`\"{}../\+Serial/\+Byte\+Stream.\+h\char`\"{}}\newline
-Include dependency graph for Color\+Types.\+cpp\+:\nopagebreak
+Include dependency graph for Color\+Types.\+cpp\+:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -12,46 +13,46 @@ Include dependency graph for Color\+Types.\+cpp\+:\nopagebreak
 \doxysubsection*{Macros}
 \begin{DoxyCompactItemize}
 \item 
-\#define \mbox{\hyperlink{ColorTypes_8cpp_a3f3dd004ed0dfb1ebe230d92ad98178b}{S\+C\+A\+L\+E8}}(i,  scale)~(((uint16\+\_\+t)i $\ast$ (uint16\+\_\+t)(scale)) $>$$>$ 8)
+\#define \mbox{\hyperlink{ColorTypes_8cpp_a3f3dd004ed0dfb1ebe230d92ad98178b}{SCALE8}}(i,  scale)~(((uint16\+\_\+t)i $\ast$ (uint16\+\_\+t)(scale)) $>$$>$ 8)
 \item 
-\#define \mbox{\hyperlink{ColorTypes_8cpp_a1be0cbec46d1a717dc14ccc5e1195f9a}{F\+I\+X\+F\+R\+A\+C8}}(N,  D)~(((N)$\ast$256)/(D))
+\#define \mbox{\hyperlink{ColorTypes_8cpp_a1be0cbec46d1a717dc14ccc5e1195f9a}{FIXFRAC8}}(N,  D)~(((N)$\ast$256)/(D))
 \end{DoxyCompactItemize}
 \doxysubsection*{Enumerations}
 \begin{DoxyCompactItemize}
 \item 
 enum \{ \newline
-\mbox{\hyperlink{ColorTypes_8cpp_a06fc87d81c62e9abb8790b6e5713c55baf99ca29e78f56261625c2f83f8d9d641}{H\+U\+E\+\_\+\+R\+ED}} = 0, 
-\mbox{\hyperlink{ColorTypes_8cpp_a06fc87d81c62e9abb8790b6e5713c55ba0908faa334c40567fac7aec352fb70f2}{H\+U\+E\+\_\+\+O\+R\+A\+N\+GE}} = 32, 
-\mbox{\hyperlink{ColorTypes_8cpp_a06fc87d81c62e9abb8790b6e5713c55ba85db131d39162ebb09c84a1da9fa4bfd}{H\+U\+E\+\_\+\+Y\+E\+L\+L\+OW}} = 64, 
-\mbox{\hyperlink{ColorTypes_8cpp_a06fc87d81c62e9abb8790b6e5713c55baf70d11b3afe026cd07940359c89b2454}{H\+U\+E\+\_\+\+G\+R\+E\+EN}} = 96, 
-\newline
-\mbox{\hyperlink{ColorTypes_8cpp_a06fc87d81c62e9abb8790b6e5713c55bae3b550fd64402d0c7e2eaa5f2349688a}{H\+U\+E\+\_\+\+A\+Q\+UA}} = 128, 
-\mbox{\hyperlink{ColorTypes_8cpp_a06fc87d81c62e9abb8790b6e5713c55ba2294eed5180e5dac2551b04cf9956fed}{H\+U\+E\+\_\+\+B\+L\+UE}} = 160, 
-\mbox{\hyperlink{ColorTypes_8cpp_a06fc87d81c62e9abb8790b6e5713c55bac0e779174cb178ec5b7cec6e71e12be3}{H\+U\+E\+\_\+\+P\+U\+R\+P\+LE}} = 192, 
-\mbox{\hyperlink{ColorTypes_8cpp_a06fc87d81c62e9abb8790b6e5713c55ba3dc206b5aaa1d60d34bd43ed538e5cf8}{H\+U\+E\+\_\+\+P\+I\+NK}} = 224
+\mbox{\hyperlink{ColorTypes_8cpp_a06fc87d81c62e9abb8790b6e5713c55baf99ca29e78f56261625c2f83f8d9d641}{HUE\+\_\+\+RED}} = 0
+, \mbox{\hyperlink{ColorTypes_8cpp_a06fc87d81c62e9abb8790b6e5713c55ba0908faa334c40567fac7aec352fb70f2}{HUE\+\_\+\+ORANGE}} = 32
+, \mbox{\hyperlink{ColorTypes_8cpp_a06fc87d81c62e9abb8790b6e5713c55ba85db131d39162ebb09c84a1da9fa4bfd}{HUE\+\_\+\+YELLOW}} = 64
+, \mbox{\hyperlink{ColorTypes_8cpp_a06fc87d81c62e9abb8790b6e5713c55baf70d11b3afe026cd07940359c89b2454}{HUE\+\_\+\+GREEN}} = 96
+, \newline
+\mbox{\hyperlink{ColorTypes_8cpp_a06fc87d81c62e9abb8790b6e5713c55bae3b550fd64402d0c7e2eaa5f2349688a}{HUE\+\_\+\+AQUA}} = 128
+, \mbox{\hyperlink{ColorTypes_8cpp_a06fc87d81c62e9abb8790b6e5713c55ba2294eed5180e5dac2551b04cf9956fed}{HUE\+\_\+\+BLUE}} = 160
+, \mbox{\hyperlink{ColorTypes_8cpp_a06fc87d81c62e9abb8790b6e5713c55bac0e779174cb178ec5b7cec6e71e12be3}{HUE\+\_\+\+PURPLE}} = 192
+, \mbox{\hyperlink{ColorTypes_8cpp_a06fc87d81c62e9abb8790b6e5713c55ba3dc206b5aaa1d60d34bd43ed538e5cf8}{HUE\+\_\+\+PINK}} = 224
  \}
 \end{DoxyCompactItemize}
 \doxysubsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{classRGBColor}{R\+G\+B\+Color}} \mbox{\hyperlink{ColorTypes_8cpp_af3ef0c7054bb571933dab90c229a08b1}{hsv\+\_\+to\+\_\+rgb\+\_\+rainbow}} (const \mbox{\hyperlink{classHSVColor}{H\+S\+V\+Color}} \&rhs)
+\mbox{\hyperlink{classRGBColor}{RGBColor}} \mbox{\hyperlink{ColorTypes_8cpp_af3ef0c7054bb571933dab90c229a08b1}{hsv\+\_\+to\+\_\+rgb\+\_\+rainbow}} (const \mbox{\hyperlink{classHSVColor}{HSVColor}} \&rhs)
 \item 
-\mbox{\hyperlink{classRGBColor}{R\+G\+B\+Color}} \mbox{\hyperlink{ColorTypes_8cpp_af1c266177041c51d991945aefc4eb70b}{hsv\+\_\+to\+\_\+rgb\+\_\+raw\+\_\+C}} (const \mbox{\hyperlink{classHSVColor}{H\+S\+V\+Color}} \&rhs)
+\mbox{\hyperlink{classRGBColor}{RGBColor}} \mbox{\hyperlink{ColorTypes_8cpp_af1c266177041c51d991945aefc4eb70b}{hsv\+\_\+to\+\_\+rgb\+\_\+raw\+\_\+C}} (const \mbox{\hyperlink{classHSVColor}{HSVColor}} \&rhs)
 \item 
-\mbox{\hyperlink{classRGBColor}{R\+G\+B\+Color}} \mbox{\hyperlink{ColorTypes_8cpp_ae8e00bbaf03e9373f296022748a546c3}{hsv\+\_\+to\+\_\+rgb\+\_\+generic}} (const \mbox{\hyperlink{classHSVColor}{H\+S\+V\+Color}} \&rhs)
+\mbox{\hyperlink{classRGBColor}{RGBColor}} \mbox{\hyperlink{ColorTypes_8cpp_ae8e00bbaf03e9373f296022748a546c3}{hsv\+\_\+to\+\_\+rgb\+\_\+generic}} (const \mbox{\hyperlink{classHSVColor}{HSVColor}} \&rhs)
 \item 
 static uint8\+\_\+t \mbox{\hyperlink{ColorTypes_8cpp_a5b0a307c58ac1ec2c982a0dc79f3e8c3}{sqrt16}} (uint16\+\_\+t x)
 \item 
 static uint8\+\_\+t \mbox{\hyperlink{ColorTypes_8cpp_a3906d6ade8212a5627f696f587c97248}{qsub8}} (uint8\+\_\+t i, uint8\+\_\+t j)
 \item 
-\mbox{\hyperlink{classHSVColor}{H\+S\+V\+Color}} \mbox{\hyperlink{ColorTypes_8cpp_a9d80711d8fa326b2e8e314bb80f41d6d}{rgb\+\_\+to\+\_\+hsv\+\_\+approx}} (const \mbox{\hyperlink{classRGBColor}{R\+G\+B\+Color}} \&rhs)
+\mbox{\hyperlink{classHSVColor}{HSVColor}} \mbox{\hyperlink{ColorTypes_8cpp_a9d80711d8fa326b2e8e314bb80f41d6d}{rgb\+\_\+to\+\_\+hsv\+\_\+approx}} (const \mbox{\hyperlink{classRGBColor}{RGBColor}} \&rhs)
 \item 
-\mbox{\hyperlink{classHSVColor}{H\+S\+V\+Color}} \mbox{\hyperlink{ColorTypes_8cpp_aa66efe3edace225f9bfe189766495b53}{rgb\+\_\+to\+\_\+hsv\+\_\+generic}} (const \mbox{\hyperlink{classRGBColor}{R\+G\+B\+Color}} \&rhs)
+\mbox{\hyperlink{classHSVColor}{HSVColor}} \mbox{\hyperlink{ColorTypes_8cpp_aa66efe3edace225f9bfe189766495b53}{rgb\+\_\+to\+\_\+hsv\+\_\+generic}} (const \mbox{\hyperlink{classRGBColor}{RGBColor}} \&rhs)
 \end{DoxyCompactItemize}
 \doxysubsection*{Variables}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{ColorTypes_8h_a209b55463737311429f83ebdcb6ac9e9}{hsv\+\_\+to\+\_\+rgb\+\_\+algorithm}} \mbox{\hyperlink{ColorTypes_8cpp_af11854a7974ef7d8d661f92e4f427101}{g\+\_\+hsv\+\_\+rgb\+\_\+alg}} = \mbox{\hyperlink{ColorTypes_8h_a209b55463737311429f83ebdcb6ac9e9a9b01229e01a8505c74f9540efd59a9a3}{H\+S\+V\+\_\+\+T\+O\+\_\+\+R\+G\+B\+\_\+\+G\+E\+N\+E\+R\+IC}}
+\mbox{\hyperlink{ColorTypes_8h_a209b55463737311429f83ebdcb6ac9e9}{hsv\+\_\+to\+\_\+rgb\+\_\+algorithm}} \mbox{\hyperlink{ColorTypes_8cpp_af11854a7974ef7d8d661f92e4f427101}{g\+\_\+hsv\+\_\+rgb\+\_\+alg}} = \mbox{\hyperlink{ColorTypes_8h_a209b55463737311429f83ebdcb6ac9e9a9b01229e01a8505c74f9540efd59a9a3}{HSV\+\_\+\+TO\+\_\+\+RGB\+\_\+\+GENERIC}}
 \end{DoxyCompactItemize}
 
 
@@ -60,7 +61,7 @@ static uint8\+\_\+t \mbox{\hyperlink{ColorTypes_8cpp_a3906d6ade8212a5627f696f587
 \index{ColorTypes.cpp@{ColorTypes.cpp}!FIXFRAC8@{FIXFRAC8}}
 \index{FIXFRAC8@{FIXFRAC8}!ColorTypes.cpp@{ColorTypes.cpp}}
 \doxysubsubsection{\texorpdfstring{FIXFRAC8}{FIXFRAC8}}
-{\footnotesize\ttfamily \#define F\+I\+X\+F\+R\+A\+C8(\begin{DoxyParamCaption}\item[{}]{N,  }\item[{}]{D }\end{DoxyParamCaption})~(((N)$\ast$256)/(D))}
+{\footnotesize\ttfamily \#define FIXFRAC8(\begin{DoxyParamCaption}\item[{}]{N,  }\item[{}]{D }\end{DoxyParamCaption})~(((N)$\ast$256)/(D))}
 
 
 
@@ -70,7 +71,7 @@ Definition at line 233 of file Color\+Types.\+cpp.
 \index{ColorTypes.cpp@{ColorTypes.cpp}!SCALE8@{SCALE8}}
 \index{SCALE8@{SCALE8}!ColorTypes.cpp@{ColorTypes.cpp}}
 \doxysubsubsection{\texorpdfstring{SCALE8}{SCALE8}}
-{\footnotesize\ttfamily \#define S\+C\+A\+L\+E8(\begin{DoxyParamCaption}\item[{}]{i,  }\item[{}]{scale }\end{DoxyParamCaption})~(((uint16\+\_\+t)i $\ast$ (uint16\+\_\+t)(scale)) $>$$>$ 8)}
+{\footnotesize\ttfamily \#define SCALE8(\begin{DoxyParamCaption}\item[{}]{i,  }\item[{}]{scale }\end{DoxyParamCaption})~(((uint16\+\_\+t)i $\ast$ (uint16\+\_\+t)(scale)) $>$$>$ 8)}
 
 
 
@@ -85,35 +86,35 @@ Definition at line 232 of file Color\+Types.\+cpp.
 
 \begin{DoxyEnumFields}{Enumerator}
 \raisebox{\heightof{T}}[0pt][0pt]{\index{HUE\_RED@{HUE\_RED}!ColorTypes.cpp@{ColorTypes.cpp}}\index{ColorTypes.cpp@{ColorTypes.cpp}!HUE\_RED@{HUE\_RED}}}\mbox{\Hypertarget{ColorTypes_8cpp_a06fc87d81c62e9abb8790b6e5713c55baf99ca29e78f56261625c2f83f8d9d641}\label{ColorTypes_8cpp_a06fc87d81c62e9abb8790b6e5713c55baf99ca29e78f56261625c2f83f8d9d641}} 
-H\+U\+E\+\_\+\+R\+ED&\\
+HUE\+\_\+\+RED&\\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{HUE\_ORANGE@{HUE\_ORANGE}!ColorTypes.cpp@{ColorTypes.cpp}}\index{ColorTypes.cpp@{ColorTypes.cpp}!HUE\_ORANGE@{HUE\_ORANGE}}}\mbox{\Hypertarget{ColorTypes_8cpp_a06fc87d81c62e9abb8790b6e5713c55ba0908faa334c40567fac7aec352fb70f2}\label{ColorTypes_8cpp_a06fc87d81c62e9abb8790b6e5713c55ba0908faa334c40567fac7aec352fb70f2}} 
-H\+U\+E\+\_\+\+O\+R\+A\+N\+GE&\\
+HUE\+\_\+\+ORANGE&\\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{HUE\_YELLOW@{HUE\_YELLOW}!ColorTypes.cpp@{ColorTypes.cpp}}\index{ColorTypes.cpp@{ColorTypes.cpp}!HUE\_YELLOW@{HUE\_YELLOW}}}\mbox{\Hypertarget{ColorTypes_8cpp_a06fc87d81c62e9abb8790b6e5713c55ba85db131d39162ebb09c84a1da9fa4bfd}\label{ColorTypes_8cpp_a06fc87d81c62e9abb8790b6e5713c55ba85db131d39162ebb09c84a1da9fa4bfd}} 
-H\+U\+E\+\_\+\+Y\+E\+L\+L\+OW&\\
+HUE\+\_\+\+YELLOW&\\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{HUE\_GREEN@{HUE\_GREEN}!ColorTypes.cpp@{ColorTypes.cpp}}\index{ColorTypes.cpp@{ColorTypes.cpp}!HUE\_GREEN@{HUE\_GREEN}}}\mbox{\Hypertarget{ColorTypes_8cpp_a06fc87d81c62e9abb8790b6e5713c55baf70d11b3afe026cd07940359c89b2454}\label{ColorTypes_8cpp_a06fc87d81c62e9abb8790b6e5713c55baf70d11b3afe026cd07940359c89b2454}} 
-H\+U\+E\+\_\+\+G\+R\+E\+EN&\\
+HUE\+\_\+\+GREEN&\\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{HUE\_AQUA@{HUE\_AQUA}!ColorTypes.cpp@{ColorTypes.cpp}}\index{ColorTypes.cpp@{ColorTypes.cpp}!HUE\_AQUA@{HUE\_AQUA}}}\mbox{\Hypertarget{ColorTypes_8cpp_a06fc87d81c62e9abb8790b6e5713c55bae3b550fd64402d0c7e2eaa5f2349688a}\label{ColorTypes_8cpp_a06fc87d81c62e9abb8790b6e5713c55bae3b550fd64402d0c7e2eaa5f2349688a}} 
-H\+U\+E\+\_\+\+A\+Q\+UA&\\
+HUE\+\_\+\+AQUA&\\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{HUE\_BLUE@{HUE\_BLUE}!ColorTypes.cpp@{ColorTypes.cpp}}\index{ColorTypes.cpp@{ColorTypes.cpp}!HUE\_BLUE@{HUE\_BLUE}}}\mbox{\Hypertarget{ColorTypes_8cpp_a06fc87d81c62e9abb8790b6e5713c55ba2294eed5180e5dac2551b04cf9956fed}\label{ColorTypes_8cpp_a06fc87d81c62e9abb8790b6e5713c55ba2294eed5180e5dac2551b04cf9956fed}} 
-H\+U\+E\+\_\+\+B\+L\+UE&\\
+HUE\+\_\+\+BLUE&\\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{HUE\_PURPLE@{HUE\_PURPLE}!ColorTypes.cpp@{ColorTypes.cpp}}\index{ColorTypes.cpp@{ColorTypes.cpp}!HUE\_PURPLE@{HUE\_PURPLE}}}\mbox{\Hypertarget{ColorTypes_8cpp_a06fc87d81c62e9abb8790b6e5713c55bac0e779174cb178ec5b7cec6e71e12be3}\label{ColorTypes_8cpp_a06fc87d81c62e9abb8790b6e5713c55bac0e779174cb178ec5b7cec6e71e12be3}} 
-H\+U\+E\+\_\+\+P\+U\+R\+P\+LE&\\
+HUE\+\_\+\+PURPLE&\\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{HUE\_PINK@{HUE\_PINK}!ColorTypes.cpp@{ColorTypes.cpp}}\index{ColorTypes.cpp@{ColorTypes.cpp}!HUE\_PINK@{HUE\_PINK}}}\mbox{\Hypertarget{ColorTypes_8cpp_a06fc87d81c62e9abb8790b6e5713c55ba3dc206b5aaa1d60d34bd43ed538e5cf8}\label{ColorTypes_8cpp_a06fc87d81c62e9abb8790b6e5713c55ba3dc206b5aaa1d60d34bd43ed538e5cf8}} 
-H\+U\+E\+\_\+\+P\+I\+NK&\\
+HUE\+\_\+\+PINK&\\
 \hline
 
 \end{DoxyEnumFields}
@@ -142,7 +143,7 @@ Definition at line 576 of file Color\+Types.\+cpp.
 \index{ColorTypes.cpp@{ColorTypes.cpp}!hsv\_to\_rgb\_generic@{hsv\_to\_rgb\_generic}}
 \index{hsv\_to\_rgb\_generic@{hsv\_to\_rgb\_generic}!ColorTypes.cpp@{ColorTypes.cpp}}
 \doxysubsubsection{\texorpdfstring{hsv\_to\_rgb\_generic()}{hsv\_to\_rgb\_generic()}}
-{\footnotesize\ttfamily \mbox{\hyperlink{classRGBColor}{R\+G\+B\+Color}} hsv\+\_\+to\+\_\+rgb\+\_\+generic (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classHSVColor}{H\+S\+V\+Color}} \&}]{rhs }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \mbox{\hyperlink{classRGBColor}{RGBColor}} hsv\+\_\+to\+\_\+rgb\+\_\+generic (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classHSVColor}{HSVColor}} \&}]{rhs }\end{DoxyParamCaption})}
 
 
 
@@ -195,17 +196,17 @@ Definition at line 501 of file Color\+Types.\+cpp.
 \end{DoxyCode}
 
 
-References R\+G\+B\+Color\+::blue, R\+G\+B\+Color\+::green, H\+S\+V\+Color\+::hue, R\+G\+B\+Color\+::red, H\+S\+V\+Color\+::sat, and H\+S\+V\+Color\+::val.
+References RGBColor\+::blue, RGBColor\+::green, HSVColor\+::hue, RGBColor\+::red, HSVColor\+::sat, and HSVColor\+::val.
 
 
 
-Referenced by R\+G\+B\+Color\+::operator=(), and Hue\+Shift\+Pattern\+::play().
+Referenced by RGBColor\+::operator=(), and Hue\+Shift\+Pattern\+::play().
 
 \mbox{\Hypertarget{ColorTypes_8cpp_af3ef0c7054bb571933dab90c229a08b1}\label{ColorTypes_8cpp_af3ef0c7054bb571933dab90c229a08b1}} 
 \index{ColorTypes.cpp@{ColorTypes.cpp}!hsv\_to\_rgb\_rainbow@{hsv\_to\_rgb\_rainbow}}
 \index{hsv\_to\_rgb\_rainbow@{hsv\_to\_rgb\_rainbow}!ColorTypes.cpp@{ColorTypes.cpp}}
 \doxysubsubsection{\texorpdfstring{hsv\_to\_rgb\_rainbow()}{hsv\_to\_rgb\_rainbow()}}
-{\footnotesize\ttfamily \mbox{\hyperlink{classRGBColor}{R\+G\+B\+Color}} hsv\+\_\+to\+\_\+rgb\+\_\+rainbow (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classHSVColor}{H\+S\+V\+Color}} \&}]{rhs }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \mbox{\hyperlink{classRGBColor}{RGBColor}} hsv\+\_\+to\+\_\+rgb\+\_\+rainbow (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classHSVColor}{HSVColor}} \&}]{rhs }\end{DoxyParamCaption})}
 
 
 
@@ -375,7 +376,7 @@ Definition at line 238 of file Color\+Types.\+cpp.
 \DoxyCodeLine{398     \}}
 \DoxyCodeLine{399   \}}
 \DoxyCodeLine{400 }
-\DoxyCodeLine{401   \textcolor{comment}{// Here we have the old AVR "missing std X+n" problem again}}
+\DoxyCodeLine{401   \textcolor{comment}{// Here we have the old AVR "{}missing std X+n"{} problem again}}
 \DoxyCodeLine{402   \textcolor{comment}{// It turns out that fixing it winds up costing more than}}
 \DoxyCodeLine{403   \textcolor{comment}{// not fixing it.}}
 \DoxyCodeLine{404   \textcolor{comment}{// To paraphrase Dr Bronner, profile! profile! profile!}}
@@ -388,17 +389,17 @@ Definition at line 238 of file Color\+Types.\+cpp.
 \end{DoxyCode}
 
 
-References R\+G\+B\+Color\+::blue, R\+G\+B\+Color\+::green, H\+S\+V\+Color\+::hue, R\+G\+B\+Color\+::red, H\+S\+V\+Color\+::sat, S\+C\+A\+L\+E8, and H\+S\+V\+Color\+::val.
+References RGBColor\+::blue, RGBColor\+::green, HSVColor\+::hue, RGBColor\+::red, HSVColor\+::sat, SCALE8, and HSVColor\+::val.
 
 
 
-Referenced by R\+G\+B\+Color\+::operator=().
+Referenced by RGBColor\+::operator=().
 
 \mbox{\Hypertarget{ColorTypes_8cpp_af1c266177041c51d991945aefc4eb70b}\label{ColorTypes_8cpp_af1c266177041c51d991945aefc4eb70b}} 
 \index{ColorTypes.cpp@{ColorTypes.cpp}!hsv\_to\_rgb\_raw\_C@{hsv\_to\_rgb\_raw\_C}}
 \index{hsv\_to\_rgb\_raw\_C@{hsv\_to\_rgb\_raw\_C}!ColorTypes.cpp@{ColorTypes.cpp}}
 \doxysubsubsection{\texorpdfstring{hsv\_to\_rgb\_raw\_C()}{hsv\_to\_rgb\_raw\_C()}}
-{\footnotesize\ttfamily \mbox{\hyperlink{classRGBColor}{R\+G\+B\+Color}} hsv\+\_\+to\+\_\+rgb\+\_\+raw\+\_\+C (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classHSVColor}{H\+S\+V\+Color}} \&}]{rhs }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \mbox{\hyperlink{classRGBColor}{RGBColor}} hsv\+\_\+to\+\_\+rgb\+\_\+raw\+\_\+C (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classHSVColor}{HSVColor}} \&}]{rhs }\end{DoxyParamCaption})}
 
 
 
@@ -409,7 +410,7 @@ Definition at line 413 of file Color\+Types.\+cpp.
 \DoxyCodeLine{414 \{}
 \DoxyCodeLine{415   \mbox{\hyperlink{classRGBColor}{RGBColor}} col;}
 \DoxyCodeLine{416   \textcolor{comment}{// Convert hue, saturation and brightness ( HSV/HSB ) to RGB}}
-\DoxyCodeLine{417   \textcolor{comment}{// "Dimming" is used on saturation and brightness to make}}
+\DoxyCodeLine{417   \textcolor{comment}{// "{}Dimming"{} is used on saturation and brightness to make}}
 \DoxyCodeLine{418   \textcolor{comment}{// the output more visually linear.}}
 \DoxyCodeLine{419 }
 \DoxyCodeLine{420   \textcolor{comment}{// Apply dimming curves}}
@@ -445,11 +446,11 @@ Definition at line 413 of file Color\+Types.\+cpp.
 \DoxyCodeLine{450   \textcolor{comment}{// or}}
 \DoxyCodeLine{451   \textcolor{comment}{//   ((ramp    ) * othervalue) /  64}}
 \DoxyCodeLine{452   \textcolor{comment}{// It depends on your processor architecture.}}
-\DoxyCodeLine{453   \textcolor{comment}{// On 8-\/bit AVR, the "/ 256" is just a one-\/cycle register move,}}
-\DoxyCodeLine{454   \textcolor{comment}{// but the "/ 64" might be a multicycle shift process. So on AVR}}
+\DoxyCodeLine{453   \textcolor{comment}{// On 8-\/bit AVR, the "{}/ 256"{} is just a one-\/cycle register move,}}
+\DoxyCodeLine{454   \textcolor{comment}{// but the "{}/ 64"{} might be a multicycle shift process. So on AVR}}
 \DoxyCodeLine{455   \textcolor{comment}{// it's faster do multiply the ramp values by four, and then}}
 \DoxyCodeLine{456   \textcolor{comment}{// divide by 256.}}
-\DoxyCodeLine{457   \textcolor{comment}{// On ARM, the "/ 256" and "/ 64" are one cycle each, so it's}}
+\DoxyCodeLine{457   \textcolor{comment}{// On ARM, the "{}/ 256"{} and "{}/ 64"{} are one cycle each, so it's}}
 \DoxyCodeLine{458   \textcolor{comment}{// faster to NOT multiply the ramp values by four, and just to}}
 \DoxyCodeLine{459   \textcolor{comment}{// divide the resulting product by 64 (instead of 256).}}
 \DoxyCodeLine{460   \textcolor{comment}{// Moral of the story: trust your profiler, not your insticts.}}
@@ -495,11 +496,11 @@ Definition at line 413 of file Color\+Types.\+cpp.
 \end{DoxyCode}
 
 
-References R\+G\+B\+Color\+::blue, R\+G\+B\+Color\+::green, H\+S\+V\+Color\+::hue, R\+G\+B\+Color\+::red, H\+S\+V\+Color\+::sat, and H\+S\+V\+Color\+::val.
+References RGBColor\+::blue, RGBColor\+::green, HSVColor\+::hue, RGBColor\+::red, HSVColor\+::sat, and HSVColor\+::val.
 
 
 
-Referenced by R\+G\+B\+Color\+::operator=().
+Referenced by RGBColor\+::operator=().
 
 \mbox{\Hypertarget{ColorTypes_8cpp_a3906d6ade8212a5627f696f587c97248}\label{ColorTypes_8cpp_a3906d6ade8212a5627f696f587c97248}} 
 \index{ColorTypes.cpp@{ColorTypes.cpp}!qsub8@{qsub8}}
@@ -530,7 +531,7 @@ Referenced by rgb\+\_\+to\+\_\+hsv\+\_\+approx().
 \index{ColorTypes.cpp@{ColorTypes.cpp}!rgb\_to\_hsv\_approx@{rgb\_to\_hsv\_approx}}
 \index{rgb\_to\_hsv\_approx@{rgb\_to\_hsv\_approx}!ColorTypes.cpp@{ColorTypes.cpp}}
 \doxysubsubsection{\texorpdfstring{rgb\_to\_hsv\_approx()}{rgb\_to\_hsv\_approx()}}
-{\footnotesize\ttfamily \mbox{\hyperlink{classHSVColor}{H\+S\+V\+Color}} rgb\+\_\+to\+\_\+hsv\+\_\+approx (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classRGBColor}{R\+G\+B\+Color}} \&}]{rhs }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \mbox{\hyperlink{classHSVColor}{HSVColor}} rgb\+\_\+to\+\_\+hsv\+\_\+approx (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classRGBColor}{RGBColor}} \&}]{rhs }\end{DoxyParamCaption})}
 
 
 
@@ -663,17 +664,17 @@ Definition at line 590 of file Color\+Types.\+cpp.
 \end{DoxyCode}
 
 
-References R\+G\+B\+Color\+::blue, F\+I\+X\+F\+R\+A\+C8, R\+G\+B\+Color\+::green, H\+U\+E\+\_\+\+A\+Q\+UA, H\+U\+E\+\_\+\+B\+L\+UE, H\+U\+E\+\_\+\+G\+R\+E\+EN, H\+U\+E\+\_\+\+O\+R\+A\+N\+GE, H\+U\+E\+\_\+\+P\+I\+NK, H\+U\+E\+\_\+\+P\+U\+R\+P\+LE, H\+U\+E\+\_\+\+R\+ED, H\+U\+E\+\_\+\+Y\+E\+L\+L\+OW, qsub8(), R\+G\+B\+Color\+::red, S\+C\+A\+L\+E8, and sqrt16().
+References RGBColor\+::blue, FIXFRAC8, RGBColor\+::green, HUE\+\_\+\+AQUA, HUE\+\_\+\+BLUE, HUE\+\_\+\+GREEN, HUE\+\_\+\+ORANGE, HUE\+\_\+\+PINK, HUE\+\_\+\+PURPLE, HUE\+\_\+\+RED, HUE\+\_\+\+YELLOW, qsub8(), RGBColor\+::red, SCALE8, and sqrt16().
 
 
 
-Referenced by H\+S\+V\+Color\+::operator=().
+Referenced by HSVColor\+::operator=().
 
 \mbox{\Hypertarget{ColorTypes_8cpp_aa66efe3edace225f9bfe189766495b53}\label{ColorTypes_8cpp_aa66efe3edace225f9bfe189766495b53}} 
 \index{ColorTypes.cpp@{ColorTypes.cpp}!rgb\_to\_hsv\_generic@{rgb\_to\_hsv\_generic}}
 \index{rgb\_to\_hsv\_generic@{rgb\_to\_hsv\_generic}!ColorTypes.cpp@{ColorTypes.cpp}}
 \doxysubsubsection{\texorpdfstring{rgb\_to\_hsv\_generic()}{rgb\_to\_hsv\_generic()}}
-{\footnotesize\ttfamily \mbox{\hyperlink{classHSVColor}{H\+S\+V\+Color}} rgb\+\_\+to\+\_\+hsv\+\_\+generic (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classRGBColor}{R\+G\+B\+Color}} \&}]{rhs }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \mbox{\hyperlink{classHSVColor}{HSVColor}} rgb\+\_\+to\+\_\+hsv\+\_\+generic (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classRGBColor}{RGBColor}} \&}]{rhs }\end{DoxyParamCaption})}
 
 
 
@@ -713,11 +714,11 @@ Definition at line 714 of file Color\+Types.\+cpp.
 \end{DoxyCode}
 
 
-References R\+G\+B\+Color\+::blue, R\+G\+B\+Color\+::green, H\+S\+V\+Color\+::hue, R\+G\+B\+Color\+::red, H\+S\+V\+Color\+::sat, and H\+S\+V\+Color\+::val.
+References RGBColor\+::blue, RGBColor\+::green, HSVColor\+::hue, RGBColor\+::red, HSVColor\+::sat, and HSVColor\+::val.
 
 
 
-Referenced by H\+S\+V\+Color\+::operator=().
+Referenced by HSVColor\+::operator=().
 
 \mbox{\Hypertarget{ColorTypes_8cpp_a5b0a307c58ac1ec2c982a0dc79f3e8c3}\label{ColorTypes_8cpp_a5b0a307c58ac1ec2c982a0dc79f3e8c3}} 
 \index{ColorTypes.cpp@{ColorTypes.cpp}!sqrt16@{sqrt16}}
@@ -765,7 +766,7 @@ Referenced by rgb\+\_\+to\+\_\+hsv\+\_\+approx().
 \index{ColorTypes.cpp@{ColorTypes.cpp}!g\_hsv\_rgb\_alg@{g\_hsv\_rgb\_alg}}
 \index{g\_hsv\_rgb\_alg@{g\_hsv\_rgb\_alg}!ColorTypes.cpp@{ColorTypes.cpp}}
 \doxysubsubsection{\texorpdfstring{g\_hsv\_rgb\_alg}{g\_hsv\_rgb\_alg}}
-{\footnotesize\ttfamily \mbox{\hyperlink{ColorTypes_8h_a209b55463737311429f83ebdcb6ac9e9}{hsv\+\_\+to\+\_\+rgb\+\_\+algorithm}} g\+\_\+hsv\+\_\+rgb\+\_\+alg = \mbox{\hyperlink{ColorTypes_8h_a209b55463737311429f83ebdcb6ac9e9a9b01229e01a8505c74f9540efd59a9a3}{H\+S\+V\+\_\+\+T\+O\+\_\+\+R\+G\+B\+\_\+\+G\+E\+N\+E\+R\+IC}}}
+{\footnotesize\ttfamily \mbox{\hyperlink{ColorTypes_8h_a209b55463737311429f83ebdcb6ac9e9}{hsv\+\_\+to\+\_\+rgb\+\_\+algorithm}} g\+\_\+hsv\+\_\+rgb\+\_\+alg = \mbox{\hyperlink{ColorTypes_8h_a209b55463737311429f83ebdcb6ac9e9a9b01229e01a8505c74f9540efd59a9a3}{HSV\+\_\+\+TO\+\_\+\+RGB\+\_\+\+GENERIC}}}
 
 
 
@@ -773,5 +774,5 @@ Definition at line 6 of file Color\+Types.\+cpp.
 
 
 
-Referenced by Color\+Select\+::\+Color\+Select(), R\+G\+B\+Color\+::operator=(), and Color\+Select\+::$\sim$\+Color\+Select().
+Referenced by Color\+Select\+::\+Color\+Select(), RGBColor\+::operator=(), and Color\+Select\+::$\sim$\+Color\+Select().
 

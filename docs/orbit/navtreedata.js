@@ -59,12 +59,13 @@ var NAVTREEINDEX =
 "Compression_8cpp.html#a7d75fe9e5e79ce7eaecfb3e3bdc92432",
 "LedTypes_8h.html#a9fb57934b9165e8fcecafeafaf3a6a2ca11a9adb9054de1fe01d6a6750075f57b",
 "Patterns_8h.html#a40b65bd8b307c1134edfc6b99c16cd8ca85d9b1761883fcb1fe34a2afcd96add6",
-"VortexConfig_8h.html#abff1a19cf965ee7956ccbe597593d4d9",
-"classColorSelect.html#a12e1d06a0edbd2d2dfcd45e6c8a3b171",
-"classIRReceiver.html#a56148488dd4f2a403202a0467b4940b9a86b34ad32b19d88eb7a430935ce098bf",
-"classModes.html#a0f730af197520f0c74c227187fbbfbd7",
-"classRandomizer.html#a1bd21c50d68b27c102cee0c608b69d4d",
-"dir_64b4510cba155c652ac883383ddf0b92.html"
+"VortexConfig_8h.html#a7e3cb874fa0dae567eb59c910f745e2e",
+"classByteStream.html#a854e5507f550826478fd7141074a4bb5",
+"classHSVColor.html#af00dd7e50b611fe9762df952ba6b6472",
+"classModeSharing.html#a118440b66ff64341a596850cf7ef6a75",
+"classRGBColor.html#a112829b280c8ed7ee978b5e99b3bccf3",
+"classVortex.html#a5ae32a919cde30ac5aec2dffc665bcb9",
+"dir_c60f258a3bc456c165ec6b5192c40c91.html"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

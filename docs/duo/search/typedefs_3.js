@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['modeflags_2392',['ModeFlags',['../Mode_8h.html#a33c2e4593a371b6344b716f0769d0802',1,'Mode.h']]]
+  ['ledmap_2770',['LedMap',['../LedTypes_8h.html#adedc81525af6b15084e05deff607a32d',1,'LedTypes.h']]]
 ];

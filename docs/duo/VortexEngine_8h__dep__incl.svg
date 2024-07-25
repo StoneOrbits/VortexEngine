@@ -46,7 +46,7 @@ if (edges && edges.length) {
         </defs>
 
 <script type="text/javascript">
-var viewWidth = 1473;
+var viewWidth = 1621;
 var viewHeight = 95;
 var sectionId = 'dynsection-1';
 </script>
@@ -58,8 +58,8 @@ var sectionId = 'dynsection-1';
 <g id="node1" class="node">
 <title>Node1</title>
 <g id="a_node1"><a xlink:title=" ">
-<polygon fill="#bfbfbf" stroke="black" points="654,-67.5 654,-86.5 829,-86.5 829,-67.5 654,-67.5"/>
-<text text-anchor="middle" x="741.5" y="-74.5" font-family="Helvetica,sans-Serif" font-size="10.00">VortexEngine/src/VortexEngine.h</text>
+<polygon fill="#bfbfbf" stroke="black" points="730,-67.5 730,-86.5 905,-86.5 905,-67.5 730,-67.5"/>
+<text text-anchor="middle" x="817.5" y="-74.5" font-family="Helvetica,sans-Serif" font-size="10.00">VortexEngine/src/VortexEngine.h</text>
 </a>
 </g>
 </g>
@@ -76,8 +76,8 @@ var sectionId = 'dynsection-1';
 <!-- Node1&#45;&gt;Node2 -->
 <g id="edge1" class="edge">
 <title>Node1&#45;&gt;Node2</title>
-<path fill="none" stroke="midnightblue" d="M643.54,-71.83C525.51,-66.06 321.38,-53.68 147.5,-31 144.77,-30.64 141.99,-30.25 139.18,-29.84"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="643.48,-75.33 653.63,-72.32 643.81,-68.34 643.48,-75.33"/>
+<path fill="none" stroke="midnightblue" d="M719.93,-73.02C589.19,-68.2 350.13,-56.55 147.5,-31 144.77,-30.66 141.98,-30.28 139.18,-29.87"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="719.8,-76.51 729.92,-73.38 720.06,-69.52 719.8,-76.51"/>
 </g>
 <!-- Node3 -->
 <g id="node3" class="node">
@@ -92,8 +92,8 @@ var sectionId = 'dynsection-1';
 <!-- Node1&#45;&gt;Node3 -->
 <g id="edge2" class="edge">
 <title>Node1&#45;&gt;Node3</title>
-<path fill="none" stroke="midnightblue" d="M643.77,-67.88C556.05,-60.1 423.87,-47.17 309.5,-31 306.39,-30.56 303.21,-30.09 300.01,-29.59"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="643.71,-71.39 653.98,-68.78 644.32,-64.42 643.71,-71.39"/>
+<path fill="none" stroke="midnightblue" d="M719.56,-69.91C617.05,-62.94 451.55,-49.97 309.5,-31 306.53,-30.6 303.5,-30.17 300.44,-29.72"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="719.38,-73.41 729.59,-70.59 719.85,-66.43 719.38,-73.41"/>
 </g>
 <!-- Node4 -->
 <g id="node4" class="node">
@@ -108,8 +108,8 @@ var sectionId = 'dynsection-1';
 <!-- Node1&#45;&gt;Node4 -->
 <g id="edge3" class="edge">
 <title>Node1&#45;&gt;Node4</title>
-<path fill="none" stroke="midnightblue" d="M681.37,-65.79C627.86,-56.69 547.46,-43 477.5,-31 474.58,-30.5 471.61,-29.99 468.6,-29.47"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="680.93,-69.26 691.38,-67.49 682.1,-62.36 680.93,-69.26"/>
+<path fill="none" stroke="midnightblue" d="M737.13,-66.27C668.15,-57.7 566.14,-44.51 477.5,-31 474.57,-30.55 471.59,-30.09 468.58,-29.61"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="736.7,-69.74 747.06,-67.5 737.56,-62.79 736.7,-69.74"/>
 </g>
 <!-- Node5 -->
 <g id="node5" class="node">
@@ -124,8 +124,8 @@ var sectionId = 'dynsection-1';
 <!-- Node1&#45;&gt;Node5 -->
 <g id="edge4" class="edge">
 <title>Node1&#45;&gt;Node5</title>
-<path fill="none" stroke="midnightblue" d="M707.51,-64.1C679.85,-54.42 640.75,-40.74 611.57,-30.52"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="706.55,-67.48 717.14,-67.48 708.86,-60.87 706.55,-67.48"/>
+<path fill="none" stroke="midnightblue" d="M772.46,-65.11C732.27,-55.39 673.19,-41.1 629.48,-30.52"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="771.71,-68.53 782.25,-67.48 773.36,-61.72 771.71,-68.53"/>
 </g>
 <!-- Node6 -->
 <g id="node6" class="node">
@@ -140,8 +140,8 @@ var sectionId = 'dynsection-1';
 <!-- Node1&#45;&gt;Node6 -->
 <g id="edge5" class="edge">
 <title>Node1&#45;&gt;Node6</title>
-<path fill="none" stroke="midnightblue" d="M741.5,-57.23C741.5,-48.59 741.5,-38.5 741.5,-30.52"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="738,-57.48 741.5,-67.48 745,-57.48 738,-57.48"/>
+<path fill="none" stroke="midnightblue" d="M798.59,-61.2C786.61,-51.81 771.2,-39.75 759.41,-30.52"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="796.58,-64.07 806.61,-67.48 800.89,-58.55 796.58,-64.07"/>
 </g>
 <!-- Node7 -->
 <g id="node7" class="node">
@@ -156,8 +156,8 @@ var sectionId = 'dynsection-1';
 <!-- Node1&#45;&gt;Node7 -->
 <g id="edge6" class="edge">
 <title>Node1&#45;&gt;Node7</title>
-<path fill="none" stroke="midnightblue" d="M772.87,-63.72C797.54,-54.06 831.93,-40.6 857.68,-30.52"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="771.31,-60.57 763.28,-67.48 773.87,-67.09 771.31,-60.57"/>
+<path fill="none" stroke="midnightblue" d="M836.41,-61.2C848.39,-51.81 863.8,-39.75 875.59,-30.52"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="834.11,-58.55 828.39,-67.48 838.42,-64.07 834.11,-58.55"/>
 </g>
 <!-- Node8 -->
 <g id="node8" class="node">
@@ -172,8 +172,8 @@ var sectionId = 'dynsection-1';
 <!-- Node1&#45;&gt;Node8 -->
 <g id="edge7" class="edge">
 <title>Node1&#45;&gt;Node8</title>
-<path fill="none" stroke="midnightblue" d="M794.91,-65.55C846.02,-55.54 923.28,-40.42 978.49,-29.62"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="794.2,-62.12 785.06,-67.48 795.54,-68.99 794.2,-62.12"/>
+<path fill="none" stroke="midnightblue" d="M860.19,-64.86C897.42,-55.14 951.6,-41.01 991.76,-30.52"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="858.96,-61.56 850.17,-67.48 860.73,-68.34 858.96,-61.56"/>
 </g>
 <!-- Node9 -->
 <g id="node9" class="node">
@@ -188,8 +188,8 @@ var sectionId = 'dynsection-1';
 <!-- Node1&#45;&gt;Node9 -->
 <g id="edge8" class="edge">
 <title>Node1&#45;&gt;Node9</title>
-<path fill="none" stroke="midnightblue" d="M839.45,-66.46C916.36,-58.47 1026.03,-45.98 1121.5,-31 1124.6,-30.51 1127.78,-29.99 1130.98,-29.44"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="838.88,-63 829.3,-67.51 839.6,-69.96 838.88,-63"/>
+<path fill="none" stroke="midnightblue" d="M891.13,-66.08C952.79,-57.54 1043.05,-44.48 1121.5,-31 1124.6,-30.47 1127.76,-29.91 1130.96,-29.33"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="890.53,-62.63 881.1,-67.46 891.49,-69.56 890.53,-62.63"/>
 </g>
 <!-- Node10 -->
 <g id="node10" class="node">
@@ -203,8 +203,24 @@ var sectionId = 'dynsection-1';
 <!-- Node1&#45;&gt;Node10 -->
 <g id="edge9" class="edge">
 <title>Node1&#45;&gt;Node10</title>
-<path fill="none" stroke="midnightblue" d="M839.05,-69.33C945.14,-61.7 1119.62,-48.03 1269.5,-31 1284.52,-29.29 1300.73,-27.13 1315.72,-25.01"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="838.73,-65.85 829,-70.05 839.23,-72.83 838.73,-65.85"/>
+<path fill="none" stroke="midnightblue" d="M915.21,-67.47C1006.85,-59.18 1147.63,-45.72 1269.5,-31 1284.15,-29.23 1299.95,-27.1 1314.64,-25.01"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="914.76,-63.99 905.12,-68.38 915.39,-70.96 914.76,-63.99"/>
+</g>
+<!-- Node11 -->
+<g id="node11" class="node">
+<title>Node11</title>
+<g id="a_node11"><a xlink:href="VortexLib_8cpp.html" target="_top" xlink:title=" ">
+<polygon fill="none" stroke="black" points="1482.5,-0.5 1482.5,-30.5 1612.5,-30.5 1612.5,-0.5 1482.5,-0.5"/>
+<text text-anchor="start" x="1490.5" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">VortexEngine/VortexLib</text>
+<text text-anchor="middle" x="1547.5" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">/VortexLib.cpp</text>
+</a>
+</g>
+</g>
+<!-- Node1&#45;&gt;Node11 -->
+<g id="edge10" class="edge">
+<title>Node1&#45;&gt;Node11</title>
+<path fill="none" stroke="midnightblue" d="M915.33,-73.11C1043.86,-68.43 1276.39,-56.97 1473.5,-31 1476.36,-30.62 1479.27,-30.21 1482.2,-29.75"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="914.99,-69.62 905.12,-73.47 915.24,-76.61 914.99,-69.62"/>
 </g>
 </g>
 </svg>

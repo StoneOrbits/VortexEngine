@@ -90,7 +90,7 @@ $(document).ready(function(){initNavTree('Buttons_8cpp_source.html',''); initRes
 <a href="Buttons_8cpp.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="Buttons_8h.html">Buttons.h</a>&quot;</span></div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160; </div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#ifdef VORTEX_LIB</span></div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &quot;VortexLib.h&quot;</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="VortexLib_8h.html">VortexLib.h</a>&quot;</span></div>
 <div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#else</span></div>
 <div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &quot;../Time/TimeControl.h&quot;</span></div>
 <div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &quot;../Time/Timings.h&quot;</span></div>
@@ -130,18 +130,20 @@ $(document).ready(function(){initNavTree('Buttons_8cpp_source.html',''); initRes
 <div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;  }</div>
 <div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;<span class="preprocessor">#ifdef VORTEX_LIB</span></div>
 <div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;  <span class="comment">// read input from the vortex lib interface, for example Vortex::shortClick()</span></div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;  Vortex::handleInputQueue(<a class="code" href="classButtons.html#a7344cfab9ec5faf9741216860d6f4390">m_buttons</a>, <a class="code" href="Buttons_8h.html#a45add6b39f5b0c0137de978b90e26b5d">NUM_BUTTONS</a>);</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;  <a class="code" href="classVortex.html#aa334b5f76d4d9d7f0a95296afd1f7ed0">Vortex::handleInputQueue</a>(<a class="code" href="classButtons.html#a7344cfab9ec5faf9741216860d6f4390">m_buttons</a>, <a class="code" href="Buttons_8h.html#a45add6b39f5b0c0137de978b90e26b5d">NUM_BUTTONS</a>);</div>
 <div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;<span class="preprocessor">#endif</span></div>
 <div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;}</div>
 <div class="ttc" id="aButtons_8cpp_html_a0f2e1bfb2e10150496ad7fb75420713b"><div class="ttname"><a href="Buttons_8cpp.html#a0f2e1bfb2e10150496ad7fb75420713b">g_pButton</a></div><div class="ttdeci">Button * g_pButton</div><div class="ttdef"><b>Definition:</b> <a href="Buttons_8cpp_source.html#l00016">Buttons.cpp:16</a></div></div>
 <div class="ttc" id="aButtons_8h_html"><div class="ttname"><a href="Buttons_8h.html">Buttons.h</a></div></div>
 <div class="ttc" id="aButtons_8h_html_a45add6b39f5b0c0137de978b90e26b5d"><div class="ttname"><a href="Buttons_8h.html#a45add6b39f5b0c0137de978b90e26b5d">NUM_BUTTONS</a></div><div class="ttdeci">#define NUM_BUTTONS</div><div class="ttdef"><b>Definition:</b> <a href="Buttons_8h_source.html#l00010">Buttons.h:10</a></div></div>
+<div class="ttc" id="aVortexLib_8h_html"><div class="ttname"><a href="VortexLib_8h.html">VortexLib.h</a></div></div>
 <div class="ttc" id="aclassButton_html"><div class="ttname"><a href="classButton.html">Button</a></div><div class="ttdef"><b>Definition:</b> <a href="Button_8h_source.html#l00008">Button.h:9</a></div></div>
 <div class="ttc" id="aclassButton_html_ad8e030c1c8846d43f3126047d4a3667f"><div class="ttname"><a href="classButton.html#ad8e030c1c8846d43f3126047d4a3667f">Button::update</a></div><div class="ttdeci">void update()</div><div class="ttdef"><b>Definition:</b> <a href="Button_8cpp_source.html#l00068">Button.cpp:68</a></div></div>
 <div class="ttc" id="aclassButtons_html_a4bee1374d1782a6006faee6f9d9bb792"><div class="ttname"><a href="classButtons.html#a4bee1374d1782a6006faee6f9d9bb792">Buttons::cleanup</a></div><div class="ttdeci">static void cleanup()</div><div class="ttdef"><b>Definition:</b> <a href="Buttons_8cpp_source.html#l00031">Buttons.cpp:31</a></div></div>
 <div class="ttc" id="aclassButtons_html_a4e775beebe1f2c6dce04c82ed14741cb"><div class="ttname"><a href="classButtons.html#a4e775beebe1f2c6dce04c82ed14741cb">Buttons::update</a></div><div class="ttdeci">static void update()</div><div class="ttdef"><b>Definition:</b> <a href="Buttons_8cpp_source.html#l00035">Buttons.cpp:35</a></div></div>
 <div class="ttc" id="aclassButtons_html_a7344cfab9ec5faf9741216860d6f4390"><div class="ttname"><a href="classButtons.html#a7344cfab9ec5faf9741216860d6f4390">Buttons::m_buttons</a></div><div class="ttdeci">static Button m_buttons[NUM_BUTTONS]</div><div class="ttdef"><b>Definition:</b> <a href="Buttons_8h_source.html#l00029">Buttons.h:29</a></div></div>
 <div class="ttc" id="aclassButtons_html_ac5767a8af9ce64e39231833ad1b166ea"><div class="ttname"><a href="classButtons.html#ac5767a8af9ce64e39231833ad1b166ea">Buttons::init</a></div><div class="ttdeci">static bool init()</div><div class="ttdef"><b>Definition:</b> <a href="Buttons_8cpp_source.html#l00021">Buttons.cpp:21</a></div></div>
+<div class="ttc" id="aclassVortex_html_aa334b5f76d4d9d7f0a95296afd1f7ed0"><div class="ttname"><a href="classVortex.html#aa334b5f76d4d9d7f0a95296afd1f7ed0">Vortex::handleInputQueue</a></div><div class="ttdeci">static void handleInputQueue(Button *buttons, uint32_t numButtons)</div><div class="ttdef"><b>Definition:</b> <a href="VortexLib_8cpp_source.html#l01558">VortexLib.cpp:1558</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

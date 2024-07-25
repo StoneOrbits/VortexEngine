@@ -93,7 +93,7 @@ References VORTEX\+\_\+\+VERSION\+\_\+\+MAJOR.
 
 
 
-Referenced by Mode\+::load\+From\+Buffer(), and Modes\+::unserialize\+Save\+Header().
+Referenced by Mode\+::load\+From\+Buffer(), Vortex\+::load\+Json(), and Modes\+::unserialize\+Save\+Header().
 
 \mbox{\Hypertarget{classVortexEngine_ae80679477cd0c0f726e610b26fc1a6db}\label{classVortexEngine_ae80679477cd0c0f726e610b26fc1a6db}} 
 \index{VortexEngine@{VortexEngine}!cleanup@{cleanup}}
@@ -141,7 +141,7 @@ References Buttons\+::cleanup(), Leds\+::cleanup(), Menus\+::cleanup(), Modes\+:
 
 
 
-Referenced by wakeup().
+Referenced by Vortex\+::cleanup(), and wakeup().
 
 \mbox{\Hypertarget{classVortexEngine_ae262a231ee6fe1d7adc834b30725e114}\label{classVortexEngine_ae262a231ee6fe1d7adc834b30725e114}} 
 \index{VortexEngine@{VortexEngine}!clearOutputPins@{clearOutputPins}}
@@ -299,7 +299,7 @@ References Leds\+::clear\+All(), clear\+Output\+Pins(), Modes\+::cur\+Mode\+Inde
 
 
 
-Referenced by Modes\+::play(), Global\+Brightness\+::run\+Keychain\+Mode(), and run\+Main\+Logic().
+Referenced by Vortex\+::enter\+Sleep(), Modes\+::play(), Global\+Brightness\+::run\+Keychain\+Mode(), and run\+Main\+Logic().
 
 \mbox{\Hypertarget{classVortexEngine_a7d0883a55ea519ac58a24637c0cc38d2}\label{classVortexEngine_a7d0883a55ea519ac58a24637c0cc38d2}} 
 \index{VortexEngine@{VortexEngine}!init@{init}}
@@ -413,7 +413,7 @@ References clear\+Output\+Pins(), DEBUG\+\_\+\+LOG, enable\+MOSFET(), Buttons\+:
 
 
 
-Referenced by wakeup().
+Referenced by Vortex\+::init(), and wakeup().
 
 \mbox{\Hypertarget{classVortexEngine_ad8500f86579f3e6d9f887698e181b4d2}\label{classVortexEngine_ad8500f86579f3e6d9f887698e181b4d2}} 
 \index{VortexEngine@{VortexEngine}!runMainLogic@{runMainLogic}}
@@ -559,7 +559,7 @@ Definition at line 200 of file Vortex\+Engine.\+cpp.
 \DoxyCodeLine{330   \textcolor{comment}{// the first click was used to wake the device and isn't counted in the consecutive clicks}}
 \DoxyCodeLine{331   \textcolor{keywordflow}{if} (now < (\mbox{\hyperlink{Timings_8h_ae76f1a92ba0f97abcfa5007efb8acb35}{CONSECUTIVE\_WINDOW\_TICKS}} * \mbox{\hyperlink{VortexConfig_8h_a2f5ef442fae5fcc560776b23fa1ccef3}{DEVICE\_LOCK\_CLICKS}}) \&\& \mbox{\hyperlink{Button_8h_a0f2e1bfb2e10150496ad7fb75420713b}{g\_pButton}}-\/>\mbox{\hyperlink{classButton_af08888134084d0640b6a891bdb755f14}{onConsecutivePresses}}(\mbox{\hyperlink{VortexConfig_8h_a2f5ef442fae5fcc560776b23fa1ccef3}{DEVICE\_LOCK\_CLICKS}} -\/ 1)) \{}
 \DoxyCodeLine{332 \textcolor{preprocessor}{\#ifdef VORTEX\_LIB}}
-\DoxyCodeLine{333     \textcolor{keywordflow}{if} (!Vortex::lockEnabled()) \{}
+\DoxyCodeLine{333     \textcolor{keywordflow}{if} (!\mbox{\hyperlink{classVortex_a85bb8b1b660d3a72f66f5dfe1d21086d}{Vortex::lockEnabled}}()) \{}
 \DoxyCodeLine{334       \textcolor{keywordflow}{return};}
 \DoxyCodeLine{335     \}}
 \DoxyCodeLine{336 \textcolor{preprocessor}{\#endif}}
@@ -588,7 +588,7 @@ Definition at line 200 of file Vortex\+Engine.\+cpp.
 \end{DoxyCode}
 
 
-References AUTO\+\_\+\+CYCLE\+\_\+\+MODES\+\_\+\+CLICKS, AUTO\+\_\+\+RANDOM\+\_\+\+DELAY, Menus\+::check\+In\+Menu(), Leds\+::clear\+All(), CONSECUTIVE\+\_\+\+WINDOW\+\_\+\+TICKS, DEBUG\+\_\+\+LOG, DEVICE\+\_\+\+LOCK\+\_\+\+CLICKS, enable\+MOSFET(), enter\+Sleep(), FORCE\+\_\+\+SLEEP\+\_\+\+THRESHOLD\+\_\+\+TICKS, g\+\_\+p\+Button, Time\+::get\+Curtime(), Leds\+::hold\+All(), Button\+::hold\+Duration(), Button\+::is\+Pressed(), Modes\+::keychain\+Mode\+Enabled(), Modes\+::last\+Switch\+Time(), Modes\+::load(), Modes\+::locked(), m\+\_\+auto\+Cycle, m\+\_\+force\+Sleep\+Enabled, MENU\+\_\+\+GLOBAL\+\_\+\+BRIGHTNESS, Modes\+::next\+Mode(), Button\+::on\+Consecutive\+Presses(), ONE\+\_\+\+CLICK\+\_\+\+THRESHOLD\+\_\+\+TICKS, Modes\+::one\+Click\+Mode\+Enabled(), Button\+::on\+Release(), Menus\+::open\+Menu(), Menus\+::open\+Menu\+Selection(), Modes\+::play(), Button\+::release\+Count(), RGB\+\_\+\+GREEN, RGB\+\_\+\+RED, RGB\+\_\+\+WHITE0, RGB\+\_\+\+WHITE5, Menus\+::run(), Modes\+::set\+Cur\+Mode(), Modes\+::set\+Locked(), Modes\+::set\+One\+Click\+Mode(), SLEEP\+\_\+\+ENTER\+\_\+\+THRESHOLD\+\_\+\+TICKS, SLEEP\+\_\+\+WINDOW\+\_\+\+THRESHOLD\+\_\+\+TICKS, and Modes\+::switch\+To\+Startup\+Mode().
+References AUTO\+\_\+\+CYCLE\+\_\+\+MODES\+\_\+\+CLICKS, AUTO\+\_\+\+RANDOM\+\_\+\+DELAY, Menus\+::check\+In\+Menu(), Leds\+::clear\+All(), CONSECUTIVE\+\_\+\+WINDOW\+\_\+\+TICKS, DEBUG\+\_\+\+LOG, DEVICE\+\_\+\+LOCK\+\_\+\+CLICKS, enable\+MOSFET(), enter\+Sleep(), FORCE\+\_\+\+SLEEP\+\_\+\+THRESHOLD\+\_\+\+TICKS, g\+\_\+p\+Button, Time\+::get\+Curtime(), Leds\+::hold\+All(), Button\+::hold\+Duration(), Button\+::is\+Pressed(), Modes\+::keychain\+Mode\+Enabled(), Modes\+::last\+Switch\+Time(), Modes\+::load(), Modes\+::locked(), Vortex\+::lock\+Enabled(), m\+\_\+auto\+Cycle, m\+\_\+force\+Sleep\+Enabled, MENU\+\_\+\+GLOBAL\+\_\+\+BRIGHTNESS, Modes\+::next\+Mode(), Button\+::on\+Consecutive\+Presses(), ONE\+\_\+\+CLICK\+\_\+\+THRESHOLD\+\_\+\+TICKS, Modes\+::one\+Click\+Mode\+Enabled(), Button\+::on\+Release(), Menus\+::open\+Menu(), Menus\+::open\+Menu\+Selection(), Modes\+::play(), Button\+::release\+Count(), RGB\+\_\+\+GREEN, RGB\+\_\+\+RED, RGB\+\_\+\+WHITE0, RGB\+\_\+\+WHITE5, Menus\+::run(), Modes\+::set\+Cur\+Mode(), Modes\+::set\+Locked(), Modes\+::set\+One\+Click\+Mode(), SLEEP\+\_\+\+ENTER\+\_\+\+THRESHOLD\+\_\+\+TICKS, SLEEP\+\_\+\+WINDOW\+\_\+\+THRESHOLD\+\_\+\+TICKS, and Modes\+::switch\+To\+Startup\+Mode().
 
 
 
@@ -672,7 +672,7 @@ Definition at line 158 of file Vortex\+Engine.\+cpp.
 \DoxyCodeLine{167       \mbox{\hyperlink{classModes_a1ae90978222b457a941f0cbf7dd9b46b}{Modes::setLocked}}(\textcolor{keyword}{false});}
 \DoxyCodeLine{168     \}}
 \DoxyCodeLine{169     \textcolor{comment}{// check for any kind of press to wakeup}}
-\DoxyCodeLine{170     \textcolor{keywordflow}{if} (\mbox{\hyperlink{Button_8h_a0f2e1bfb2e10150496ad7fb75420713b}{g\_pButton}}-\/>\mbox{\hyperlink{classButton_a0a4fbfb56d10cb2c6e69a35eb62b7292}{check}}() || \mbox{\hyperlink{Button_8h_a0f2e1bfb2e10150496ad7fb75420713b}{g\_pButton}}-\/>\mbox{\hyperlink{classButton_a277f0bc922ec0cb3a20b6aaf43e9b94e}{onRelease}}() || !Vortex::sleepEnabled()) \{}
+\DoxyCodeLine{170     \textcolor{keywordflow}{if} (\mbox{\hyperlink{Button_8h_a0f2e1bfb2e10150496ad7fb75420713b}{g\_pButton}}-\/>\mbox{\hyperlink{classButton_a0a4fbfb56d10cb2c6e69a35eb62b7292}{check}}() || \mbox{\hyperlink{Button_8h_a0f2e1bfb2e10150496ad7fb75420713b}{g\_pButton}}-\/>\mbox{\hyperlink{classButton_a277f0bc922ec0cb3a20b6aaf43e9b94e}{onRelease}}() || !\mbox{\hyperlink{classVortex_a4505d4c0636f135eb71163617277dd67}{Vortex::sleepEnabled}}()) \{}
 \DoxyCodeLine{171       \mbox{\hyperlink{classVortexEngine_a32e7878bb1f4e4c4d141e849ff7808fb}{wakeup}}();}
 \DoxyCodeLine{172     \}}
 \DoxyCodeLine{173     \textcolor{keywordflow}{return};}
@@ -704,11 +704,11 @@ Definition at line 158 of file Vortex\+Engine.\+cpp.
 \end{DoxyCode}
 
 
-References Button\+::check(), DEVICE\+\_\+\+LOCK\+\_\+\+CLICKS, g\+\_\+p\+Button, Modes\+::locked(), m\+\_\+sleeping, Button\+::on\+Consecutive\+Presses(), Button\+::on\+Release(), run\+Main\+Logic(), Modes\+::set\+Locked(), Time\+::tick\+Clock(), Buttons\+::update(), Leds\+::update(), and wakeup().
+References Button\+::check(), DEVICE\+\_\+\+LOCK\+\_\+\+CLICKS, g\+\_\+p\+Button, Modes\+::locked(), m\+\_\+sleeping, Button\+::on\+Consecutive\+Presses(), Button\+::on\+Release(), run\+Main\+Logic(), Modes\+::set\+Locked(), Vortex\+::sleep\+Enabled(), Time\+::tick\+Clock(), Buttons\+::update(), Leds\+::update(), and wakeup().
 
 
 
-Referenced by ISR().
+Referenced by Vortex\+::handle\+Input\+Queue(), ISR(), and Vortex\+::tick().
 
 \mbox{\Hypertarget{classVortexEngine_af00c20421c2dc846493a17109c462bb4}\label{classVortexEngine_af00c20421c2dc846493a17109c462bb4}} 
 \index{VortexEngine@{VortexEngine}!toggleForceSleep@{toggleForceSleep}}

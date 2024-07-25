@@ -380,7 +380,7 @@ Definition at line 148 of file VLSender.\+cpp.
 \DoxyCodeLine{149 \{}
 \DoxyCodeLine{150 \textcolor{preprocessor}{\#ifdef VORTEX\_LIB}}
 \DoxyCodeLine{151   \textcolor{comment}{// send mark timing over socket}}
-\DoxyCodeLine{152   Vortex::vcallbacks()-\/>infraredWrite(\textcolor{keyword}{true}, time);}
+\DoxyCodeLine{152   \mbox{\hyperlink{classVortex_a84b31157edd8814f3e7b545ca4c3fa00}{Vortex::vcallbacks}}()-\/>\mbox{\hyperlink{classVortexCallbacks_a97b9d8709dd8f4d940184cf6996da776}{infraredWrite}}(\textcolor{keyword}{true}, time);}
 \DoxyCodeLine{153 \textcolor{preprocessor}{\#else}}
 \DoxyCodeLine{154   \mbox{\hyperlink{classVLSender_a563dfda5e2adea98cbf98ef98c66787c}{startPWM}}();}
 \DoxyCodeLine{155   \mbox{\hyperlink{classTime_a1db7b0672f8b2d38994119ccc226f8ee}{Time::delayMicroseconds}}(time);}
@@ -390,7 +390,7 @@ Definition at line 148 of file VLSender.\+cpp.
 \end{DoxyCode}
 
 
-References Time\+::delay\+Microseconds(), and start\+PWM().
+References Time\+::delay\+Microseconds(), Vortex\+Callbacks\+::infrared\+Write(), start\+PWM(), and Vortex\+::vcallbacks().
 
 
 
@@ -411,7 +411,7 @@ Definition at line 159 of file VLSender.\+cpp.
 \DoxyCodeLine{160 \{}
 \DoxyCodeLine{161 \textcolor{preprocessor}{\#ifdef VORTEX\_LIB}}
 \DoxyCodeLine{162   \textcolor{comment}{// send space timing over socket}}
-\DoxyCodeLine{163   Vortex::vcallbacks()-\/>infraredWrite(\textcolor{keyword}{false}, time);}
+\DoxyCodeLine{163   \mbox{\hyperlink{classVortex_a84b31157edd8814f3e7b545ca4c3fa00}{Vortex::vcallbacks}}()-\/>\mbox{\hyperlink{classVortexCallbacks_a97b9d8709dd8f4d940184cf6996da776}{infraredWrite}}(\textcolor{keyword}{false}, time);}
 \DoxyCodeLine{164 \textcolor{preprocessor}{\#else}}
 \DoxyCodeLine{165   \mbox{\hyperlink{classVLSender_a6fadfb59019cde5bbcf9d2f2e33a50f6}{stopPWM}}();}
 \DoxyCodeLine{166   \mbox{\hyperlink{classTime_a1db7b0672f8b2d38994119ccc226f8ee}{Time::delayMicroseconds}}(time);}
@@ -421,7 +421,7 @@ Definition at line 159 of file VLSender.\+cpp.
 \end{DoxyCode}
 
 
-References Time\+::delay\+Microseconds(), and stop\+PWM().
+References Time\+::delay\+Microseconds(), Vortex\+Callbacks\+::infrared\+Write(), stop\+PWM(), and Vortex\+::vcallbacks().
 
 
 

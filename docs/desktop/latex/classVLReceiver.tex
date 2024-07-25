@@ -1,19 +1,25 @@
-\hypertarget{classVLReceiver}{}\doxysection{V\+L\+Receiver Class Reference}
+\hypertarget{classVLReceiver}{}\doxysection{VLReceiver Class Reference}
 \label{classVLReceiver}\index{VLReceiver@{VLReceiver}}
 
 
-{\ttfamily \#include $<$V\+L\+Receiver.\+h$>$}
+{\ttfamily \#include $<$VLReceiver.\+h$>$}
 
 
 
-Collaboration diagram for V\+L\+Receiver\+:
-% FIG 0
+Collaboration diagram for VLReceiver\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classVLReceiver__coll__graph}
+\end{center}
+\end{figure}
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{classVLReceiver_af040fad43a189239eadc53795cdb9830}{V\+L\+Receiver}} (\mbox{\hyperlink{classVortexEngine}{Vortex\+Engine}} \&engine)
+\mbox{\hyperlink{classVLReceiver_af040fad43a189239eadc53795cdb9830}{VLReceiver}} (\mbox{\hyperlink{classVortexEngine}{Vortex\+Engine}} \&engine)
 \item 
-\mbox{\hyperlink{classVLReceiver_a1b91b6eca5ef986e22184668b3225cdb}{$\sim$\+V\+L\+Receiver}} ()
+\mbox{\hyperlink{classVLReceiver_a1b91b6eca5ef986e22184668b3225cdb}{$\sim$\+VLReceiver}} ()
 \item 
 bool \mbox{\hyperlink{classVLReceiver_a406cd003a5d26bfe07470261fdb022c1}{init}} ()
 \item 
@@ -35,17 +41,17 @@ bool \mbox{\hyperlink{classVLReceiver_a63a96c6ce982079256319b07f573006b}{end\+Re
 \item 
 bool \mbox{\hyperlink{classVLReceiver_a52b51c60db0419167aabdfe1f5d9a3e6}{on\+New\+Data}} ()
 \item 
-void \mbox{\hyperlink{classVLReceiver_a9d711ae64327b2b26c168478f92231b1}{reset\+V\+L\+State}} ()
+void \mbox{\hyperlink{classVLReceiver_a9d711ae64327b2b26c168478f92231b1}{reset\+VLState}} ()
 \item 
-void \mbox{\hyperlink{classVLReceiver_ada08a00c52a7d4aa531c332b358b386f}{recv\+P\+C\+I\+Handler}} ()
+void \mbox{\hyperlink{classVLReceiver_ada08a00c52a7d4aa531c332b358b386f}{recv\+PCIHandler}} ()
 \end{DoxyCompactItemize}
 \doxysubsection*{Private Types}
 \begin{DoxyCompactItemize}
 \item 
-enum \mbox{\hyperlink{classVLReceiver_aa4e2da364b508e8f469d28e0eaf3a6f8}{Recv\+State}} \+: uint8\+\_\+t \{ \mbox{\hyperlink{classVLReceiver_aa4e2da364b508e8f469d28e0eaf3a6f8a47c2b836e3c6a3cd2b63e572fcaaa434}{W\+A\+I\+T\+I\+N\+G\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+M\+A\+RK}}, 
-\mbox{\hyperlink{classVLReceiver_aa4e2da364b508e8f469d28e0eaf3a6f8aabd2b5abd329faa79b2af1f985e3d64d}{W\+A\+I\+T\+I\+N\+G\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+S\+P\+A\+CE}}, 
-\mbox{\hyperlink{classVLReceiver_aa4e2da364b508e8f469d28e0eaf3a6f8a85d1974b6b9c4a9cf8cf6ad8105019af}{R\+E\+A\+D\+I\+N\+G\+\_\+\+D\+A\+T\+A\+\_\+\+M\+A\+RK}}, 
-\mbox{\hyperlink{classVLReceiver_aa4e2da364b508e8f469d28e0eaf3a6f8a8b4cf7c43de19caaa96a6c9a81530370}{R\+E\+A\+D\+I\+N\+G\+\_\+\+D\+A\+T\+A\+\_\+\+S\+P\+A\+CE}}
+enum \mbox{\hyperlink{classVLReceiver_aa4e2da364b508e8f469d28e0eaf3a6f8}{Recv\+State}} \+: uint8\+\_\+t \{ \mbox{\hyperlink{classVLReceiver_aa4e2da364b508e8f469d28e0eaf3a6f8a47c2b836e3c6a3cd2b63e572fcaaa434}{WAITING\+\_\+\+HEADER\+\_\+\+MARK}}
+, \mbox{\hyperlink{classVLReceiver_aa4e2da364b508e8f469d28e0eaf3a6f8aabd2b5abd329faa79b2af1f985e3d64d}{WAITING\+\_\+\+HEADER\+\_\+\+SPACE}}
+, \mbox{\hyperlink{classVLReceiver_aa4e2da364b508e8f469d28e0eaf3a6f8a85d1974b6b9c4a9cf8cf6ad8105019af}{READING\+\_\+\+DATA\+\_\+\+MARK}}
+, \mbox{\hyperlink{classVLReceiver_aa4e2da364b508e8f469d28e0eaf3a6f8a8b4cf7c43de19caaa96a6c9a81530370}{READING\+\_\+\+DATA\+\_\+\+SPACE}}
  \}
 \end{DoxyCompactItemize}
 \doxysubsection*{Private Member Functions}
@@ -53,7 +59,7 @@ enum \mbox{\hyperlink{classVLReceiver_aa4e2da364b508e8f469d28e0eaf3a6f8}{Recv\+S
 \item 
 bool \mbox{\hyperlink{classVLReceiver_ab46186e351091b92acdfe8bae1503f68}{read}} (\mbox{\hyperlink{classByteStream}{Byte\+Stream}} \&data)
 \item 
-void \mbox{\hyperlink{classVLReceiver_a09b9dcb3e525815baf74092e70ef5ab0}{handle\+V\+L\+Timing}} (uint32\+\_\+t diff)
+void \mbox{\hyperlink{classVLReceiver_a09b9dcb3e525815baf74092e70ef5ab0}{handle\+VLTiming}} (uint32\+\_\+t diff)
 \end{DoxyCompactItemize}
 \doxysubsection*{Private Attributes}
 \begin{DoxyCompactItemize}
@@ -75,7 +81,7 @@ uint32\+\_\+t \mbox{\hyperlink{classVLReceiver_a21679e3a4a6e2de40c74804a46572bfd
 \doxysubsection{Detailed Description}
 
 
-Definition at line 16 of file V\+L\+Receiver.\+h.
+Definition at line 16 of file VLReceiver.\+h.
 
 
 
@@ -84,33 +90,32 @@ Definition at line 16 of file V\+L\+Receiver.\+h.
 \index{VLReceiver@{VLReceiver}!RecvState@{RecvState}}
 \index{RecvState@{RecvState}!VLReceiver@{VLReceiver}}
 \doxysubsubsection{\texorpdfstring{RecvState}{RecvState}}
-{\footnotesize\ttfamily enum \mbox{\hyperlink{classVLReceiver_aa4e2da364b508e8f469d28e0eaf3a6f8}{V\+L\+Receiver\+::\+Recv\+State}} \+: uint8\+\_\+t\hspace{0.3cm}{\ttfamily [private]}}
+{\footnotesize\ttfamily enum \mbox{\hyperlink{classVLReceiver_aa4e2da364b508e8f469d28e0eaf3a6f8}{VLReceiver\+::\+Recv\+State}} \+: uint8\+\_\+t\hspace{0.3cm}{\ttfamily [private]}}
 
 \begin{DoxyEnumFields}{Enumerator}
 \raisebox{\heightof{T}}[0pt][0pt]{\index{WAITING\_HEADER\_MARK@{WAITING\_HEADER\_MARK}!VLReceiver@{VLReceiver}}\index{VLReceiver@{VLReceiver}!WAITING\_HEADER\_MARK@{WAITING\_HEADER\_MARK}}}\mbox{\Hypertarget{classVLReceiver_aa4e2da364b508e8f469d28e0eaf3a6f8a47c2b836e3c6a3cd2b63e572fcaaa434}\label{classVLReceiver_aa4e2da364b508e8f469d28e0eaf3a6f8a47c2b836e3c6a3cd2b63e572fcaaa434}} 
-W\+A\+I\+T\+I\+N\+G\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+M\+A\+RK&\\
+WAITING\+\_\+\+HEADER\+\_\+\+MARK&\\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{WAITING\_HEADER\_SPACE@{WAITING\_HEADER\_SPACE}!VLReceiver@{VLReceiver}}\index{VLReceiver@{VLReceiver}!WAITING\_HEADER\_SPACE@{WAITING\_HEADER\_SPACE}}}\mbox{\Hypertarget{classVLReceiver_aa4e2da364b508e8f469d28e0eaf3a6f8aabd2b5abd329faa79b2af1f985e3d64d}\label{classVLReceiver_aa4e2da364b508e8f469d28e0eaf3a6f8aabd2b5abd329faa79b2af1f985e3d64d}} 
-W\+A\+I\+T\+I\+N\+G\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+S\+P\+A\+CE&\\
+WAITING\+\_\+\+HEADER\+\_\+\+SPACE&\\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{READING\_DATA\_MARK@{READING\_DATA\_MARK}!VLReceiver@{VLReceiver}}\index{VLReceiver@{VLReceiver}!READING\_DATA\_MARK@{READING\_DATA\_MARK}}}\mbox{\Hypertarget{classVLReceiver_aa4e2da364b508e8f469d28e0eaf3a6f8a85d1974b6b9c4a9cf8cf6ad8105019af}\label{classVLReceiver_aa4e2da364b508e8f469d28e0eaf3a6f8a85d1974b6b9c4a9cf8cf6ad8105019af}} 
-R\+E\+A\+D\+I\+N\+G\+\_\+\+D\+A\+T\+A\+\_\+\+M\+A\+RK&\\
+READING\+\_\+\+DATA\+\_\+\+MARK&\\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{READING\_DATA\_SPACE@{READING\_DATA\_SPACE}!VLReceiver@{VLReceiver}}\index{VLReceiver@{VLReceiver}!READING\_DATA\_SPACE@{READING\_DATA\_SPACE}}}\mbox{\Hypertarget{classVLReceiver_aa4e2da364b508e8f469d28e0eaf3a6f8a8b4cf7c43de19caaa96a6c9a81530370}\label{classVLReceiver_aa4e2da364b508e8f469d28e0eaf3a6f8a8b4cf7c43de19caaa96a6c9a81530370}} 
-R\+E\+A\+D\+I\+N\+G\+\_\+\+D\+A\+T\+A\+\_\+\+S\+P\+A\+CE&\\
+READING\+\_\+\+DATA\+\_\+\+SPACE&\\
 \hline
 
 \end{DoxyEnumFields}
 
 
-Definition at line 64 of file V\+L\+Receiver.\+h.
+Definition at line 64 of file VLReceiver.\+h.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{64                  : uint8\_t}
 \DoxyCodeLine{65   \{}
 \DoxyCodeLine{66     \mbox{\hyperlink{classVLReceiver_aa4e2da364b508e8f469d28e0eaf3a6f8a47c2b836e3c6a3cd2b63e572fcaaa434}{WAITING\_HEADER\_MARK}},}
 \DoxyCodeLine{67     \mbox{\hyperlink{classVLReceiver_aa4e2da364b508e8f469d28e0eaf3a6f8aabd2b5abd329faa79b2af1f985e3d64d}{WAITING\_HEADER\_SPACE}},}
@@ -126,11 +131,11 @@ Definition at line 64 of file V\+L\+Receiver.\+h.
 \index{VLReceiver@{VLReceiver}!VLReceiver@{VLReceiver}}
 \index{VLReceiver@{VLReceiver}!VLReceiver@{VLReceiver}}
 \doxysubsubsection{\texorpdfstring{VLReceiver()}{VLReceiver()}}
-{\footnotesize\ttfamily V\+L\+Receiver\+::\+V\+L\+Receiver (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classVortexEngine}{Vortex\+Engine}} \&}]{engine }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily VLReceiver\+::\+VLReceiver (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classVortexEngine}{Vortex\+Engine}} \&}]{engine }\end{DoxyParamCaption})}
 
 
 
-Definition at line 15 of file V\+L\+Receiver.\+cpp.
+Definition at line 15 of file VLReceiver.\+cpp.
 
 
 \begin{DoxyCode}{0}
@@ -140,7 +145,7 @@ Definition at line 15 of file V\+L\+Receiver.\+cpp.
 \DoxyCodeLine{18   \mbox{\hyperlink{classVLReceiver_a0dc793325805e09a0baa610fca179618}{m\_recvState}}(\mbox{\hyperlink{classVLReceiver_aa4e2da364b508e8f469d28e0eaf3a6f8a47c2b836e3c6a3cd2b63e572fcaaa434}{WAITING\_HEADER\_MARK}}),}
 \DoxyCodeLine{19   \mbox{\hyperlink{classVLReceiver_a48be4a0ea04c428f7ddd0fa9723a7c35}{m\_prevTime}}(0),}
 \DoxyCodeLine{20   \mbox{\hyperlink{classVLReceiver_aa56911b2c08cbff0a1d5e2685d7506f9}{m\_pinState}}(0),}
-\DoxyCodeLine{21   \mbox{\hyperlink{classVLReceiver_a21679e3a4a6e2de40c74804a46572bfd}{m\_previousBytes}}(0)}
+\DoxyCodeLine{21   \mbox{\hyperlink{classVLReceiver_a21679e3a4a6e2de40c74804a46572bfd}{m\_previousBytes}}(0)}
 \DoxyCodeLine{22 \{}
 \DoxyCodeLine{23 \}}
 
@@ -149,11 +154,11 @@ Definition at line 15 of file V\+L\+Receiver.\+cpp.
 \index{VLReceiver@{VLReceiver}!````~VLReceiver@{$\sim$VLReceiver}}
 \index{````~VLReceiver@{$\sim$VLReceiver}!VLReceiver@{VLReceiver}}
 \doxysubsubsection{\texorpdfstring{$\sim$VLReceiver()}{~VLReceiver()}}
-{\footnotesize\ttfamily V\+L\+Receiver\+::$\sim$\+V\+L\+Receiver (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily VLReceiver\+::$\sim$\+VLReceiver (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
 
 
 
-Definition at line 25 of file V\+L\+Receiver.\+cpp.
+Definition at line 25 of file VLReceiver.\+cpp.
 
 
 \begin{DoxyCode}{0}
@@ -168,11 +173,11 @@ Definition at line 25 of file V\+L\+Receiver.\+cpp.
 \index{VLReceiver@{VLReceiver}!beginReceiving@{beginReceiving}}
 \index{beginReceiving@{beginReceiving}!VLReceiver@{VLReceiver}}
 \doxysubsubsection{\texorpdfstring{beginReceiving()}{beginReceiving()}}
-{\footnotesize\ttfamily bool V\+L\+Receiver\+::begin\+Receiving (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily bool VLReceiver\+::begin\+Receiving (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
 
 
 
-Definition at line 94 of file V\+L\+Receiver.\+cpp.
+Definition at line 94 of file VLReceiver.\+cpp.
 
 
 \begin{DoxyCode}{0}
@@ -184,17 +189,17 @@ Definition at line 94 of file V\+L\+Receiver.\+cpp.
 \end{DoxyCode}
 
 
-References reset\+V\+L\+State().
+References reset\+VLState().
 
 \mbox{\Hypertarget{classVLReceiver_ad77be128a316b4fece52edd304543fcf}\label{classVLReceiver_ad77be128a316b4fece52edd304543fcf}} 
 \index{VLReceiver@{VLReceiver}!bytesReceived@{bytesReceived}}
 \index{bytesReceived@{bytesReceived}!VLReceiver@{VLReceiver}}
 \doxysubsubsection{\texorpdfstring{bytesReceived()}{bytesReceived()}}
-{\footnotesize\ttfamily uint16\+\_\+t V\+L\+Receiver\+::bytes\+Received (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+{\footnotesize\ttfamily uint16\+\_\+t VLReceiver\+::bytes\+Received (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
 
 
-Definition at line 32 of file V\+L\+Receiver.\+h.
+Definition at line 32 of file VLReceiver.\+h.
 
 
 \begin{DoxyCode}{0}
@@ -213,11 +218,11 @@ Referenced by on\+New\+Data().
 \index{VLReceiver@{VLReceiver}!cleanup@{cleanup}}
 \index{cleanup@{cleanup}!VLReceiver@{VLReceiver}}
 \doxysubsubsection{\texorpdfstring{cleanup()}{cleanup()}}
-{\footnotesize\ttfamily void V\+L\+Receiver\+::cleanup (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily void VLReceiver\+::cleanup (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
 
 
 
-Definition at line 34 of file V\+L\+Receiver.\+cpp.
+Definition at line 34 of file VLReceiver.\+cpp.
 
 
 \begin{DoxyCode}{0}
@@ -233,11 +238,11 @@ Referenced by Vortex\+Engine\+::cleanup().
 \index{VLReceiver@{VLReceiver}!dataReady@{dataReady}}
 \index{dataReady@{dataReady}!VLReceiver@{VLReceiver}}
 \doxysubsubsection{\texorpdfstring{dataReady()}{dataReady()}}
-{\footnotesize\ttfamily bool V\+L\+Receiver\+::data\+Ready (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily bool VLReceiver\+::data\+Ready (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
 
 
 
-Definition at line 38 of file V\+L\+Receiver.\+cpp.
+Definition at line 38 of file VLReceiver.\+cpp.
 
 
 \begin{DoxyCode}{0}
@@ -250,7 +255,7 @@ Definition at line 38 of file V\+L\+Receiver.\+cpp.
 \DoxyCodeLine{45   uint8\_t remainder = \mbox{\hyperlink{classVLReceiver_aea204cc185c040057fbcd408d47a3121}{m\_vlData}}.\mbox{\hyperlink{classBitStream_a4be1b1c1cb2684d2997b1c8a6f0cd34d}{data}}()[1];}
 \DoxyCodeLine{46   uint32\_t total = ((blocks -\/ 1) * 32) + remainder;}
 \DoxyCodeLine{47   \textcolor{keywordflow}{if} (!total || total > \mbox{\hyperlink{VLConfig_8h_a5531f46c73b52342bc76a5423252c745}{VL\_MAX\_DATA\_TRANSFER}}) \{}
-\DoxyCodeLine{48     \mbox{\hyperlink{Log_8h_a8bdccae09f7cdda8fb311e0bd81c35dc}{DEBUG\_LOGF}}(\textcolor{stringliteral}{"Bad VL Data size: \%u"}, total);}
+\DoxyCodeLine{48     \mbox{\hyperlink{Log_8h_a8bdccae09f7cdda8fb311e0bd81c35dc}{DEBUG\_LOGF}}(\textcolor{stringliteral}{"{}Bad VL Data size: \%u"{}}, total);}
 \DoxyCodeLine{49     \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
 \DoxyCodeLine{50   \}}
 \DoxyCodeLine{51   \textcolor{comment}{// if there are size + 2 bytes in the VLData receiver}}
@@ -262,17 +267,17 @@ Definition at line 38 of file V\+L\+Receiver.\+cpp.
 \end{DoxyCode}
 
 
-References Bit\+Stream\+::bytepos(), Bit\+Stream\+::data(), D\+E\+B\+U\+G\+\_\+\+L\+O\+GF, is\+Receiving(), m\+\_\+vl\+Data, and V\+L\+\_\+\+M\+A\+X\+\_\+\+D\+A\+T\+A\+\_\+\+T\+R\+A\+N\+S\+F\+ER.
+References Bit\+Stream\+::bytepos(), Bit\+Stream\+::data(), DEBUG\+\_\+\+LOGF, is\+Receiving(), m\+\_\+vl\+Data, and VL\+\_\+\+MAX\+\_\+\+DATA\+\_\+\+TRANSFER.
 
 \mbox{\Hypertarget{classVLReceiver_a63a96c6ce982079256319b07f573006b}\label{classVLReceiver_a63a96c6ce982079256319b07f573006b}} 
 \index{VLReceiver@{VLReceiver}!endReceiving@{endReceiving}}
 \index{endReceiving@{endReceiving}!VLReceiver@{VLReceiver}}
 \doxysubsubsection{\texorpdfstring{endReceiving()}{endReceiving()}}
-{\footnotesize\ttfamily bool V\+L\+Receiver\+::end\+Receiving (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily bool VLReceiver\+::end\+Receiving (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
 
 
 
-Definition at line 100 of file V\+L\+Receiver.\+cpp.
+Definition at line 100 of file VLReceiver.\+cpp.
 
 
 \begin{DoxyCode}{0}
@@ -284,24 +289,24 @@ Definition at line 100 of file V\+L\+Receiver.\+cpp.
 \end{DoxyCode}
 
 
-References reset\+V\+L\+State().
+References reset\+VLState().
 
 \mbox{\Hypertarget{classVLReceiver_a09b9dcb3e525815baf74092e70ef5ab0}\label{classVLReceiver_a09b9dcb3e525815baf74092e70ef5ab0}} 
 \index{VLReceiver@{VLReceiver}!handleVLTiming@{handleVLTiming}}
 \index{handleVLTiming@{handleVLTiming}!VLReceiver@{VLReceiver}}
 \doxysubsubsection{\texorpdfstring{handleVLTiming()}{handleVLTiming()}}
-{\footnotesize\ttfamily void V\+L\+Receiver\+::handle\+V\+L\+Timing (\begin{DoxyParamCaption}\item[{uint32\+\_\+t}]{diff }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+{\footnotesize\ttfamily void VLReceiver\+::handle\+VLTiming (\begin{DoxyParamCaption}\item[{uint32\+\_\+t}]{diff }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
 
 
 
-Definition at line 164 of file V\+L\+Receiver.\+cpp.
+Definition at line 164 of file VLReceiver.\+cpp.
 
 
 \begin{DoxyCode}{0}
 \DoxyCodeLine{165 \{}
 \DoxyCodeLine{166   \textcolor{comment}{// if the diff is too long or too short then it's not useful}}
 \DoxyCodeLine{167   \textcolor{keywordflow}{if} ((diff > \mbox{\hyperlink{VLConfig_8h_a69a47bf818637f670f5e0297b0a14494}{VL\_HEADER\_MARK\_MAX}} \&\& \mbox{\hyperlink{classVLReceiver_a0dc793325805e09a0baa610fca179618}{m\_recvState}} < \mbox{\hyperlink{classVLReceiver_aa4e2da364b508e8f469d28e0eaf3a6f8a85d1974b6b9c4a9cf8cf6ad8105019af}{READING\_DATA\_MARK}}) || diff < \mbox{\hyperlink{VLConfig_8h_a4da43561aa22e37bd47c2cbc0f91b3b6}{VL\_TIMING\_MIN}}) \{}
-\DoxyCodeLine{168     \mbox{\hyperlink{Log_8h_a8bdccae09f7cdda8fb311e0bd81c35dc}{DEBUG\_LOGF}}(\textcolor{stringliteral}{"bad delay: \%u, resetting..."}, diff);}
+\DoxyCodeLine{168     \mbox{\hyperlink{Log_8h_a8bdccae09f7cdda8fb311e0bd81c35dc}{DEBUG\_LOGF}}(\textcolor{stringliteral}{"{}bad delay: \%u, resetting..."{}}, diff);}
 \DoxyCodeLine{169     \mbox{\hyperlink{classVLReceiver_a9d711ae64327b2b26c168478f92231b1}{resetVLState}}();}
 \DoxyCodeLine{170     \textcolor{keywordflow}{return};}
 \DoxyCodeLine{171   \}}
@@ -310,7 +315,7 @@ Definition at line 164 of file V\+L\+Receiver.\+cpp.
 \DoxyCodeLine{174     \textcolor{keywordflow}{if} (diff >= \mbox{\hyperlink{VLConfig_8h_a1b3bcb9ee4d252ec51e0158a25bcc447}{VL\_HEADER\_SPACE\_MIN}} \&\& diff <= \mbox{\hyperlink{VLConfig_8h_a69a47bf818637f670f5e0297b0a14494}{VL\_HEADER\_MARK\_MAX}}) \{}
 \DoxyCodeLine{175       \mbox{\hyperlink{classVLReceiver_a0dc793325805e09a0baa610fca179618}{m\_recvState}} = \mbox{\hyperlink{classVLReceiver_aa4e2da364b508e8f469d28e0eaf3a6f8aabd2b5abd329faa79b2af1f985e3d64d}{WAITING\_HEADER\_SPACE}};}
 \DoxyCodeLine{176     \} \textcolor{keywordflow}{else} \{}
-\DoxyCodeLine{177       \mbox{\hyperlink{Log_8h_a8bdccae09f7cdda8fb311e0bd81c35dc}{DEBUG\_LOGF}}(\textcolor{stringliteral}{"Bad header mark \%u, resetting..."}, diff);}
+\DoxyCodeLine{177       \mbox{\hyperlink{Log_8h_a8bdccae09f7cdda8fb311e0bd81c35dc}{DEBUG\_LOGF}}(\textcolor{stringliteral}{"{}Bad header mark \%u, resetting..."{}}, diff);}
 \DoxyCodeLine{178       \mbox{\hyperlink{classVLReceiver_a9d711ae64327b2b26c168478f92231b1}{resetVLState}}();}
 \DoxyCodeLine{179     \}}
 \DoxyCodeLine{180     \textcolor{keywordflow}{break};}
@@ -318,7 +323,7 @@ Definition at line 164 of file V\+L\+Receiver.\+cpp.
 \DoxyCodeLine{182     \textcolor{keywordflow}{if} (diff >= \mbox{\hyperlink{VLConfig_8h_a1b3bcb9ee4d252ec51e0158a25bcc447}{VL\_HEADER\_SPACE\_MIN}} \&\& diff <= \mbox{\hyperlink{VLConfig_8h_a69a47bf818637f670f5e0297b0a14494}{VL\_HEADER\_MARK\_MAX}}) \{}
 \DoxyCodeLine{183       \mbox{\hyperlink{classVLReceiver_a0dc793325805e09a0baa610fca179618}{m\_recvState}} = \mbox{\hyperlink{classVLReceiver_aa4e2da364b508e8f469d28e0eaf3a6f8a85d1974b6b9c4a9cf8cf6ad8105019af}{READING\_DATA\_MARK}};}
 \DoxyCodeLine{184     \} \textcolor{keywordflow}{else} \{}
-\DoxyCodeLine{185       \mbox{\hyperlink{Log_8h_a8bdccae09f7cdda8fb311e0bd81c35dc}{DEBUG\_LOGF}}(\textcolor{stringliteral}{"Bad header space \%u, resetting..."}, diff);}
+\DoxyCodeLine{185       \mbox{\hyperlink{Log_8h_a8bdccae09f7cdda8fb311e0bd81c35dc}{DEBUG\_LOGF}}(\textcolor{stringliteral}{"{}Bad header space \%u, resetting..."{}}, diff);}
 \DoxyCodeLine{186       \mbox{\hyperlink{classVLReceiver_a9d711ae64327b2b26c168478f92231b1}{resetVLState}}();}
 \DoxyCodeLine{187     \}}
 \DoxyCodeLine{188     \textcolor{keywordflow}{break};}
@@ -332,7 +337,7 @@ Definition at line 164 of file V\+L\+Receiver.\+cpp.
 \DoxyCodeLine{196     \mbox{\hyperlink{classVLReceiver_a0dc793325805e09a0baa610fca179618}{m\_recvState}} = \mbox{\hyperlink{classVLReceiver_aa4e2da364b508e8f469d28e0eaf3a6f8a85d1974b6b9c4a9cf8cf6ad8105019af}{READING\_DATA\_MARK}};}
 \DoxyCodeLine{197     \textcolor{keywordflow}{break};}
 \DoxyCodeLine{198   \textcolor{keywordflow}{default}: \textcolor{comment}{// ??}}
-\DoxyCodeLine{199     \mbox{\hyperlink{Log_8h_a8bdccae09f7cdda8fb311e0bd81c35dc}{DEBUG\_LOGF}}(\textcolor{stringliteral}{"Bad receive state: \%u"}, \mbox{\hyperlink{classVLReceiver_a0dc793325805e09a0baa610fca179618}{m\_recvState}});}
+\DoxyCodeLine{199     \mbox{\hyperlink{Log_8h_a8bdccae09f7cdda8fb311e0bd81c35dc}{DEBUG\_LOGF}}(\textcolor{stringliteral}{"{}Bad receive state: \%u"{}}, \mbox{\hyperlink{classVLReceiver_a0dc793325805e09a0baa610fca179618}{m\_recvState}});}
 \DoxyCodeLine{200     \textcolor{keywordflow}{break};}
 \DoxyCodeLine{201   \}}
 \DoxyCodeLine{202 \}}
@@ -340,21 +345,21 @@ Definition at line 164 of file V\+L\+Receiver.\+cpp.
 \end{DoxyCode}
 
 
-References D\+E\+B\+U\+G\+\_\+\+L\+O\+GF, m\+\_\+recv\+State, m\+\_\+vl\+Data, R\+E\+A\+D\+I\+N\+G\+\_\+\+D\+A\+T\+A\+\_\+\+M\+A\+RK, R\+E\+A\+D\+I\+N\+G\+\_\+\+D\+A\+T\+A\+\_\+\+S\+P\+A\+CE, reset\+V\+L\+State(), V\+L\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+M\+A\+R\+K\+\_\+\+M\+AX, V\+L\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+S\+P\+A\+C\+E\+\_\+\+M\+IN, V\+L\+\_\+\+T\+I\+M\+I\+NG, V\+L\+\_\+\+T\+I\+M\+I\+N\+G\+\_\+\+M\+IN, W\+A\+I\+T\+I\+N\+G\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+M\+A\+RK, W\+A\+I\+T\+I\+N\+G\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+S\+P\+A\+CE, and Bit\+Stream\+::write1\+Bit().
+References DEBUG\+\_\+\+LOGF, m\+\_\+recv\+State, m\+\_\+vl\+Data, READING\+\_\+\+DATA\+\_\+\+MARK, READING\+\_\+\+DATA\+\_\+\+SPACE, reset\+VLState(), VL\+\_\+\+HEADER\+\_\+\+MARK\+\_\+\+MAX, VL\+\_\+\+HEADER\+\_\+\+SPACE\+\_\+\+MIN, VL\+\_\+\+TIMING, VL\+\_\+\+TIMING\+\_\+\+MIN, WAITING\+\_\+\+HEADER\+\_\+\+MARK, WAITING\+\_\+\+HEADER\+\_\+\+SPACE, and Bit\+Stream\+::write1\+Bit().
 
 
 
-Referenced by recv\+P\+C\+I\+Handler(), and Vortex\+::\+V\+L\+Deliver().
+Referenced by recv\+PCIHandler(), and Vortex\+::\+VLDeliver().
 
 \mbox{\Hypertarget{classVLReceiver_a406cd003a5d26bfe07470261fdb022c1}\label{classVLReceiver_a406cd003a5d26bfe07470261fdb022c1}} 
 \index{VLReceiver@{VLReceiver}!init@{init}}
 \index{init@{init}!VLReceiver@{VLReceiver}}
 \doxysubsubsection{\texorpdfstring{init()}{init()}}
-{\footnotesize\ttfamily bool V\+L\+Receiver\+::init (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily bool VLReceiver\+::init (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
 
 
 
-Definition at line 29 of file V\+L\+Receiver.\+cpp.
+Definition at line 29 of file VLReceiver.\+cpp.
 
 
 \begin{DoxyCode}{0}
@@ -365,7 +370,7 @@ Definition at line 29 of file V\+L\+Receiver.\+cpp.
 \end{DoxyCode}
 
 
-References Bit\+Stream\+::init(), m\+\_\+vl\+Data, and V\+L\+\_\+\+R\+E\+C\+V\+\_\+\+B\+U\+F\+\_\+\+S\+I\+ZE.
+References Bit\+Stream\+::init(), m\+\_\+vl\+Data, and VL\+\_\+\+RECV\+\_\+\+BUF\+\_\+\+SIZE.
 
 
 
@@ -375,11 +380,11 @@ Referenced by Vortex\+Engine\+::init().
 \index{VLReceiver@{VLReceiver}!isReceiving@{isReceiving}}
 \index{isReceiving@{isReceiving}!VLReceiver@{VLReceiver}}
 \doxysubsubsection{\texorpdfstring{isReceiving()}{isReceiving()}}
-{\footnotesize\ttfamily bool V\+L\+Receiver\+::is\+Receiving (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily bool VLReceiver\+::is\+Receiving (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
 
 
 
-Definition at line 58 of file V\+L\+Receiver.\+cpp.
+Definition at line 58 of file VLReceiver.\+cpp.
 
 
 \begin{DoxyCode}{0}
@@ -404,11 +409,11 @@ Referenced by data\+Ready(), and percent\+Received().
 \index{VLReceiver@{VLReceiver}!onNewData@{onNewData}}
 \index{onNewData@{onNewData}!VLReceiver@{VLReceiver}}
 \doxysubsubsection{\texorpdfstring{onNewData()}{onNewData()}}
-{\footnotesize\ttfamily bool V\+L\+Receiver\+::on\+New\+Data (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily bool VLReceiver\+::on\+New\+Data (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
 
 
 
-Definition at line 106 of file V\+L\+Receiver.\+cpp.
+Definition at line 106 of file VLReceiver.\+cpp.
 
 
 \begin{DoxyCode}{0}
@@ -429,11 +434,11 @@ References bytes\+Received(), and m\+\_\+previous\+Bytes.
 \index{VLReceiver@{VLReceiver}!percentReceived@{percentReceived}}
 \index{percentReceived@{percentReceived}!VLReceiver@{VLReceiver}}
 \doxysubsubsection{\texorpdfstring{percentReceived()}{percentReceived()}}
-{\footnotesize\ttfamily uint8\+\_\+t V\+L\+Receiver\+::percent\+Received (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily uint8\+\_\+t VLReceiver\+::percent\+Received (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
 
 
 
-Definition at line 68 of file V\+L\+Receiver.\+cpp.
+Definition at line 68 of file VLReceiver.\+cpp.
 
 
 \begin{DoxyCode}{0}
@@ -457,17 +462,17 @@ References Bit\+Stream\+::bytepos(), Bit\+Stream\+::data(), is\+Receiving(), and
 \index{VLReceiver@{VLReceiver}!read@{read}}
 \index{read@{read}!VLReceiver@{VLReceiver}}
 \doxysubsubsection{\texorpdfstring{read()}{read()}}
-{\footnotesize\ttfamily bool V\+L\+Receiver\+::read (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classByteStream}{Byte\+Stream}} \&}]{data }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+{\footnotesize\ttfamily bool VLReceiver\+::read (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classByteStream}{Byte\+Stream}} \&}]{data }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
 
 
 
-Definition at line 115 of file V\+L\+Receiver.\+cpp.
+Definition at line 115 of file VLReceiver.\+cpp.
 
 
 \begin{DoxyCode}{0}
 \DoxyCodeLine{116 \{}
 \DoxyCodeLine{117   \textcolor{keywordflow}{if} (!\mbox{\hyperlink{classVLReceiver_aea204cc185c040057fbcd408d47a3121}{m\_vlData}}.\mbox{\hyperlink{classBitStream_a6e99106ef46e33b45c8bcd51c0384a3f}{bytepos}}() || \mbox{\hyperlink{classVLReceiver_aea204cc185c040057fbcd408d47a3121}{m\_vlData}}.\mbox{\hyperlink{classBitStream_a6e99106ef46e33b45c8bcd51c0384a3f}{bytepos}}() > \mbox{\hyperlink{VLConfig_8h_a5531f46c73b52342bc76a5423252c745}{VL\_MAX\_DATA\_TRANSFER}}) \{}
-\DoxyCodeLine{118     \mbox{\hyperlink{Log_8h_a5d2f30bd1cbcf49f829a7e8eb6173c06}{DEBUG\_LOG}}(\textcolor{stringliteral}{"Nothing to read, or read too much"});}
+\DoxyCodeLine{118     \mbox{\hyperlink{Log_8h_a5d2f30bd1cbcf49f829a7e8eb6173c06}{DEBUG\_LOG}}(\textcolor{stringliteral}{"{}Nothing to read, or read too much"{}});}
 \DoxyCodeLine{119     \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
 \DoxyCodeLine{120   \}}
 \DoxyCodeLine{121   \textcolor{comment}{// read the size out (blocks + remainder)}}
@@ -476,13 +481,13 @@ Definition at line 115 of file V\+L\+Receiver.\+cpp.
 \DoxyCodeLine{124   \textcolor{comment}{// calculate size from blocks + remainder}}
 \DoxyCodeLine{125   uint32\_t size = ((blocks -\/ 1) * 32) + remainder;}
 \DoxyCodeLine{126   \textcolor{keywordflow}{if} (!size || size > \mbox{\hyperlink{VLConfig_8h_a5531f46c73b52342bc76a5423252c745}{VL\_MAX\_DATA\_TRANSFER}}) \{}
-\DoxyCodeLine{127     \mbox{\hyperlink{Log_8h_a8bdccae09f7cdda8fb311e0bd81c35dc}{DEBUG\_LOGF}}(\textcolor{stringliteral}{"Bad VL Data size: \%u"}, size);}
+\DoxyCodeLine{127     \mbox{\hyperlink{Log_8h_a8bdccae09f7cdda8fb311e0bd81c35dc}{DEBUG\_LOGF}}(\textcolor{stringliteral}{"{}Bad VL Data size: \%u"{}}, size);}
 \DoxyCodeLine{128     \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
 \DoxyCodeLine{129   \}}
 \DoxyCodeLine{130   \textcolor{comment}{// the actual data starts 2 bytes later because of the size byte}}
 \DoxyCodeLine{131   \textcolor{keyword}{const} uint8\_t *actualData = \mbox{\hyperlink{classVLReceiver_aea204cc185c040057fbcd408d47a3121}{m\_vlData}}.\mbox{\hyperlink{classBitStream_a4be1b1c1cb2684d2997b1c8a6f0cd34d}{data}}() + 2;}
 \DoxyCodeLine{132   \textcolor{keywordflow}{if} (!data.\mbox{\hyperlink{classByteStream_a0f89f3776726a6b70248a901c029a305}{rawInit}}(actualData, size)) \{}
-\DoxyCodeLine{133     \mbox{\hyperlink{Log_8h_a5d2f30bd1cbcf49f829a7e8eb6173c06}{DEBUG\_LOG}}(\textcolor{stringliteral}{"Failed to init buffer for VL read"});}
+\DoxyCodeLine{133     \mbox{\hyperlink{Log_8h_a5d2f30bd1cbcf49f829a7e8eb6173c06}{DEBUG\_LOG}}(\textcolor{stringliteral}{"{}Failed to init buffer for VL read"{}});}
 \DoxyCodeLine{134     \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
 \DoxyCodeLine{135   \}}
 \DoxyCodeLine{136   \textcolor{comment}{// reset the VL state and receive buffer now}}
@@ -493,7 +498,7 @@ Definition at line 115 of file V\+L\+Receiver.\+cpp.
 \end{DoxyCode}
 
 
-References Bit\+Stream\+::bytepos(), Bit\+Stream\+::data(), D\+E\+B\+U\+G\+\_\+\+L\+OG, D\+E\+B\+U\+G\+\_\+\+L\+O\+GF, m\+\_\+vl\+Data, Byte\+Stream\+::raw\+Init(), reset\+V\+L\+State(), and V\+L\+\_\+\+M\+A\+X\+\_\+\+D\+A\+T\+A\+\_\+\+T\+R\+A\+N\+S\+F\+ER.
+References Bit\+Stream\+::bytepos(), Bit\+Stream\+::data(), DEBUG\+\_\+\+LOG, DEBUG\+\_\+\+LOGF, m\+\_\+vl\+Data, Byte\+Stream\+::raw\+Init(), reset\+VLState(), and VL\+\_\+\+MAX\+\_\+\+DATA\+\_\+\+TRANSFER.
 
 
 
@@ -503,11 +508,11 @@ Referenced by receive\+Mode().
 \index{VLReceiver@{VLReceiver}!receiveMode@{receiveMode}}
 \index{receiveMode@{receiveMode}!VLReceiver@{VLReceiver}}
 \doxysubsubsection{\texorpdfstring{receiveMode()}{receiveMode()}}
-{\footnotesize\ttfamily bool V\+L\+Receiver\+::receive\+Mode (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classMode}{Mode}} $\ast$}]{p\+Mode }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily bool VLReceiver\+::receive\+Mode (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classMode}{Mode}} $\ast$}]{p\+Mode }\end{DoxyParamCaption})}
 
 
 
-Definition at line 80 of file V\+L\+Receiver.\+cpp.
+Definition at line 80 of file VLReceiver.\+cpp.
 
 
 \begin{DoxyCode}{0}
@@ -516,10 +521,10 @@ Definition at line 80 of file V\+L\+Receiver.\+cpp.
 \DoxyCodeLine{83   \textcolor{comment}{// read from the receive buffer into the byte stream}}
 \DoxyCodeLine{84   \textcolor{keywordflow}{if} (!\mbox{\hyperlink{classVLReceiver_ab46186e351091b92acdfe8bae1503f68}{read}}(buf)) \{}
 \DoxyCodeLine{85     \textcolor{comment}{// no data to read right now, or an error}}
-\DoxyCodeLine{86     \mbox{\hyperlink{Log_8h_a5d2f30bd1cbcf49f829a7e8eb6173c06}{DEBUG\_LOG}}(\textcolor{stringliteral}{"No data available to read, or error reading"});}
+\DoxyCodeLine{86     \mbox{\hyperlink{Log_8h_a5d2f30bd1cbcf49f829a7e8eb6173c06}{DEBUG\_LOG}}(\textcolor{stringliteral}{"{}No data available to read, or error reading"{}});}
 \DoxyCodeLine{87     \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
 \DoxyCodeLine{88   \}}
-\DoxyCodeLine{89   \mbox{\hyperlink{Log_8h_a8bdccae09f7cdda8fb311e0bd81c35dc}{DEBUG\_LOGF}}(\textcolor{stringliteral}{"Received \%u bytes"}, buf.\mbox{\hyperlink{classByteStream_a755097adde5b21b33d3c4e3623d04f97}{rawSize}}());}
+\DoxyCodeLine{89   \mbox{\hyperlink{Log_8h_a8bdccae09f7cdda8fb311e0bd81c35dc}{DEBUG\_LOGF}}(\textcolor{stringliteral}{"{}Received \%u bytes"{}}, buf.\mbox{\hyperlink{classByteStream_a755097adde5b21b33d3c4e3623d04f97}{rawSize}}());}
 \DoxyCodeLine{90   \textcolor{comment}{// load the data into the target mode}}
 \DoxyCodeLine{91   \textcolor{keywordflow}{return} pMode-\/>\mbox{\hyperlink{classMode_a31ed6fbb39ca7876e415fc58bc18d630}{loadFromBuffer}}(buf);}
 \DoxyCodeLine{92 \}}
@@ -527,17 +532,17 @@ Definition at line 80 of file V\+L\+Receiver.\+cpp.
 \end{DoxyCode}
 
 
-References D\+E\+B\+U\+G\+\_\+\+L\+OG, D\+E\+B\+U\+G\+\_\+\+L\+O\+GF, Mode\+::load\+From\+Buffer(), Byte\+Stream\+::raw\+Size(), and read().
+References DEBUG\+\_\+\+LOG, DEBUG\+\_\+\+LOGF, Mode\+::load\+From\+Buffer(), Byte\+Stream\+::raw\+Size(), and read().
 
 \mbox{\Hypertarget{classVLReceiver_ada08a00c52a7d4aa531c332b358b386f}\label{classVLReceiver_ada08a00c52a7d4aa531c332b358b386f}} 
 \index{VLReceiver@{VLReceiver}!recvPCIHandler@{recvPCIHandler}}
 \index{recvPCIHandler@{recvPCIHandler}!VLReceiver@{VLReceiver}}
 \doxysubsubsection{\texorpdfstring{recvPCIHandler()}{recvPCIHandler()}}
-{\footnotesize\ttfamily void V\+L\+Receiver\+::recv\+P\+C\+I\+Handler (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily void VLReceiver\+::recv\+PCIHandler (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
 
 
 
-Definition at line 142 of file V\+L\+Receiver.\+cpp.
+Definition at line 142 of file VLReceiver.\+cpp.
 
 
 \begin{DoxyCode}{0}
@@ -549,7 +554,7 @@ Definition at line 142 of file V\+L\+Receiver.\+cpp.
 \DoxyCodeLine{148   \textcolor{comment}{// check previous time for validity}}
 \DoxyCodeLine{149   \textcolor{keywordflow}{if} (!\mbox{\hyperlink{classVLReceiver_a48be4a0ea04c428f7ddd0fa9723a7c35}{m\_prevTime}} || \mbox{\hyperlink{classVLReceiver_a48be4a0ea04c428f7ddd0fa9723a7c35}{m\_prevTime}} > now) \{}
 \DoxyCodeLine{150     \mbox{\hyperlink{classVLReceiver_a48be4a0ea04c428f7ddd0fa9723a7c35}{m\_prevTime}} = now;}
-\DoxyCodeLine{151     \mbox{\hyperlink{Log_8h_a5d2f30bd1cbcf49f829a7e8eb6173c06}{DEBUG\_LOG}}(\textcolor{stringliteral}{"Bad first time diff, resetting..."});}
+\DoxyCodeLine{151     \mbox{\hyperlink{Log_8h_a5d2f30bd1cbcf49f829a7e8eb6173c06}{DEBUG\_LOG}}(\textcolor{stringliteral}{"{}Bad first time diff, resetting..."{}});}
 \DoxyCodeLine{152     \mbox{\hyperlink{classVLReceiver_a9d711ae64327b2b26c168478f92231b1}{resetVLState}}();}
 \DoxyCodeLine{153     \textcolor{keywordflow}{return};}
 \DoxyCodeLine{154   \}}
@@ -564,17 +569,17 @@ Definition at line 142 of file V\+L\+Receiver.\+cpp.
 \end{DoxyCode}
 
 
-References D\+E\+B\+U\+G\+\_\+\+L\+OG, handle\+V\+L\+Timing(), m\+\_\+engine, m\+\_\+pin\+State, m\+\_\+prev\+Time, Time\+::microseconds(), reset\+V\+L\+State(), and Vortex\+Engine\+::time().
+References DEBUG\+\_\+\+LOG, handle\+VLTiming(), m\+\_\+engine, m\+\_\+pin\+State, m\+\_\+prev\+Time, Time\+::microseconds(), reset\+VLState(), and Vortex\+Engine\+::time().
 
 \mbox{\Hypertarget{classVLReceiver_a9d711ae64327b2b26c168478f92231b1}\label{classVLReceiver_a9d711ae64327b2b26c168478f92231b1}} 
 \index{VLReceiver@{VLReceiver}!resetVLState@{resetVLState}}
 \index{resetVLState@{resetVLState}!VLReceiver@{VLReceiver}}
 \doxysubsubsection{\texorpdfstring{resetVLState()}{resetVLState()}}
-{\footnotesize\ttfamily void V\+L\+Receiver\+::reset\+V\+L\+State (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily void VLReceiver\+::reset\+VLState (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
 
 
 
-Definition at line 204 of file V\+L\+Receiver.\+cpp.
+Definition at line 204 of file VLReceiver.\+cpp.
 
 
 \begin{DoxyCode}{0}
@@ -583,17 +588,17 @@ Definition at line 204 of file V\+L\+Receiver.\+cpp.
 \DoxyCodeLine{207   \mbox{\hyperlink{classVLReceiver_a0dc793325805e09a0baa610fca179618}{m\_recvState}} = \mbox{\hyperlink{classVLReceiver_aa4e2da364b508e8f469d28e0eaf3a6f8a47c2b836e3c6a3cd2b63e572fcaaa434}{WAITING\_HEADER\_MARK}};}
 \DoxyCodeLine{208   \textcolor{comment}{// zero out the receive buffer and reset bit receiver position}}
 \DoxyCodeLine{209   \mbox{\hyperlink{classVLReceiver_aea204cc185c040057fbcd408d47a3121}{m\_vlData}}.\mbox{\hyperlink{classBitStream_acbce456dc347c721637941fe47f5a43b}{reset}}();}
-\DoxyCodeLine{210   \mbox{\hyperlink{Log_8h_a5d2f30bd1cbcf49f829a7e8eb6173c06}{DEBUG\_LOG}}(\textcolor{stringliteral}{"VL State Reset"});}
+\DoxyCodeLine{210   \mbox{\hyperlink{Log_8h_a5d2f30bd1cbcf49f829a7e8eb6173c06}{DEBUG\_LOG}}(\textcolor{stringliteral}{"{}VL State Reset"{}});}
 \DoxyCodeLine{211 \}}
 
 \end{DoxyCode}
 
 
-References D\+E\+B\+U\+G\+\_\+\+L\+OG, m\+\_\+previous\+Bytes, m\+\_\+recv\+State, m\+\_\+vl\+Data, Bit\+Stream\+::reset(), and W\+A\+I\+T\+I\+N\+G\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+M\+A\+RK.
+References DEBUG\+\_\+\+LOG, m\+\_\+previous\+Bytes, m\+\_\+recv\+State, m\+\_\+vl\+Data, Bit\+Stream\+::reset(), and WAITING\+\_\+\+HEADER\+\_\+\+MARK.
 
 
 
-Referenced by begin\+Receiving(), end\+Receiving(), handle\+V\+L\+Timing(), read(), and recv\+P\+C\+I\+Handler().
+Referenced by begin\+Receiving(), end\+Receiving(), handle\+VLTiming(), read(), and recv\+PCIHandler().
 
 
 
@@ -602,89 +607,89 @@ Referenced by begin\+Receiving(), end\+Receiving(), handle\+V\+L\+Timing(), read
 \index{VLReceiver@{VLReceiver}!m\_engine@{m\_engine}}
 \index{m\_engine@{m\_engine}!VLReceiver@{VLReceiver}}
 \doxysubsubsection{\texorpdfstring{m\_engine}{m\_engine}}
-{\footnotesize\ttfamily \mbox{\hyperlink{classVortexEngine}{Vortex\+Engine}}\& V\+L\+Receiver\+::m\+\_\+engine\hspace{0.3cm}{\ttfamily [private]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classVortexEngine}{Vortex\+Engine}}\& VLReceiver\+::m\+\_\+engine\hspace{0.3cm}{\ttfamily [private]}}
 
 
 
-Definition at line 58 of file V\+L\+Receiver.\+h.
+Definition at line 58 of file VLReceiver.\+h.
 
 
 
-Referenced by recv\+P\+C\+I\+Handler().
+Referenced by recv\+PCIHandler().
 
 \mbox{\Hypertarget{classVLReceiver_aa56911b2c08cbff0a1d5e2685d7506f9}\label{classVLReceiver_aa56911b2c08cbff0a1d5e2685d7506f9}} 
 \index{VLReceiver@{VLReceiver}!m\_pinState@{m\_pinState}}
 \index{m\_pinState@{m\_pinState}!VLReceiver@{VLReceiver}}
 \doxysubsubsection{\texorpdfstring{m\_pinState}{m\_pinState}}
-{\footnotesize\ttfamily uint8\+\_\+t V\+L\+Receiver\+::m\+\_\+pin\+State\hspace{0.3cm}{\ttfamily [private]}}
+{\footnotesize\ttfamily uint8\+\_\+t VLReceiver\+::m\+\_\+pin\+State\hspace{0.3cm}{\ttfamily [private]}}
 
 
 
-Definition at line 76 of file V\+L\+Receiver.\+h.
+Definition at line 76 of file VLReceiver.\+h.
 
 
 
-Referenced by recv\+P\+C\+I\+Handler().
+Referenced by recv\+PCIHandler().
 
 \mbox{\Hypertarget{classVLReceiver_a21679e3a4a6e2de40c74804a46572bfd}\label{classVLReceiver_a21679e3a4a6e2de40c74804a46572bfd}} 
 \index{VLReceiver@{VLReceiver}!m\_previousBytes@{m\_previousBytes}}
 \index{m\_previousBytes@{m\_previousBytes}!VLReceiver@{VLReceiver}}
 \doxysubsubsection{\texorpdfstring{m\_previousBytes}{m\_previousBytes}}
-{\footnotesize\ttfamily uint32\+\_\+t V\+L\+Receiver\+::m\+\_\+previous\+Bytes\hspace{0.3cm}{\ttfamily [private]}}
+{\footnotesize\ttfamily uint32\+\_\+t VLReceiver\+::m\+\_\+previous\+Bytes\hspace{0.3cm}{\ttfamily [private]}}
 
 
 
-Definition at line 79 of file V\+L\+Receiver.\+h.
+Definition at line 79 of file VLReceiver.\+h.
 
 
 
-Referenced by on\+New\+Data(), and reset\+V\+L\+State().
+Referenced by on\+New\+Data(), and reset\+VLState().
 
 \mbox{\Hypertarget{classVLReceiver_a48be4a0ea04c428f7ddd0fa9723a7c35}\label{classVLReceiver_a48be4a0ea04c428f7ddd0fa9723a7c35}} 
 \index{VLReceiver@{VLReceiver}!m\_prevTime@{m\_prevTime}}
 \index{m\_prevTime@{m\_prevTime}!VLReceiver@{VLReceiver}}
 \doxysubsubsection{\texorpdfstring{m\_prevTime}{m\_prevTime}}
-{\footnotesize\ttfamily uint32\+\_\+t V\+L\+Receiver\+::m\+\_\+prev\+Time\hspace{0.3cm}{\ttfamily [private]}}
+{\footnotesize\ttfamily uint32\+\_\+t VLReceiver\+::m\+\_\+prev\+Time\hspace{0.3cm}{\ttfamily [private]}}
 
 
 
-Definition at line 75 of file V\+L\+Receiver.\+h.
+Definition at line 75 of file VLReceiver.\+h.
 
 
 
-Referenced by recv\+P\+C\+I\+Handler().
+Referenced by recv\+PCIHandler().
 
 \mbox{\Hypertarget{classVLReceiver_a0dc793325805e09a0baa610fca179618}\label{classVLReceiver_a0dc793325805e09a0baa610fca179618}} 
 \index{VLReceiver@{VLReceiver}!m\_recvState@{m\_recvState}}
 \index{m\_recvState@{m\_recvState}!VLReceiver@{VLReceiver}}
 \doxysubsubsection{\texorpdfstring{m\_recvState}{m\_recvState}}
-{\footnotesize\ttfamily \mbox{\hyperlink{classVLReceiver_aa4e2da364b508e8f469d28e0eaf3a6f8}{Recv\+State}} V\+L\+Receiver\+::m\+\_\+recv\+State\hspace{0.3cm}{\ttfamily [private]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classVLReceiver_aa4e2da364b508e8f469d28e0eaf3a6f8}{Recv\+State}} VLReceiver\+::m\+\_\+recv\+State\hspace{0.3cm}{\ttfamily [private]}}
 
 
 
-Definition at line 73 of file V\+L\+Receiver.\+h.
+Definition at line 73 of file VLReceiver.\+h.
 
 
 
-Referenced by handle\+V\+L\+Timing(), and reset\+V\+L\+State().
+Referenced by handle\+VLTiming(), and reset\+VLState().
 
 \mbox{\Hypertarget{classVLReceiver_aea204cc185c040057fbcd408d47a3121}\label{classVLReceiver_aea204cc185c040057fbcd408d47a3121}} 
 \index{VLReceiver@{VLReceiver}!m\_vlData@{m\_vlData}}
 \index{m\_vlData@{m\_vlData}!VLReceiver@{VLReceiver}}
 \doxysubsubsection{\texorpdfstring{m\_vlData}{m\_vlData}}
-{\footnotesize\ttfamily \mbox{\hyperlink{classBitStream}{Bit\+Stream}} V\+L\+Receiver\+::m\+\_\+vl\+Data\hspace{0.3cm}{\ttfamily [private]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classBitStream}{Bit\+Stream}} VLReceiver\+::m\+\_\+vl\+Data\hspace{0.3cm}{\ttfamily [private]}}
 
 
 
-Definition at line 61 of file V\+L\+Receiver.\+h.
+Definition at line 61 of file VLReceiver.\+h.
 
 
 
-Referenced by bytes\+Received(), data\+Ready(), handle\+V\+L\+Timing(), init(), is\+Receiving(), percent\+Received(), read(), and reset\+V\+L\+State().
+Referenced by bytes\+Received(), data\+Ready(), handle\+VLTiming(), init(), is\+Receiving(), percent\+Received(), read(), and reset\+VLState().
 
 
 
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 
-Vortex\+Engine/src/\+Wireless/\mbox{\hyperlink{VLReceiver_8h}{V\+L\+Receiver.\+h}}\item 
-Vortex\+Engine/src/\+Wireless/\mbox{\hyperlink{VLReceiver_8cpp}{V\+L\+Receiver.\+cpp}}\end{DoxyCompactItemize}
+Vortex\+Engine/src/\+Wireless/\mbox{\hyperlink{VLReceiver_8h}{VLReceiver.\+h}}\item 
+Vortex\+Engine/src/\+Wireless/\mbox{\hyperlink{VLReceiver_8cpp}{VLReceiver.\+cpp}}\end{DoxyCompactItemize}

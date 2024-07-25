@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['quadrant_2719',['Quadrant',['../LedTypes_8h.html#ac3213859704678ff234b435c290cd9ed',1,'LedTypes.h']]]
+  ['outputtype_3096',['OutputType',['../classVortexCLI.html#a372fba86705e5b895eb79178b10e9675',1,'VortexCLI']]]
 ];
