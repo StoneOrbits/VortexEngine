@@ -1,63 +1,78 @@
-name: Build and Deploy Documentation
+name: Build and Deploy Jekyll and Doxygen Documentation
 
 on:
+  # Trigger the workflow on pushes to the 'gh-pages' branch and allow manual dispatch
   push:
     branches:
       - gh-pages
   workflow_dispatch:
 
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
 jobs:
-  build-and-deploy:
+  build:
     runs-on: ubuntu-latest
-
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v3
+      - name: Checkout
+        uses: actions/checkout@v4
 
-    - name: Set up Ruby for Jekyll
-      uses: ruby/setup-ruby@v1
-      with:
-        ruby-version: 3.0
+      # Set up Ruby and install Jekyll dependencies
+      - name: Set up Ruby for Jekyll
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.1' # Use a suitable Ruby version
 
-    - name: Install Jekyll and Bundler
-      run: |
-        cd docs # Navigate to the directory containing the Gemfile
-        bundle install
+      - name: Install Jekyll and Bundler
+        run: |
+          cd docs
+          bundle install
 
-    - name: Build Jekyll site
-      run: |
-        cd docs # Ensure we're in the right directory
-        bundle exec jekyll build --destination ../site/main
+      - name: Build Jekyll Site
+        run: |
+          cd docs
+          bundle exec jekyll build --destination ../_site/main
 
-    - name: Install Doxygen
-      run: sudo apt-get install doxygen -y
+      # Install and run Doxygen to generate documentation
+      - name: Install Doxygen
+        run: sudo apt-get install doxygen -y
 
-    - name: Generate Doxygen docs for core and devices
-      run: |
-        branches=("master" "orbit" "handle" "gloves" "desktop" "duo" "chromadeck" "spark")
-        for branch in "${branches[@]}"
-        do
-          if [ "$branch" == "master" ]; then
-            folder_name="core"
-          else
-            folder_name=$branch
-          fi
-          git fetch origin $branch:$branch
-          git checkout $branch
-          doxygen Doxyfile
-          mkdir -p site/$folder_name
-          mv html/* site/$folder_name
-        done
+      - name: Generate Doxygen Documentation
+        run: |
+          branches=("master" "orbit" "handle" "gloves" "desktop" "duo" "chromadeck" "spark")
+          for branch in "${branches[@]}"
+          do
+            if [ "$branch" == "master" ]; then
+              folder_name="core"
+            else
+              folder_name=$branch
+            fi
+            git fetch origin $branch:$branch
+            git checkout $branch
+            doxygen Doxyfile
+            mkdir -p ../_site/$folder_name
+            mv html/* ../_site/$folder_name
+          done
 
-    - name: Upload site artifacts
-      uses: actions/upload-artifact@v3
-      with:
-        name: documentation
-        path: ./site
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ../_site # Path to the generated site directory
 
-    - name: Deploy to GitHub Pages
-      uses: peaceiris/actions-gh-pages@v3
-      with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
-        publish_dir: ./site
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
 
