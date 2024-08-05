@@ -60,12 +60,16 @@ jobs:
             dest="${dest:-$branch}"
 
             # Checkout each branch and generate documentation
+            echo "Checking out branch: $branch"
             git checkout $branch
-            doxygen Doxyfile
+
+            echo "Running Doxygen for branch: $branch"
+            doxygen Doxyfile || { echo "Doxygen failed for branch: $branch"; exit 1; }
 
             # Move generated files to the correct directory
+            echo "Moving documentation for $branch to docs/$dest"
             mkdir -p docs/$dest
-            mv -v docs/* docs/$dest/
+            mv -v docs/* docs/$dest/ || { echo "Move failed for branch: $branch"; exit 1; }
 
             # Clean up to prepare for the next branch
             rm -rf docs/*
