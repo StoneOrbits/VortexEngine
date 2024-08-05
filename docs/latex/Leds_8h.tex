@@ -1,0 +1,615 @@
+\hypertarget{Leds_8h}{}\doxysection{Vortex\+Engine/src/\+Leds/\+Leds.h File Reference}
+\label{Leds_8h}\index{VortexEngine/src/Leds/Leds.h@{VortexEngine/src/Leds/Leds.h}}
+{\ttfamily \#include $<$inttypes.\+h$>$}\newline
+{\ttfamily \#include \char`\"{}../\+Colors/\+Color\+Types.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}../\+Vortex\+Config.\+h\char`\"{}}\newline
+{\ttfamily \#include $<$vector$>$}\newline
+Include dependency graph for Leds.\+h\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{Leds_8h__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{Leds_8h__dep__incl}
+\end{center}
+\end{figure}
+\doxysubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{classLeds}{Leds}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{Leds_8h_ad698e2cb680601529f08c3e5f2b0cebb}{LED\+\_\+\+COUNT}}~m\+\_\+engine.\+leds().led\+Count()
+\item 
+\#define \mbox{\hyperlink{Leds_8h_a3a764ec414513c17ab2a93e18ffb0e91}{LED\+\_\+\+LAST}}~m\+\_\+engine.\+leds().led\+Last()
+\item 
+\#define \mbox{\hyperlink{Leds_8h_ab7100c807e8c6a90956cf37e07d1ffc8}{LED\+\_\+\+ALL}}~\mbox{\hyperlink{Leds_8h_ad698e2cb680601529f08c3e5f2b0cebb}{LED\+\_\+\+COUNT}}
+\item 
+\#define \mbox{\hyperlink{Leds_8h_aa90d79e6c4a68055c827d212d85e499e}{LED\+\_\+\+MULTI}}~m\+\_\+engine.\+leds().led\+Multi()
+\item 
+\#define \mbox{\hyperlink{Leds_8h_ab8d074f132a52158090b1ef26bbfb7ac}{LED\+\_\+\+ALL\+\_\+\+SINGLE}}~m\+\_\+engine.\+leds().led\+All\+Single()
+\item 
+\#define \mbox{\hyperlink{Leds_8h_a79ad4bd201e9757299e3f4383a5284e3}{LED\+\_\+\+ANY}}~m\+\_\+engine.\+leds().led\+Any()
+\item 
+\#define \mbox{\hyperlink{Leds_8h_a57fca593725687711397bdae844376dc}{is\+Even}}(pos)~((pos \% 2) == 0)
+\item 
+\#define \mbox{\hyperlink{Leds_8h_a2f07a4239fa9d919ab4213ec0caa9309}{is\+Odd}}(pos)~((pos \% 2) != 0)
+\item 
+\#define \mbox{\hyperlink{Leds_8h_a6a666bad9e79be692de8c77b511cabf0}{pair\+Even}}(pair)~(\mbox{\hyperlink{Leds_8h_a00ce38c4c9420e2c98e2e8e577173feb}{Led\+Pos}})((uint32\+\_\+t)pair $\ast$ 2)
+\item 
+\#define \mbox{\hyperlink{Leds_8h_aa01e8c3bbb787ec33fdbd2ee3a339b8c}{pair\+Odd}}(pair)~(\mbox{\hyperlink{Leds_8h_a00ce38c4c9420e2c98e2e8e577173feb}{Led\+Pos}})(((uint32\+\_\+t)pair $\ast$ 2) + 1)
+\item 
+\#define \mbox{\hyperlink{Leds_8h_a3fa3f79ccff66d660d1468f23bde6e31}{led\+To\+Pair}}(pos)~(\mbox{\hyperlink{Leds_8h_a10ceba7a64c043889e3e47563c3f0a34}{Pair}})((uint32\+\_\+t)pos / 2)
+\item 
+\#define \mbox{\hyperlink{Leds_8h_ae3e48bdbee97fcc922ac8a9f4c8cf8fa}{MAP\+\_\+\+LED}}(led)~(\mbox{\hyperlink{Leds_8h_adedc81525af6b15084e05deff607a32d}{Led\+Map}})((uint64\+\_\+t)1 $<$$<$ led)
+\item 
+\#define \mbox{\hyperlink{Leds_8h_adb7d91f99bcd8ff0919328192ba2b88e}{MAP\+\_\+\+PAIR\+\_\+\+EVEN}}(pair)~\mbox{\hyperlink{Leds_8h_ae3e48bdbee97fcc922ac8a9f4c8cf8fa}{MAP\+\_\+\+LED}}(\mbox{\hyperlink{Leds_8h_a6a666bad9e79be692de8c77b511cabf0}{pair\+Even}}(pair))
+\item 
+\#define \mbox{\hyperlink{Leds_8h_a7f70eafb4656543bb0867c0aa62fdf50}{MAP\+\_\+\+PAIR\+\_\+\+ODD}}(pair)~\mbox{\hyperlink{Leds_8h_ae3e48bdbee97fcc922ac8a9f4c8cf8fa}{MAP\+\_\+\+LED}}(\mbox{\hyperlink{Leds_8h_aa01e8c3bbb787ec33fdbd2ee3a339b8c}{pair\+Odd}}(pair))
+\item 
+\#define \mbox{\hyperlink{Leds_8h_a85801b3eb052b3e157c16a162e01974b}{MAP\+\_\+\+PAIR}}(pair)~(\mbox{\hyperlink{Leds_8h_adb7d91f99bcd8ff0919328192ba2b88e}{MAP\+\_\+\+PAIR\+\_\+\+EVEN}}(pair) $\vert$ \mbox{\hyperlink{Leds_8h_a7f70eafb4656543bb0867c0aa62fdf50}{MAP\+\_\+\+PAIR\+\_\+\+ODD}}(pair))
+\item 
+\#define \mbox{\hyperlink{Leds_8h_a7942bcfeb3920e179590b97a56ccfede}{MAP\+\_\+\+IS\+\_\+\+ONE\+\_\+\+LED}}(map)~(map \&\& !(map \& (map-\/1)))
+\item 
+\#define \mbox{\hyperlink{Leds_8h_a6c29165d5a422a63ed2ba45c01fc5d3b}{MAP\+\_\+\+FOREACH\+\_\+\+LED}}(map)~for (\mbox{\hyperlink{Leds_8h_a00ce38c4c9420e2c98e2e8e577173feb}{Led\+Pos}} pos = m\+\_\+engine.\+leds().ledmap\+Get\+First\+Led(map); pos $<$ \mbox{\hyperlink{Leds_8h_ad698e2cb680601529f08c3e5f2b0cebb}{LED\+\_\+\+COUNT}}; pos = m\+\_\+engine.\+leds().ledmap\+Get\+Next\+Led(map, pos))
+\item 
+\#define \mbox{\hyperlink{Leds_8h_ac9a910b2dc4fabac704e56a0fcb3b97e}{MAP\+\_\+\+LED\+\_\+\+ALL}}~(\mbox{\hyperlink{Leds_8h_adedc81525af6b15084e05deff607a32d}{Led\+Map}})((2 $<$$<$ (\mbox{\hyperlink{Leds_8h_ad698e2cb680601529f08c3e5f2b0cebb}{LED\+\_\+\+COUNT}} -\/ 1)) -\/ 1)
+\item 
+\#define \mbox{\hyperlink{Leds_8h_a94213d8b137bd7967cf16080b83b8ad3}{MAP\+\_\+\+LED\+\_\+\+NONE}}~0
+\item 
+\#define \mbox{\hyperlink{Leds_8h_a4d4caefc71e5ff4ced3458ef38544c72}{MAP\+\_\+\+INVERSE}}(map)~(($\sim$map) \& \mbox{\hyperlink{Leds_8h_ac9a910b2dc4fabac704e56a0fcb3b97e}{MAP\+\_\+\+LED\+\_\+\+ALL}})
+\item 
+\#define \mbox{\hyperlink{Leds_8h_af0944397d861e0f312c92d14715b7870}{MAP\+\_\+\+PAIR\+\_\+\+EVENS}}~(((1 $<$$<$ \mbox{\hyperlink{Leds_8h_ad698e2cb680601529f08c3e5f2b0cebb}{LED\+\_\+\+COUNT}}) -\/ 1) \& 0x55555555)
+\item 
+\#define \mbox{\hyperlink{Leds_8h_ab7e65bc3797cca255c8b007ee294653b}{MAP\+\_\+\+PAIR\+\_\+\+ODDS}}~(((1 $<$$<$ \mbox{\hyperlink{Leds_8h_ad698e2cb680601529f08c3e5f2b0cebb}{LED\+\_\+\+COUNT}}) -\/ 1) \& 0x\+AAAAAAAA)
+\item 
+\#define \mbox{\hyperlink{Leds_8h_abc4f1bf166ac82c78c6be1ccaca92d00}{MAP\+\_\+\+PAIR\+\_\+\+ODD\+\_\+\+EVENS}}~(\mbox{\hyperlink{Leds_8h_adb7d91f99bcd8ff0919328192ba2b88e}{MAP\+\_\+\+PAIR\+\_\+\+EVEN}}(\mbox{\hyperlink{Leds_8h_a82fca8a1d6ecc8b367df6a143b4d596d}{PAIR\+\_\+0}}) $\vert$ \mbox{\hyperlink{Leds_8h_adb7d91f99bcd8ff0919328192ba2b88e}{MAP\+\_\+\+PAIR\+\_\+\+EVEN}}(\mbox{\hyperlink{Leds_8h_adba1564223ac327c40a9d8f79670c557}{PAIR\+\_\+2}}) $\vert$ \mbox{\hyperlink{Leds_8h_adb7d91f99bcd8ff0919328192ba2b88e}{MAP\+\_\+\+PAIR\+\_\+\+EVEN}}(\mbox{\hyperlink{Leds_8h_a7f8612ea4739e0d1ecde2baae9ed7bf1}{PAIR\+\_\+4}}))
+\item 
+\#define \mbox{\hyperlink{Leds_8h_aeedfd1e5cf97bb760b233ba0b0067973}{MAP\+\_\+\+PAIR\+\_\+\+ODD\+\_\+\+ODDS}}~(\mbox{\hyperlink{Leds_8h_a7f70eafb4656543bb0867c0aa62fdf50}{MAP\+\_\+\+PAIR\+\_\+\+ODD}}(\mbox{\hyperlink{Leds_8h_a82fca8a1d6ecc8b367df6a143b4d596d}{PAIR\+\_\+0}}) $\vert$ \mbox{\hyperlink{Leds_8h_a7f70eafb4656543bb0867c0aa62fdf50}{MAP\+\_\+\+PAIR\+\_\+\+ODD}}(\mbox{\hyperlink{Leds_8h_adba1564223ac327c40a9d8f79670c557}{PAIR\+\_\+2}}) $\vert$ \mbox{\hyperlink{Leds_8h_a7f70eafb4656543bb0867c0aa62fdf50}{MAP\+\_\+\+PAIR\+\_\+\+ODD}}(\mbox{\hyperlink{Leds_8h_a7f8612ea4739e0d1ecde2baae9ed7bf1}{PAIR\+\_\+4}}))
+\item 
+\#define \mbox{\hyperlink{Leds_8h_a3d0075abab09cdd6469009802d38a44f}{MAP\+\_\+\+PAIR\+\_\+\+EVEN\+\_\+\+EVENS}}~(\mbox{\hyperlink{Leds_8h_adb7d91f99bcd8ff0919328192ba2b88e}{MAP\+\_\+\+PAIR\+\_\+\+EVEN}}(\mbox{\hyperlink{Leds_8h_afde1eb23a95dc1902415abf5cdf1b091}{PAIR\+\_\+3}}) $\vert$ \mbox{\hyperlink{Leds_8h_adb7d91f99bcd8ff0919328192ba2b88e}{MAP\+\_\+\+PAIR\+\_\+\+EVEN}}(\mbox{\hyperlink{Leds_8h_a4dc38227f17af0e4f7f6a700b777f83c}{PAIR\+\_\+1}}))
+\item 
+\#define \mbox{\hyperlink{Leds_8h_a6f488a9c3091d9eb33070d9e10571c34}{MAP\+\_\+\+PAIR\+\_\+\+EVEN\+\_\+\+ODDS}}~(\mbox{\hyperlink{Leds_8h_a7f70eafb4656543bb0867c0aa62fdf50}{MAP\+\_\+\+PAIR\+\_\+\+ODD}}(\mbox{\hyperlink{Leds_8h_afde1eb23a95dc1902415abf5cdf1b091}{PAIR\+\_\+3}}) $\vert$ \mbox{\hyperlink{Leds_8h_a7f70eafb4656543bb0867c0aa62fdf50}{MAP\+\_\+\+PAIR\+\_\+\+ODD}}(\mbox{\hyperlink{Leds_8h_a4dc38227f17af0e4f7f6a700b777f83c}{PAIR\+\_\+1}}))
+\item 
+\#define \mbox{\hyperlink{Leds_8h_a5504983bb4926facfaf0307b99425819}{LED\+\_\+\+FIRST}}~(\mbox{\hyperlink{Leds_8h_a00ce38c4c9420e2c98e2e8e577173feb}{Led\+Pos}})0
+\item 
+\#define \mbox{\hyperlink{Leds_8h_aa94efefdb04d44c846c163f108d52ae9}{LED\+\_\+0}}~(\mbox{\hyperlink{Leds_8h_a00ce38c4c9420e2c98e2e8e577173feb}{Led\+Pos}})(\mbox{\hyperlink{Leds_8h_a5504983bb4926facfaf0307b99425819}{LED\+\_\+\+FIRST}} + 0)
+\item 
+\#define \mbox{\hyperlink{Leds_8h_aaf81f5fa7d1e779f83e9bf4ce631a7b6}{LED\+\_\+1}}~(\mbox{\hyperlink{Leds_8h_a00ce38c4c9420e2c98e2e8e577173feb}{Led\+Pos}})(\mbox{\hyperlink{Leds_8h_a5504983bb4926facfaf0307b99425819}{LED\+\_\+\+FIRST}} + 1)
+\item 
+\#define \mbox{\hyperlink{Leds_8h_ae60a8c1e03b38463f77d556a4a0a8a3b}{LED\+\_\+2}}~(\mbox{\hyperlink{Leds_8h_a00ce38c4c9420e2c98e2e8e577173feb}{Led\+Pos}})(\mbox{\hyperlink{Leds_8h_a5504983bb4926facfaf0307b99425819}{LED\+\_\+\+FIRST}} + 2)
+\item 
+\#define \mbox{\hyperlink{Leds_8h_a07b3fb51ae7c3cc824dd714b46c1b2b6}{LED\+\_\+3}}~(\mbox{\hyperlink{Leds_8h_a00ce38c4c9420e2c98e2e8e577173feb}{Led\+Pos}})(\mbox{\hyperlink{Leds_8h_a5504983bb4926facfaf0307b99425819}{LED\+\_\+\+FIRST}} + 3)
+\item 
+\#define \mbox{\hyperlink{Leds_8h_aec84038372d7a55c8b358398978e1dac}{LED\+\_\+4}}~(\mbox{\hyperlink{Leds_8h_a00ce38c4c9420e2c98e2e8e577173feb}{Led\+Pos}})(\mbox{\hyperlink{Leds_8h_a5504983bb4926facfaf0307b99425819}{LED\+\_\+\+FIRST}} + 4)
+\item 
+\#define \mbox{\hyperlink{Leds_8h_ab0e84d3f877a513d7171cc3f702efb20}{LED\+\_\+5}}~(\mbox{\hyperlink{Leds_8h_a00ce38c4c9420e2c98e2e8e577173feb}{Led\+Pos}})(\mbox{\hyperlink{Leds_8h_a5504983bb4926facfaf0307b99425819}{LED\+\_\+\+FIRST}} + 5)
+\item 
+\#define \mbox{\hyperlink{Leds_8h_a0bd7b910e8f1012cb068030c94529920}{LED\+\_\+6}}~(\mbox{\hyperlink{Leds_8h_a00ce38c4c9420e2c98e2e8e577173feb}{Led\+Pos}})(\mbox{\hyperlink{Leds_8h_a5504983bb4926facfaf0307b99425819}{LED\+\_\+\+FIRST}} + 6)
+\item 
+\#define \mbox{\hyperlink{Leds_8h_a07b32196a3e1b6673d88d812833d4077}{LED\+\_\+7}}~(\mbox{\hyperlink{Leds_8h_a00ce38c4c9420e2c98e2e8e577173feb}{Led\+Pos}})(\mbox{\hyperlink{Leds_8h_a5504983bb4926facfaf0307b99425819}{LED\+\_\+\+FIRST}} + 7)
+\item 
+\#define \mbox{\hyperlink{Leds_8h_a963240ad9010938fd985ae74b2d40d72}{LED\+\_\+8}}~(\mbox{\hyperlink{Leds_8h_a00ce38c4c9420e2c98e2e8e577173feb}{Led\+Pos}})(\mbox{\hyperlink{Leds_8h_a5504983bb4926facfaf0307b99425819}{LED\+\_\+\+FIRST}} + 8)
+\item 
+\#define \mbox{\hyperlink{Leds_8h_a1db4627cb22c101239d2af973b97ea81}{LED\+\_\+9}}~(\mbox{\hyperlink{Leds_8h_a00ce38c4c9420e2c98e2e8e577173feb}{Led\+Pos}})(\mbox{\hyperlink{Leds_8h_a5504983bb4926facfaf0307b99425819}{LED\+\_\+\+FIRST}} + 9)
+\item 
+\#define \mbox{\hyperlink{Leds_8h_a8e99281fec9a4784013854913ac4b53d}{PAIR\+\_\+\+FIRST}}~(\mbox{\hyperlink{Leds_8h_a10ceba7a64c043889e3e47563c3f0a34}{Pair}})0
+\item 
+\#define \mbox{\hyperlink{Leds_8h_a82fca8a1d6ecc8b367df6a143b4d596d}{PAIR\+\_\+0}}~(\mbox{\hyperlink{Leds_8h_a10ceba7a64c043889e3e47563c3f0a34}{Pair}})(\mbox{\hyperlink{Leds_8h_a8e99281fec9a4784013854913ac4b53d}{PAIR\+\_\+\+FIRST}} + 0)
+\item 
+\#define \mbox{\hyperlink{Leds_8h_a4dc38227f17af0e4f7f6a700b777f83c}{PAIR\+\_\+1}}~(\mbox{\hyperlink{Leds_8h_a10ceba7a64c043889e3e47563c3f0a34}{Pair}})(\mbox{\hyperlink{Leds_8h_a8e99281fec9a4784013854913ac4b53d}{PAIR\+\_\+\+FIRST}} + 1)
+\item 
+\#define \mbox{\hyperlink{Leds_8h_adba1564223ac327c40a9d8f79670c557}{PAIR\+\_\+2}}~(\mbox{\hyperlink{Leds_8h_a10ceba7a64c043889e3e47563c3f0a34}{Pair}})(\mbox{\hyperlink{Leds_8h_a8e99281fec9a4784013854913ac4b53d}{PAIR\+\_\+\+FIRST}} + 2)
+\item 
+\#define \mbox{\hyperlink{Leds_8h_afde1eb23a95dc1902415abf5cdf1b091}{PAIR\+\_\+3}}~(\mbox{\hyperlink{Leds_8h_a10ceba7a64c043889e3e47563c3f0a34}{Pair}})(\mbox{\hyperlink{Leds_8h_a8e99281fec9a4784013854913ac4b53d}{PAIR\+\_\+\+FIRST}} + 3)
+\item 
+\#define \mbox{\hyperlink{Leds_8h_a7f8612ea4739e0d1ecde2baae9ed7bf1}{PAIR\+\_\+4}}~(\mbox{\hyperlink{Leds_8h_a10ceba7a64c043889e3e47563c3f0a34}{Pair}})(\mbox{\hyperlink{Leds_8h_a8e99281fec9a4784013854913ac4b53d}{PAIR\+\_\+\+FIRST}} + 4)
+\item 
+\#define \mbox{\hyperlink{Leds_8h_ac15fe22cc100a985f1ef9fbc14ef8872}{PAIR\+\_\+\+LAST}}~\mbox{\hyperlink{Leds_8h_a7f8612ea4739e0d1ecde2baae9ed7bf1}{PAIR\+\_\+4}}
+\item 
+\#define \mbox{\hyperlink{Leds_8h_a2fdba1e4cf202c4f9e8c2dc79b9667bd}{PAIR\+\_\+\+COUNT}}~(\mbox{\hyperlink{Leds_8h_a10ceba7a64c043889e3e47563c3f0a34}{Pair}})(\mbox{\hyperlink{Leds_8h_ac15fe22cc100a985f1ef9fbc14ef8872}{PAIR\+\_\+\+LAST}} + 1)
+\end{DoxyCompactItemize}
+\doxysubsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+typedef uint8\+\_\+t \mbox{\hyperlink{Leds_8h_a00ce38c4c9420e2c98e2e8e577173feb}{Led\+Pos}}
+\item 
+typedef uint8\+\_\+t \mbox{\hyperlink{Leds_8h_a10ceba7a64c043889e3e47563c3f0a34}{Pair}}
+\item 
+typedef uint64\+\_\+t \mbox{\hyperlink{Leds_8h_adedc81525af6b15084e05deff607a32d}{Led\+Map}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Macro Definition Documentation}
+\mbox{\Hypertarget{Leds_8h_a57fca593725687711397bdae844376dc}\label{Leds_8h_a57fca593725687711397bdae844376dc}} 
+\index{Leds.h@{Leds.h}!isEven@{isEven}}
+\index{isEven@{isEven}!Leds.h@{Leds.h}}
+\doxysubsubsection{\texorpdfstring{isEven}{isEven}}
+{\footnotesize\ttfamily \#define is\+Even(\begin{DoxyParamCaption}\item[{}]{pos }\end{DoxyParamCaption})~((pos \% 2) == 0)}
+
+
+
+Definition at line 20 of file Leds.\+h.
+
+\mbox{\Hypertarget{Leds_8h_a2f07a4239fa9d919ab4213ec0caa9309}\label{Leds_8h_a2f07a4239fa9d919ab4213ec0caa9309}} 
+\index{Leds.h@{Leds.h}!isOdd@{isOdd}}
+\index{isOdd@{isOdd}!Leds.h@{Leds.h}}
+\doxysubsubsection{\texorpdfstring{isOdd}{isOdd}}
+{\footnotesize\ttfamily \#define is\+Odd(\begin{DoxyParamCaption}\item[{}]{pos }\end{DoxyParamCaption})~((pos \% 2) != 0)}
+
+
+
+Definition at line 21 of file Leds.\+h.
+
+\mbox{\Hypertarget{Leds_8h_aa94efefdb04d44c846c163f108d52ae9}\label{Leds_8h_aa94efefdb04d44c846c163f108d52ae9}} 
+\index{Leds.h@{Leds.h}!LED\_0@{LED\_0}}
+\index{LED\_0@{LED\_0}!Leds.h@{Leds.h}}
+\doxysubsubsection{\texorpdfstring{LED\_0}{LED\_0}}
+{\footnotesize\ttfamily \#define LED\+\_\+0~(\mbox{\hyperlink{Leds_8h_a00ce38c4c9420e2c98e2e8e577173feb}{Led\+Pos}})(\mbox{\hyperlink{Leds_8h_a5504983bb4926facfaf0307b99425819}{LED\+\_\+\+FIRST}} + 0)}
+
+
+
+Definition at line 63 of file Leds.\+h.
+
+\mbox{\Hypertarget{Leds_8h_aaf81f5fa7d1e779f83e9bf4ce631a7b6}\label{Leds_8h_aaf81f5fa7d1e779f83e9bf4ce631a7b6}} 
+\index{Leds.h@{Leds.h}!LED\_1@{LED\_1}}
+\index{LED\_1@{LED\_1}!Leds.h@{Leds.h}}
+\doxysubsubsection{\texorpdfstring{LED\_1}{LED\_1}}
+{\footnotesize\ttfamily \#define LED\+\_\+1~(\mbox{\hyperlink{Leds_8h_a00ce38c4c9420e2c98e2e8e577173feb}{Led\+Pos}})(\mbox{\hyperlink{Leds_8h_a5504983bb4926facfaf0307b99425819}{LED\+\_\+\+FIRST}} + 1)}
+
+
+
+Definition at line 64 of file Leds.\+h.
+
+\mbox{\Hypertarget{Leds_8h_ae60a8c1e03b38463f77d556a4a0a8a3b}\label{Leds_8h_ae60a8c1e03b38463f77d556a4a0a8a3b}} 
+\index{Leds.h@{Leds.h}!LED\_2@{LED\_2}}
+\index{LED\_2@{LED\_2}!Leds.h@{Leds.h}}
+\doxysubsubsection{\texorpdfstring{LED\_2}{LED\_2}}
+{\footnotesize\ttfamily \#define LED\+\_\+2~(\mbox{\hyperlink{Leds_8h_a00ce38c4c9420e2c98e2e8e577173feb}{Led\+Pos}})(\mbox{\hyperlink{Leds_8h_a5504983bb4926facfaf0307b99425819}{LED\+\_\+\+FIRST}} + 2)}
+
+
+
+Definition at line 65 of file Leds.\+h.
+
+\mbox{\Hypertarget{Leds_8h_a07b3fb51ae7c3cc824dd714b46c1b2b6}\label{Leds_8h_a07b3fb51ae7c3cc824dd714b46c1b2b6}} 
+\index{Leds.h@{Leds.h}!LED\_3@{LED\_3}}
+\index{LED\_3@{LED\_3}!Leds.h@{Leds.h}}
+\doxysubsubsection{\texorpdfstring{LED\_3}{LED\_3}}
+{\footnotesize\ttfamily \#define LED\+\_\+3~(\mbox{\hyperlink{Leds_8h_a00ce38c4c9420e2c98e2e8e577173feb}{Led\+Pos}})(\mbox{\hyperlink{Leds_8h_a5504983bb4926facfaf0307b99425819}{LED\+\_\+\+FIRST}} + 3)}
+
+
+
+Definition at line 66 of file Leds.\+h.
+
+\mbox{\Hypertarget{Leds_8h_aec84038372d7a55c8b358398978e1dac}\label{Leds_8h_aec84038372d7a55c8b358398978e1dac}} 
+\index{Leds.h@{Leds.h}!LED\_4@{LED\_4}}
+\index{LED\_4@{LED\_4}!Leds.h@{Leds.h}}
+\doxysubsubsection{\texorpdfstring{LED\_4}{LED\_4}}
+{\footnotesize\ttfamily \#define LED\+\_\+4~(\mbox{\hyperlink{Leds_8h_a00ce38c4c9420e2c98e2e8e577173feb}{Led\+Pos}})(\mbox{\hyperlink{Leds_8h_a5504983bb4926facfaf0307b99425819}{LED\+\_\+\+FIRST}} + 4)}
+
+
+
+Definition at line 67 of file Leds.\+h.
+
+\mbox{\Hypertarget{Leds_8h_ab0e84d3f877a513d7171cc3f702efb20}\label{Leds_8h_ab0e84d3f877a513d7171cc3f702efb20}} 
+\index{Leds.h@{Leds.h}!LED\_5@{LED\_5}}
+\index{LED\_5@{LED\_5}!Leds.h@{Leds.h}}
+\doxysubsubsection{\texorpdfstring{LED\_5}{LED\_5}}
+{\footnotesize\ttfamily \#define LED\+\_\+5~(\mbox{\hyperlink{Leds_8h_a00ce38c4c9420e2c98e2e8e577173feb}{Led\+Pos}})(\mbox{\hyperlink{Leds_8h_a5504983bb4926facfaf0307b99425819}{LED\+\_\+\+FIRST}} + 5)}
+
+
+
+Definition at line 68 of file Leds.\+h.
+
+\mbox{\Hypertarget{Leds_8h_a0bd7b910e8f1012cb068030c94529920}\label{Leds_8h_a0bd7b910e8f1012cb068030c94529920}} 
+\index{Leds.h@{Leds.h}!LED\_6@{LED\_6}}
+\index{LED\_6@{LED\_6}!Leds.h@{Leds.h}}
+\doxysubsubsection{\texorpdfstring{LED\_6}{LED\_6}}
+{\footnotesize\ttfamily \#define LED\+\_\+6~(\mbox{\hyperlink{Leds_8h_a00ce38c4c9420e2c98e2e8e577173feb}{Led\+Pos}})(\mbox{\hyperlink{Leds_8h_a5504983bb4926facfaf0307b99425819}{LED\+\_\+\+FIRST}} + 6)}
+
+
+
+Definition at line 69 of file Leds.\+h.
+
+\mbox{\Hypertarget{Leds_8h_a07b32196a3e1b6673d88d812833d4077}\label{Leds_8h_a07b32196a3e1b6673d88d812833d4077}} 
+\index{Leds.h@{Leds.h}!LED\_7@{LED\_7}}
+\index{LED\_7@{LED\_7}!Leds.h@{Leds.h}}
+\doxysubsubsection{\texorpdfstring{LED\_7}{LED\_7}}
+{\footnotesize\ttfamily \#define LED\+\_\+7~(\mbox{\hyperlink{Leds_8h_a00ce38c4c9420e2c98e2e8e577173feb}{Led\+Pos}})(\mbox{\hyperlink{Leds_8h_a5504983bb4926facfaf0307b99425819}{LED\+\_\+\+FIRST}} + 7)}
+
+
+
+Definition at line 70 of file Leds.\+h.
+
+\mbox{\Hypertarget{Leds_8h_a963240ad9010938fd985ae74b2d40d72}\label{Leds_8h_a963240ad9010938fd985ae74b2d40d72}} 
+\index{Leds.h@{Leds.h}!LED\_8@{LED\_8}}
+\index{LED\_8@{LED\_8}!Leds.h@{Leds.h}}
+\doxysubsubsection{\texorpdfstring{LED\_8}{LED\_8}}
+{\footnotesize\ttfamily \#define LED\+\_\+8~(\mbox{\hyperlink{Leds_8h_a00ce38c4c9420e2c98e2e8e577173feb}{Led\+Pos}})(\mbox{\hyperlink{Leds_8h_a5504983bb4926facfaf0307b99425819}{LED\+\_\+\+FIRST}} + 8)}
+
+
+
+Definition at line 71 of file Leds.\+h.
+
+\mbox{\Hypertarget{Leds_8h_a1db4627cb22c101239d2af973b97ea81}\label{Leds_8h_a1db4627cb22c101239d2af973b97ea81}} 
+\index{Leds.h@{Leds.h}!LED\_9@{LED\_9}}
+\index{LED\_9@{LED\_9}!Leds.h@{Leds.h}}
+\doxysubsubsection{\texorpdfstring{LED\_9}{LED\_9}}
+{\footnotesize\ttfamily \#define LED\+\_\+9~(\mbox{\hyperlink{Leds_8h_a00ce38c4c9420e2c98e2e8e577173feb}{Led\+Pos}})(\mbox{\hyperlink{Leds_8h_a5504983bb4926facfaf0307b99425819}{LED\+\_\+\+FIRST}} + 9)}
+
+
+
+Definition at line 72 of file Leds.\+h.
+
+\mbox{\Hypertarget{Leds_8h_ab7100c807e8c6a90956cf37e07d1ffc8}\label{Leds_8h_ab7100c807e8c6a90956cf37e07d1ffc8}} 
+\index{Leds.h@{Leds.h}!LED\_ALL@{LED\_ALL}}
+\index{LED\_ALL@{LED\_ALL}!Leds.h@{Leds.h}}
+\doxysubsubsection{\texorpdfstring{LED\_ALL}{LED\_ALL}}
+{\footnotesize\ttfamily \#define LED\+\_\+\+ALL~\mbox{\hyperlink{Leds_8h_ad698e2cb680601529f08c3e5f2b0cebb}{LED\+\_\+\+COUNT}}}
+
+
+
+Definition at line 14 of file Leds.\+h.
+
+\mbox{\Hypertarget{Leds_8h_ab8d074f132a52158090b1ef26bbfb7ac}\label{Leds_8h_ab8d074f132a52158090b1ef26bbfb7ac}} 
+\index{Leds.h@{Leds.h}!LED\_ALL\_SINGLE@{LED\_ALL\_SINGLE}}
+\index{LED\_ALL\_SINGLE@{LED\_ALL\_SINGLE}!Leds.h@{Leds.h}}
+\doxysubsubsection{\texorpdfstring{LED\_ALL\_SINGLE}{LED\_ALL\_SINGLE}}
+{\footnotesize\ttfamily \#define LED\+\_\+\+ALL\+\_\+\+SINGLE~m\+\_\+engine.\+leds().led\+All\+Single()}
+
+
+
+Definition at line 16 of file Leds.\+h.
+
+\mbox{\Hypertarget{Leds_8h_a79ad4bd201e9757299e3f4383a5284e3}\label{Leds_8h_a79ad4bd201e9757299e3f4383a5284e3}} 
+\index{Leds.h@{Leds.h}!LED\_ANY@{LED\_ANY}}
+\index{LED\_ANY@{LED\_ANY}!Leds.h@{Leds.h}}
+\doxysubsubsection{\texorpdfstring{LED\_ANY}{LED\_ANY}}
+{\footnotesize\ttfamily \#define LED\+\_\+\+ANY~m\+\_\+engine.\+leds().led\+Any()}
+
+
+
+Definition at line 17 of file Leds.\+h.
+
+\mbox{\Hypertarget{Leds_8h_ad698e2cb680601529f08c3e5f2b0cebb}\label{Leds_8h_ad698e2cb680601529f08c3e5f2b0cebb}} 
+\index{Leds.h@{Leds.h}!LED\_COUNT@{LED\_COUNT}}
+\index{LED\_COUNT@{LED\_COUNT}!Leds.h@{Leds.h}}
+\doxysubsubsection{\texorpdfstring{LED\_COUNT}{LED\_COUNT}}
+{\footnotesize\ttfamily \#define LED\+\_\+\+COUNT~m\+\_\+engine.\+leds().led\+Count()}
+
+
+
+Definition at line 12 of file Leds.\+h.
+
+\mbox{\Hypertarget{Leds_8h_a5504983bb4926facfaf0307b99425819}\label{Leds_8h_a5504983bb4926facfaf0307b99425819}} 
+\index{Leds.h@{Leds.h}!LED\_FIRST@{LED\_FIRST}}
+\index{LED\_FIRST@{LED\_FIRST}!Leds.h@{Leds.h}}
+\doxysubsubsection{\texorpdfstring{LED\_FIRST}{LED\_FIRST}}
+{\footnotesize\ttfamily \#define LED\+\_\+\+FIRST~(\mbox{\hyperlink{Leds_8h_a00ce38c4c9420e2c98e2e8e577173feb}{Led\+Pos}})0}
+
+
+
+Definition at line 62 of file Leds.\+h.
+
+\mbox{\Hypertarget{Leds_8h_a3a764ec414513c17ab2a93e18ffb0e91}\label{Leds_8h_a3a764ec414513c17ab2a93e18ffb0e91}} 
+\index{Leds.h@{Leds.h}!LED\_LAST@{LED\_LAST}}
+\index{LED\_LAST@{LED\_LAST}!Leds.h@{Leds.h}}
+\doxysubsubsection{\texorpdfstring{LED\_LAST}{LED\_LAST}}
+{\footnotesize\ttfamily \#define LED\+\_\+\+LAST~m\+\_\+engine.\+leds().led\+Last()}
+
+
+
+Definition at line 13 of file Leds.\+h.
+
+\mbox{\Hypertarget{Leds_8h_aa90d79e6c4a68055c827d212d85e499e}\label{Leds_8h_aa90d79e6c4a68055c827d212d85e499e}} 
+\index{Leds.h@{Leds.h}!LED\_MULTI@{LED\_MULTI}}
+\index{LED\_MULTI@{LED\_MULTI}!Leds.h@{Leds.h}}
+\doxysubsubsection{\texorpdfstring{LED\_MULTI}{LED\_MULTI}}
+{\footnotesize\ttfamily \#define LED\+\_\+\+MULTI~m\+\_\+engine.\+leds().led\+Multi()}
+
+
+
+Definition at line 15 of file Leds.\+h.
+
+\mbox{\Hypertarget{Leds_8h_a3fa3f79ccff66d660d1468f23bde6e31}\label{Leds_8h_a3fa3f79ccff66d660d1468f23bde6e31}} 
+\index{Leds.h@{Leds.h}!ledToPair@{ledToPair}}
+\index{ledToPair@{ledToPair}!Leds.h@{Leds.h}}
+\doxysubsubsection{\texorpdfstring{ledToPair}{ledToPair}}
+{\footnotesize\ttfamily \#define led\+To\+Pair(\begin{DoxyParamCaption}\item[{}]{pos }\end{DoxyParamCaption})~(\mbox{\hyperlink{Leds_8h_a10ceba7a64c043889e3e47563c3f0a34}{Pair}})((uint32\+\_\+t)pos / 2)}
+
+
+
+Definition at line 28 of file Leds.\+h.
+
+\mbox{\Hypertarget{Leds_8h_a6c29165d5a422a63ed2ba45c01fc5d3b}\label{Leds_8h_a6c29165d5a422a63ed2ba45c01fc5d3b}} 
+\index{Leds.h@{Leds.h}!MAP\_FOREACH\_LED@{MAP\_FOREACH\_LED}}
+\index{MAP\_FOREACH\_LED@{MAP\_FOREACH\_LED}!Leds.h@{Leds.h}}
+\doxysubsubsection{\texorpdfstring{MAP\_FOREACH\_LED}{MAP\_FOREACH\_LED}}
+{\footnotesize\ttfamily \#define MAP\+\_\+\+FOREACH\+\_\+\+LED(\begin{DoxyParamCaption}\item[{}]{map }\end{DoxyParamCaption})~for (\mbox{\hyperlink{Leds_8h_a00ce38c4c9420e2c98e2e8e577173feb}{Led\+Pos}} pos = m\+\_\+engine.\+leds().ledmap\+Get\+First\+Led(map); pos $<$ \mbox{\hyperlink{Leds_8h_ad698e2cb680601529f08c3e5f2b0cebb}{LED\+\_\+\+COUNT}}; pos = m\+\_\+engine.\+leds().ledmap\+Get\+Next\+Led(map, pos))}
+
+
+
+Definition at line 40 of file Leds.\+h.
+
+\mbox{\Hypertarget{Leds_8h_a4d4caefc71e5ff4ced3458ef38544c72}\label{Leds_8h_a4d4caefc71e5ff4ced3458ef38544c72}} 
+\index{Leds.h@{Leds.h}!MAP\_INVERSE@{MAP\_INVERSE}}
+\index{MAP\_INVERSE@{MAP\_INVERSE}!Leds.h@{Leds.h}}
+\doxysubsubsection{\texorpdfstring{MAP\_INVERSE}{MAP\_INVERSE}}
+{\footnotesize\ttfamily \#define MAP\+\_\+\+INVERSE(\begin{DoxyParamCaption}\item[{}]{map }\end{DoxyParamCaption})~(($\sim$map) \& \mbox{\hyperlink{Leds_8h_ac9a910b2dc4fabac704e56a0fcb3b97e}{MAP\+\_\+\+LED\+\_\+\+ALL}})}
+
+
+
+Definition at line 48 of file Leds.\+h.
+
+\mbox{\Hypertarget{Leds_8h_a7942bcfeb3920e179590b97a56ccfede}\label{Leds_8h_a7942bcfeb3920e179590b97a56ccfede}} 
+\index{Leds.h@{Leds.h}!MAP\_IS\_ONE\_LED@{MAP\_IS\_ONE\_LED}}
+\index{MAP\_IS\_ONE\_LED@{MAP\_IS\_ONE\_LED}!Leds.h@{Leds.h}}
+\doxysubsubsection{\texorpdfstring{MAP\_IS\_ONE\_LED}{MAP\_IS\_ONE\_LED}}
+{\footnotesize\ttfamily \#define MAP\+\_\+\+IS\+\_\+\+ONE\+\_\+\+LED(\begin{DoxyParamCaption}\item[{}]{map }\end{DoxyParamCaption})~(map \&\& !(map \& (map-\/1)))}
+
+
+
+Definition at line 37 of file Leds.\+h.
+
+\mbox{\Hypertarget{Leds_8h_ae3e48bdbee97fcc922ac8a9f4c8cf8fa}\label{Leds_8h_ae3e48bdbee97fcc922ac8a9f4c8cf8fa}} 
+\index{Leds.h@{Leds.h}!MAP\_LED@{MAP\_LED}}
+\index{MAP\_LED@{MAP\_LED}!Leds.h@{Leds.h}}
+\doxysubsubsection{\texorpdfstring{MAP\_LED}{MAP\_LED}}
+{\footnotesize\ttfamily \#define MAP\+\_\+\+LED(\begin{DoxyParamCaption}\item[{}]{led }\end{DoxyParamCaption})~(\mbox{\hyperlink{Leds_8h_adedc81525af6b15084e05deff607a32d}{Led\+Map}})((uint64\+\_\+t)1 $<$$<$ led)}
+
+
+
+Definition at line 31 of file Leds.\+h.
+
+\mbox{\Hypertarget{Leds_8h_ac9a910b2dc4fabac704e56a0fcb3b97e}\label{Leds_8h_ac9a910b2dc4fabac704e56a0fcb3b97e}} 
+\index{Leds.h@{Leds.h}!MAP\_LED\_ALL@{MAP\_LED\_ALL}}
+\index{MAP\_LED\_ALL@{MAP\_LED\_ALL}!Leds.h@{Leds.h}}
+\doxysubsubsection{\texorpdfstring{MAP\_LED\_ALL}{MAP\_LED\_ALL}}
+{\footnotesize\ttfamily \#define MAP\+\_\+\+LED\+\_\+\+ALL~(\mbox{\hyperlink{Leds_8h_adedc81525af6b15084e05deff607a32d}{Led\+Map}})((2 $<$$<$ (\mbox{\hyperlink{Leds_8h_ad698e2cb680601529f08c3e5f2b0cebb}{LED\+\_\+\+COUNT}} -\/ 1)) -\/ 1)}
+
+
+
+Definition at line 43 of file Leds.\+h.
+
+\mbox{\Hypertarget{Leds_8h_a94213d8b137bd7967cf16080b83b8ad3}\label{Leds_8h_a94213d8b137bd7967cf16080b83b8ad3}} 
+\index{Leds.h@{Leds.h}!MAP\_LED\_NONE@{MAP\_LED\_NONE}}
+\index{MAP\_LED\_NONE@{MAP\_LED\_NONE}!Leds.h@{Leds.h}}
+\doxysubsubsection{\texorpdfstring{MAP\_LED\_NONE}{MAP\_LED\_NONE}}
+{\footnotesize\ttfamily \#define MAP\+\_\+\+LED\+\_\+\+NONE~0}
+
+
+
+Definition at line 46 of file Leds.\+h.
+
+\mbox{\Hypertarget{Leds_8h_a85801b3eb052b3e157c16a162e01974b}\label{Leds_8h_a85801b3eb052b3e157c16a162e01974b}} 
+\index{Leds.h@{Leds.h}!MAP\_PAIR@{MAP\_PAIR}}
+\index{MAP\_PAIR@{MAP\_PAIR}!Leds.h@{Leds.h}}
+\doxysubsubsection{\texorpdfstring{MAP\_PAIR}{MAP\_PAIR}}
+{\footnotesize\ttfamily \#define MAP\+\_\+\+PAIR(\begin{DoxyParamCaption}\item[{}]{pair }\end{DoxyParamCaption})~(\mbox{\hyperlink{Leds_8h_adb7d91f99bcd8ff0919328192ba2b88e}{MAP\+\_\+\+PAIR\+\_\+\+EVEN}}(pair) $\vert$ \mbox{\hyperlink{Leds_8h_a7f70eafb4656543bb0867c0aa62fdf50}{MAP\+\_\+\+PAIR\+\_\+\+ODD}}(pair))}
+
+
+
+Definition at line 34 of file Leds.\+h.
+
+\mbox{\Hypertarget{Leds_8h_adb7d91f99bcd8ff0919328192ba2b88e}\label{Leds_8h_adb7d91f99bcd8ff0919328192ba2b88e}} 
+\index{Leds.h@{Leds.h}!MAP\_PAIR\_EVEN@{MAP\_PAIR\_EVEN}}
+\index{MAP\_PAIR\_EVEN@{MAP\_PAIR\_EVEN}!Leds.h@{Leds.h}}
+\doxysubsubsection{\texorpdfstring{MAP\_PAIR\_EVEN}{MAP\_PAIR\_EVEN}}
+{\footnotesize\ttfamily \#define MAP\+\_\+\+PAIR\+\_\+\+EVEN(\begin{DoxyParamCaption}\item[{}]{pair }\end{DoxyParamCaption})~\mbox{\hyperlink{Leds_8h_ae3e48bdbee97fcc922ac8a9f4c8cf8fa}{MAP\+\_\+\+LED}}(\mbox{\hyperlink{Leds_8h_a6a666bad9e79be692de8c77b511cabf0}{pair\+Even}}(pair))}
+
+
+
+Definition at line 32 of file Leds.\+h.
+
+\mbox{\Hypertarget{Leds_8h_a3d0075abab09cdd6469009802d38a44f}\label{Leds_8h_a3d0075abab09cdd6469009802d38a44f}} 
+\index{Leds.h@{Leds.h}!MAP\_PAIR\_EVEN\_EVENS@{MAP\_PAIR\_EVEN\_EVENS}}
+\index{MAP\_PAIR\_EVEN\_EVENS@{MAP\_PAIR\_EVEN\_EVENS}!Leds.h@{Leds.h}}
+\doxysubsubsection{\texorpdfstring{MAP\_PAIR\_EVEN\_EVENS}{MAP\_PAIR\_EVEN\_EVENS}}
+{\footnotesize\ttfamily \#define MAP\+\_\+\+PAIR\+\_\+\+EVEN\+\_\+\+EVENS~(\mbox{\hyperlink{Leds_8h_adb7d91f99bcd8ff0919328192ba2b88e}{MAP\+\_\+\+PAIR\+\_\+\+EVEN}}(\mbox{\hyperlink{Leds_8h_afde1eb23a95dc1902415abf5cdf1b091}{PAIR\+\_\+3}}) $\vert$ \mbox{\hyperlink{Leds_8h_adb7d91f99bcd8ff0919328192ba2b88e}{MAP\+\_\+\+PAIR\+\_\+\+EVEN}}(\mbox{\hyperlink{Leds_8h_a4dc38227f17af0e4f7f6a700b777f83c}{PAIR\+\_\+1}}))}
+
+
+
+Definition at line 58 of file Leds.\+h.
+
+\mbox{\Hypertarget{Leds_8h_a6f488a9c3091d9eb33070d9e10571c34}\label{Leds_8h_a6f488a9c3091d9eb33070d9e10571c34}} 
+\index{Leds.h@{Leds.h}!MAP\_PAIR\_EVEN\_ODDS@{MAP\_PAIR\_EVEN\_ODDS}}
+\index{MAP\_PAIR\_EVEN\_ODDS@{MAP\_PAIR\_EVEN\_ODDS}!Leds.h@{Leds.h}}
+\doxysubsubsection{\texorpdfstring{MAP\_PAIR\_EVEN\_ODDS}{MAP\_PAIR\_EVEN\_ODDS}}
+{\footnotesize\ttfamily \#define MAP\+\_\+\+PAIR\+\_\+\+EVEN\+\_\+\+ODDS~(\mbox{\hyperlink{Leds_8h_a7f70eafb4656543bb0867c0aa62fdf50}{MAP\+\_\+\+PAIR\+\_\+\+ODD}}(\mbox{\hyperlink{Leds_8h_afde1eb23a95dc1902415abf5cdf1b091}{PAIR\+\_\+3}}) $\vert$ \mbox{\hyperlink{Leds_8h_a7f70eafb4656543bb0867c0aa62fdf50}{MAP\+\_\+\+PAIR\+\_\+\+ODD}}(\mbox{\hyperlink{Leds_8h_a4dc38227f17af0e4f7f6a700b777f83c}{PAIR\+\_\+1}}))}
+
+
+
+Definition at line 59 of file Leds.\+h.
+
+\mbox{\Hypertarget{Leds_8h_af0944397d861e0f312c92d14715b7870}\label{Leds_8h_af0944397d861e0f312c92d14715b7870}} 
+\index{Leds.h@{Leds.h}!MAP\_PAIR\_EVENS@{MAP\_PAIR\_EVENS}}
+\index{MAP\_PAIR\_EVENS@{MAP\_PAIR\_EVENS}!Leds.h@{Leds.h}}
+\doxysubsubsection{\texorpdfstring{MAP\_PAIR\_EVENS}{MAP\_PAIR\_EVENS}}
+{\footnotesize\ttfamily \#define MAP\+\_\+\+PAIR\+\_\+\+EVENS~(((1 $<$$<$ \mbox{\hyperlink{Leds_8h_ad698e2cb680601529f08c3e5f2b0cebb}{LED\+\_\+\+COUNT}}) -\/ 1) \& 0x55555555)}
+
+
+
+Definition at line 51 of file Leds.\+h.
+
+\mbox{\Hypertarget{Leds_8h_a7f70eafb4656543bb0867c0aa62fdf50}\label{Leds_8h_a7f70eafb4656543bb0867c0aa62fdf50}} 
+\index{Leds.h@{Leds.h}!MAP\_PAIR\_ODD@{MAP\_PAIR\_ODD}}
+\index{MAP\_PAIR\_ODD@{MAP\_PAIR\_ODD}!Leds.h@{Leds.h}}
+\doxysubsubsection{\texorpdfstring{MAP\_PAIR\_ODD}{MAP\_PAIR\_ODD}}
+{\footnotesize\ttfamily \#define MAP\+\_\+\+PAIR\+\_\+\+ODD(\begin{DoxyParamCaption}\item[{}]{pair }\end{DoxyParamCaption})~\mbox{\hyperlink{Leds_8h_ae3e48bdbee97fcc922ac8a9f4c8cf8fa}{MAP\+\_\+\+LED}}(\mbox{\hyperlink{Leds_8h_aa01e8c3bbb787ec33fdbd2ee3a339b8c}{pair\+Odd}}(pair))}
+
+
+
+Definition at line 33 of file Leds.\+h.
+
+\mbox{\Hypertarget{Leds_8h_abc4f1bf166ac82c78c6be1ccaca92d00}\label{Leds_8h_abc4f1bf166ac82c78c6be1ccaca92d00}} 
+\index{Leds.h@{Leds.h}!MAP\_PAIR\_ODD\_EVENS@{MAP\_PAIR\_ODD\_EVENS}}
+\index{MAP\_PAIR\_ODD\_EVENS@{MAP\_PAIR\_ODD\_EVENS}!Leds.h@{Leds.h}}
+\doxysubsubsection{\texorpdfstring{MAP\_PAIR\_ODD\_EVENS}{MAP\_PAIR\_ODD\_EVENS}}
+{\footnotesize\ttfamily \#define MAP\+\_\+\+PAIR\+\_\+\+ODD\+\_\+\+EVENS~(\mbox{\hyperlink{Leds_8h_adb7d91f99bcd8ff0919328192ba2b88e}{MAP\+\_\+\+PAIR\+\_\+\+EVEN}}(\mbox{\hyperlink{Leds_8h_a82fca8a1d6ecc8b367df6a143b4d596d}{PAIR\+\_\+0}}) $\vert$ \mbox{\hyperlink{Leds_8h_adb7d91f99bcd8ff0919328192ba2b88e}{MAP\+\_\+\+PAIR\+\_\+\+EVEN}}(\mbox{\hyperlink{Leds_8h_adba1564223ac327c40a9d8f79670c557}{PAIR\+\_\+2}}) $\vert$ \mbox{\hyperlink{Leds_8h_adb7d91f99bcd8ff0919328192ba2b88e}{MAP\+\_\+\+PAIR\+\_\+\+EVEN}}(\mbox{\hyperlink{Leds_8h_a7f8612ea4739e0d1ecde2baae9ed7bf1}{PAIR\+\_\+4}}))}
+
+
+
+Definition at line 55 of file Leds.\+h.
+
+\mbox{\Hypertarget{Leds_8h_aeedfd1e5cf97bb760b233ba0b0067973}\label{Leds_8h_aeedfd1e5cf97bb760b233ba0b0067973}} 
+\index{Leds.h@{Leds.h}!MAP\_PAIR\_ODD\_ODDS@{MAP\_PAIR\_ODD\_ODDS}}
+\index{MAP\_PAIR\_ODD\_ODDS@{MAP\_PAIR\_ODD\_ODDS}!Leds.h@{Leds.h}}
+\doxysubsubsection{\texorpdfstring{MAP\_PAIR\_ODD\_ODDS}{MAP\_PAIR\_ODD\_ODDS}}
+{\footnotesize\ttfamily \#define MAP\+\_\+\+PAIR\+\_\+\+ODD\+\_\+\+ODDS~(\mbox{\hyperlink{Leds_8h_a7f70eafb4656543bb0867c0aa62fdf50}{MAP\+\_\+\+PAIR\+\_\+\+ODD}}(\mbox{\hyperlink{Leds_8h_a82fca8a1d6ecc8b367df6a143b4d596d}{PAIR\+\_\+0}}) $\vert$ \mbox{\hyperlink{Leds_8h_a7f70eafb4656543bb0867c0aa62fdf50}{MAP\+\_\+\+PAIR\+\_\+\+ODD}}(\mbox{\hyperlink{Leds_8h_adba1564223ac327c40a9d8f79670c557}{PAIR\+\_\+2}}) $\vert$ \mbox{\hyperlink{Leds_8h_a7f70eafb4656543bb0867c0aa62fdf50}{MAP\+\_\+\+PAIR\+\_\+\+ODD}}(\mbox{\hyperlink{Leds_8h_a7f8612ea4739e0d1ecde2baae9ed7bf1}{PAIR\+\_\+4}}))}
+
+
+
+Definition at line 56 of file Leds.\+h.
+
+\mbox{\Hypertarget{Leds_8h_ab7e65bc3797cca255c8b007ee294653b}\label{Leds_8h_ab7e65bc3797cca255c8b007ee294653b}} 
+\index{Leds.h@{Leds.h}!MAP\_PAIR\_ODDS@{MAP\_PAIR\_ODDS}}
+\index{MAP\_PAIR\_ODDS@{MAP\_PAIR\_ODDS}!Leds.h@{Leds.h}}
+\doxysubsubsection{\texorpdfstring{MAP\_PAIR\_ODDS}{MAP\_PAIR\_ODDS}}
+{\footnotesize\ttfamily \#define MAP\+\_\+\+PAIR\+\_\+\+ODDS~(((1 $<$$<$ \mbox{\hyperlink{Leds_8h_ad698e2cb680601529f08c3e5f2b0cebb}{LED\+\_\+\+COUNT}}) -\/ 1) \& 0x\+AAAAAAAA)}
+
+
+
+Definition at line 52 of file Leds.\+h.
+
+\mbox{\Hypertarget{Leds_8h_a82fca8a1d6ecc8b367df6a143b4d596d}\label{Leds_8h_a82fca8a1d6ecc8b367df6a143b4d596d}} 
+\index{Leds.h@{Leds.h}!PAIR\_0@{PAIR\_0}}
+\index{PAIR\_0@{PAIR\_0}!Leds.h@{Leds.h}}
+\doxysubsubsection{\texorpdfstring{PAIR\_0}{PAIR\_0}}
+{\footnotesize\ttfamily \#define PAIR\+\_\+0~(\mbox{\hyperlink{Leds_8h_a10ceba7a64c043889e3e47563c3f0a34}{Pair}})(\mbox{\hyperlink{Leds_8h_a8e99281fec9a4784013854913ac4b53d}{PAIR\+\_\+\+FIRST}} + 0)}
+
+
+
+Definition at line 76 of file Leds.\+h.
+
+\mbox{\Hypertarget{Leds_8h_a4dc38227f17af0e4f7f6a700b777f83c}\label{Leds_8h_a4dc38227f17af0e4f7f6a700b777f83c}} 
+\index{Leds.h@{Leds.h}!PAIR\_1@{PAIR\_1}}
+\index{PAIR\_1@{PAIR\_1}!Leds.h@{Leds.h}}
+\doxysubsubsection{\texorpdfstring{PAIR\_1}{PAIR\_1}}
+{\footnotesize\ttfamily \#define PAIR\+\_\+1~(\mbox{\hyperlink{Leds_8h_a10ceba7a64c043889e3e47563c3f0a34}{Pair}})(\mbox{\hyperlink{Leds_8h_a8e99281fec9a4784013854913ac4b53d}{PAIR\+\_\+\+FIRST}} + 1)}
+
+
+
+Definition at line 77 of file Leds.\+h.
+
+\mbox{\Hypertarget{Leds_8h_adba1564223ac327c40a9d8f79670c557}\label{Leds_8h_adba1564223ac327c40a9d8f79670c557}} 
+\index{Leds.h@{Leds.h}!PAIR\_2@{PAIR\_2}}
+\index{PAIR\_2@{PAIR\_2}!Leds.h@{Leds.h}}
+\doxysubsubsection{\texorpdfstring{PAIR\_2}{PAIR\_2}}
+{\footnotesize\ttfamily \#define PAIR\+\_\+2~(\mbox{\hyperlink{Leds_8h_a10ceba7a64c043889e3e47563c3f0a34}{Pair}})(\mbox{\hyperlink{Leds_8h_a8e99281fec9a4784013854913ac4b53d}{PAIR\+\_\+\+FIRST}} + 2)}
+
+
+
+Definition at line 78 of file Leds.\+h.
+
+\mbox{\Hypertarget{Leds_8h_afde1eb23a95dc1902415abf5cdf1b091}\label{Leds_8h_afde1eb23a95dc1902415abf5cdf1b091}} 
+\index{Leds.h@{Leds.h}!PAIR\_3@{PAIR\_3}}
+\index{PAIR\_3@{PAIR\_3}!Leds.h@{Leds.h}}
+\doxysubsubsection{\texorpdfstring{PAIR\_3}{PAIR\_3}}
+{\footnotesize\ttfamily \#define PAIR\+\_\+3~(\mbox{\hyperlink{Leds_8h_a10ceba7a64c043889e3e47563c3f0a34}{Pair}})(\mbox{\hyperlink{Leds_8h_a8e99281fec9a4784013854913ac4b53d}{PAIR\+\_\+\+FIRST}} + 3)}
+
+
+
+Definition at line 79 of file Leds.\+h.
+
+\mbox{\Hypertarget{Leds_8h_a7f8612ea4739e0d1ecde2baae9ed7bf1}\label{Leds_8h_a7f8612ea4739e0d1ecde2baae9ed7bf1}} 
+\index{Leds.h@{Leds.h}!PAIR\_4@{PAIR\_4}}
+\index{PAIR\_4@{PAIR\_4}!Leds.h@{Leds.h}}
+\doxysubsubsection{\texorpdfstring{PAIR\_4}{PAIR\_4}}
+{\footnotesize\ttfamily \#define PAIR\+\_\+4~(\mbox{\hyperlink{Leds_8h_a10ceba7a64c043889e3e47563c3f0a34}{Pair}})(\mbox{\hyperlink{Leds_8h_a8e99281fec9a4784013854913ac4b53d}{PAIR\+\_\+\+FIRST}} + 4)}
+
+
+
+Definition at line 80 of file Leds.\+h.
+
+\mbox{\Hypertarget{Leds_8h_a2fdba1e4cf202c4f9e8c2dc79b9667bd}\label{Leds_8h_a2fdba1e4cf202c4f9e8c2dc79b9667bd}} 
+\index{Leds.h@{Leds.h}!PAIR\_COUNT@{PAIR\_COUNT}}
+\index{PAIR\_COUNT@{PAIR\_COUNT}!Leds.h@{Leds.h}}
+\doxysubsubsection{\texorpdfstring{PAIR\_COUNT}{PAIR\_COUNT}}
+{\footnotesize\ttfamily \#define PAIR\+\_\+\+COUNT~(\mbox{\hyperlink{Leds_8h_a10ceba7a64c043889e3e47563c3f0a34}{Pair}})(\mbox{\hyperlink{Leds_8h_ac15fe22cc100a985f1ef9fbc14ef8872}{PAIR\+\_\+\+LAST}} + 1)}
+
+
+
+Definition at line 82 of file Leds.\+h.
+
+\mbox{\Hypertarget{Leds_8h_a8e99281fec9a4784013854913ac4b53d}\label{Leds_8h_a8e99281fec9a4784013854913ac4b53d}} 
+\index{Leds.h@{Leds.h}!PAIR\_FIRST@{PAIR\_FIRST}}
+\index{PAIR\_FIRST@{PAIR\_FIRST}!Leds.h@{Leds.h}}
+\doxysubsubsection{\texorpdfstring{PAIR\_FIRST}{PAIR\_FIRST}}
+{\footnotesize\ttfamily \#define PAIR\+\_\+\+FIRST~(\mbox{\hyperlink{Leds_8h_a10ceba7a64c043889e3e47563c3f0a34}{Pair}})0}
+
+
+
+Definition at line 75 of file Leds.\+h.
+
+\mbox{\Hypertarget{Leds_8h_ac15fe22cc100a985f1ef9fbc14ef8872}\label{Leds_8h_ac15fe22cc100a985f1ef9fbc14ef8872}} 
+\index{Leds.h@{Leds.h}!PAIR\_LAST@{PAIR\_LAST}}
+\index{PAIR\_LAST@{PAIR\_LAST}!Leds.h@{Leds.h}}
+\doxysubsubsection{\texorpdfstring{PAIR\_LAST}{PAIR\_LAST}}
+{\footnotesize\ttfamily \#define PAIR\+\_\+\+LAST~\mbox{\hyperlink{Leds_8h_a7f8612ea4739e0d1ecde2baae9ed7bf1}{PAIR\+\_\+4}}}
+
+
+
+Definition at line 81 of file Leds.\+h.
+
+\mbox{\Hypertarget{Leds_8h_a6a666bad9e79be692de8c77b511cabf0}\label{Leds_8h_a6a666bad9e79be692de8c77b511cabf0}} 
+\index{Leds.h@{Leds.h}!pairEven@{pairEven}}
+\index{pairEven@{pairEven}!Leds.h@{Leds.h}}
+\doxysubsubsection{\texorpdfstring{pairEven}{pairEven}}
+{\footnotesize\ttfamily \#define pair\+Even(\begin{DoxyParamCaption}\item[{}]{pair }\end{DoxyParamCaption})~(\mbox{\hyperlink{Leds_8h_a00ce38c4c9420e2c98e2e8e577173feb}{Led\+Pos}})((uint32\+\_\+t)pair $\ast$ 2)}
+
+
+
+Definition at line 24 of file Leds.\+h.
+
+\mbox{\Hypertarget{Leds_8h_aa01e8c3bbb787ec33fdbd2ee3a339b8c}\label{Leds_8h_aa01e8c3bbb787ec33fdbd2ee3a339b8c}} 
+\index{Leds.h@{Leds.h}!pairOdd@{pairOdd}}
+\index{pairOdd@{pairOdd}!Leds.h@{Leds.h}}
+\doxysubsubsection{\texorpdfstring{pairOdd}{pairOdd}}
+{\footnotesize\ttfamily \#define pair\+Odd(\begin{DoxyParamCaption}\item[{}]{pair }\end{DoxyParamCaption})~(\mbox{\hyperlink{Leds_8h_a00ce38c4c9420e2c98e2e8e577173feb}{Led\+Pos}})(((uint32\+\_\+t)pair $\ast$ 2) + 1)}
+
+
+
+Definition at line 25 of file Leds.\+h.
+
+
+
+\doxysubsection{Typedef Documentation}
+\mbox{\Hypertarget{Leds_8h_adedc81525af6b15084e05deff607a32d}\label{Leds_8h_adedc81525af6b15084e05deff607a32d}} 
+\index{Leds.h@{Leds.h}!LedMap@{LedMap}}
+\index{LedMap@{LedMap}!Leds.h@{Leds.h}}
+\doxysubsubsection{\texorpdfstring{LedMap}{LedMap}}
+{\footnotesize\ttfamily typedef uint64\+\_\+t \mbox{\hyperlink{Leds_8h_adedc81525af6b15084e05deff607a32d}{Led\+Map}}}
+
+
+
+Definition at line 86 of file Leds.\+h.
+
+\mbox{\Hypertarget{Leds_8h_a00ce38c4c9420e2c98e2e8e577173feb}\label{Leds_8h_a00ce38c4c9420e2c98e2e8e577173feb}} 
+\index{Leds.h@{Leds.h}!LedPos@{LedPos}}
+\index{LedPos@{LedPos}!Leds.h@{Leds.h}}
+\doxysubsubsection{\texorpdfstring{LedPos}{LedPos}}
+{\footnotesize\ttfamily typedef uint8\+\_\+t \mbox{\hyperlink{Leds_8h_a00ce38c4c9420e2c98e2e8e577173feb}{Led\+Pos}}}
+
+
+
+Definition at line 61 of file Leds.\+h.
+
+\mbox{\Hypertarget{Leds_8h_a10ceba7a64c043889e3e47563c3f0a34}\label{Leds_8h_a10ceba7a64c043889e3e47563c3f0a34}} 
+\index{Leds.h@{Leds.h}!Pair@{Pair}}
+\index{Pair@{Pair}!Leds.h@{Leds.h}}
+\doxysubsubsection{\texorpdfstring{Pair}{Pair}}
+{\footnotesize\ttfamily typedef uint8\+\_\+t \mbox{\hyperlink{Leds_8h_a10ceba7a64c043889e3e47563c3f0a34}{Pair}}}
+
+
+
+Definition at line 74 of file Leds.\+h.
+

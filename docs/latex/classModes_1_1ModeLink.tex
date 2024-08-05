@@ -1,0 +1,700 @@
+\hypertarget{classModes_1_1ModeLink}{}\doxysection{Modes\+::Mode\+Link Class Reference}
+\label{classModes_1_1ModeLink}\index{Modes::ModeLink@{Modes::ModeLink}}
+
+
+Collaboration diagram for Modes\+::Mode\+Link\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classModes_1_1ModeLink__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classModes_1_1ModeLink_a85f9d14957ea7e8644253e0b49a82860}{Mode\+Link}} (\mbox{\hyperlink{classVortexEngine}{Vortex\+Engine}} \&engine, const \mbox{\hyperlink{classMode}{Mode}} $\ast$src=nullptr, bool inst=false)
+\item 
+\mbox{\hyperlink{classModes_1_1ModeLink_a4b9c8a5ccc8e41c8c8d067d9f8f2993e}{Mode\+Link}} (\mbox{\hyperlink{classVortexEngine}{Vortex\+Engine}} \&engine, const \mbox{\hyperlink{classByteStream}{Byte\+Stream}} \&src, bool inst=false)
+\item 
+\mbox{\hyperlink{classModes_1_1ModeLink_a9737ee0a1ce581f93159354d88e78701}{$\sim$\+Mode\+Link}} ()
+\item 
+bool \mbox{\hyperlink{classModes_1_1ModeLink_a9e99b5df562f09540db8d1429ed5886b}{init}} (const \mbox{\hyperlink{classMode}{Mode}} $\ast$\mbox{\hyperlink{classModes_1_1ModeLink_aa92272ee4453ff8a3ea268b0e5f1d03c}{mode}}=nullptr)
+\item 
+bool \mbox{\hyperlink{classModes_1_1ModeLink_a08bc79fa1ef91ebb64762d546b3b62dc}{append}} (const \mbox{\hyperlink{classMode}{Mode}} $\ast$\mbox{\hyperlink{classModes_1_1ModeLink_a5f4e9c451032b7b7d3132da874653900}{next}})
+\item 
+bool \mbox{\hyperlink{classModes_1_1ModeLink_a998b4dd57f851043d6312e82afde58eb}{append}} (const \mbox{\hyperlink{classByteStream}{Byte\+Stream}} \&\mbox{\hyperlink{classModes_1_1ModeLink_a5f4e9c451032b7b7d3132da874653900}{next}})
+\item 
+void \mbox{\hyperlink{classModes_1_1ModeLink_aeeb50c7513608fa90144186de3f2e42c}{play}} ()
+\item 
+\mbox{\hyperlink{classModes_1_1ModeLink}{Mode\+Link}} $\ast$ \mbox{\hyperlink{classModes_1_1ModeLink_a795d5e69c097cc96b0db26f55415bb51}{unlink\+Self}} ()
+\item 
+void \mbox{\hyperlink{classModes_1_1ModeLink_aa5fbd874e03f975ed8723afcaebeb202}{link\+After}} (\mbox{\hyperlink{classModes_1_1ModeLink}{Mode\+Link}} $\ast$link)
+\item 
+void \mbox{\hyperlink{classModes_1_1ModeLink_a3a56528fa5ebe32a220e0795c54917ae}{link\+Before}} (\mbox{\hyperlink{classModes_1_1ModeLink}{Mode\+Link}} $\ast$link)
+\item 
+\mbox{\hyperlink{classMode}{Mode}} $\ast$ \mbox{\hyperlink{classModes_1_1ModeLink_a284ba1b2ca41f96524480a96128fc113}{instantiate}} ()
+\item 
+void \mbox{\hyperlink{classModes_1_1ModeLink_ac9c4ff7755f2c268034843282baaee39}{uninstantiate}} ()
+\item 
+bool \mbox{\hyperlink{classModes_1_1ModeLink_ab36d327d9654b2a28c97bdb60fa47481}{save}} ()
+\item 
+\mbox{\hyperlink{classByteStream}{Byte\+Stream}} \& \mbox{\hyperlink{classModes_1_1ModeLink_ad7a39a2ed6e74b605fa3ed27c5292112}{buffer}} ()
+\item 
+\mbox{\hyperlink{classMode}{Mode}} $\ast$ \mbox{\hyperlink{classModes_1_1ModeLink_aa92272ee4453ff8a3ea268b0e5f1d03c}{mode}} ()
+\item 
+\mbox{\hyperlink{classModes_1_1ModeLink}{Mode\+Link}} $\ast$ \mbox{\hyperlink{classModes_1_1ModeLink_a5f4e9c451032b7b7d3132da874653900}{next}} ()
+\item 
+\mbox{\hyperlink{classModes_1_1ModeLink}{Mode\+Link}} $\ast$ \mbox{\hyperlink{classModes_1_1ModeLink_a3f2672f51a00dfad74077175b19a987e}{prev}} ()
+\item 
+\mbox{\hyperlink{classModes_1_1ModeLink_a9b4335905480af103878dd0a3e2245e4}{operator Byte\+Stream \&}} ()
+\item 
+\mbox{\hyperlink{classModes_1_1ModeLink_a9f6c14f2e17ee304eb3cbfe228c4c61c}{operator Byte\+Stream}} ()
+\item 
+\mbox{\hyperlink{classModes_1_1ModeLink_a1813370217d7740c54e211fc4ba34bd9}{operator Mode $\ast$}} ()
+\end{DoxyCompactItemize}
+\doxysubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classVortexEngine}{Vortex\+Engine}} \& \mbox{\hyperlink{classModes_1_1ModeLink_a3c80486847414b223f589dacc1cd3a06}{m\+\_\+engine}}
+\item 
+\mbox{\hyperlink{classMode}{Mode}} $\ast$ \mbox{\hyperlink{classModes_1_1ModeLink_adac74872f97bf20d81a5115e4843cb12}{m\+\_\+p\+Instantiated\+Mode}}
+\item 
+\mbox{\hyperlink{classByteStream}{Byte\+Stream}} \mbox{\hyperlink{classModes_1_1ModeLink_a1cd8412d3d0fa100e87ed00908d800de}{m\+\_\+stored\+Mode}}
+\item 
+\mbox{\hyperlink{classModes_1_1ModeLink}{Mode\+Link}} $\ast$ \mbox{\hyperlink{classModes_1_1ModeLink_a8127680b802b99d2ae5eb808c8d3a960}{m\+\_\+next}}
+\item 
+\mbox{\hyperlink{classModes_1_1ModeLink}{Mode\+Link}} $\ast$ \mbox{\hyperlink{classModes_1_1ModeLink_ac3836ccfe9c9d93e2ee9eb693dbcfdff}{m\+\_\+prev}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line 181 of file Modes.\+h.
+
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classModes_1_1ModeLink_a85f9d14957ea7e8644253e0b49a82860}\label{classModes_1_1ModeLink_a85f9d14957ea7e8644253e0b49a82860}} 
+\index{Modes::ModeLink@{Modes::ModeLink}!ModeLink@{ModeLink}}
+\index{ModeLink@{ModeLink}!Modes::ModeLink@{Modes::ModeLink}}
+\doxysubsubsection{\texorpdfstring{ModeLink()}{ModeLink()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily Modes\+::\+Mode\+Link\+::\+Mode\+Link (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classVortexEngine}{Vortex\+Engine}} \&}]{engine,  }\item[{const \mbox{\hyperlink{classMode}{Mode}} $\ast$}]{src = {\ttfamily nullptr},  }\item[{bool}]{inst = {\ttfamily false} }\end{DoxyParamCaption})}
+
+
+
+Definition at line 820 of file Modes.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{820                                                                         :}
+\DoxyCodeLine{821   \mbox{\hyperlink{classModes_1_1ModeLink_a3c80486847414b223f589dacc1cd3a06}{m\_engine}}(engine),}
+\DoxyCodeLine{822   \mbox{\hyperlink{classModes_1_1ModeLink_adac74872f97bf20d81a5115e4843cb12}{m\_pInstantiatedMode}}(\textcolor{keyword}{nullptr}),}
+\DoxyCodeLine{823   \mbox{\hyperlink{classModes_1_1ModeLink_a1cd8412d3d0fa100e87ed00908d800de}{m\_storedMode}}(),}
+\DoxyCodeLine{824   \mbox{\hyperlink{classModes_1_1ModeLink_a8127680b802b99d2ae5eb808c8d3a960}{m\_next}}(\textcolor{keyword}{nullptr}),}
+\DoxyCodeLine{825   \mbox{\hyperlink{classModes_1_1ModeLink_ac3836ccfe9c9d93e2ee9eb693dbcfdff}{m\_prev}}(\textcolor{keyword}{nullptr})}
+\DoxyCodeLine{826 \{}
+\DoxyCodeLine{827   \textcolor{keywordflow}{if} (src) \{}
+\DoxyCodeLine{828     \mbox{\hyperlink{classModes_1_1ModeLink_a9e99b5df562f09540db8d1429ed5886b}{init}}(src);}
+\DoxyCodeLine{829   \}}
+\DoxyCodeLine{830   \textcolor{keywordflow}{if} (src \&\& inst) \{}
+\DoxyCodeLine{831     \mbox{\hyperlink{classModes_1_1ModeLink_a284ba1b2ca41f96524480a96128fc113}{instantiate}}();}
+\DoxyCodeLine{832   \}}
+\DoxyCodeLine{833 \}}
+
+\end{DoxyCode}
+
+
+References init(), and instantiate().
+
+\mbox{\Hypertarget{classModes_1_1ModeLink_a4b9c8a5ccc8e41c8c8d067d9f8f2993e}\label{classModes_1_1ModeLink_a4b9c8a5ccc8e41c8c8d067d9f8f2993e}} 
+\index{Modes::ModeLink@{Modes::ModeLink}!ModeLink@{ModeLink}}
+\index{ModeLink@{ModeLink}!Modes::ModeLink@{Modes::ModeLink}}
+\doxysubsubsection{\texorpdfstring{ModeLink()}{ModeLink()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily Modes\+::\+Mode\+Link\+::\+Mode\+Link (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classVortexEngine}{Vortex\+Engine}} \&}]{engine,  }\item[{const \mbox{\hyperlink{classByteStream}{Byte\+Stream}} \&}]{src,  }\item[{bool}]{inst = {\ttfamily false} }\end{DoxyParamCaption})}
+
+
+
+Definition at line 835 of file Modes.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{835                                                                               :}
+\DoxyCodeLine{836   \mbox{\hyperlink{classModes_1_1ModeLink_a3c80486847414b223f589dacc1cd3a06}{m\_engine}}(engine),}
+\DoxyCodeLine{837   \mbox{\hyperlink{classModes_1_1ModeLink_adac74872f97bf20d81a5115e4843cb12}{m\_pInstantiatedMode}}(\textcolor{keyword}{nullptr}),}
+\DoxyCodeLine{838   \mbox{\hyperlink{classModes_1_1ModeLink_a1cd8412d3d0fa100e87ed00908d800de}{m\_storedMode}}(src),}
+\DoxyCodeLine{839   \mbox{\hyperlink{classModes_1_1ModeLink_a8127680b802b99d2ae5eb808c8d3a960}{m\_next}}(\textcolor{keyword}{nullptr}),}
+\DoxyCodeLine{840   \mbox{\hyperlink{classModes_1_1ModeLink_ac3836ccfe9c9d93e2ee9eb693dbcfdff}{m\_prev}}(\textcolor{keyword}{nullptr})}
+\DoxyCodeLine{841 \{}
+\DoxyCodeLine{842   \textcolor{keywordflow}{if} (src.\mbox{\hyperlink{classByteStream_adf87e444e828287c0a43cab2958ca01b}{size}}() \&\& inst) \{}
+\DoxyCodeLine{843     \mbox{\hyperlink{classModes_1_1ModeLink_a284ba1b2ca41f96524480a96128fc113}{instantiate}}();}
+\DoxyCodeLine{844   \}}
+\DoxyCodeLine{845 \}}
+
+\end{DoxyCode}
+
+
+References instantiate(), and Byte\+Stream\+::size().
+
+\mbox{\Hypertarget{classModes_1_1ModeLink_a9737ee0a1ce581f93159354d88e78701}\label{classModes_1_1ModeLink_a9737ee0a1ce581f93159354d88e78701}} 
+\index{Modes::ModeLink@{Modes::ModeLink}!````~ModeLink@{$\sim$ModeLink}}
+\index{````~ModeLink@{$\sim$ModeLink}!Modes::ModeLink@{Modes::ModeLink}}
+\doxysubsubsection{\texorpdfstring{$\sim$ModeLink()}{~ModeLink()}}
+{\footnotesize\ttfamily Modes\+::\+Mode\+Link\+::$\sim$\+Mode\+Link (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 847 of file Modes.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{848 \{}
+\DoxyCodeLine{849   \textcolor{keywordflow}{if} (\mbox{\hyperlink{classModes_1_1ModeLink_a8127680b802b99d2ae5eb808c8d3a960}{m\_next}}) \{}
+\DoxyCodeLine{850     \textcolor{keyword}{delete} \mbox{\hyperlink{classModes_1_1ModeLink_a8127680b802b99d2ae5eb808c8d3a960}{m\_next}};}
+\DoxyCodeLine{851   \}}
+\DoxyCodeLine{852   \textcolor{keywordflow}{if} (\mbox{\hyperlink{classModes_1_1ModeLink_adac74872f97bf20d81a5115e4843cb12}{m\_pInstantiatedMode}}) \{}
+\DoxyCodeLine{853     \textcolor{keyword}{delete} \mbox{\hyperlink{classModes_1_1ModeLink_adac74872f97bf20d81a5115e4843cb12}{m\_pInstantiatedMode}};}
+\DoxyCodeLine{854   \}}
+\DoxyCodeLine{855 \}}
+
+\end{DoxyCode}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classModes_1_1ModeLink_a998b4dd57f851043d6312e82afde58eb}\label{classModes_1_1ModeLink_a998b4dd57f851043d6312e82afde58eb}} 
+\index{Modes::ModeLink@{Modes::ModeLink}!append@{append}}
+\index{append@{append}!Modes::ModeLink@{Modes::ModeLink}}
+\doxysubsubsection{\texorpdfstring{append()}{append()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily bool Modes\+::\+Mode\+Link\+::append (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classByteStream}{Byte\+Stream}} \&}]{next }\end{DoxyParamCaption})}
+
+
+
+Definition at line 888 of file Modes.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{889 \{}
+\DoxyCodeLine{890   \textcolor{keywordflow}{if} (!\mbox{\hyperlink{classModes_1_1ModeLink_a5f4e9c451032b7b7d3132da874653900}{next}}.size()) \{}
+\DoxyCodeLine{891     \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{892   \}}
+\DoxyCodeLine{893   \textcolor{comment}{// if not end of chain, recurse on next link}}
+\DoxyCodeLine{894   \textcolor{keywordflow}{if} (\mbox{\hyperlink{classModes_1_1ModeLink_a8127680b802b99d2ae5eb808c8d3a960}{m\_next}}) \{}
+\DoxyCodeLine{895     \textcolor{keywordflow}{return} \mbox{\hyperlink{classModes_1_1ModeLink_a8127680b802b99d2ae5eb808c8d3a960}{m\_next}}-\/>\mbox{\hyperlink{classModes_1_1ModeLink_a08bc79fa1ef91ebb64762d546b3b62dc}{append}}(\mbox{\hyperlink{classModes_1_1ModeLink_a5f4e9c451032b7b7d3132da874653900}{next}});}
+\DoxyCodeLine{896   \}}
+\DoxyCodeLine{897   \mbox{\hyperlink{classModes_1_1ModeLink_a8127680b802b99d2ae5eb808c8d3a960}{m\_next}} = \textcolor{keyword}{new} \mbox{\hyperlink{classModes_1_1ModeLink_a85f9d14957ea7e8644253e0b49a82860}{ModeLink}}(\mbox{\hyperlink{classModes_1_1ModeLink_a3c80486847414b223f589dacc1cd3a06}{m\_engine}}, \mbox{\hyperlink{classModes_1_1ModeLink_a5f4e9c451032b7b7d3132da874653900}{next}});}
+\DoxyCodeLine{898   \textcolor{keywordflow}{if} (!\mbox{\hyperlink{classModes_1_1ModeLink_a8127680b802b99d2ae5eb808c8d3a960}{m\_next}}) \{}
+\DoxyCodeLine{899     \mbox{\hyperlink{Log_8h_a804825e040f1cce9e3d2bb53c4858710}{ERROR\_OUT\_OF\_MEMORY}}();}
+\DoxyCodeLine{900     \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{901   \}}
+\DoxyCodeLine{902   \mbox{\hyperlink{classModes_1_1ModeLink_a8127680b802b99d2ae5eb808c8d3a960}{m\_next}}-\/>\mbox{\hyperlink{classModes_1_1ModeLink_ac3836ccfe9c9d93e2ee9eb693dbcfdff}{m\_prev}} = \textcolor{keyword}{this};}
+\DoxyCodeLine{903   \textcolor{keywordflow}{return} \textcolor{keyword}{true};}
+\DoxyCodeLine{904 \}}
+
+\end{DoxyCode}
+
+
+References ERROR\+\_\+\+OUT\+\_\+\+OF\+\_\+\+MEMORY, Modes\+::m\+\_\+engine, and Byte\+Stream\+::size().
+
+\mbox{\Hypertarget{classModes_1_1ModeLink_a08bc79fa1ef91ebb64762d546b3b62dc}\label{classModes_1_1ModeLink_a08bc79fa1ef91ebb64762d546b3b62dc}} 
+\index{Modes::ModeLink@{Modes::ModeLink}!append@{append}}
+\index{append@{append}!Modes::ModeLink@{Modes::ModeLink}}
+\doxysubsubsection{\texorpdfstring{append()}{append()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily bool Modes\+::\+Mode\+Link\+::append (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classMode}{Mode}} $\ast$}]{next }\end{DoxyParamCaption})}
+
+
+
+Definition at line 870 of file Modes.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{871 \{}
+\DoxyCodeLine{872   \textcolor{keywordflow}{if} (!\mbox{\hyperlink{classModes_1_1ModeLink_a5f4e9c451032b7b7d3132da874653900}{next}}) \{}
+\DoxyCodeLine{873     \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{874   \}}
+\DoxyCodeLine{875   \textcolor{comment}{// if not end of chain, recurse on next link}}
+\DoxyCodeLine{876   \textcolor{keywordflow}{if} (\mbox{\hyperlink{classModes_1_1ModeLink_a8127680b802b99d2ae5eb808c8d3a960}{m\_next}}) \{}
+\DoxyCodeLine{877     \textcolor{keywordflow}{return} \mbox{\hyperlink{classModes_1_1ModeLink_a8127680b802b99d2ae5eb808c8d3a960}{m\_next}}-\/>\mbox{\hyperlink{classModes_1_1ModeLink_a08bc79fa1ef91ebb64762d546b3b62dc}{append}}(\mbox{\hyperlink{classModes_1_1ModeLink_a5f4e9c451032b7b7d3132da874653900}{next}});}
+\DoxyCodeLine{878   \}}
+\DoxyCodeLine{879   \mbox{\hyperlink{classModes_1_1ModeLink_a8127680b802b99d2ae5eb808c8d3a960}{m\_next}} = \textcolor{keyword}{new} \mbox{\hyperlink{classModes_1_1ModeLink_a85f9d14957ea7e8644253e0b49a82860}{ModeLink}}(\mbox{\hyperlink{classModes_1_1ModeLink_a3c80486847414b223f589dacc1cd3a06}{m\_engine}}, \mbox{\hyperlink{classModes_1_1ModeLink_a5f4e9c451032b7b7d3132da874653900}{next}});}
+\DoxyCodeLine{880   \textcolor{keywordflow}{if} (!\mbox{\hyperlink{classModes_1_1ModeLink_a8127680b802b99d2ae5eb808c8d3a960}{m\_next}}) \{}
+\DoxyCodeLine{881     \mbox{\hyperlink{Log_8h_a804825e040f1cce9e3d2bb53c4858710}{ERROR\_OUT\_OF\_MEMORY}}();}
+\DoxyCodeLine{882     \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{883   \}}
+\DoxyCodeLine{884   \mbox{\hyperlink{classModes_1_1ModeLink_a8127680b802b99d2ae5eb808c8d3a960}{m\_next}}-\/>\mbox{\hyperlink{classModes_1_1ModeLink_ac3836ccfe9c9d93e2ee9eb693dbcfdff}{m\_prev}} = \textcolor{keyword}{this};}
+\DoxyCodeLine{885   \textcolor{keywordflow}{return} \textcolor{keyword}{true};}
+\DoxyCodeLine{886 \}}
+
+\end{DoxyCode}
+
+
+References ERROR\+\_\+\+OUT\+\_\+\+OF\+\_\+\+MEMORY, and Modes\+::m\+\_\+engine.
+
+
+
+Referenced by Modes\+::add\+Mode(), and Modes\+::add\+Mode\+From\+Buffer().
+
+\mbox{\Hypertarget{classModes_1_1ModeLink_ad7a39a2ed6e74b605fa3ed27c5292112}\label{classModes_1_1ModeLink_ad7a39a2ed6e74b605fa3ed27c5292112}} 
+\index{Modes::ModeLink@{Modes::ModeLink}!buffer@{buffer}}
+\index{buffer@{buffer}!Modes::ModeLink@{Modes::ModeLink}}
+\doxysubsubsection{\texorpdfstring{buffer()}{buffer()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classByteStream}{Byte\+Stream}}\& Modes\+::\+Mode\+Link\+::buffer (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line 212 of file Modes.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{212 \{ \textcolor{keywordflow}{return} \mbox{\hyperlink{classModes_1_1ModeLink_a1cd8412d3d0fa100e87ed00908d800de}{m\_storedMode}}; \}}
+
+\end{DoxyCode}
+
+
+References m\+\_\+stored\+Mode.
+
+\mbox{\Hypertarget{classModes_1_1ModeLink_a9e99b5df562f09540db8d1429ed5886b}\label{classModes_1_1ModeLink_a9e99b5df562f09540db8d1429ed5886b}} 
+\index{Modes::ModeLink@{Modes::ModeLink}!init@{init}}
+\index{init@{init}!Modes::ModeLink@{Modes::ModeLink}}
+\doxysubsubsection{\texorpdfstring{init()}{init()}}
+{\footnotesize\ttfamily bool Modes\+::\+Mode\+Link\+::init (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classMode}{Mode}} $\ast$}]{mode = {\ttfamily nullptr} }\end{DoxyParamCaption})}
+
+
+
+Definition at line 857 of file Modes.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{858 \{}
+\DoxyCodeLine{859   \textcolor{keywordflow}{if} (!\mbox{\hyperlink{classModes_1_1ModeLink_aa92272ee4453ff8a3ea268b0e5f1d03c}{mode}}) \{}
+\DoxyCodeLine{860     \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{861   \}}
+\DoxyCodeLine{862   \mbox{\hyperlink{classModes_1_1ModeLink_a1cd8412d3d0fa100e87ed00908d800de}{m\_storedMode}}.\mbox{\hyperlink{classByteStream_a854e5507f550826478fd7141074a4bb5}{clear}}();}
+\DoxyCodeLine{863   \textcolor{comment}{// serialize the mode so it can be instantiated anytime}}
+\DoxyCodeLine{864   \textcolor{keywordflow}{if} (!\mbox{\hyperlink{classModes_1_1ModeLink_aa92272ee4453ff8a3ea268b0e5f1d03c}{mode}}-\/>\mbox{\hyperlink{classMode_a4bf861a9f38599ab515655ae52700534}{saveToBuffer}}(\mbox{\hyperlink{classModes_1_1ModeLink_a1cd8412d3d0fa100e87ed00908d800de}{m\_storedMode}})) \{}
+\DoxyCodeLine{865     \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{866   \}}
+\DoxyCodeLine{867   \textcolor{keywordflow}{return} \textcolor{keyword}{true};}
+\DoxyCodeLine{868 \}}
+
+\end{DoxyCode}
+
+
+References Mode\+::save\+To\+Buffer().
+
+
+
+Referenced by Mode\+Link().
+
+\mbox{\Hypertarget{classModes_1_1ModeLink_a284ba1b2ca41f96524480a96128fc113}\label{classModes_1_1ModeLink_a284ba1b2ca41f96524480a96128fc113}} 
+\index{Modes::ModeLink@{Modes::ModeLink}!instantiate@{instantiate}}
+\index{instantiate@{instantiate}!Modes::ModeLink@{Modes::ModeLink}}
+\doxysubsubsection{\texorpdfstring{instantiate()}{instantiate()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classMode}{Mode}} $\ast$ Modes\+::\+Mode\+Link\+::instantiate (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 957 of file Modes.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{958 \{}
+\DoxyCodeLine{959   \textcolor{keywordflow}{if} (\mbox{\hyperlink{classModes_1_1ModeLink_adac74872f97bf20d81a5115e4843cb12}{m\_pInstantiatedMode}}) \{}
+\DoxyCodeLine{960     \textcolor{keywordflow}{return} \mbox{\hyperlink{classModes_1_1ModeLink_adac74872f97bf20d81a5115e4843cb12}{m\_pInstantiatedMode}};}
+\DoxyCodeLine{961   \}}
+\DoxyCodeLine{962   \mbox{\hyperlink{classMode}{Mode}} *newMode = \textcolor{keyword}{new} \mbox{\hyperlink{classMode}{Mode}}(\mbox{\hyperlink{classModes_1_1ModeLink_a3c80486847414b223f589dacc1cd3a06}{m\_engine}});}
+\DoxyCodeLine{963   \textcolor{keywordflow}{if} (!newMode) \{}
+\DoxyCodeLine{964     \mbox{\hyperlink{Log_8h_a804825e040f1cce9e3d2bb53c4858710}{ERROR\_OUT\_OF\_MEMORY}}();}
+\DoxyCodeLine{965     \textcolor{keywordflow}{return} \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{966   \}}
+\DoxyCodeLine{967   \mbox{\hyperlink{classModes_1_1ModeLink_a1cd8412d3d0fa100e87ed00908d800de}{m\_storedMode}}.\mbox{\hyperlink{classByteStream_afb97666e6a0bea5ea98e273d4e6a4d35}{resetUnserializer}}();}
+\DoxyCodeLine{968   \textcolor{keywordflow}{if} (!newMode-\/>\mbox{\hyperlink{classMode_a31ed6fbb39ca7876e415fc58bc18d630}{loadFromBuffer}}(\mbox{\hyperlink{classModes_1_1ModeLink_a1cd8412d3d0fa100e87ed00908d800de}{m\_storedMode}})) \{}
+\DoxyCodeLine{969     \textcolor{keywordflow}{return} \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{970   \}}
+\DoxyCodeLine{971   \textcolor{comment}{// TODO: init new mode?}}
+\DoxyCodeLine{972   \mbox{\hyperlink{classModes_1_1ModeLink_adac74872f97bf20d81a5115e4843cb12}{m\_pInstantiatedMode}} = newMode;}
+\DoxyCodeLine{973   \textcolor{keywordflow}{return} \mbox{\hyperlink{classModes_1_1ModeLink_adac74872f97bf20d81a5115e4843cb12}{m\_pInstantiatedMode}};}
+\DoxyCodeLine{974 \}}
+
+\end{DoxyCode}
+
+
+References ERROR\+\_\+\+OUT\+\_\+\+OF\+\_\+\+MEMORY, Mode\+::load\+From\+Buffer(), and Modes\+::m\+\_\+engine.
+
+
+
+Referenced by Modes\+::cur\+Mode(), Modes\+::init\+Cur\+Mode(), Mode\+Link(), Modes\+::save\+Storage(), Modes\+::serialize(), and Modes\+::set\+Cur\+Mode().
+
+\mbox{\Hypertarget{classModes_1_1ModeLink_aa5fbd874e03f975ed8723afcaebeb202}\label{classModes_1_1ModeLink_aa5fbd874e03f975ed8723afcaebeb202}} 
+\index{Modes::ModeLink@{Modes::ModeLink}!linkAfter@{linkAfter}}
+\index{linkAfter@{linkAfter}!Modes::ModeLink@{Modes::ModeLink}}
+\doxysubsubsection{\texorpdfstring{linkAfter()}{linkAfter()}}
+{\footnotesize\ttfamily void Modes\+::\+Mode\+Link\+::link\+After (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classModes_1_1ModeLink}{Mode\+Link}} $\ast$}]{link }\end{DoxyParamCaption})}
+
+
+
+Definition at line 931 of file Modes.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{932 \{}
+\DoxyCodeLine{933   \textcolor{keywordflow}{if} (!link) \{}
+\DoxyCodeLine{934     \textcolor{keywordflow}{return};}
+\DoxyCodeLine{935   \}}
+\DoxyCodeLine{936   \textcolor{keywordflow}{if} (\mbox{\hyperlink{classModes_1_1ModeLink_a8127680b802b99d2ae5eb808c8d3a960}{m\_next}}) \{}
+\DoxyCodeLine{937     \mbox{\hyperlink{classModes_1_1ModeLink_a8127680b802b99d2ae5eb808c8d3a960}{m\_next}}-\/>\mbox{\hyperlink{classModes_1_1ModeLink_ac3836ccfe9c9d93e2ee9eb693dbcfdff}{m\_prev}} = link;}
+\DoxyCodeLine{938     link-\/>\mbox{\hyperlink{classModes_1_1ModeLink_a8127680b802b99d2ae5eb808c8d3a960}{m\_next}} = \mbox{\hyperlink{classModes_1_1ModeLink_a8127680b802b99d2ae5eb808c8d3a960}{m\_next}};}
+\DoxyCodeLine{939   \}}
+\DoxyCodeLine{940   \mbox{\hyperlink{classModes_1_1ModeLink_a8127680b802b99d2ae5eb808c8d3a960}{m\_next}} = link;}
+\DoxyCodeLine{941   link-\/>\mbox{\hyperlink{classModes_1_1ModeLink_ac3836ccfe9c9d93e2ee9eb693dbcfdff}{m\_prev}} = \textcolor{keyword}{this};}
+\DoxyCodeLine{942 \}}
+
+\end{DoxyCode}
+
+
+References m\+\_\+next, and m\+\_\+prev.
+
+
+
+Referenced by Modes\+::shift\+Cur\+Mode().
+
+\mbox{\Hypertarget{classModes_1_1ModeLink_a3a56528fa5ebe32a220e0795c54917ae}\label{classModes_1_1ModeLink_a3a56528fa5ebe32a220e0795c54917ae}} 
+\index{Modes::ModeLink@{Modes::ModeLink}!linkBefore@{linkBefore}}
+\index{linkBefore@{linkBefore}!Modes::ModeLink@{Modes::ModeLink}}
+\doxysubsubsection{\texorpdfstring{linkBefore()}{linkBefore()}}
+{\footnotesize\ttfamily void Modes\+::\+Mode\+Link\+::link\+Before (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classModes_1_1ModeLink}{Mode\+Link}} $\ast$}]{link }\end{DoxyParamCaption})}
+
+
+
+Definition at line 944 of file Modes.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{945 \{}
+\DoxyCodeLine{946   \textcolor{keywordflow}{if} (!link) \{}
+\DoxyCodeLine{947     \textcolor{keywordflow}{return};}
+\DoxyCodeLine{948   \}}
+\DoxyCodeLine{949   \textcolor{keywordflow}{if} (\mbox{\hyperlink{classModes_1_1ModeLink_ac3836ccfe9c9d93e2ee9eb693dbcfdff}{m\_prev}}) \{}
+\DoxyCodeLine{950     \mbox{\hyperlink{classModes_1_1ModeLink_ac3836ccfe9c9d93e2ee9eb693dbcfdff}{m\_prev}}-\/>\mbox{\hyperlink{classModes_1_1ModeLink_a8127680b802b99d2ae5eb808c8d3a960}{m\_next}} = link;}
+\DoxyCodeLine{951     link-\/>\mbox{\hyperlink{classModes_1_1ModeLink_ac3836ccfe9c9d93e2ee9eb693dbcfdff}{m\_prev}} = \mbox{\hyperlink{classModes_1_1ModeLink_ac3836ccfe9c9d93e2ee9eb693dbcfdff}{m\_prev}};}
+\DoxyCodeLine{952   \}}
+\DoxyCodeLine{953   \mbox{\hyperlink{classModes_1_1ModeLink_ac3836ccfe9c9d93e2ee9eb693dbcfdff}{m\_prev}} = link;}
+\DoxyCodeLine{954   link-\/>\mbox{\hyperlink{classModes_1_1ModeLink_a8127680b802b99d2ae5eb808c8d3a960}{m\_next}} = \textcolor{keyword}{this};}
+\DoxyCodeLine{955 \}}
+
+\end{DoxyCode}
+
+
+References m\+\_\+next, and m\+\_\+prev.
+
+
+
+Referenced by Modes\+::shift\+Cur\+Mode().
+
+\mbox{\Hypertarget{classModes_1_1ModeLink_aa92272ee4453ff8a3ea268b0e5f1d03c}\label{classModes_1_1ModeLink_aa92272ee4453ff8a3ea268b0e5f1d03c}} 
+\index{Modes::ModeLink@{Modes::ModeLink}!mode@{mode}}
+\index{mode@{mode}!Modes::ModeLink@{Modes::ModeLink}}
+\doxysubsubsection{\texorpdfstring{mode()}{mode()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classMode}{Mode}}$\ast$ Modes\+::\+Mode\+Link\+::mode (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line 213 of file Modes.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{213 \{ \textcolor{keywordflow}{return} \mbox{\hyperlink{classModes_1_1ModeLink_adac74872f97bf20d81a5115e4843cb12}{m\_pInstantiatedMode}}; \}}
+
+\end{DoxyCode}
+
+
+References m\+\_\+p\+Instantiated\+Mode.
+
+
+
+Referenced by Modes\+::cur\+Mode\+Instantiated().
+
+\mbox{\Hypertarget{classModes_1_1ModeLink_a5f4e9c451032b7b7d3132da874653900}\label{classModes_1_1ModeLink_a5f4e9c451032b7b7d3132da874653900}} 
+\index{Modes::ModeLink@{Modes::ModeLink}!next@{next}}
+\index{next@{next}!Modes::ModeLink@{Modes::ModeLink}}
+\doxysubsubsection{\texorpdfstring{next()}{next()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classModes_1_1ModeLink}{Mode\+Link}}$\ast$ Modes\+::\+Mode\+Link\+::next (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line 214 of file Modes.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{214 \{ \textcolor{keywordflow}{return} \mbox{\hyperlink{classModes_1_1ModeLink_a8127680b802b99d2ae5eb808c8d3a960}{m\_next}}; \}}
+
+\end{DoxyCode}
+
+
+References m\+\_\+next.
+
+
+
+Referenced by Modes\+::get\+Mode\+Link(), Modes\+::save\+Storage(), Modes\+::serialize(), and Modes\+::shift\+Cur\+Mode().
+
+\mbox{\Hypertarget{classModes_1_1ModeLink_a9f6c14f2e17ee304eb3cbfe228c4c61c}\label{classModes_1_1ModeLink_a9f6c14f2e17ee304eb3cbfe228c4c61c}} 
+\index{Modes::ModeLink@{Modes::ModeLink}!operator ByteStream@{operator ByteStream}}
+\index{operator ByteStream@{operator ByteStream}!Modes::ModeLink@{Modes::ModeLink}}
+\doxysubsubsection{\texorpdfstring{operator ByteStream()}{operator ByteStream()}}
+{\footnotesize\ttfamily Modes\+::\+Mode\+Link\+::operator \mbox{\hyperlink{classByteStream}{Byte\+Stream}} (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line 218 of file Modes.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{218 \{ \textcolor{keywordflow}{return} \mbox{\hyperlink{classModes_1_1ModeLink_a1cd8412d3d0fa100e87ed00908d800de}{m\_storedMode}}; \}}
+
+\end{DoxyCode}
+
+
+References m\+\_\+stored\+Mode.
+
+\mbox{\Hypertarget{classModes_1_1ModeLink_a9b4335905480af103878dd0a3e2245e4}\label{classModes_1_1ModeLink_a9b4335905480af103878dd0a3e2245e4}} 
+\index{Modes::ModeLink@{Modes::ModeLink}!operator ByteStream \&@{operator ByteStream \&}}
+\index{operator ByteStream \&@{operator ByteStream \&}!Modes::ModeLink@{Modes::ModeLink}}
+\doxysubsubsection{\texorpdfstring{operator ByteStream \&()}{operator ByteStream \&()}}
+{\footnotesize\ttfamily Modes\+::\+Mode\+Link\+::operator \mbox{\hyperlink{classByteStream}{Byte\+Stream}} \& (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line 217 of file Modes.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{217 \{ \textcolor{keywordflow}{return} \mbox{\hyperlink{classModes_1_1ModeLink_a1cd8412d3d0fa100e87ed00908d800de}{m\_storedMode}}; \}}
+
+\end{DoxyCode}
+
+
+References m\+\_\+stored\+Mode.
+
+\mbox{\Hypertarget{classModes_1_1ModeLink_a1813370217d7740c54e211fc4ba34bd9}\label{classModes_1_1ModeLink_a1813370217d7740c54e211fc4ba34bd9}} 
+\index{Modes::ModeLink@{Modes::ModeLink}!operator Mode $\ast$@{operator Mode $\ast$}}
+\index{operator Mode $\ast$@{operator Mode $\ast$}!Modes::ModeLink@{Modes::ModeLink}}
+\doxysubsubsection{\texorpdfstring{operator Mode $\ast$()}{operator Mode *()}}
+{\footnotesize\ttfamily Modes\+::\+Mode\+Link\+::operator \mbox{\hyperlink{classMode}{Mode}} $\ast$ (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line 219 of file Modes.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{219 \{ \textcolor{keywordflow}{return} \mbox{\hyperlink{classModes_1_1ModeLink_adac74872f97bf20d81a5115e4843cb12}{m\_pInstantiatedMode}}; \}}
+
+\end{DoxyCode}
+
+
+References m\+\_\+p\+Instantiated\+Mode.
+
+\mbox{\Hypertarget{classModes_1_1ModeLink_aeeb50c7513608fa90144186de3f2e42c}\label{classModes_1_1ModeLink_aeeb50c7513608fa90144186de3f2e42c}} 
+\index{Modes::ModeLink@{Modes::ModeLink}!play@{play}}
+\index{play@{play}!Modes::ModeLink@{Modes::ModeLink}}
+\doxysubsubsection{\texorpdfstring{play()}{play()}}
+{\footnotesize\ttfamily void Modes\+::\+Mode\+Link\+::play (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 906 of file Modes.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{907 \{}
+\DoxyCodeLine{908   \textcolor{keywordflow}{if} (!\mbox{\hyperlink{classModes_1_1ModeLink_adac74872f97bf20d81a5115e4843cb12}{m\_pInstantiatedMode}}) \{}
+\DoxyCodeLine{909     \textcolor{keywordflow}{return};}
+\DoxyCodeLine{910   \}}
+\DoxyCodeLine{911   \mbox{\hyperlink{classModes_1_1ModeLink_adac74872f97bf20d81a5115e4843cb12}{m\_pInstantiatedMode}}-\/>\mbox{\hyperlink{classMode_a21d1c7da7b97340ab1af39d242cc6f22}{play}}();}
+\DoxyCodeLine{912 \}}
+
+\end{DoxyCode}
+
+
+Referenced by Modes\+::play().
+
+\mbox{\Hypertarget{classModes_1_1ModeLink_a3f2672f51a00dfad74077175b19a987e}\label{classModes_1_1ModeLink_a3f2672f51a00dfad74077175b19a987e}} 
+\index{Modes::ModeLink@{Modes::ModeLink}!prev@{prev}}
+\index{prev@{prev}!Modes::ModeLink@{Modes::ModeLink}}
+\doxysubsubsection{\texorpdfstring{prev()}{prev()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classModes_1_1ModeLink}{Mode\+Link}}$\ast$ Modes\+::\+Mode\+Link\+::prev (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line 215 of file Modes.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{215 \{ \textcolor{keywordflow}{return} \mbox{\hyperlink{classModes_1_1ModeLink_ac3836ccfe9c9d93e2ee9eb693dbcfdff}{m\_prev}}; \}}
+
+\end{DoxyCode}
+
+
+References m\+\_\+prev.
+
+\mbox{\Hypertarget{classModes_1_1ModeLink_ab36d327d9654b2a28c97bdb60fa47481}\label{classModes_1_1ModeLink_ab36d327d9654b2a28c97bdb60fa47481}} 
+\index{Modes::ModeLink@{Modes::ModeLink}!save@{save}}
+\index{save@{save}!Modes::ModeLink@{Modes::ModeLink}}
+\doxysubsubsection{\texorpdfstring{save()}{save()}}
+{\footnotesize\ttfamily bool Modes\+::\+Mode\+Link\+::save (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 984 of file Modes.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{985 \{}
+\DoxyCodeLine{986   \textcolor{keywordflow}{if} (!\mbox{\hyperlink{classModes_1_1ModeLink_adac74872f97bf20d81a5115e4843cb12}{m\_pInstantiatedMode}}) \{}
+\DoxyCodeLine{987     \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{988   \}}
+\DoxyCodeLine{989   \mbox{\hyperlink{classModes_1_1ModeLink_a1cd8412d3d0fa100e87ed00908d800de}{m\_storedMode}}.\mbox{\hyperlink{classByteStream_a854e5507f550826478fd7141074a4bb5}{clear}}();}
+\DoxyCodeLine{990   \textcolor{keywordflow}{return} \mbox{\hyperlink{classModes_1_1ModeLink_adac74872f97bf20d81a5115e4843cb12}{m\_pInstantiatedMode}}-\/>\mbox{\hyperlink{classMode_a4bf861a9f38599ab515655ae52700534}{saveToBuffer}}(\mbox{\hyperlink{classModes_1_1ModeLink_a1cd8412d3d0fa100e87ed00908d800de}{m\_storedMode}});}
+\DoxyCodeLine{991 \}}
+
+\end{DoxyCode}
+
+
+Referenced by Modes\+::save\+Cur\+Mode().
+
+\mbox{\Hypertarget{classModes_1_1ModeLink_ac9c4ff7755f2c268034843282baaee39}\label{classModes_1_1ModeLink_ac9c4ff7755f2c268034843282baaee39}} 
+\index{Modes::ModeLink@{Modes::ModeLink}!uninstantiate@{uninstantiate}}
+\index{uninstantiate@{uninstantiate}!Modes::ModeLink@{Modes::ModeLink}}
+\doxysubsubsection{\texorpdfstring{uninstantiate()}{uninstantiate()}}
+{\footnotesize\ttfamily void Modes\+::\+Mode\+Link\+::uninstantiate (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 976 of file Modes.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{977 \{}
+\DoxyCodeLine{978   \textcolor{keywordflow}{if} (\mbox{\hyperlink{classModes_1_1ModeLink_adac74872f97bf20d81a5115e4843cb12}{m\_pInstantiatedMode}}) \{}
+\DoxyCodeLine{979     \textcolor{keyword}{delete} \mbox{\hyperlink{classModes_1_1ModeLink_adac74872f97bf20d81a5115e4843cb12}{m\_pInstantiatedMode}};}
+\DoxyCodeLine{980     \mbox{\hyperlink{classModes_1_1ModeLink_adac74872f97bf20d81a5115e4843cb12}{m\_pInstantiatedMode}} = \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{981   \}}
+\DoxyCodeLine{982 \}}
+
+\end{DoxyCode}
+
+
+Referenced by Modes\+::init\+Cur\+Mode(), Modes\+::save\+Storage(), Modes\+::serialize(), and Modes\+::set\+Cur\+Mode().
+
+\mbox{\Hypertarget{classModes_1_1ModeLink_a795d5e69c097cc96b0db26f55415bb51}\label{classModes_1_1ModeLink_a795d5e69c097cc96b0db26f55415bb51}} 
+\index{Modes::ModeLink@{Modes::ModeLink}!unlinkSelf@{unlinkSelf}}
+\index{unlinkSelf@{unlinkSelf}!Modes::ModeLink@{Modes::ModeLink}}
+\doxysubsubsection{\texorpdfstring{unlinkSelf()}{unlinkSelf()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classModes_1_1ModeLink}{Modes\+::\+Mode\+Link}} $\ast$ Modes\+::\+Mode\+Link\+::unlink\+Self (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 914 of file Modes.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{915 \{}
+\DoxyCodeLine{916   \textcolor{comment}{// unlink this node from the chain}}
+\DoxyCodeLine{917   \textcolor{keywordflow}{if} (\mbox{\hyperlink{classModes_1_1ModeLink_ac3836ccfe9c9d93e2ee9eb693dbcfdff}{m\_prev}}) \{}
+\DoxyCodeLine{918     \mbox{\hyperlink{classModes_1_1ModeLink_ac3836ccfe9c9d93e2ee9eb693dbcfdff}{m\_prev}}-\/>\mbox{\hyperlink{classModes_1_1ModeLink_a8127680b802b99d2ae5eb808c8d3a960}{m\_next}} = \mbox{\hyperlink{classModes_1_1ModeLink_a8127680b802b99d2ae5eb808c8d3a960}{m\_next}};}
+\DoxyCodeLine{919   \}}
+\DoxyCodeLine{920   \textcolor{keywordflow}{if} (\mbox{\hyperlink{classModes_1_1ModeLink_a8127680b802b99d2ae5eb808c8d3a960}{m\_next}}) \{}
+\DoxyCodeLine{921     \mbox{\hyperlink{classModes_1_1ModeLink_a8127680b802b99d2ae5eb808c8d3a960}{m\_next}}-\/>\mbox{\hyperlink{classModes_1_1ModeLink_ac3836ccfe9c9d93e2ee9eb693dbcfdff}{m\_prev}} = \mbox{\hyperlink{classModes_1_1ModeLink_ac3836ccfe9c9d93e2ee9eb693dbcfdff}{m\_prev}};}
+\DoxyCodeLine{922   \}}
+\DoxyCodeLine{923   \textcolor{comment}{// grab the new link that will take this place}}
+\DoxyCodeLine{924   \mbox{\hyperlink{classModes_1_1ModeLink_a85f9d14957ea7e8644253e0b49a82860}{ModeLink}} *newLink = \mbox{\hyperlink{classModes_1_1ModeLink_ac3836ccfe9c9d93e2ee9eb693dbcfdff}{m\_prev}} ? \mbox{\hyperlink{classModes_1_1ModeLink_ac3836ccfe9c9d93e2ee9eb693dbcfdff}{m\_prev}} : \mbox{\hyperlink{classModes_1_1ModeLink_a8127680b802b99d2ae5eb808c8d3a960}{m\_next}};}
+\DoxyCodeLine{925   \textcolor{comment}{// clear the links of this node}}
+\DoxyCodeLine{926   \mbox{\hyperlink{classModes_1_1ModeLink_ac3836ccfe9c9d93e2ee9eb693dbcfdff}{m\_prev}} = \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{927   \mbox{\hyperlink{classModes_1_1ModeLink_a8127680b802b99d2ae5eb808c8d3a960}{m\_next}} = \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{928   \textcolor{keywordflow}{return} newLink;}
+\DoxyCodeLine{929 \}}
+
+\end{DoxyCode}
+
+
+References m\+\_\+next, and m\+\_\+prev.
+
+
+
+Referenced by Modes\+::delete\+Cur\+Mode(), and Modes\+::shift\+Cur\+Mode().
+
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{classModes_1_1ModeLink_a3c80486847414b223f589dacc1cd3a06}\label{classModes_1_1ModeLink_a3c80486847414b223f589dacc1cd3a06}} 
+\index{Modes::ModeLink@{Modes::ModeLink}!m\_engine@{m\_engine}}
+\index{m\_engine@{m\_engine}!Modes::ModeLink@{Modes::ModeLink}}
+\doxysubsubsection{\texorpdfstring{m\_engine}{m\_engine}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classVortexEngine}{Vortex\+Engine}}\& Modes\+::\+Mode\+Link\+::m\+\_\+engine\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 221 of file Modes.\+h.
+
+\mbox{\Hypertarget{classModes_1_1ModeLink_a8127680b802b99d2ae5eb808c8d3a960}\label{classModes_1_1ModeLink_a8127680b802b99d2ae5eb808c8d3a960}} 
+\index{Modes::ModeLink@{Modes::ModeLink}!m\_next@{m\_next}}
+\index{m\_next@{m\_next}!Modes::ModeLink@{Modes::ModeLink}}
+\doxysubsubsection{\texorpdfstring{m\_next}{m\_next}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classModes_1_1ModeLink}{Mode\+Link}}$\ast$ Modes\+::\+Mode\+Link\+::m\+\_\+next\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 224 of file Modes.\+h.
+
+
+
+Referenced by link\+After(), link\+Before(), next(), and unlink\+Self().
+
+\mbox{\Hypertarget{classModes_1_1ModeLink_adac74872f97bf20d81a5115e4843cb12}\label{classModes_1_1ModeLink_adac74872f97bf20d81a5115e4843cb12}} 
+\index{Modes::ModeLink@{Modes::ModeLink}!m\_pInstantiatedMode@{m\_pInstantiatedMode}}
+\index{m\_pInstantiatedMode@{m\_pInstantiatedMode}!Modes::ModeLink@{Modes::ModeLink}}
+\doxysubsubsection{\texorpdfstring{m\_pInstantiatedMode}{m\_pInstantiatedMode}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classMode}{Mode}}$\ast$ Modes\+::\+Mode\+Link\+::m\+\_\+p\+Instantiated\+Mode\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 222 of file Modes.\+h.
+
+
+
+Referenced by mode(), and operator Mode $\ast$().
+
+\mbox{\Hypertarget{classModes_1_1ModeLink_ac3836ccfe9c9d93e2ee9eb693dbcfdff}\label{classModes_1_1ModeLink_ac3836ccfe9c9d93e2ee9eb693dbcfdff}} 
+\index{Modes::ModeLink@{Modes::ModeLink}!m\_prev@{m\_prev}}
+\index{m\_prev@{m\_prev}!Modes::ModeLink@{Modes::ModeLink}}
+\doxysubsubsection{\texorpdfstring{m\_prev}{m\_prev}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classModes_1_1ModeLink}{Mode\+Link}}$\ast$ Modes\+::\+Mode\+Link\+::m\+\_\+prev\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 225 of file Modes.\+h.
+
+
+
+Referenced by link\+After(), link\+Before(), prev(), and unlink\+Self().
+
+\mbox{\Hypertarget{classModes_1_1ModeLink_a1cd8412d3d0fa100e87ed00908d800de}\label{classModes_1_1ModeLink_a1cd8412d3d0fa100e87ed00908d800de}} 
+\index{Modes::ModeLink@{Modes::ModeLink}!m\_storedMode@{m\_storedMode}}
+\index{m\_storedMode@{m\_storedMode}!Modes::ModeLink@{Modes::ModeLink}}
+\doxysubsubsection{\texorpdfstring{m\_storedMode}{m\_storedMode}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classByteStream}{Byte\+Stream}} Modes\+::\+Mode\+Link\+::m\+\_\+stored\+Mode\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 223 of file Modes.\+h.
+
+
+
+Referenced by buffer(), operator Byte\+Stream(), and operator Byte\+Stream \&().
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Vortex\+Engine/src/\+Modes/\mbox{\hyperlink{Modes_8h}{Modes.\+h}}\item 
+Vortex\+Engine/src/\+Modes/\mbox{\hyperlink{Modes_8cpp}{Modes.\+cpp}}\end{DoxyCompactItemize}
