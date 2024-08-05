@@ -16,63 +16,55 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
-  # Build Jekyll Site
-  build-jekyll:
+  build-and-deploy:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-        with:
-          ref: gh-pages
-          fetch-depth: 0
-
-      - name: Setup Pages
-        uses: actions/configure-pages@v5
-
-      - name: Build with Jekyll
-        uses: actions/jekyll-build-pages@v1
-        with:
-          source: ./
-          destination: ./_site
-
-      - name: Upload Jekyll Artifact
-        uses: actions/upload-pages-artifact@v3
-        with:
-          path: ./_site
-          name: jekyll-site-${{ github.run_number }}-${{ github.run_id }}
-
-  # Generate Doxygen Documentation
-  build-doxygen:
-    runs-on: ubuntu-latest
-    needs: build-jekyll
-    steps:
+      # Checkout the gh-pages branch to have access to the existing docs directory
       - name: Checkout gh-pages
         uses: actions/checkout@v4
         with:
           ref: gh-pages
           fetch-depth: 0
 
+      # Setup Ruby for Jekyll
+      - name: Setup Ruby for Jekyll
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.1' # Ensure compatibility with your Jekyll setup
+
+      # Install Jekyll Dependencies
+      - name: Install Jekyll Dependencies
+        run: |
+          gem install bundler
+          bundle install
+
+      # Build Jekyll Site
+      - name: Build Jekyll Site
+        run: |
+          bundle exec jekyll build -d _site
+
+      # Install Doxygen and Dependencies
       - name: Install Doxygen and Dependencies
         run: sudo apt-get update && sudo apt-get install -y doxygen graphviz texlive
 
+      # Generate Doxygen Documentation
       - name: Generate Doxygen Documentation
         run: |
           branches=("master:core" "duo" "handle" "orbit" "gloves" "desktop" "spark" "chromadeck")
-          rm -rf docs || true
-          mkdir -p docs # Ensure the docs directory is clean and prepared
+          mkdir -p docs # Ensure the docs directory exists
 
           for item in "${branches[@]}"; do
             IFS=':' read -r branch dest <<< "$item"
             dest="${dest:-$branch}"
 
-            # Create a worktree for the branch in a separate directory
+            # Create a temporary directory for each branch
             echo "Setting up worktree for branch: $branch"
-            git worktree add worktree/$branch $branch
+            git worktree add --detach worktree/$branch $branch
 
             # Change directory to the worktree
             cd worktree/$branch
 
-            # Ensure the output directory exists
+            # Ensure the output directory exists in the docs folder
             mkdir -p ../../docs/$dest
 
             # Change OUTPUT_DIRECTORY in Doxyfile for each branch
@@ -91,32 +83,13 @@ jobs:
             git worktree remove worktree/$branch -f
           done
 
-      - name: Upload Doxygen Docs
-        uses: actions/upload-pages-artifact@v3
-        with:
-          path: ./docs
-          name: doxygen-docs-${{ github.run_number }}-${{ github.run_id }}
-
-  # Deploy to GitHub Pages
-  deploy:
-    runs-on: ubuntu-latest
-    needs: [build-jekyll, build-doxygen]
-    steps:
-      - name: Download Artifacts
-        uses: actions/download-artifact@v3
-        with:
-          name: jekyll-site-${{ github.run_number }}-${{ github.run_id }}
-      - name: Download Doxygen Docs
-        uses: actions/download-artifact@v3
-        with:
-          name: doxygen-docs-${{ github.run_number }}-${{ github.run_id }}
-
+      # Deploy to GitHub Pages
       - name: Deploy to GitHub Pages
         id: deployment
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./docs
+          publish_dir: ./_site
           publish_branch: gh-pages
           keep_files: true
 
