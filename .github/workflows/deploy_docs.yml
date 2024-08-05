@@ -1,19 +1,9 @@
 name: Build and Deploy Jekyll and Doxygen Documentation
 
 on:
-  workflow_dispatch: # Allows manual trigger
-
-  # You can uncomment this section to trigger on specific branch pushes if needed
-  # push:
-  #   branches:
-  #     - master # Replace with your main branch
-  #     - duo
-  #     - handle
-  #     - orbit
-  #     - gloves
-  #     - desktop
-  #     - spark
-  #     - chromadeck
+  push:
+    branches:
+      - gh-pages
 
 permissions:
   contents: write
@@ -23,13 +13,14 @@ permissions:
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
+
     steps:
       # Checkout the gh-pages branch to have access to the existing docs directory
       - name: Checkout gh-pages
         uses: actions/checkout@v4
         with:
           ref: gh-pages
-          fetch-depth: 0
+          path: gh-pages # Checkout to a specific directory to separate it from source
 
       # Setup Pages environment and dependencies
       - name: Setup Pages
@@ -39,19 +30,19 @@ jobs:
       - name: Build with Jekyll
         uses: actions/jekyll-build-pages@v1
         with:
-          source: .
-          destination: ./_site
+          source: gh-pages/docs
+          destination: gh-pages/_site
 
       # Install Doxygen and Dependencies
       - name: Install Doxygen and Dependencies
-        run: sudo apt-get update && sudo apt-get install -y doxygen graphviz texlive
+        run: sudo apt-get update && sudo apt-get install -y doxygen graphviz
 
       # Generate Doxygen Documentation
       - name: Generate Doxygen Documentation
         run: |
           # Define the branches and their corresponding doc folders
           branches=("master:core" "duo" "handle" "orbit" "gloves" "desktop" "spark" "chromadeck")
-          mkdir -p docs # Ensure the docs directory exists
+          mkdir -p gh-pages/docs # Ensure the docs directory exists
 
           # Iterate over each branch and generate documentation
           for item in "${branches[@]}"; do
@@ -69,11 +60,11 @@ jobs:
               cd temp/$branch
 
               # Ensure the output directory exists in the docs folder
-              mkdir -p ../../docs/$dest
+              mkdir -p ../../gh-pages/docs/$dest
 
               # Adjust the Doxyfile to set the output directory
               echo "Adjusting Doxyfile for branch: $branch"
-              sed -i "s|OUTPUT_DIRECTORY *=.*|OUTPUT_DIRECTORY = ../../docs/$dest|" Doxyfile
+              sed -i "s|OUTPUT_DIRECTORY *=.*|OUTPUT_DIRECTORY = ../../gh-pages/docs/$dest|" Doxyfile
 
               # Run Doxygen to generate the documentation
               echo "Running Doxygen for branch: $branch"
@@ -89,17 +80,12 @@ jobs:
             fi
           done
 
-      # Move Doxygen docs into the site directory
-      - name: Move Doxygen Docs to Site
-        run: mv docs _site/
-
       # Deploy to GitHub Pages
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./_site
+          publish_dir: gh-pages/_site
           publish_branch: gh-pages
           keep_files: true
-          force_orphan: false # Ensure we're working with existing branch structure
 
