@@ -21,11 +21,13 @@ jobs:
 
     - name: Install Jekyll and Bundler
       run: |
-        gem install jekyll bundler
+        cd docs # Navigate to the directory containing the Gemfile
         bundle install
 
     - name: Build Jekyll site
-      run: bundle exec jekyll build --source ./docs --destination ./site/main
+      run: |
+        cd docs # Ensure we're in the right directory
+        bundle exec jekyll build --destination ../site/main
 
     - name: Install Doxygen
       run: sudo apt-get install doxygen -y
