@@ -103,9 +103,20 @@ jobs:
     needs: [build-jekyll, build-doxygen]
     steps:
       - name: Download Artifacts
-        uses: actions/download-pages-artifact@v2
+        uses: actions/download-artifact@v3
+        with:
+          name: jekyll-site-${{ github.run_number }}-${{ github.run_id }}
+      - name: Download Doxygen Docs
+        uses: actions/download-artifact@v3
+        with:
+          name: doxygen-docs-${{ github.run_number }}-${{ github.run_id }}
 
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v4
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./docs
+          publish_branch: gh-pages
+          keep_files: true
 
