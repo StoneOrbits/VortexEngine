@@ -26,26 +26,21 @@ jobs:
           ref: gh-pages
           fetch-depth: 0
 
-      # Setup Ruby for Jekyll
-      - name: Setup Ruby for Jekyll
-        uses: ruby/setup-ruby@v1
-        with:
-          ruby-version: '3.1' # Ensure compatibility with your Jekyll setup
-
-      # Install Jekyll Dependencies
-      - name: Install Jekyll Dependencies
+      # Setup Ruby and Jekyll
+      - name: Setup Ruby and Install Jekyll
         run: |
-          gem install bundler
-          bundle install
+          sudo apt-get update
+          sudo apt-get install -y ruby-full build-essential zlib1g-dev
+          gem install jekyll bundler
+          bundle install --path vendor/bundle
 
       # Build Jekyll Site
       - name: Build Jekyll Site
-        run: |
-          bundle exec jekyll build -d _site
+        run: bundle exec jekyll build -d _site
 
       # Install Doxygen and Dependencies
       - name: Install Doxygen and Dependencies
-        run: sudo apt-get update && sudo apt-get install -y doxygen graphviz texlive
+        run: sudo apt-get install -y doxygen graphviz
 
       # Generate Doxygen Documentation
       - name: Generate Doxygen Documentation
@@ -57,7 +52,7 @@ jobs:
             IFS=':' read -r branch dest <<< "$item"
             dest="${dest:-$branch}"
 
-            # Create a temporary directory for each branch
+            # Create a worktree for each branch in a separate directory
             echo "Setting up worktree for branch: $branch"
             git worktree add --detach worktree/$branch $branch
 
