@@ -26,21 +26,20 @@ jobs:
           ref: gh-pages
           fetch-depth: 0
 
-      # Setup Ruby and Jekyll
-      - name: Setup Ruby and Install Jekyll
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y ruby-full build-essential zlib1g-dev
-          gem install jekyll bundler
-          bundle install --path vendor/bundle
+      # Setup Pages environment and dependencies
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
 
       # Build Jekyll Site
-      - name: Build Jekyll Site
-        run: bundle exec jekyll build -d _site
+      - name: Build with Jekyll
+        uses: actions/jekyll-build-pages@v1
+        with:
+          source: .
+          destination: ./_site
 
       # Install Doxygen and Dependencies
       - name: Install Doxygen and Dependencies
-        run: sudo apt-get install -y doxygen graphviz
+        run: sudo apt-get update && sudo apt-get install -y doxygen graphviz texlive
 
       # Generate Doxygen Documentation
       - name: Generate Doxygen Documentation
