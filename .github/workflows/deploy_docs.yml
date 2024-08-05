@@ -66,6 +66,9 @@ jobs:
             echo "Running Doxygen for branch: $branch"
             doxygen Doxyfile || { echo "Doxygen failed for branch: $branch"; exit 1; }
 
+            echo "Contents of docs directory after Doxygen generation:"
+            ls -l docs/
+
             # Move generated files to the correct directory
             echo "Moving documentation for $branch to docs/$dest"
             mkdir -p docs/$dest
