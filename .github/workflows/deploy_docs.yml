@@ -1,0 +1,56 @@
+name: Deploy Documentation to GitHub Pages
+
+on:
+  push:
+    branches:
+      - gh-pages
+  workflow_dispatch: # Allows manual triggering of the workflow
+
+jobs:
+  deploy-docs:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Install Doxygen and Dependencies
+        run: sudo apt-get install -y doxygen graphviz texlive
+
+      - name: Checkout doxygen-awesome
+        run: git clone https://github.com/jothepro/doxygen-awesome-css.git doxygen-awesome-css
+
+      - name: Generate and Deploy Doxygen Documentation
+        run: |
+          branches=("master:core" "duo" "handle" "orbit" "gloves" "desktop" "spark" "chromadeck")
+          for item in "${branches[@]}"; do
+            IFS=':' read -r branch dest <<< "$item"
+
+            # If no destination is specified, use the branch name
+            dest="${dest:-$branch}"
+
+            # Check out each branch and generate documentation
+            git checkout $branch
+            doxygen Doxyfile
+
+            # Ensure the docs directory is prepared
+            mkdir -p docs/$dest
+
+            # Move generated files to the correct directory
+            mv docs/* docs/$dest/
+
+            # Clear out the previous docs for the next iteration
+            rm -rf docs/*
+
+            echo "Generated docs for $branch, deployed to docs/$dest"
+          done
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_branch: gh-pages
+          publish_dir: ./docs
+          pre_clean: true
+
