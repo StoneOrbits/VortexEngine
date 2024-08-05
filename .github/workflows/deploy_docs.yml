@@ -1,91 +1,61 @@
-name: Build and Deploy Jekyll and Doxygen Documentation
+name: Build and Deploy Documentation
 
 on:
   push:
     branches:
       - gh-pages
-  workflow_dispatch: # Allows manual trigger from the Actions tab
-
-permissions:
-  contents: read
-  pages: write
-  id-token: write
-
-concurrency:
-  group: "pages"
-  cancel-in-progress: false
+  workflow_dispatch:
 
 jobs:
-  build:
+  build-and-deploy:
     runs-on: ubuntu-latest
+
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
+    - name: Checkout code
+      uses: actions/checkout@v3
 
-      - name: Setup Pages
-        uses: actions/configure-pages@v5
+    - name: Set up Ruby for Jekyll
+      uses: ruby/setup-ruby@v1
+      with:
+        ruby-version: 3.0
 
-      - name: Build with Jekyll
-        uses: actions/jekyll-build-pages@v1
-        with:
-          source: ./
-          destination: ./_site
+    - name: Install Jekyll and Bundler
+      run: |
+        gem install jekyll bundler
+        bundle install
 
-      - name: Install Doxygen and Dependencies
-        run: sudo apt-get update && sudo apt-get install -y doxygen graphviz
+    - name: Build Jekyll site
+      run: bundle exec jekyll build --source ./docs --destination ./site/main
 
-      - name: Generate Doxygen Documentation
-        run: |
-          # Define the branches and their corresponding doc folders
-          branches=("master:core" "duo" "handle" "orbit" "gloves" "desktop" "spark" "chromadeck")
-          mkdir -p _site/docs # Ensure the docs directory exists
+    - name: Install Doxygen
+      run: sudo apt-get install doxygen -y
 
-          # Iterate over each branch and generate documentation
-          for item in "${branches[@]}"; do
-            IFS=':' read -r branch dest <<< "$item"
-            dest="${dest:-$branch}"
+    - name: Generate Doxygen docs for core and devices
+      run: |
+        branches=("master" "orbit" "handle" "gloves" "desktop" "duo" "chromadeck" "spark")
+        for branch in "${branches[@]}"
+        do
+          if [ "$branch" == "master" ]; then
+            folder_name="core"
+          else
+            folder_name=$branch
+          fi
+          git fetch origin $branch:$branch
+          git checkout $branch
+          doxygen Doxyfile
+          mkdir -p site/$folder_name
+          mv html/* site/$folder_name
+        done
 
-            # Check if the branch exists on the remote
-            if git ls-remote --heads origin $branch | grep -q $branch; then
-              echo "Processing branch: $branch"
-              # Use a temporary directory for each branch to avoid conflicts
-              mkdir -p temp/$branch
-              git worktree add temp/$branch origin/$branch
+    - name: Upload site artifacts
+      uses: actions/upload-artifact@v3
+      with:
+        name: documentation
+        path: ./site
 
-              # Change directory to the worktree
-              cd temp/$branch
+    - name: Deploy to GitHub Pages
+      uses: peaceiris/actions-gh-pages@v3
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: ./site
 
-              # Ensure the output directory exists in the _site/docs folder
-              mkdir -p ../../_site/docs/$dest
-
-              # Adjust the Doxyfile to set the output directory
-              echo "Adjusting Doxyfile for branch: $branch"
-              sed -i "s|OUTPUT_DIRECTORY *=.*|OUTPUT_DIRECTORY = ../../_site/docs/$dest|" Doxyfile
-
-              # Run Doxygen to generate the documentation
-              echo "Running Doxygen for branch: $branch"
-              doxygen Doxyfile || { echo "Doxygen failed for branch: $branch"; exit 1; }
-
-              # Return to the root directory
-              cd ../..
-
-              # Clean up the worktree
-              git worktree remove temp/$branch -f
-            else
-              echo "Branch $branch does not exist on the remote."
-            fi
-          done
-
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
-
-  deploy:
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    runs-on: ubuntu-latest
-    needs: build
-    steps:
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4
