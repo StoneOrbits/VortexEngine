@@ -1,14 +1,13 @@
-name: Deploy Jekyll with GitHub Pages and Doxygen Docs
+name: Build and Deploy Jekyll and Doxygen Documentation
 
 on:
-  # Runs on pushes to the default branch and allows manual runs
   push:
     branches:
       - gh-pages
   workflow_dispatch:
 
 permissions:
-  contents: read
+  contents: write
   pages: write
   id-token: write
 
@@ -18,33 +17,30 @@ concurrency:
 
 jobs:
   # Build Jekyll Site
-  build:
+  build-jekyll:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout Code
+      - name: Checkout
         uses: actions/checkout@v4
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+
+      - name: Build with Jekyll
+        uses: actions/jekyll-build-pages@v1
         with:
-          fetch-depth: 0 # Fetch full history for all branches
+          source: ./
+          destination: ./_site
 
-      - name: Setup Ruby for Jekyll
-        uses: ruby/setup-ruby@v1
-        with:
-          ruby-version: '3.1' # Ensure compatibility with Jekyll
-
-      - name: Build Jekyll Site
-        run: |
-          bundle install
-          bundle exec jekyll build -d _site
-
-      - name: Upload Jekyll Site
+      - name: Upload Jekyll Artifact
         uses: actions/upload-pages-artifact@v3
         with:
           path: ./_site
 
   # Generate Doxygen Documentation
-  docs:
+  build-doxygen:
     runs-on: ubuntu-latest
-    needs: build
+    needs: build-jekyll
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
@@ -54,7 +50,7 @@ jobs:
       - name: Install Doxygen and Dependencies
         run: sudo apt-get update && sudo apt-get install -y doxygen graphviz texlive
 
-      - name: Generate Doxygen Docs for Branches
+      - name: Generate Doxygen Documentation
         run: |
           branches=("master:core" "duo" "handle" "orbit" "gloves" "desktop" "spark" "chromadeck")
           rm -rf docs || true
@@ -63,13 +59,15 @@ jobs:
             IFS=':' read -r branch dest <<< "$item"
             dest="${dest:-$branch}"
 
-            # Checkout branch and generate documentation
+            # Checkout each branch and generate documentation
             git checkout $branch
             doxygen Doxyfile
 
-            # Move generated files to the appropriate directory
+            # Move generated files to the correct directory
             mkdir -p docs/$dest
             mv -v docs/* docs/$dest/
+
+            # Clean up to prepare for the next branch
             rm -rf docs/*
 
             echo "Generated docs for $branch, deployed to docs/$dest"
@@ -83,7 +81,7 @@ jobs:
   # Deploy to GitHub Pages
   deploy:
     runs-on: ubuntu-latest
-    needs: [build, docs]
+    needs: [build-jekyll, build-doxygen]
     steps:
       - name: Download Artifacts
         uses: actions/download-pages-artifact@v2
