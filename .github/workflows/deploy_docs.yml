@@ -39,6 +39,7 @@ jobs:
         uses: actions/upload-pages-artifact@v3
         with:
           path: ./_site
+          name: jekyll-site-${{ github.run_number }}-${{ github.run_id }}
 
   # Generate Doxygen Documentation
   build-doxygen:
@@ -94,6 +95,7 @@ jobs:
         uses: actions/upload-pages-artifact@v3
         with:
           path: ./docs
+          name: doxygen-docs-${{ github.run_number }}-${{ github.run_id }}
 
   # Deploy to GitHub Pages
   deploy:
