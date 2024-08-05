@@ -53,8 +53,8 @@ jobs:
       - name: Generate Doxygen Documentation
         run: |
           branches=("master:core" "duo" "handle" "orbit" "gloves" "desktop" "spark" "chromadeck")
-          rm -rf tmp || true
-          mkdir -p tmp # Temporary directory for generating docs
+          rm -rf docs || true
+          mkdir -p docs # Ensure the docs directory is clean and prepared
 
           for item in "${branches[@]}"; do
             IFS=':' read -r branch dest <<< "$item"
@@ -64,15 +64,14 @@ jobs:
             echo "Checking out branch: $branch"
             git checkout $branch
 
+            # Change OUTPUT_DIRECTORY in Doxyfile for each branch
+            echo "Adjusting Doxyfile for branch: $branch"
+            sed -i "s|OUTPUT_DIRECTORY *=.*|OUTPUT_DIRECTORY = docs/$dest|" Doxyfile
+
             echo "Running Doxygen for branch: $branch"
             doxygen Doxyfile || { echo "Doxygen failed for branch: $branch"; exit 1; }
 
-            echo "Moving documentation for $branch to docs/$dest"
-            mkdir -p docs/$dest
-            mv -v tmp/docs/* docs/$dest/ || { echo "Move failed for branch: $branch"; exit 1; }
-
-            # Clean up temporary directory for the next branch
-            rm -rf tmp/*
+            echo "Generated docs for $branch in docs/$dest"
           done
 
       - name: Upload Doxygen Docs
