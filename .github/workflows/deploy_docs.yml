@@ -20,8 +20,11 @@ jobs:
   build-jekyll:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
+      - name: Checkout gh-pages
         uses: actions/checkout@v4
+        with:
+          ref: gh-pages
+          fetch-depth: 0
 
       - name: Setup Pages
         uses: actions/configure-pages@v5
@@ -42,9 +45,10 @@ jobs:
     runs-on: ubuntu-latest
     needs: build-jekyll
     steps:
-      - name: Checkout Code
+      - name: Checkout gh-pages
         uses: actions/checkout@v4
         with:
+          ref: gh-pages
           fetch-depth: 0
 
       - name: Install Doxygen and Dependencies
@@ -53,12 +57,13 @@ jobs:
       - name: Generate Doxygen Documentation
         run: |
           branches=("master:core" "duo" "handle" "orbit" "gloves" "desktop" "spark" "chromadeck")
-          rm -rf docs || true
-          mkdir -p docs # Ensure the docs directory is clean and prepared
 
           for item in "${branches[@]}"; do
             IFS=':' read -r branch dest <<< "$item"
             dest="${dest:-$branch}"
+
+            # Ensure the output directory exists
+            mkdir -p docs/$dest
 
             # Checkout each branch and generate documentation
             echo "Checking out branch: $branch"
