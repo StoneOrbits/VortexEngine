@@ -53,7 +53,8 @@ jobs:
       - name: Generate Doxygen Documentation
         run: |
           branches=("master:core" "duo" "handle" "orbit" "gloves" "desktop" "spark" "chromadeck")
-          rm -rf docs || true
+          rm -rf tmp || true
+          mkdir -p tmp # Temporary directory for generating docs
 
           for item in "${branches[@]}"; do
             IFS=':' read -r branch dest <<< "$item"
@@ -66,18 +67,12 @@ jobs:
             echo "Running Doxygen for branch: $branch"
             doxygen Doxyfile || { echo "Doxygen failed for branch: $branch"; exit 1; }
 
-            echo "Contents of docs directory after Doxygen generation:"
-            ls -l docs/
-
-            # Move generated files to the correct directory
             echo "Moving documentation for $branch to docs/$dest"
             mkdir -p docs/$dest
-            mv -v docs/* docs/$dest/ || { echo "Move failed for branch: $branch"; exit 1; }
+            mv -v tmp/docs/* docs/$dest/ || { echo "Move failed for branch: $branch"; exit 1; }
 
-            # Clean up to prepare for the next branch
-            rm -rf docs/*
-
-            echo "Generated docs for $branch, deployed to docs/$dest"
+            # Clean up temporary directory for the next branch
+            rm -rf tmp/*
           done
 
       - name: Upload Doxygen Docs
