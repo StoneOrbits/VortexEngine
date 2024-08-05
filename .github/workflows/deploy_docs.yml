@@ -13,6 +13,7 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v3
         with:
+          ref: gh-pages
           fetch-depth: 0 # Full history needed for branch checkout
 
       - name: Install Doxygen and Dependencies
@@ -26,32 +27,20 @@ jobs:
           branches=("master:core" "duo" "handle" "orbit" "gloves" "desktop" "spark" "chromadeck")
           for item in "${branches[@]}"; do
             IFS=':' read -r branch dest <<< "$item"
-
             # Default destination is the branch name unless specified
             dest="${dest:-$branch}"
-
-            # Check out each branch and generate documentation
+            # Checkout each branch, generate documentation, and move it to the correct directory
             git checkout $branch
             doxygen Doxyfile
-
-            # Create a temporary directory to hold generated docs
+            # Move generated files to a temporary directory
             temp_dir="/tmp/docs_$dest"
-
-            # Ensure the temp directory is prepared
             mkdir -p $temp_dir
-
-            # Move all generated files into the temp directory
             mv docs/* $temp_dir/
-
-            # Ensure the final destination directory is prepared
+            # Ensure the final destination directory is prepared in the gh-pages branch
             mkdir -p docs/$dest
-
-            # Move files from the temp directory to the final destination
             mv $temp_dir/* docs/$dest/
-
-            # Clean up the temp directory for the next iteration
+            # Clean up the temporary directory
             rm -rf $temp_dir
-
             echo "Generated docs for $branch, deployed to docs/$dest"
           done
 
