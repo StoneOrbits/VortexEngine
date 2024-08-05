@@ -1,20 +1,17 @@
 name: Deploy Documentation to GitHub Pages
 
 on:
-  push:
-    branches:
-      - gh-pages
   workflow_dispatch: # Allows manual triggering of the workflow
 
 jobs:
   deploy-docs:
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout Code
         uses: actions/checkout@v3
         with:
-          ref: gh-pages
-          fetch-depth: 0 # Full history needed for branch checkout
+          fetch-depth: 0 # Ensure full history is available
 
       - name: Install Doxygen and Dependencies
         run: sudo apt-get install -y doxygen graphviz texlive
@@ -22,33 +19,47 @@ jobs:
       - name: Checkout doxygen-awesome
         run: git clone https://github.com/jothepro/doxygen-awesome-css.git doxygen-awesome-css
 
-      - name: Generate and Deploy Doxygen Documentation
+      - name: Generate and Collect Doxygen Documentation
         run: |
           branches=("master:core" "duo" "handle" "orbit" "gloves" "desktop" "spark" "chromadeck")
+          rm -rf docs || true # Ensure docs directory starts clean
+
           for item in "${branches[@]}"; do
             IFS=':' read -r branch dest <<< "$item"
+
             # Default destination is the branch name unless specified
             dest="${dest:-$branch}"
-            # Checkout each branch, generate documentation, and move it to the correct directory
+
+            # Check out each branch and generate documentation
             git checkout $branch
             doxygen Doxyfile
-            # Move generated files to a temporary directory
-            temp_dir="/tmp/docs_$dest"
-            mkdir -p $temp_dir
-            mv docs/* $temp_dir/
-            # Ensure the final destination directory is prepared in the gh-pages branch
+
+            # Move generated files to the correct directory
             mkdir -p docs/$dest
-            mv $temp_dir/* docs/$dest/
-            # Clean up the temporary directory
-            rm -rf $temp_dir
+            cp -r docs/* docs/$dest/
+
+            # Clean up to prepare for the next branch
+            rm -rf docs/*
+
             echo "Generated docs for $branch, deployed to docs/$dest"
           done
+
+      - name: Checkout gh-pages Branch
+        uses: actions/checkout@v3
+        with:
+          ref: gh-pages
+          fetch-depth: 0
+
+      - name: Copy Generated Docs to gh-pages
+        run: |
+          mkdir -p new-docs
+          cp -r docs/* new-docs/
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_branch: gh-pages
-          publish_dir: ./docs
-          pre_clean: true
+          publish_dir: ./new-docs
+          keep_files: false
 
