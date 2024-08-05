@@ -1,69 +1,94 @@
-name: Deploy Documentation to GitHub Pages
+name: Deploy Jekyll with GitHub Pages and Doxygen Docs
 
 on:
-  workflow_dispatch: # Allows manual triggering of the workflow
+  # Runs on pushes to the default branch and allows manual runs
+  push:
+    branches:
+      - gh-pages
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
 
 jobs:
-  deploy-docs:
+  # Build Jekyll Site
+  build:
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout Code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
-          fetch-depth: 0 # Ensure full history is available
+          fetch-depth: 0 # Fetch full history for all branches
+
+      - name: Setup Ruby for Jekyll
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.1' # Ensure compatibility with Jekyll
+
+      - name: Build Jekyll Site
+        run: |
+          bundle install
+          bundle exec jekyll build -d _site
+
+      - name: Upload Jekyll Site
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./_site
+
+  # Generate Doxygen Documentation
+  docs:
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Install Doxygen and Dependencies
         run: sudo apt-get update && sudo apt-get install -y doxygen graphviz texlive
 
-      - name: Checkout doxygen-awesome
-        run: git clone https://github.com/jothepro/doxygen-awesome-css.git doxygen-awesome-css
-
-      - name: Generate and Collect Doxygen Documentation
+      - name: Generate Doxygen Docs for Branches
         run: |
-          # Ensure docs directory starts clean
-          rm -rf docs || true
-
-          # Branches and their corresponding doc directories
           branches=("master:core" "duo" "handle" "orbit" "gloves" "desktop" "spark" "chromadeck")
+          rm -rf docs || true
 
           for item in "${branches[@]}"; do
             IFS=':' read -r branch dest <<< "$item"
-
-            # Default destination is the branch name unless specified
             dest="${dest:-$branch}"
 
-            # Checkout each branch, generate documentation, and move it to the correct directory
+            # Checkout branch and generate documentation
             git checkout $branch
             doxygen Doxyfile
 
-            # Move generated files to the correct directory
+            # Move generated files to the appropriate directory
             mkdir -p docs/$dest
-            mv -v docs/* docs/$dest/ # Verbose output for logging
-
-            # Clean up to prepare for the next branch
+            mv -v docs/* docs/$dest/
             rm -rf docs/*
 
             echo "Generated docs for $branch, deployed to docs/$dest"
           done
 
-      - name: Checkout gh-pages Branch
-        uses: actions/checkout@v3
+      - name: Upload Doxygen Docs
+        uses: actions/upload-pages-artifact@v3
         with:
-          ref: gh-pages
-          fetch-depth: 0
+          path: ./docs
 
-      - name: Copy Generated Docs to gh-pages
-        run: |
-          # Create a temporary directory for deployment
-          mkdir -p new-docs
-          cp -r docs/* new-docs/
+  # Deploy to GitHub Pages
+  deploy:
+    runs-on: ubuntu-latest
+    needs: [build, docs]
+    steps:
+      - name: Download Artifacts
+        uses: actions/download-pages-artifact@v2
 
       - name: Deploy to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v3
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_branch: gh-pages
-          publish_dir: ./new-docs
-          keep_files: false
+        id: deployment
+        uses: actions/deploy-pages@v4
 
