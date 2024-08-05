@@ -14,15 +14,18 @@ jobs:
           fetch-depth: 0 # Ensure full history is available
 
       - name: Install Doxygen and Dependencies
-        run: sudo apt-get install -y doxygen graphviz texlive
+        run: sudo apt-get update && sudo apt-get install -y doxygen graphviz texlive
 
       - name: Checkout doxygen-awesome
         run: git clone https://github.com/jothepro/doxygen-awesome-css.git doxygen-awesome-css
 
       - name: Generate and Collect Doxygen Documentation
         run: |
+          # Ensure docs directory starts clean
+          rm -rf docs || true
+
+          # Branches and their corresponding doc directories
           branches=("master:core" "duo" "handle" "orbit" "gloves" "desktop" "spark" "chromadeck")
-          rm -rf docs || true # Ensure docs directory starts clean
 
           for item in "${branches[@]}"; do
             IFS=':' read -r branch dest <<< "$item"
@@ -30,13 +33,13 @@ jobs:
             # Default destination is the branch name unless specified
             dest="${dest:-$branch}"
 
-            # Check out each branch and generate documentation
+            # Checkout each branch, generate documentation, and move it to the correct directory
             git checkout $branch
             doxygen Doxyfile
 
             # Move generated files to the correct directory
             mkdir -p docs/$dest
-            cp -r docs/* docs/$dest/
+            mv -v docs/* docs/$dest/ # Verbose output for logging
 
             # Clean up to prepare for the next branch
             rm -rf docs/*
@@ -52,6 +55,7 @@ jobs:
 
       - name: Copy Generated Docs to gh-pages
         run: |
+          # Create a temporary directory for deployment
           mkdir -p new-docs
           cp -r docs/* new-docs/
 
