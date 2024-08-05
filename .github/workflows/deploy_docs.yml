@@ -51,30 +51,38 @@ jobs:
             IFS=':' read -r branch dest <<< "$item"
             dest="${dest:-$branch}"
 
-            # Create a worktree for each branch in a separate directory
-            echo "Setting up worktree for branch: $branch"
-            git worktree add --detach worktree/$branch $branch
+            # Check if the branch exists on the remote
+            if git ls-remote --heads origin $branch | grep -q $branch; then
+              echo "Checking out branch: $branch"
+              git checkout $branch
 
-            # Change directory to the worktree
-            cd worktree/$branch
+              # Create a temporary directory for the branch
+              mkdir -p temp/$branch
+              git worktree add temp/$branch origin/$branch
 
-            # Ensure the output directory exists in the docs folder
-            mkdir -p ../../docs/$dest
+              # Change directory to the worktree
+              cd temp/$branch
 
-            # Change OUTPUT_DIRECTORY in Doxyfile for each branch
-            echo "Adjusting Doxyfile for branch: $branch"
-            sed -i "s|OUTPUT_DIRECTORY *=.*|OUTPUT_DIRECTORY = ../../docs/$dest|" Doxyfile
+              # Ensure the output directory exists in the docs folder
+              mkdir -p ../../docs/$dest
 
-            echo "Running Doxygen for branch: $branch"
-            doxygen Doxyfile || { echo "Doxygen failed for branch: $branch"; exit 1; }
+              # Change OUTPUT_DIRECTORY in Doxyfile for each branch
+              echo "Adjusting Doxyfile for branch: $branch"
+              sed -i "s|OUTPUT_DIRECTORY *=.*|OUTPUT_DIRECTORY = ../../docs/$dest|" Doxyfile
 
-            echo "Generated docs for $branch in docs/$dest"
+              echo "Running Doxygen for branch: $branch"
+              doxygen Doxyfile || { echo "Doxygen failed for branch: $branch"; exit 1; }
 
-            # Return to the root directory
-            cd ../..
+              echo "Generated docs for $branch in docs/$dest"
 
-            # Remove the worktree after processing
-            git worktree remove worktree/$branch -f
+              # Return to the root directory
+              cd ../..
+
+              # Remove the worktree after processing
+              git worktree remove temp/$branch -f
+            else
+              echo "Branch $branch does not exist on the remote."
+            fi
           done
 
       # Deploy to GitHub Pages
