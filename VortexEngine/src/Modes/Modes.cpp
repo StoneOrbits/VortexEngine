@@ -968,6 +968,7 @@ Mode *Modes::ModeLink::instantiate()
   if (!newMode->loadFromBuffer(m_storedMode)) {
     return nullptr;
   }
+  // TODO: init new mode?
   m_pInstantiatedMode = newMode;
   return m_pInstantiatedMode;
 }

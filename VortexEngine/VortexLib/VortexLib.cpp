@@ -103,6 +103,13 @@ PatternID intToPatternID(int val)
   return (PatternID)val;
 }
 
+Mode createMode(Vortex &vortex, PatternID pat, PatternArgs args, Colorset set)
+{
+  Mode newMode(vortex.engine(), vortex.engine().leds().ledCount());
+  newMode.setPattern(pat, vortex.engine().leds().ledCount(), &args, &set);
+  return newMode;
+}
+
 EMSCRIPTEN_BINDINGS(Vortex) {
   // vector<string>
   register_vector<std::string>("VectorString");
@@ -195,6 +202,7 @@ EMSCRIPTEN_BINDINGS(Vortex) {
   function("intToPatternID", &intToPatternID);
   function("isMultiLedPatternID", &isMultiLedPatternID);
   function("isSingleLedPatternID", &isSingleLedPatternID);
+  function("createMode", &createMode);
 
   enum_<PatternID>("PatternID")
     // Meta Constants
