@@ -35,20 +35,11 @@ jobs:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Set the GH_TOKEN environment variable
         run: |
           # Define branches with documentation to be included
-          declare -A branch_artifact_map=(
-            ["core"]="master"
-            ["desktop"]="desktop"
-            ["gloves"]="gloves"
-            ["orbit"]="orbit"
-            ["handle"]="handle"
-            ["duo"]="duo"
-            ["chromadeck"]="chromadeck"
-            ["spark"]="spark"
-          )
+          branches=("core" "desktop" "gloves" "orbit" "handle" "duo" "chromadeck" "spark")
 
-          for branch in "${!branch_artifact_map[@]}"
+          for branch in "${branches[@]}"
           do
-            artifact_name="doxygen-docs-${branch_artifact_map[$branch]}"
+            artifact_name="doxygen-docs-${branch}"
             # Attempt to download each branch's artifact
             echo "Attempting to download ${artifact_name}"
             artifact_id=$(gh api -H "Accept: application/vnd.github+json" /repos/${{ github.repository }}/actions/artifacts | jq -r ".artifacts[] | select(.name==\"${artifact_name}\") | .id")
