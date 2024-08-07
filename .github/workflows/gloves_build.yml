@@ -154,7 +154,7 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: doxygen-docs-gloves
-        path: docs/gloves
+          path: docs/gloves
 
   deploy:
     needs: [setup, test, embedded, wasm, docs]
