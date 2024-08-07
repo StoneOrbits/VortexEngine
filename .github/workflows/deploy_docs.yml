@@ -40,14 +40,17 @@ jobs:
             else
               folder_name=$branch
             fi
-            
+
             # Check out the branch
             git fetch origin $branch:$branch
             git checkout $branch
-            
+
+            # Ensure the docs directory exists
+            mkdir -p docs/$folder_name
+
             # Run Doxygen
             doxygen Doxyfile
-            
+
             # Verify output
             echo "Listing contents of docs/$folder_name:"
             ls -R docs/$folder_name || echo "No files found in docs/$folder_name"
@@ -57,6 +60,22 @@ jobs:
         uses: actions/checkout@v4
         with:
           ref: gh-pages
+
+      - name: Move Doxygen Documentation to gh-pages
+        run: |
+          # Ensure the site directory exists
+          mkdir -p _site
+
+          # Copy each branch's Doxygen output to the Jekyll site directory
+          branches=("core" "orbit" "handle" "gloves" "desktop" "duo" "chromadeck" "spark")
+          for folder_name in "${branches[@]}"
+          do
+            if [ -d "docs/$folder_name" ]; then
+              echo "Moving docs/$folder_name to _site/$folder_name"
+              mkdir -p _site/$folder_name
+              cp -r docs/$folder_name/* _site/$folder_name
+            fi
+          done
 
       - name: Build with Jekyll
         uses: actions/jekyll-build-pages@v1
