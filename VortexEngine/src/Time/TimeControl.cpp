@@ -22,6 +22,10 @@ static LARGE_INTEGER tps;
 static LARGE_INTEGER start;
 #endif
 
+#ifdef VORTEX_EMBEDDED
+#include <Arduino.h>
+#endif
+
 // static members
 #if VARIABLE_TICKRATE == 1
 uint32_t Time::m_tickrate = DEFAULT_TICKRATE;

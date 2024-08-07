@@ -5,8 +5,8 @@
 //
 // Whether to enable the Infrared system as a whole
 //
-#define IR_ENABLE_SENDER          1
-#define IR_ENABLE_RECEIVER        1
+#define IR_ENABLE_SENDER          0
+#define IR_ENABLE_RECEIVER        0
 
 // the size of IR blocks in bits
 #define IR_DEFAULT_BLOCK_SIZE 32
@@ -39,7 +39,7 @@
 #define IR_DIVIDER_SPACE_MIN IR_HEADER_MARK_MIN
 #define IR_DIVIDER_SPACE_MAX IR_HEADER_MARK_MAX
 
-#define IR_SEND_PWM_PIN 0
-#define IR_RECEIVER_PIN 2
+#define IR_SEND_PWM_PIN 3
+#define IR_RECEIVER_PIN 4
 
 #endif
