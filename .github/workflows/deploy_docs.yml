@@ -11,6 +11,10 @@ permissions:
   pages: write
   id-token: write
 
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -20,27 +24,15 @@ jobs:
         with:
           ref: gh-pages
 
-      - name: Set up Ruby for Jekyll
-        uses: ruby/setup-ruby@v1
-        with:
-          ruby-version: '3.1'
-
-      - name: Install Jekyll and Bundler
-        run: |
-          cd docs
-          bundle install
-
-      - name: Build Jekyll Site
-        run: |
-          cd docs
-          bundle exec jekyll build --destination ../_site
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
 
       - name: Install Doxygen
         run: sudo apt-get install doxygen -y
 
       - name: Generate Doxygen Documentation for Branches
         run: |
-          branches=("master" "orbit" "handle" "gloves" "desktop" "duo" "chromadeck" "spark") # List your branches here
+          branches=("master" "orbit" "handle" "gloves" "desktop" "duo" "chromadeck" "spark")
           for branch in "${branches[@]}"
           do
             if [ "$branch" == "master" ]; then
@@ -48,18 +40,32 @@ jobs:
             else
               folder_name=$branch
             fi
+            # Create a temporary directory for Doxygen output
+            mkdir -p /tmp/$folder_name
+            
             git fetch origin $branch:$branch
             git checkout $branch
-            # Ensure you have the correct path to your Doxyfile in each branch
+            
+            # Generate Doxygen docs to the temporary directory
             doxygen Doxyfile
-            mkdir -p docs/$folder_name
-            mv html/* docs/$folder_name # Move generated docs to the respective folder within 'docs'
+            
+            # Move the Doxygen output to the Jekyll site directory
+            mkdir -p _site/$folder_name
+            mv /tmp/$folder_name/docs/* _site/$folder_name
           done
+        env:
+          DOXYFILE: ./Doxyfile # Ensure this points to the correct location
+
+      - name: Build with Jekyll
+        uses: actions/jekyll-build-pages@v1
+        with:
+          source: ./docs
+          destination: ./_site
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: _site # Path to the generated site directory
+          path: ./_site
 
   deploy:
     runs-on: ubuntu-latest
