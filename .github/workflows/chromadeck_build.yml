@@ -126,12 +126,12 @@ jobs:
           export VORTEX_VERSION_MINOR=${{ needs.setup.outputs.vortex_version_minor }}
           export VORTEX_BUILD_NUMBER=${{ needs.setup.outputs.vortex_build_number }}
           export VORTEX_VERSION_NUMBER=${{ needs.setup.outputs.vortex_version_number }}
-          # TODO: uncomment this once embedded build isn't broken
-          #make -j wasm
+          make -j wasm
         working-directory: VortexEngine/VortexLib
 
   docs:
-    needs: [setup, test, embedded, wasm]
+    #todo: fix the depends to be setup, test, embedded, wasm
+    needs: [setup, test, wasm]
     runs-on: ubuntu-latest
     if: github.ref == 'refs/heads/chromadeck'
     steps:
