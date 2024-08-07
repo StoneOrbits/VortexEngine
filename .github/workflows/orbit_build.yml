@@ -154,7 +154,7 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: doxygen-docs-orbit
-        path: docs/orbit
+          path: docs/orbit
 
   deploy:
     needs: [setup, test, embedded, wasm, docs]
