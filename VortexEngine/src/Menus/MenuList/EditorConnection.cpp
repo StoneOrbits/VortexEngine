@@ -1,5 +1,7 @@
 #include "EditorConnection.h"
 
+#include "../../VortexEngine.h"
+
 #include "../../Patterns/PatternArgs.h"
 #include "../../Serial/ByteStream.h"
 #include "../../Serial/Serial.h"
@@ -14,8 +16,8 @@
 
 #include <string.h>
 
-EditorConnection::EditorConnection(const RGBColor &col, bool advanced) :
-  Menu(col, advanced),
+EditorConnection::EditorConnection(VortexEngine &engine, const RGBColor &col, bool advanced) :
+  Menu(engine, col, advanced),
   m_state(STATE_DISCONNECTED)
 {
 }
@@ -83,8 +85,8 @@ Menu::MenuAction EditorConnection::run()
   switch (m_state) {
   case STATE_DISCONNECTED:
     // not connected yet so check for connections
-    if (!SerialComs::isConnected()) {
-      if (!SerialComs::checkSerial()) {
+    if (!m_engine.serial().isConnected()) {
+      if (!m_engine.serial().checkSerial()) {
         // no connection found just continue waiting
         break;
       }
@@ -95,7 +97,7 @@ Menu::MenuAction EditorConnection::run()
   case STATE_GREETING:
     m_receiveBuffer.clear();
     // send the hello greeting with our version number and build time
-    SerialComs::write(EDITOR_VERB_GREETING);
+    m_engine.serial().write(EDITOR_VERB_GREETING);
     m_state = STATE_IDLE;
     break;
   case STATE_IDLE:
@@ -116,7 +118,7 @@ Menu::MenuAction EditorConnection::run()
   case STATE_PULL_MODES_DONE:
     m_receiveBuffer.clear();
     // send our acknowledgement that the modes were sent
-    SerialComs::write(EDITOR_VERB_PULL_MODES_ACK);
+    m_engine.serial().write(EDITOR_VERB_PULL_MODES_ACK);
     // go idle
     m_state = STATE_IDLE;
     break;
@@ -124,7 +126,7 @@ Menu::MenuAction EditorConnection::run()
     // editor requested to push modes, clear first and reset first
     m_receiveBuffer.clear();
     // now say we are ready
-    SerialComs::write(EDITOR_VERB_READY);
+    m_engine.serial().write(EDITOR_VERB_READY);
     // move to receiving
     m_state = STATE_PUSH_MODES_RECEIVE;
     break;
@@ -138,14 +140,14 @@ Menu::MenuAction EditorConnection::run()
   case STATE_PUSH_MODES_DONE:
     // say we are done
     m_receiveBuffer.clear();
-    SerialComs::write(EDITOR_VERB_PUSH_MODES_ACK);
+    m_engine.serial().write(EDITOR_VERB_PUSH_MODES_ACK);
     m_state = STATE_IDLE;
     break;
   case STATE_DEMO_MODE:
     // editor requested to push modes, clear first and reset first
     m_receiveBuffer.clear();
     // now say we are ready
-    SerialComs::write(EDITOR_VERB_READY);
+    m_engine.serial().write(EDITOR_VERB_READY);
     // move to receiving
     m_state = STATE_DEMO_MODE_RECEIVE;
     break;
@@ -159,19 +161,19 @@ Menu::MenuAction EditorConnection::run()
   case STATE_DEMO_MODE_DONE:
     // say we are done
     m_receiveBuffer.clear();
-    SerialComs::write(EDITOR_VERB_DEMO_MODE_ACK);
+    m_engine.serial().write(EDITOR_VERB_DEMO_MODE_ACK);
     m_state = STATE_IDLE;
     break;
   case STATE_CLEAR_DEMO:
     clearDemo();
     m_receiveBuffer.clear();
-    SerialComs::write(EDITOR_VERB_CLEAR_DEMO_ACK);
+    m_engine.serial().write(EDITOR_VERB_CLEAR_DEMO_ACK);
     m_state = STATE_IDLE;
     break;
   case STATE_TRANSMIT_MODE_VL:
 #if VL_ENABLE_SENDER == 1
     // if still sending and the send command indicated more data
-    if (VLSender::isSending() && VLSender::send()) {
+    if (m_engine.vlSender().isSending() && m_engine.vlSender().send()) {
       // then continue sending
       break;
     }
@@ -182,7 +184,7 @@ Menu::MenuAction EditorConnection::run()
   case STATE_TRANSMIT_MODE_VL_DONE:
     // done transmitting
     m_receiveBuffer.clear();
-    SerialComs::write(EDITOR_VERB_TRANSMIT_VL_ACK);
+    m_engine.serial().write(EDITOR_VERB_TRANSMIT_VL_ACK);
     m_state = STATE_IDLE;
     break;
   }
@@ -193,8 +195,8 @@ void EditorConnection::sendCurModeVL()
 {
 #if VL_ENABLE_SENDER == 1
   // immediately load the mode and send it now
-  VLSender::loadMode(&m_previewMode);
-  VLSender::send();
+  m_engine.vlSender().loadMode(&m_previewMode);
+  m_engine.vlSender().send();
 #endif
   m_state = STATE_TRANSMIT_MODE_VL;
 }
@@ -215,7 +217,7 @@ void EditorConnection::onLongClick()
 
 void EditorConnection::leaveMenu(bool doSave)
 {
-  SerialComs::write(EDITOR_VERB_GOODBYE);
+  m_engine.serial().write(EDITOR_VERB_GOODBYE);
   Menu::leaveMenu(true);
 }
 
@@ -223,8 +225,8 @@ void EditorConnection::showEditor()
 {
   switch (m_state) {
   case STATE_DISCONNECTED:
-    Leds::clearAll();
-    Leds::blinkAll(250, 150, RGB_WHITE0);
+    m_engine.leds().clearAll();
+    m_engine.leds().blinkAll(250, 150, RGB_WHITE0);
     break;
   case STATE_IDLE:
     m_previewMode.play();
@@ -240,14 +242,14 @@ void EditorConnection::showEditor()
 void EditorConnection::receiveData()
 {
   // read more data into the receive buffer
-  SerialComs::read(m_receiveBuffer);
+  m_engine.serial().read(m_receiveBuffer);
 }
 
 void EditorConnection::sendModes()
 {
   ByteStream modesBuffer;
-  Modes::saveToBuffer(modesBuffer);
-  SerialComs::write(modesBuffer);
+  m_engine.modes().saveToBuffer(modesBuffer);
+  m_engine.serial().write(modesBuffer);
 }
 
 bool EditorConnection::receiveModes()
@@ -277,8 +279,8 @@ bool EditorConnection::receiveModes()
     m_receiveBuffer.size() - sizeof(size));
   // clear the receive buffer
   m_receiveBuffer.clear();
-  Modes::loadFromBuffer(buf);
-  Modes::saveStorage();
+  m_engine.modes().loadFromBuffer(buf);
+  m_engine.modes().saveStorage();
   return true;
 }
 
