@@ -109,11 +109,13 @@ jobs:
     - name: Checkout doxygen-awesome
       run: git clone https://github.com/jothepro/doxygen-awesome-css.git doxygen-awesome-css
     - name: Generate Documentation
-      run: doxygen Doxyfile
-    - name: Commit and Push Documentation
       run: |
-        git config --local user.email "action@github.com"
-        git config --local user.name "GitHub Action"
-        git add docs
-        git commit -m "Update Doxygen documentation"
-        git push -f origin HEAD:core-docs
+        mkdir -p docs/core
+        doxygen Doxyfile
+        echo "Listing contents of docs/core:"
+        ls -R docs/core || echo "No files found in docs/core"
+    - name: Upload Doxygen Documentation as Artifact
+      uses: actions/upload-artifact@v3
+      with:
+        name: doxygen-docs-core
+        path: docs/core
