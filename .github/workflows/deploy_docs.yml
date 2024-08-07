@@ -28,9 +28,11 @@ jobs:
         uses: actions/configure-pages@v5
 
       - name: Install GitHub CLI
-        run: sudo apt-get install gh -y
+        run: sudo apt-get install -y gh jq
 
       - name: Download Doxygen Documentation Artifacts
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Set the GH_TOKEN environment variable
         run: |
           # Define branches with documentation to be included
           declare -A branch_artifact_map=(
