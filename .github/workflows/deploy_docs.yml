@@ -1,7 +1,6 @@
-name: Build and Deploy Jekyll and Doxygen Documentation
+name: Build and Deploy Documentation
 
 on:
-  # Trigger the workflow on pushes to the 'gh-pages' branch and allow manual dispatch
   push:
     branches:
       - gh-pages
@@ -12,22 +11,19 @@ permissions:
   pages: write
   id-token: write
 
-concurrency:
-  group: "pages"
-  cancel-in-progress: false
-
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
+      - name: Checkout gh-pages branch
         uses: actions/checkout@v4
+        with:
+          ref: gh-pages
 
-      # Set up Ruby and install Jekyll dependencies
       - name: Set up Ruby for Jekyll
         uses: ruby/setup-ruby@v1
         with:
-          ruby-version: '3.1' # Use a suitable Ruby version
+          ruby-version: '3.1'
 
       - name: Install Jekyll and Bundler
         run: |
@@ -37,15 +33,14 @@ jobs:
       - name: Build Jekyll Site
         run: |
           cd docs
-          bundle exec jekyll build --destination ../_site/main
+          bundle exec jekyll build --destination ../_site
 
-      # Install and run Doxygen to generate documentation
       - name: Install Doxygen
         run: sudo apt-get install doxygen -y
 
-      - name: Generate Doxygen Documentation
+      - name: Generate Doxygen Documentation for Branches
         run: |
-          branches=("master" "orbit" "handle" "gloves" "desktop" "duo" "chromadeck" "spark")
+          branches=("master" "orbit" "handle" "gloves" "desktop" "duo" "chromadeck" "spark") # List your branches here
           for branch in "${branches[@]}"
           do
             if [ "$branch" == "master" ]; then
@@ -55,20 +50,18 @@ jobs:
             fi
             git fetch origin $branch:$branch
             git checkout $branch
+            # Ensure you have the correct path to your Doxyfile in each branch
             doxygen Doxyfile
-            mkdir -p ../_site/$folder_name
-            mv html/* ../_site/$folder_name
+            mkdir -p docs/$folder_name
+            mv html/* docs/$folder_name # Move generated docs to the respective folder within 'docs'
           done
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: ../_site # Path to the generated site directory
+          path: _site # Path to the generated site directory
 
   deploy:
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
     needs: build
     steps:
