@@ -126,7 +126,8 @@ jobs:
           export VORTEX_VERSION_MINOR=${{ needs.setup.outputs.vortex_version_minor }}
           export VORTEX_BUILD_NUMBER=${{ needs.setup.outputs.vortex_build_number }}
           export VORTEX_VERSION_NUMBER=${{ needs.setup.outputs.vortex_version_number }}
-          make -j wasm
+          # TODO: uncomment this once embedded build isn't broken
+          #make -j wasm
         working-directory: VortexEngine/VortexLib
 
   docs:
@@ -153,6 +154,11 @@ jobs:
         with:
           name: doxygen-docs-chromadeck
           path: docs/chromadeck
+      - name: Deploy docs to GitHub Pages
+        uses: actions/deploy-pages@v4
+        with:
+          path: docs/chromadeck
+          target-path: docs/chromadeck
 
   deploy:
     needs: [setup, test, embedded, wasm, docs]
