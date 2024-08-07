@@ -28,7 +28,7 @@ jobs:
         uses: actions/configure-pages@v5
 
       - name: Install Doxygen
-        run: sudo apt-get install doxygen -y
+        run: sudo apt-get install doxygen graphviz texlive --fix-missing
 
       - name: Generate Doxygen Documentation for Branches
         run: |
