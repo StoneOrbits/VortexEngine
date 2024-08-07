@@ -208,7 +208,17 @@ void EditorConnection::onShortClick()
   clearDemo();
 }
 
+void EditorConnection::onShortClick2()
+{
+  sendCurModeVL();
+}
+
 void EditorConnection::onLongClick()
+{
+  leaveMenu(true);
+}
+
+void EditorConnection::onLongClick2()
 {
   leaveMenu(true);
 }

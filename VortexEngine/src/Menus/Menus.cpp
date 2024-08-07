@@ -112,6 +112,16 @@ bool Menus::runMenuSelection()
     Leds::clearAll();
     return true;
   }
+  if (g_pButton2->onShortClick()) {
+    // increment down the menu list and wrap at 0
+    if (!m_selection) {
+      m_selection = MENU_COUNT - 1;
+    } else {
+      --m_selection;
+    }
+    Leds::clearAll();
+    return true;
+  }
   // clear the leds so it always fills instead of replacing
   Leds::clearAll();
   // timings for blink later
@@ -142,6 +152,13 @@ bool Menus::runMenuSelection()
       offtime = HYPERSTROBE_OFF_DURATION;
       ontime = HYPERSTROBE_ON_DURATION;
     }
+  }
+  // if you long click the 2nd button exit the menu list
+  if (g_pButton2->onLongClick()) {
+    // close the current menu when run returns false
+    closeCurMenu();
+    // return false to let the modes play
+    return false;
   }
   // blink every even/odd of every pair
   for (Pair p = PAIR_FIRST; p < PAIR_COUNT; ++p) {
@@ -188,6 +205,12 @@ bool Menus::runCurMenu()
     }
     if (g_pButton->onLongClick()) {
       m_pCurMenu->onLongClick();
+    }
+    if (g_pButton2->onShortClick()) {
+      m_pCurMenu->onShortClick2();
+    }
+    if (g_pButton2->onLongClick()) {
+      m_pCurMenu->onLongClick2();
     }
     break;
   case Menu::MENU_SKIP:
