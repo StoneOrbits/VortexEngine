@@ -7,6 +7,10 @@ on:
     branches: [ "chromadeck" ]
   workflow_dispatch: # manual trigger
 
+permissions:
+  pages: write
+  id-token: write
+
 jobs:
   setup:
     runs-on: ubuntu-latest
@@ -159,6 +163,13 @@ jobs:
         with:
           path: docs/chromadeck
           target-path: docs/chromadeck
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./docs/chromadeck
+          destination_dir: docs/chromadeck
+          nojekyll: true # If your site needs raw HTML deployment
 
   deploy:
     needs: [setup, test, embedded, wasm, docs]
