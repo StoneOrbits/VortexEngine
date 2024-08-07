@@ -27,31 +27,38 @@ jobs:
       - name: Setup Pages
         uses: actions/configure-pages@v5
 
-      - name: Install Doxygen
-        run: sudo apt-get install doxygen graphviz texlive --fix-missing
+      - name: Install GitHub CLI
+        run: sudo apt-get install gh -y
 
-      - name: Generate Doxygen Documentation for Branches
+      - name: Download Doxygen Documentation Artifacts
         run: |
-          branches=("master" "orbit" "handle" "gloves" "desktop" "duo" "chromadeck" "spark")
-          for branch in "${branches[@]}"
-          do
-            if [ "$branch" == "master" ]; then
-              folder_name="core"
-            else
-              folder_name=$branch
-            fi
-            git fetch origin $branch:$branch
-            git checkout $branch
-            mkdir -p docs/$folder_name
-            doxygen Doxyfile
-            echo "Listing contents of docs/$folder_name:"
-            ls -R docs/$folder_name || echo "No files found in docs/$folder_name"
-          done
+          # Define branches with documentation to be included
+          declare -A branch_artifact_map=(
+            ["core"]="master"
+            ["desktop"]="desktop"
+            ["gloves"]="gloves"
+            ["orbit"]="orbit"
+            ["handle"]="handle"
+            ["duo"]="duo"
+            ["chromadeck"]="chromadeck"
+            ["spark"]="spark"
+          )
 
-      - name: Checkout gh-pages again
-        uses: actions/checkout@v4
-        with:
-          ref: gh-pages
+          for branch in "${!branch_artifact_map[@]}"
+          do
+            artifact_name="doxygen-docs-${branch_artifact_map[$branch]}"
+            # Attempt to download each branch's artifact
+            echo "Attempting to download ${artifact_name}"
+            artifact_id=$(gh api -H "Accept: application/vnd.github+json" /repos/${{ github.repository }}/actions/artifacts | jq -r ".artifacts[] | select(.name==\"${artifact_name}\") | .id")
+
+            if [ -n "$artifact_id" ]; then
+              echo "Artifact ${artifact_name} exists, downloading..."
+              mkdir -p docs/${branch}
+              gh run download --name ${artifact_name} --dir docs/${branch} || echo "Failed to download artifact for branch: ${branch}"
+            else
+              echo "Artifact ${artifact_name} does not exist, skipping..."
+            fi
+          done
 
       - name: Build with Jekyll
         uses: actions/jekyll-build-pages@v1
