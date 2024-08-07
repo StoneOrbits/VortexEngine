@@ -40,21 +40,23 @@ jobs:
             else
               folder_name=$branch
             fi
-            # Create a temporary directory for Doxygen output
-            mkdir -p /tmp/$folder_name
             
+            # Check out the branch
             git fetch origin $branch:$branch
             git checkout $branch
             
-            # Generate Doxygen docs to the temporary directory
+            # Run Doxygen
             doxygen Doxyfile
             
-            # Move the Doxygen output to the Jekyll site directory
-            mkdir -p _site/$folder_name
-            mv /tmp/$folder_name/docs/* _site/$folder_name
+            # Verify output
+            echo "Listing contents of docs/$folder_name:"
+            ls -R docs/$folder_name || echo "No files found in docs/$folder_name"
           done
-        env:
-          DOXYFILE: ./Doxyfile # Ensure this points to the correct location
+
+      - name: Checkout gh-pages again
+        uses: actions/checkout@v4
+        with:
+          ref: gh-pages
 
       - name: Build with Jekyll
         uses: actions/jekyll-build-pages@v1
