@@ -131,7 +131,7 @@ jobs:
 
   docs:
     #todo: fix the depends to be setup, test, embedded, wasm
-    needs: [setup, test, wasm]
+    needs: [setup, test]
     runs-on: ubuntu-latest
     if: github.ref == 'refs/heads/chromadeck'
     steps:
