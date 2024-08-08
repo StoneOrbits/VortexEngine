@@ -11,7 +11,7 @@ Welcome to the Vortex Engine Wiki! Here you can find documentation covering all 
 
 ## Getting Started
 
-Are you a new or existing Vortex Device owner looking to get started?
+Are you a new Vortex Device owner looking to get started?
 
 Follow the [Getting Started Guide](getting_started.html)
 

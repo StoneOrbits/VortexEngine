@@ -19,14 +19,12 @@ If this is your first time with a Vortex Device then congratulations and welcome
 
 Regardless of which device you have, Orbit, Handles, Wired Gloves, or others, most devices work and function almost entirely the same.
 
-The best thing to do first is connect your device to the PC and install updates to avoid any potentially known bugs or problems, continue reading below for instructions to do this.
+If you are using a Vortex Device like an orbit, handles, or wired gloves then you can expect to find one or two <span style="color: #00c6ff">navigation buttons</span> and a small <span style="color: #00ff00">power switch</span> on the device.
 
-However, if you'd rather live life on the edge and want to jump straight into things then head over to [Basic Usage](basic_usage.html) to start using your device now.
+There is also a very small <span style="color: #ff0000">reset button</span> which is primarily used for updating the device firmware.
 
-# Connecting Your Device
+![Device Buttons](assets/images/device-buttons.png)
 
-All Vortex Devices (except the duo) have a USB plug that can be used to connect the device to the computer.
+## Next Steps
 
-_It is important that a data-capable USB cable is used_ otherwise the device will not be able to connect.
-
-Continue reading the [Upgrade Guide](upgrade_guide.html) to perform the upgrade.
+To begin learning how to use your device head over to [Basic Usage](basic_usage.html) where we will explore navigating modes, and utilizing the on-device menus.

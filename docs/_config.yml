@@ -6,6 +6,7 @@ search_enabled: true
 heading_anchors: true
 markdown: kramdown
 include:
+  - assets/images/
   - core/
   - desktop/
   - gloves/

@@ -6,17 +6,16 @@ parent: Vortex Engine
 ---
 
 # Vortex Device Basic Usage
-The Vortex Wired Gloves and Omega Handles are each equipped with a power switch and at least one button (the orbit has two, the outer button is _primary_). 
-
 Find the power switch on your device and turn it on, the leds should activate and start playing the first _mode_.
 
-## The Mode List
-Vortex devices start on the _mode list_, you can think of a _mode_ as the colorful blinking pattern that is playing on the leds. 
+You can think of a _mode_ as the colorful blinking pattern that is playing on the leds, both the flashing speed/style and the colors come together to create the '_mode_'. 
 
-The amount of modes depends on the led count and storage space of the device, more leds means less modes.
+When a Vortex devices is first turned on it will always start on the first _mode_ in the '_mode list_'. Some devices have more modes some have less. But each device can cycle through the modes with the navigation buttons.
 
-### Navigating 
-Use the button(s) to _click_ through the _mode list_, when the end of the list is reached it will wrap around to the first.
+## Navigating 
+There is two distinct ways to use the _navigation buttons_ on your device: **short clicks** and **long clicks**.
 
-If you hold down the button for a second or two the leds will start alternating white blinks, this has opened [The Menus](menus.html).
+Using a **short click** (like clicking a computer-mouse), the _navigation buttons_ will cycle through the _mode list_, wrapping around to the beginning after the last mode.
+
+Holding the buttons for a **long click** the button for a second or two the leds will start alternating white blinks, this has opened [The Menus](menus.html).
 
