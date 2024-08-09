@@ -25,4 +25,4 @@ Almost everything can be achieved with only **short** and **long** clicks.
 
 The main purpose of a **hold** is to enter the menus, but it is also used as an auxiliary input in some places.
 
-Now that you understand the basics of controlling your vortex device, try **holding** the navigation button till the leds start alternating white blinks, this is [The Menus](menus.html)
+Now that you understand the basics of controlling your vortex device, try **holding** the navigation button till the leds start alternating white blinks, then continue reading over at [The Menus](menus.html)
