@@ -38,6 +38,11 @@ has_children: true
 </style>
 
 
+# Menus
+
+The menus are a way to customize your Vortex Device and manage it's configuration.
+
+By **holding** the navigation button till the leds alternate blinking white, the device enters the **menu selection**
 
 ### Entering Menus
 When the menus open, the last _mode_ that was playing becomes the 'target' of the menu operations.

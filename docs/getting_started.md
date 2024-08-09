@@ -28,3 +28,5 @@ There is also a very small <span style="color: #ff0000">reset button</span> whic
 ## Next Steps
 
 To begin learning how to use your device head over to [Basic Usage](basic_usage.html) where we will explore navigating modes, and utilizing the on-device menus.
+
+If your device is new then it will already be up to date, but if you have an older device or would like to learn how to upgrade your device head over to [Upgrade Guide](upgrade_guide.html)
