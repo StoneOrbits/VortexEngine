@@ -5,6 +5,33 @@ nav_order: 1
 parent: Quick Use Guides
 ---
 
+<style>
+.white { background-color: rgba(255, 255, 255, 0.6); }
+.cyan { background-color: rgba(0, 255, 255, 0.6); }
+.purple { background-color: rgba(128, 0, 128, 0.6); }
+.green { background-color: rgba(0, 128, 0, 0.6); }
+.blue { background-color: rgba(0, 0, 255, 0.6); }
+.yellow { background-color: rgba(255, 255, 0, 0.6); }
+.red { background-color: rgba(255, 0, 0, 0.6); }
+
+.rounded-box { 
+   display:inline-block;
+   width:28px;
+   height:12px;
+   margin-right:8px;
+   margin-left:8px;
+   margin-top: 4px;
+   border-radius: 2px;
+   border: 2px solid #dfdfdf;
+   align-items: center;
+}
+
+.color-list-entry {
+   align-items: center;
+   font-size: 18px;
+}
+</style>
+
 # Orbit Quick Use Guide
 
 Welcome to the Vortex Orbit Quick-Use-Guide, this guide aims to get you up and running as fast as possible.
@@ -16,15 +43,13 @@ To enter the menu:
 1. **Hold the Navigation Button:** Hold the button until the LEDs alternate white blinks.
 2. **Cycle Menus:** Use short clicks to cycle through menu options. The menu colors indicate their function:
 
-{% raw %}
-<img align="left" width="" height="178" src="assets/images/menulist.png"> &nbsp;**White:** Randomizer
-    &nbsp;**Cyan:** Mode Sharing
-    &nbsp;**Purple:** Editor Connection
-    &nbsp;**Green:** Color Select
-    &nbsp;**Blue:** Pattern Select
-    &nbsp;**Yellow:** Global Brightness
-    &nbsp;**Red:** Factory Reset
-{% endraw %}
+    <div class="color-list-entry"><span class="rounded-box white"></span>Randomizer</div>
+    <div class="color-list-entry"><span class="rounded-box cyan"></span>Mode Sharing</div>  
+    <div class="color-list-entry"><span class="rounded-box purple"></span>Editor Connection</div>
+    <div class="color-list-entry"><span class="rounded-box green"></span>Color Select</div>  
+    <div class="color-list-entry"><span class="rounded-box blue"></span>Pattern Select</div>
+    <div class="color-list-entry"><span class="rounded-box yellow"></span>Global Brightness</div>
+    <div class="color-list-entry"><span class="rounded-box red"></span>Factory Reset
 
 ## Selecting LEDs for Colorset/Pattern/Randomization
 
