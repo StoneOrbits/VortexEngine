@@ -15,13 +15,13 @@ To enter the menu:
 
 1. **Hold the Navigation Button:** Hold the button until the LEDs alternate white blinks.
 2. **Cycle Menus:** Use short clicks to cycle through menu options. The menu colors indicate their function:
-   - **White:** Randomizer
-   - **Cyan:** Mode Sharing
-   - **Purple:** Editor Connection
-   - **Green:** Color Select
-   - **Blue:** Pattern Select
-   - **Yellow:** Global Brightness
-   - **Red:** Factory Reset
+<img align="left" width="" height="178" src="assets/images/menulist.png"> &nbsp;**White:** Randomizer
+    &nbsp;**Cyan:** Mode Sharing
+    &nbsp;**Purple:** Editor Connection
+    &nbsp;**Green:** Color Select
+    &nbsp;**Blue:** Pattern Select
+    &nbsp;**Yellow:** Global Brightness
+    &nbsp;**Red:** Factory Reset
 
 ## Selecting LEDs for Colorset/Pattern/Randomization
 
