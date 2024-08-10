@@ -27,59 +27,66 @@ To enter the menu:
 
 1. **Enter the Desired Menu:** Use a long click to select.
 2. **LED Selection:**
-   - Navigate to the LED selection screen.
-   - Short click to toggle specific LEDs you want to customize.
+   - Short click to cycle between [LED groups](LEDgroups.html).
+   - Long click to select the LED group you want to customize.
+   - You can also make a [custom LED group](CustomGroups.html).
 
 ## Randomizing a Mode
 
-1. **Enter Randomizer Menu (White):**
-   - Hold the button to access menus.
-   - Select the **Randomizer** option.
-2. **Apply Randomization:**
-   - Choose LEDs and confirm to randomize settings.
+1. **Select Randomizer Menu (White):**
+2. **Select an LED group.**
+3. **Randomize:**
+   - Short click to cycle through randomizations.
+   - Long click to confirm and save the randomized LEDs.
+
+Learn more about the [Randomizer](randomizer.html).
 
 ## Changing the Colorset on a Mode
+<img align="right" width="" height="220" src="assets/images/ColorSelect.png">
 
-1. **Enter Color Select Menu (Green):**
-   - Select the **Color Select** option from the menu.
-2. **Choose Colorset:**
-   - Navigate through available colorsets.
-   - Long click to apply to the selected LEDs.
+1. **Select Color Select Menu (Green):**
+2. **Select an LED group.**
+3. **Edit Colorset:**
+   - Click to navigate through the colors in your set.
+   - Long click a color to edit it.
+   - Hold on a color until it flashes red to delete it.
+   - Long click the slot after your colorset to add a color.
+   - Select the red edge lights to save and exit.
+
+Learn more about [Color Selection](colorSelect.html).
 
 ## Changing the Pattern on a Mode
 
-1. **Enter Pattern Select Menu (Blue):**
-   - Select the **Pattern Select** option from the menu.
-2. **Select Pattern:**
+1. **Select Pattern Select Menu (Blue):**
+2. **Select an LED group.**
+3. **Select Pattern:**
+   - Chose one of the 4 shortcuts to enter the pattern list.
    - Cycle through patterns and long click to apply.
 
 ## Wirelessly Transferring to Another Device
 
-1. **Enter Mode Sharing Menu (Cyan):**
-   - Select the **Mode Sharing** option.
+1. **Select Mode Sharing Menu (Cyan):**
 2. **Initiate Transfer:**
-   - Follow on-screen instructions to connect and transfer to another Vortex device.
+   - Short click to cycle between receive (default) and send.
+   - Point the button of the sending device at the button of the receiving device.
+   - The recieving device will start to glow green and play the mode once it is recieved.
 
 ## Connecting to the PC
 
-1. **Enter Editor Connection Menu (Purple):**
-   - Select the **Editor Connection** option.
-2. **Pair with PC:**
-   - Follow instructions to connect via the Vortex Editor software.
+To connect to PC and web applications see [Connecting to Computer](computer.html).
 
 ## Changing Global Brightness
 
-1. **Enter Global Brightness Menu (Yellow):**
-   - Select the **Global Brightness** option.
+1. **Select Global Brightness Menu (Yellow):**
 2. **Adjust Brightness:**
-   - Use short clicks to adjust brightness level.
+   - Use short clicks to cycle through brightness options.
    - Long click to set.
 
 ## Factory Resetting the Device
 
-1. **Enter Factory Reset Menu (Red):**
-   - Select the **Factory Reset** option.
+1. **Select Factory Reset Menu (Red):**
 2. **Confirm Reset:**
-   - Follow prompts to restore factory settings.
+   - Short click to cycle between factory reset or cancle.
+   - Hold the factory reset option untill the device fades from red to white to reset.
 
 
