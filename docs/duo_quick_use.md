@@ -5,71 +5,119 @@ nav_order: 4
 parent: Quick Use Guides
 ---
 
+<style>
+.white { background-color: rgba(255, 255, 255, 0.6); }
+.cyan { background-color: rgba(0, 255, 255, 0.6); }
+.green { background-color: rgba(0, 128, 0, 0.6); }
+.blue { background-color: rgba(0, 0, 255, 0.6); }
+.yellow { background-color: rgba(255, 255, 0, 0.6); }
+.red { background-color: rgba(255, 0, 0, 0.6); }
+
+.rounded-box { 
+   display:inline-block;
+   width:28px;
+   height:12px;
+   margin-right:8px;
+   margin-left:8px;
+   margin-top: 4px;
+   border-radius: 2px;
+   border: 2px solid #dfdfdf;
+   align-items: center;
+}
+
+.color-list-entry {
+   align-items: center;
+   font-size: 18px;
+}
+
+.device-icon {
+   margin: 10px;
+   width: 30%;
+   height: 30%
+}
+</style>
+
+<img align="right" width="" height="220" class="device-icon" src="assets/images/duo-logo-square-512.png">
+
 # Duo Quick Use Guide
 
-This Quick Use Guide provides instructions for using your Vortex Duo, highlighting its unique features and key functions.
+Welcome to the Vortex Duo Quick-Use-Guide, this guide aims to get you up and running as fast as possible.
 
 ## Accessing Menus
 
+To enter the menu:
+
 1. **Activate the Device:** Quickly double-click the navigation button to power on the Duo.
-2. **Cycle Menus:** Use short clicks to browse options. Menu colors indicate functions:
-   - **White:** Randomizer
-   - **Cyan:** Mode Sharing
-   - **Green:** Color Select
-   - **Blue:** Pattern Select
-   - **Yellow:** Global Brightness
-   - **Red:** Factory Reset
+2. **Cycle Menus:** Use short clicks to cycle through menu options. The menu colors indicate their function:
+
+    <div class="color-list-entry"><span class="rounded-box white"></span>Randomizer</div>
+    <div class="color-list-entry"><span class="rounded-box cyan"></span>Mode Sharing</div>  
+    <div class="color-list-entry"><span class="rounded-box green"></span>Color Select</div>  
+    <div class="color-list-entry"><span class="rounded-box blue"></span>Pattern Select</div>
+    <div class="color-list-entry"><span class="rounded-box yellow"></span>Global Brightness</div>
+    <div class="color-list-entry"><span class="rounded-box red"></span>Factory Reset</div>
 
 ## Selecting LEDs for Colorset/Pattern/Randomization
 
-1. **Enter Desired Menu:** Use a long click to select.
+1. **Enter the Desired Menu:** Use a long click to select.
 2. **LED Selection:**
-   - Navigate to the LED selection screen.
-   - Short click to toggle specific LEDs for customization.
+   - Short click to cycle between [LED groups](LEDgroups.html).
+   - Long click to select the LED group you want to customize.
+   - You can also make a [custom LED group](CustomGroups.html).
 
 ## Randomizing a Mode
 
-1. **Enter Randomizer Menu (White):**
-   - Long click to select the **Randomizer** option.
-2. **Apply Randomization:**
-   - Choose LEDs and confirm to randomize settings.
+1. **Select Randomizer Menu (White):**
+2. **Select an LED group.**
+3. **Randomize:**
+   - Short click to cycle through randomizations.
+   - Long click to confirm and save the randomized LEDs.
+
+Learn more about the [Randomizer](randomizer.html).
 
 ## Changing the Colorset on a Mode
+<img align="right" width="" height="220" src="assets/images/ColorSelect.png">
 
-1. **Enter Color Select Menu (Green):**
-   - Select **Color Select** from the menu.
-2. **Choose Colorset:**
-   - Navigate through available colorsets.
-   - Long click to apply to the selected LEDs.
+1. **Select Color Select Menu (Green):**
+2. **Select an LED group.**
+3. **Edit Colorset:**
+   - Click to navigate through the colors in your set.
+   - Long click a color to edit it.
+   - Hold on a color until it flashes red to delete it.
+   - Long click the slot after your colorset to add a color.
+   - Select the red edge lights to save and exit.
+
+Learn more about [Color Selection](colorSelect.html).
 
 ## Changing the Pattern on a Mode
 
-1. **Enter Pattern Select Menu (Blue):**
-   - Select **Pattern Select** from the menu.
-2. **Select Pattern:**
+1. **Select Pattern Select Menu (Blue):**
+2. **Select an LED group.**
+3. **Select Pattern:**
+   - Choose one of the 4 shortcuts to enter the pattern list.
    - Cycle through patterns and long click to apply.
 
 ## Wirelessly Transferring to Another Device
 
-1. **Enter Mode Sharing Menu (Cyan):**
-   - Select **Mode Sharing**.
+1. **Select Mode Sharing Menu (Cyan):**
 2. **Initiate Transfer:**
-   - Follow on-screen instructions to connect and transfer to another Vortex device.
+   - Short click to cycle between receive (default) and send.
+   - Point the button of the sending device at the button of the receiving device.
+   - The receiving device will start to glow green and play the mode once it is received.
 
 ## Changing Global Brightness
 
-1. **Enter Global Brightness Menu (Yellow):**
-   - Select **Global Brightness**.
+1. **Select Global Brightness Menu (Yellow):**
 2. **Adjust Brightness:**
-   - Use short clicks to adjust brightness level.
+   - Use short clicks to cycle through brightness options.
    - Long click to set.
 
 ## Factory Resetting the Device
 
-1. **Enter Factory Reset Menu (Red):**
-   - Select **Factory Reset**.
+1. **Select Factory Reset Menu (Red):**
 2. **Confirm Reset:**
-   - Follow prompts to restore factory settings.
+   - Short click to cycle between factory reset or cancel.
+   - Hold the factory reset option until the device fades from red to white to reset.
 
 ## Powering Off
 

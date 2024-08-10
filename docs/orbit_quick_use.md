@@ -30,7 +30,15 @@ parent: Quick Use Guides
    align-items: center;
    font-size: 18px;
 }
+
+.device-icon {
+   margin: 20px;
+   width: 30%;
+   height: 30%
+}
 </style>
+
+<img align="right" width="" height="220" class="device-icon" src="assets/images/orbit-logo-square-512.png">
 
 # Orbit Quick Use Guide
 
