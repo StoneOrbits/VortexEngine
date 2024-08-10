@@ -15,6 +15,8 @@ To enter the menu:
 
 1. **Hold the Navigation Button:** Hold the button until the LEDs alternate white blinks.
 2. **Cycle Menus:** Use short clicks to cycle through menu options. The menu colors indicate their function:
+
+{% raw %}
 <img align="left" width="" height="178" src="assets/images/menulist.png"> &nbsp;**White:** Randomizer
     &nbsp;**Cyan:** Mode Sharing
     &nbsp;**Purple:** Editor Connection
@@ -22,6 +24,7 @@ To enter the menu:
     &nbsp;**Blue:** Pattern Select
     &nbsp;**Yellow:** Global Brightness
     &nbsp;**Red:** Factory Reset
+{% endraw %}
 
 ## Selecting LEDs for Colorset/Pattern/Randomization
 
