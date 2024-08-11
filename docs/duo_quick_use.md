@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Duo Quick Use Guide
+title: Duo Quick Guide
 nav_order: 4
 parent: Guides & Tutorials
 ---

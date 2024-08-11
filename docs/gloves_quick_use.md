@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Gloves Quick Use Guide
+title: Gloves Quick Guide
 nav_order: 3
 parent: Guides & Tutorials
 ---
