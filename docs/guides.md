@@ -24,12 +24,10 @@ Below is an animated guide provided by StoneOrbits:
 Here are the quick use guides for each Vortex Device:
 
  - [Orbit Quick Use Guide](orbit_quick_use.html)
-
  - [Handles Quick Use Guide](handle_quick_use.html)
-
  - [Wired Gloves Quick Use Guide](gloves_quick_use.html)
-
  - [Duo Quick Use Guide](duo_quick_use.html)
 
+## Upgrade Guide
 
-
+If you're looking to upgrade the firmware on your Vortex Device then you can follow the [Upgrade Guide](upgrade_guide.html)

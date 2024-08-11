@@ -1,7 +1,7 @@
 ---
 layout: default
-title: Menus
-nav_order: 8
+title: Menus Old
+nav_order: 25
 parent: Vortex Engine
 has_children: true
 ---
@@ -40,7 +40,7 @@ has_children: true
 
 # Menus
 
-The menus are a way to customize your Vortex Device and manage it's configuration.
+The menus provide a way to use the navigation buttons to customize your Vortex Device and manage it's configuration.
 
 By **holding** the navigation button till the leds alternate blinking white, the device enters the **menu selection**
 

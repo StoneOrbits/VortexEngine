@@ -1,12 +1,12 @@
 ---
 layout: default
-title: User Guides
-nav_order: 1
+title: User Submitted Guides
+nav_order: 10
 parent: Guides & Tutorials
 has_children: yes
 ---
 
 # User Guides
 
-This page is dedicated to user-created Vortex Engine tutorials or guides, here you can find a combination of videos and user-written tutorials for various Vortex Engine Devices
+This page is dedicated to tutorials or guides made by Vortex Engine Users, here you can find a combination of videos and user-written tutorials for various Vortex Engine Devices
 
