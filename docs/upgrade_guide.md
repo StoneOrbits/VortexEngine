@@ -1,8 +1,8 @@
 ---
 layout: default
 title: Upgrade Guide
-nav_order: 2
-parent: Vortex Engine
+nav_order: 0
+parent: Guides & Tutorials
 ---
 
 # Upgrade Guide
