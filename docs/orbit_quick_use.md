@@ -2,7 +2,7 @@
 layout: default
 title: Orbit Quick Use Guide
 nav_order: 1
-parent: Quick Use Guides
+parent: Guides & Tutorials
 ---
 
 <style>

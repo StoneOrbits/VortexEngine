@@ -1,8 +1,8 @@
 ---
 layout: default
 title: Handles Quick Use Guide
-nav_order: 3
-parent: Quick Use Guides
+nav_order: 2
+parent: Guides & Tutorials
 ---
 
 <style>

@@ -7,14 +7,6 @@ parent: Vortex Engine
 
 # Getting Started
 
-Below is an animated guide provided by StoneOrbits:
-
-{% raw %}
-<iframe src="https://docs.google.com/presentation/d/e/2PACX-1vRLsq6i3h9JlYHX0wS3SG9eDZ1vzIsRIU8GAZ9C2QW80uRoexr6_MAmvv_RAu7yuKxZiHy0dH9s2c3q/embed?start=false&loop=false&delayms=3000" frameborder="0" width="100%" height="569" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true"></iframe>
-{% endraw %}
-
-# Getting to Know the Device
-
 If this is your first time with a Vortex Device then congratulations and welcome to the Vortex Engine tutorial.
 
 Regardless of which device you have, Orbit, Handles, Wired Gloves, or others, most devices work and function almost entirely the same.
@@ -30,3 +22,7 @@ There is also a very small <span style="color: #ff0000">reset button</span> whic
 To begin learning how to use your device head over to [Basic Usage](basic_usage.html) where we will explore navigating modes, and utilizing the on-device menus.
 
 If your device is new then it will already be up to date, but if you have an older device or would like to learn how to upgrade your device head over to [Upgrade Guide](upgrade_guide.html)
+
+## Quick Guides
+
+If you really just want to jump into things as fast as possible, be sure to check out the [Quick Guides](guides.html)
