@@ -136,7 +136,7 @@ Short click to cycle through available led groups and long click to confirm the 
 
 <a href="factory_reset_menu.html">
   <div class="color-list-entry"><span class="rounded-box red"></span>Factory Reset</div>
-  <div>The Factory Reset menu allows you to reset your Vortex Device to its factory settings. This allows you to start fresh with default modes and is a good first step if you experience any issues with your device.</div>
+  <div>The Factory Reset menu allows you to reset your Vortex Device to its factory settings. This allows you to start fresh with default modes and settings.</div>
 </a>
 </div>
 {% endraw %}
