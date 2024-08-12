@@ -12,6 +12,8 @@ You can think of a _mode_ as the colorful blinking pattern that is playing on th
 
 Some devices have more _modes_, some have less. But each device is able to cycle through the modes and enter menus all with just the _navigation buttons_.
 
+Menus allow you to program your device, such as changing the colors, blinking patterns, brightness, or even transferring modes to other devices.
+
 ## Navigating 
 There is three ways to use the _navigation buttons_ on your device: **short clicks**, **long clicks**, and **holds**
 
@@ -22,3 +24,4 @@ There is three ways to use the _navigation buttons_ on your device: **short clic
 Almost everything can be achieved with only **short** and **long** clicks.
 
 Now that you understand the basics of controlling your vortex device, try **holding** the navigation button till the leds start alternating white blinks, then continue reading over at [The Menus](menus.html)
+
