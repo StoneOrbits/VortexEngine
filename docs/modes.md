@@ -6,20 +6,18 @@ parent: Vortex Engine
 ---
 
 # Modes
+You can think of a mode as the colorful flashing pattern that plays on your device during a lightshow.
 
-Vortex revolves around a list of modes, each device has a different size list of modes and the entire purpose of a Vortex Device is to render a 'mode'.
+But to break it down a little more, a mode is comprised of two things: a [Colorset](colorsets.html) and a [Pattern](patterns.html)
 
-## What is a Mode?
+If a mode were a musical track or song, then think of the _Pattern_ as the rhythm or tempo of the song, and the _Colorset_ as the musical notes.
 
-To put it discretely, a Mode is a combination of a Pattern with a Colorset. Think of a Pattern as the rhythm or tempo of a song, and the Colorset as the notes. The Pattern determines the blinking speed or style of the LEDs, and the Colorset determines which colors are displayed on each blink. You can read more about patterns [here](patterns.html) and colorsets [here](colorsets.html).
+The _Pattern_ determines the blinking speed or style of the LEDs, and the _Colorset_ determines which colors are displayed on each blink. 
 
-So for example, if you have a basic strobe pattern paired with the colorset (red, green, blue) then you could say that mode is an "rgb strobe".
+So for example, if you have a _basic strobe pattern_ paired with a _red green and blue colorset_ then you could say that the _mode_ is an _RGB Strobe_.
 
 ## Led Count
-
-Technically, a Mode is more than just one Pattern and Colorset. Since each LED on the device can be configured independently, a Mode actually consists of a Pattern and Colorset for each LED on the device. This means that the number of LEDs (the Led Count) directly affects the complexity of the Mode.
-
-A device with many leds like the Vortex Orbit (28 leds) can configure a very complex mode with different patterns and colorsets on each of the 28 leds, where as a small device like the duo can only create modes with two leds.
+Technically, a Mode is more than just one _Pattern_ and _Colorset_. Since each LED on the device can be configured independently, a Mode actually consists of a Pattern and Colorset for each LED.
 
 Despite the different in led count these modes are still compatible with one another, the 2 led mode could be loaded onto the orbit and the 28 led mode could be loaded onto the duo.
 
