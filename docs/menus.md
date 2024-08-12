@@ -82,27 +82,16 @@ a {
 
 The menus provide a way to use the navigation buttons to customize your Vortex Device and manage its configuration.
 
-All Vortex Devices provide menus that allow you to:
-
-- Randomize the colors/patterns of a mode
-- Transfer a mode to other devices
-- Pick specific colors of a mode
-- Pick specific blinking patterns of a mode
-- Adjust the overall brightness of all LEDs
-- Reset the device to default settings
-- Connect to the PC for updates or building/saving modes
-
 The menus to perform each of these actions work nearly identical on all devices, with only very minor differences due to LED count and orientations.
 
 ## Entering Menus
+To access the menu selection, press and hold the navigation button until the LEDs blink white.
 
-**Holding** the navigation button until the LEDs blink white will open the **menu selection**.
+The menu will modify only the mode that was active immediately before the menu was opened.
 
-When using a menu to configure the device, it will only make changes to the mode that was playing right before opening the menu.
+To adjust a mode, first switch to the desired mode and then hold the navigation button until the menu selection appears.
 
-To make changes to a mode, you first cycle to that mode, then **hold** the navigation button till the menu selection opens.
-
-From here, a menu can be chosen based on the desired changes to make.
+Once the menu selection is open, choose the menu option that corresponds to the changes you want to make.
 
 ## Menu List
 
