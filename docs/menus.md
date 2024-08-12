@@ -80,20 +80,25 @@ has_children: true
 </style>
 
 # Menus
-
 The menus provide a way to use the navigation buttons to customize your Vortex Device and manage its configuration.
 
-The menus to perform each of these actions work nearly identical on all devices, with only very minor differences due to LED count and orientations.
+Each Vortex Device offer the same menus, with the only differences in menu behaviour coming from the varying LED counts and orientations.
 
 ## Using Menus
-
-To access the menu selection, first switch to the mode you'd like to edit and then hold the navigation button until the LEDs blink white.
+To enter a menu, switch to a mode you'd like to edit and then hold the navigation button until the LEDs blink white.
 
 The <span style="color: #00ff00;">Color Select</span>, <span style="color: #3366ff;">Pattern Select</span>, <span style="color: #ffffff;">Randomizer</span>, and <span style="color: #00ffff;">Mode Sharing</span> menus will only affect this mode.
 
 <span style="color: #ff0000;">Factory Reset</span>, <span style="color: #ffff00;">Global Brightness</span>, and <span style="color: #b300b3;">Editor Connection</span> will apply to the entire device.
 
-Once the menu selection opens, navigate to the color that corresponds to the menu you'd like to enter and select it.
+Using short clicks, navigate to the color that corresponds to the menu you'd like and long click to select it.
+
+## Selecting Leds
+Three menus offer led selection: <span style="color: #00ff00;">Color Select</span>, <span style="color: #3366ff;">Pattern Select</span>, and <span style="color: #ffffff;">Randomizer</span> 
+
+The _led selection_ is always the first step after entering a menu, you must choose which leds the menu will target when making changes.
+
+Short click to cycle through available led groups and long click to confirm the selection and enter the menu.
 
 ## Menu List
 

@@ -25,7 +25,7 @@ Mode Sharing operates wirelessly, requiring no physical connection. However, dev
 ### Receiving a Mode
 1. **Pick a Mode to Overwrite**: Navigate to the mode you want to overwrite and hold the button until the leds flash white
 2. **Enter Mode Sharing**: Cycle to <span style="color: #00ffff;">cyan</span> and long click to enter
-3. **Receive Mode**: Hold the sender device up to the receiver, the receiver will automatically save and exit when a mode is successfully received 
+3. **Receive Mode**: Hold the sender device up to the receiver, with the navigation buttons facing each other, the receiver will automatically save and exit when a mode is successfully received 
 
 ## Tips for Successful Mode Sharing
 
