@@ -8,13 +8,13 @@ has_children: true
 
 <style>
 /* Updated colors for dark theme compatibility */
-.white { background-color: rgba(200, 200, 200); }
-.cyan { background-color: rgba(0, 200, 200); }
-.purple { background-color: rgba(100, 0, 100); }
-.green { background-color: rgba(0, 100, 0); }
-.blue { background-color: rgba(0, 0, 100); }
-.yellow { background-color: rgba(200, 200, 0); }
-.red { background-color: rgba(200, 0, 0); }
+.white { background-color: rgba(255, 255, 255); }
+.cyan { background-color: rgba(0, 255, 255); }
+.purple { background-color: rgba(150, 0, 150); }
+.green { background-color: rgba(0, 255, 0); }
+.blue { background-color: rgba(0, 0, 255); }
+.yellow { background-color: rgba(255, 255, 0); }
+.red { background-color: rgba(255, 0, 0); }
 
 .rounded-box { 
    display: inline-block;
@@ -79,50 +79,54 @@ a {
 </style>
 
 # Menus
+
 The menus provide a way to use the navigation buttons to customize your Vortex Device and manage its configuration.
 
 The menus to perform each of these actions work nearly identical on all devices, with only very minor differences due to LED count and orientations.
 
 ## Using Menus
 
-To access the menu selection, first switch to the desired mode and then hold the navigation button until the LEDs blink white. The selected mode will be the only one affected by menus like <span style="color: white;">Randomizer</span>, <span style="color: cyan;">Mode Sharing</span>, <span style="color: green;">Color Select</span>, and <span style="color: blue;">Pattern Select</span>.
+To access the menu selection, first switch to the desired mode and then hold the navigation button until the LEDs blink white. The selected mode will be the only one affected by menus like **<span style="color: #ffffff;">Randomizer</span>**, **<span style="color: #00ffff;">Mode Sharing</span>**, **<span style="color: #00ff00;">Color Select</span>**, and **<span style="color: #0000ff;">Pattern Select</span>**.
 
-Other menus, such as <span style="color: red;">Factory Reset</span>, <span style="color: purple;">Editor Connection</span>, and <span style="color: yellow;">Global Brightness</span>, will apply to the entire device.
+Other menus, such as **<span style="color: #ff0000;">Factory Reset</span>**, **<span style="color: #960096;">Editor Connection</span>**, and **<span style="color: #ffff00;">Global Brightness</span>**, will apply to the entire device.
 
 Once the menu selection opens, choose the menu that corresponds to the changes you want to make.
 
 ## Menu List
 
+{% raw %}
 <a href="randomizer_menu.html">
-<div class="color-list-entry"><span class="rounded-box white"></span>Randomizer</div>
-<div>The Randomizer menu allows you to randomize the settings of your current mode. This can be a fun way to discover new combinations of patterns and colorsets.</div></a>
-
+   <div class="color-list-entry"><span class="rounded-box white"></span>Randomizer</div>
+   <div>The Randomizer menu allows you to randomize the settings of your current mode. This can be a fun way to discover new combinations of patterns and colorsets.</div>
+</a>
 
 <a href="mode_sharing_menu.html">
-<div class="color-list-entry"><span class="rounded-box cyan"></span>Mode Sharing</div>
-<div>The Mode Sharing menu allows you to share your current mode with another Vortex Device. This is a great way to quickly and easily share your favorite modes with friends.</div></a>
-
+   <div class="color-list-entry"><span class="rounded-box cyan"></span>Mode Sharing</div>
+   <div>The Mode Sharing menu allows you to share your current mode with another Vortex Device. This is a great way to quickly and easily share your favorite modes with friends.</div>
+</a>
 
 <a href="editor_connection_menu.html">
-<div class="color-list-entry"><span class="rounded-box purple"></span>Editor Connection</div>
-<div>The Editor Connection menu is used to connect your Vortex Device to the desktop-based editors. This allows you to program your device using the editor's user-friendly interface. Please note that this menu is not available on the Duo.</div></a>
-
+   <div class="color-list-entry"><span class="rounded-box purple"></span>Editor Connection</div>
+   <div>The Editor Connection menu is used to connect your Vortex Device to the desktop-based editors. This allows you to program your device using the editor's user-friendly interface. Please note that this menu is not available on the Duo.</div>
+</a>
 
 <a href="color_select_menu.html">
-<div class="color-list-entry"><span class="rounded-box green"></span>Color Select</div>
-<div>The Color Select menu allows you to change the colors of the current mode. This is a quick and easy way to customize the colorful appearance of your modes.</div></a>
-
+   <div class="color-list-entry"><span class="rounded-box green"></span>Color Select</div>
+   <div>The Color Select menu allows you to change the colors of the current mode. This is a quick and easy way to customize the colorful appearance of your modes.</div>
+</a>
 
 <a href="pattern_select_menu.html">
-<div class="color-list-entry"><span class="rounded-box blue"></span>Pattern Select</div>
-<div>The Pattern Select menu allows you to change the pattern of the current mode. This allows you to customize the blinking speed or style of your modes.</div></a>
-
+   <div class="color-list-entry"><span class="rounded-box blue"></span>Pattern Select</div>
+   <div>The Pattern Select menu allows you to change the pattern of the current mode. This allows you to customize the blinking speed or style of your modes.</div>
+</a>
 
 <a href="global_brightness_menu.html">
-<div class="color-list-entry"><span class="rounded-box yellow"></span>Global Brightness</div>
-<div>The Global Brightness menu allows you to adjust the overall brightness of all LEDs. This can be useful for saving battery life or adjusting the intensity of your light shows.</div></a>
-
+   <div class="color-list-entry"><span class="rounded-box yellow"></span>Global Brightness</div>
+   <div>The Global Brightness menu allows you to adjust the overall brightness of all LEDs. This can be useful for saving battery life or adjusting the intensity of your light shows.</div>
+</a>
 
 <a href="factory_reset_menu.html">
-<div class="color-list-entry"><span class="rounded-box red"></span>Factory Reset</div>
-<div>The Factory Reset menu allows you to reset your Vortex Device to its factory settings. This allows you to start fresh with default modes and is a good first step if you experience any issues with your device.</div></a>
+   <div class="color-list-entry"><span class="rounded-box red"></span>Factory Reset</div>
+   <div>The Factory Reset menu allows you to reset your Vortex Device to its factory settings. This allows you to start fresh with default modes and is a good first step if you experience any issues with your device.</div>
+</a>
+{% endraw %}
