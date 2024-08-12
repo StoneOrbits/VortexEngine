@@ -8,13 +8,13 @@ has_children: true
 
 <style>
 /* Updated colors for dark theme compatibility */
-.white { background-color: rgba(200, 200, 200, 0.6); }
-.cyan { background-color: rgba(0, 200, 200, 0.6); }
-.purple { background-color: rgba(100, 0, 100, 0.6); }
-.green { background-color: rgba(0, 100, 0, 0.6); }
-.blue { background-color: rgba(0, 0, 100, 0.6); }
-.yellow { background-color: rgba(200, 200, 0, 0.6); }
-.red { background-color: rgba(200, 0, 0, 0.6); }
+.white { background-color: rgba(200, 200, 200); }
+.cyan { background-color: rgba(0, 200, 200); }
+.purple { background-color: rgba(100, 0, 100); }
+.green { background-color: rgba(0, 100, 0); }
+.blue { background-color: rgba(0, 0, 100); }
+.yellow { background-color: rgba(200, 200, 0); }
+.red { background-color: rgba(200, 0, 0); }
 
 .rounded-box { 
    display: inline-block;
@@ -78,23 +78,11 @@ a {
 </style>
 
 # Menus
-
-The menus provide a way to use the navigation buttons to customize your Vortex Device and manage its configuration.
-
-All Vortex Devices provide menus that allow you to:
-
-- Randomize the colors/patterns of a mode
-- Transfer a mode to other devices
-- Pick specific colors of a mode
-- Pick specific blinking patterns of a mode
-- Adjust the overall brightness of all LEDs
-- Reset the device to default settings
-- Connect to the PC for updates or building/saving modes
+The _menus_ provide a way to use the navigation buttons to customize your Vortex Device and manage its configuration.
 
 The menus to perform each of these actions work nearly identical on all devices, with only very minor differences due to LED count and orientations.
 
 ## Entering Menus
-
 **Holding** the navigation button until the LEDs blink white will open the **menu selection**.
 
 When using a menu to configure the device, it will only make changes to the mode that was playing right before opening the menu.
@@ -104,9 +92,9 @@ To make changes to a mode, you first cycle to that mode, then **hold** the navig
 From here, a menu can be chosen based on the desired changes to make.
 
 ## Menu List
-
 Here's a brief overview of what each menu does:
 
+{% raw %}
 <a href="randomizer_menu.html">
    <div class="color-list-entry"><span class="rounded-box white"></span>Randomizer</div>
    <div>The Randomizer menu allows you to randomize the settings of your current mode. This can be a fun way to discover new combinations of patterns and colorsets.</div>
@@ -141,3 +129,4 @@ Here's a brief overview of what each menu does:
    <div class="color-list-entry"><span class="rounded-box red"></span>Factory Reset</div>
    <div>The Factory Reset menu allows you to reset your Vortex Device to its factory settings. This allows you to start fresh with default modes and is a good first step if you experience any issues with your device.</div>
 </a>
+{% endraw %}
