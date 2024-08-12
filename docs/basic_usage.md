@@ -17,9 +17,9 @@ Menus allow you to program your device, such as changing the colors, blinking pa
 ## Navigating 
 There is three ways to use the _navigation buttons_ on your device: **short clicks**, **long clicks**, and **holds**
 
-  1) A **short click** is like saying '_next please_', to cycle through options  
-  2) A **long click** is like saying '_this one please_', to select an option  
-  3) And finally, **holds** are primarily used to open the menus  
+  1. A **short click** is like saying '_next please_', to cycle through options  
+  2. A **long click** is like saying '_this one please_', to select an option  
+  3. And finally, **holds** are primarily used to open the menus  
 
 Almost everything can be achieved with only **short** and **long** clicks.
 
