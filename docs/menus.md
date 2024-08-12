@@ -97,8 +97,10 @@ Once the menu selection opens, navigate to the color that corresponds to the men
 
 ## Menu List
 
-<div class="menu-wrapper" markdown="1">
 {% raw %}
+
+<div class="menu-wrapper" markdown="1">
+
 <a href="randomizer_menu.html">
    <div class="color-list-entry"><span class="rounded-box white"></span>Randomizer</div>
    <div>The Randomizer menu allows you to randomize the settings of your current mode. This can be a fun way to discover new combinations of patterns and colorsets.</div>
@@ -133,5 +135,7 @@ Once the menu selection opens, navigate to the color that corresponds to the men
    <div class="color-list-entry"><span class="rounded-box red"></span>Factory Reset</div>
    <div>The Factory Reset menu allows you to reset your Vortex Device to its factory settings. This allows you to start fresh with default modes and is a good first step if you experience any issues with your device.</div>
 </a>
-{% endraw %}
+
 </div>
+
+{% endraw %}
