@@ -6,35 +6,28 @@ parent: Menus
 grand_parent: Vortex Engine
 ---
 
-# Mode Sharing
+# Mode Sharing Menu
 
-The Mode Sharing menu is a feature available on all Vortex Devices that allows you to share your current mode with another Vortex Device. This is a great way to quickly and easily share your favorite modes with friends.
+The Mode Sharing menu allows you to wirelessly share your current mode with another Vortex device.
 
-## How it Works
+## How It Works
 
-The Mode Sharing process is done wirelessly and does not require any physical connection between the devices. The devices just need to be close enough to each other for the wireless signal to be strong enough.
-
-When you enter the Mode Sharing menu, your device will typically start in receiving mode, ready to receive a mode from another device. However, the exact behavior may vary depending on the specific device.
+Mode Sharing operates wirelessly, requiring no physical connection. However, devices need to be close enough to ensure a strong signal. The device will start in receiving mode, and switch to send mode with a click.
 
 ## Using the Mode Sharing Menu
 
-To use the Mode Sharing menu, you will generally need to follow these steps:
-
 ### Sending a Mode
-
-1. Turn on your Vortex Device and navigate to the mode you want to share.
-2. Open the menus and navigate to the Mode Sharing menu (indicated by a cyan light).
-3. Depending on your device, you may need to perform an action (such as a single click) to switch the device to sending mode. Once in sending mode, your device will start broadcasting the current mode.
-4. Once you're done sending the mode, you will typically need to perform another action (such as a long click) to exit the menu.
+1. **Pick a Mode to Share**: Navigate to the mode you want to share and hold the button until the leds flash white
+2. **Enter Mode Sharing**: Cycle to <span style="color: #00ffff;">cyan</span> and long click to enter
+3. **Switch to Sending Mode**: Perform a single click to start broadcasting the current mode.
+4. **Exit Menu**: Long click when done to stop sending and exit the menu.
 
 ### Receiving a Mode
+1. **Pick a Mode to Overwrite**: Navigate to the mode you want to overwrite and hold the button until the leds flash white
+2. **Enter Mode Sharing**: Cycle to <span style="color: #00ffff;">cyan</span> and long click to enter
+3. **Receive Mode**: Hold the sender device up to the receiver, the receiver will automatically save and exit when a mode is successfully received 
 
-1. Turn on the other Vortex Device and navigate to the mode slot where you want to receive the new mode.
-2. Open the menus and navigate to the Mode Sharing menu (indicated by a cyan light).
-3. The device will typically start in receiving mode. If a mode is being broadcasted by another device, it will receive it.
-4. Once the mode has been received, the device will usually automatically exit the menu and start displaying the new mode.
+## Tips for Successful Mode Sharing
 
-Remember, the Mode Sharing menu only shares the current mode. If you want to share a different mode, you will need to navigate to that mode first before entering the Mode Sharing menu.
-
-Please refer to your specific device's manual for more detailed instructions on how to use the Mode Sharing menu.
-
+- **Ensure Proximity**: Devices must be within range for effective sharing.
+- **Single Mode Sharing**: Only the current mode can be shared; switch modes if needed before sharing.
