@@ -65,7 +65,8 @@ has_children: true
    background-color: #3a3a3a; /* Slightly lighter on hover */
 }
 
-a {
+/* Scoped link styles within the menu section */
+.menu-wrapper a {
    text-decoration: none; /* Remove default link styling */
    color: inherit; /* Inherit color from parent */
    display: block; /* Ensures the link covers the whole section */
@@ -86,15 +87,19 @@ The menus to perform each of these actions work nearly identical on all devices,
 
 ## Using Menus
 
-To access the menu selection, first switch to the desired mode and then hold the navigation button until the LEDs blink white. The selected mode will be the only one affected by menus like **<span style="color: #ffffff;">Randomizer</span>**, **<span style="color: #00ffff;">Mode Sharing</span>**, **<span style="color: #00ff00;">Color Select</span>**, and **<span style="color: #0000ff;">Pattern Select</span>**.
+To access the menu selection, first switch to the mode you'd like to edit and then hold the navigation button until the LEDs blink white.
 
-Other menus, such as **<span style="color: #ff0000;">Factory Reset</span>**, **<span style="color: #960096;">Editor Connection</span>**, and **<span style="color: #ffff00;">Global Brightness</span>**, will apply to the entire device.
+The Color Select, Pattern Select, Randomizer, and Mode Sharing menus will only affect this mode.
 
-Once the menu selection opens, choose the menu that corresponds to the changes you want to make.
+Factory Reset, Global Brightness, and Editor Connection will apply to the entire device.
+
+Once the menu selection opens, navigate to the color that corresponds to the menu you'd like to enter and select it.
 
 ## Menu List
 
 {% raw %}
+
+<div class="menu-wrapper">
 <a href="randomizer_menu.html">
    <div class="color-list-entry"><span class="rounded-box white"></span>Randomizer</div>
    <div>The Randomizer menu allows you to randomize the settings of your current mode. This can be a fun way to discover new combinations of patterns and colorsets.</div>
@@ -129,4 +134,6 @@ Once the menu selection opens, choose the menu that corresponds to the changes y
    <div class="color-list-entry"><span class="rounded-box red"></span>Factory Reset</div>
    <div>The Factory Reset menu allows you to reset your Vortex Device to its factory settings. This allows you to start fresh with default modes and is a good first step if you experience any issues with your device.</div>
 </a>
+</div>
+
 {% endraw %}
