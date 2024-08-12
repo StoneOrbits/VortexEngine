@@ -6,21 +6,6 @@ parent: Menus
 grand_parent: Vortex Engine
 ---
 
-<style>
-/* Styling for section headers and dividers */
-.section-header {
-  font-size: 1.5em;
-  margin-bottom: 10px;
-}
-
-hr {
-  border: none;
-  height: 1px;
-  background-color: #eee;
-  margin: 20px 0;
-}
-</style>
-
 # Randomizer Menu
 
 The Randomizer menu lets you generate exciting new modes on the fly, perfect for experimenting with different patterns and colors.
@@ -44,7 +29,7 @@ For those familiar, the randomizer seed is a checksum of the current mode.
 
 ## Auto Randomization
 
-While cycling through random modes in the randomizer menu, perform three consecutive short clicks to enable _Auto Cycle_ and automatically generate new modes every few seconds. Short click to stop cycling.
+While cycling through random modes in the randomizer menu, perform three consecutive short clicks to enable _Auto Cycle_ and automatically generate a new mode every few seconds. Short click to stop cycling.
 
 ## Advanced Randomization
 

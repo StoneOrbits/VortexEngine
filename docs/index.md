@@ -7,7 +7,7 @@ has_children: true
 
 # Vortex Engine
 
-Welcome to the Vortex Engine Wiki! Here you can find documentation covering all aspects of the Vortex Engine project.
+Welcome to the Vortex Engine Wiki! Here you can find documentation and guides covering all aspects of the Vortex Engine project.
 
 ## Getting Started
 

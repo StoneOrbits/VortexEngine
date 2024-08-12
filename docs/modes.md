@@ -19,7 +19,7 @@ So for example, if you have a _basic strobe pattern_ paired with a _red green an
 ## Led Count
 Technically, a Mode is more than just one _Pattern_ and _Colorset_. Since each LED on the device can be configured independently, a Mode actually consists of a Pattern and Colorset for each LED.
 
-Despite the different in led count these modes are still compatible with one another, the 2 led mode could be loaded onto the orbit and the 28 led mode could be loaded onto the duo.
+Regardless of how many leds a _mode_ contains, it will always be compatible with other devices.
 
 ## The Mode List
 
