@@ -89,16 +89,16 @@ The menus to perform each of these actions work nearly identical on all devices,
 
 To access the menu selection, first switch to the mode you'd like to edit and then hold the navigation button until the LEDs blink white.
 
-The <span style="color: #00ff00;">Color Select</span>, <span style="color: #0000ff;">Pattern Select</span>, <span style="color: #ffffff;">Randomizer</span>, and <span style="color: #00ffff;">Mode Sharing</span> menus will only affect this mode.
+The <span style="color: #00ff00;">Color Select</span>, <span style="color: #3366ff;">Pattern Select</span>, <span style="color: #ffffff;">Randomizer</span>, and <span style="color: #00ffff;">Mode Sharing</span> menus will only affect this mode.
 
-<span style="color: #ff0000;">Factory Reset</span>, <span style="color: #ffff00;">Global Brightness</span>, and <span style="color: #960096;">Editor Connection</span> will apply to the entire device.
+<span style="color: #ff0000;">Factory Reset</span>, <span style="color: #ffff00;">Global Brightness</span>, and <span style="color: #b300b3;">Editor Connection</span> will apply to the entire device.
 
 Once the menu selection opens, navigate to the color that corresponds to the menu you'd like to enter and select it.
 
 ## Menu List
 
 <div class="menu-wrapper" markdown="1">
-
+{% raw %}
 <a href="randomizer_menu.html">
    <div class="color-list-entry"><span class="rounded-box white"></span>Randomizer</div>
    <div>The Randomizer menu allows you to randomize the settings of your current mode. This can be a fun way to discover new combinations of patterns and colorsets.</div>
@@ -133,5 +133,5 @@ Once the menu selection opens, navigate to the color that corresponds to the men
    <div class="color-list-entry"><span class="rounded-box red"></span>Factory Reset</div>
    <div>The Factory Reset menu allows you to reset your Vortex Device to its factory settings. This allows you to start fresh with default modes and is a good first step if you experience any issues with your device.</div>
 </a>
-
+{% endraw %}
 </div>
