@@ -116,7 +116,7 @@ Short click to cycle through available led groups and long click to confirm the 
 
 <a href="editor_connection_menu.html">
   <div class="color-list-entry"><span class="rounded-box purple"></span>Editor Connection</div>
-  <div>The Editor Connection menu is used to connect your Vortex Device to the desktop-based editors. This allows you to program your device using the editor's user-friendly interface. Please note that this menu is not available on the Duo.</div>
+  <div>The Editor Connection menu is used to connect your Vortex Device to the desktop-based editors. This allows you to program your device using the editor's user-friendly interface.</div>
 </a>
 
 <a href="color_select_menu.html">
