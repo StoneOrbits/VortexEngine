@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Basic Usage
-nav_order: 3
+nav_order: 5
 parent: Vortex Engine
 ---
 

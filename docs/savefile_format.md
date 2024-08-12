@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Savefiles
-nav_order: 9
+nav_order: 30
 parent: Vortex Engine
 ---
 

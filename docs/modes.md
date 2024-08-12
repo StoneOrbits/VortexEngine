@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Modes
-nav_order: 5
+nav_order: 15
 parent: Vortex Engine
 ---
 
