@@ -27,11 +27,12 @@ Are you looking to learn how Vortex Engine works and how to get the most out of 
 
 Learn about Vortex and how it works with these articles:
 
+ - [Basic Usage](basic_usage.html)
+ - [Menus](menus.html)
  - [Modes](modes.html)
  - [Patterns](patterns.html)
  - [Colorsets](colorsets.html)
- - [Using Menus](menus.html)
- - [Savefile Format](savefile_format.html)
+ - [Savefiles](savefile_format.html)
 
 ## The Vortex Community and Ecosystem
 
@@ -44,4 +45,3 @@ Explore the official Vortex Community Hub where you can upload and share configu
 Join the Vortex Community Discord to share your experiences, enhance your use of the Vortex Engine, and discuss Vortex with other enthusiasts.
 
 [Join Vortex Community Discord](https://discord.gg/FnbKjPgy)
-
