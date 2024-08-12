@@ -42,18 +42,19 @@ For those familiar, the randomizer seed is a checksum of the current mode.
 4. **Generate a New Mode**: Short click to randomize as many times as you like
 5. **Save and Exit**: Long click to save the mode and exit.
 
-## Advanced Randomization
-
-The randomizer offers an _advanced_ mode, see [Advanced Menus](advanced_menus.html) to enable this feature.
-
-With the advanced randomizer, after picking which leds to randomize, you may choose to randomize specificly:
-
- - **Rainbow Ribbon**: Colorset only  
- - **White Strobe**: Pattern only  
- - **Rainbow Strobe**: Both pattern and colorset  
-
-After selecting this, the randomizer will behave the exact same except for which part it randomizes.
-
 ## Auto Randomization
 
-Activate Auto Cycle mode with three consecutive short clicks to automatically generate new modes every few seconds. Click to turn off.
+While cycling through random modes in the randomizer menu, perform three consecutive short clicks to enable _Auto Cycle_ and automatically generate new modes every few seconds. Short click to stop cycling.
+
+## Advanced Randomization
+
+See [Advanced Menus](advanced_menus.html) to enable this feature.
+
+With the _advanced randomizer_, after selecting the led group to randomize, you may choose:
+
+ - **Rainbow Ribbon**: Randomize Colorset only  
+ - **White Strobe**: Randomize Pattern only  
+ - **Rainbow Strobe**: Randomize both pattern & colorset  
+
+Other than this extra option the _advanced randomizer_ will behave the exact same as the basic randomizer.
+
