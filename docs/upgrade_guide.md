@@ -7,19 +7,23 @@ parent: Guides & Tutorials
 
 # Upgrade Guide
 
-This guide will cover upgrading a Vortex Device to the latest version of Vortex Engine.
+Start by connecting your device to the PC via USB.
 
-If you are completely new to Vortex Engine then be sure to read the [Getting Started](getting_started.html) guide first!
+**Use a data-capable USB cable, power-only cables won't work.**
 
-## Connecting the Device
+When connected, you'll receive a Windows 'new connection' notification, indicating a successful connection.
 
-All Vortex Devices (except the duo) have a USB plug that can be used to connect the device to the computer.
+Double click the <span style="color: #ff0000">reset button</span> on your device. 
 
-It is absolutely necessary that a **data-capable USB cable** is used otherwise the device will not connect.
+![Device Buttons](assets/images/device-buttons.png)
 
-After the device is connected to the computer, often followed by a 'new connection' sound from the PC, a red light near it's plug will indicate charging is taking place.
+<img src="assets/images/trinketboot-drive.png" 
+     style="float: left; margin-right: 15px; box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.15); border: 1px solid #000; ;">
 
-Navigate in your browser to the the downloads page of [Vortex Community](https://vortex.community/downloads)
 
+You will see a new drive appear on your PC, open this drive like a folder
 
-# Upgrading a Device
+Visit the Vortex Community [downloads page](https://vortex.community/downloads) in your browser.
+
+## Upgrading a Device
+

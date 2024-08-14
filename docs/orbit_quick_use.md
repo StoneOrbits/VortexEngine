@@ -6,13 +6,13 @@ parent: Guides & Tutorials
 ---
 
 <style>
-.white { background-color: rgba(255, 255, 255, 0.6); }
-.cyan { background-color: rgba(0, 255, 255, 0.6); }
-.purple { background-color: rgba(128, 0, 128, 0.6); }
-.green { background-color: rgba(0, 128, 0, 0.6); }
-.blue { background-color: rgba(0, 0, 255, 0.6); }
-.yellow { background-color: rgba(255, 255, 0, 0.6); }
-.red { background-color: rgba(255, 0, 0, 0.6); }
+.white { background-color: rgba(255, 255, 255); }
+.cyan { background-color: rgba(0, 255, 255); }
+.purple { background-color: rgba(128, 0, 128); }
+.green { background-color: rgba(0, 128, 0); }
+.blue { background-color: rgba(0, 0, 255); }
+.yellow { background-color: rgba(255, 255, 0); }
+.red { background-color: rgba(255, 0, 0); }
 
 .rounded-box { 
    display:inline-block;
@@ -78,7 +78,7 @@ To enter the menu:
 Learn more about the [Randomizer](randomizer.html).
 
 ## Changing the Colorset on a Mode
-<img align="right" width="" height="220" src="assets/images/ColorSelect.png">
+<img align="right" width="" height="220" src="assets/images/color-select.png">
 
 1. **Select Color Select Menu (Green):**
 2. **Select an LED group.**
