@@ -20,10 +20,14 @@ The latest firmware for your device can be found on the Vortex Community [downlo
 
 ![Device Buttons](assets/images/device-buttons.png)
 
- 2. Double click the <span style="color: #ff0000">reset button</span> and a new drive should appear, this may take a few tries.
+<ol start="2">
+  <li>Double click the <span style="color: #ff0000">reset button</span> and a new drive should appear, this may take a few tries.</li>
+</ol>
 
 <div style="text-align: center; margin: 20px">
   <img src="assets/images/trinketboot-drive.png" style="box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);">
 </div>
 
- 3. Drag & Drop your device firmware file into the Trinketboot drive to automatically upgrade the firmware.
+<ol start="3">
+  <li>Drag & Drop your device firmware file into the Trinketboot drive to automatically upgrade the firmware.</li>
+</ol>
