@@ -7,23 +7,23 @@ parent: Guides & Tutorials
 
 # Upgrade Guide
 
-Start by connecting your device to the PC via USB.
+ 1. Start by connecting your device to the PC via USB.
 
-**Use a data-capable USB cable, power-only cables won't work.**
+<div style="margin-left: 50px; margin-right: 50px">
 
-When connected, you'll receive a Windows 'new connection' notification, indicating a successful connection.
-
-Double click the <span style="color: #ff0000">reset button</span> on your device. 
+- **Use a data-capable USB cable, power-only cables won't work.**
+- Windows will notify upon successful connection
+- Mac may work but is not officially supported.
+</div>
 
 ![Device Buttons](assets/images/device-buttons.png)
 
-<img src="assets/images/trinketboot-drive.png" 
-     style="float: left; margin-right: 15px; box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.15); border: 1px solid #000; ;">
+ 2. Double click the <span style="color: #ff0000">reset button</span> and a new drive should appear, this may take a few tries.
 
+<div style="text-align: center; margin: 10px">
+  <img src="assets/images/trinketboot-drive.png" style="box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);">
+</div>
 
-You will see a new drive appear on your PC, open this drive like a folder
+ 3. Drag & Drop your device firmware file into the Trinketboot drive to automatically upgrade the firmware.
 
-Visit the Vortex Community [downloads page](https://vortex.community/downloads) in your browser.
-
-## Upgrading a Device
-
+The latest firmware for your device can be found on the Vortex Community [downloads page](https://vortex.community/downloads).
