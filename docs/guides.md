@@ -23,10 +23,9 @@ Below is an animated guide provided by StoneOrbits:
 
 Here are the quick device guides for each Vortex Device:
 
- - [Orbit Guide](orbit_quick_use.html)
- - [Handles Guide](handle_quick_use.html)
- - [Wired Gloves Guide](gloves_quick_use.html)
- - [Duo Guide](duo_quick_use.html)
+ - [Orbit Guide](orbit_guide.html)
+ - [Handles Guide](handle_guide.html)
+ - [Wired Gloves Guide](gloves_guide.html)
 
 ## Upgrade Guide
 

@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Orbit Guide
+title: Handles Guide
 nav_order: 1
 parent: Guides & Tutorials
 ---
@@ -88,21 +88,23 @@ parent: Guides & Tutorials
 }
 </style>
 
-<img align="right" width="" height="220" class="device-icon" src="assets/images/device-orbit.png">
+<img align="right" width="" height="220" class="device-icon" src="assets/images/device-handle.png">
 
-# Orbit Guide
+# Handle Guide
 
-Welcome to the Vortex Orbit Guide, this page aims to get you up and running as fast as possible.
+Welcome to the Vortex Handle Guide, this page aims to get you up and running as fast as possible.
 
 ## Buttons
 
-The orbit has two <span style="color: #00c6ff">navigation buttons</span> and a small <span style="color: #00ff00">power switch</span>.
+The handle has one <span style="color: #00c6ff">navigation button</span> and a small <span style="color: #00ff00">power switch</span>.
 
 There is also a very small <span style="color: #ff0000">reset button</span> for updating the device firmware.
 
+To access the USB port or the reset button remove the outer handle cover by pushing the string side in.
+
 ## Navigating Modes
 
-Short click the <span style="color: #00c6ff">navigation buttons</span> to cycle forward or backwards through the 14 available modes.
+Short click the <span style="color: #00c6ff">navigation button</span> to forward through the 14 available modes.
 
 To edit a mode, navigate to it then hold the navigation button to open the menus.
 
@@ -137,71 +139,3 @@ Use short clicks to cycle through the following menu options, long click to ente
 </a>
 </div>
 {% endraw %}
-
-## Selecting LEDs for Colorset/Pattern/Randomization
-
-1. **Enter the Desired Menu:** Use a long click to select.
-2. **LED Selection:**
-   - Short click to cycle between [LED groups](LEDgroups.html).
-   - Long click to select the LED group you want to customize.
-   - You can also make a [custom LED group](CustomGroups.html).
-
-## Randomizing a Mode
-
-1. **Select Randomizer Menu (White):**
-2. **Select an LED group.**
-3. **Randomize:**
-   - Short click to cycle through randomizations.
-   - Long click to confirm and save the randomized LEDs.
-
-Learn more about the [Randomizer](randomizer.html).
-
-## Changing the Colorset on a Mode
-
-
-1. **Select Color Select Menu (Green):**
-2. **Select an LED group.**
-3. **Edit Colorset:**
-   - Click to navigate through the colors in your set.
-   - Long click a color to edit it.
-   - Hold on a color until it flashes red to delete it.
-   - Long click the slot after your colorset to add a color.
-   - Select the red edge lights to save and exit.
-
-Learn more about [Color Selection](colorSelect.html).
-
-## Changing the Pattern on a Mode
-
-1. **Select Pattern Select Menu (Blue):**
-2. **Select an LED group.**
-3. **Select Pattern:**
-   - Chose one of the 4 shortcuts to enter the pattern list.
-   - Cycle through patterns and long click to apply.
-
-## Wirelessly Transferring to Another Device
-
-1. **Select Mode Sharing Menu (Cyan):**
-2. **Initiate Transfer:**
-   - Short click to cycle between receive (default) and send.
-   - Point the button of the sending device at the button of the receiving device.
-   - The recieving device will start to glow green and play the mode once it is recieved.
-
-## Connecting to the PC
-
-To connect to PC and web applications see [Connecting to Computer](computer.html).
-
-## Changing Global Brightness
-
-1. **Select Global Brightness Menu (Yellow):**
-2. **Adjust Brightness:**
-   - Use short clicks to cycle through brightness options.
-   - Long click to set.
-
-## Factory Resetting the Device
-
-1. **Select Factory Reset Menu (Red):**
-2. **Confirm Reset:**
-   - Short click to cycle between factory reset or cancle.
-   - Hold the factory reset option untill the device fades from red to white to reset.
-
-
