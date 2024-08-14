@@ -36,16 +36,27 @@ To **edit** a color: select it then follow the [Selecting Colors](color_select_m
 
 ## Deleting Colors
 
-To **delete** a color from the colorset, navigate to the slot of the color you want to remove. Hold down the button until the LED glows or blinks red. Release the button while the LED is red to delete the color.
+To **delete** a color:
+ 1. cycle to the color slot
+ 2. **hold** the button until the LED glows red
+ 3. release the button **while the LED is red**
 
-### Important Note
-
-If all colors are deleted from the colorset, the mode will appear blank as if the device is off. It’s not recommended to delete all colors from a mode.
+**Warning**: If all colors are deleted, the mode will not display anything and appear as if the device is off.
 
 ## Saving
 
-The <span style="color: #ddd;font-weight:bold;">save</span> option always appears at the end, selecting this option will save the changes and exit the menu.
+The **save** option always appears at the end, selecting this option will save the changes and exit the menu.
 
 ## Selecting Colors
 
-After selecting a slot, you can adjust the hue, saturation, and brightness (value) of the color. This lets you create almost any color you can imagine. The process of adjusting these settings varies slightly depending on the device you’re using.
+ 1. **Select a Slot**: Start by selecting the slot where you want to adjust the color.
+
+ 2. **Select Hue Quadrant**: Pick which quadrant contains the desired hue.
+
+ 3. **Select Hue**: Pick the specific hue to decide the base color.
+
+ 4. **Select Saturation**: Pick the saturation to adjust how white the color appears.
+
+ 5. **Select Brightness**: Pick the brightness to adjust how dark the color appears.
+
+After selecting brightness the menu will go back to the slot selection and reflect the new choice.
