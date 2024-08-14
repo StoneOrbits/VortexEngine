@@ -469,6 +469,7 @@
 
 // when the gloveset is leaving the menu and needs to tell the editor
 // that it's no longer listening
+// NOTE: this is no longer used but leaving the placeholder here
 #define EDITOR_VERB_GOODBYE           "l"
 
 // when the computer wants to send a mode to the duo it tells the device

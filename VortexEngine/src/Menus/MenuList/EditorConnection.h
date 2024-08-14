@@ -24,9 +24,6 @@ public:
   void onLongClick() override;
   void onLongClick2() override;
 
-  // menu conn
-  void leaveMenu(bool doSave = false) override;
-
 private:
   void showEditor();
   void receiveData();
