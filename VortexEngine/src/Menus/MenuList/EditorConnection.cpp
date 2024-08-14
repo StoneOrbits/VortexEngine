@@ -99,6 +99,11 @@ Menu::MenuAction EditorConnection::run()
     m_state = STATE_IDLE;
     break;
   case STATE_IDLE:
+    // check to see if serial has disconnected
+    if (SerialComs::checkDisconnect()) {
+      // leave the menu (no save)
+      return MENU_QUIT;
+    }
     // parse the receive buffer for any commands from the editor
     handleCommand();
     break;
@@ -210,13 +215,7 @@ void EditorConnection::onShortClick()
 
 void EditorConnection::onLongClick()
 {
-  leaveMenu(true);
-}
-
-void EditorConnection::leaveMenu(bool doSave)
-{
-  SerialComs::write(EDITOR_VERB_GOODBYE);
-  Menu::leaveMenu(true);
+  // do not allow them to leave the editor connection menu
 }
 
 void EditorConnection::showEditor()

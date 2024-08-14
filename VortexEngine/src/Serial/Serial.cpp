@@ -55,6 +55,7 @@ bool SerialComs::checkSerial()
 #else
   // This will check if the serial communication is open
   if (!Serial.available()) {
+    m_serialConnected = false;
     // serial is not connected
     return false;
   }
@@ -64,6 +65,32 @@ bool SerialComs::checkSerial()
 #endif
   // serial is now connected
   m_serialConnected = true;
+  return true;
+}
+
+bool SerialComs::checkDisconnect()
+{
+#if VORTEX_SLIM == 0
+  uint32_t now = Time::getCurtime();
+  // don't check for serial too fast
+  if (m_lastCheck && (now - m_lastCheck) < MAX_SERIAL_CHECK_INTERVAL) {
+    // can't check yet too soon
+    return false;
+  }
+#ifdef VORTEX_LIB
+  if (Vortex::vcallbacks()->serialCheck()) {
+    return false;
+  }
+#else
+  // This will check if the serial communication is open
+  if (Serial.available()) {
+    // serial is still connected
+    return false;
+  }
+#endif
+  // serial is now disconnected
+  m_serialConnected = false;
+#endif
   return true;
 }
 

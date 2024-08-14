@@ -17,8 +17,11 @@ public:
   // whether serial is initialized
   static bool isConnected();
 
-  // check for any serial connection or messages
+  // check for any new serial connection
   static bool checkSerial();
+
+  // check for a serial disconnect (return true on dc)
+  static bool checkDisconnect();
 
   // write a message to serial
   static void write(const char *msg, ...);
