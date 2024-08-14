@@ -89,7 +89,7 @@ To enter a menu, switch to a mode you'd like to edit and then hold the navigatio
 
 The <span style="color: #00ff00;">Color Select</span>, <span style="color: #3366ff;">Pattern Select</span>, <span style="color: #ffffff;">Randomizer</span>, and <span style="color: #00ffff;">Mode Sharing</span> menus will only affect this mode.
 
-<span style="color: #ff0000;">Factory Reset</span>, <span style="color: #ffff00;">Global Brightness</span>, and <span style="color: #b300b3;">Editor Connection</span> will apply to the entire device.
+<span style="color: #ff0000;">Factory Reset</span> and <span style="color: #ffff00;">Global Brightness</span> will apply to the entire device.
 
 Using short clicks, navigate to the color that corresponds to the menu you'd like and long click to select it.
 
@@ -114,10 +114,10 @@ Short click to cycle through available led groups and long click to confirm the 
   <div>The Mode Sharing menu allows you to share your current mode with another Vortex Device. This is a great way to quickly and easily share your favorite modes with friends.</div>
 </a>
 
-<a href="editor_connection_menu.html">
-  <div class="color-list-entry"><span class="rounded-box purple"></span>Editor Connection</div>
-  <div>The Editor Connection menu is used to connect your Vortex Device to the desktop-based editors. This allows you to program your device using the editor's user-friendly interface.</div>
-</a>
+<!-- <a href="editor_connection_menu.html"> -->
+<!--   <div class="color-list-entry"><span class="rounded-box purple"></span>Editor Connection</div> -->
+<!--   <div>The Editor Connection menu is used to connect your Vortex Device to the desktop-based editors. This allows you to program your device using the editor's user-friendly interface.</div> -->
+<!-- </a> -->
 
 <a href="color_select_menu.html">
   <div class="color-list-entry"><span class="rounded-box green"></span>Color Select</div>
