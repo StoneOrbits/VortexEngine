@@ -11,7 +11,7 @@ The latest firmware for your device can be found on the Vortex Community [downlo
 
 First, connect your device to the PC via USB.
 
-<div style="margin-left: 50px; margin-right: 50px">
+<div style="margin-left: 50px; margin-right: 50px" markdown="1">
 
 - **Use a data-capable USB cable, power-only cables won't work.**
 - Windows will notify upon successful connection
