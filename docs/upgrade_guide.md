@@ -16,6 +16,7 @@ First, connect your device to the PC via USB.
 - **Use a data-capable USB cable, power-only cables won't work.**
 - Windows will notify upon successful connection
 - Mac may work but is not officially supported.
+
 </div>
 
 ![Device Buttons](assets/images/device-buttons.png)

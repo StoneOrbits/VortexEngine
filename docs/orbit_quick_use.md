@@ -32,17 +32,23 @@ parent: Guides & Tutorials
 }
 
 .device-icon {
-   margin: 20px;
+   margin: 0px;
    width: 30%;
    height: 30%
 }
 </style>
 
-<img align="right" width="" height="220" class="device-icon" src="assets/images/orbit-logo-square-512.png">
+<img align="right" width="" height="220" class="device-icon" src="assets/images/device-orbit.png">
 
 # Orbit Quick Use Guide
 
 Welcome to the Vortex Orbit Quick-Use-Guide, this guide aims to get you up and running as fast as possible.
+
+## Buttons
+
+The orbit has two <span style="color: #00c6ff">navigation buttons</span> and a small <span style="color: #00ff00">power switch</span>.
+
+There is also a very small <span style="color: #ff0000">reset button</span> for updating the device firmware.
 
 ## Accessing Menus
 
@@ -51,13 +57,16 @@ To enter the menu:
 1. **Hold the Navigation Button:** Hold the button until the LEDs alternate white blinks.
 2. **Cycle Menus:** Use short clicks to cycle through menu options. The menu colors indicate their function:
 
-    <div class="color-list-entry"><span class="rounded-box white"></span>Randomizer</div>
+    <div class="color-list-entry"><span class="rounded-box white" markdown="1"></span>[Randomizer](menu_randomizer.html)</div>
     <div class="color-list-entry"><span class="rounded-box cyan"></span>Mode Sharing</div>  
     <div class="color-list-entry"><span class="rounded-box purple"></span>Editor Connection</div>
     <div class="color-list-entry"><span class="rounded-box green"></span>Color Select</div>  
     <div class="color-list-entry"><span class="rounded-box blue"></span>Pattern Select</div>
     <div class="color-list-entry"><span class="rounded-box yellow"></span>Global Brightness</div>
     <div class="color-list-entry"><span class="rounded-box red"></span>Factory Reset
+
+
+
 
 ## Selecting LEDs for Colorset/Pattern/Randomization
 
@@ -78,7 +87,7 @@ To enter the menu:
 Learn more about the [Randomizer](randomizer.html).
 
 ## Changing the Colorset on a Mode
-<img align="right" width="" height="220" src="assets/images/color-select.png">
+
 
 1. **Select Color Select Menu (Green):**
 2. **Select an LED group.**

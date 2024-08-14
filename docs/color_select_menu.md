@@ -23,3 +23,5 @@ After selecting a slot, you can adjust the hue, saturation, and value (brightnes
 If you want to delete a color from the colorset simply cycle to the respective slot then hold down the button till the led glows red and/or blinks red. Release the button while the led is glowing red and it will delete the color from the colorset.
 
 If you delete all colors from the colorset the mode will be blank and appear like the device is off, it is not advised to do this. 
+
+<img align="right" width="" height="220" src="assets/images/color-select.png">
