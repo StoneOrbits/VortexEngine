@@ -24,7 +24,7 @@ First, connect your device to the PC via USB.
 Next, double click the <span style="color: #ff0000">reset button</span> and a new drive should appear, this may take a few tries.
 
 <div style="text-align: center; margin: 20px">
-  <img src="assets/images/trinketboot-drive.png" style="box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);">
+  <img src="assets/images/trinketboot-drive.png" style="box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2); border-radius: 5px;">
 </div>
 
 Finally, Drag & Drop the device firmware into the Trinketboot drive to automatically upgrade.
