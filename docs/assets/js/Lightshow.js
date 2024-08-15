@@ -254,7 +254,7 @@ export default class Lightshow {
   }
 
   openMenus() {
-    this.vortex.engine().menus().openMenuSelection(); // This should now work if the bindings are correct
+    this.vortex.openMenus();
   }
 }
 
