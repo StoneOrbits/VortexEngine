@@ -25,7 +25,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // open the menus
     menusButton.addEventListener('click', function() {
-      lightshow.vortex.engine().menus().openMenuSelection();
+      lightshow.openMenus();
     });
   });
 });

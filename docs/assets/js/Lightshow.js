@@ -252,5 +252,9 @@ export default class Lightshow {
   longClick() {
     this.vortex.longClick(0);
   }
+
+  openMenus() {
+    this.vortex.engine().menus().openMenuSelection(); // This should now work if the bindings are correct
+  }
 }
 
