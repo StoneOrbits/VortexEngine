@@ -46,4 +46,5 @@ The led selection is always the first step after entering one of these menus.
 <div id="controls">
   <button id="cycle-button" class="lightshow-button">Cycle</button>
   <button id="select-button" class="lightshow-button">Select</button>
+  <button id="menus-button" class="lightshow-button">Menus</button>
 </div>

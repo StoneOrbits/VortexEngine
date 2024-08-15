@@ -11,15 +11,21 @@ document.addEventListener('DOMContentLoaded', function() {
 
     const cycleButton = document.getElementById('cycle-button');
     const selectButton = document.getElementById('select-button');
+    const menusButton = document.getElementById('menus-button');
 
     // Handle Cycle button click
     cycleButton.addEventListener('click', function() {
-      lightshow.vortex.shortClick(0); // Example: cycle through modes
+      lightshow.vortex.shortClick(0);
     });
 
     // Handle Select button click
     selectButton.addEventListener('click', function() {
-      lightshow.vortex.longClick(0); // Example: select the current mode or pattern
+      lightshow.vortex.longClick(0);
+    });
+
+    // open the menus
+    menusButton.addEventListener('click', function() {
+      lightshow.vortex.engine().menus().openMenuSelection();
     });
   });
 });
