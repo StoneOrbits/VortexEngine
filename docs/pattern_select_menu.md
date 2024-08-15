@@ -6,31 +6,103 @@ parent: Menus
 grand_parent: Vortex Engine
 ---
 
+<style>
+  @keyframes glow {
+    0%, 100% { filter: hue-rotate(-10deg); }
+    50% { filter: hue-rotate(10deg); }
+  }
+
+  @keyframes blink {
+    50% { opacity: 0; }
+  }
+
+  .option-container {
+    display: flex;
+    align-items: center;
+    margin-bottom: 5px;
+    margin-left: 20px;
+  }
+
+  .glow-box {
+    width: 20px;
+    height: 20px;
+    border-radius: 4px;
+    margin-right: 8px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.8);
+    border: 1px solid #aaa;
+    animation: glow 2s ease-in-out infinite;
+  }
+
+  .glow-red {
+    background-color: rgba(255, 0, 0, 0.6);
+    box-shadow: 0 0 20px rgba(255, 0, 0, 0.4);
+  }
+
+  .glow-green {
+    background-color: rgba(0, 255, 0, 0.6);
+    box-shadow: 0 0 20px rgba(0, 255, 0, 0.4);
+  }
+
+  .glow-blue {
+    background-color: rgba(0, 0, 255, 0.6);
+    box-shadow: 0 0 20px rgba(0, 0, 255, 0.4);
+  }
+
+  .glow-purple {
+    background-color: rgba(128, 0, 128, 0.6);
+    box-shadow: 0 0 20px rgba(128, 0, 128, 0.4);
+  }
+
+  .red-blink {
+    background-color: rgba(255, 0, 0, 0.6);
+    box-shadow: 0 0 10px rgba(255, 0, 0, 0.6);
+    animation: blink 1s infinite;
+  }
+</style>
+
 # Pattern Select
 
-The Pattern Select menu allows you to change the pattern of the current mode. This menu is a quick and easy way to customize the blinking speed or style of your modes.
+The Pattern Select menu lets you quickly change the blinking speed or style of your current mode, also known as the [Pattern](patterns.html).
 
-## How it Works
+## Selecting Patterns
 
-When you enter the Pattern Select menu, the device will display the current mode's pattern. You can then cycle through the available patterns by performing short clicks. The device will preview each pattern as you cycle through them.
+Vortex Devices offer a wide range of flashing patterns. To make selecting patterns easier, the Pattern Select menu provides shortcuts to different points in the pattern list.
 
-There are two types of patterns available: single LED patterns and multi LED patterns. Single LED patterns only affect one LED at a time, while multi LED patterns can create effects that appear to 'travel' across multiple LEDs.
+After choosing LEDs and entering the Pattern Select menu, you'll see five options, each represented by a glowing color:
 
-The Vortex Duo unfortunately does not support multi-led patterns, so the pattern select menu on that device ends after the single led patterns.
+<div class="option-container">
+  <div class="glow-box glow-red"></div>
+  <strong>Red</strong>: Start at the beginning of the pattern list
+</div>
+<div class="option-container">
+  <div class="glow-box glow-green"></div>
+  <strong>Green</strong>: Start 1/4 into the pattern list
+</div>
+<div class="option-container">
+  <div class="glow-box glow-blue"></div>
+  <strong>Blue</strong>: Start halfway through the pattern list
+</div>
+<div class="option-container">
+  <div class="glow-box glow-purple"></div>
+  <strong>Purple</strong>: Start 3/4 into the pattern list
+</div>
+<div class="option-container" style="margin-bottom:10px;">
+  <div class="glow-box red-blink"></div>
+  <strong>Red Blink</strong>: Exit the Pattern Select menu
+</div>
 
-You can read more about single and multi led patterns [here](patterns.html)
+To choose a new pattern: 
 
-## Using the Pattern Select Menu
+ 1. Select a shortcut to enter the pattern list
+ 2. Short click to cycle through patterns
+ 3. Long click to save the pattern and exit
 
-To use the Pattern Select menu, follow these steps:
+## Types of Patterns
 
-1. Enter the Pattern Select (dark blue) menu from the mode you want to change
-2. Perform short clicks to cycle through the available patterns. The device will preview each pattern as you cycle through them.
-3. When you find a pattern you like, perform a long click to save the pattern and exit the Pattern Select menu.
+There are two distinct **types** of patterns:
 
-Remember, the Pattern Select menu is all about customization. Don't be afraid to experiment with different patterns to create unique and interesting light shows!
+**Multi LED Patterns**: These span across all LEDs, and only one multi-LED pattern can be active at a time.
 
-## Advanced Pattern Selection
+**Single LED Patterns**: These play on individual LEDs, allowing each LED to have its own unique pattern.
 
-For more advanced users, the Pattern Select menu offers additional control over the pattern selection process. In the advanced menu, you can adjust various parameters of the pattern, such as the duration of the on and off states, the gap duration, the dash duration, and the group size. This allows you to create even more varied and interesting patterns.
-
+Note: The Vortex Duo only supports single LED patterns.
