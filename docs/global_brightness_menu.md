@@ -13,11 +13,12 @@ grand_parent: Vortex Engine
     align-items: center;
     gap: 20px; /* Adds space between each brightness option */
     margin-bottom: 16px;
+    margin-top: 64px;
   }
 
   .brightness-box {
-    width: 20px;
-    height: 20px;
+    width: 32px;
+    height: 32px;
     border-radius: 4px;
     display: inline-block;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.8);
