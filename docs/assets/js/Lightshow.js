@@ -244,5 +244,13 @@ export default class Lightshow {
       this.vortexLib.RunTick(this.vortex);
     }
   }
+
+  pressButton() {
+    this.vortex.pressButton(0);
+  }
+
+  releaseButton() {
+    this.vortex.releaseButton(0);
+  }
 }
 
