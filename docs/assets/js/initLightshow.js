@@ -15,12 +15,12 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Handle Cycle button click
     cycleButton.addEventListener('click', function() {
-      lightshow.vortex.shortClick(0);
+      lightshow.shortClick(0);
     });
 
     // Handle Select button click
     selectButton.addEventListener('click', function() {
-      lightshow.vortex.longClick(0);
+      lightshow.longClick(0);
     });
 
     // open the menus
