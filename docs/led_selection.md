@@ -6,6 +6,29 @@ parent: Menus
 grand_parent: Vortex Engine
 ---
 
+<style>
+  #controls {
+  margin-top: 10px;
+  text-align: center;
+}
+
+.lightshow-button {
+  background-color: #007bff;
+  border: none;
+  color: white;
+  padding: 10px 20px;
+  margin: 5px;
+  font-size: 16px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.lightshow-button:hover {
+  background-color: #0056b3;
+}
+</style>
+
 # Led Selection
 
 The <span style="color: #00ff00;">Color Select</span>, <span style="color: #3366ff;">Pattern Select</span>, and <span style="color: #ffffff;">Randomizer</span> will change only the leds which were selected upon entering the menu.
