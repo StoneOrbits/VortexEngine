@@ -245,12 +245,12 @@ export default class Lightshow {
     }
   }
 
-  pressButton() {
-    this.vortex.pressButton(0);
+  shortClick() {
+    this.vortex.shortClick(0);
   }
 
-  releaseButton() {
-    this.vortex.releaseButton(0);
+  longClick() {
+    this.vortex.longClick(0);
   }
 }
 

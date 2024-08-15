@@ -19,3 +19,8 @@ The led selection is always the first step after entering one of these menus.
 <div id="lightshow-container" style="width: 100%; height: 400px;">
   <canvas id="vortex-canvas"></canvas>
 </div>
+
+<div id="controls">
+  <button id="cycle-button" class="lightshow-button">Cycle</button>
+  <button id="select-button" class="lightshow-button">Select</button>
+</div>
