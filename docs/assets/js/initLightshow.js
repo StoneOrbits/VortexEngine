@@ -1,3 +1,4 @@
+import VortexLib from './VortexLib.js';
 import Lightshow from './Lightshow.js';
 
 document.addEventListener('DOMContentLoaded', function() {
