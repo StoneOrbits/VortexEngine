@@ -6,25 +6,104 @@ parent: Menus
 grand_parent: Vortex Engine
 ---
 
+<style>
+  .reset-container {
+    display: flex;
+    flex-direction: column;
+    margin-left: 20px;
+    margin-bottom: 20px;
+    gap: 16px;
+  }
+
+  .reset-step {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .reset-box {
+    width: 20px;
+    height: 20px;
+    border-radius: 4px;
+    position: relative;
+    display: inline-block;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  }
+
+  .white-blink {
+    background-color: #ffffff;
+    animation: blink 1s infinite;
+  }
+
+  .red-blink {
+    background-color: #ff0000;
+    animation: blinkFast 0.3s infinite;
+  }
+
+  .hold-transition {
+    background-color: #ff0000;
+    animation: blinkFast 0.3s infinite, fadeToWhite 3s linear infinite;
+  }
+
+  .white-solid {
+    background-color: #ffffff;
+    animation: none; /* Ensures no animation is applied */
+  }
+
+  @keyframes blink {
+    50% { opacity: 0; }
+  }
+
+  @keyframes blinkFast {
+    50% { opacity: 0; }
+  }
+
+  @keyframes fadeToWhite {
+    0% {
+      background-color: #ff0000;
+    }
+    100% {
+      background-color: #ffffff;
+    }
+  }
+
+  .reset-text {
+    font-weight: bold;
+  }
+</style>
+
 # Factory Reset
 
-The Factory Reset menu allows you to reset your Vortex Device to its factory settings. This can be useful if you want to start fresh or if you're experiencing issues with your device.
+The Factory Reset menu restores the Vortex Device to its original settings.
 
-## How it Works
+## Using Factory Reset
 
-When you enter the Factory Reset menu, the device will display a blinking white light. This indicates that you are in the Factory Reset menu, but the device has not yet been reset.
+The steps to use Factory Reset are:
 
-If you perform a short click, the device will switch to a blinking red light. This indicates that the device is ready to be reset.
+<div class="reset-container">
+  <div class="reset-step">
+    <div class="reset-box white-blink"></div>
+    <div class="reset-text">Blinking white</div>
+    Select to exit without reset, or click to go to red blink
+  </div>
+  
+  <div class="reset-step">
+    <div class="reset-box red-blink"></div>
+    <div class="reset-text">Blinking red</div>
+    Hold to begin reset, or click to go back to white blink
+  </div>
+  
+  <!--<div class="reset-step"> -->
+  <!--  <div class="reset-box hold-transition"></div> -->
+  <!--  <div class="reset-text">Blinks to white</div> -->
+  <!--  Hold till led blinks to solid white and release -->
+  <!--</div> -->
+  
+  <div class="reset-step">
+    <div class="reset-box white-solid"></div>
+    <div class="reset-text">Solid white</div>
+    Release on solid white to perform reset
+  </div>
+</div>
 
-To confirm the factory reset, you need to perform a long click and hold the button until the device's light fills up with white color. This process takes a few seconds and is designed to prevent accidental resets.
-
-Once the device has been reset, it will leave the Factory Reset menu and save the changes. The device will now be in its factory state, with all modes and settings returned to their default values.
-
-## Advanced Factory Reset
-
-In the advanced version of the Factory Reset menu, you can choose to reset only a specific mode slot on a specific LED. This can be useful if you want to reset a specific mode without affecting the rest of your device.
-
-To do this, you need to select the LED and mode slot you want to reset before entering the Factory Reset menu. Then, when you perform the factory reset, only the selected mode slot on the selected LED will be reset.
-
-Remember, the Factory Reset menu is a powerful tool, and its changes cannot be undone. Be sure to use it carefully!
-
+After the reset, the device returns to its factory settings, with all modes and options restored to default.
