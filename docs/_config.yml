@@ -7,6 +7,7 @@ heading_anchors: true
 markdown: kramdown
 include:
   - assets/images/
+  - assets/js/
   - core/
   - desktop/
   - gloves/
