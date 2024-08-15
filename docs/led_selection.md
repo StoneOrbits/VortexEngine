@@ -7,9 +7,16 @@ grand_parent: Vortex Engine
 ---
 
 <style>
-  #controls {
+#controls {
   margin-top: 10px;
   text-align: center;
+}
+
+#vortex-canvas {
+  width: 256px;
+  height: 256px;
+  border: 2px black solid;
+  border-radius: 50%;
 }
 
 .lightshow-button {
@@ -39,11 +46,10 @@ The led selection is always the first step after entering one of these menus.
 <script src="{{ '/assets/js/Lightshow.js' | relative_url }}" type="module"></script>
 <script src="{{ '/assets/js/initLightshow.js' | relative_url }}" type="module"></script>
 
-<div id="lightshow-container" style="width: 100%; height: 400px;">
-  <canvas id="vortex-canvas"></canvas>
-</div>
-
 <div id="controls">
+  <div id="lightshow-container">
+    <canvas id="vortex-canvas"></canvas>
+  </div>
   <button id="cycle-button" class="lightshow-button">Cycle</button>
   <button id="select-button" class="lightshow-button">Select</button>
   <button id="menus-button" class="lightshow-button">Menus</button>
