@@ -10,25 +10,24 @@ document.addEventListener('DOMContentLoaded', function() {
     const lightshow = new Lightshow(vortexLib, canvasId, options);
     lightshow.start(); // Start the animation
 
-    // Get the press and release buttons
-    const pressButton = document.getElementById('vortex-press-button');
-    const releaseButton = document.getElementById('vortex-release-button');
+    const canvas = document.getElementById(canvasId);
 
-    // Connect the pressButton and releaseButton methods in Lightshow.js
-    pressButton.addEventListener('mousedown', function() {
-      lightshow.pressButton(); // Call pressButton when the button is pressed
+    // Handle mouse/touch press on the canvas
+    canvas.addEventListener('mousedown', function() {
+      lightshow.pressButton(); // Call pressButton on canvas mousedown
     });
 
-    releaseButton.addEventListener('mouseup', function() {
-      lightshow.releaseButton(); // Call releaseButton when the button is released
+    // Handle mouse/touch release on the canvas
+    canvas.addEventListener('mouseup', function() {
+      lightshow.releaseButton(); // Call releaseButton on canvas mouseup
     });
 
-    // Optionally handle touch events for mobile
-    pressButton.addEventListener('touchstart', function() {
+    // Handle touch events for mobile
+    canvas.addEventListener('touchstart', function() {
       lightshow.pressButton(); // Call pressButton on touchstart
     });
 
-    releaseButton.addEventListener('touchend', function() {
+    canvas.addEventListener('touchend', function() {
       lightshow.releaseButton(); // Call releaseButton on touchend
     });
   });
