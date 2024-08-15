@@ -93,12 +93,14 @@ The <span style="color: #00ff00;">Color Select</span>, <span style="color: #3366
 
 Using short clicks, navigate to the color that corresponds to the menu you'd like and long click to select it.
 
-## Selecting Leds
-Three menus offer led selection: <span style="color: #00ff00;">Color Select</span>, <span style="color: #3366ff;">Pattern Select</span>, and <span style="color: #ffffff;">Randomizer</span> 
+## Selecting LEDs
 
-The _led selection_ is always the first step after entering a menu, you must choose which leds the menu will target when making changes.
+Three menus allow you to choose specific LEDs: <span style="color: #00ff00;">Color Select</span>, <span style="color: #3366ff;">Pattern Select</span>, and <span style="color: #ffffff;">Randomizer</span>.
 
-Short click to cycle through available led groups and long click to confirm the selection and enter the menu.
+Upon entering one of these menus, the first step is _LED selection_. You decide which LEDs the menu will affect when making changes.
+
+- **Short click** to cycle through the available LED groups.
+- **Long click** to confirm your selection and proceed into the menu.
 
 ## Menu List
 
