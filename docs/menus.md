@@ -82,7 +82,7 @@ has_children: true
 # Menus
 The menus provide a way to use the navigation buttons to customize your Vortex Device and manage its configuration.
 
-Each Vortex Device offer the same menus, with the only differences in menu behaviour coming from the varying LED counts and orientations.
+Each Vortex Device offers the same menus, with the only differences in menu behaviour coming from the varying LED counts and orientations.
 
 ## Using Menus
 To enter a menu, switch to a mode you'd like to edit and then hold the navigation button until the LEDs blink white.
