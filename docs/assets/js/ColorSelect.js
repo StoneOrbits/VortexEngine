@@ -97,39 +97,39 @@ function showSaturationDropdown(slot, refinedHueValue) {
 }
 
 function showBrightnessDropdown(slot, refinedHueValue, saturationValue) {
-  closeDropdown(); // Close previous dropdown
+  closeDropdown(); // Close the previous dropdown
 
   const brightnesses = [
-    { value: 75, color: `hsl(${refinedHueValue}, ${saturationValue}%, 50%)` }, // 75% brightness
-    { value: 50, color: `hsl(${refinedHueValue}, ${saturationValue}%, 33%)` }, // 50% brightness
-    { value: 35, color: `hsl(${refinedHueValue}, ${saturationValue}%, 13%)` }, // 35% brightness
-    { value: 20, color: `hsl(${refinedHueValue}, ${saturationValue}%, 0%)` }  // 20% brightness
+    { value: 75, color: `hsl(${refinedHueValue}, ${saturationValue}%, 50%)` },
+    { value: 50, color: `hsl(${refinedHueValue}, ${saturationValue}%, 33%)` },
+    { value: 35, color: `hsl(${refinedHueValue}, ${saturationValue}%, 13%)` },
+    { value: 20, color: `hsl(${refinedHueValue}, ${saturationValue}%, 0%)` }
   ];
 
   const brightnessDropdown = createDropdown(brightnesses, function(_, finalColor) {
     const slotElement = document.getElementById(`slot${slot}`);
 
-    // Ensure the slot is not treated as an empty or add slot anymore
+    // Apply the selected color to the slot
+    slotElement.style.backgroundColor = finalColor;
+
+    // Remove the 'empty' and 'add-slot' classes, ensuring the slot displays correctly
     slotElement.classList.remove('empty');
     slotElement.classList.remove('add-slot');
-    slotElement.innerHTML = ''; // Remove any "+" sign or other content
+    slotElement.innerHTML = ''; // Clear any "+" or other content
 
-    // Set cursor to pointer to indicate it's interactive
+    // Ensure the slot is clickable and editable
     slotElement.style.cursor = 'pointer';
-
-    // Make the slot editable after being added
     slotElement.onclick = function() {
       editColor(slot);
     };
 
-    // Move the add button to the next available slot
-    moveAddButton(slot);
+    // Only move the add button if this is an addition, not an edit
+    if (!slotElement.classList.contains('color-filled')) {
+      slotElement.classList.add('color-filled'); // Mark this slot as filled
+      moveAddButton(slot);
+    }
 
-    // Apply the selected color to the slot
-    slotElement.style.backgroundColor = finalColor;
-
-    // Ensure dropdown closes after final selection
-    closeDropdown();
+    closeDropdown(); // Close the dropdown after selection
   });
 
   document.body.appendChild(brightnessDropdown);
@@ -148,25 +148,24 @@ function moveAddButton(slot) {
   const currentSlot = document.getElementById(`slot${slot}`);
   const prevAddSlot = document.querySelector('.add-slot');
 
-  // Turn the previous add slot into an empty slot if it exists
+  // Ensure previous add slot becomes an empty slot if it exists
   if (prevAddSlot) {
     prevAddSlot.classList.remove('add-slot');
     prevAddSlot.classList.add('empty');
     prevAddSlot.style.backgroundColor = '#222'; // Darker background for empty slots
     prevAddSlot.innerHTML = '';
     prevAddSlot.style.cursor = 'default'; // Remove pointer cursor
-    prevAddSlot.onclick = null; // Remove the click handler for empty slots
+    prevAddSlot.onclick = null; // Disable clicking on empty slots
   }
 
-  // Update the newly filled slot (ensures the color is displayed correctly)
+  // Update the newly filled slot
   currentSlot.classList.remove('empty');
   currentSlot.classList.remove('add-slot');
-  currentSlot.style.backgroundColor = ''; // Clear the background color
   currentSlot.onclick = function() {
     editColor(slot);
   };
 
-  // Position the add button in the next empty slot
+  // Move the add button to the next empty slot
   filledSlots++;
   const nextSlot = document.getElementById(`slot${filledSlots + 1}`);
   if (nextSlot) {
