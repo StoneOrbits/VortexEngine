@@ -138,15 +138,17 @@ function moveAddButton(slot) {
     prevAddSlot.onclick = null; // Remove the click handler for empty slots
   }
 
-  // Make the current slot the new add slot
-  currentSlot.classList.remove('empty');
-  currentSlot.classList.add('add-slot');
-  currentSlot.innerHTML = '<div class="plus-icon">+</div>';
-  currentSlot.onclick = function() {
-    editColor(slot);
-  };
-
+  // Find the next available empty slot
   filledSlots++;
+  const nextSlot = document.getElementById(`slot${filledSlots + 1}`);
+  if (nextSlot) {
+    nextSlot.classList.remove('empty');
+    nextSlot.classList.add('add-slot');
+    nextSlot.innerHTML = '<div class="plus-icon">+</div>';
+    nextSlot.onclick = function() {
+      editColor(filledSlots + 1);
+    };
+  }
 }
 
 function startFlashingRed(slot) {
@@ -198,8 +200,11 @@ document.querySelectorAll('.slot').forEach((slot, index) => {
   slot.addEventListener('mouseup', () => {
     clearTimeout(holdTimer);
     if (deleteMode) {
-      deleteSlot(index + 1); // Delete the slot if it's flashing red
-      stopFlashingRed(index + 1);
+      setTimeout(() => { // Delay to prevent the menu from opening
+        deleteSlot(index + 1);
+        stopFlashingRed(index + 1);
+        deleteMode = false; // Reset delete mode
+      }, 0);
     } else if (!deleteMode && !slot.classList.contains('empty')) {
       editColor(index + 1); // Only open the color selection if not in delete mode and slot is not empty
     }
@@ -211,10 +216,17 @@ document.querySelectorAll('.slot').forEach((slot, index) => {
   });
 });
 
+document.addEventListener('click', (event) => {
+  if (activeDropdown && !activeDropdown.contains(event.target)) {
+    closeDropdown(); // Close the dropdown if clicked outside
+  }
+});
+
 function editColor(slot) {
   if (!deleteMode) {
     closeDropdown(); // Ensure no other dropdowns are open
     showHueQuadrantDropdown(slot);
+    event.stopPropagation(); // Prevent this click from closing the dropdown
   }
 }
 

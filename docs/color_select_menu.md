@@ -39,6 +39,8 @@ grand_parent: Vortex Engine
     color: #fff;
     font-weight: bold;
     line-height: 1;
+    margin: 0;
+    padding: 0;
 }
 
 .save-slot {
