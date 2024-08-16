@@ -127,28 +127,35 @@ function positionDropdown(dropdown, slot) {
 }
 
 function moveAddButton(slot) {
-  const currentSlot = document.getElementById(`slot${slot}`);
-  const prevAddSlot = document.querySelector('.add-slot');
+    const currentSlot = document.getElementById(`slot${slot}`);
+    const prevAddSlot = document.querySelector('.add-slot');
 
-  // Turn the previous add slot into an empty slot
-  if (prevAddSlot) {
-    prevAddSlot.classList.remove('add-slot');
-    prevAddSlot.classList.add('empty');
-    prevAddSlot.innerHTML = '';
-    prevAddSlot.onclick = null; // Remove the click handler for empty slots
-  }
+    // Turn the previous add slot into an empty slot if it exists
+    if (prevAddSlot) {
+        prevAddSlot.classList.remove('add-slot');
+        prevAddSlot.classList.add('empty');
+        prevAddSlot.innerHTML = '';
+        prevAddSlot.onclick = null; // Remove the click handler for empty slots
+    }
 
-  // Find the next available empty slot
-  filledSlots++;
-  const nextSlot = document.getElementById(`slot${filledSlots + 1}`);
-  if (nextSlot) {
-    nextSlot.classList.remove('empty');
-    nextSlot.classList.add('add-slot');
-    nextSlot.innerHTML = '<div class="plus-icon">+</div>';
-    nextSlot.onclick = function() {
-      editColor(filledSlots + 1);
+    // Update the newly filled slot
+    currentSlot.classList.remove('empty');
+    currentSlot.classList.remove('add-slot');
+    currentSlot.onclick = function() {
+        editColor(slot);
     };
-  }
+
+    // Position the add button in the next empty slot
+    filledSlots++;
+    const nextSlot = document.getElementById(`slot${filledSlots + 1}`);
+    if (nextSlot) {
+        nextSlot.classList.remove('empty');
+        nextSlot.classList.add('add-slot');
+        nextSlot.innerHTML = '<div class="plus-icon">+</div>';
+        nextSlot.onclick = function() {
+            editColor(filledSlots + 1);
+        };
+    }
 }
 
 function startFlashingRed(slot) {
@@ -164,27 +171,39 @@ function stopFlashingRed(slot) {
 }
 
 function deleteSlot(slot) {
-  const slotElement = document.getElementById(`slot${slot}`);
+    const slotElement = document.getElementById(`slot${slot}`);
+    
+    // Shift all slots to the left
+    for (let i = slot; i < 8; i++) {
+        const currentSlotElement = document.getElementById(`slot${i}`);
+        const nextSlotElement = document.getElementById(`slot${i + 1}`);
+        
+        if (nextSlotElement && !nextSlotElement.classList.contains('empty')) {
+            currentSlotElement.style.backgroundColor = nextSlotElement.style.backgroundColor;
+            currentSlotElement.classList.remove('empty');
+            currentSlotElement.classList.remove('add-slot');
+            currentSlotElement.innerHTML = '';
+            currentSlotElement.onclick = () => editColor(i); // Ensure it's editable
+        } else {
+            currentSlotElement.style.backgroundColor = '';
+            currentSlotElement.classList.add('empty');
+            currentSlotElement.innerHTML = '';
+            currentSlotElement.onclick = null;
+            break; // Stop shifting once the next slot is empty
+        }
+    }
 
-  // If there's a previous "Add" slot, turn it empty
-  const prevAddSlot = document.querySelector('.add-slot');
-  if (prevAddSlot && prevAddSlot.id !== `slot${slot}`) {
-    prevAddSlot.classList.remove('add-slot');
-    prevAddSlot.classList.add('empty');
-    prevAddSlot.innerHTML = '';
-    prevAddSlot.onclick = null; // Disable click on the now-empty slot
-  }
-
-  // Turn the deleted slot into the new add slot
-  slotElement.style.backgroundColor = '';
-  slotElement.classList.add('add-slot');
-  slotElement.classList.remove('empty');
-  slotElement.innerHTML = '<div class="plus-icon">+</div>';
-  slotElement.onclick = function() {
-    editColor(slot);
-  };
-
-  filledSlots--;
+    // Reposition the add button to the first empty slot
+    filledSlots--;
+    const nextSlot = document.getElementById(`slot${filledSlots + 1}`);
+    if (nextSlot) {
+        nextSlot.classList.remove('empty');
+        nextSlot.classList.add('add-slot');
+        nextSlot.innerHTML = '<div class="plus-icon">+</div>';
+        nextSlot.onclick = function() {
+            editColor(filledSlots + 1);
+        };
+    }
 }
 
 // Handle holding and deleting
