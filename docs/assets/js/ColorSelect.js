@@ -100,17 +100,20 @@ function showBrightnessDropdown(slot, refinedHueValue, saturationValue) {
   closeDropdown(); // Close previous dropdown
 
   const brightnesses = [
-    { value: 75, color: `hsl(${refinedHueValue}, ${saturationValue}%, 50%)` }, // 100% brightness
+    { value: 75, color: `hsl(${refinedHueValue}, ${saturationValue}%, 50%)` }, // 75% brightness
     { value: 50, color: `hsl(${refinedHueValue}, ${saturationValue}%, 33%)` }, // 50% brightness
     { value: 35, color: `hsl(${refinedHueValue}, ${saturationValue}%, 13%)` }, // 35% brightness
     { value: 20, color: `hsl(${refinedHueValue}, ${saturationValue}%, 0%)` }  // 20% brightness
   ];
 
   const brightnessDropdown = createDropdown(brightnesses, function(_, finalColor) {
-    document.getElementById(`slot${slot}`).style.backgroundColor = finalColor;
-    if (slot === filledSlots + 1 && filledSlots < 8) {
-      moveAddButton(slot);
-    }
+    const slotElement = document.getElementById(`slot${slot}`);
+    slotElement.style.backgroundColor = finalColor; // Set the selected color as the background
+    slotElement.classList.remove('empty'); // Ensure it's no longer considered empty
+    slotElement.onclick = function() {
+      editColor(slot); // Make sure it's editable after being added
+    };
+    moveAddButton(slot); // Move the add button to the next available slot
     closeDropdown(); // Ensure dropdown closes after final selection
   });
 
