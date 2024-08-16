@@ -107,7 +107,7 @@ function showBrightnessDropdown(slot, refinedHueValue, saturationValue) {
 
     const brightnessDropdown = createDropdown(brightnesses, function(_, finalColor) {
         document.getElementById(`slot${slot}`).style.backgroundColor = finalColor;
-        if (slot >= filledSlots && filledSlots < 8) {
+        if (slot === filledSlots + 1 && filledSlots < 8) {
             moveAddButton(slot);
         }
         closeDropdown(); // Ensure dropdown closes after final selection
@@ -134,16 +134,16 @@ function moveAddButton(slot) {
     currentSlot.classList.remove('add-slot');
     currentSlot.innerHTML = '';
 
-    // Increment the slots count
     filledSlots++;
 
-    if (filledSlots <= 8) {
+    if (filledSlots < 8) {
         const nextSlot = document.getElementById(`slot${filledSlots + 1}`);
-        if (nextSlot) {
-            nextSlot.classList.remove('empty');
-            nextSlot.classList.add('add-slot');
-            nextSlot.innerHTML = '<div class="plus-icon">+</div>';
-        }
+        nextSlot.classList.remove('empty');
+        nextSlot.classList.add('add-slot');
+        nextSlot.innerHTML = '<div class="plus-icon">+</div>';
+        nextSlot.onclick = function() {
+            editColor(filledSlots + 1);
+        };
     }
 }
 
@@ -183,6 +183,9 @@ function deleteSlot(slot) {
         nextSlot.classList.remove('empty');
         nextSlot.classList.add('add-slot');
         nextSlot.innerHTML = '<div class="plus-icon">+</div>';
+        nextSlot.onclick = function() {
+            editColor(filledSlots + 1);
+        };
     }
 }
 
