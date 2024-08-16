@@ -109,17 +109,27 @@ function showBrightnessDropdown(slot, refinedHueValue, saturationValue) {
   const brightnessDropdown = createDropdown(brightnesses, function(_, finalColor) {
     const slotElement = document.getElementById(`slot${slot}`);
 
-    // Ensure the slot is fully transitioned from an "empty" to a "filled" state
-    slotElement.style.backgroundColor = finalColor;  // Apply the selected color as the background
-    slotElement.classList.remove('empty');           // Remove the 'empty' class
-    slotElement.classList.remove('add-slot');        // Ensure it's not treated as an add-slot
-    slotElement.style.cursor = 'pointer';            // Set cursor to pointer to indicate it's interactive
+    // Apply the selected color to the slot
+    slotElement.style.backgroundColor = finalColor;
+
+    // Ensure the slot is not treated as an empty or add slot anymore
+    slotElement.classList.remove('empty');
+    slotElement.classList.remove('add-slot');
+    slotElement.innerHTML = ''; // Remove any "+" sign or other content
+
+    // Set cursor to pointer to indicate it's interactive
+    slotElement.style.cursor = 'pointer';
+
+    // Make the slot editable after being added
     slotElement.onclick = function() {
-      editColor(slot);                             // Make sure it's editable after being added
+      editColor(slot);
     };
 
-    moveAddButton(slot); // Move the add button to the next available slot
-    closeDropdown(); // Ensure dropdown closes after final selection
+    // Move the add button to the next available slot
+    moveAddButton(slot);
+
+    // Ensure dropdown closes after final selection
+    closeDropdown();
   });
 
   document.body.appendChild(brightnessDropdown);
