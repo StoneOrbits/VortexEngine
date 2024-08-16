@@ -112,22 +112,12 @@ function showBrightnessDropdown(slot, refinedHueValue, saturationValue) {
     // Apply the selected color to the slot
     slotElement.style.backgroundColor = finalColor;
 
-    // Remove the 'empty' and 'add-slot' classes, ensuring the slot displays correctly
-    slotElement.classList.remove('empty');
-    slotElement.classList.remove('add-slot');
-    slotElement.innerHTML = ''; // Clear any "+" or other content
-
-    // Ensure the slot is clickable and editable
+    // Mark the slot as filled and ensure it's clickable
+    slotElement.classList.add('color-filled');
     slotElement.style.cursor = 'pointer';
     slotElement.onclick = function() {
       editColor(slot);
     };
-
-    // Only move the add button if this is an addition, not an edit
-    if (!slotElement.classList.contains('color-filled')) {
-      slotElement.classList.add('color-filled'); // Mark this slot as filled
-      moveAddButton(slot);
-    }
 
     closeDropdown(); // Close the dropdown after selection
   });
@@ -145,10 +135,9 @@ function positionDropdown(dropdown, slot) {
 }
 
 function moveAddButton(slot) {
-  const currentSlot = document.getElementById(`slot${slot}`);
   const prevAddSlot = document.querySelector('.add-slot');
 
-  // Ensure previous add slot becomes an empty slot if it exists
+  // Ensure the previous add slot becomes an empty slot if it exists
   if (prevAddSlot) {
     prevAddSlot.classList.remove('add-slot');
     prevAddSlot.classList.add('empty');
@@ -157,13 +146,6 @@ function moveAddButton(slot) {
     prevAddSlot.style.cursor = 'default'; // Remove pointer cursor
     prevAddSlot.onclick = null; // Disable clicking on empty slots
   }
-
-  // Update the newly filled slot
-  currentSlot.classList.remove('empty');
-  currentSlot.classList.remove('add-slot');
-  currentSlot.onclick = function() {
-    editColor(slot);
-  };
 
   // Move the add button to the next empty slot
   filledSlots++;
@@ -174,9 +156,13 @@ function moveAddButton(slot) {
     nextSlot.classList.add('add-slot');
     nextSlot.innerHTML = '<div class="plus-icon">+</div>';
     nextSlot.style.cursor = 'pointer'; // Add pointer cursor for the add button
-    nextSlot.onclick = function() {
-      editColor(filledSlots + 1);
-    };
+
+    // Delay the activation of the onclick to avoid triggering it accidentally
+    setTimeout(() => {
+      nextSlot.onclick = function() {
+        addColor(filledSlots + 1);
+      };
+    }, 300); // 300ms delay to prevent accidental click
   }
 }
 
@@ -263,7 +249,7 @@ function deleteSlot(slot) {
       nextSlot.onclick = function() {
         editColor(filledSlots + 1);
       };
-    }, 100); // 300ms delay to prevent accidental click
+    }, 300); // 300ms delay to prevent accidental click
   }
 
   // Ensure that the slot after the add button is correctly updated
@@ -294,3 +280,18 @@ function editColor(slot) {
   }
 }
 
+function addColor(slot) {
+  const currentSlot = document.getElementById(`slot${slot}`);
+
+  // Move the add button to the next empty slot before editing
+  moveAddButton(slot);
+
+  // Mark this slot as filled and remove 'empty' and 'add-slot' classes
+  currentSlot.classList.remove('empty');
+  currentSlot.classList.remove('add-slot');
+  currentSlot.classList.add('color-filled');
+  currentSlot.style.cursor = 'pointer';
+
+  // Now proceed to edit the color in this slot
+  editColor(slot);
+}
