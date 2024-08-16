@@ -1,5 +1,5 @@
 let activeDropdown = null;
-let slots = 5; // Start with 5 slots filled (including the add button)
+let filledSlots = 4; // Start with 4 filled slots
 
 function createDropdown(options, onSelect) {
     const dropdown = document.createElement('div');
@@ -107,7 +107,9 @@ function showBrightnessDropdown(slot, refinedHueValue, saturationValue) {
 
     const brightnessDropdown = createDropdown(brightnesses, function(_, finalColor) {
         document.getElementById(`slot${slot}`).style.backgroundColor = finalColor;
-        moveAddButton(slot);
+        if (slot >= filledSlots && filledSlots < 8) {
+            moveAddButton(slot);
+        }
         closeDropdown(); // Ensure dropdown closes after final selection
     });
 
@@ -126,27 +128,22 @@ function positionDropdown(dropdown, slot) {
 function moveAddButton(slot) {
     const addButton = document.querySelector('.add-slot');
     const currentSlot = document.getElementById(`slot${slot}`);
-    
+
     // Make the current slot a filled slot
     currentSlot.classList.remove('empty');
     currentSlot.classList.remove('add-slot');
     currentSlot.innerHTML = '';
 
     // Increment the slots count
-    slots++;
-    
-    if (slots <= 8) {
-        const nextSlot = document.getElementById(`slot${slots}`);
+    filledSlots++;
+
+    if (filledSlots <= 8) {
+        const nextSlot = document.getElementById(`slot${filledSlots + 1}`);
         if (nextSlot) {
             nextSlot.classList.remove('empty');
             nextSlot.classList.add('add-slot');
             nextSlot.innerHTML = '<div class="plus-icon">+</div>';
         }
-    }
-
-    if (slots === 8) {
-        // Remove the add button if we've reached the maximum number of colors
-        addButton.remove();
     }
 }
 
@@ -169,7 +166,7 @@ function deleteSlot(slot) {
     for (let i = slot + 1; i <= 8; i++) {
         const currentSlotElement = document.getElementById(`slot${i}`);
         const prevSlotElement = document.getElementById(`slot${i - 1}`);
-        
+
         if (!currentSlotElement.classList.contains('empty')) {
             prevSlotElement.style.backgroundColor = currentSlotElement.style.backgroundColor;
             prevSlotElement.classList.remove('empty');
@@ -179,10 +176,10 @@ function deleteSlot(slot) {
         }
     }
 
-    slots--;
+    filledSlots--;
 
-    if (slots < 8) {
-        const nextSlot = document.getElementById(`slot${slots + 1}`);
+    if (filledSlots < 8) {
+        const nextSlot = document.getElementById(`slot${filledSlots + 1}`);
         nextSlot.classList.remove('empty');
         nextSlot.classList.add('add-slot');
         nextSlot.innerHTML = '<div class="plus-icon">+</div>';

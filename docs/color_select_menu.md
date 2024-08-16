@@ -59,10 +59,10 @@ The Color Select menu allows customization of the colors in the current [Mode](m
 ## Overview
 
 <div id="slots-container" style="display: flex; justify-content: center; margin-bottom: 20px;">
-    <div class="slot" id="slot1" onclick="editColor(1)"></div>
-    <div class="slot" id="slot2" onclick="editColor(2)"></div>
-    <div class="slot" id="slot3" onclick="editColor(3)"></div>
-    <div class="slot" id="slot4" onclick="editColor(4)"></div>
+    <div class="slot" id="slot1" style="background-color: red;" onclick="editColor(1)"></div>
+    <div class="slot" id="slot2" style="background-color: green;" onclick="editColor(2)"></div>
+    <div class="slot" id="slot3" style="background-color: blue;" onclick="editColor(3)"></div>
+    <div class="slot" id="slot4" style="background-color: black;" onclick="editColor(4)"></div>
     <div class="slot add-slot" id="slot5" onclick="editColor(5)">
         <div class="plus-icon">+</div>
     </div>
