@@ -22,8 +22,7 @@ function createDropdown(options, onSelect) {
 
         box.onclick = function(event) {
             event.stopPropagation();
-            console.log(`Hue quadrant selected: ${option.value}°`); // Debugging output
-            closeDropdown(); // Close after selecting a quadrant
+            onSelect(option.value, option.color);
         };
 
         dropdown.appendChild(box);
@@ -51,12 +50,72 @@ function showHueQuadrantDropdown(slot) {
 
     const hueQuadrantDropdown = createDropdown(hueQuadrants, function(hueQuadrantValue) {
         console.log('Hue quadrant selected:', hueQuadrantValue); // Debugging output
-        // Placeholder to move to the next step
+        showHueDropdown(slot, hueQuadrantValue);
     });
 
     document.body.appendChild(hueQuadrantDropdown);
     positionDropdown(hueQuadrantDropdown, slot);
     activeDropdown = hueQuadrantDropdown;
+}
+
+function showHueDropdown(slot, hueQuadrantValue) {
+    closeDropdown(); // Close previous dropdown
+
+    const hues = [];
+    for (let i = 0; i < 4; i++) {
+        const hue = hueQuadrantValue + (i * 11.25); // 11.25° steps within the quadrant
+        hues.push({ value: hue, color: `hsl(${hue}, 100%, 50%)` });
+    }
+
+    const hueDropdown = createDropdown(hues, function(refinedHueValue) {
+        console.log('Refined hue selected:', refinedHueValue); // Debugging output
+        showSaturationDropdown(slot, refinedHueValue);
+    });
+
+    document.body.appendChild(hueDropdown);
+    positionDropdown(hueDropdown, slot);
+    activeDropdown = hueDropdown;
+}
+
+function showSaturationDropdown(slot, refinedHueValue) {
+    closeDropdown(); // Close previous dropdown
+
+    const saturations = [
+        { value: 100, color: `hsl(${refinedHueValue}, 100%, 50%)` }, // Full saturation
+        { value: 75, color: `hsl(${refinedHueValue}, 75%, 50%)` },  // 75% saturation
+        { value: 50, color: `hsl(${refinedHueValue}, 50%, 50%)` },  // 50% saturation
+        { value: 25, color: `hsl(${refinedHueValue}, 25%, 50%)` }   // 25% saturation
+    ];
+
+    const saturationDropdown = createDropdown(saturations, function(saturationValue) {
+        console.log('Saturation selected:', saturationValue); // Debugging output
+        showBrightnessDropdown(slot, refinedHueValue, saturationValue);
+    });
+
+    document.body.appendChild(saturationDropdown);
+    positionDropdown(saturationDropdown, slot);
+    activeDropdown = saturationDropdown;
+}
+
+function showBrightnessDropdown(slot, refinedHueValue, saturationValue) {
+    closeDropdown(); // Close previous dropdown
+
+    const brightnesses = [
+        { value: 75, color: `hsl(${refinedHueValue}, ${saturationValue}%, 75%)` }, // 75% brightness
+        { value: 50, color: `hsl(${refinedHueValue}, ${saturationValue}%, 50%)` }, // 50% brightness
+        { value: 35, color: `hsl(${refinedHueValue}, ${saturationValue}%, 35%)` }, // 35% brightness
+        { value: 20, color: `hsl(${refinedHueValue}, ${saturationValue}%, 20%)` }  // 20% brightness
+    ];
+
+    const brightnessDropdown = createDropdown(brightnesses, function(_, finalColor) {
+        console.log('Brightness selected:', finalColor); // Debugging output
+        document.getElementById(`slot${slot}`).style.backgroundColor = finalColor;
+        closeDropdown(); // Ensure dropdown closes after final selection
+    });
+
+    document.body.appendChild(brightnessDropdown);
+    positionDropdown(brightnessDropdown, slot);
+    activeDropdown = brightnessDropdown;
 }
 
 function positionDropdown(dropdown, slot) {
