@@ -106,6 +106,10 @@ function editColor(slot) {
   }
 }
 
+function deleteColor(slot) { // Delete the color if it's flashing red
+  colorset.splice(slot, 1);
+}
+
 function handleDelete(slot) {
   let holdTimer = setTimeout(() => {
     startFlashingRed(slot);
@@ -116,6 +120,7 @@ function handleDelete(slot) {
     if (deleteMode) {
       deleteColor(slot); // Delete the color if it's flashing red
       stopFlashingRed(slot);
+      renderSlots(); // Re-render the slots to reflect the change
     }
   });
 }
