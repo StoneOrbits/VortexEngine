@@ -140,9 +140,10 @@ function moveAddButton(slot) {
     prevAddSlot.onclick = null; // Remove the click handler for empty slots
   }
 
-  // Update the newly filled slot
+  // Update the newly filled slot (ensures the color is displayed correctly)
   currentSlot.classList.remove('empty');
   currentSlot.classList.remove('add-slot');
+  currentSlot.style.backgroundColor = ''; // Clear the background color
   currentSlot.onclick = function() {
     editColor(slot);
   };
@@ -195,7 +196,6 @@ function deleteSlot(slot) {
       currentSlotElement.innerHTML = '';
       currentSlotElement.style.cursor = 'default'; // Remove pointer cursor
       currentSlotElement.onclick = null;
-      break; // Stop shifting once the next slot is empty
     }
   }
 
@@ -211,6 +211,19 @@ function deleteSlot(slot) {
     nextSlot.onclick = function() {
       editColor(filledSlots + 1);
     };
+  }
+
+  // Ensure that the slot after the add button is correctly updated
+  for (let i = filledSlots + 2; i <= 8; i++) {
+    const slotToCheck = document.getElementById(`slot${i}`);
+    if (slotToCheck) {
+      slotToCheck.classList.add('empty');
+      slotToCheck.classList.remove('add-slot');
+      slotToCheck.style.backgroundColor = '#222'; // Darker background for empty slots
+      slotToCheck.innerHTML = '';
+      slotToCheck.style.cursor = 'default';
+      slotToCheck.onclick = null;
+    }
   }
 }
 
