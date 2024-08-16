@@ -53,7 +53,8 @@ grand_parent: Vortex Engine
 #slots-container {
   display: flex;
   justify-content: center;
-  margin-bottom: 20px
+  margin-top: 40px;
+  margin-bottom: 60px;
 }
 
 @keyframes flashRed {
