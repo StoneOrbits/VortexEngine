@@ -109,9 +109,6 @@ function showBrightnessDropdown(slot, refinedHueValue, saturationValue) {
   const brightnessDropdown = createDropdown(brightnesses, function(_, finalColor) {
     const slotElement = document.getElementById(`slot${slot}`);
 
-    // Apply the selected color to the slot
-    slotElement.style.backgroundColor = finalColor;
-
     // Ensure the slot is not treated as an empty or add slot anymore
     slotElement.classList.remove('empty');
     slotElement.classList.remove('add-slot');
@@ -127,6 +124,9 @@ function showBrightnessDropdown(slot, refinedHueValue, saturationValue) {
 
     // Move the add button to the next available slot
     moveAddButton(slot);
+
+    // Apply the selected color to the slot
+    slotElement.style.backgroundColor = finalColor;
 
     // Ensure dropdown closes after final selection
     closeDropdown();
