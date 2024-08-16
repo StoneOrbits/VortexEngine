@@ -108,11 +108,16 @@ function showBrightnessDropdown(slot, refinedHueValue, saturationValue) {
 
   const brightnessDropdown = createDropdown(brightnesses, function(_, finalColor) {
     const slotElement = document.getElementById(`slot${slot}`);
-    slotElement.style.backgroundColor = finalColor; // Set the selected color as the background
-    slotElement.classList.remove('empty'); // Ensure it's no longer considered empty
+
+    // Ensure the slot is fully transitioned from an "empty" to a "filled" state
+    slotElement.style.backgroundColor = finalColor;  // Apply the selected color as the background
+    slotElement.classList.remove('empty');           // Remove the 'empty' class
+    slotElement.classList.remove('add-slot');        // Ensure it's not treated as an add-slot
+    slotElement.style.cursor = 'pointer';            // Set cursor to pointer to indicate it's interactive
     slotElement.onclick = function() {
-      editColor(slot); // Make sure it's editable after being added
+      editColor(slot);                             // Make sure it's editable after being added
     };
+
     moveAddButton(slot); // Move the add button to the next available slot
     closeDropdown(); // Ensure dropdown closes after final selection
   });
@@ -178,6 +183,38 @@ function stopFlashingRed(slot) {
   deleteMode = false;
 }
 
+// Handle holding and deleting
+document.querySelectorAll('.slot').forEach((slot, index) => {
+  let holdTimer;
+
+  slot.addEventListener('mousedown', () => {
+    // If the slot is empty, do nothing
+    if (slot.classList.contains('empty')) return;
+
+    holdTimer = setTimeout(() => {
+      startFlashingRed(index + 1);
+    }, 500); // Start flashing red after holding for 500ms
+  });
+
+  slot.addEventListener('mouseup', () => {
+    // If the slot is empty, do nothing
+    if (slot.classList.contains('empty')) return;
+
+    clearTimeout(holdTimer);
+    if (deleteMode) {
+      deleteSlot(index + 1); // Delete the slot if it's flashing red
+      stopFlashingRed(index + 1);
+    } else if (!deleteMode) {
+      editColor(index + 1); // Only open the color selection if not in delete mode
+    }
+  });
+
+  slot.addEventListener('mouseleave', () => {
+    clearTimeout(holdTimer);
+    stopFlashingRed(index + 1);
+  });
+});
+
 function deleteSlot(slot) {
   const slotElement = document.getElementById(`slot${slot}`);
 
@@ -191,6 +228,7 @@ function deleteSlot(slot) {
       currentSlotElement.classList.remove('empty');
       currentSlotElement.classList.remove('add-slot');
       currentSlotElement.innerHTML = '';
+      currentSlotElement.style.cursor = 'pointer';
       currentSlotElement.onclick = () => editColor(i); // Ensure it's editable
     } else {
       currentSlotElement.style.backgroundColor = '#222'; // Darker background for empty slots
@@ -198,7 +236,7 @@ function deleteSlot(slot) {
       currentSlotElement.classList.remove('add-slot');
       currentSlotElement.innerHTML = '';
       currentSlotElement.style.cursor = 'default'; // Remove pointer cursor
-      currentSlotElement.onclick = null;
+      currentSlotElement.onclick = null; // Disable click on the now-empty slot
     }
   }
 
@@ -225,39 +263,10 @@ function deleteSlot(slot) {
       slotToCheck.style.backgroundColor = '#222'; // Darker background for empty slots
       slotToCheck.innerHTML = '';
       slotToCheck.style.cursor = 'default';
-      slotToCheck.onclick = null;
+      slotToCheck.onclick = null; // Disable interaction with empty slots
     }
   }
 }
-
-// Handle holding and deleting
-document.querySelectorAll('.slot').forEach((slot, index) => {
-  let holdTimer;
-
-  slot.addEventListener('mousedown', () => {
-    holdTimer = setTimeout(() => {
-      startFlashingRed(index + 1);
-    }, 500); // Start flashing red after holding for 500ms
-  });
-
-  slot.addEventListener('mouseup', () => {
-    clearTimeout(holdTimer);
-    if (deleteMode) {
-      setTimeout(() => { // Delay to prevent the menu from opening
-        deleteSlot(index + 1);
-        stopFlashingRed(index + 1);
-        deleteMode = false; // Reset delete mode
-      }, 0);
-    } else if (!deleteMode && !slot.classList.contains('empty')) {
-      editColor(index + 1); // Only open the color selection if not in delete mode and slot is not empty
-    }
-  });
-
-  slot.addEventListener('mouseleave', () => {
-    clearTimeout(holdTimer);
-    stopFlashingRed(index + 1);
-  });
-});
 
 document.addEventListener('click', (event) => {
   if (activeDropdown && !activeDropdown.contains(event.target)) {
