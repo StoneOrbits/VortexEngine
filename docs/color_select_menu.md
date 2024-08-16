@@ -22,7 +22,8 @@ grand_parent: Vortex Engine
 }
 
 .empty {
-    background-color: #444;
+    background-color: #222; /* Different background color for empty slots */
+    border: 2px dashed #555; /* Dashed border to distinguish empty slots */
 }
 
 .add-slot {
@@ -33,6 +34,7 @@ grand_parent: Vortex Engine
     display: flex;
     justify-content: center;
     align-items: center;
+    cursor: pointer;
 }
 
 .plus-icon {
