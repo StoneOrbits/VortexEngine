@@ -8,44 +8,50 @@ grand_parent: Vortex Engine
 
 <style>
 .slot {
-    width: 50px;
-    height: 50px;
-    margin: 5px;
-    border-radius: 50%;
-    border: 2px solid #777;
-    line-height: 50px;
-    cursor: pointer;
-    position: relative;
-    display: inline-block;
-    text-align: center;
+  width: 50px;
+  height: 50px;
+  margin: 5px;
+  border-radius: 50%;
+  border: 2px solid #777;
+  line-height: 50px;
+  cursor: pointer;
+  position: relative;
+  display: inline-block;
+  text-align: center;
 }
 
 .empty {
-    background-color: #222;
-    border: 2px dashed #555;
-    cursor: default; /* No pointer cursor for empty slots */
+  background-color: #222;
+  border: 2px dashed #555;
+  cursor: default; /* No pointer cursor for empty slots */
 }
 
 .add-slot {
-    background-color: #444;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
+  background-color: #444;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
 }
 
 .plus-icon {
-    font-size: 24px;
-    color: #fff;
-    font-weight: bold;
-    line-height: 1;
-    margin: 0;
-    padding: 0;
+  font-size: 24px;
+  color: #fff;
+  font-weight: bold;
+  line-height: 1;
+  margin: 0;
+  padding: 0;
 }
 
 .save-slot {
-    background-color: #888;
-    background-size: cover;
+  background-color: #888;
+  background-size: cover;
+}
+
+#slots-container {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px
 }
 
 @keyframes flashRed {
@@ -61,17 +67,15 @@ The Color Select menu allows customization of the colors in the current [Mode](m
 
 ## Overview
 
-<div id="slots-container" style="display: flex; justify-content: center; margin-bottom: 20px;">
-    <div class="slot" id="slot1" style="background-color: red;" onclick="editColor(1)"></div>
-    <div class="slot" id="slot2" style="background-color: green;" onclick="editColor(2)"></div>
-    <div class="slot" id="slot3" style="background-color: blue;" onclick="editColor(3)"></div>
-    <div class="slot" id="slot4" style="background-color: black;" onclick="editColor(4)"></div>
-    <div class="slot add-slot" id="slot5" onclick="addColor(5)">
-        <div class="plus-icon">+</div>
-    </div>
-    <div class="slot empty" id="slot6"></div>
-    <div class="slot empty" id="slot7"></div>
-    <div class="slot empty" id="slot8"></div>
+<div id="slots-container" style=";">
+    <div class="slot empty" data-slot="0"></div>
+    <div class="slot empty" data-slot="1"></div>
+    <div class="slot empty" data-slot="2"></div>
+    <div class="slot empty" data-slot="3"></div>
+    <div class="slot empty" data-slot="4"></div>
+    <div class="slot empty" data-slot="5"></div>
+    <div class="slot empty" data-slot="6"></div>
+    <div class="slot empty" data-slot="7"></div>
 </div>
 
 <script src="{{ '/assets/js/ColorSelect.js' | relative_url }}"></script>
