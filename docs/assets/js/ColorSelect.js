@@ -135,6 +135,7 @@ function moveAddButton(slot) {
     prevAddSlot.classList.remove('add-slot');
     prevAddSlot.classList.add('empty');
     prevAddSlot.innerHTML = '';
+    prevAddSlot.onclick = null; // Remove the click handler for empty slots
   }
 
   // Make the current slot the new add slot
@@ -169,6 +170,7 @@ function deleteSlot(slot) {
     prevAddSlot.classList.remove('add-slot');
     prevAddSlot.classList.add('empty');
     prevAddSlot.innerHTML = '';
+    prevAddSlot.onclick = null; // Disable click on the now-empty slot
   }
 
   // Turn the deleted slot into the new add slot

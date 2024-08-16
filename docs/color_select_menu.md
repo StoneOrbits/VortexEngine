@@ -7,22 +7,6 @@ grand_parent: Vortex Engine
 ---
 
 <style>
-.empty {
-    background-color: #222; /* Different background color for empty slots */
-    border: 2px dashed #555; /* Dashed border to distinguish empty slots */
-}
-
-.add-slot {
-    background-color: #fff;
-    color: #000;
-    font-weight: bold;
-    text-align: center;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
-}
-
 .slot {
     width: 50px;
     height: 50px;
@@ -33,20 +17,28 @@ grand_parent: Vortex Engine
     cursor: pointer;
     position: relative;
     display: inline-block;
-    margin-top: 50px;
     text-align: center;
 }
 
-@keyframes flashRed {
-    0% { background-color: inherit; }
-    50% { background-color: red; }
-    100% { background-color: inherit; }
+.empty {
+    background-color: #222;
+    border: 2px dashed #555;
+    cursor: default; /* No pointer cursor for empty slots */
 }
 
+.add-slot {
+    background-color: #444;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
 
 .plus-icon {
     font-size: 24px;
-    color: #777;
+    color: #fff;
+    font-weight: bold;
+    line-height: 1;
 }
 
 .save-slot {
