@@ -137,7 +137,7 @@ function positionDropdown(dropdown, slot) {
 function moveAddButton(slot) {
   const prevAddSlot = document.querySelector('.add-slot');
 
-  // Ensure the previous add slot becomes an empty slot if it exists
+  // Ensure previous add slot becomes an empty slot if it exists
   if (prevAddSlot) {
     prevAddSlot.classList.remove('add-slot');
     prevAddSlot.classList.add('empty');
@@ -147,10 +147,9 @@ function moveAddButton(slot) {
     prevAddSlot.onclick = null; // Disable clicking on empty slots
   }
 
-  // Move the add button to the next empty slot
-  filledSlots++;
-  const nextSlot = document.getElementById(`slot${filledSlots + 1}`);
-  if (nextSlot) {
+  // Find the next available empty slot
+  const nextSlot = document.getElementById(`slot${slot + 1}`);
+  if (nextSlot && nextSlot.classList.contains('empty')) {
     nextSlot.style.backgroundColor = '#444'; // Light background for add slot
     nextSlot.classList.remove('empty');
     nextSlot.classList.add('add-slot');
@@ -160,9 +159,12 @@ function moveAddButton(slot) {
     // Delay the activation of the onclick to avoid triggering it accidentally
     setTimeout(() => {
       nextSlot.onclick = function() {
-        addColor(filledSlots + 1);
+        addColor(slot + 1);
       };
     }, 300); // 300ms delay to prevent accidental click
+  } else {
+    // Handle the case where the last slot is filled and no more slots are available
+    filledSlots++; // Increment the filledSlots count to handle full slots
   }
 }
 
@@ -283,14 +285,14 @@ function editColor(slot) {
 function addColor(slot) {
   const currentSlot = document.getElementById(`slot${slot}`);
 
-  // Move the add button to the next empty slot before editing
-  moveAddButton(slot);
-
   // Mark this slot as filled and remove 'empty' and 'add-slot' classes
   currentSlot.classList.remove('empty');
   currentSlot.classList.remove('add-slot');
   currentSlot.classList.add('color-filled');
   currentSlot.style.cursor = 'pointer';
+
+  // Move the add button to the next empty slot before editing
+  moveAddButton(slot);
 
   // Now proceed to edit the color in this slot
   editColor(slot);
