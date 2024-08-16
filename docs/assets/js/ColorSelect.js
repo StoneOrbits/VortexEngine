@@ -258,9 +258,12 @@ function deleteSlot(slot) {
     nextSlot.classList.add('add-slot');
     nextSlot.innerHTML = '<div class="plus-icon">+</div>';
     nextSlot.style.cursor = 'pointer'; // Add pointer cursor for the add button
-    nextSlot.onclick = function() {
-      editColor(filledSlots + 1);
-    };
+    // Delay the activation of the onclick to avoid triggering it accidentally
+    setTimeout(() => {
+      nextSlot.onclick = function() {
+        editColor(filledSlots + 1);
+      };
+    }, 100); // 300ms delay to prevent accidental click
   }
 
   // Ensure that the slot after the add button is correctly updated
