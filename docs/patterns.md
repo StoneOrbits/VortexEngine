@@ -7,28 +7,30 @@ parent: Vortex Engine
 
 # Patterns
 
-Patterns in Vortex Engine are the ways in which LEDs are blinked to produce different effects. You can think of patterns and colorsets as the two sides of the coin that make up a mode.
+Patterns control the ways in which LEDs are blinked on and off for specific durations to produce different visual effects. They also determine how a [colorset](colorsets.html) is utilized, usually by showing each color in the order it appears in the set.
 
-A pattern designates the blinking speed and style of the mode, specifically it designates the on and off duration of the led each blink.  
+# Pattern Parameters
 
-An important distinction is there are two kinds of patterns: single LED patterns and multi LED patterns.
+All patterns have variables called parameters that can be modified to create countless original patterns.
+The best way to understand how these paramters work is by playing with them in real-time on [Lightshow.lol](lightshow.lol).
+
+# Types of Patterns
+
+## Multi Led Patterns
+
+Multi LED patterns are displayed across all of the LEDs on a device. They create coordinated effects that appear to 'travel' across multiple LEDs and cannot be displayed on a single LED by itself.
+
+Mutli LED pattern parameters vary widely for each pattern. Try experimenting with them to find new possibilities.
 
 ## Single Led Patterns
 
-A single LED pattern is a pattern which only targets a single LED for rendering. This means any kind of blink, as long as it's on one LED, is considered a single LED pattern. Single LED patterns are available on all devices and any Vortex device with multiple LEDs can freely program any single LED pattern into each LED independently of one another.
+A Single LED pattern is a pattern which is displayed entirely on a single LED. This means it is possible to display a different single LED pattern on each LED on the device at the same time, but it is also common practice for a [mode](modes.html) to feature the same pattern and colorset on all LEDs. 
 
-However, single LED patterns cannot work together or produce 'travelling' effects across the LEDs. This is because each single LED pattern operates independently and does not have information about the state of other LEDs.
+There are three varieties of single led patterns:
 
-There are three kinds of single led patterns that can be utilized in Vortex Engine:
+### Basic Patterns
 
-### Basic Pattern
-The most basic single led pattern that the others derive from.
-
-This pattern is the basis of every other basic pattern and it provides the core logic for on/off/gap/dash/group.
-
-Those 5 inputs can be used to produce an exponentially large amount of different patterns and blinks.
-
-includes parameters: 
+Basic patterns cover all possible patterns which blink on and off. They have the following parameters:
  - on duration: how long the led blinks on for
  - off duration: how long the led is off each blink
  - gap duration: how large of a gap between each volley of colors
@@ -36,31 +38,20 @@ includes parameters:
  - grouping size: how many colors appear in a group before the gap
 
 ### Blend Pattern
-A pattern that will blend between your colors instead of blinking them
-
- - includes all the same parameters as Basic Pattern
- - exposes 2 additional parameters:
-    - blend speed: the speed at which the blend will progress
-    - flip count: the number of times the blend will flip to complementary colors
+Blend patterns are similar to basic patterns but blend between colors in the colorset instead only using the selected colors. They have the following paramters:
+ - on duration: how long the led blinks on for
+ - off duration: how long the led is off each blink
+ - gap duration: how large of a gap between each volley of colors
+ - dash duration: how large of a dash/line embedded in the gap
+ - grouping size: how many colors appear in a group before the gap
+ - blend speed: the speed at which the blend will progress
+ - flip count: the number of times the blend will flip to complementary colors
 
 ### Solid Pattern
-A pattern that will display only one color in the colorset solid
-
- - generally not used directly, used to produce effects like keychain mode
+This is a pattern that will display only one color in the colorset without blinking. This is primarily used for special cases in the Vortex Engine.
+ - used to produce effects like keychain mode
  - includes all the same parameters as Basic Pattern
- - exposes one extra parameter:
-    - color index: the index of the color to display
-
-## Multi Led Patterns
-
-Multi LED patterns are special patterns which implicitly target multiple LEDs at once. Unlike single LED patterns, a multi LED pattern can control all of the LEDs at once and create effects that appear to 'travel' across the LEDs.
-
-You can think of the difference between a multi-LED pattern and several single LED patterns as:
-
-- A multi-LED pattern has one 'brain' controlling many LEDs at once
-- Each single-LED pattern has its own 'brain' controlling only one LED
-
-Only the larger Vortex Devices from StoneOrbits are capable of supporting multi LED patterns. The Duo cannot run multi LED patterns but it will happily convert them into single LED patterns with equivalent colorsets (unfortunately the multi LED effect is lost).
+ - color index: the index of the color to display
 
 ## The Pattern List
 
