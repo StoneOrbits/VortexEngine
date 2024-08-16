@@ -249,7 +249,7 @@ function deleteSlot(slot) {
     // Delay the activation of the onclick to avoid triggering it accidentally
     setTimeout(() => {
       nextSlot.onclick = function() {
-        editColor(filledSlots + 1);
+        addColor(slot + 1);
       };
     }, 300); // 300ms delay to prevent accidental click
   }

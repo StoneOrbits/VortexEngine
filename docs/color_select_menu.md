@@ -66,7 +66,7 @@ The Color Select menu allows customization of the colors in the current [Mode](m
     <div class="slot" id="slot2" style="background-color: green;" onclick="editColor(2)"></div>
     <div class="slot" id="slot3" style="background-color: blue;" onclick="editColor(3)"></div>
     <div class="slot" id="slot4" style="background-color: black;" onclick="editColor(4)"></div>
-    <div class="slot add-slot" id="slot5" onclick="editColor(5)">
+    <div class="slot add-slot" id="slot5" onclick="addColor(5)">
         <div class="plus-icon">+</div>
     </div>
     <div class="slot empty" id="slot6"></div>
