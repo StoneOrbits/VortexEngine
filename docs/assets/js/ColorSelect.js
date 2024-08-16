@@ -42,10 +42,10 @@ function showHueQuadrantDropdown(slot) {
     closeDropdown(); // Ensure previous dropdown is closed
 
     const hueQuadrants = [
-        { value: 0, color: 'hsl(0, 100%, 100%)' },    // 0° - 90° (Red to Yellow)
-        { value: 90, color: 'hsl(90, 100%, 100%)' },  // 90° - 180° (Green to Teal)
-        { value: 180, color: 'hsl(180, 100%, 100%)' },// 180° - 270° (Cyan to Blue)
-        { value: 270, color: 'hsl(270, 100%, 100%)' } // 270° - 360° (Purple to Pink)
+        { value: 0, color: 'hsl(0, 100%, 50%)' },    // 0° - 90° (Red to Yellow)
+        { value: 90, color: 'hsl(90, 100%, 50%)' },  // 90° - 180° (Green to Teal)
+        { value: 180, color: 'hsl(180, 100%, 50%)' },// 180° - 270° (Cyan to Blue)
+        { value: 270, color: 'hsl(270, 100%, 50%)' } // 270° - 360° (Purple to Pink)
     ];
 
     const hueQuadrantDropdown = createDropdown(hueQuadrants, function(hueQuadrantValue) {
@@ -81,10 +81,10 @@ function showSaturationDropdown(slot, refinedHueValue) {
     closeDropdown(); // Close previous dropdown
 
     const saturations = [
-        { value: 100, color: `hsl(${refinedHueValue}, 100%, 100%)` }, // Full saturation
-        { value: 75, color: `hsl(${refinedHueValue}, 66%, 100%)` },  // 75% saturation
-        { value: 50, color: `hsl(${refinedHueValue}, 33%, 100%)` },  // 50% saturation
-        { value: 25, color: `hsl(${refinedHueValue}, 0%, 100%)` }   // 25% saturation
+        { value: 100, color: `hsl(${refinedHueValue}, 100%, 50%)` }, // Full saturation
+        { value: 75, color: `hsl(${refinedHueValue}, 66%, 50%)` },  // 75% saturation
+        { value: 50, color: `hsl(${refinedHueValue}, 33%, 50%)` },  // 50% saturation
+        { value: 25, color: `hsl(${refinedHueValue}, 0%, 50%)` }   // 25% saturation
     ];
 
     const saturationDropdown = createDropdown(saturations, function(saturationValue) {
@@ -101,9 +101,9 @@ function showBrightnessDropdown(slot, refinedHueValue, saturationValue) {
     closeDropdown(); // Close previous dropdown
 
     const brightnesses = [
-        { value: 75, color: `hsl(${refinedHueValue}, ${saturationValue}%, 100%)` }, // 75% brightness
-        { value: 50, color: `hsl(${refinedHueValue}, ${saturationValue}%, 66%)` }, // 50% brightness
-        { value: 35, color: `hsl(${refinedHueValue}, ${saturationValue}%, 33%)` }, // 35% brightness
+        { value: 75, color: `hsl(${refinedHueValue}, ${saturationValue}%, 50%)` }, // 100% brightness
+        { value: 50, color: `hsl(${refinedHueValue}, ${saturationValue}%, 33%)` }, // 50% brightness
+        { value: 35, color: `hsl(${refinedHueValue}, ${saturationValue}%, 13%)` }, // 35% brightness
         { value: 20, color: `hsl(${refinedHueValue}, ${saturationValue}%, 0%)` }  // 20% brightness
     ];
 
