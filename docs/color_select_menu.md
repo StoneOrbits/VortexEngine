@@ -32,7 +32,6 @@ grand_parent: Vortex Engine
 
 .save-slot {
     background-color: #888;
-    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA8AAAAQCAYAAAAvmH0aAAAACXBIWXMAAAsTAAALEwEAmpwYAAABdElEQVR4nH3SO0gDURDH8Y/BQcRMTMzM19rGUnEXIipaaCjMZoqUmh0I8hoSxsbEyUEbmDRvpxOLkIJuovTXuZkacJvZfC7Pf/ve2ee/MOTltiy7ImZpAHoZt6A8ob0hd4aJAFp4BqR54GSDMUG3g1DtwZ8/gX0J3ANgzb2lvHVjfA7iPdrDqEtkCtR6YGXjtAf0P3fkbZ3pIoX6N6D7wFcoOVZTnWdxP1c9J/9hNS9b3JgE7nm5tuTfgmwFUl5AfXbhMZmuojrpZ+aT3gtElQGH9Z8gG11gyLsgBPUGuDQzzMEZ3NG3RJ4gRbXqps1rsDDPvmA4fSohgqD2p8z5HQpxhP4b7gHfViTrcTdH9eEBKydghhl8m13Iot0z5qDJhHezXIT/IWqqOyf5Gul66i8hMYzSQG71mO4W8eA0F7uwta1eNwiUfgVw78Sk7e7jBD3H4AZXUuI3OaT4IAAAAASUVORK5CYII=');
     background-size: cover;
 }
 </style>

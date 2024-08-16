@@ -38,7 +38,6 @@ function closeDropdown(dropdown) {
 }
 
 function editColor(slot) {
-    if (deleteMode) return;
 
     if (activeDropdown) closeDropdown(activeDropdown); // Close any open dropdown
 
