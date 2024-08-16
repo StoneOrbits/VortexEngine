@@ -8,7 +8,8 @@ function createDropdown(options, onSelect) {
     dropdown.style.padding = '10px';
     dropdown.style.display = 'flex';
     dropdown.style.gap = '10px';
-    dropdown.style.borderRadius = '8px'; // Round corners
+    dropdown.style.borderRadius = '8px';
+    dropdown.style.zIndex = 1000;
 
     options.forEach((option) => {
         const box = document.createElement('div');
@@ -16,12 +17,13 @@ function createDropdown(options, onSelect) {
         box.style.height = '40px';
         box.style.backgroundColor = option.color;
         box.style.cursor = 'pointer';
-        box.style.borderRadius = '8px'; // Round corners for boxes
-        box.style.border = '2px solid #555'; // Add a border to the boxes
+        box.style.borderRadius = '8px';
+        box.style.border = '2px solid #555';
 
-        box.onclick = function() {
-            onSelect(option.color, option.value);
-            closeDropdown(dropdown);
+        box.onclick = function(event) {
+            event.stopPropagation();
+            console.log(`Hue quadrant selected: ${option.value}°`); // Debugging output
+            closeDropdown(); // Close after selecting a quadrant
         };
 
         dropdown.appendChild(box);
@@ -30,71 +32,26 @@ function createDropdown(options, onSelect) {
     return dropdown;
 }
 
-function closeDropdown(dropdown) {
-    if (dropdown) {
-        dropdown.remove();
+function closeDropdown() {
+    if (activeDropdown) {
+        activeDropdown.remove();
         activeDropdown = null;
     }
 }
 
-function editColor(slot) {
-
-    if (activeDropdown) closeDropdown(activeDropdown); // Close any open dropdown
+function showHueQuadrantDropdown(slot) {
+    closeDropdown(); // Ensure previous dropdown is closed
 
     const hueQuadrants = [
-        { value: '1', color: '#ff0000' }, // Red
-        { value: '2', color: '#00ff00' }, // Green
-        { value: '3', color: '#0000ff' }, // Blue
-        { value: '4', color: '#ffff00' }, // Yellow
+        { value: 0, color: 'hsl(0, 100%, 50%)' },    // 0° - 90° (Red to Yellow)
+        { value: 90, color: 'hsl(90, 100%, 50%)' },  // 90° - 180° (Green to Teal)
+        { value: 180, color: 'hsl(180, 100%, 50%)' },// 180° - 270° (Cyan to Blue)
+        { value: 270, color: 'hsl(270, 100%, 50%)' } // 270° - 360° (Purple to Pink)
     ];
 
-    // Create the first dropdown for hue quadrants
-    const hueQuadrantDropdown = createDropdown(hueQuadrants, function(selectedColor, hueQuadrantValue) {
-        // Proceed to the next step: Hue selection
-        const hues = [
-            { value: '1', color: adjustHue(hueQuadrantValue, 0) },
-            { value: '2', color: adjustHue(hueQuadrantValue, 1) },
-            { value: '3', color: adjustHue(hueQuadrantValue, 2) },
-            { value: '4', color: adjustHue(hueQuadrantValue, 3) },
-        ];
-
-        const hueDropdown = createDropdown(hues, function(selectedColor, hueValue) {
-            // Proceed to the next step: Saturation selection
-            const saturations = [
-                { value: '1', color: adjustSaturation(selectedColor, 1) },
-                { value: '2', color: adjustSaturation(selectedColor, 0.75) },
-                { value: '3', color: adjustSaturation(selectedColor, 0.5) },
-                { value: '4', color: adjustSaturation(selectedColor, 0.25) },
-            ];
-
-            const saturationDropdown = createDropdown(saturations, function(selectedColor, saturationValue) {
-                // Proceed to the final step: Brightness selection
-                const brightnesses = [
-                    { value: '1', color: adjustBrightness(selectedColor, 1) },
-                    { value: '2', color: adjustBrightness(selectedColor, 0.75) },
-                    { value: '3', color: adjustBrightness(selectedColor, 0.5) },
-                    { value: '4', color: adjustBrightness(selectedColor, 0.25) },
-                ];
-
-                const brightnessDropdown = createDropdown(brightnesses, function(finalColor) {
-                    document.getElementById(`slot${slot}`).style.backgroundColor = finalColor;
-                    colors[slot - 1] = finalColor;
-                    closeDropdown(brightnessDropdown);
-                });
-
-                document.body.appendChild(brightnessDropdown);
-                positionDropdown(brightnessDropdown, slot);
-                activeDropdown = brightnessDropdown;
-            });
-
-            document.body.appendChild(saturationDropdown);
-            positionDropdown(saturationDropdown, slot);
-            activeDropdown = saturationDropdown;
-        });
-
-        document.body.appendChild(hueDropdown);
-        positionDropdown(hueDropdown, slot);
-        activeDropdown = hueDropdown;
+    const hueQuadrantDropdown = createDropdown(hueQuadrants, function(hueQuadrantValue) {
+        console.log('Hue quadrant selected:', hueQuadrantValue); // Debugging output
+        // Placeholder to move to the next step
     });
 
     document.body.appendChild(hueQuadrantDropdown);
@@ -109,33 +66,9 @@ function positionDropdown(dropdown, slot) {
     dropdown.style.left = `${rect.left + window.scrollX}px`;
 }
 
-function adjustHue(hueQuadrant, hueIndex) {
-    const hues = {
-        '1': ['#ff0000', '#ff3333', '#ff6666', '#ff9999'],
-        '2': ['#00ff00', '#33ff33', '#66ff66', '#99ff99'],
-        '3': ['#0000ff', '#3333ff', '#6666ff', '#9999ff'],
-        '4': ['#ffff00', '#ffff33', '#ffff66', '#ffff99'],
-    };
-    return hues[hueQuadrant][hueIndex];
+// Entry point for color selection
+function editColor(slot) {
+    closeDropdown(); // Ensure no other dropdowns are open
+    showHueQuadrantDropdown(slot);
 }
 
-function adjustSaturation(hex, saturation) {
-    const { r, g, b } = hexToRgb(hex);
-    const gray = 128; // Middle gray value
-    const adjust = (color) => Math.round(gray + (color - gray) * saturation);
-    return `rgb(${adjust(r)}, ${adjust(g)}, ${adjust(b)})`;
-}
-
-function adjustBrightness(hex, brightness) {
-    const { r, g, b } = hexToRgb(hex);
-    const adjust = (color) => Math.round(color * brightness);
-    return `rgb(${adjust(r)}, ${adjust(g)}, ${adjust(b)})`;
-}
-
-function hexToRgb(hex) {
-    const bigint = parseInt(hex.slice(1), 16);
-    const r = (bigint >> 16) & 255;
-    const g = (bigint >> 8) & 255;
-    const b = bigint & 255;
-    return { r, g, b };
-}

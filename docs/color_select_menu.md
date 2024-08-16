@@ -38,7 +38,7 @@ grand_parent: Vortex Engine
 
 # Color Select
 
-The Color Select menu allows customization of the colors in the current [Mode](mode.html). This collection of colors is commonly referred to as a [Colorset](colorset.html).
+The Color Select menu allows customization of the colors in the current [Mode](mode.html). This collection of colors is commonly referred to as a [Colorset](colorsets.html).
 
 ## Overview
 
