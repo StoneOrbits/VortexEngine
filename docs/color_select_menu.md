@@ -69,26 +69,13 @@ The Color Select menu allows customization of the colors in the current [Mode](m
 
 ## Overview
 
-<div id="slots-container" style=";">
-    <div class="slot empty" data-slot="0"></div>
-    <div class="slot empty" data-slot="1"></div>
-    <div class="slot empty" data-slot="2"></div>
-    <div class="slot empty" data-slot="3"></div>
-    <div class="slot empty" data-slot="4"></div>
-    <div class="slot empty" data-slot="5"></div>
-    <div class="slot empty" data-slot="6"></div>
-    <div class="slot empty" data-slot="7"></div>
-</div>
-
-<script src="{{ '/assets/js/ColorSelect.js' | relative_url }}"></script>
+<img src="assets/images/color-select.png">
 
 <p>In the above diagram, the <em>colorset</em> contains four colors: 
 <span style="color: #f00">Red</span>, 
 <span style="color: #0f0">Green</span>, 
 <span style="color: #07f">Blue</span>, and 
 <span style="color: #090909">Blank</span></p>
-
-<img src="assets/images/color-select.png">
 
 In the above diagram, the _colorset_ contains four colors: <span style="color: #f00">Red</span>, <span style="color: #0f0">Green</span>, <span style="color: #07f">Blue</span>, and <span style="color: #090909">Blank</span>
 
@@ -136,3 +123,20 @@ The **save** option always appears at the end, selecting this option will save t
  5. **Select Brightness**: Pick the brightness to adjust how dark the color appears.
 
 After selecting brightness the menu will go back to the slot selection and reflect the new choice.
+
+# Try It Yourself
+
+Below is an interactive colorset that mimics real color select menu functionality, you can click to add/edit colors and hold to delete colors.
+
+<div id="slots-container" style=";">
+    <div class="slot empty" data-slot="0"></div>
+    <div class="slot empty" data-slot="1"></div>
+    <div class="slot empty" data-slot="2"></div>
+    <div class="slot empty" data-slot="3"></div>
+    <div class="slot empty" data-slot="4"></div>
+    <div class="slot empty" data-slot="5"></div>
+    <div class="slot empty" data-slot="6"></div>
+    <div class="slot empty" data-slot="7"></div>
+</div>
+
+<script src="{{ '/assets/js/ColorSelect.js' | relative_url }}"></script>
