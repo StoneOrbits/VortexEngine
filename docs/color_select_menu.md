@@ -17,6 +17,8 @@ grand_parent: Vortex Engine
     cursor: pointer;
     position: relative;
     display: inline-block;
+    margin-top: 50px;
+    text-align: center;
 }
 
 .empty {
@@ -28,11 +30,25 @@ grand_parent: Vortex Engine
     color: #000;
     font-weight: bold;
     text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.plus-icon {
+    font-size: 24px;
+    color: #777;
 }
 
 .save-slot {
     background-color: #888;
     background-size: cover;
+}
+
+@keyframes flashRed {
+    0% { background-color: inherit; }
+    50% { background-color: red; }
+    100% { background-color: inherit; }
 }
 </style>
 
@@ -43,15 +59,16 @@ The Color Select menu allows customization of the colors in the current [Mode](m
 ## Overview
 
 <div id="slots-container" style="display: flex; justify-content: center; margin-bottom: 20px;">
-    <div class="slot" id="slot1" style="background-color: red;" onclick="editColor(1)"></div>
-    <div class="slot" id="slot2" style="background-color: green;" onclick="editColor(2)"></div>
-    <div class="slot" id="slot3" style="background-color: blue;" onclick="editColor(3)"></div>
-    <div class="slot empty" id="slot4" onclick="editColor(4)"></div>
-    <div class="slot add-slot" id="slot5" onclick="editColor(5)">+</div>
+    <div class="slot" id="slot1" onclick="editColor(1)"></div>
+    <div class="slot" id="slot2" onclick="editColor(2)"></div>
+    <div class="slot" id="slot3" onclick="editColor(3)"></div>
+    <div class="slot" id="slot4" onclick="editColor(4)"></div>
+    <div class="slot add-slot" id="slot5" onclick="editColor(5)">
+        <div class="plus-icon">+</div>
+    </div>
     <div class="slot empty" id="slot6"></div>
     <div class="slot empty" id="slot7"></div>
     <div class="slot empty" id="slot8"></div>
-    <div class="slot save-slot" onclick="saveColors()"></div>
 </div>
 
 <script src="{{ '/assets/js/ColorSelect.js' | relative_url }}"></script>

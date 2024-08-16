@@ -1,4 +1,5 @@
 let activeDropdown = null;
+let slots = 5; // Start with 5 slots filled (including the add button)
 
 function createDropdown(options, onSelect) {
     const dropdown = document.createElement('div');
@@ -49,7 +50,6 @@ function showHueQuadrantDropdown(slot) {
     ];
 
     const hueQuadrantDropdown = createDropdown(hueQuadrants, function(hueQuadrantValue) {
-        console.log('Hue quadrant selected:', hueQuadrantValue); // Debugging output
         showHueDropdown(slot, hueQuadrantValue);
     });
 
@@ -68,7 +68,6 @@ function showHueDropdown(slot, hueQuadrantValue) {
     }
 
     const hueDropdown = createDropdown(hues, function(refinedHueValue) {
-        console.log('Refined hue selected:', refinedHueValue); // Debugging output
         showSaturationDropdown(slot, refinedHueValue);
     });
 
@@ -88,7 +87,6 @@ function showSaturationDropdown(slot, refinedHueValue) {
     ];
 
     const saturationDropdown = createDropdown(saturations, function(saturationValue) {
-        console.log('Saturation selected:', saturationValue); // Debugging output
         showBrightnessDropdown(slot, refinedHueValue, saturationValue);
     });
 
@@ -108,8 +106,8 @@ function showBrightnessDropdown(slot, refinedHueValue, saturationValue) {
     ];
 
     const brightnessDropdown = createDropdown(brightnesses, function(_, finalColor) {
-        console.log('Brightness selected:', finalColor); // Debugging output
         document.getElementById(`slot${slot}`).style.backgroundColor = finalColor;
+        moveAddButton(slot);
         closeDropdown(); // Ensure dropdown closes after final selection
     });
 
@@ -125,7 +123,98 @@ function positionDropdown(dropdown, slot) {
     dropdown.style.left = `${rect.left + window.scrollX}px`;
 }
 
-// Entry point for color selection
+function moveAddButton(slot) {
+    const addButton = document.querySelector('.add-slot');
+    const currentSlot = document.getElementById(`slot${slot}`);
+    
+    // Make the current slot a filled slot
+    currentSlot.classList.remove('empty');
+    currentSlot.classList.remove('add-slot');
+    currentSlot.innerHTML = '';
+
+    // Increment the slots count
+    slots++;
+    
+    if (slots <= 8) {
+        const nextSlot = document.getElementById(`slot${slots}`);
+        if (nextSlot) {
+            nextSlot.classList.remove('empty');
+            nextSlot.classList.add('add-slot');
+            nextSlot.innerHTML = '<div class="plus-icon">+</div>';
+        }
+    }
+
+    if (slots === 8) {
+        // Remove the add button if we've reached the maximum number of colors
+        addButton.remove();
+    }
+}
+
+function startFlashingRed(slot) {
+    const slotElement = document.getElementById(`slot${slot}`);
+    slotElement.style.animation = 'flashRed 1s infinite';
+}
+
+function stopFlashingRed(slot) {
+    const slotElement = document.getElementById(`slot${slot}`);
+    slotElement.style.animation = '';
+}
+
+function deleteSlot(slot) {
+    const slotElement = document.getElementById(`slot${slot}`);
+    slotElement.style.backgroundColor = '';
+    slotElement.classList.add('empty');
+
+    // Move other slots up
+    for (let i = slot + 1; i <= 8; i++) {
+        const currentSlotElement = document.getElementById(`slot${i}`);
+        const prevSlotElement = document.getElementById(`slot${i - 1}`);
+        
+        if (!currentSlotElement.classList.contains('empty')) {
+            prevSlotElement.style.backgroundColor = currentSlotElement.style.backgroundColor;
+            prevSlotElement.classList.remove('empty');
+            prevSlotElement.innerHTML = '';
+            currentSlotElement.style.backgroundColor = '';
+            currentSlotElement.classList.add('empty');
+        }
+    }
+
+    slots--;
+
+    if (slots < 8) {
+        const nextSlot = document.getElementById(`slot${slots + 1}`);
+        nextSlot.classList.remove('empty');
+        nextSlot.classList.add('add-slot');
+        nextSlot.innerHTML = '<div class="plus-icon">+</div>';
+    }
+}
+
+// Handle holding and deleting
+document.querySelectorAll('.slot').forEach((slot, index) => {
+    let holdTimer;
+
+    slot.addEventListener('mousedown', () => {
+        holdTimer = setTimeout(() => {
+            startFlashingRed(index + 1);
+        }, 500); // Start flashing red after holding for 500ms
+    });
+
+    slot.addEventListener('mouseup', () => {
+        clearTimeout(holdTimer);
+        const slotElement = document.getElementById(`slot${index + 1}`);
+        if (slotElement.style.animation) {
+            deleteSlot(index + 1); // Delete the slot if it's flashing red
+        } else {
+            stopFlashingRed(index + 1); // Otherwise, stop flashing
+        }
+    });
+
+    slot.addEventListener('mouseleave', () => {
+        clearTimeout(holdTimer);
+        stopFlashingRed(index + 1);
+    });
+});
+
 function editColor(slot) {
     closeDropdown(); // Ensure no other dropdowns are open
     showHueQuadrantDropdown(slot);
