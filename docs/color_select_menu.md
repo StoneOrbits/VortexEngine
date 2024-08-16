@@ -38,11 +38,7 @@ grand_parent: Vortex Engine
   font-size: 64px;
   color: #fff;
   font-weight: bold;
-  line-height: 1;
-  margin: 0;
-  padding: 0;
-  margin-top: -17px;
-  margin-left: 1px;
+  font-family: 'Times New Roman';
 }
 
 .save-slot {
@@ -53,7 +49,7 @@ grand_parent: Vortex Engine
 #slots-container {
   display: flex;
   justify-content: center;
-  margin-top: 40px;
+  margin-top: 50px;
   margin-bottom: 60px;
 }
 
@@ -68,17 +64,24 @@ grand_parent: Vortex Engine
 
 The Color Select menu allows customization of the colors in the current [Mode](mode.html). This collection of colors is commonly referred to as a [Colorset](colorsets.html).
 
-## Overview
+## Try It Yourself
 
-<img src="assets/images/color-select.png">
+<img width="40%" style="float:right;margin:0;margin-left:20px;margin-right:20px;padding:0;" src="assets/images/color-select.png">
 
-<p>In the above diagram, the <em>colorset</em> contains four colors: 
-<span style="color: #f00">Red</span>, 
-<span style="color: #0f0">Green</span>, 
-<span style="color: #07f">Blue</span>, and 
-<span style="color: #090909">Blank</span></p>
+Below is an interactive colorset that mimics real color select menu functionality, you can click to add/edit colors and hold to delete colors.
 
-In the above diagram, the _colorset_ contains four colors: <span style="color: #f00">Red</span>, <span style="color: #0f0">Green</span>, <span style="color: #07f">Blue</span>, and <span style="color: #090909">Blank</span>
+<div id="slots-container">
+    <div class="slot empty" data-slot="0"></div>
+    <div class="slot empty" data-slot="1"></div>
+    <div class="slot empty" data-slot="2"></div>
+    <div class="slot empty" data-slot="3"></div>
+    <div class="slot empty" data-slot="4"></div>
+    <div class="slot empty" data-slot="5"></div>
+    <div class="slot empty" data-slot="6"></div>
+    <div class="slot empty" data-slot="7"></div>
+</div>
+
+<script src="{{ '/assets/js/ColorSelect.js' | relative_url }}"></script>
 
 The options in the menu include: [adding](color_select_menu.html#Editing-Color), [editing](color_select_menu.html#Editing-Color), [deleting](color_select_menu.html#Editing-Color), and [saving](color_select_menu.html#Editing-Color).
 
@@ -124,20 +127,3 @@ The **save** option always appears at the end, selecting this option will save t
  5. **Select Brightness**: Pick the brightness to adjust how dark the color appears.
 
 After selecting brightness the menu will go back to the slot selection and reflect the new choice.
-
-# Try It Yourself
-
-Below is an interactive colorset that mimics real color select menu functionality, you can click to add/edit colors and hold to delete colors.
-
-<div id="slots-container" style=";">
-    <div class="slot empty" data-slot="0"></div>
-    <div class="slot empty" data-slot="1"></div>
-    <div class="slot empty" data-slot="2"></div>
-    <div class="slot empty" data-slot="3"></div>
-    <div class="slot empty" data-slot="4"></div>
-    <div class="slot empty" data-slot="5"></div>
-    <div class="slot empty" data-slot="6"></div>
-    <div class="slot empty" data-slot="7"></div>
-</div>
-
-<script src="{{ '/assets/js/ColorSelect.js' | relative_url }}"></script>

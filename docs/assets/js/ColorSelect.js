@@ -16,7 +16,10 @@ function renderSlots() {
     slot.style.cursor = 'pointer';
 
     // Add event listeners for editing and deleting
-    slot.addEventListener('click', () => editColor(index));
+    slot.addEventListener('click', (event) => {
+      editColor(index)
+      event.stopPropagation();
+    });
     slot.addEventListener('mousedown', () => handleDelete(index));
 
     slotsContainer.appendChild(slot);
@@ -75,10 +78,16 @@ function createDropdown(options, onSelect) {
     const box = document.createElement('div');
     box.style.width = '40px';
     box.style.height = '40px';
-    box.style.backgroundColor = option.color;
     box.style.cursor = 'pointer';
     box.style.borderRadius = '8px';
     box.style.border = '2px solid #555';
+
+    // Apply the gradient background
+    if (option.backgroundImage) {
+      box.style.backgroundImage = option.backgroundImage;
+    } else {
+      box.style.backgroundColor = option.color;
+    }
 
     box.addEventListener('click', (event) => {
       event.stopPropagation();
@@ -93,20 +102,20 @@ function createDropdown(options, onSelect) {
 
 function addNewColor() {
   if (colorset.length < 8) {
-    colorset.push('#000000'); // Add a default color (black) as a placeholder
-    renderSlots(); // Re-render slots
-    editColor(colorset.length - 1); // Open the color picker for the new slot
+    colorset.push('#000000');
+    renderSlots();
+    editColor(colorset.length - 1);
   }
 }
 
 function editColor(slot) {
   if (!deleteMode) {
-    closeDropdown(); // Ensure no other dropdowns are open
-    showHueQuadrantDropdown(slot); // Start with the Hue Quadrant selection
+    closeDropdown();
+    showHueQuadrantDropdown(slot);
   }
 }
 
-function deleteColor(slot) { // Delete the color if it's flashing red
+function deleteColor(slot) {
   colorset.splice(slot, 1);
 }
 
@@ -129,10 +138,22 @@ function showHueQuadrantDropdown(slot) {
   closeDropdown(); // Ensure previous dropdown is closed
 
   const hueQuadrants = [
-    { value: 0, color: 'hsl(0, 100%, 50%)' },    // 0° - 90° (Red to Yellow)
-    { value: 90, color: 'hsl(90, 100%, 50%)' },  // 90° - 180° (Green to Teal)
-    { value: 180, color: 'hsl(180, 100%, 50%)' },// 180° - 270° (Cyan to Blue)
-    { value: 270, color: 'hsl(270, 100%, 50%)' } // 270° - 360° (Purple to Pink)
+    {
+      value: 0,
+      backgroundImage: 'linear-gradient(to right, hsl(0, 100%, 50%), hsl(70, 100%, 50%))'
+    }, // 0° - 90° (Red to Yellow)
+    {
+      value: 90,
+      backgroundImage: 'linear-gradient(to right, hsl(90, 100%, 50%), hsl(160, 100%, 50%))'
+    }, // 90° - 180° (Green to Teal)
+    {
+      value: 180,
+      backgroundImage: 'linear-gradient(to right, hsl(180, 100%, 50%), hsl(250, 100%, 50%))'
+    }, // 180° - 270° (Cyan to Blue)
+    {
+      value: 270,
+      backgroundImage: 'linear-gradient(to right, hsl(270, 100%, 50%), hsl(340, 100%, 50%))'
+    } // 270° - 360° (Purple to Pink)
   ];
 
   const hueQuadrantDropdown = createDropdown(hueQuadrants, (hueQuadrantValue) => {
@@ -149,7 +170,7 @@ function showHueDropdown(slot, hueQuadrantValue) {
 
   const hues = [];
   for (let i = 0; i < 4; i++) {
-    const hue = hueQuadrantValue + (i * 11.25); // 11.25° steps within the quadrant
+    const hue = hueQuadrantValue + (i * 22.5); // 11.25° steps within the quadrant
     hues.push({ value: hue, color: `hsl(${hue}, 100%, 50%)` });
   }
 
@@ -206,7 +227,7 @@ function positionDropdown(dropdown, slot) {
   const slotElement = document.querySelector(`[data-slot="${slot}"]`);
   const rect = slotElement.getBoundingClientRect();
   dropdown.style.top = `${rect.bottom + window.scrollY + 10}px`;
-  dropdown.style.left = `${rect.left + window.scrollX}px`;
+  dropdown.style.left = `${rect.left + window.scrollX - ((dropdown.style.width) / 2)}px`;
 }
 
 function closeDropdown() {
@@ -218,5 +239,17 @@ function closeDropdown() {
 
 document.addEventListener('DOMContentLoaded', () => {
   initializeColorset(); // Initialize and render the colorset
+
+  // Close the dropdown if clicking outside of it
+  document.addEventListener('click', (event) => {
+    if (activeDropdown && !activeDropdown.contains(event.target)) {
+      closeDropdown();
+    }
+  });
 });
 
+document.addEventListener('click', (event) => {
+  if (activeDropdown && !activeDropdown.contains(event.target)) {
+    closeDropdown();
+  }
+});
