@@ -4,33 +4,40 @@ let activeDropdown = null; // Track the active dropdown menu
 
 // Function to render the slots based on the colorset array
 function renderSlots() {
-    const slotsContainer = document.getElementById('slots-container');
-    slotsContainer.innerHTML = ''; // Clear existing slots
+  const slotsContainer = document.getElementById('slots-container');
+  slotsContainer.innerHTML = ''; // Clear existing slots
 
-    // Render each color in the colorset array
-    colorset.forEach((color, index) => {
-        const slot = document.createElement('div');
-        slot.className = 'slot';
-        slot.style.backgroundColor = color;
-        slot.dataset.slot = index;
-        slot.style.cursor = 'pointer';
-        
-        // Add event listeners for editing and deleting
-        slot.addEventListener('click', () => editColor(index));
-        slot.addEventListener('mousedown', () => handleDelete(index));
+  // Render each color in the colorset array
+  colorset.forEach((color, index) => {
+    const slot = document.createElement('div');
+    slot.className = 'slot';
+    slot.style.backgroundColor = color;
+    slot.dataset.slot = index;
+    slot.style.cursor = 'pointer';
 
-        slotsContainer.appendChild(slot);
-    });
+    // Add event listeners for editing and deleting
+    slot.addEventListener('click', () => editColor(index));
+    slot.addEventListener('mousedown', () => handleDelete(index));
 
-    // Render the "Add" button in the next available slot
-    if (colorset.length < 8) {
-        const addSlot = document.createElement('div');
-        addSlot.className = 'slot add-slot';
-        addSlot.innerHTML = '<div class="plus-icon">+</div>';
-        addSlot.addEventListener('click', () => addNewColor());
+    slotsContainer.appendChild(slot);
+  });
 
-        slotsContainer.appendChild(addSlot);
-    }
+  // Render the "Add" button in the next available slot
+  if (colorset.length < 8) {
+    const addSlot = document.createElement('div');
+    addSlot.className = 'slot add-slot';
+    addSlot.innerHTML = '<div class="plus-icon">+</div>';
+    addSlot.addEventListener('click', () => addNewColor());
+
+    slotsContainer.appendChild(addSlot);
+  }
+
+  // Render the remaining empty slots
+  for (let i = colorset.length + 1; i < 8; i++) {
+    const emptySlot = document.createElement('div');
+    emptySlot.className = 'slot empty';
+    slotsContainer.appendChild(emptySlot);
+  }
 }
 
 // Initialize with default colors
@@ -82,6 +89,35 @@ function createDropdown(options, onSelect) {
     });
 
     return dropdown;
+}
+
+function addNewColor() {
+  if (colorset.length < 8) {
+    colorset.push('#000000'); // Add a default color (black) as a placeholder
+    renderSlots(); // Re-render slots
+    editColor(colorset.length - 1); // Open the color picker for the new slot
+  }
+}
+
+function editColor(slot) {
+    if (!deleteMode) {
+        closeDropdown(); // Ensure no other dropdowns are open
+        showHueQuadrantDropdown(slot); // Start with the Hue Quadrant selection
+    }
+}
+
+function handleDelete(slot) {
+  let holdTimer = setTimeout(() => {
+    startFlashingRed(slot);
+  }, 500); // Start flashing red after holding for 500ms
+
+  document.querySelector(`[data-slot="${slot}"]`).addEventListener('mouseup', () => {
+    clearTimeout(holdTimer);
+    if (deleteMode) {
+      deleteColor(slot); // Delete the color if it's flashing red
+      stopFlashingRed(slot);
+    }
+  });
 }
 
 function showHueQuadrantDropdown(slot) {
