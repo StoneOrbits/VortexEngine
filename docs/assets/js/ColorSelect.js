@@ -81,10 +81,10 @@ function showSaturationDropdown(slot, refinedHueValue) {
     closeDropdown(); // Close previous dropdown
 
     const saturations = [
-        { value: 100, color: `hsl(${refinedHueValue}, 255, 100%)` }, // Full saturation
-        { value: 75, color: `hsl(${refinedHueValue}, 170, 100%)` },  // 75% saturation
-        { value: 50, color: `hsl(${refinedHueValue}, 85, 100%)` },  // 50% saturation
-        { value: 25, color: `hsl(${refinedHueValue}, 0, 100%)` }   // 25% saturation
+        { value: 100, color: `hsl(${refinedHueValue}, 100%, 100%)` }, // Full saturation
+        { value: 75, color: `hsl(${refinedHueValue}, 66%, 100%)` },  // 75% saturation
+        { value: 50, color: `hsl(${refinedHueValue}, 33%, 100%)` },  // 50% saturation
+        { value: 25, color: `hsl(${refinedHueValue}, 0%, 100%)` }   // 25% saturation
     ];
 
     const saturationDropdown = createDropdown(saturations, function(saturationValue) {
@@ -101,10 +101,10 @@ function showBrightnessDropdown(slot, refinedHueValue, saturationValue) {
     closeDropdown(); // Close previous dropdown
 
     const brightnesses = [
-        { value: 75, color: `hsl(${refinedHueValue}, ${saturationValue}%, 255)` }, // 75% brightness
-        { value: 50, color: `hsl(${refinedHueValue}, ${saturationValue}%, 170)` }, // 50% brightness
-        { value: 35, color: `hsl(${refinedHueValue}, ${saturationValue}%, 85)` }, // 35% brightness
-        { value: 20, color: `hsl(${refinedHueValue}, ${saturationValue}%, 0)` }  // 20% brightness
+        { value: 75, color: `hsl(${refinedHueValue}, ${saturationValue}%, 100%)` }, // 75% brightness
+        { value: 50, color: `hsl(${refinedHueValue}, ${saturationValue}%, 66%)` }, // 50% brightness
+        { value: 35, color: `hsl(${refinedHueValue}, ${saturationValue}%, 33%)` }, // 35% brightness
+        { value: 20, color: `hsl(${refinedHueValue}, ${saturationValue}%, 0%)` }  // 20% brightness
     ];
 
     const brightnessDropdown = createDropdown(brightnesses, function(_, finalColor) {
