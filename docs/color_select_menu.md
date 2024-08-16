@@ -35,12 +35,14 @@ grand_parent: Vortex Engine
 }
 
 .plus-icon {
-  font-size: 24px;
+  font-size: 64px;
   color: #fff;
   font-weight: bold;
   line-height: 1;
   margin: 0;
   padding: 0;
+  margin-top: -17px;
+  margin-left: 1px;
 }
 
 .save-slot {
