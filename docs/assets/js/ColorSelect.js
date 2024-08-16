@@ -290,6 +290,7 @@ function addColor(slot) {
   currentSlot.classList.remove('add-slot');
   currentSlot.classList.add('color-filled');
   currentSlot.style.cursor = 'pointer';
+  currentSlot.innerHTML = ''; // Clear the plus icon or any other content
 
   // Move the add button to the next empty slot before editing
   moveAddButton(slot);
