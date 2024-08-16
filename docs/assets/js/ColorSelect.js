@@ -164,7 +164,7 @@ function deleteSlot(slot) {
   slotElement.style.backgroundColor = '';
   slotElement.classList.add('empty');
   slotElement.classList.remove('add-slot');
-  slotElement.innerHTML = '';
+  slotElement.innerHTML = ''; // Ensure no '+' sign is left
 
   // Move other slots up
   for (let i = slot + 1; i <= 8; i++) {
@@ -207,8 +207,10 @@ document.querySelectorAll('.slot').forEach((slot, index) => {
     clearTimeout(holdTimer);
     if (deleteMode) {
       deleteSlot(index + 1); // Delete the slot if it's flashing red
+      stopFlashingRed(index + 1);
+    } else {
+      editColor(index + 1); // Only open the color selection if not in delete mode
     }
-    stopFlashingRed(index + 1);
   });
 
   slot.addEventListener('mouseleave', () => {
