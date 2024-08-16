@@ -111,18 +111,13 @@ function handleDelete(slot) {
     startFlashingRed(slot);
   }, 500); // Start flashing red after holding for 500ms
 
-  const slotElement = document.querySelector(`[data-slot="${slot}"]`);
-
-  const onMouseUp = () => {
+  document.querySelector(`[data-slot="${slot}"]`).addEventListener('mouseup', () => {
     clearTimeout(holdTimer);
     if (deleteMode) {
       deleteColor(slot); // Delete the color if it's flashing red
       stopFlashingRed(slot);
     }
-    document.removeEventListener('mouseup', onMouseUp); // Ensure the event listener is removed
-  };
-
-  slotElement.addEventListener('mouseup', onMouseUp, { once: true }); // Attach the event listener to the slot
+  });
 }
 
 function showHueQuadrantDropdown(slot) {
