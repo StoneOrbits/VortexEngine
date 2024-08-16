@@ -1,5 +1,5 @@
 let activeDropdown = null;
-let filledSlots = 4; // Start with 4 filled slots
+let filledSlots = 4; // Start with 4 filled slots (Red, Green, Blue, Black)
 let deleteMode = false; // Track if delete mode is active
 
 function createDropdown(options, onSelect) {
@@ -128,23 +128,24 @@ function positionDropdown(dropdown, slot) {
 
 function moveAddButton(slot) {
   const currentSlot = document.getElementById(`slot${slot}`);
+  const prevAddSlot = document.querySelector('.add-slot');
 
-  // Make the current slot a filled slot
+  // Turn the previous add slot into an empty slot
+  if (prevAddSlot) {
+    prevAddSlot.classList.remove('add-slot');
+    prevAddSlot.classList.add('empty');
+    prevAddSlot.innerHTML = '';
+  }
+
+  // Make the current slot the new add slot
   currentSlot.classList.remove('empty');
-  currentSlot.classList.remove('add-slot');
-  currentSlot.innerHTML = '';
+  currentSlot.classList.add('add-slot');
+  currentSlot.innerHTML = '<div class="plus-icon">+</div>';
+  currentSlot.onclick = function() {
+    editColor(slot);
+  };
 
   filledSlots++;
-
-  if (filledSlots < 8) {
-    const nextSlot = document.getElementById(`slot${filledSlots + 1}`);
-    nextSlot.classList.remove('empty');
-    nextSlot.classList.add('add-slot');
-    nextSlot.innerHTML = '<div class="plus-icon">+</div>';
-    nextSlot.onclick = function() {
-      editColor(filledSlots + 1);
-    };
-  }
 }
 
 function startFlashingRed(slot) {
@@ -161,36 +162,25 @@ function stopFlashingRed(slot) {
 
 function deleteSlot(slot) {
   const slotElement = document.getElementById(`slot${slot}`);
-  slotElement.style.backgroundColor = '';
-  slotElement.classList.add('empty');
-  slotElement.classList.remove('add-slot');
-  slotElement.innerHTML = ''; // Ensure no '+' sign is left
 
-  // Move other slots up
-  for (let i = slot + 1; i <= 8; i++) {
-    const currentSlotElement = document.getElementById(`slot${i}`);
-    const prevSlotElement = document.getElementById(`slot${i - 1}`);
-
-    if (!currentSlotElement.classList.contains('empty')) {
-      prevSlotElement.style.backgroundColor = currentSlotElement.style.backgroundColor;
-      prevSlotElement.classList.remove('empty');
-      prevSlotElement.innerHTML = '';
-      currentSlotElement.style.backgroundColor = '';
-      currentSlotElement.classList.add('empty');
-    }
+  // If there's a previous "Add" slot, turn it empty
+  const prevAddSlot = document.querySelector('.add-slot');
+  if (prevAddSlot && prevAddSlot.id !== `slot${slot}`) {
+    prevAddSlot.classList.remove('add-slot');
+    prevAddSlot.classList.add('empty');
+    prevAddSlot.innerHTML = '';
   }
+
+  // Turn the deleted slot into the new add slot
+  slotElement.style.backgroundColor = '';
+  slotElement.classList.add('add-slot');
+  slotElement.classList.remove('empty');
+  slotElement.innerHTML = '<div class="plus-icon">+</div>';
+  slotElement.onclick = function() {
+    editColor(slot);
+  };
 
   filledSlots--;
-
-  if (filledSlots < 8) {
-    const nextSlot = document.getElementById(`slot${filledSlots + 1}`);
-    nextSlot.classList.remove('empty');
-    nextSlot.classList.add('add-slot');
-    nextSlot.innerHTML = '<div class="plus-icon">+</div>';
-    nextSlot.onclick = function() {
-      editColor(filledSlots + 1);
-    };
-  }
 }
 
 // Handle holding and deleting
@@ -208,8 +198,8 @@ document.querySelectorAll('.slot').forEach((slot, index) => {
     if (deleteMode) {
       deleteSlot(index + 1); // Delete the slot if it's flashing red
       stopFlashingRed(index + 1);
-    } else {
-      editColor(index + 1); // Only open the color selection if not in delete mode
+    } else if (!deleteMode && !slot.classList.contains('empty')) {
+      editColor(index + 1); // Only open the color selection if not in delete mode and slot is not empty
     }
   });
 
