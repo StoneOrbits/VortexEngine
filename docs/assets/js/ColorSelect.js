@@ -64,7 +64,7 @@ function showHueDropdown(slot, hueQuadrantValue) {
     const hues = [];
     for (let i = 0; i < 4; i++) {
         const hue = hueQuadrantValue + (i * 11.25); // 11.25° steps within the quadrant
-        hues.push({ value: hue, color: `hsl(${hue}, 100%, 100%)` });
+        hues.push({ value: hue, color: `hsl(${hue}, 100%, 50%)` });
     }
 
     const hueDropdown = createDropdown(hues, function(refinedHueValue) {
