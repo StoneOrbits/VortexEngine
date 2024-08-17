@@ -360,36 +360,42 @@ function showSaturationDropdown(index, refinedHueValue) {
   closeDropdown(); // Close previous dropdown
 
   const saturations = [
-    { value: 100, color: `hsl(${refinedHueValue}, 100%, 50%)` }, // Full saturation
-    { value: 66, color: `hsl(${refinedHueValue}, 66%, 50%)` },  // 66% saturation
-    { value: 33, color: `hsl(${refinedHueValue}, 33%, 66%)` },  // 33% saturation
-    { value: 0, color: `hsl(${refinedHueValue}, 0%, 100%)` }   // 25% saturation
+    { value: 100, color: `hsl(${refinedHueValue}, 100%, 50%)` }, // Pure color
+    { value: 66, color: `hsl(${refinedHueValue}, 66%, 60%)` },  // Lighter color
+    { value: 33, color: `hsl(${refinedHueValue}, 33%, 80%)` },  // Even lighter
+    { value: 0, color: `hsl(${refinedHueValue}, 0%, 100%)` }    // White
   ];
 
   const saturationDropdown = createDropdown(saturations, (saturationValue) => {
-    showBrightnessDropdown(index, refinedHueValue, saturationValue);
-  }, 'Select Saturation:'); // Adding the title
+    const baseLightness = calculateLightnessForSaturation(saturationValue);
+    showBrightnessDropdown(index, refinedHueValue, saturationValue, baseLightness);
+  }, 'Select Saturation:');
 
   document.body.appendChild(saturationDropdown);
   positionDropdown(saturationDropdown, index);
   activeDropdown = saturationDropdown;
 }
 
-function showBrightnessDropdown(index, refinedHueValue, saturationValue) {
+function calculateLightnessForSaturation(saturation) {
+  // A simple function to calculate base lightness
+  return 50 + (100 - saturation) / 2;
+}
+
+function showBrightnessDropdown(index, refinedHueValue, saturationValue, baseLightness) {
   closeDropdown(); // Close the previous dropdown
 
   const brightnesses = [
-    { value: 50, color: `hsl(${refinedHueValue}, ${saturationValue}%, 50%)` },
-    { value: 33, color: `hsl(${refinedHueValue}, ${saturationValue}%, 33%)` },
-    { value: 13, color: `hsl(${refinedHueValue}, ${saturationValue}%, 13%)` },
-    { value: 0, color: `hsl(${refinedHueValue}, ${saturationValue}%, 0%)` }
+    { value: baseLightness, color: `hsl(${refinedHueValue}, ${saturationValue}%, ${baseLightness}%)` }, // Starting color
+    { value: baseLightness * 0.66, color: `hsl(${refinedHueValue}, ${saturationValue}%, ${baseLightness * 0.66}%)` }, // Darker
+    { value: baseLightness * 0.33, color: `hsl(${refinedHueValue}, ${saturationValue}%, ${baseLightness * 0.33}%)` }, // Even darker
+    { value: 0, color: `hsl(${refinedHueValue}, ${saturationValue}%, 0%)` }    // Black
   ];
 
   const brightnessDropdown = createDropdown(brightnesses, (_, finalColor) => {
     colorset[index] = finalColor; // Update the color in the colorset array
     renderSlots(); // Re-render the slots to reflect the change
     closeDropdown(); // Close the dropdown after selection
-  }, 'Select Brightness:'); // Adding the title
+  }, 'Select Brightness:');
 
   document.body.appendChild(brightnessDropdown);
   positionDropdown(brightnessDropdown, index);
