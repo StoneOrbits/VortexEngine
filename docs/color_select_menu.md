@@ -79,14 +79,13 @@ grand_parent: Vortex Engine
 
 @media (max-width: 500px) {
   .slot {
-    width: 30px;
-    height: 30px;
-    line-height: 30px;
-    margin: 1px;
+    width: 40px;
+    height: 40px;
+    line-height: 40px;
   }
 
   .plus-icon {
-    font-size: 32px;
+    font-size: 40px;
   }
 
   #slots-container {
