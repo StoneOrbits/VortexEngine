@@ -8,6 +8,8 @@ grand_parent: Vortex Engine
 
 <style>
 .slot {
+  min-width: 50px;
+  min-height: 50px;
   width: 50px;
   height: 50px;
   margin: 2px;
@@ -81,6 +83,8 @@ grand_parent: Vortex Engine
   .slot {
     width: 40px;
     height: 40px;
+    min-width: 40px;
+    min-height: 40px;
     line-height: 40px;
   }
 
