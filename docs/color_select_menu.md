@@ -96,6 +96,24 @@ grand_parent: Vortex Engine
     margin-top: 30px;
     margin-bottom: 40px;
   }
+
+@media (max-width: 400px) {
+  .slot {
+    width: 32px;
+    height: 32px;
+    min-width: 32px;
+    min-height: 32px;
+    line-height: 32px;
+  }
+
+  .plus-icon {
+    font-size: 32px;
+  }
+
+  #slots-container {
+    margin-top: 30px;
+    margin-bottom: 40px;
+  }
 }
 </style>
 
