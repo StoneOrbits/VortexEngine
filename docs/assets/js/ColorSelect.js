@@ -295,9 +295,27 @@ function positionDropdown(dropdown, slot) {
   const slotElement = document.querySelector(`[data-slot="${slot}"]`);
   const rect = slotElement.getBoundingClientRect();
   const dropdownWidth = dropdown.offsetWidth;
+  const dropdownHeight = dropdown.offsetHeight;
 
-  dropdown.style.top = `${rect.bottom + window.scrollY + 10}px`;
-  dropdown.style.left = `${rect.left + window.scrollX + (rect.width / 2) - (dropdownWidth / 2)}px`;
+  // Calculate initial positions
+  let top = rect.bottom + window.scrollY + 10;
+  let left = rect.left + window.scrollX + (rect.width / 2) - (dropdownWidth / 2);
+
+  // Ensure dropdown stays within the viewport horizontally
+  if (left < 0) {
+    left = 10; // Minimum padding from the left edge
+  } else if (left + dropdownWidth > window.innerWidth) {
+    left = window.innerWidth - dropdownWidth - 10; // Minimum padding from the right edge
+  }
+
+  // Ensure dropdown stays within the viewport vertically
+  if (top + dropdownHeight > window.innerHeight + window.scrollY) {
+    top = rect.top + window.scrollY - dropdownHeight - 10; // Place above the slot element if there's no space below
+  }
+
+  // Apply calculated positions
+  dropdown.style.top = `${top}px`;
+  dropdown.style.left = `${left}px`;
 }
 
 document.addEventListener('DOMContentLoaded', () => {
