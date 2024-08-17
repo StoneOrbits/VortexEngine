@@ -21,8 +21,8 @@ function renderSlots() {
 
     // Function to start the hold timer
     const startHold = () => {
-      isHolding = true;
       holdTimer = setTimeout(() => {
+        isHolding = true;
         startFlashingRed(index);
       }, 500); // Start flashing red after holding for 500ms
     };
@@ -30,15 +30,23 @@ function renderSlots() {
     // Function to cancel the hold
     const cancelHold = () => {
       clearTimeout(holdTimer);
-      isHolding = false;
-      if (deleteMode) {
+      if (isHolding && deleteMode) {
         stopFlashingRed(index);
       }
+      isHolding = false;
+      hasMoved = false;
     };
 
-    // Handle click/tap logic
-    const handleClick = () => {
-      if (!isHolding && !hasMoved) {
+    // Function to handle the release (mouseup/touchend)
+    const handleRelease = () => {
+      clearTimeout(holdTimer);
+      if (isHolding && deleteMode) {
+        // Perform delete if holding was true
+        deleteColor(index);
+        stopFlashingRed(index);
+        renderSlots(); // Re-render the slots to reflect the change
+      } else if (!hasMoved) {
+        // Handle click/tap if no move and no hold
         editColor(index);
       }
       cancelHold();
@@ -47,31 +55,24 @@ function renderSlots() {
     // Add event listeners for touch and mouse events
     slot.addEventListener('mousedown', (event) => {
       event.preventDefault();
-      hasMoved = false; // Reset movement flag
       startHold();
     });
 
     slot.addEventListener('mouseup', (event) => {
       event.preventDefault();
-      handleClick();
+      handleRelease();
     });
 
-    slot.addEventListener('mouseleave', (event) => {
-      cancelHold();
-    });
+    slot.addEventListener('mouseleave', cancelHold);
 
     slot.addEventListener('touchstart', (event) => {
       event.preventDefault();
-      hasMoved = false; // Reset movement flag
       startHold();
     });
 
     slot.addEventListener('touchend', (event) => {
-      if (!hasMoved) {
-        handleClick();
-      } else {
-        cancelHold();
-      }
+      event.preventDefault();
+      handleRelease();
     });
 
     slot.addEventListener('touchmove', (event) => {
