@@ -8,16 +8,15 @@ grand_parent: Vortex Engine
 
 <style>
 .slot {
-  flex: 0 0 auto;
-  width: 60px;
-  height: 60px;
+  min-width: 50px;
+  min-height: 50px;
+  margin: 2px;
   border-radius: 50%;
   border: 2px solid #777;
   line-height: 50px;
   cursor: pointer;
   position: relative;
-  display: flex;
-  justify-content: center;
+  display: inline-block;
   text-align: center;
 }
 
@@ -47,30 +46,53 @@ grand_parent: Vortex Engine
   background-size: cover;
 }
 
+.highlighted {
+  border: 2px solid #fff;
+  box-shadow: 0 0 10px 2px currentColor;
+}
+
+.slot.highlighted {
+  box-shadow: 0 0 10px 2px;
+}
+
 #slots-container {
   display: flex;
-  justify-content: space-between;
-  overflow-x: auto;
-  gap: 8px; /* Adjust the gap between slots as needed */
-  padding-left:50px;
-  padding-right:50px;
+  justify-content: center;
   margin-top: 50px;
   margin-bottom: 60px;
 }
 
-#slots-container::-webkit-scrollbar {
-  display: none;
-}
-
-#slots-container {
-  -ms-overflow-style: none;  /* IE and Edge */
-  scrollbar-width: none;  /* Firefox */
+#color-select-diagram {
+  width:240px;
+  float:right;
+  margin:0;
+  margin-left:20px;
+  margin-right:20px;
+  padding:0;
 }
 
 @keyframes flashRed {
-    0% { background-color: inherit; }
-    50% { background-color: red; }
-    100% { background-color: inherit; }
+  0% { background-color: inherit; }
+  50% { background-color: red; }
+  100% { background-color: inherit; }
+}
+
+@media (max-width: 600px) {
+  .slot {
+    min-width: 30px;
+    min-height: 30px;
+    line-height: 30px;
+    margin: 1px;
+  }
+
+  .plus-icon {
+    font-size: 32px;
+  }
+
+  #slots-container {
+    margin-top: 30px;
+    margin-bottom: 40px;
+  }
 }
 </style>
 
@@ -80,7 +102,7 @@ The Color Select menu allows customization of the colors in the current [Mode](m
 
 ## Try It Yourself
 
-<img width="40%" style="float:right;margin:0;margin-left:20px;margin-right:20px;padding:0;" src="assets/images/color-select.png">
+<img id="color-select-diagram" src="assets/images/color-select.png">
 
 Below is an interactive colorset that mimics real color select menu functionality, you can **click to add/edit** colors and **hold to delete** colors.
 

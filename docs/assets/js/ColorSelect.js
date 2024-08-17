@@ -20,6 +20,10 @@ function renderSlots() {
       editColor(index)
       event.stopPropagation();
     });
+    slot.addEventListener('touchstart', (event) => {
+      editColor(index);
+      event.stopPropagation();
+    });
     slot.addEventListener('mousedown', () => handleDelete(index));
 
     slotsContainer.appendChild(slot);
