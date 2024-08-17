@@ -8,15 +8,16 @@ grand_parent: Vortex Engine
 
 <style>
 .slot {
-  width: 50px;
-  height: 50px;
-  margin: 5px;
+  flex: 0 0 auto;
+  width: 60px;
+  height: 60px;
   border-radius: 50%;
   border: 2px solid #777;
   line-height: 50px;
   cursor: pointer;
   position: relative;
-  display: inline-block;
+  display: flex;
+  justify-content: center;
   text-align: center;
 }
 
@@ -48,9 +49,22 @@ grand_parent: Vortex Engine
 
 #slots-container {
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
+  overflow-x: auto;
+  gap: 8px; /* Adjust the gap between slots as needed */
+  padding-left:50px;
+  padding-right:50px;
   margin-top: 50px;
   margin-bottom: 60px;
+}
+
+#slots-container::-webkit-scrollbar {
+  display: none;
+}
+
+#slots-container {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
 }
 
 @keyframes flashRed {
