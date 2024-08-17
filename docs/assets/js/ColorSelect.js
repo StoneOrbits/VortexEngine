@@ -197,16 +197,19 @@ function handleDelete(slot) {
     cancelHold();
   };
 
-  // Mobile-specific logic to prevent tap from interfering
   const handleTap = () => {
     if (!isHolding) {
-      // If it's a tap and not a hold, proceed with normal click action (edit color)
       editColor(slot);
     }
   };
 
   // Desktop (mouse) events
-  slotElement.addEventListener('mousedown', startHold);
+  slotElement.addEventListener('mousedown', () => {
+    startHold();
+    tapTimer = setTimeout(() => {
+      handleTap();
+    }, 200); // Delay to differentiate tap from hold
+  });
   slotElement.addEventListener('mouseleave', cancelHold);
   slotElement.addEventListener('mouseup', completeDelete);
 
@@ -215,7 +218,7 @@ function handleDelete(slot) {
     event.preventDefault();
     startHold();
     tapTimer = setTimeout(() => {
-      handleTap(); // Trigger tap logic after 200ms if not a hold
+      handleTap();
     }, 200); // Short delay to differentiate tap from hold
   });
 
