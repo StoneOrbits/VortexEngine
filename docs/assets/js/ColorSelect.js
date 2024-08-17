@@ -44,21 +44,32 @@ function renderSlots() {
       if (!tapHandled) {
         editColor(index);
       }
-      tapHandled = false; // Reset tapHandled for future interactions
+      tcolselapHandled = false; // Reset tapHandled for future interactions
     };
+
+    slot.addEventListener('click', () => {
+      cancelHold();
+      editColor(index);
+    });
 
     // Mouse events
     slot.addEventListener('mousedown', () => {
       startHold();
     });
 
-    slot.addEventListener('mouseup', () => {
+    const releaseFunc = () => {
       if (!tapHandled) {
         handleTap();
-      } else {
         cancelHold();
+        return;
       }
-    });
+      if (deleteMode) {
+        deleteColor(index);
+        renderSlots();
+      }
+    }
+
+    slot.addEventListener('mouseup', releaseFunc);
 
     slot.addEventListener('mouseleave', cancelHold);
 
@@ -68,13 +79,7 @@ function renderSlots() {
       startHold();
     });
 
-    slot.addEventListener('touchend', (event) => {
-      if (!tapHandled) {
-        handleTap();
-      } else {
-        cancelHold();
-      }
-    });
+    slot.addEventListener('touchend', releaseFunc);
 
     slot.addEventListener('touchmove', (event) => {
       const touch = event.touches[0];
@@ -97,7 +102,8 @@ function renderSlots() {
     const addSlot = document.createElement('div');
     addSlot.className = 'slot add-slot';
     addSlot.innerHTML = '<div class="plus-icon">+</div>';
-    addSlot.addEventListener('click', () => addNewColor());
+    addSlot.dataset.slot = colorset.length;
+    addSlot.addEventListener('click', () => addNewColor(addSlot));
     slotsContainer.appendChild(addSlot);
   }
 
@@ -110,15 +116,15 @@ function renderSlots() {
 }
 
 // Start flashing red for delete mode
-function startFlashingRed(slot) {
-  const slotElement = document.querySelector(`[data-slot="${slot}"]`);
+function startFlashingRed(index) {
+  const slotElement = document.querySelector(`[data-slot="${index}"]`);
   slotElement.style.animation = 'flashRed 1s infinite';
   deleteMode = true;
 }
 
 // Stop flashing red for delete mode
-function stopFlashingRed(slot) {
-  const slotElement = document.querySelector(`[data-slot="${slot}"]`);
+function stopFlashingRed(index) {
+  const slotElement = document.querySelector(`[data-slot="${index}"]`);
   slotElement.style.animation = '';
   deleteMode = false;
 }
@@ -202,7 +208,7 @@ function closeDropdown() {
   }
 }
 
-function addNewColor() {
+function addNewColor(addSlot) {
   if (colorset.length < 8) {
     colorset.push('#000000');
     renderSlots();
@@ -210,15 +216,12 @@ function addNewColor() {
   }
 }
 
-function editColor(slot) {
-  if (!deleteMode) {
-    closeDropdown();
-    showHueQuadrantDropdown(slot);
-  }
+function editColor(index) {
+  showHueQuadrantDropdown(index);
 }
 
-function deleteColor(slot) {
-  colorset.splice(slot, 1);
+function deleteColor(index) {
+  colorset.splice(index, 1);
 }
 
 function handleDelete(slot) {
@@ -246,7 +249,7 @@ function handleDelete(slot) {
 
   const completeDelete = () => {
     if (isHolding && deleteMode) {
-      deleteColor(slot); // Delete the color if it's flashing red
+      deleteColor(index); // Delete the color if it's flashing red
       stopFlashingRed(slot);
       renderSlots(); // Re-render the slots to reflect the change
     }
@@ -255,7 +258,7 @@ function handleDelete(slot) {
 
   const handleTap = () => {
     if (!isHolding) {
-      editColor(slot);
+      editColor(index);
     }
   };
 
@@ -275,7 +278,7 @@ function handleDelete(slot) {
     startHold();
     tapTimer = setTimeout(() => {
       handleTap();
-    }, 200); // Short delay to differentiate tap from hold
+    }, 50); // Short delay to differentiate tap from hold
   });
 
   slotElement.addEventListener('touchend', (event) => {
@@ -303,7 +306,7 @@ function handleDelete(slot) {
   });
 }
 
-function showHueQuadrantDropdown(slot) {
+function showHueQuadrantDropdown(index) {
   closeDropdown(); // Ensure previous dropdown is closed
 
   const hueQuadrants = [
@@ -326,16 +329,16 @@ function showHueQuadrantDropdown(slot) {
   ];
 
   const hueQuadrantDropdown = createDropdown(hueQuadrants, (hueQuadrantValue) => {
-    showHueDropdown(slot, hueQuadrantValue);
+    showHueDropdown(index, hueQuadrantValue);
   }, 'Select Quadrant:'); // Adding the title
 
   document.body.appendChild(hueQuadrantDropdown);
-  positionDropdown(hueQuadrantDropdown, slot);
+  positionDropdown(hueQuadrantDropdown, index);
   activeDropdown = hueQuadrantDropdown;
 }
 
 // Similar changes for showHueDropdown, showSaturationDropdown, and showBrightnessDropdown
-function showHueDropdown(slot, hueQuadrantValue) {
+function showHueDropdown(index, hueQuadrantValue) {
   closeDropdown(); // Close previous dropdown
 
   const hues = [];
@@ -345,34 +348,34 @@ function showHueDropdown(slot, hueQuadrantValue) {
   }
 
   const hueDropdown = createDropdown(hues, (refinedHueValue) => {
-    showSaturationDropdown(slot, refinedHueValue);
+    showSaturationDropdown(index, refinedHueValue);
   }, 'Select Hue:');
 
   document.body.appendChild(hueDropdown);
-  positionDropdown(hueDropdown, slot);
+  positionDropdown(hueDropdown, index);
   activeDropdown = hueDropdown;
 }
 
-function showSaturationDropdown(slot, refinedHueValue) {
+function showSaturationDropdown(index, refinedHueValue) {
   closeDropdown(); // Close previous dropdown
 
   const saturations = [
     { value: 100, color: `hsl(${refinedHueValue}, 100%, 50%)` }, // Full saturation
-    { value: 66, color: `hsl(${refinedHueValue}, 66%, 50%)` },  // 75% saturation
-    { value: 33, color: `hsl(${refinedHueValue}, 33%, 50%)` },  // 50% saturation
-    { value: 0, color: `hsl(${refinedHueValue}, 0%, 50%)` }   // 25% saturation
+    { value: 66, color: `hsl(${refinedHueValue}, 66%, 50%)` },  // 66% saturation
+    { value: 33, color: `hsl(${refinedHueValue}, 33%, 66%)` },  // 33% saturation
+    { value: 0, color: `hsl(${refinedHueValue}, 0%, 100%)` }   // 25% saturation
   ];
 
   const saturationDropdown = createDropdown(saturations, (saturationValue) => {
-    showBrightnessDropdown(slot, refinedHueValue, saturationValue);
+    showBrightnessDropdown(index, refinedHueValue, saturationValue);
   }, 'Select Saturation:'); // Adding the title
 
   document.body.appendChild(saturationDropdown);
-  positionDropdown(saturationDropdown, slot);
+  positionDropdown(saturationDropdown, index);
   activeDropdown = saturationDropdown;
 }
 
-function showBrightnessDropdown(slot, refinedHueValue, saturationValue) {
+function showBrightnessDropdown(index, refinedHueValue, saturationValue) {
   closeDropdown(); // Close the previous dropdown
 
   const brightnesses = [
@@ -383,18 +386,21 @@ function showBrightnessDropdown(slot, refinedHueValue, saturationValue) {
   ];
 
   const brightnessDropdown = createDropdown(brightnesses, (_, finalColor) => {
-    colorset[slot] = finalColor; // Update the color in the colorset array
+    colorset[index] = finalColor; // Update the color in the colorset array
     renderSlots(); // Re-render the slots to reflect the change
     closeDropdown(); // Close the dropdown after selection
   }, 'Select Brightness:'); // Adding the title
 
   document.body.appendChild(brightnessDropdown);
-  positionDropdown(brightnessDropdown, slot);
+  positionDropdown(brightnessDropdown, index);
   activeDropdown = brightnessDropdown;
 }
 
-function positionDropdown(dropdown, slot) {
-  const slotElement = document.querySelector(`[data-slot="${slot}"]`);
+function positionDropdown(dropdown, index) {
+  const slotElement = document.querySelector(`[data-slot="${index}"]`);
+    if (!slotElement) {
+      return;
+    }
   const rect = slotElement.getBoundingClientRect();
   const dropdownWidth = dropdown.offsetWidth;
   const dropdownHeight = dropdown.offsetHeight;
@@ -422,19 +428,30 @@ function positionDropdown(dropdown, slot) {
   dropdown.style.left = `${left}px`;
 }
 
-document.addEventListener('DOMContentLoaded', () => {
-  initializeColorset(); // Initialize and render the colorset
-
-  // Close the dropdown if clicking outside of it
-  document.addEventListener('click', (event) => {
-    if (activeDropdown && !activeDropdown.contains(event.target)) {
-      closeDropdown();
-    }
-  });
-});
-
 document.addEventListener('click', (event) => {
-  if (activeDropdown && !activeDropdown.contains(event.target)) {
+  let targetElement = event.target;
+  let isClickInside = false;
+
+  // Traverse up the DOM tree to see if the click was inside a .slot, .add-slot, or the active dropdown
+  while (targetElement) {
+    if (
+      targetElement.classList.contains('slot') ||
+      targetElement.classList.contains('add-slot') ||
+      (activeDropdown && activeDropdown.contains(targetElement))
+    ) {
+      isClickInside = true;
+      break;
+    }
+    targetElement = targetElement.parentElement;
+  }
+
+  // Close the dropdown if the click was outside all relevant elements
+  if (activeDropdown && !isClickInside) {
     closeDropdown();
   }
+});
+
+
+document.addEventListener('DOMContentLoaded', () => {
+  initializeColorset();
 });
