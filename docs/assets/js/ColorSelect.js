@@ -63,16 +63,31 @@ function stopFlashingRed(slot) {
   deleteMode = false;
 }
 
-function createDropdown(options, onSelect) {
+function createDropdown(options, onSelect, title) {
   const dropdown = document.createElement('div');
   dropdown.style.position = 'absolute';
   dropdown.style.backgroundColor = '#333';
   dropdown.style.border = '1px solid #777';
   dropdown.style.padding = '10px';
   dropdown.style.display = 'flex';
+  dropdown.style.flexDirection = 'column';
   dropdown.style.gap = '10px';
   dropdown.style.borderRadius = '8px';
   dropdown.style.zIndex = 1000;
+
+  // Create the title element
+  const titleElement = document.createElement('div');
+  titleElement.textContent = title;
+  titleElement.style.fontFamily = 'Arial, sans-serif';
+  titleElement.style.color = '#fff';
+  titleElement.style.marginBottom = '10px';
+  titleElement.style.textAlign = 'center';
+  dropdown.appendChild(titleElement);
+
+  // Create the container for the options
+  const optionsContainer = document.createElement('div');
+  optionsContainer.style.display = 'flex';
+  optionsContainer.style.gap = '10px';
 
   options.forEach((option) => {
     const box = document.createElement('div');
@@ -82,22 +97,45 @@ function createDropdown(options, onSelect) {
     box.style.borderRadius = '8px';
     box.style.border = '2px solid #555';
 
-    // Apply the gradient background
+    // Apply the gradient or color
     if (option.backgroundImage) {
       box.style.backgroundImage = option.backgroundImage;
     } else {
       box.style.backgroundColor = option.color;
     }
 
+    // Handle highlighting
     box.addEventListener('click', (event) => {
       event.stopPropagation();
+
+      // Remove highlight from all boxes
+      document.querySelectorAll('.highlighted').forEach(el => {
+        el.classList.remove('highlighted');
+      });
+
+      // Add highlight to the selected box
+      box.classList.add('highlighted');
+
       onSelect(option.value, option.color);
     });
 
-    dropdown.appendChild(box);
+    optionsContainer.appendChild(box);
   });
 
+  dropdown.appendChild(optionsContainer);
+
   return dropdown;
+}
+
+function closeDropdown() {
+  if (activeDropdown) {
+    // Remove highlight from all boxes when closing dropdown
+    document.querySelectorAll('.highlighted').forEach(el => {
+      el.classList.remove('highlighted');
+    });
+    activeDropdown.remove();
+    activeDropdown = null;
+  }
 }
 
 function addNewColor() {
@@ -158,13 +196,14 @@ function showHueQuadrantDropdown(slot) {
 
   const hueQuadrantDropdown = createDropdown(hueQuadrants, (hueQuadrantValue) => {
     showHueDropdown(slot, hueQuadrantValue);
-  });
+  }, 'Select Quadrant:'); // Adding the title
 
   document.body.appendChild(hueQuadrantDropdown);
   positionDropdown(hueQuadrantDropdown, slot);
   activeDropdown = hueQuadrantDropdown;
 }
 
+// Similar changes for showHueDropdown, showSaturationDropdown, and showBrightnessDropdown
 function showHueDropdown(slot, hueQuadrantValue) {
   closeDropdown(); // Close previous dropdown
 
@@ -176,7 +215,7 @@ function showHueDropdown(slot, hueQuadrantValue) {
 
   const hueDropdown = createDropdown(hues, (refinedHueValue) => {
     showSaturationDropdown(slot, refinedHueValue);
-  });
+  }, 'Select Hue:');
 
   document.body.appendChild(hueDropdown);
   positionDropdown(hueDropdown, slot);
@@ -195,7 +234,7 @@ function showSaturationDropdown(slot, refinedHueValue) {
 
   const saturationDropdown = createDropdown(saturations, (saturationValue) => {
     showBrightnessDropdown(slot, refinedHueValue, saturationValue);
-  });
+  }, 'Select Saturation:'); // Adding the title
 
   document.body.appendChild(saturationDropdown);
   positionDropdown(saturationDropdown, slot);
@@ -216,7 +255,7 @@ function showBrightnessDropdown(slot, refinedHueValue, saturationValue) {
     colorset[slot] = finalColor; // Update the color in the colorset array
     renderSlots(); // Re-render the slots to reflect the change
     closeDropdown(); // Close the dropdown after selection
-  });
+  }, 'Select Brightness:'); // Adding the title
 
   document.body.appendChild(brightnessDropdown);
   positionDropdown(brightnessDropdown, slot);
@@ -226,15 +265,10 @@ function showBrightnessDropdown(slot, refinedHueValue, saturationValue) {
 function positionDropdown(dropdown, slot) {
   const slotElement = document.querySelector(`[data-slot="${slot}"]`);
   const rect = slotElement.getBoundingClientRect();
-  dropdown.style.top = `${rect.bottom + window.scrollY + 10}px`;
-  dropdown.style.left = `${rect.left + window.scrollX - ((dropdown.style.width) / 2)}px`;
-}
+  const dropdownWidth = dropdown.offsetWidth;
 
-function closeDropdown() {
-  if (activeDropdown) {
-    activeDropdown.remove();
-    activeDropdown = null;
-  }
+  dropdown.style.top = `${rect.bottom + window.scrollY + 10}px`;
+  dropdown.style.left = `${rect.left + window.scrollX + (rect.width / 2) - (dropdownWidth / 2)}px`;
 }
 
 document.addEventListener('DOMContentLoaded', () => {
