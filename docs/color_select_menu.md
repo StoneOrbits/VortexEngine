@@ -77,7 +77,7 @@ grand_parent: Vortex Engine
   100% { background-color: inherit; }
 }
 
-@media (max-width: 600px) {
+@media (max-width: 500px) {
   .slot {
     width: 30px;
     height: 30px;
