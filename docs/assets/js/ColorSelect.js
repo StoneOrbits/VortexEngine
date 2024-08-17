@@ -366,6 +366,8 @@ function showSaturationDropdown(index, refinedHueValue) {
     { value: 0, color: `hsl(${refinedHueValue}, 0%, 100%)` }    // White
   ];
 
+  console.log(saturations);
+
   const saturationDropdown = createDropdown(saturations, (saturationValue) => {
     const baseLightness = calculateLightnessForSaturation(saturationValue);
     showBrightnessDropdown(index, refinedHueValue, saturationValue, baseLightness);
