@@ -68,7 +68,7 @@ The Color Select menu allows customization of the colors in the current [Mode](m
 
 <img width="40%" style="float:right;margin:0;margin-left:20px;margin-right:20px;padding:0;" src="assets/images/color-select.png">
 
-Below is an interactive colorset that mimics real color select menu functionality, you can click to add/edit colors and hold to delete colors.
+Below is an interactive colorset that mimics real color select menu functionality, you can **click to add/edit** colors and **hold to delete** colors.
 
 <div id="slots-container">
     <div class="slot empty" data-slot="0"></div>
