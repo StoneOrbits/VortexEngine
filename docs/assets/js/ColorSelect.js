@@ -2,6 +2,12 @@ let colorset = []; // Array to store the colors selected by the user
 let deleteMode = false; // Track if delete mode is active
 let activeDropdown = null; // Track the active dropdown menu
 
+// Initialize with default colors
+function initializeColorset() {
+  colorset = ['#ff0000', '#00ff00', '#0000ff', '#000000']; // Default Red, Green, Blue, and Black
+  renderSlots(); // Render the initial slots
+}
+
 // Function to render the slots based on the colorset array
 function renderSlots() {
   const slotsContainer = document.getElementById('slots-container');
@@ -86,20 +92,27 @@ function renderSlots() {
   }
 }
 
-// Initialize with default colors
-function initializeColorset() {
-  colorset = ['#ff0000', '#00ff00', '#0000ff', '#000000']; // Default Red, Green, Blue, and Black
-  renderSlots(); // Render the initial slots
+// Function to edit color
+function editColor(slot) {
+  if (!deleteMode) {
+    closeDropdown();
+    showHueQuadrantDropdown(slot);
+  }
 }
 
-// Start flashing red for delete mode
+// Function to delete color
+function deleteColor(slot) {
+  colorset.splice(slot, 1); // Remove the color from the array
+}
+
+// Function to start flashing red for delete mode
 function startFlashingRed(slot) {
   const slotElement = document.querySelector(`[data-slot="${slot}"]`);
   slotElement.style.animation = 'flashRed 1s infinite';
   deleteMode = true;
 }
 
-// Stop flashing red for delete mode
+// Function to stop flashing red for delete mode
 function stopFlashingRed(slot) {
   const slotElement = document.querySelector(`[data-slot="${slot}"]`);
   slotElement.style.animation = '';
@@ -191,18 +204,6 @@ function addNewColor() {
     renderSlots();
     editColor(colorset.length - 1);
   }
-}
-
-function editColor(slot) {
-  if (!deleteMode) {
-    closeDropdown();
-    showHueQuadrantDropdown(slot);
-  }
-}
-
-function deleteColor(slot) {
-  colorset.splice(slot, 1);
-  renderSlots();
 }
 
 function handleDelete(slot) {
