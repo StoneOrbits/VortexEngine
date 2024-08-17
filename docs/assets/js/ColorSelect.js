@@ -15,16 +15,78 @@ function renderSlots() {
     slot.dataset.slot = index;
     slot.style.cursor = 'pointer';
 
-    // Add event listeners for editing and deleting
-    slot.addEventListener('click', (event) => {
-      editColor(index)
-      event.stopPropagation();
+    let holdTimer;
+    let isHolding = false;
+    let hasMoved = false;
+
+    // Function to start the hold timer
+    const startHold = () => {
+      isHolding = true;
+      holdTimer = setTimeout(() => {
+        startFlashingRed(index);
+      }, 500); // Start flashing red after holding for 500ms
+    };
+
+    // Function to cancel the hold
+    const cancelHold = () => {
+      clearTimeout(holdTimer);
+      isHolding = false;
+      if (deleteMode) {
+        stopFlashingRed(index);
+      }
+    };
+
+    // Handle click/tap logic
+    const handleClick = () => {
+      if (!isHolding && !hasMoved) {
+        editColor(index);
+      }
+      cancelHold();
+    };
+
+    // Add event listeners for touch and mouse events
+    slot.addEventListener('mousedown', (event) => {
+      event.preventDefault();
+      hasMoved = false; // Reset movement flag
+      startHold();
     });
+
+    slot.addEventListener('mouseup', (event) => {
+      event.preventDefault();
+      handleClick();
+    });
+
+    slot.addEventListener('mouseleave', (event) => {
+      cancelHold();
+    });
+
     slot.addEventListener('touchstart', (event) => {
-      editColor(index);
-      event.stopPropagation();
+      event.preventDefault();
+      hasMoved = false; // Reset movement flag
+      startHold();
     });
-    slot.addEventListener('mousedown', () => handleDelete(index));
+
+    slot.addEventListener('touchend', (event) => {
+      if (!hasMoved) {
+        handleClick();
+      } else {
+        cancelHold();
+      }
+    });
+
+    slot.addEventListener('touchmove', (event) => {
+      hasMoved = true;
+      const touch = event.touches[0];
+      const rect = slot.getBoundingClientRect();
+      if (
+        touch.clientX < rect.left ||
+        touch.clientX > rect.right ||
+        touch.clientY < rect.top ||
+        touch.clientY > rect.bottom
+      ) {
+        cancelHold();
+      }
+    });
 
     slotsContainer.appendChild(slot);
   });
