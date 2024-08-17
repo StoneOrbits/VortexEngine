@@ -7,6 +7,7 @@ function renderSlots() {
   const slotsContainer = document.getElementById('slots-container');
   slotsContainer.innerHTML = ''; // Clear existing slots
 
+  // Render each color in the colorset array
   colorset.forEach((color, index) => {
     const slot = document.createElement('div');
     slot.className = 'slot';
@@ -15,73 +16,64 @@ function renderSlots() {
     slot.style.cursor = 'pointer';
 
     let holdTimer;
-    let tapHandled = false;
+    let isHolding = false;
+    let tapTimeout;
 
     // Function to start the hold timer
     const startHold = () => {
+      isHolding = false;
       holdTimer = setTimeout(() => {
-        tapHandled = true; // Prevent tap/click handling after hold is triggered
+        isHolding = true;
         startFlashingRed(index);
       }, 500); // Start flashing red after holding for 500ms
     };
 
-    // Function to cancel the hold
-    const cancelHold = () => {
+    // Function to handle the release (mouseup/touchend)
+    const handleRelease = () => {
       clearTimeout(holdTimer);
-      if (deleteMode) {
+      clearTimeout(tapTimeout);
+      if (isHolding && deleteMode) {
+        deleteColor(index); // Delete the color if it's flashing red
         stopFlashingRed(index);
-      }
-    };
-
-    // Function to handle click/tap
-    const handleTap = () => {
-      if (!tapHandled) {
+        renderSlots(); // Re-render the slots to reflect the change
+      } else if (!isHolding) {
+        // Handle click/tap if no hold
         editColor(index);
       }
-      tapHandled = false; // Reset tapHandled for future interactions
+      isHolding = false;
     };
 
-    // Mouse events
+    // Cancel hold if the user moves out of the slot area
+    const handleMove = (event) => {
+      clearTimeout(holdTimer);
+      if (isHolding && deleteMode) {
+        stopFlashingRed(index);
+      }
+      isHolding = false;
+    };
+
+    // Add event listeners for mouse events
     slot.addEventListener('mousedown', () => {
       startHold();
     });
 
     slot.addEventListener('mouseup', () => {
-      if (!tapHandled) {
-        handleTap();
-      } else {
-        cancelHold();
-      }
+      handleRelease();
     });
 
-    slot.addEventListener('mouseleave', cancelHold);
+    slot.addEventListener('mouseleave', handleMove);
 
-    // Touch events
+    // Add event listeners for touch events
     slot.addEventListener('touchstart', (event) => {
-      event.preventDefault(); // Prevent scrolling
+      event.preventDefault(); // Prevent scrolling or other default touch actions
       startHold();
     });
 
     slot.addEventListener('touchend', (event) => {
-      if (!tapHandled) {
-        handleTap();
-      } else {
-        cancelHold();
-      }
+      handleRelease();
     });
 
-    slot.addEventListener('touchmove', (event) => {
-      const touch = event.touches[0];
-      const rect = slot.getBoundingClientRect();
-      if (
-        touch.clientX < rect.left ||
-        touch.clientX > rect.right ||
-        touch.clientY < rect.top ||
-        touch.clientY > rect.bottom
-      ) {
-        cancelHold();
-      }
-    });
+    slot.addEventListener('touchmove', handleMove);
 
     slotsContainer.appendChild(slot);
   });
