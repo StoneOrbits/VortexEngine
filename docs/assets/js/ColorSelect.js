@@ -167,28 +167,41 @@ function deleteColor(slot) {
 
 function handleDelete(slot) {
   let holdTimer;
+  let tapTimer;
+  let isHolding = false;
 
   const slotElement = document.querySelector(`[data-slot="${slot}"]`);
 
   const startHold = () => {
+    isHolding = true;
     holdTimer = setTimeout(() => {
       startFlashingRed(slot);
     }, 500); // Start flashing red after holding for 500ms
   };
 
   const cancelHold = () => {
-    clearTimeout(holdTimer); // Stop the hold timer
+    clearTimeout(holdTimer);
+    clearTimeout(tapTimer);
+    isHolding = false;
     if (deleteMode) {
       stopFlashingRed(slot);
     }
   };
 
   const completeDelete = () => {
-    clearTimeout(holdTimer); // Stop the hold timer
-    if (deleteMode) {
+    if (isHolding && deleteMode) {
       deleteColor(slot); // Delete the color if it's flashing red
       stopFlashingRed(slot);
       renderSlots(); // Re-render the slots to reflect the change
+    }
+    cancelHold();
+  };
+
+  // Mobile-specific logic to prevent tap from interfering
+  const handleTap = () => {
+    if (!isHolding) {
+      // If it's a tap and not a hold, proceed with normal click action (edit color)
+      editColor(slot);
     }
   };
 
@@ -199,12 +212,19 @@ function handleDelete(slot) {
 
   // Mobile (touch) events
   slotElement.addEventListener('touchstart', (event) => {
-    event.preventDefault(); // Prevent the default action (like scrolling) while holding
+    event.preventDefault();
     startHold();
+    tapTimer = setTimeout(() => {
+      handleTap(); // Trigger tap logic after 200ms if not a hold
+    }, 200); // Short delay to differentiate tap from hold
   });
-  slotElement.addEventListener('touchend', completeDelete);
+
+  slotElement.addEventListener('touchend', (event) => {
+    clearTimeout(tapTimer);
+    completeDelete();
+  });
+
   slotElement.addEventListener('touchmove', (event) => {
-    // Cancel deletion if the touch moves outside the slot before the timer completes
     const touch = event.touches[0];
     const rect = slotElement.getBoundingClientRect();
     if (
@@ -217,7 +237,6 @@ function handleDelete(slot) {
     }
   });
 
-  // If the touch ends outside the slot, cancel the deletion
   document.addEventListener('touchend', (event) => {
     if (!slotElement.contains(event.target)) {
       cancelHold();
