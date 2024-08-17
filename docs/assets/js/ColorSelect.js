@@ -166,37 +166,61 @@ function deleteColor(slot) {
 }
 
 function handleDelete(slot) {
-  let holdTimer = setTimeout(() => {
-    startFlashingRed(slot);
-  }, 500); // Start flashing red after holding for 500ms
+  let holdTimer;
 
   const slotElement = document.querySelector(`[data-slot="${slot}"]`);
 
-  // Cancel deletion if the mouse leaves the slot before the timer completes
-  slotElement.addEventListener('mouseleave', () => {
+  const startHold = () => {
+    holdTimer = setTimeout(() => {
+      startFlashingRed(slot);
+    }, 500); // Start flashing red after holding for 500ms
+  };
+
+  const cancelHold = () => {
     clearTimeout(holdTimer); // Stop the hold timer
     if (deleteMode) {
       stopFlashingRed(slot);
     }
-  });
+  };
 
-  // Complete the deletion if the mouse is released within the slot
-  slotElement.addEventListener('mouseup', () => {
+  const completeDelete = () => {
     clearTimeout(holdTimer); // Stop the hold timer
     if (deleteMode) {
       deleteColor(slot); // Delete the color if it's flashing red
       stopFlashingRed(slot);
       renderSlots(); // Re-render the slots to reflect the change
     }
+  };
+
+  // Desktop (mouse) events
+  slotElement.addEventListener('mousedown', startHold);
+  slotElement.addEventListener('mouseleave', cancelHold);
+  slotElement.addEventListener('mouseup', completeDelete);
+
+  // Mobile (touch) events
+  slotElement.addEventListener('touchstart', (event) => {
+    event.preventDefault(); // Prevent the default action (like scrolling) while holding
+    startHold();
+  });
+  slotElement.addEventListener('touchend', completeDelete);
+  slotElement.addEventListener('touchmove', (event) => {
+    // Cancel deletion if the touch moves outside the slot before the timer completes
+    const touch = event.touches[0];
+    const rect = slotElement.getBoundingClientRect();
+    if (
+      touch.clientX < rect.left ||
+      touch.clientX > rect.right ||
+      touch.clientY < rect.top ||
+      touch.clientY > rect.bottom
+    ) {
+      cancelHold();
+    }
   });
 
-  // If mouseup happens outside the slot, cancel the deletion
-  document.addEventListener('mouseup', (event) => {
+  // If the touch ends outside the slot, cancel the deletion
+  document.addEventListener('touchend', (event) => {
     if (!slotElement.contains(event.target)) {
-      clearTimeout(holdTimer);
-      if (deleteMode) {
-        stopFlashingRed(slot);
-      }
+      cancelHold();
     }
   });
 }
