@@ -21,13 +21,12 @@ function renderSlots() {
     slot.style.cursor = 'pointer';
 
     let holdTimer;
-    let isHolding = false;
+    let tapHandled = false;
 
     // Function to start the hold timer
     const startHold = () => {
-      isHolding = false;
       holdTimer = setTimeout(() => {
-        isHolding = true;
+        tapHandled = true; // Prevent tap/click handling after hold is triggered
         startFlashingRed(index);
       }, 500); // Start flashing red after holding for 500ms
     };
@@ -35,33 +34,32 @@ function renderSlots() {
     // Function to cancel the hold
     const cancelHold = () => {
       clearTimeout(holdTimer);
-      if (isHolding && deleteMode) {
+      if (deleteMode) {
         stopFlashingRed(index);
       }
-      isHolding = false;
     };
 
-    // Function to handle release
-    const handleRelease = () => {
-      clearTimeout(holdTimer);
-      if (isHolding && deleteMode) {
-        deleteColor(index); // Perform delete if holding was true
-        stopFlashingRed(index);
-        renderSlots(); // Re-render the slots to reflect the change
-      }
-      isHolding = false; // Reset holding status
-    };
-
-    // Handle click (for edit) separately
-    slot.addEventListener('click', () => {
-      if (!isHolding) {
+    // Function to handle click/tap
+    const handleTap = () => {
+      if (!tapHandled) {
         editColor(index);
+      }
+      tapHandled = false; // Reset tapHandled for future interactions
+    };
+
+    // Mouse events
+    slot.addEventListener('mousedown', () => {
+      startHold();
+    });
+
+    slot.addEventListener('mouseup', () => {
+      if (!tapHandled) {
+        handleTap();
+      } else {
+        cancelHold();
       }
     });
 
-    // Mouse events
-    slot.addEventListener('mousedown', startHold);
-    slot.addEventListener('mouseup', handleRelease);
     slot.addEventListener('mouseleave', cancelHold);
 
     // Touch events
@@ -69,8 +67,27 @@ function renderSlots() {
       event.preventDefault(); // Prevent scrolling
       startHold();
     });
-    slot.addEventListener('touchend', handleRelease);
-    slot.addEventListener('touchmove', cancelHold);
+
+    slot.addEventListener('touchend', (event) => {
+      if (!tapHandled) {
+        handleTap();
+      } else {
+        cancelHold();
+      }
+    });
+
+    slot.addEventListener('touchmove', (event) => {
+      const touch = event.touches[0];
+      const rect = slot.getBoundingClientRect();
+      if (
+        touch.clientX < rect.left ||
+        touch.clientX > rect.right ||
+        touch.clientY < rect.top ||
+        touch.clientY > rect.bottom
+      ) {
+        cancelHold();
+      }
+    });
 
     slotsContainer.appendChild(slot);
   });
@@ -92,27 +109,14 @@ function renderSlots() {
   }
 }
 
-// Function to edit color
-function editColor(slot) {
-  if (!deleteMode) {
-    closeDropdown();
-    showHueQuadrantDropdown(slot);
-  }
-}
-
-// Function to delete color
-function deleteColor(slot) {
-  colorset.splice(slot, 1); // Remove the color from the array
-}
-
-// Function to start flashing red for delete mode
+// Start flashing red for delete mode
 function startFlashingRed(slot) {
   const slotElement = document.querySelector(`[data-slot="${slot}"]`);
   slotElement.style.animation = 'flashRed 1s infinite';
   deleteMode = true;
 }
 
-// Function to stop flashing red for delete mode
+// Stop flashing red for delete mode
 function stopFlashingRed(slot) {
   const slotElement = document.querySelector(`[data-slot="${slot}"]`);
   slotElement.style.animation = '';
@@ -204,6 +208,17 @@ function addNewColor() {
     renderSlots();
     editColor(colorset.length - 1);
   }
+}
+
+function editColor(slot) {
+  if (!deleteMode) {
+    closeDropdown();
+    showHueQuadrantDropdown(slot);
+  }
+}
+
+function deleteColor(slot) {
+  colorset.splice(slot, 1);
 }
 
 function handleDelete(slot) {
