@@ -91,6 +91,7 @@ function createDropdown(options, onSelect, title) {
 
   options.forEach((option) => {
     const box = document.createElement('div');
+    box.className = 'slot';
     box.style.width = '40px';
     box.style.height = '40px';
     box.style.cursor = 'pointer';
@@ -111,10 +112,12 @@ function createDropdown(options, onSelect, title) {
       // Remove highlight from all boxes
       document.querySelectorAll('.highlighted').forEach(el => {
         el.classList.remove('highlighted');
+        el.style.boxShadow = '';
       });
 
       // Add highlight to the selected box
       box.classList.add('highlighted');
+      box.style.boxShadow = `0 0 10px 2px ${option.color}`; // Add glow effect
 
       onSelect(option.value, option.color);
     });
@@ -132,6 +135,7 @@ function closeDropdown() {
     // Remove highlight from all boxes when closing dropdown
     document.querySelectorAll('.highlighted').forEach(el => {
       el.classList.remove('highlighted');
+      el.style.boxShadow = ''; // Reset glow effect
     });
     activeDropdown.remove();
     activeDropdown = null;
@@ -162,12 +166,33 @@ function handleDelete(slot) {
     startFlashingRed(slot);
   }, 500); // Start flashing red after holding for 500ms
 
-  document.querySelector(`[data-slot="${slot}"]`).addEventListener('mouseup', () => {
-    clearTimeout(holdTimer);
+  const slotElement = document.querySelector(`[data-slot="${slot}"]`);
+
+  // Cancel deletion if the mouse leaves the slot before the timer completes
+  slotElement.addEventListener('mouseleave', () => {
+    clearTimeout(holdTimer); // Stop the hold timer
+    if (deleteMode) {
+      stopFlashingRed(slot);
+    }
+  });
+
+  // Complete the deletion if the mouse is released within the slot
+  slotElement.addEventListener('mouseup', () => {
+    clearTimeout(holdTimer); // Stop the hold timer
     if (deleteMode) {
       deleteColor(slot); // Delete the color if it's flashing red
       stopFlashingRed(slot);
       renderSlots(); // Re-render the slots to reflect the change
+    }
+  });
+
+  // If mouseup happens outside the slot, cancel the deletion
+  document.addEventListener('mouseup', (event) => {
+    if (!slotElement.contains(event.target)) {
+      clearTimeout(holdTimer);
+      if (deleteMode) {
+        stopFlashingRed(slot);
+      }
     }
   });
 }
