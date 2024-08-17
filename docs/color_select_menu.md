@@ -97,6 +97,11 @@ grand_parent: Vortex Engine
     margin-bottom: 40px;
   }
 
+  #color-select-diagram {
+    width:180px;
+  }
+}
+
 @media (max-width: 400px) {
   .slot {
     width: 32px;
@@ -113,6 +118,10 @@ grand_parent: Vortex Engine
   #slots-container {
     margin-top: 30px;
     margin-bottom: 40px;
+  }
+
+  #color-select-diagram {
+    width:160px;
   }
 }
 </style>
