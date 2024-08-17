@@ -73,10 +73,6 @@ grand_parent: Vortex Engine
   padding:0;
 }
 
-@media (
-  prefers-color-scheme: dark
-)
-
 @keyframes flashRed {
   0% { background-color: inherit; }
   50% { background-color: #700000; }

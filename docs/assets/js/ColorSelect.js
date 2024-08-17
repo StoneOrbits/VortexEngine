@@ -119,6 +119,7 @@ function renderSlots() {
 function startFlashingRed(index) {
   const slotElement = document.querySelector(`[data-slot="${index}"]`);
   slotElement.style.animation = 'flashRed 1s infinite';
+  void slotElement.offsetWidth; // This line forces the reflow
   deleteMode = true;
 }
 
