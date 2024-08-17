@@ -7,7 +7,6 @@ function renderSlots() {
   const slotsContainer = document.getElementById('slots-container');
   slotsContainer.innerHTML = ''; // Clear existing slots
 
-  // Render each color in the colorset array
   colorset.forEach((color, index) => {
     const slot = document.createElement('div');
     slot.className = 'slot';
@@ -16,13 +15,12 @@ function renderSlots() {
     slot.style.cursor = 'pointer';
 
     let holdTimer;
-    let isHolding = false;
-    let hasMoved = false;
+    let tapHandled = false;
 
     // Function to start the hold timer
     const startHold = () => {
       holdTimer = setTimeout(() => {
-        isHolding = true;
+        tapHandled = true; // Prevent tap/click handling after hold is triggered
         startFlashingRed(index);
       }, 500); // Start flashing red after holding for 500ms
     };
@@ -30,53 +28,49 @@ function renderSlots() {
     // Function to cancel the hold
     const cancelHold = () => {
       clearTimeout(holdTimer);
-      if (isHolding && deleteMode) {
+      if (deleteMode) {
         stopFlashingRed(index);
       }
-      isHolding = false;
-      hasMoved = false;
     };
 
-    // Function to handle the release (mouseup/touchend)
-    const handleRelease = () => {
-      clearTimeout(holdTimer);
-      if (isHolding && deleteMode) {
-        // Perform delete if holding was true
-        deleteColor(index);
-        stopFlashingRed(index);
-        renderSlots(); // Re-render the slots to reflect the change
-      } else if (!hasMoved) {
-        // Handle click/tap if no move and no hold
+    // Function to handle click/tap
+    const handleTap = () => {
+      if (!tapHandled) {
         editColor(index);
       }
-      cancelHold();
+      tapHandled = false; // Reset tapHandled for future interactions
     };
 
-    // Add event listeners for touch and mouse events
-    slot.addEventListener('mousedown', (event) => {
-      event.preventDefault();
+    // Mouse events
+    slot.addEventListener('mousedown', () => {
       startHold();
     });
 
-    slot.addEventListener('mouseup', (event) => {
-      event.preventDefault();
-      handleRelease();
+    slot.addEventListener('mouseup', () => {
+      if (!tapHandled) {
+        handleTap();
+      } else {
+        cancelHold();
+      }
     });
 
     slot.addEventListener('mouseleave', cancelHold);
 
+    // Touch events
     slot.addEventListener('touchstart', (event) => {
-      event.preventDefault();
+      event.preventDefault(); // Prevent scrolling
       startHold();
     });
 
     slot.addEventListener('touchend', (event) => {
-      event.preventDefault();
-      handleRelease();
+      if (!tapHandled) {
+        handleTap();
+      } else {
+        cancelHold();
+      }
     });
 
     slot.addEventListener('touchmove', (event) => {
-      hasMoved = true;
       const touch = event.touches[0];
       const rect = slot.getBoundingClientRect();
       if (
@@ -98,7 +92,6 @@ function renderSlots() {
     addSlot.className = 'slot add-slot';
     addSlot.innerHTML = '<div class="plus-icon">+</div>';
     addSlot.addEventListener('click', () => addNewColor());
-
     slotsContainer.appendChild(addSlot);
   }
 
