@@ -73,7 +73,7 @@ grand_parent: Vortex Engine
 
 @keyframes flashRed {
   0% { background-color: inherit; }
-  50% { background-color: red; }
+  50% { background-color: #700000; }
   100% { background-color: inherit; }
 }
 
