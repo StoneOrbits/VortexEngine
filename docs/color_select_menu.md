@@ -7,6 +7,34 @@ grand_parent: Vortex Engine
 ---
 
 <style>
+.instructions-list {
+  list-style-type: decimal; /* Use numbers for the list */
+  margin: 10px; /* Remove default margin */
+}
+
+.instructions-list li span {
+  font-weight: normal; /* Regular weight for descriptive text */
+  color: #aaa; /* Lighter color to make it look more descriptive */
+  display: block; /* Ensure the text is on its own line */
+}
+
+.static-box-container {
+  display: flex; /* Align the boxes and text horizontally */
+  align-items: center;
+}
+
+.static-box {
+  width: 30px;
+  height: 30px;
+  margin-right: 5px; /* Space between boxes */
+  border-radius: 4px; /* Slight rounding for nicer appearance */
+}
+
+.instructions-list li strong {
+  font-weight: bold;
+  color: #DDD; /* Darker color for emphasis */
+}
+
 .static-box {
   width: 20px;
   height: 20px;
@@ -21,7 +49,6 @@ grand_parent: Vortex Engine
   display: flex;
   align-items: center;
   margin: 10px;
-  margin-left: 20px;
 }
 
 .static-box-container span {
@@ -205,38 +232,50 @@ To add a new color select the **add** option, to edit a color select just select
 
 ### Choosing Colors
 
-<div style="margin-bottom:15px" markdown="1">
-  <div class="static-box-container">
-      <div class="static-box" style="background: linear-gradient(to right, hsl(0, 100%, 50%), hsl(70, 100%, 50%));"></div>
-      <div class="static-box" style="background: linear-gradient(to right, hsl(90, 100%, 50%), hsl(160, 100%, 50%));"></div>
-      <div class="static-box" style="background: linear-gradient(to right, hsl(180, 100%, 50%), hsl(250, 100%, 50%));"></div>
-      <div class="static-box" style="background: linear-gradient(to right, hsl(270, 100%, 50%), hsl(340, 100%, 50%));"></div>
-      <span>1. **Select Hue Quadrant**: Pick which quadrant contains the desired hue.</span>
-  </div>
+Color selection begins after selecting a color to edit, or adding a new color. Each step in color selection narrows down the color choice by providing four options:
 
-  <div class="static-box-container">
-      <div class="static-box" style="background-color: hsl(0, 100%, 50%);"></div>
-      <div class="static-box" style="background-color: hsl(22.5, 100%, 50%);"></div>
-      <div class="static-box" style="background-color: hsl(45, 100%, 50%);"></div>
-      <div class="static-box" style="background-color: hsl(67.5, 100%, 50%);"></div>
-      <span>2. **Select Hue**: Pick the specific hue to decide the base color.</span>
-  </div>
+<div style="margin-bottom:15px">
+<ul class="instructions-list">
+<li>
+<div class="static-box-container">
+<div class="static-box" style="background: linear-gradient(to right, hsl(0, 100%, 50%), hsl(70, 100%, 50%));"></div>
+<div class="static-box" style="background: linear-gradient(to right, hsl(90, 100%, 50%), hsl(160, 100%, 50%));"></div>
+<div class="static-box" style="background: linear-gradient(to right, hsl(180, 100%, 50%), hsl(250, 100%, 50%));"></div>
+<div class="static-box" style="background: linear-gradient(to right, hsl(270, 100%, 50%), hsl(340, 100%, 50%));"></div>
+<span><strong>Select Hue Quadrant</strong>: Pick which quadrant contains the desired hue.</span>
+</div>
+</li>
 
-  <div class="static-box-container">
-      <div class="static-box" style="background-color: hsl(0, 100%, 50%);"></div>
-      <div class="static-box" style="background-color: hsl(0, 66%, 60%);"></div>
-      <div class="static-box" style="background-color: hsl(0, 33%, 80%);"></div>
-      <div class="static-box" style="background-color: hsl(0, 0%, 100%);"></div>
-      <span>3. **Select Saturation**: Pick the saturation to adjust how white the color appears.</span>
-  </div>
+<li>
+<div class="static-box-container">
+<div class="static-box" style="background-color: hsl(0, 100%, 50%);"></div>
+<div class="static-box" style="background-color: hsl(22.5, 100%, 50%);"></div>
+<div class="static-box" style="background-color: hsl(45, 100%, 50%);"></div>
+<div class="static-box" style="background-color: hsl(67.5, 100%, 50%);"></div>
+<span><strong>Select Hue</strong>: Pick the specific hue to decide the base color.</span>
+</div>
+</li>
 
-  <div class="static-box-container">
-      <div class="static-box" style="background-color: hsl(0, 100%, 50%);"></div>
-      <div class="static-box" style="background-color: hsl(0, 100%, 33%);"></div>
-      <div class="static-box" style="background-color: hsl(0, 100%, 17%);"></div>
-      <div class="static-box" style="background-color: hsl(0, 100%, 0%);"></div>
-      <span>4. **Select Brightness**: Pick the brightness to adjust how dark the color appears.</span>
-  </div>
+<li>
+<div class="static-box-container">
+<div class="static-box" style="background-color: hsl(0, 100%, 50%);"></div>
+<div class="static-box" style="background-color: hsl(0, 66%, 60%);"></div>
+<div class="static-box" style="background-color: hsl(0, 33%, 80%);"></div>
+<div class="static-box" style="background-color: hsl(0, 0%, 100%);"></div>
+<span><strong>Select Saturation</strong>: Pick the saturation to adjust how white the color appears.</span>
+</div>
+</li>
+
+<li>
+<div class="static-box-container">
+<div class="static-box" style="background-color: hsl(0, 100%, 50%);"></div>
+<div class="static-box" style="background-color: hsl(0, 100%, 33%);"></div>
+<div class="static-box" style="background-color: hsl(0, 100%, 17%);"></div>
+<div class="static-box" style="background-color: hsl(0, 100%, 0%);"></div>
+<span><strong>Select Brightness</strong>: Pick the brightness to adjust how dark the color appears.</span>
+</div>
+</li>
+</ul>
 </div>
 
 After selecting brightness the menu will go back to the slot selection and reflect the new choice.
