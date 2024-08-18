@@ -3,105 +3,40 @@ layout: default
 title: Patterns
 nav_order: 20
 parent: Vortex Engine
+has_children: true
 ---
 
 # Patterns
+Patterns control the timing and appearance of blinks on an LED. When a pattern is used with a [colorset](colorsets.html), each blink of the pattern sequentially displays the next color in the colorset.
 
-Patterns control the ways in which LEDs are blinked on and off for specific durations to produce different visual effects. They also determine how a [colorset](colorsets.html) is utilized, usually by showing each color in the order it appears in the set.
+## Simple Pattern Usage
 
-## Pattern Parameters
+The basic way to use a pattern is to simply choose one via the [Pattern Select Menu](pattern_select_menu.html). With this appraoch nothing else needs to be known about patterns.
 
-All patterns have variables called parameters that can be modified to create countless original patterns.
-The best way to understand how these paramters work is by playing with them in real-time on [Lightshow.lol](lightshow.lol).
+However, if you want to learn how patterns truly work or learn more about each pattern then continue reading.
+
+## Pattern Types
+
+All patterns are classified into a **type** and **family**, there are only **two families** of patterns: 
+
+  - **A Multi-LED Pattern** plays on all LEDs, creating coordinated effects that _travel_ across LEDs.
+
+  - **A Single-LED Pattern** plays on an individual LED and _does not travel_.
+
+Within each **family** there are a variety of **types** of patterns. Examples of **types** of **single-led patterns** include: _blend_, or _strobe_.
+
+All patterns have **parameters**, numeric values that control their appearance, such as duration of blinks or gaps. Each **type** of pattern may offer slightly different **parameters** to control.
+
+The **Pattern Select Menu** offers a curated list of patterns to choose from, these are various **types** of patterns that have their **parameters** tuned to specific values.
+
+Two completely different looking patterns in the **Pattern Select Menu** may actually be the same **type** of pattern with slightly different **paremeters**.
 
 ## Multi Led Patterns
 
-Multi LED patterns are displayed across all of the LEDs on a device. They create coordinated effects that appear to 'travel' across multiple LEDs and cannot be displayed on a single LED by itself.
+To learn more about Multi-Led Patterns see the [Multi-LED Patterns](multi_led_patterns.html) page.
 
-Mutli LED pattern parameters vary widely for each pattern. Try experimenting with them to find new possibilities.
+_Note: The Duo does not support Multi-LED patterns._
 
-### Single Led Patterns
+## Single Led Patterns
 
-A Single LED pattern is a pattern which is displayed entirely on a single LED. This means it is possible to display a different single LED pattern on each LED on the device at the same time, but it is also common practice for a [mode](modes.html) to feature the same pattern and colorset on all LEDs. 
-
-There are two varieties of single led patterns:
-
-### Basic Patterns
-
-Basic patterns cover all possible patterns which blink on and off. They have the following parameters:
- - on duration: how long the led blinks on for
- - off duration: how long the led is off each blink
- - gap duration: how large of a gap between each volley of colors
- - dash duration: how large of a dash/line embedded in the gap
- - grouping size: how many colors appear in a group before the gap
-
-### Blend Patterns
-Blend patterns are similar to basic patterns but blend between colors in the colorset instead only using the selected colors. They have the following paramters:
- - on duration: how long the led blinks on for
- - off duration: how long the led is off each blink
- - gap duration: how large of a gap between each volley of colors
- - dash duration: how large of a dash/line embedded in the gap
- - grouping size: how many colors appear in a group before the gap
- - blend speed: the speed at which the blend will progress
- - flip count: the number of times the blend will flip to complementary colors
-
-## The Pattern List
-
-Below is the list of patterns
-
-```
-  strobe
-  hyperstrobe
-  dops
-  strobie
-  dopy
-  ultradops
-  strobegap
-  hypergap
-  dopgap
-  strobiegap
-  dopygap
-  ultragap
-  blinkie
-  ghostcrush
-  doubledops
-  chopper
-  dashgap
-  dashdops
-  dashcrush
-  ultradash
-  gapcycle
-  dashcycle
-  tracer
-  ribbon
-  miniribbon
-  blend
-  blendstrobe
-  blendstrobegap
-  complementary blend
-  complementary blendstrobe
-  complementary blendstrobegap
-  solid
-  hueshift
-  theater chase
-  chaser
-  zigzag
-  zipfade
-  drip
-  dripmorph
-  crossdops
-  doublestrobe
-  meteor
-  sparkletrace
-  vortexwipe
-  warp
-  warpworm
-  snowball
-  lighthouse
-  pulsish
-  fill
-  bounce
-  splitstrobie
-  backstrobe
-  materia
-```
+To learn more about Single-Led Patterns see the [Single-LED Patterns](single_led_patterns.html) page.
