@@ -14,12 +14,13 @@ grand_parent: Vortex Engine
   height: 50px;
   margin: 6px;
   border-radius: 50%;
-  border: 2px solid #777;
   line-height: 50px;
   cursor: pointer;
   position: relative;
   display: inline-block;
   text-align: center;
+  border: 2px solid transparent;
+  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out, border-color 0.2s ease-in-out;  
 }
 
 .slot.empty:hover {
