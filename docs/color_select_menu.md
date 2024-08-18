@@ -282,9 +282,9 @@ After selecting brightness the menu will go back to the slot selection and refle
 ## Deleting Colors
 
 To **delete** an existing color from the colorset:
- 1. Cycle to the desired color to delete
- 2. **Hold** the button until the LED glows red
- 3. Release the button **while the LED is red**
+ 1. Cycle to the desired color to remove
+ 2. **Hold** button until the LED glows red
+ 3. Release **while the LED is red**
 
 **Warning**: If all colors are deleted, the mode will appear as if the device is off.
 
