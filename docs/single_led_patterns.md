@@ -16,25 +16,21 @@ Unlike multi-led patterns where each pattern is a distinct type, there are **two
  - **Blend Patterns** will smoothly blend from color to color (while strobing)
 
 
-## Basic Patterns
+## Strobe Patterns
 
-Basic patterns cover all possible patterns which blink on and off. They have the following parameters:
- - on duration: how long the led blinks on for
- - off duration: how long the led is off each blink
- - gap duration: how large of a gap between each volley of colors
- - dash duration: how large of a dash/line embedded in the gap
- - grouping size: how many colors appear in a group before the gap
+Strobe patterns are the most basic kind of pattern, they simply blink from color to color in the colorset.  A strobe pattern has the following parameters:
+
+ - **on duration**: how long the led stays on each 'blink'
+ - **off duration**: the amount of time the led stays off between each 'blink'
+ - **gap duration**: the length of the pause after a complete cycle of colors
+ - **dash duration**: how large the extra burst of light is after the gap
+ - **grouping size**: how many blinks appear in a 'group' before the gap
 
 ## Blend Patterns
-Blend patterns are similar to basic patterns but blend between colors in the colorset instead only using the selected colors. They have the following paramters:
- - on duration: how long the led blinks on for
- - off duration: how long the led is off each blink
- - gap duration: how large of a gap between each volley of colors
- - dash duration: how large of a dash/line embedded in the gap
- - grouping size: how many colors appear in a group before the gap
- - blend speed: the speed at which the blend will progress
- - flip count: the number of times the blend will flip to complementary colors
+Blend patterns are nearly identical to strobe patterns but instead of blinking from color to color, they blend between colors in the colorset. They have the same parameters as strobe, plus two extra:
 
+ - **blend speed**: the speed at which the blend will progress
+ - **flip count**: the number of times the blend 'flips' to complementary colors
 
 ## The Pattern List
 
