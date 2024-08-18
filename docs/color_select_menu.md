@@ -7,6 +7,28 @@ grand_parent: Vortex Engine
 ---
 
 <style>
+.static-box {
+  width: 20px;
+  height: 20px;
+  margin-right: 7px;
+  border-radius: 4px;
+  display: inline-block;
+  box-shadow: 3px 3px 10px 4px rgba(0, 0, 0, 0.3);
+  vertical-align: middle;
+}
+
+.static-box-container {
+  display: flex;
+  align-items: center;
+  margin: 10px;
+  margin-left: 20px;
+}
+
+.static-box-container span {
+  margin-left: 8px;
+  font-size: 14px;
+}
+
 .slot {
   min-width: 50px;
   min-height: 50px;
@@ -174,26 +196,50 @@ Below is an interactive colorset that mimics real color select menu functionalit
     <div class="slot empty" data-slot="6"></div>
     <div class="slot empty" data-slot="7"></div>
 </div>
-
 <script src="{{ '/assets/js/ColorSelect.js' | relative_url }}"></script>
 
-The options in the menu include: [adding](color_select_menu.html#Editing-Color), [editing](color_select_menu.html#Editing-Color), [deleting](color_select_menu.html#Editing-Color), and [saving](color_select_menu.html#Editing-Color).
+## Adding or Editing a Color
+The **add** option will appear as a blinking white light on the first empty slot as long as the colorset isn't full.
 
-The options are the same on all devices, but are displayed differently:
+To add a new color select the **add** option, to edit a color select just select the color itself.
 
- - [Orbit Color Select](orbit_color_select.html)
- - [Handle Color Select](handle_color_select.html)
- - [Gloves Color Select](gloves_color_select.html)
+### Choosing Colors
 
-## Adding a New Color
-The **add** option will always appear on the first empty slot if there are less than 8 colors.
+<div style="margin-bottom:15px" markdown="1">
+  <div class="static-box-container">
+      <div class="static-box" style="background: linear-gradient(to right, hsl(0, 100%, 50%), hsl(70, 100%, 50%));"></div>
+      <div class="static-box" style="background: linear-gradient(to right, hsl(90, 100%, 50%), hsl(160, 100%, 50%));"></div>
+      <div class="static-box" style="background: linear-gradient(to right, hsl(180, 100%, 50%), hsl(250, 100%, 50%));"></div>
+      <div class="static-box" style="background: linear-gradient(to right, hsl(270, 100%, 50%), hsl(340, 100%, 50%));"></div>
+      <span>1. **Select Hue Quadrant**: Pick which quadrant contains the desired hue.</span>
+  </div>
 
-It will appears as a blinking white light, select it to add a new color to the colorset.
+  <div class="static-box-container">
+      <div class="static-box" style="background-color: hsl(0, 100%, 50%);"></div>
+      <div class="static-box" style="background-color: hsl(22.5, 100%, 50%);"></div>
+      <div class="static-box" style="background-color: hsl(45, 100%, 50%);"></div>
+      <div class="static-box" style="background-color: hsl(67.5, 100%, 50%);"></div>
+      <span>2. **Select Hue**: Pick the specific hue to decide the base color.</span>
+  </div>
 
-Follow the [Selecting Colors](color_select_menu.html#Editing-Colo) section to pick the color.
+  <div class="static-box-container">
+      <div class="static-box" style="background-color: hsl(0, 100%, 50%);"></div>
+      <div class="static-box" style="background-color: hsl(0, 66%, 60%);"></div>
+      <div class="static-box" style="background-color: hsl(0, 33%, 80%);"></div>
+      <div class="static-box" style="background-color: hsl(0, 0%, 100%);"></div>
+      <span>3. **Select Saturation**: Pick the saturation to adjust how white the color appears.</span>
+  </div>
 
-## Editing Colors
-To **edit** a color: select it then follow the [Selecting Colors](color_select_menu.html#Editing-Colo) section to pick the color.
+  <div class="static-box-container">
+      <div class="static-box" style="background-color: hsl(0, 100%, 50%);"></div>
+      <div class="static-box" style="background-color: hsl(0, 100%, 33%);"></div>
+      <div class="static-box" style="background-color: hsl(0, 100%, 17%);"></div>
+      <div class="static-box" style="background-color: hsl(0, 100%, 0%);"></div>
+      <span>4. **Select Brightness**: Pick the brightness to adjust how dark the color appears.</span>
+  </div>
+</div>
+
+After selecting brightness the menu will go back to the slot selection and reflect the new choice.
 
 ## Deleting Colors
 
@@ -208,16 +254,4 @@ To **delete** a color:
 
 The **save** option always appears at the end, selecting this option will save the changes and exit the menu.
 
-## Selecting Colors
-
- 1. **Select a Slot**: Start by selecting the slot where you want to adjust the color.
-
- 2. **Select Hue Quadrant**: Pick which quadrant contains the desired hue.
-
- 3. **Select Hue**: Pick the specific hue to decide the base color.
-
- 4. **Select Saturation**: Pick the saturation to adjust how white the color appears.
-
- 5. **Select Brightness**: Pick the brightness to adjust how dark the color appears.
-
-After selecting brightness the menu will go back to the slot selection and reflect the new choice.
+You can always exit **without** saving by turning the device off.
