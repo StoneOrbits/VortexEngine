@@ -12,7 +12,7 @@ grand_parent: Vortex Engine
   min-height: 50px;
   width: 50px;
   height: 50px;
-  margin: 2px;
+  margin: 6px;
   border-radius: 50%;
   border: 2px solid #777;
   line-height: 50px;
@@ -20,6 +20,26 @@ grand_parent: Vortex Engine
   position: relative;
   display: inline-block;
   text-align: center;
+}
+
+.slot.empty:hover {
+  box-shadow: none;
+  transform: none;
+}
+
+.slot.empty {
+  box-shadow: none;
+  transform: none;
+}
+
+.slot:not(.empty):hover {
+  box-shadow: 0 0 10px 4px currentColor; /* Glow color based on the slot's color */
+}
+
+.slot:not(.empty).highlighted {
+  border-color: currentColor; /* Use slot's color for the border when selected */
+  box-shadow: 0 0 8px 3px currentColor; /* Softer glow */
+  transform: scale(1.1);
 }
 
 .empty {
@@ -73,10 +93,29 @@ grand_parent: Vortex Engine
   padding:0;
 }
 
+.dropdown {
+  box-shadow: 5px 5px 10px 4px rgba(0, 0, 0, 0.4);
+  border-radius: 12px;
+  transition: all 0.3s ease-in-out;
+}
+
+.dropdown-option {
+  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out, border-color 0.2s ease-in-out;
+}
+
+.dropdown-option:hover {
+  transform: scale(1.1);
+}
+
 @keyframes flashRed {
-  0% { background-color: inherit; }
-  50% { background-color: #700000; }
-  100% { background-color: inherit; }
+  0% { 
+  }
+  50% {
+    background-color: rgba(255, 0, 0, 0.6);
+    box-shadow: 0 0 5px 2px rgba(255, 0, 0, 0.6);
+  }
+  100% {
+  }
 }
 
 @media (max-width: 500px) {

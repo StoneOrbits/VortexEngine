@@ -19,6 +19,7 @@ function renderSlots() {
     slot.style.backgroundColor = color;
     slot.dataset.slot = index;
     slot.style.cursor = 'pointer';
+    slot.style.boxShadow = `0 0 5px 2px ${color}`; // Match glow color to slot
 
     let holdTimer;
     let tapHandled = false;
@@ -42,6 +43,9 @@ function renderSlots() {
     // Function to handle click/tap
     const handleTap = () => {
       if (!tapHandled) {
+        // Add highlight to the selected slot
+        const selectedSlot = document.querySelector(`[data-slot="${index}"]`);
+
         editColor(index);
       }
       tcolselapHandled = false; // Reset tapHandled for future interactions
@@ -132,6 +136,7 @@ function stopFlashingRed(index) {
 
 function createDropdown(options, onSelect, title) {
   const dropdown = document.createElement('div');
+  dropdown.className = 'dropdown';
   dropdown.style.position = 'absolute';
   dropdown.style.backgroundColor = '#333';
   dropdown.style.border = '1px solid #777';
@@ -158,34 +163,25 @@ function createDropdown(options, onSelect, title) {
 
   options.forEach((option) => {
     const box = document.createElement('div');
-    box.className = 'slot';
+    box.className = 'dropdown-option';
     box.style.width = '40px';
     box.style.height = '40px';
     box.style.cursor = 'pointer';
     box.style.borderRadius = '8px';
-    box.style.border = '2px solid #555';
 
     // Apply the gradient or color
     if (option.backgroundImage) {
       box.style.backgroundImage = option.backgroundImage;
+      box.style.border = '2px solid rgba(100, 100, 100, 1)';
     } else {
       box.style.backgroundColor = option.color;
+      box.style.boxShadow = `0 0 3px 1px ${option.color}`;
+      box.style.border = '2px solid transparent';
     }
 
     // Handle highlighting
     box.addEventListener('click', (event) => {
       event.stopPropagation();
-
-      // Remove highlight from all boxes
-      document.querySelectorAll('.highlighted').forEach(el => {
-        el.classList.remove('highlighted');
-        el.style.boxShadow = '';
-      });
-
-      // Add highlight to the selected box
-      box.classList.add('highlighted');
-      box.style.boxShadow = `0 0 10px 2px ${option.color}`; // Add glow effect
-
       onSelect(option.value, option.color);
     });
 
