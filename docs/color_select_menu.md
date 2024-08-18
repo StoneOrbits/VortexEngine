@@ -49,6 +49,7 @@ grand_parent: Vortex Engine
   justify-content: center;
   align-items: center;
   cursor: pointer;
+  border: 2px solid #666;
 }
 
 .plus-icon {
