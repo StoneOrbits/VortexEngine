@@ -12,7 +12,9 @@ Think of modes as containers that hold personalized color and pattern combinatio
 A device will always begin displaying the first mode slot when it is powered on. Short clicking the navigation button will iterate to the next slot. Upon reaching the last slot, the next click will cycle back to the first mode slot.
 
 ## Multiple LEDs
-In many cases all LEDs in a mode will be set to have the same colorset and pattern for a unified appearance, but there is also the option to give each LED its own pattern and colorset. This means a single mode could have as many patterns and colorsets as there are LEDs.
+It is possible to give each LED in a mode its own pattern and colorset, this means a single mode could have as many patterns and colorsets as there are LEDs.
+
+Regardless of how many LEDs a mode contains, it is still compatible with any Vortex Device. When a device loads a mode it will either trim or repeat the LEDs in the mode across it's own LEDs.
 
 ## Editing Modes
 
