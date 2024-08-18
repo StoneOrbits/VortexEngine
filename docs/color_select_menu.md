@@ -111,6 +111,7 @@ grand_parent: Vortex Engine
     min-width: 40px;
     min-height: 40px;
     line-height: 40px;
+    margin: 4px;
   }
 
   .plus-icon {
@@ -134,6 +135,7 @@ grand_parent: Vortex Engine
     min-width: 32px;
     min-height: 32px;
     line-height: 32px;
+    margin: 4px;
   }
 
   .plus-icon {
