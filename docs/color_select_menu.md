@@ -34,12 +34,6 @@ grand_parent: Vortex Engine
 }
 
 .slot:not(.empty):hover {
-  box-shadow: 0 0 10px 4px currentColor; /* Glow color based on the slot's color */
-}
-
-.slot:not(.empty).highlighted {
-  border-color: currentColor; /* Use slot's color for the border when selected */
-  box-shadow: 0 0 8px 3px currentColor; /* Softer glow */
   transform: scale(1.1);
 }
 
@@ -67,15 +61,6 @@ grand_parent: Vortex Engine
 .save-slot {
   background-color: #888;
   background-size: cover;
-}
-
-.highlighted {
-  border: 2px solid #fff;
-  box-shadow: 0 0 10px 2px currentColor;
-}
-
-.slot.highlighted {
-  box-shadow: 0 0 10px 2px;
 }
 
 #slots-container {

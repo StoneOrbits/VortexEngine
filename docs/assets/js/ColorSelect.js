@@ -195,11 +195,6 @@ function createDropdown(options, onSelect, title) {
 
 function closeDropdown() {
   if (activeDropdown) {
-    // Remove highlight from all boxes when closing dropdown
-    document.querySelectorAll('.highlighted').forEach(el => {
-      el.classList.remove('highlighted');
-      el.style.boxShadow = ''; // Reset glow effect
-    });
     activeDropdown.remove();
     activeDropdown = null;
   }
