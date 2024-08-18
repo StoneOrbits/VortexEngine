@@ -8,31 +8,30 @@ grand_parent: Vortex Engine
 
 <style>
 .instructions-list {
-  list-style-type: decimal; /* Use numbers for the list */
-  margin: 10px; /* Remove default margin */
+  margin: 10px;
 }
 
 .instructions-list li span {
-  font-weight: normal; /* Regular weight for descriptive text */
-  color: #aaa; /* Lighter color to make it look more descriptive */
-  display: block; /* Ensure the text is on its own line */
+  font-weight: normal;
+  color: #aaa;
+  display: block;
 }
 
 .static-box-container {
-  display: flex; /* Align the boxes and text horizontally */
+  display: flex;
   align-items: center;
 }
 
 .static-box {
   width: 30px;
   height: 30px;
-  margin-right: 5px; /* Space between boxes */
-  border-radius: 4px; /* Slight rounding for nicer appearance */
+  margin-right: 5px;
+  border-radius: 4px;
 }
 
 .instructions-list li strong {
   font-weight: bold;
-  color: #DDD; /* Darker color for emphasis */
+  color: #DDD;
 }
 
 .static-box {
@@ -252,7 +251,7 @@ Color selection begins after selecting a color to edit, or adding a new color. E
 <div class="static-box" style="background-color: hsl(22.5, 100%, 50%);"></div>
 <div class="static-box" style="background-color: hsl(45, 100%, 50%);"></div>
 <div class="static-box" style="background-color: hsl(67.5, 100%, 50%);"></div>
-<span><strong>Select Hue</strong>: Pick the specific hue to decide the base color.</span>
+<span><strong>Select Exact Hue</strong>: Pick the specific hue to decide the base color.</span>
 </div>
 </li>
 
@@ -262,7 +261,7 @@ Color selection begins after selecting a color to edit, or adding a new color. E
 <div class="static-box" style="background-color: hsl(0, 66%, 60%);"></div>
 <div class="static-box" style="background-color: hsl(0, 33%, 80%);"></div>
 <div class="static-box" style="background-color: hsl(0, 0%, 100%);"></div>
-<span><strong>Select Saturation</strong>: Pick the saturation to adjust how white the color appears.</span>
+<span><strong>Select Saturation</strong>: Choose how white the color appears.</span>
 </div>
 </li>
 
@@ -272,7 +271,7 @@ Color selection begins after selecting a color to edit, or adding a new color. E
 <div class="static-box" style="background-color: hsl(0, 100%, 33%);"></div>
 <div class="static-box" style="background-color: hsl(0, 100%, 17%);"></div>
 <div class="static-box" style="background-color: hsl(0, 100%, 0%);"></div>
-<span><strong>Select Brightness</strong>: Pick the brightness to adjust how dark the color appears.</span>
+<span><strong>Select Brightness</strong>: Adjust the brightness of the color.</span>
 </div>
 </li>
 </ul>
@@ -282,12 +281,12 @@ After selecting brightness the menu will go back to the slot selection and refle
 
 ## Deleting Colors
 
-To **delete** a color:
- 1. cycle to the color slot
- 2. **hold** the button until the LED glows red
- 3. release the button **while the LED is red**
+To **delete** an existing color from the colorset:
+ 1. Cycle to the desired color to delete
+ 2. **Hold** the button until the LED glows red
+ 3. Release the button **while the LED is red**
 
-**Warning**: If all colors are deleted, the mode will not display anything and appear as if the device is off.
+**Warning**: If all colors are deleted, the mode will appear as if the device is off.
 
 ## Saving
 
