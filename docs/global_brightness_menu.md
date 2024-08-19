@@ -66,7 +66,7 @@ The Global Brightness menu adjusts the overall brightness of the Vortex Device, 
 
 ## Using the Global Brightness Menu
 
-When the Global Brightness menu is entered, the device shows the current brightness level. Short click to cycle through brightness levels and select on to save and exit.
+When the Global Brightness menu is entered, the device shows the current brightness level. Short click to cycle through brightness levels and select a brightness to save and exit. Exit the menu without changing brightness by selecting the exit option.
 
 
 <div class="brightness-container">
