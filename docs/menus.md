@@ -80,24 +80,22 @@ has_children: true
 </style>
 
 # Menus
-The menus provide a way to use the navigation buttons to customize your Vortex Device and manage its configuration.
+The menus provide a way to customize your Vortex Device and manage its configuration.
 
-Each Vortex Device offers the same menus, with the only differences in menu behaviour coming from the varying LED counts and orientations.
+Each Vortex Device offers the same functionality and menus, with the only differences in menu behaviour coming from the varying LED counts and orientations.
 
 ## Using Menus
-To enter a menu, switch to a mode you'd like to edit and then hold the navigation button until the LEDs blink white.
+To enter a menu, cycle to the mode you'd like to edit and then hold the navigation button until the LEDs blink white. Using short clicks, navigate to the color that corresponds to the menu you'd like to open and long click to select it.
 
 The <span style="color: #00ff00;">Color Select</span>, <span style="color: #3366ff;">Pattern Select</span>, <span style="color: #ffffff;">Randomizer</span>, and <span style="color: #00ffff;">Mode Sharing</span> menus will only affect this mode.
 
 <span style="color: #ff0000;">Factory Reset</span> and <span style="color: #ffff00;">Global Brightness</span> will apply to the entire device.
 
-Using short clicks, navigate to the color that corresponds to the menu you'd like and long click to select it.
-
 ## Selecting LEDs
 
-Three menus allow you to choose specific LEDs: <span style="color: #00ff00;">Color Select</span>, <span style="color: #3366ff;">Pattern Select</span>, and <span style="color: #ffffff;">Randomizer</span>.
+Three menus allow you to choose specific LEDs upon entering: <span style="color: #00ff00;">Color Select</span>, <span style="color: #3366ff;">Pattern Select</span>, and <span style="color: #ffffff;">Randomizer</span>.
 
-Upon entering one of these menus, the first step is _LED selection_. You decide which LEDs the menu will affect when making changes.
+After selecting the menu, you decide which LEDs the menu will affect when making changes.
 
 - **Short click** to cycle through the available LED groups.
 - **Long click** to confirm your selection and proceed into the menu.

@@ -102,13 +102,13 @@ There is also a very small <span style="color: #ff0000">reset button</span> for 
 
 ## Navigating Modes
 
-Short click the <span style="color: #00c6ff">navigation button</span> to forward through the 14 available modes.
+Short click the <span style="color: #00c6ff">navigation button</span> to cycle forward through the 14 available modes.
 
-To edit a mode, navigate to it then hold the navigation button to open the menus.
+To edit a mode, navigate to it then hold the navigation button until the lights flash white to open the menus.
 
 ## Menus
 
-Use short clicks to cycle through the following menu options, long click to enter a menu.
+Once the menus are open, use short clicks to cycle through the following menu options, long click to enter a menu.
 
 {% raw %}
 <div class="menu-wrapper">
