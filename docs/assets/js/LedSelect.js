@@ -8,7 +8,7 @@ function updateLedSelection() {
     if (currentLed === 0) {
       clearCycling();
       leds.forEach(led => {
-        led.style.backgroundColor = '#00ff00'; // Active color
+        led.style.backgroundColor = '#ff00ff'; // Active color
         led.style.opacity = '1'; // Full opacity
       });
       statusText.innerHTML = "<strong>Selection:</strong> All LEDs";
@@ -18,21 +18,21 @@ function updateLedSelection() {
     } else if (currentLed === 2) {
       clearCycling();
       leds.forEach((led, index) => {
-        led.style.backgroundColor = index % 2 === 0 ? '#00ff00' : '#555555';
+        led.style.backgroundColor = index % 2 === 0 ? '#ff00ff' : '#555555';
         led.style.opacity = index % 2 === 0 ? '1' : '0.3';
       });
       statusText.innerHTML = "<strong>Selection:</strong> Group Odds";
     } else if (currentLed === 3) {
       clearCycling();
       leds.forEach((led, index) => {
-        led.style.backgroundColor = index % 2 !== 0 ? '#00ff00' : '#555555';
+        led.style.backgroundColor = index % 2 !== 0 ? '#ff00ff' : '#555555';
         led.style.opacity = index % 2 !== 0 ? '1' : '0.3';
       });
       statusText.innerHTML = "<strong>Selection:</strong> Group Evens";
     } else {
       clearCycling();
       leds.forEach((led, index) => {
-        led.style.backgroundColor = index === currentLed - 4 ? '#00ff00' : '#555555';
+        led.style.backgroundColor = index === currentLed - 4 ? '#ff00ff' : '#555555';
         led.style.opacity = index === currentLed - 4 ? '1' : '0.3';
       });
       statusText.innerHTML = `<strong>Selection:</strong> LED ${currentLed - 3}`; // Adjusting text to start from 1
@@ -45,7 +45,7 @@ function startCycling() {
   let cycleIndex = 0;
   intervalId = setInterval(() => {
     leds.forEach((led, index) => {
-      led.style.backgroundColor = index === cycleIndex ? '#00ff00' : '#555555';
+      led.style.backgroundColor = index === cycleIndex ? '#ff00ff' : '#555555';
       led.style.opacity = index === cycleIndex ? '1' : '0.3';
     });
     cycleIndex = (cycleIndex + 1) % leds.length;

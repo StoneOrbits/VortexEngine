@@ -51,7 +51,7 @@ Because each device has a different number of LEDs with a different LED layout, 
 
 **-ALL LEDs:** Selects all LEDs at once for use with all patterns.
 
-**-MutliLED:** Selects all LEDs at once for use with MultiLED patterns or multiple groups of Single LED patterns.
+**-MutliLED:** Selects all LEDs at once for use with MultiLED patterns.
 
 **-LED Group:** These groups vary the most from device to device. They allow targeting premade groups of LEDs such as Odd LEDs or Even LEDs for creating more complex combinations of patterns in a mode.
 
