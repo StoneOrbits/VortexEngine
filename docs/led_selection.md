@@ -23,7 +23,7 @@ Below is a simple demonstration of how LED selection works. The flashing squares
   <div class="led" id="led-5"></div>
 </div>
 
-<div id="status-text" style="margin-top: 20px; font-size: 16px; color: #333;"></div>
+<div id="status-text" style="margin-top: 20px; font-size: 16px; color: #ffffff;"></div>
 
 <button id="next-led-button">Next LED</button>
 
