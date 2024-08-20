@@ -168,14 +168,14 @@ void Menu::showBulbSelection()
     LedPos pos = (LedPos)((Time::getCurtime() / 30) % LED_COUNT);
     for (int dots = 0; dots < 4; ++dots) {
       LedPos dotPos = (LedPos)((pos + (dots * (LED_COUNT / 4))) % LED_COUNT);
-      Leds::blinkIndexOffset(dotPos, dotPos * 10, 50, 500, RGB_PINK);
+      Leds::blinkIndexOffset(dotPos, dotPos * 10, 50, 500, RGB_MAGENTA1);
     }
   } else {
     Leds::setMap(m_targetLeds, RGB_ORANGE);
-    Leds::blinkMap(ledPermutations[m_ledSelection], BULB_SELECT_OFF_MS, BULB_SELECT_ON_MS, RGB_PINK);
+    Leds::blinkMap(ledPermutations[m_ledSelection], BULB_SELECT_OFF_MS, BULB_SELECT_ON_MS, RGB_MAGENTA1);
   }
   // blink when selecting
-  Menus::showSelection(RGB_PINK);
+  Menus::showSelection(RGB_MAGENTA1);
 }
 
 void Menu::showExit()
