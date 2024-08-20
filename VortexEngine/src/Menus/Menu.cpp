@@ -101,9 +101,9 @@ void Menu::showBulbSelection()
   Leds::clearAll();
   if (m_targetLeds == MAP_LED(LED_MULTI)) {
     LedPos pos = (LedPos)((Time::getCurtime() / 30) % LED_COUNT);
-    Leds::blinkIndexOffset(pos, pos * 10, 50, 500, RGB_MAGNETA1);
+    Leds::blinkIndexOffset(pos, pos * 10, 50, 500, RGB_MAGENTA1);
   } else {
-    Leds::blinkMap(m_targetLeds, BULB_SELECT_OFF_MS, BULB_SELECT_ON_MS, RGB_MAGNETA1);
+    Leds::blinkMap(m_targetLeds, BULB_SELECT_OFF_MS, BULB_SELECT_ON_MS, RGB_MAGENTA1);
   }
   // blink when selecting
   Menus::showSelection(RGB_MAGENTA1);
