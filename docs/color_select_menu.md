@@ -206,6 +206,13 @@ grand_parent: Vortex Engine
 
 The Color Select menu allows customization of the colors in the current [Mode](mode.html). This collection of colors is commonly referred to as a [Colorset](colorsets.html).
 
+## Selecting LEDs
+Upon entering color select, the LEDs will show magenta for [LED Selection](led_selection.html).
+
+- Selecting ALL LEDs will apply the changes made in color select to all LEDs regardless of their current pattern.
+
+- Selecting anything else will apply the changes made in color select to only the selected LEDs.
+
 ## Try It Yourself
 
 <img id="color-select-diagram" src="assets/images/color-select.png">

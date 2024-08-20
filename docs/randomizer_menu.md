@@ -19,6 +19,16 @@ The Randomizer chooses a starting point based on the mode you start from. This m
 
 For those familiar, the randomizer seed is a checksum of the current mode.
 
+## Selecting LEDs
+
+Upon entering the randomizer the LEDs will show magenta for [LED selection](led_selection.html). 
+
+- When seleting ALL LEDs, All LEDs will be randomized. Only the LEDs that matched before randomizatioin will get the same random results. If they did not match before randomization they will randomize differently from each other.
+
+- When selecting MultiLED, the randomizer will give either a MultiLED result, or two groups of Single LED results (i.e. even LEDs get result 1, and odd LEDs get result 2).
+
+- When selecting any other option, only that selection will be randomized.
+
 ## Using the Randomizer
 
 1. **Pick a Mode to Randomize**: Navigate to the mode you want to randomize and hold the button until the leds flash white

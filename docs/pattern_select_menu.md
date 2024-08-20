@@ -64,11 +64,21 @@ grand_parent: Vortex Engine
 
 The Pattern Select menu lets you quickly change the blinking speed or style of your current mode, also known as the [Pattern](patterns.html).
 
+## LED Selection
+
+Upon entering the pattern select menu the LEDs will show magenta for [LED Selection](led_selection.html).
+
+- Selecting ALL LEDs will provide the full list of patterns both Single and MultiLED. Any pattern selected will be saved to all LEDs.
+
+- Selecting MultiLED will only provide MultiLED patterns. Any pattern selected will be saved to all LEDs.
+
+- Selecting any other option will provide only Single LED patterns. Any pattern selected will be saved to only the selected LEDs.
+
 ## Selecting Patterns
 
 Vortex Devices offer a wide range of flashing patterns. To make selecting patterns easier, the Pattern Select menu provides shortcuts to different points in the pattern list.
 
-After choosing LEDs and entering the Pattern Select menu, you'll see five options, each represented by a glowing color:
+After entering the Pattern Select menu and choosing LEDs, you'll see five options, each represented by a glowing color:
 
 <div class="option-container">
   <div class="glow-box glow-red"></div>
@@ -90,6 +100,9 @@ After choosing LEDs and entering the Pattern Select menu, you'll see five option
   <div class="glow-box red-blink"></div>
   <strong>Red Blink</strong>: Exit the Pattern Select menu
 </div>
+
+
+No matter which shortcut is selected, the first result shown will be the currently saved pattern. Select this to exit the menu without making any changes or cycle past it to see the pattern list.
 
 To choose a new pattern: 
 
