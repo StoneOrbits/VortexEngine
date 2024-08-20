@@ -44,3 +44,15 @@ Below is a simple demonstration of how LED selection works. The flashing squares
     transition: background-color 0.3s, opacity 0.3s;
   }
 </style>
+
+## Led Selection Options
+
+Because each device has a different number of LEDs with a different LED layout, Each device has an unique set of options in LED selection. Here are a few of the available options:
+
+**-ALL LEDs:** Selects all LEDs at once for use with all patterns.
+
+**-MutliLED:** Selects all LEDs at once for use with MultiLED patterns or multiple groups of Single LED patterns.
+
+**-LED Group:** These groups vary the most from device to device. They allow targeting premade groups of LEDs such as Odd LEDs or Even LEDs for creating more complex combinations of patterns in a mode.
+
+**-Single LED:** This allows the targeting of a single LED and can be used to customize each LED independantly.
