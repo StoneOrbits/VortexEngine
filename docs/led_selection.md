@@ -1,3 +1,4 @@
+---
 layout: default
 title: Led Selection
 nav_order: 0
@@ -12,7 +13,7 @@ When you enter menus like <span style="color: #00ff00;">Color Select</span>, <sp
 
 ## Demonstration of LED Selection
 
-Below is a simple demonstration of how LED selection works. The flashing squares represent the LEDs on your device. You can click the "Next LED" button to move the selection to the next LED or all LEDs.
+Below is a simple demonstration of how LED selection works. The flashing squares represent the LEDs on your device. You can click the "Next LED" button to move the selection to the next LED.
 
 <div id="led-container">
   <div class="led" id="led-1"></div>
@@ -22,40 +23,12 @@ Below is a simple demonstration of how LED selection works. The flashing squares
   <div class="led" id="led-5"></div>
 </div>
 
+<div id="status-text" style="margin-top: 20px; font-size: 16px; color: #333;"></div>
+
 <button id="next-led-button">Next LED</button>
 
-<script>
-  let currentLed = -1;
-  const leds = document.querySelectorAll('.led');
+<script src="{{ '/assets/js/LedSelect.js' | relative_url }}"></script>
 
-  function updateLedSelection() {
-    if (currentLed === -1) {
-      // All LEDs selected
-      leds.forEach(led => {
-        led.style.backgroundColor = '#00ff00';
-        led.style.opacity = '1';
-      });
-    } else {
-      // Individual LED selected
-      leds.forEach((led, index) => {
-        if (index === currentLed) {
-          led.style.backgroundColor = '#00ff00';
-          led.style.opacity = '1';
-        } else {
-          led.style.backgroundColor = '#555555';
-          led.style.opacity = '0.3';
-        }
-      });
-    }
-  }
-
-  document.getElementById('next-led-button').addEventListener('click', () => {
-    currentLed = (currentLed + 1) % (leds.length + 1); // +1 to account for the "all LEDs" state
-    updateLedSelection();
-  });
-
-  updateLedSelection();
-</script>
 
 <style>
   #led-container {
