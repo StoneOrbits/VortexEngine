@@ -117,16 +117,16 @@
 #define RGB_CYAN8       (uint32_t)0x00E0E0    //   0 224 224
 #define RGB_CYAN9       (uint32_t)0x00FCFC    //   0 252 252
 
-#define RGB_PURPLE0     (uint32_t)0x090310    //   9   3  16
-#define RGB_PURPLE1     (uint32_t)0x1C001C    //  28   0  28
-#define RGB_PURPLE2     (uint32_t)0x380038    //  56   0  56
-#define RGB_PURPLE3     (uint32_t)0x540054    //  84   0  84
-#define RGB_PURPLE4     (uint32_t)0x700070    // 112   0 112
-#define RGB_PURPLE5     (uint32_t)0x8C008C    // 140   0 140
-#define RGB_PURPLE6     (uint32_t)0xA800A8    // 168   0 168
-#define RGB_PURPLE7     (uint32_t)0xC400C4    // 196   0 196
-#define RGB_PURPLE8     (uint32_t)0xE000E0    // 224   0 224
-#define RGB_PURPLE9     (uint32_t)0xFC00FC    // 252   0 252
+#define RGB_MAGENTA0    (uint32_t)0x100010    //  16   0  16
+#define RGB_MAGENTA1    (uint32_t)0x1C001C    //  28   0  28
+#define RGB_MAGENTA2    (uint32_t)0x380038    //  56   0  56
+#define RGB_MAGENTA3    (uint32_t)0x540054    //  84   0  84
+#define RGB_MAGENTA4    (uint32_t)0x700070    // 112   0 112
+#define RGB_MAGENTA5    (uint32_t)0x8C008C    // 140   0 140
+#define RGB_MAGENTA6    (uint32_t)0xA800A8    // 168   0 168
+#define RGB_MAGENTA7    (uint32_t)0xC400C4    // 196   0 196
+#define RGB_MAGENTA8    (uint32_t)0xE000E0    // 224   0 224
+#define RGB_MAGENTA9    (uint32_t)0xFC00FC    // 252   0 252
 
 #define RGB_ORANGE0     (uint32_t)0x100800    //  16   8   0
 #define RGB_ORANGE1     (uint32_t)0x1C0E00    //  28  14   0
