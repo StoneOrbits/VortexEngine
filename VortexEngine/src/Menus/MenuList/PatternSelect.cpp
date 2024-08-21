@@ -108,7 +108,7 @@ void PatternSelect::onShortClick2()
 {
   switch (m_state) {
   case STATE_PICK_LIST:
-    if (m_curSelection != QUADRANT_FIRST) {
+    if (m_curSelection > QUADRANT_FIRST) {
       m_curSelection = (Quadrant)((m_curSelection - 1));
     } else {
       m_curSelection = QUADRANT_LAST;
@@ -179,7 +179,7 @@ void PatternSelect::previousPatternID()
     beginList = PATTERN_MULTI_FIRST;
   }
 #endif
-  if (m_newPatternID != beginList) {
+  if (m_newPatternID > beginList) {
     m_newPatternID = (PatternID)(m_newPatternID - 1);
   } else {
     m_newPatternID = endList;
