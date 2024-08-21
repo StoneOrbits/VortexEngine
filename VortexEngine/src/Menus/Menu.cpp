@@ -104,14 +104,12 @@ void Menu::showBulbSelection()
   m_engine.leds().clearAll();
   if (m_targetLeds == MAP_LED(LED_MULTI)) {
     LedPos pos = (LedPos)((m_engine.time().getCurtime() / 30) % LED_COUNT);
-    m_engine.leds().blinkIndexOffset(pos, pos * 10, 50, 500, m_menuColor);
+    m_engine.leds().blinkIndexOffset(pos, pos * 10, 50, 500, RGB_MAGENTA1);
   } else {
-    m_engine.leds().blinkMap(m_targetLeds, BULB_SELECT_OFF_MS, BULB_SELECT_ON_MS, m_menuColor);
+    m_engine.leds().blinkMap(m_targetLeds, BULB_SELECT_OFF_MS, BULB_SELECT_ON_MS, RGB_MAGENTA1);
   }
   // blink when selecting
-  m_engine.menus().showSelection(RGBColor(m_menuColor.red << 3,
-                                          m_menuColor.green << 3,
-                                          m_menuColor.blue << 3));
+  m_engine.menus().showSelection(RGB_MAGENTA1);
 }
 
 void Menu::showExit()
