@@ -127,6 +127,14 @@ bool Menus::runMenuSelection()
     } else {
       --m_selection;
     }
+#if ENABLE_EDITOR_CONNECTION == 1
+    // Hide the editor connection menu because it opens automatically
+    // TODO: Create a better way to hide this menu color, this menu
+    //       will automatically open when the device is plugged in
+    if (m_selection == MENU_EDITOR_CONNECTION) {
+      m_selection--;
+    }
+#endif
     Leds::clearAll();
     return true;
   }
