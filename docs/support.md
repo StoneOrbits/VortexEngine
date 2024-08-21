@@ -8,7 +8,7 @@ nav_order: 10
 
 If you're experiencing issues or if you need further assistance that requires expert help, please reachout to either StoneOrbits or the Vortex Community Discord.
 
-- [Community Discord](https://discord.gg/CxJJZHp8)
+- [Community Discord](https://discord.gg/75km7PzrUA)
 
 
 ## Documentation
