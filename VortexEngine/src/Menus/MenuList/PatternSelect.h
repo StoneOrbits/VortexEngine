@@ -21,12 +21,16 @@ public:
   // handlers for clicks
   void onShortClick() override;
   void onLongClick() override;
+  void onShortClick2() override;
+  void onLongClick2() override;
 
 private:
   void showListSelection();
   void showPatternSelection();
   void nextPatternID();
   void nextPattern();
+  void previousPatternID();
+  void previousPattern();
 
   void showExit() override;
 

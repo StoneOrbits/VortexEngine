@@ -104,6 +104,22 @@ void PatternSelect::onShortClick()
   }
 }
 
+void PatternSelect::onShortClick2()
+{
+  switch (m_state) {
+  case STATE_PICK_LIST:
+    if (m_curSelection != QUADRANT_FIRST) {
+      m_curSelection = (Quadrant)((m_curSelection - 1));
+    } else {
+      m_curSelection = QUADRANT_LAST;
+    }
+    break;
+  case STATE_PICK_PATTERN:
+    previousPattern();
+    break;
+  }
+}
+
 void PatternSelect::nextPatternID()
 {
   // increment to next pattern
@@ -129,6 +145,51 @@ void PatternSelect::nextPattern()
 {
   if (m_started) {
     nextPatternID();
+  } else {
+    m_started = true;
+    // Do not modify m_newPatternID Here! It has been set in the long click handler
+    // to be the start of the list we want to iterate
+  }
+  // set the new pattern id
+  if (isMultiLedPatternID(m_newPatternID)) {
+    m_previewMode.setPattern(m_newPatternID);
+  } else {
+    // if the user selected multi then just put singles on all leds
+    LedMap setLeds = (m_targetLeds == MAP_LED(LED_MULTI)) ? LED_ALL : m_targetLeds;
+    m_previewMode.setPatternMap(setLeds, m_newPatternID);
+    // TODO: clear multi a better way
+    m_previewMode.clearPattern(LED_MULTI);
+  }
+  m_previewMode.init();
+  DEBUG_LOGF("Iterated to pattern id %d", m_newPatternID);
+}
+
+void PatternSelect::previousPatternID() 
+{
+  // increment to next pattern
+  PatternID endList = PATTERN_SINGLE_LAST;
+  PatternID beginList = PATTERN_SINGLE_FIRST;
+#if VORTEX_SLIM == 0
+  // if targeted multi led or all singles, iterate through multis
+  if ((m_targetLeds == MAP_LED_ALL) || (m_targetLeds == MAP_LED(LED_MULTI))) {
+    endList = PATTERN_MULTI_LAST;
+  }
+  // if targeted multi then start at multis and only iterate multis
+  if ((m_targetLeds == MAP_LED(LED_MULTI))) {
+    beginList = PATTERN_MULTI_FIRST;
+  }
+#endif
+  if (m_newPatternID != beginList) {
+    m_newPatternID = (PatternID)(m_newPatternID - 1);
+  } else {
+    m_newPatternID = endList;
+  }
+}
+
+void PatternSelect::previousPattern() 
+{
+  if (m_started) {
+    previousPatternID();
   } else {
     m_started = true;
     // Do not modify m_newPatternID Here! It has been set in the long click handler
@@ -186,6 +247,11 @@ void PatternSelect::onLongClick()
   }
   // reset selection after choosing anything
   m_curSelection = QUADRANT_FIRST;
+}
+
+void PatternSelect::onLongClick2() 
+{
+  leaveMenu(false);
 }
 
 void PatternSelect::showExit()
