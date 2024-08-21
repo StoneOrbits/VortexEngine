@@ -184,7 +184,7 @@ const DefaultModeEntry defaultModes[MAX_MODES] = {
       {
         PATTERN_DOPS, 2, {
           RGB_CYAN1,
-          RGB_PURPLE3,
+          RGB_MAGENTA3,
         }
       }
     }
