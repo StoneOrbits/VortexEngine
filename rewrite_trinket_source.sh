@@ -1,10 +1,11 @@
 #!/bin/bash
 
-FILE_PATH="$HOME/.arduino15/packages/adafruit/hardware/samd/1.7.14/cores/arduino/USB/CDC.cpp"
+FILE_PATH="$HOME/.arduino15/packages/adafruit/hardware/samd/1.7.16/cores/arduino/USB/CDC.cpp"
 
 # Check if the file exists
 if [ ! -f "$FILE_PATH" ]; then
     echo "Error: File does not exist."
+    exit 1
 fi
 # Read the specific line and check its content
 CURRENT_LINE=$(sed -n '258p' "$FILE_PATH")
