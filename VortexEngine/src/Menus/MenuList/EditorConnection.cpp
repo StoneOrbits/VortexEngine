@@ -18,7 +18,8 @@
 
 EditorConnection::EditorConnection(VortexEngine &engine, const RGBColor &col, bool advanced) :
   Menu(engine, col, advanced),
-  m_state(STATE_DISCONNECTED)
+  m_state(STATE_DISCONNECTED),
+  m_allowReset(true)
 {
 }
 
@@ -59,6 +60,8 @@ bool EditorConnection::receiveMessage(const char *message)
   if (m_receiveBuffer.unserializerAtEnd()) {
     m_receiveBuffer.clear();
   }
+  // we have now received at least one command, do not allow resetting
+  m_allowReset = false;
   return true;
 }
 
@@ -204,10 +207,16 @@ void EditorConnection::sendCurModeVL()
 // handlers for clicks
 void EditorConnection::onShortClick()
 {
+  // if the device has received any commands do not reset!
+  if (!m_allowReset) {
+    return;
+  }
   // reset, this won't actually disconnect the com port
   m_state = STATE_DISCONNECTED;
   // clear the demo
   clearDemo();
+  // sent a reset, do not allow another
+  m_allowReset = false;
 }
 
 void EditorConnection::onLongClick()
