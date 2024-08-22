@@ -72,6 +72,8 @@ private:
   EditorConnectionState m_state;
   // the data that is received
   ByteStream m_receiveBuffer;
+  // Whether at least one command has been received yet
+  bool m_allowReset;
 };
 
 #endif
