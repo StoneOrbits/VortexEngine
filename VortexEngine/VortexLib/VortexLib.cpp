@@ -2211,7 +2211,7 @@ bool Vortex::loadFromJson(const json& js)
   // check if it's just a single mode being loaded
   if (js.contains("num_leds") && js["num_leds"].is_number_unsigned() &&
       js.contains("flags") && js["flags"].is_number_unsigned() &&
-      js.contains("single_pats") && js["single_pats"].is_number_unsigned()) {
+      js.contains("single_pats") && js["single_pats"].is_array()) {
     // clear existing modes? idk, yes for now
     m_engine.modes().clearModes();
     // the js is just a single mode, just load it
