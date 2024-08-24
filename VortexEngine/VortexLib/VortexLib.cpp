@@ -2196,18 +2196,26 @@ bool Vortex::loadFromJson(const json& js)
     return false;
   }
 
-  uint8_t major = 0;
-  uint8_t minor = 0;
-  if (js.contains("version_major") && js["version_major"].is_number_unsigned()) {
-    major = js["version_major"].get<uint8_t>();
+  // if there is a version then load it and compare
+  if (js.contains("version_major") && js["version_major"].is_number_unsigned() &&
+      js.contains("version_minor") && js["version_minor"].is_number_unsigned()) {
+    uint8_t major = js["version_major"].get<uint8_t>();
+    uint8_t minor = js["version_minor"].get<uint8_t>();
+    // this should change in the future if some new version that isn't compatible
+    // it should probably be necessary rather than opportunistic
+    if (!m_engine.checkVersion(major, minor)) {
+      return false;
+    }
   }
 
-  if (js.contains("version_minor") && js["version_minor"].is_number_unsigned()) {
-    minor = js["version_minor"].get<uint8_t>();
-  }
-
-  if (!m_engine.checkVersion(major, minor)) {
-    return false;
+  // check if it's just a single mode being loaded
+  if (js.contains("num_leds") && js["num_leds"].is_number_unsigned() &&
+      js.contains("flags") && js["flags"].is_number_unsigned() &&
+      js.contains("single_pats") && js["single_pats"].is_number_unsigned()) {
+    // clear existing modes? idk, yes for now
+    m_engine.modes().clearModes();
+    // the js is just a single mode, just load it
+    return loadModeFromJson(js);
   }
 
   if (js.contains("brightness") && js["brightness"].is_number_unsigned()) {
