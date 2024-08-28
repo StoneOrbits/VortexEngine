@@ -44,4 +44,4 @@ Explore the official Vortex Community Hub where you can upload and share configu
 
 Join the Vortex Community Discord to share your experiences, enhance your use of the Vortex Engine, and discuss Vortex with other enthusiasts.
 
-[Join Vortex Community Discord](https://discord.gg/FnbKjPgy)
+[Join Vortex Community Discord](https://discord.gg/4R9at8S8Sn)
