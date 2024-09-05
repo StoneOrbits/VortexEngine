@@ -29,14 +29,18 @@ private:
   void showEditor();
   void receiveData();
   void sendModes();
+  void sendModeCount();
+  void sendCurMode();
   bool receiveModes();
+  bool receiveModeCount();
+  bool receiveMode();
   bool receiveDemoMode();
   void handleCommand();
   bool receiveMessage(const char *message);
   void clearDemo();
 
   enum EditorConnectionState {
-    // the editor is not connec
+    // the editor is not connected
     STATE_DISCONNECTED,
 
     // Sending the greeting message
@@ -45,27 +49,41 @@ private:
     // entirely idle, waiting for commands
     STATE_IDLE,
 
-    // engine pulls the modes from gloves, then wait for the sent modes ack
+    // editor pulls the modes from device, then wait for the sent modes ack
     STATE_PULL_MODES,
     STATE_PULL_MODES_SEND,
     STATE_PULL_MODES_DONE,
 
-    // engine pushes modes to gloves, then waits for done
+    // editor pushes modes to device, then waits for done
     STATE_PUSH_MODES,
     STATE_PUSH_MODES_RECEIVE,
     STATE_PUSH_MODES_DONE,
 
-    // engine pushes mode to gloves for demo while idle
+    // editor pushes mode to device for demo while idle
     STATE_DEMO_MODE,
     STATE_DEMO_MODE_RECEIVE,
     STATE_DEMO_MODE_DONE,
 
-    // engine tells gloves to clear the demo preview, gloves acknowledge
+    // editor tells device to clear the demo preview, device acknowledge
     STATE_CLEAR_DEMO,
 
     // transmit the mode over visible light
     STATE_TRANSMIT_MODE_VL,
     STATE_TRANSMIT_MODE_VL_DONE,
+
+    // editor pulls the modes from device (safer version)
+    STATE_PULL_EACH_MODE,
+    STATE_PULL_EACH_MODE_COUNT,
+    STATE_PULL_EACH_MODE_SEND,
+    STATE_PULL_EACH_MODE_WAIT,
+    STATE_PULL_EACH_MODE_DONE,
+
+    // editor pushes modes to device (safer version)
+    STATE_PUSH_EACH_MODE,
+    STATE_PUSH_EACH_MODE_COUNT,
+    STATE_PUSH_EACH_MODE_RECEIVE,
+    STATE_PUSH_EACH_MODE_WAIT,
+    STATE_PUSH_EACH_MODE_DONE,
   };
 
   // state of the editor
@@ -74,6 +92,10 @@ private:
   ByteStream m_receiveBuffer;
   // Whether at least one command has been received yet
   bool m_allowReset;
+  // the mode index to return to after iterating the modes to send them
+  uint8_t m_previousModeIndex;
+  // the number of modes that should be received
+  uint8_t m_numModesToReceive;
 };
 
 #endif
