@@ -530,41 +530,6 @@
 #define EDITOR_VERB_PUSH_EACH_MODE_DONE   "H"
 
 
-// when the pc wants the chromadeck to listen for a mode from the duos
-#define EDITOR_VERB_LISTEN_VL         "o"
-// and the response for when it's done fetching a duo mode
-#define EDITOR_VERB_LISTEN_VL_ACK     "p"
-
-// pull the duo saveheader via the chromalink
-#define EDITOR_VERB_PULL_CHROMA_HDR        "q"
-// and the response for when it's done fetching the modes
-#define EDITOR_VERB_PULL_CHROMA_HDR_ACK    "r"
-
-// push the duo save header via the chromalink
-#define EDITOR_VERB_PUSH_CHROMA_HDR        "s"
-// and the response for when it's done pushing the modes
-#define EDITOR_VERB_PUSH_CHROMA_HDR_ACK    "t"
-
-// pull a duo mode via the chromalink
-#define EDITOR_VERB_PULL_CHROMA_MODE       "u"
-// and the response for when it's done fetching the modes
-#define EDITOR_VERB_PULL_CHROMA_MODE_ACK   "v"
-
-// push a duo mode via the chromalink
-#define EDITOR_VERB_PUSH_CHROMA_MODE       "w"
-// and the response for when it's done pushing the modes
-#define EDITOR_VERB_PUSH_CHROMA_MODE_ACK   "x"
-
-// pull a single mode
-#define EDITOR_VERB_PULL_SINGLE_MODE       "y"
-// and the response for when it's done
-#define EDITOR_VERB_PULL_SINGLE_MODE_ACK   "z"
-
-// push a single mode
-#define EDITOR_VERB_PUSH_SINGLE_MODE       "A"
-// and the response for when it's done
-#define EDITOR_VERB_PUSH_SINGLE_MODE_ACK   "B"
-
 // ===================================================================
 //  Manually Configured Sizes
 //
