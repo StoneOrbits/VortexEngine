@@ -430,52 +430,105 @@
 //  They are defined here so the editor can access them easily,
 //  also so you can configure them at your own free will.
 
-// the initial hello from the gloveset to the editor
+// the initial hello from the device to the editor
 // is the full name of this build of vortex
-#define EDITOR_VERB_GREETING_PREFIX   "== "
-#define EDITOR_VERB_GREETING_POSTFIX  " =="
-#define EDITOR_VERB_GREETING          EDITOR_VERB_GREETING_PREFIX VORTEX_FULL_NAME EDITOR_VERB_GREETING_POSTFIX
+#define EDITOR_VERB_GREETING_PREFIX       "== "
+#define EDITOR_VERB_GREETING_POSTFIX      " =="
+#define EDITOR_VERB_GREETING              EDITOR_VERB_GREETING_PREFIX VORTEX_FULL_NAME EDITOR_VERB_GREETING_POSTFIX
 
-// the hello from the editor to the gloves
-#define EDITOR_VERB_HELLO             "a"
+// the hello from the editor to the device
+#define EDITOR_VERB_HELLO                 "a"
 
-// the response from the gloveset when it's ready to receive something
-// after the editor has given it a command to do something the gloveset
+// the response from the device when it's ready to receive something
+// after the editor has given it a command to do something the device
 // will respond with this then once it's done doing the action it will
 // send a different finished response for each action
-#define EDITOR_VERB_READY             "b"
+#define EDITOR_VERB_READY                 "b"
 
+// ===============================================================================
+// TODO: remove the below commands once they are no longer used
+//       these commands can sometimes cause crashes if the modes list is too big
 // the command from the editor to send modes over
-#define EDITOR_VERB_PULL_MODES        "c"
+#define EDITOR_VERB_PULL_MODES            "c"
 // the response from the editor once modes are received
-#define EDITOR_VERB_PULL_MODES_DONE   "d"
-// the response from the gloves once it acknowledges the editor got the modes
-#define EDITOR_VERB_PULL_MODES_ACK    "e"
-
+#define EDITOR_VERB_PULL_MODES_DONE       "d"
+// the response from the device once it acknowledges the editor got the modes
+#define EDITOR_VERB_PULL_MODES_ACK        "e"
 // the command from the editor to send modes over
-#define EDITOR_VERB_PUSH_MODES        "f"
-// the response from the gloveset when it received the mode
-#define EDITOR_VERB_PUSH_MODES_ACK    "g"
+#define EDITOR_VERB_PUSH_MODES            "f"
+// the response from the device when it received the mode
+#define EDITOR_VERB_PUSH_MODES_ACK        "g"
+// ===============================================================================
 
-// the command from the editor to tell the gloveset to demo a mode
-#define EDITOR_VERB_DEMO_MODE         "h"
-// the response from the gloveset when it's received the mode to demo
-#define EDITOR_VERB_DEMO_MODE_ACK     "i"
+// the command from the editor to tell the device to demo a mode
+#define EDITOR_VERB_DEMO_MODE             "h"
+// the response from the device when it's received the mode to demo
+#define EDITOR_VERB_DEMO_MODE_ACK         "i"
 
-// the command from the editor to tell the gloveset to clear the demo
-#define EDITOR_VERB_CLEAR_DEMO        "j"
-// the response from the gloveset when it's received disabled the demo
-#define EDITOR_VERB_CLEAR_DEMO_ACK    "k"
+// the command from the editor to tell the device to clear the demo
+#define EDITOR_VERB_CLEAR_DEMO            "j"
+// the response from the device when it's received disabled the demo
+#define EDITOR_VERB_CLEAR_DEMO_ACK        "k"
 
-// when the gloveset is leaving the menu and needs to tell the editor
+// when the device is leaving the menu and needs to tell the editor
 // that it's no longer listening
-#define EDITOR_VERB_GOODBYE           "l"
+#define EDITOR_VERB_GOODBYE               "l"
 
 // when the computer wants to send a mode to the duo it tells the device
 // to transmit over VL and send the current preview mode to the duo
-#define EDITOR_VERB_TRANSMIT_VL       "m"
+#define EDITOR_VERB_TRANSMIT_VL           "m"
 // the response from the device when it's done transmitting the mode
-#define EDITOR_VERB_TRANSMIT_VL_ACK   "n"
+#define EDITOR_VERB_TRANSMIT_VL_ACK       "n"
+
+// when the pc wants the chromadeck to listen for a mode from the duos
+#define EDITOR_VERB_LISTEN_VL             "o"
+// and the response for when it's done fetching a duo mode
+#define EDITOR_VERB_LISTEN_VL_ACK         "p"
+
+// pull the duo saveheader via the chromalink
+#define EDITOR_VERB_PULL_CHROMA_HDR       "q"
+// and the response for when it's done fetching the modes
+#define EDITOR_VERB_PULL_CHROMA_HDR_ACK   "r"
+
+// push the duo save header via the chromalink
+#define EDITOR_VERB_PUSH_CHROMA_HDR       "s"
+// and the response for when it's done pushing the modes
+#define EDITOR_VERB_PUSH_CHROMA_HDR_ACK   "t"
+
+// pull a duo mode via the chromalink
+#define EDITOR_VERB_PULL_CHROMA_MODE      "u"
+// and the response for when it's done fetching the modes
+#define EDITOR_VERB_PULL_CHROMA_MODE_ACK  "v"
+
+// push a duo mode via the chromalink
+#define EDITOR_VERB_PUSH_CHROMA_MODE      "w"
+// and the response for when it's done pushing the modes
+#define EDITOR_VERB_PUSH_CHROMA_MODE_ACK  "x"
+
+// pull a single mode
+#define EDITOR_VERB_PULL_SINGLE_MODE      "y"
+// and the response for when it's done
+#define EDITOR_VERB_PULL_SINGLE_MODE_ACK  "z"
+
+// push a single mode
+#define EDITOR_VERB_PUSH_SINGLE_MODE      "A"
+// and the response for when it's done
+#define EDITOR_VERB_PUSH_SINGLE_MODE_ACK  "B"
+
+// the command from the editor to send modes over
+#define EDITOR_VERB_PULL_EACH_MODE        "C"
+// the response from the device when it acknowledges a command
+#define EDITOR_VERB_PULL_EACH_MODE_ACK    "D"
+// the done message from the editor once modes are received
+#define EDITOR_VERB_PULL_EACH_MODE_DONE   "E"
+
+// the command from the editor to get ready to receive modes
+#define EDITOR_VERB_PUSH_EACH_MODE        "F"
+// the response from the device when it received the command
+#define EDITOR_VERB_PUSH_EACH_MODE_ACK    "G"
+// the done message from the device when it done the command
+#define EDITOR_VERB_PUSH_EACH_MODE_DONE   "H"
+
 
 // when the pc wants the chromadeck to listen for a mode from the duos
 #define EDITOR_VERB_LISTEN_VL         "o"
