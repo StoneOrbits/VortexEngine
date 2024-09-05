@@ -188,6 +188,89 @@ Menu::MenuAction EditorConnection::run()
     SerialComs::write(EDITOR_VERB_TRANSMIT_VL_ACK);
     m_state = STATE_IDLE;
     break;
+  case STATE_PULL_EACH_MODE:
+    // editor requested pull modes, send the modes
+    m_receiveBuffer.clear();
+    sendModeCount();
+    m_state = STATE_PULL_EACH_MODE_COUNT;
+    break;
+  case STATE_PULL_EACH_MODE_COUNT:
+    if (receiveMessage(EDITOR_VERB_PULL_EACH_MODE_ACK)) {
+      if (Modes::numModes() == 0) {
+        m_state = STATE_PULL_EACH_MODE_DONE;
+      } else {
+        m_previousModeIndex = Modes::curModeIndex();
+        m_state = STATE_PULL_EACH_MODE_SEND;
+      }
+    }
+    break;
+  case STATE_PULL_EACH_MODE_SEND:
+    m_receiveBuffer.clear();
+    // send the current mode
+    sendCurMode();
+    // wait for the ack
+    m_state = STATE_PULL_EACH_MODE_WAIT;
+    break;
+  case STATE_PULL_EACH_MODE_WAIT:
+    // recive the ack from the editor to send next mode
+    if (receiveMessage(EDITOR_VERB_PULL_EACH_MODE_ACK)) {
+      // if there is still more modes
+      if (Modes::curModeIndex() < (Modes::numModes() - 1)) {
+        // then iterate to the next mode and send
+        Modes::nextMode();
+        m_state = STATE_PULL_EACH_MODE_SEND;
+      } else {
+        // otherwise done sending modes
+        m_state = STATE_PULL_EACH_MODE_DONE;
+      }
+    }
+    break;
+  case STATE_PULL_EACH_MODE_DONE:
+    m_receiveBuffer.clear();
+    // send our acknowledgement that the modes were sent
+    SerialComs::write(EDITOR_VERB_PULL_EACH_MODE_DONE);
+    // switch back to the previous mode
+    Modes::setCurMode(m_previousModeIndex);
+    // go idle
+    m_state = STATE_IDLE;
+    break;
+  case STATE_PUSH_EACH_MODE:
+    // editor requested to push modes, find out how many
+    m_receiveBuffer.clear();
+    // ack the command and wait for the amount of modes
+    SerialComs::write(EDITOR_VERB_PUSH_EACH_MODE_ACK);
+    m_state = STATE_PUSH_EACH_MODE_COUNT;
+    break;
+  case STATE_PUSH_EACH_MODE_COUNT:
+    if (receiveModeCount()) {
+      // clear modes and start receiving
+      Modes::clearModes();
+      // write out an ack
+      m_receiveBuffer.clear();
+      SerialComs::write(EDITOR_VERB_PUSH_EACH_MODE_ACK);
+      // ready to receive a mode
+      m_state = STATE_PUSH_EACH_MODE_RECEIVE;
+    }
+    break;
+  case STATE_PUSH_EACH_MODE_RECEIVE:
+    // receive the modes into the receive buffer
+    if (receiveMode()) {
+      if (Modes::numModes() < m_numModesToReceive) {
+        // clear the receive buffer and ack the mode, continue receiving
+        m_receiveBuffer.clear();
+        SerialComs::write(EDITOR_VERB_PUSH_EACH_MODE_ACK);
+      } else {
+        // success modes were received send the done
+        m_state = STATE_PUSH_EACH_MODE_DONE;
+      }
+    }
+    break;
+  case STATE_PUSH_EACH_MODE_DONE:
+    // say we are done
+    m_receiveBuffer.clear();
+    SerialComs::write(EDITOR_VERB_PUSH_EACH_MODE_DONE);
+    m_state = STATE_IDLE;
+    break;
   }
   return MENU_CONTINUE;
 }
@@ -259,6 +342,28 @@ void EditorConnection::sendModes()
   SerialComs::write(modesBuffer);
 }
 
+void EditorConnection::sendModeCount()
+{
+  ByteStream buffer;
+  buffer.serialize8(Modes::numModes());
+  SerialComs::write(buffer);
+}
+
+void EditorConnection::sendCurMode()
+{
+  ByteStream modeBuffer;
+  Mode *cur = Modes::curMode();
+  if (!cur) {
+    // ??
+    return;
+  }
+  if (!cur->saveToBuffer(modeBuffer)) {
+    // ??
+    return;
+  }
+  SerialComs::write(modeBuffer);
+}
+
 bool EditorConnection::receiveModes()
 {
   // need at least the buffer size first
@@ -288,6 +393,76 @@ bool EditorConnection::receiveModes()
   m_receiveBuffer.clear();
   Modes::loadFromBuffer(buf);
   Modes::saveStorage();
+  return true;
+}
+
+bool EditorConnection::receiveModeCount()
+{
+  // need at least the buffer size first
+  uint32_t size = 0;
+  if (m_receiveBuffer.size() < sizeof(size)) {
+    // wait, not enough data available yet
+    return false;
+  }
+  // grab the size out of the start
+  m_receiveBuffer.resetUnserializer();
+  size = m_receiveBuffer.peek32();
+  if (m_receiveBuffer.size() < (size + sizeof(size))) {
+    // don't unserialize yet, not ready
+    return false;
+  }
+  // okay unserialize now, first unserialize the size
+  if (!m_receiveBuffer.unserialize32(&size)) {
+    return false;
+  }
+  // create a new ByteStream that will hold the full buffer of data
+  ByteStream buf(m_receiveBuffer.rawSize());
+  // then copy everything from the receive buffer into the rawdata
+  // which is going to overwrite the crc/size/flags of the ByteStream
+  memcpy(buf.rawData(), m_receiveBuffer.data() + sizeof(size),
+    m_receiveBuffer.size() - sizeof(size));
+  // unserialize the mode count
+  if (!buf.unserialize8(&m_numModesToReceive)) {
+    return false;
+  }
+  if (m_numModesToReceive > MAX_MODES) {
+    return false;
+  }
+  // good mode count
+  return true;
+}
+
+bool EditorConnection::receiveMode()
+{
+  // need at least the buffer size first
+  uint32_t size = 0;
+  if (m_receiveBuffer.size() < sizeof(size)) {
+    // wait, not enough data available yet
+    return false;
+  }
+  // grab the size out of the start
+  m_receiveBuffer.resetUnserializer();
+  size = m_receiveBuffer.peek32();
+  if (m_receiveBuffer.size() < (size + sizeof(size))) {
+    // don't unserialize yet, not ready
+    return false;
+  }
+  // okay unserialize now, first unserialize the size
+  if (!m_receiveBuffer.unserialize32(&size)) {
+    return false;
+  }
+  // create a new ByteStream that will hold the full buffer of data
+  ByteStream buf(m_receiveBuffer.rawSize());
+  // then copy everything from the receive buffer into the rawdata
+  // which is going to overwrite the crc/size/flags of the ByteStream
+  memcpy(buf.rawData(), m_receiveBuffer.data() + sizeof(size),
+    m_receiveBuffer.size() - sizeof(size));
+  // clear the receive buffer
+  m_receiveBuffer.clear();
+  // unserialize the mode into the demo mode
+  if (!Modes::addModeFromBuffer(buf)) {
+    // error
+  }
   return true;
 }
 
@@ -335,6 +510,10 @@ void EditorConnection::handleCommand()
     m_state = STATE_DEMO_MODE;
   } else if (receiveMessage(EDITOR_VERB_CLEAR_DEMO)) {
     m_state = STATE_CLEAR_DEMO;
+  } else if (receiveMessage(EDITOR_VERB_PULL_EACH_MODE)) {
+    m_state = STATE_PULL_EACH_MODE;
+  } else if (receiveMessage(EDITOR_VERB_PUSH_EACH_MODE)) {
+    m_state = STATE_PUSH_EACH_MODE;
   } else if (receiveMessage(EDITOR_VERB_TRANSMIT_VL)) {
     sendCurModeVL();
   }
