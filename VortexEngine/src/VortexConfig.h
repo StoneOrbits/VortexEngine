@@ -481,19 +481,54 @@
 // the response from the device when it's done transmitting the mode
 #define EDITOR_VERB_TRANSMIT_VL_ACK       "n"
 
-// the command from the editor to send modes over
-#define EDITOR_VERB_PULL_EACH_MODE        "o"
-// the response from the device when it acknowledges a command
-#define EDITOR_VERB_PULL_EACH_MODE_ACK    "p"
-// the response from the editor once modes are received
-#define EDITOR_VERB_PULL_EACH_MODE_DONE   "q"
+// when the pc wants the chromadeck to listen for a mode from the duos
+#define EDITOR_VERB_LISTEN_VL             "o"
+// and the response for when it's done fetching a duo mode
+#define EDITOR_VERB_LISTEN_VL_ACK         "p"
+
+// pull the duo saveheader via the chromalink
+#define EDITOR_VERB_PULL_CHROMA_HDR       "q"
+// and the response for when it's done fetching the modes
+#define EDITOR_VERB_PULL_CHROMA_HDR_ACK   "r"
+
+// push the duo save header via the chromalink
+#define EDITOR_VERB_PUSH_CHROMA_HDR       "s"
+// and the response for when it's done pushing the modes
+#define EDITOR_VERB_PUSH_CHROMA_HDR_ACK   "t"
+
+// pull a duo mode via the chromalink
+#define EDITOR_VERB_PULL_CHROMA_MODE      "u"
+// and the response for when it's done fetching the modes
+#define EDITOR_VERB_PULL_CHROMA_MODE_ACK  "v"
+
+// push a duo mode via the chromalink
+#define EDITOR_VERB_PUSH_CHROMA_MODE      "w"
+// and the response for when it's done pushing the modes
+#define EDITOR_VERB_PUSH_CHROMA_MODE_ACK  "x"
+
+// pull a single mode
+#define EDITOR_VERB_PULL_SINGLE_MODE      "y"
+// and the response for when it's done
+#define EDITOR_VERB_PULL_SINGLE_MODE_ACK  "z"
+
+// push a single mode
+#define EDITOR_VERB_PUSH_SINGLE_MODE      "A"
+// and the response for when it's done
+#define EDITOR_VERB_PUSH_SINGLE_MODE_ACK  "B"
 
 // the command from the editor to send modes over
-#define EDITOR_VERB_PUSH_EACH_MODE        "r"
+#define EDITOR_VERB_PULL_EACH_MODE        "C"
+// the response from the device when it acknowledges a command
+#define EDITOR_VERB_PULL_EACH_MODE_ACK    "D"
+// the response from the editor once modes are received
+#define EDITOR_VERB_PULL_EACH_MODE_DONE   "E"
+
+// the command from the editor to send modes over
+#define EDITOR_VERB_PUSH_EACH_MODE        "F"
 // the response from the device when it received the command
-#define EDITOR_VERB_PUSH_EACH_MODE_ACK    "s"
+#define EDITOR_VERB_PUSH_EACH_MODE_ACK    "G"
 // the response from the device when it received the command
-#define EDITOR_VERB_PUSH_EACH_MODE_DONE   "t"
+#define EDITOR_VERB_PUSH_EACH_MODE_DONE   "H"
 
 // ===================================================================
 //  Manually Configured Sizes

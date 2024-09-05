@@ -197,7 +197,7 @@ Menu::MenuAction EditorConnection::run()
   case STATE_PULL_EACH_MODE_COUNT:
     if (receiveMessage(EDITOR_VERB_PULL_EACH_MODE_ACK)) {
       if (Modes::numModes() == 0) {
-        m_state = STATE_IDLE;
+        m_state = STATE_PULL_EACH_MODE_DONE;
       } else {
         m_previousModeIndex = Modes::curModeIndex();
         m_state = STATE_PULL_EACH_MODE_SEND;
@@ -245,6 +245,10 @@ Menu::MenuAction EditorConnection::run()
     if (receiveModeCount()) {
       // clear modes and start receiving
       Modes::clearModes();
+      // write out an ack
+      m_receiveBuffer.clear();
+      SerialComs::write(EDITOR_VERB_PUSH_EACH_MODE_ACK);
+      // ready to receive a mode
       m_state = STATE_PUSH_EACH_MODE_RECEIVE;
     }
     break;
@@ -437,6 +441,42 @@ bool EditorConnection::receiveModeCount()
   // good mode count
   return true;
 }
+
+bool EditorConnection::receiveMode()
+{
+  // need at least the buffer size first
+  uint32_t size = 0;
+  if (m_receiveBuffer.size() < sizeof(size)) {
+    // wait, not enough data available yet
+    return false;
+  }
+  // grab the size out of the start
+  m_receiveBuffer.resetUnserializer();
+  size = m_receiveBuffer.peek32();
+  if (m_receiveBuffer.size() < (size + sizeof(size))) {
+    // don't unserialize yet, not ready
+    return false;
+  }
+  // okay unserialize now, first unserialize the size
+  if (!m_receiveBuffer.unserialize32(&size)) {
+    return false;
+  }
+  // create a new ByteStream that will hold the full buffer of data
+  ByteStream buf(m_receiveBuffer.rawSize());
+  // then copy everything from the receive buffer into the rawdata
+  // which is going to overwrite the crc/size/flags of the ByteStream
+  memcpy(buf.rawData(), m_receiveBuffer.data() + sizeof(size),
+    m_receiveBuffer.size() - sizeof(size));
+  // clear the receive buffer
+  m_receiveBuffer.clear();
+  // unserialize the mode into the demo mode
+  if (!Modes::addModeFromBuffer(buf)) {
+    // error
+  }
+  return true;
+}
+
+
 
 bool EditorConnection::receiveDemoMode()
 {
