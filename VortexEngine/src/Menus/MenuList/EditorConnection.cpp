@@ -274,12 +274,9 @@ Menu::MenuAction EditorConnection::run()
     }
     break;
   case STATE_PUSH_EACH_MODE_DONE:
-    //if (receiveMessage(EDITOR_VERB_PUSH_EACH_MODE_DONE)) {
-      // say we are done
-      //m_receiveBuffer.clear();
-      //SerialComs::write(EDITOR_VERB_PUSH_EACH_MODE_DONE);
-      m_state = STATE_IDLE;
-    //}
+    // did originally receive/send a DONE message here but it wasn't working
+    // on lightshow.lol so just skip to IDLE
+    m_state = STATE_IDLE;
     break;
   }
   return MENU_CONTINUE;
