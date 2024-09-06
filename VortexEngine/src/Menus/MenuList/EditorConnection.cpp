@@ -257,11 +257,10 @@ Menu::MenuAction EditorConnection::run()
   case STATE_PUSH_EACH_MODE_RECEIVE:
     // receive the modes into the receive buffer
     if (receiveMode()) {
-      if (m_engine.modes().numModes() < m_numModesToReceive) {
-        // clear the receive buffer and ack the mode, continue receiving
-        m_receiveBuffer.clear();
-        m_engine.serial().write(EDITOR_VERB_PUSH_EACH_MODE_ACK);
-      } else {
+      // clear the receive buffer and ack the mode, continue receiving
+      m_receiveBuffer.clear();
+      m_engine.serial().write(EDITOR_VERB_PUSH_EACH_MODE_ACK);
+      if (m_engine.modes().numModes() >= m_numModesToReceive) {
         // success modes were received send the done
         m_state = STATE_PUSH_EACH_MODE_DONE;
       }
