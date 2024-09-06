@@ -198,10 +198,10 @@ Menu::MenuAction EditorConnection::run()
     break;
   case STATE_PULL_EACH_MODE_COUNT:
     if (receiveMessage(EDITOR_VERB_PULL_EACH_MODE_ACK)) {
-      if (Modes::numModes() == 0) {
+      if (m_engine.modes().numModes() == 0) {
         m_state = STATE_PULL_EACH_MODE_DONE;
       } else {
-        m_previousModeIndex = Modes::curModeIndex();
+        m_previousModeIndex = m_engine.modes().curModeIndex();
         m_state = STATE_PULL_EACH_MODE_SEND;
       }
     }
@@ -217,9 +217,9 @@ Menu::MenuAction EditorConnection::run()
     // recive the ack from the editor to send next mode
     if (receiveMessage(EDITOR_VERB_PULL_EACH_MODE_ACK)) {
       // if there is still more modes
-      if (Modes::curModeIndex() < (Modes::numModes() - 1)) {
+      if (m_engine.modes().curModeIndex() < (m_engine.modes().numModes() - 1)) {
         // then iterate to the next mode and send
-        Modes::nextMode();
+        m_engine.modes().nextMode();
         m_state = STATE_PULL_EACH_MODE_SEND;
       } else {
         // otherwise done sending modes
@@ -230,9 +230,9 @@ Menu::MenuAction EditorConnection::run()
   case STATE_PULL_EACH_MODE_DONE:
     m_receiveBuffer.clear();
     // send our acknowledgement that the modes were sent
-    SerialComs::write(EDITOR_VERB_PULL_EACH_MODE_DONE);
+    m_engine.serial().write(EDITOR_VERB_PULL_EACH_MODE_DONE);
     // switch back to the previous mode
-    Modes::setCurMode(m_previousModeIndex);
+    m_engine.modes().setCurMode(m_previousModeIndex);
     // go idle
     m_state = STATE_IDLE;
     break;
@@ -240,16 +240,16 @@ Menu::MenuAction EditorConnection::run()
     // editor requested to push modes, find out how many
     m_receiveBuffer.clear();
     // ack the command and wait for the amount of modes
-    SerialComs::write(EDITOR_VERB_PUSH_EACH_MODE_ACK);
+    m_engine.serial().write(EDITOR_VERB_PUSH_EACH_MODE_ACK);
     m_state = STATE_PUSH_EACH_MODE_COUNT;
     break;
   case STATE_PUSH_EACH_MODE_COUNT:
     if (receiveModeCount()) {
       // clear modes and start receiving
-      Modes::clearModes();
+      m_engine.modes().clearModes();
       // write out an ack
       m_receiveBuffer.clear();
-      SerialComs::write(EDITOR_VERB_PUSH_EACH_MODE_ACK);
+      m_engine.serial().write(EDITOR_VERB_PUSH_EACH_MODE_ACK);
       // ready to receive a mode
       m_state = STATE_PUSH_EACH_MODE_RECEIVE;
     }
@@ -257,10 +257,10 @@ Menu::MenuAction EditorConnection::run()
   case STATE_PUSH_EACH_MODE_RECEIVE:
     // receive the modes into the receive buffer
     if (receiveMode()) {
-      if (Modes::numModes() < m_numModesToReceive) {
+      if (m_engine.modes().numModes() < m_numModesToReceive) {
         // clear the receive buffer and ack the mode, continue receiving
         m_receiveBuffer.clear();
-        SerialComs::write(EDITOR_VERB_PUSH_EACH_MODE_ACK);
+        m_engine.serial().write(EDITOR_VERB_PUSH_EACH_MODE_ACK);
       } else {
         // success modes were received send the done
         m_state = STATE_PUSH_EACH_MODE_DONE;
@@ -270,7 +270,7 @@ Menu::MenuAction EditorConnection::run()
   case STATE_PUSH_EACH_MODE_DONE:
     // say we are done
     m_receiveBuffer.clear();
-    SerialComs::write(EDITOR_VERB_PUSH_EACH_MODE_DONE);
+    m_engine.serial().write(EDITOR_VERB_PUSH_EACH_MODE_DONE);
     m_state = STATE_IDLE;
     break;
   }
@@ -347,14 +347,14 @@ void EditorConnection::sendModes()
 void EditorConnection::sendModeCount()
 {
   ByteStream buffer;
-  buffer.serialize8(Modes::numModes());
-  SerialComs::write(buffer);
+  buffer.serialize8(m_engine.modes().numModes());
+  m_engine.serial().write(buffer);
 }
 
 void EditorConnection::sendCurMode()
 {
   ByteStream modeBuffer;
-  Mode *cur = Modes::curMode();
+  Mode *cur = m_engine.modes().curMode();
   if (!cur) {
     // ??
     return;
@@ -363,7 +363,7 @@ void EditorConnection::sendCurMode()
     // ??
     return;
   }
-  SerialComs::write(modeBuffer);
+  m_engine.serial().write(modeBuffer);
 }
 
 bool EditorConnection::receiveModes()
@@ -462,7 +462,7 @@ bool EditorConnection::receiveMode()
   // clear the receive buffer
   m_receiveBuffer.clear();
   // unserialize the mode into the demo mode
-  if (!Modes::addModeFromBuffer(buf)) {
+  if (!m_engine.modes().addModeFromBuffer(buf)) {
     // error
   }
   return true;

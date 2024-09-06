@@ -182,6 +182,7 @@ public:
   bool getModes(ByteStream &outStream);
   bool setModes(ByteStream &stream, bool save = true);
   bool getCurMode(ByteStream &stream);
+  void clearModes();
 
   // match the ledcount of the savefile in the stream, vtxMode = true
   // to indicate it is a .vtxmode file or not

@@ -1198,7 +1198,7 @@ bool Vortex::getModes(ByteStream &outStream)
 
 bool Vortex::setModes(ByteStream &stream, bool save)
 {
-  m_engine.modes().clearModes();
+  clearModes();
   // now unserialize the stream of data that was read
   if (!m_engine.modes().loadFromBuffer(stream)) {
     return false;
@@ -1278,6 +1278,11 @@ bool Vortex::getCurMode(ByteStream &outStream)
     return false;
   }
   return m_engine.modes().curMode()->saveToBuffer(outStream);
+}
+
+void Vortex::clearModes()
+{
+  m_engine.modes().clearModes();
 }
 
 uint32_t Vortex::curModeIndex()
@@ -2213,7 +2218,7 @@ bool Vortex::loadFromJson(const json& js)
       js.contains("flags") && js["flags"].is_number_unsigned() &&
       js.contains("single_pats") && js["single_pats"].is_array()) {
     // clear existing modes? idk, yes for now
-    m_engine.modes().clearModes();
+    clearModes();
     // the js is just a single mode, just load it
     return loadModeFromJson(js);
   }
@@ -2237,7 +2242,7 @@ bool Vortex::loadFromJson(const json& js)
     return false;
   }
 
-  m_engine.modes().clearModes();
+  clearModes();
   for (const auto &modeValue : js["modes"]) {
     if (modeValue.is_null() || !modeValue.is_object()) {
       continue;
