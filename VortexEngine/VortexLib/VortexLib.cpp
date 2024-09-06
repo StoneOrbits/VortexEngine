@@ -544,6 +544,7 @@ EMSCRIPTEN_BINDINGS(Vortex) {
     .function("matchLedCount", &Vortex::matchLedCount)
     .function("checkLedCount", &Vortex::checkLedCount)
     .function("setLedCount", &Vortex::setLedCount)
+    .function("clearModes", &Vortex::clearModes)
     .function("curModeIndex", &Vortex::curModeIndex)
     .function("numModes", &Vortex::numModes)
     .function("numLedsInMode", &Vortex::numLedsInMode)
