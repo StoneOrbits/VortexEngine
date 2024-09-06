@@ -109,8 +109,8 @@ Menu::MenuAction EditorConnection::run()
     // parse the receive buffer for any commands from the editor
     handleCommand();
     // watch for disconnects
-    if (!SerialComs::isConnected()) {
-      Leds::holdAll(RGB_GREEN);
+    if (!m_engine.serial().isConnected()) {
+      m_engine.leds().holdAll(RGB_GREEN);
       leaveMenu(true);
     }
     break;
