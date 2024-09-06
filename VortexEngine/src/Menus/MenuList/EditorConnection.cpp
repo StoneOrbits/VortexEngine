@@ -17,7 +17,9 @@
 EditorConnection::EditorConnection(const RGBColor &col, bool advanced) :
   Menu(col, advanced),
   m_state(STATE_DISCONNECTED),
-  m_allowReset(true)
+  m_allowReset(true),
+  m_previousModeIndex(0),
+  m_numModesToReceive(0)
 {
 }
 
@@ -104,6 +106,11 @@ Menu::MenuAction EditorConnection::run()
   case STATE_IDLE:
     // parse the receive buffer for any commands from the editor
     handleCommand();
+    // watch for disconnects
+    if (!SerialComs::isConnected()) {
+      Leds::holdAll(RGB_GREEN);
+      leaveMenu(true);
+    }
     break;
   case STATE_PULL_MODES:
     // editor requested pull modes, send the modes
@@ -257,16 +264,18 @@ Menu::MenuAction EditorConnection::run()
     if (receiveMode()) {
       m_receiveBuffer.clear();
       SerialComs::write(EDITOR_VERB_PUSH_EACH_MODE_ACK);
-      if (Modes::numModes() >= m_numModesToReceive) {
+      if (m_numModesToReceive > 0) {
+        m_numModesToReceive--;
+      }
+      if (!m_numModesToReceive) {
         // success modes were received send the done
         m_state = STATE_PUSH_EACH_MODE_DONE;
       }
     }
     break;
   case STATE_PUSH_EACH_MODE_DONE:
-    // say we are done
-    m_receiveBuffer.clear();
-    SerialComs::write(EDITOR_VERB_PUSH_EACH_MODE_DONE);
+    // did originally receive/send a DONE message here but it wasn't working
+    // on lightshow.lol so just skip to IDLE
     m_state = STATE_IDLE;
     break;
   }
