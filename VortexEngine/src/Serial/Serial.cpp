@@ -19,6 +19,7 @@
 
 bool SerialComs::m_serialConnected = false;
 uint32_t SerialComs::m_lastCheck = 0;
+uint32_t SerialComs::m_lastConnected = 0;
 
 // init serial
 bool SerialComs::init()
@@ -39,8 +40,26 @@ bool SerialComs::isConnected()
     m_serialConnected = false;
     return false;
   }
+  if (!isConnectedReal()) {
+    return false;
+  }
 #endif
   return m_serialConnected;
+}
+
+bool SerialComs::isConnectedReal()
+{
+#ifdef VORTEX_EMBEDDED
+  uint32_t now = Time::getCurtime();
+  if (!Serial.usb.connected()) {
+    m_lastConnected = now;
+  } else {
+    if (m_lastConnected && (now - m_lastConnected) > 1800) {
+      return false;
+    }
+  }
+#endif
+  return true;
 }
 
 // check for any serial connection or messages
@@ -50,6 +69,9 @@ bool SerialComs::checkSerial()
   if (isConnected()) {
     // already connected
     return true;
+  }
+  if (m_serialConnected) {
+    return isConnectedReal();
   }
   uint32_t now = Time::getCurtime();
   // don't check for serial too fast
@@ -71,13 +93,16 @@ bool SerialComs::checkSerial()
   }
   // Begin serial communications (turns out this is actually a NO-OP in trinket source)
   Serial.begin(SERIAL_BAUD_RATE);
-  // directly open the editor connection menu because we are connected to USB serial
-  Menus::openMenu(MENU_EDITOR_CONNECTION);
+  if (Menus::curMenuID() != MENU_EDITOR_CONNECTION) {
+    // directly open the editor connection menu because we are connected to USB serial
+    Menus::openMenu(MENU_EDITOR_CONNECTION);
+  }
 #endif
 #endif
   // serial is now connected
   m_serialConnected = true;
-  return true;
+  // rely on the low level 'real' connection now
+  return isConnectedReal();
 }
 
 void SerialComs::write(const char *msg, ...)
