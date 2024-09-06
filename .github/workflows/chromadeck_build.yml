@@ -130,7 +130,8 @@ jobs:
         working-directory: VortexEngine/VortexLib
 
   docs:
-    needs: [setup, test, embedded, wasm]
+    #todo: fix the depends to be setup, test, embedded, wasm
+    needs: [setup, test]
     runs-on: ubuntu-latest
     if: github.ref == 'refs/heads/chromadeck'
     steps:
@@ -143,14 +144,16 @@ jobs:
       - name: Checkout doxygen-awesome
         run: git clone https://github.com/jothepro/doxygen-awesome-css.git doxygen-awesome-css
       - name: Generate Documentation
-        run: doxygen Doxyfile
-      - name: Commit and Push Documentation
         run: |
-          git config --local user.email "action@github.com"
-          git config --local user.name "GitHub Action"
-          git add docs
-          git commit -m "Update Doxygen documentation"
-          git push -f origin HEAD:chromadeck-docs
+          mkdir -p docs/chromadeck
+          doxygen Doxyfile
+          echo "Listing contents of docs/chromadeck:"
+          ls -R docs/chromadeck || echo "No files found in docs/chromadeck"
+      - name: Upload Doxygen Documentation as Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: doxygen-docs-chromadeck
+          path: docs/chromadeck
 
   deploy:
     needs: [setup, test, embedded, wasm, docs]
