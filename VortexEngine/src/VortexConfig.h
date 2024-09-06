@@ -17,7 +17,7 @@
 // and vice versa. But an engine on 2.0 cannot share savefiles with
 // either of the engines on version 1.1 or 1.2
 #ifndef VORTEX_VERSION_MINOR
-#define VORTEX_VERSION_MINOR  2
+#define VORTEX_VERSION_MINOR  3
 #endif
 
 // The build or patch number based on the major.minor version, this is
