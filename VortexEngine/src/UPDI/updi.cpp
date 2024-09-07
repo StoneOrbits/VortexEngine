@@ -1,4 +1,4 @@
-#include "UPDI.h"
+#include "updi.h"
 #include "../VortexConfig.h"
 #include "../Time/TimeControl.h"
 #include "../Log/Log.h"
