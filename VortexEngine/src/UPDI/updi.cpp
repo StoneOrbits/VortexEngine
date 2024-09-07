@@ -1,10 +1,14 @@
 #include "updi.h"
+
+#ifdef VORTEX_EMBEDDED
+
 #include "../VortexConfig.h"
 #include "../Time/TimeControl.h"
 #include "../Log/Log.h"
 #include "../Serial/ByteStream.h"
 #include "../Patterns/Pattern.h"
 #include "../Modes/Mode.h"
+
 #include "driver/uart.h"
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
@@ -18,13 +22,10 @@
 #include "soc/io_mux_reg.h"
 #include "esp_timer.h"
 #include "driver/timer.h"
-
-#ifdef VORTEX_EMBEDDED
 #include <Arduino.h>
-#else
+
 #define HIGH 0x1
 #define LOW 0x0
-#endif
 
 #define FLASH_PAGE_SIZE 128
 #define EEPROM_PAGE_SIZE 64
@@ -49,6 +50,8 @@
 // the key here is setting the gpio as GPIO_FLOATING to prevent contention
 #define GPIO_SET_INPUT(gpio_num) (GPIO.enable_w1tc.val = (1U << gpio_num)); gpio_set_pull_mode((gpio_num_t)gpio_num, GPIO_FLOATING);
 
+#endif
+
 bool UPDI::init()
 {
   return true;
@@ -60,6 +63,7 @@ void UPDI::cleanup()
 
 bool UPDI::readHeader(ByteStream &header)
 {
+#ifdef VORTEX_EMBEDDED
   if (!header.init(5)) {
     return false;
   }
@@ -98,11 +102,13 @@ bool UPDI::readHeader(ByteStream &header)
     reset();
     return false;
   }
+#endif
   return true;
 }
 
 bool UPDI::readMode(uint8_t idx, ByteStream &modeBuffer)
 {
+#ifdef VORTEX_EMBEDDED
   // initialize mode buffer
   if (!modeBuffer.init(76)) {
     return false;
@@ -149,11 +155,13 @@ bool UPDI::readMode(uint8_t idx, ByteStream &modeBuffer)
     ptr[i] = ld_b();
   }
   reset();
+#endif
   return true;
 }
 
 bool UPDI::writeHeader(ByteStream &headerBuffer)
 {
+#ifdef VORTEX_EMBEDDED
   headerBuffer.sanity();
   if (!headerBuffer.checkCRC()) {
     ERROR_LOG("ERROR Header CRC Invalid!");
@@ -195,11 +203,13 @@ bool UPDI::writeHeader(ByteStream &headerBuffer)
     reset();
     return false;
   }
+#endif
   return true;
 }
 
 bool UPDI::writeMode(uint8_t idx, ByteStream &modeBuffer)
 {
+#ifdef VORTEX_EMBEDDED
   modeBuffer.sanity();
   if (!modeBuffer.checkCRC()) {
     ERROR_LOG("ERROR Header CRC Invalid!");
@@ -322,21 +332,25 @@ bool UPDI::writeMode(uint8_t idx, ByteStream &modeBuffer)
   }
 
   reset();
+#endif
   return true;
 }
 
 bool UPDI::eraseMemory()
 {
+  uint8_t status = 0;
+#ifdef VORTEX_EMBEDDED
   sendDoubleBreak();
   if (!enterProgrammingMode()) {
     return false;
   }
   sendEraseKey();
-  uint8_t status = ldcs(ASI_Key_Status);
+  status = ldcs(ASI_Key_Status);
   if (status != 0x8) {
     ERROR_LOGF("Erasing mem, bad key status: 0x%02x...", status);
   }
   reset();
+#endif
   return status == 0x8;
 }
 
@@ -424,6 +438,8 @@ bool UPDI::writeMemory()
   return true;
 }
 
+#ifdef VORTEX_EMBEDDED
+
 bool UPDI::enterProgrammingMode()
 {
   ERROR_LOG("Entering programming mode");
@@ -433,6 +449,7 @@ bool UPDI::enterProgrammingMode()
   //  This selects the guard time value that will be used by the UPDI when the
   //  transmission direction switches from RX to TX.
   //  0x6 = UPDI guard time: 2 cycles
+
   return true;
 }
 
@@ -621,3 +638,6 @@ uint8_t UPDI::ld_b()
   sendByte(0x20);
   return receiveByte();
 }
+
+#endif
+

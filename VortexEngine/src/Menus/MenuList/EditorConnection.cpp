@@ -70,14 +70,6 @@ bool EditorConnection::receiveMessage(const char *message)
   return true;
 }
 
-void EditorConnection::clearDemo()
-{
-  Colorset set(RGB_WHITE0);
-  PatternArgs args(1, 0, 0);
-  m_previewMode.setPattern(PATTERN_STROBE, LED_ALL, &args, &set);
-  m_previewMode.init();
-}
-
 Menu::MenuAction EditorConnection::run()
 {
   MenuAction result = Menu::run();
@@ -420,6 +412,7 @@ bool EditorConnection::pullHeaderChromalink()
 
 bool EditorConnection::pushHeaderChromalink()
 {
+  return true;
 }
 
 // pull/push through the chromalink
@@ -441,6 +434,7 @@ bool EditorConnection::pullModeChromalink()
 
 bool EditorConnection::pushModeChromalink()
 {
+  return true;
 }
 
 void EditorConnection::onShortClick()
@@ -673,29 +667,6 @@ bool EditorConnection::receiveDemoMode()
   // unserialize the mode into the demo mode
   if (!m_previewMode.loadFromBuffer(buf)) {
     // failure
-  }
-  return true;
-}
-
-bool EditorConnection::receiveMessage(const char *message)
-{
-  size_t len = strlen(message);
-  uint8_t byte = 0;
-  // wait for the editor to ack the idle
-  if (m_receiveBuffer.size() < len) {
-    return false;
-  }
-  if (memcmp(m_receiveBuffer.frontUnserializer(), message, len) != 0) {
-    return false;
-  }
-  for (size_t i = 0; i < len; ++i) {
-    if (!m_receiveBuffer.unserialize8(&byte)) {
-      return false;
-    }
-  }
-  // if everything was read out, reset
-  if (m_receiveBuffer.unserializerAtEnd()) {
-    m_receiveBuffer.clear();
   }
   return true;
 }

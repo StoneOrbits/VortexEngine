@@ -3,6 +3,7 @@
 
 #include <inttypes.h>
 
+
 class ByteStream;
 
 class UPDI {
@@ -22,6 +23,7 @@ public:
   static bool writeMemory();
 
 private:
+#ifdef VORTEX_EMBEDDED
   // *** Base Addresses ***
   enum base
   {
@@ -113,6 +115,8 @@ private:
   static void sendEraseKey() { sendKey("NVMErase"); }
   static void sendProgKey() { sendKey("NVMProg "); }
   static void sendUserrowKey() { sendKey("NVMUs&te"); }
+#endif
 };
+
 
 #endif // UPDI_H
