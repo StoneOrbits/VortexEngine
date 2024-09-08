@@ -1,7 +1,7 @@
 .PHONY: all install build upload clean
 
 ARDUINO_CLI = ./bin/arduino-cli --verbose
-BOARD = esp32:esp32:esp32s3
+BOARD = esp32:esp32:esp32c3
 PORT = COMx # Replace 'x' with the appropriate COM port number
 PROJECT_NAME = VortexEngine/VortexEngine.ino
 BUILD_PATH = build

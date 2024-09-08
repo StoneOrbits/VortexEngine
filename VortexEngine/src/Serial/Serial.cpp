@@ -3,6 +3,8 @@
 #include "../Serial/ByteStream.h"
 #include "../Time/TimeControl.h"
 #include "../Time/Timings.h"
+#include "../Modes/Modes.h"
+#include "../Menus/MainMenu.h"
 #include "../Menus/Menus.h"
 #include "../Log/Log.h"
 
@@ -15,19 +17,17 @@
 
 #ifdef VORTEX_EMBEDDED
 #include <Arduino.h>
+#include "soc/usb_serial_jtag_reg.h"
+#include "HWCDC.h"
 #endif
 
 bool SerialComs::m_serialConnected = false;
 uint32_t SerialComs::m_lastCheck = 0;
+uint32_t SerialComs::m_lastConnected = 0;
 
 // init serial
 bool SerialComs::init()
 {
-  // Try connecting serial ?
-  while (!checkSerial()) {
-    Time::delayMilliseconds(100);
-  }
-  INFO_LOG("Success! Connected!");
   return true;
 }
 
@@ -37,7 +37,22 @@ void SerialComs::cleanup()
 
 bool SerialComs::isConnected()
 {
+#ifdef VORTEX_EMBEDDED
+  if (!isConnectedReal()) {
+    return false;
+  }
+#endif
   return m_serialConnected;
+}
+
+bool SerialComs::isConnectedReal()
+{
+#ifdef VORTEX_EMBEDDED
+  //return usb_serial_jtag_is_connected();
+  return HWCDCSerial.isConnected();
+#else
+  return true;
+#endif
 }
 
 // check for any serial connection or messages
@@ -66,15 +81,14 @@ bool SerialComs::checkSerial()
     // serial is not connected
     return false;
   }
-  // Begin serial communications
+  // Begin serial communications (turns out this is actually a NO-OP in trinket source)
   Serial.begin(SERIAL_BAUD_RATE);
-  // directly open the editor connection menu because we are connected to USB serial
-  Menus::openMenu(MENU_EDITOR_CONNECTION);
 #endif
 #endif
   // serial is now connected
   m_serialConnected = true;
-  return true;
+  // rely on the low level 'real' connection now
+  return isConnectedReal();
 }
 
 void SerialComs::write(const char *msg, ...)

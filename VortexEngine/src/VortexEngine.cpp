@@ -182,6 +182,20 @@ void VortexEngine::runMainLogic()
   // the current tick
   uint32_t now = Time::getCurtime();
 
+  // check for serial first before main menus run, but as a result if we open
+  // editor we have to call modes load inside here
+  if (SerialComs::checkSerial()) {
+    if (Menus::curMenuID() != MENU_EDITOR_CONNECTION) {
+      // have to do this because we check for serial before main menu
+      if (MainMenu::isOpen()) {
+        MainMenu::select();
+        Modes::load();
+      }
+      // directly open the editor connection menu because we are connected to USB serial
+      Menus::openMenu(MENU_EDITOR_CONNECTION);
+    }
+  }
+
   // if the main menu is open just run it and return
   if (MainMenu::run()) {
     return;
@@ -192,9 +206,6 @@ void VortexEngine::runMainLogic()
     // don't do anything if modes couldn't load
     return;
   }
-
-  // check if the device has been plugged in
-  SerialComs::checkSerial();
 
   // if the menus are open and running then just return
   if (Menus::run()) {
