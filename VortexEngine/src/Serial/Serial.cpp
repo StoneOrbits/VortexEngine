@@ -39,6 +39,7 @@ bool SerialComs::isConnected()
 {
 #ifdef VORTEX_EMBEDDED
   if (!isConnectedReal()) {
+    m_serialConnected = false;
     return false;
   }
 #endif
@@ -76,13 +77,13 @@ bool SerialComs::checkSerial()
   }
   Vortex::vcallbacks()->serialBegin(SERIAL_BAUD_RATE);
 #else
+  // Begin serial communications (turns out this is actually a NO-OP in trinket source)
+  Serial.begin(SERIAL_BAUD_RATE);
   // This will check if the serial communication is open
-  if (!Serial.available()) {
+  if (!Serial && !Serial.available()) {
     // serial is not connected
     return false;
   }
-  // Begin serial communications (turns out this is actually a NO-OP in trinket source)
-  Serial.begin(SERIAL_BAUD_RATE);
 #endif
 #endif
   // serial is now connected
