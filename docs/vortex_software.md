@@ -7,25 +7,18 @@ has_children: true
 
 # Vortex Software
 
-Vortex Engine doesn't just power embedded lightshow devices. The software can also be built for desktop computers to implement 'virtual Vortex Devices'.  A 'virtual Vortex Device', although sounding complicated, is actually the best way to provide a PC-based savefile editor for Vortex devices.
-
-A 'virtual vortex device' can be used to make all kinds of PC or mobile based software, ranging from editors to simulators for fun.
+Vortex Engine doesn't just power embedded lightshow devices, the software can also be built for desktop computers. The desktop version of the software has been used to make things ranging from editors, to websites, to simulators.
 
 ## The Vortex Editors
 
-The best example of a 'virtual Vortex Device' is the website [lightshow.lol](https://lightshow.lol), here you see the output of a single-led 'virtual device' with a series of controls to edit the pattern and colorset in realtime.
+The editors allow for rapidly configuring modes, creating patterns that are otherwise unobtainable, and sharing modes with the community. You can read more about the editors [here](vortex_editors.html).
 
-Another example is the Windows-only desktop software that can connect to Vortex Devices and program them via USB known as the 'Vortex Editor'.  The editor allows for configurations that are otherwise unobtainable through the device menus. You can read more about the editor [here](editor.html).
+## Vortex Emulator / Test Framework
+
+All of the Vortex Engine devices can run in this desktop based 'emulator' software which replicates the device behaviour to a high degree. You can read more about the emulator [here](vortex_emulator.html).
 
 ## The Vortex Community and Ecosystem
 
-All Vortex Devices can transmit and receive their configurations in some way. This allows for an ecosystem where users device configurations can transfer to other devices to create matching patterns and colorsets.
+The Vortex Community is the modesharing website where users can share their modes or download new modes to use on their devices. You can read more about the Vortex Community ecosystem [here](vortex_community.html)
 
-Explore the official Vortex Community Hub where you can upload and share configurations and modes with friends and other lightshow artists.
-
-[Visit Vortex Community Hub](https://vortex.community)
-
-Join the Vortex Community Discord to share your experiences, enhance your use of the Vortex Engine, and discuss Vortex with other enthusiasts.
-
-[Join Vortex Community Discord](https://discord.gg/FnbKjPgy)
 
