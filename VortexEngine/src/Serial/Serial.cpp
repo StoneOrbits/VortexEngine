@@ -48,12 +48,31 @@ bool SerialComs::isConnected()
 
 bool SerialComs::isConnectedReal()
 {
+  static bool lastState = true;
+  static unsigned long lastChangeTime = 0;
+
 #ifdef VORTEX_EMBEDDED
-  //return usb_serial_jtag_is_connected();
-  return HWCDCSerial.isConnected();
+  bool currentState = HWCDCSerial.isConnected();
 #else
-  return true;
+  bool currentState = true;
 #endif
+
+  unsigned long currentTime = Time::getCurtime();
+
+  if (currentState != lastState) {
+    if (!currentState) {
+      // Check if the state has been false for at least 1 millisecond
+      if ((currentTime - lastChangeTime) < 1) {
+        return lastState; // State hasn't been false long enough
+      }
+    }
+
+    // Update the last state and change time
+    lastChangeTime = currentTime;
+    lastState = currentState;
+  }
+
+  return currentState;
 }
 
 // check for any serial connection or messages
