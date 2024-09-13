@@ -78,7 +78,7 @@ private:
   static uint32_t m_previousBytes;
 
 #ifdef VORTEX_EMBEDDED
-  void adcCheckTimerCallback(void *arg);
+  static void adcCheckTimerCallback(void *arg);
 #endif
 
 #ifdef VORTEX_LIB
