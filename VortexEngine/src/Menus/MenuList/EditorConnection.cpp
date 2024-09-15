@@ -307,7 +307,17 @@ void EditorConnection::onShortClick()
   m_allowReset = false;
 }
 
+void EditorConnection::onShortClick2()
+{
+  sendCurModeVL();
+}
+
 void EditorConnection::onLongClick()
+{
+  leaveMenu(true);
+}
+
+void EditorConnection::onLongClick2()
 {
   leaveMenu(true);
 }
