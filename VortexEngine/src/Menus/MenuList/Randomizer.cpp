@@ -104,7 +104,7 @@ Menu::MenuAction Randomizer::run()
   return MENU_CONTINUE;
 }
 
-void Randomizer::onShortClick()
+void Randomizer::onShortClickM()
 {
   if (m_needToSelect) {
     if (m_flags == RANDOMIZE_BOTH) {
@@ -126,7 +126,7 @@ void Randomizer::onShortClick()
   reRoll();
 }
 
-void Randomizer::onLongClick()
+void Randomizer::onLongClickM()
 {
   // if done the randomization selection part
   if (m_needToSelect) {

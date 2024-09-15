@@ -31,8 +31,12 @@ public:
   virtual void onLedSelected();
 
   // optional handlers for clicks
-  virtual void onShortClick();
-  virtual void onLongClick();
+  virtual void onShortClickL();
+  virtual void onShortClickM();
+  virtual void onShortClickR();
+  virtual void onLongClickL();
+  virtual void onLongClickM();
+  virtual void onLongClickR();
 
   // close the current menu
   virtual void leaveMenu(bool doSave = false);

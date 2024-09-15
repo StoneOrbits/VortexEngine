@@ -19,8 +19,8 @@ public:
   void onLedSelected() override;
 
   // handlers for clicks
-  void onShortClick() override;
-  void onLongClick() override;
+  void onShortClickM() override;
+  void onLongClickM() override;
 
 private:
   // helpful member

@@ -288,10 +288,14 @@
 //
 // These are the four options available in the global brightness menu
 // There is only four options, be careful not to go too low
-#define BRIGHTNESS_OPTION_1         40
-#define BRIGHTNESS_OPTION_2         120
-#define BRIGHTNESS_OPTION_3         185
-#define BRIGHTNESS_OPTION_4         255
+#define BRIGHTNESS_OPTION_1         5
+#define BRIGHTNESS_OPTION_2         30
+#define BRIGHTNESS_OPTION_3         60
+#define BRIGHTNESS_OPTION_4         90
+#define BRIGHTNESS_OPTION_5         120
+#define BRIGHTNESS_OPTION_6         160
+#define BRIGHTNESS_OPTION_7         200
+#define BRIGHTNESS_OPTION_8         255
 
 // Saturation Options
 //

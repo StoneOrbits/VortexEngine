@@ -182,13 +182,30 @@ void Menu::onLedSelected()
 {
 }
 
-void Menu::onShortClick()
+void Menu::onShortClickL()
 {
 }
 
-void Menu::onLongClick()
+void Menu::onShortClickM()
+{
+}
+
+void Menu::onShortClickR()
+{
+}
+
+void Menu::onLongClickL()
 {
   leaveMenu(false);
+}
+
+void Menu::onLongClickM()
+{
+  leaveMenu(false);
+}
+
+void Menu::onLongClickR()
+{
 }
 
 void Menu::leaveMenu(bool doSave)

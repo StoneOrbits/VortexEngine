@@ -26,8 +26,8 @@ public:
   bool pushModeChromalink();
 
   // handlers for clicks
-  void onShortClick() override;
-  void onLongClick() override;
+  void onShortClickM() override;
+  void onLongClickM() override;
 
   // menu conn
   void leaveMenu(bool doSave = false) override;

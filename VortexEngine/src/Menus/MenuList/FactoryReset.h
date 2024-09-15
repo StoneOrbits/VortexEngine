@@ -13,8 +13,8 @@ public:
   MenuAction run() override;
 
   // handlers for clicks
-  void onShortClick() override;
-  void onLongClick() override;
+  void onShortClickM() override;
+  void onLongClickM() override;
 
 private:
   void showReset();

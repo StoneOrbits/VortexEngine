@@ -437,7 +437,7 @@ bool EditorConnection::pushModeChromalink()
   return true;
 }
 
-void EditorConnection::onShortClick()
+void EditorConnection::onShortClickM()
 {
   // if the device has received any commands do not reset!
   if (!m_allowReset) {
@@ -451,7 +451,7 @@ void EditorConnection::onShortClick()
   m_allowReset = false;
 }
 
-void EditorConnection::onLongClick()
+void EditorConnection::onLongClickM()
 {
   leaveMenu(true);
 }

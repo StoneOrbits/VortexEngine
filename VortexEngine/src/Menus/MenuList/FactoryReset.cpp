@@ -57,12 +57,12 @@ Menu::MenuAction FactoryReset::run()
   return MENU_CONTINUE;
 }
 
-void FactoryReset::onShortClick()
+void FactoryReset::onShortClickM()
 {
   m_curSelection = (uint8_t)!m_curSelection;
 }
 
-void FactoryReset::onLongClick()
+void FactoryReset::onLongClickM()
 {
   if (m_curSelection == 0) {
     // if the selection isn't actually on factory reset then just leave

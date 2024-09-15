@@ -63,7 +63,7 @@ Menu::MenuAction ModeSharing::run()
 }
 
 // handlers for clicks
-void ModeSharing::onShortClick()
+void ModeSharing::onShortClickM()
 {
   switch (m_sharingMode) {
   case ModeShareState::SHARE_RECEIVE:
@@ -78,7 +78,24 @@ void ModeSharing::onShortClick()
   Leds::clearAll();
 }
 
-void ModeSharing::onLongClick()
+// handlers for clicks
+void ModeSharing::onShortClickR()
+{
+  switch (m_sharingMode) {
+  case ModeShareState::SHARE_RECEIVE:
+    // click while on receive -> end receive, start sending
+    VLReceiver::endReceiving();
+    beginSendingVL();
+    DEBUG_LOG("Switched to send mode");
+    break;
+  default:
+    break;
+  }
+  Leds::clearAll();
+}
+
+
+void ModeSharing::onLongClickM()
 {
   Modes::updateCurMode(&m_previewMode);
   leaveMenu(true);
@@ -159,12 +176,13 @@ void ModeSharing::showReceiveMode()
 {
   if (VLReceiver::isReceiving()) {
     // using uint32_t to avoid overflow, the result should be within 10 to 255
-    Leds::setAll(RGBColor(0, VLReceiver::percentReceived(), 0));
+    Leds::clearAll();
+    Leds::setRange(LED_FIRST, (LedPos)(VLReceiver::percentReceived() / 10), RGBColor(0, 1, 0));
   } else {
     if (m_advanced) {
       m_previewMode.play();
     } else {
-      Leds::setAll(RGB_WHITE0);
+      Leds::setAll(0x010101);
     }
   }
 }

@@ -143,7 +143,7 @@ bool Menus::runMenuSelection()
   if (g_pButtonM->pressTime() >= m_openTime) {
     // whether to open advanced menus or not
     bool openAdv = (g_pButtonM->holdDuration() > ADV_MENU_DURATION_TICKS) && advMenus;
-    if (g_pButtonM->onShortClick()) {
+    if (g_pButtonM->onRelease()) {
       // ringmenu is open so select the menu
       DEBUG_LOGF("Selected ringmenu %s", menuList[m_selection].menuName);
       // open the menu we have selected
@@ -201,11 +201,23 @@ bool Menus::runCurMenu()
     return false;
   case Menu::MENU_CONTINUE:
     // if Menu continue run the click handlers for the menu
+    if (g_pButtonL->onShortClick()) {
+      m_pCurMenu->onShortClickL();
+    }
+    if (g_pButtonL->onLongClick()) {
+      m_pCurMenu->onLongClickL();
+    }
     if (g_pButtonM->onShortClick()) {
-      m_pCurMenu->onShortClick();
+      m_pCurMenu->onShortClickM();
     }
     if (g_pButtonM->onLongClick()) {
-      m_pCurMenu->onLongClick();
+      m_pCurMenu->onLongClickM();
+    }
+    if (g_pButtonR->onShortClick()) {
+      m_pCurMenu->onShortClickR();
+    }
+    if (g_pButtonR->onLongClick()) {
+      m_pCurMenu->onLongClickR();
     }
     break;
   case Menu::MENU_SKIP:

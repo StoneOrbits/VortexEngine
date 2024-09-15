@@ -98,7 +98,7 @@ void ColorSelect::onLedSelected()
   }
 }
 
-void ColorSelect::onShortClick()
+void ColorSelect::onShortClickM()
 {
   // increment selection
   m_curSelection++;
@@ -109,7 +109,7 @@ void ColorSelect::onShortClick()
   }
 }
 
-void ColorSelect::onLongClick()
+void ColorSelect::onLongClickM()
 {
   // if we're on 'exit' and we're on any menu past the slot selection
   if (m_curSelection == 4 && m_state > STATE_PICK_SLOT) {

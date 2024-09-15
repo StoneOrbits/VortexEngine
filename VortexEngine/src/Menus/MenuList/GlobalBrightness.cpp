@@ -49,13 +49,13 @@ Menu::MenuAction GlobalBrightness::run()
   return MENU_CONTINUE;
 }
 
-void GlobalBrightness::onShortClick()
+void GlobalBrightness::onShortClickM()
 {
   // include one extra option for the exit slot
   m_curSelection = (m_curSelection + 1) % (NUM_BRIGHTNESS_OPTIONS + 1);
 }
 
-void GlobalBrightness::onLongClick()
+void GlobalBrightness::onLongClickM()
 {
   if (m_curSelection >= NUM_BRIGHTNESS_OPTIONS) {
     // no save exit
