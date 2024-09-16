@@ -62,7 +62,7 @@ bool SerialComs::isConnectedReal()
   if (currentState != lastState) {
     if (!currentState) {
       // Check if the state has been false for at least 1 millisecond
-      if ((currentTime - lastChangeTime) < 1) {
+      if ((currentTime - lastChangeTime) < 10) {
         return lastState; // State hasn't been false long enough
       }
     }

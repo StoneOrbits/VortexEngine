@@ -3,6 +3,8 @@
 
 #include <inttypes.h>
 
+#include "../VortexConfig.h"
+
 
 class ByteStream;
 

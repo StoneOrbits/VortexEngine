@@ -139,6 +139,9 @@ private:
   uint8_t m_previousModeIndex;
   // the number of modes that should be received
   uint8_t m_numModesToReceive;
+
+  // current step of transfer
+  uint32_t m_curStep;
 };
 
 #endif

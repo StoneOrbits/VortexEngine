@@ -24,7 +24,8 @@ EditorConnection::EditorConnection(const RGBColor &col, bool advanced) :
   m_chromaModeIdx(0),
   m_allowReset(true),
   m_previousModeIndex(0),
-  m_numModesToReceive(0)
+  m_numModesToReceive(0),
+  m_curStep(0)
 {
 }
 
@@ -41,6 +42,7 @@ bool EditorConnection::init()
   // skip led selection
   m_ledSelected = true;
   clearDemo();
+  
   DEBUG_LOG("Entering Editor Connection");
   return true;
 }
@@ -403,10 +405,24 @@ bool EditorConnection::pullHeaderChromalink()
 {
   // first read the duo save header
   ByteStream saveHeader;
+  m_curStep = 0;
+  Leds::setAll(RGB_YELLOW2);
   if (!UPDI::readHeader(saveHeader)) {
+    Leds::setIndex((LedPos)m_curStep++, RGB_RED3);
+    Leds::update();
     return false;
   }
+  Leds::setIndex((LedPos)m_curStep++, RGB_GREEN3);
+  Leds::update();
+  if (!saveHeader.size() || !saveHeader.checkCRC()) {
+    Leds::setIndex((LedPos)m_curStep++, RGB_RED3);
+  } else {
+    Leds::setIndex((LedPos)m_curStep++, RGB_GREEN3);
+  }
+  Leds::update();
   SerialComs::write(saveHeader);
+  Leds::setIndex((LedPos)m_curStep++, RGB_GREEN3);
+  Leds::update();
   return true;
 }
 
@@ -422,12 +438,18 @@ bool EditorConnection::pullModeChromalink()
   uint8_t modeIdx = 0;
   // only 9 modes on duo, maybe this should be a macro or something
   if (!receiveModeIdx(modeIdx) || modeIdx >= 9) {
+    Leds::setIndex((LedPos)m_curStep++, RGB_RED3);
+    Leds::update();
     return false;
   }
   ByteStream modeBuffer;
   if (!UPDI::readMode(modeIdx, modeBuffer)) {
+    Leds::setIndex((LedPos)m_curStep++, RGB_RED3);
+    Leds::update();
     return false;
   }
+  Leds::setIndex((LedPos)m_curStep++, RGB_GREEN3);
+  Leds::update();
   SerialComs::write(modeBuffer);
   return true;
 }
