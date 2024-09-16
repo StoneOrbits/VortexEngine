@@ -38,7 +38,7 @@
 
 // the engine flavour, this should change for each device/flavour
 // of the engine that branches off from the main indefinitely
-#define VORTEX_NAME "Core"
+#define VORTEX_NAME "Chromadeck"
 
 // the full name of this build for ex:
 //    Vortex Engine v1.0 'Igneous' (built Tue Jan 31 19:03:55 2023)
@@ -158,7 +158,7 @@
 //
 // The starting default global brightness if there is no savefile
 // present The maximum value is 255
-#define DEFAULT_BRIGHTNESS    185
+#define DEFAULT_BRIGHTNESS    15
 
 // Max Modes
 //
@@ -176,7 +176,7 @@
 // This should not be set to 0, it should be a specific maximum for
 // each separate device
 //
-#define MAX_MODES             13
+#define MAX_MODES             16
 
 // Default Tickrate in Ticks Per Second (TPS)
 //
@@ -288,10 +288,14 @@
 //
 // These are the four options available in the global brightness menu
 // There is only four options, be careful not to go too low
-#define BRIGHTNESS_OPTION_1         40
-#define BRIGHTNESS_OPTION_2         120
-#define BRIGHTNESS_OPTION_3         185
-#define BRIGHTNESS_OPTION_4         255
+#define BRIGHTNESS_OPTION_1         5
+#define BRIGHTNESS_OPTION_2         30
+#define BRIGHTNESS_OPTION_3         60
+#define BRIGHTNESS_OPTION_4         90
+#define BRIGHTNESS_OPTION_5         120
+#define BRIGHTNESS_OPTION_6         160
+#define BRIGHTNESS_OPTION_7         200
+#define BRIGHTNESS_OPTION_8         255
 
 // Saturation Options
 //
@@ -314,7 +318,7 @@
 // Serial Baud Rate
 //
 // The serial connection baud rate for the editor and anything else serial
-#define SERIAL_BAUD_RATE            9600
+#define SERIAL_BAUD_RATE            115200
 
 // ===================================================================
 //  Boolean Configurations (0 or 1)
@@ -529,6 +533,41 @@
 // the done message from the device when it done the command
 #define EDITOR_VERB_PUSH_EACH_MODE_DONE   "H"
 
+
+// when the pc wants the chromadeck to listen for a mode from the duos
+#define EDITOR_VERB_LISTEN_VL         "o"
+// and the response for when it's done fetching a duo mode
+#define EDITOR_VERB_LISTEN_VL_ACK     "p"
+
+// pull the duo saveheader via the chromalink
+#define EDITOR_VERB_PULL_CHROMA_HDR        "q"
+// and the response for when it's done fetching the modes
+#define EDITOR_VERB_PULL_CHROMA_HDR_ACK    "r"
+
+// push the duo save header via the chromalink
+#define EDITOR_VERB_PUSH_CHROMA_HDR        "s"
+// and the response for when it's done pushing the modes
+#define EDITOR_VERB_PUSH_CHROMA_HDR_ACK    "t"
+
+// pull a duo mode via the chromalink
+#define EDITOR_VERB_PULL_CHROMA_MODE       "u"
+// and the response for when it's done fetching the modes
+#define EDITOR_VERB_PULL_CHROMA_MODE_ACK   "v"
+
+// push a duo mode via the chromalink
+#define EDITOR_VERB_PUSH_CHROMA_MODE       "w"
+// and the response for when it's done pushing the modes
+#define EDITOR_VERB_PUSH_CHROMA_MODE_ACK   "x"
+
+// pull a single mode
+#define EDITOR_VERB_PULL_SINGLE_MODE       "y"
+// and the response for when it's done
+#define EDITOR_VERB_PULL_SINGLE_MODE_ACK   "z"
+
+// push a single mode
+#define EDITOR_VERB_PUSH_SINGLE_MODE       "A"
+// and the response for when it's done
+#define EDITOR_VERB_PUSH_SINGLE_MODE_ACK   "B"
 
 // ===================================================================
 //  Manually Configured Sizes

@@ -52,11 +52,11 @@ void PatternSelect::onLedSelected()
   m_srcLed = ledmapGetFirstLed(m_targetLeds);
 }
 
-void PatternSelect::onShortClick()
+void PatternSelect::onShortClickM()
 {
   if (m_advanced) {
     // double click = skip 10
-    bool doSkip = g_pButton->onConsecutivePresses(2);
+    bool doSkip = g_pButtonM->onConsecutivePresses(2);
     MAP_FOREACH_LED(m_targetLeds) {
       Pattern *pat = m_previewMode.getPattern(pos);
       if (pat->getNumArgs() <= m_argIndex) {
@@ -120,7 +120,7 @@ void PatternSelect::onShortClick()
   DEBUG_LOGF("Iterated to pattern id %d", newID);
 }
 
-void PatternSelect::onLongClick()
+void PatternSelect::onLongClickM()
 {
   if (m_advanced) {
     m_argIndex++;
