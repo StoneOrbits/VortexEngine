@@ -569,6 +569,11 @@
 // and the response for when it's done
 #define EDITOR_VERB_PUSH_SINGLE_MODE_ACK   "B"
 
+// flash firmware
+#define EDITOR_VERB_FLASH_FIRMWARE         "C"
+// the response to each one
+#define EDITOR_VERB_FLASH_FIRMWARE_ACK     "D"
+
 // ===================================================================
 //  Manually Configured Sizes
 //

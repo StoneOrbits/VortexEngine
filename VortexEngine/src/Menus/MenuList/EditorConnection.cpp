@@ -204,6 +204,89 @@ Menu::MenuAction EditorConnection::run()
     SerialComs::write(EDITOR_VERB_LISTEN_VL_ACK);
     m_state = STATE_IDLE;
     break;
+  case STATE_PULL_EACH_MODE:
+    // editor requested pull modes, send the modes
+    m_receiveBuffer.clear();
+    sendModeCount();
+    m_state = STATE_PULL_EACH_MODE_COUNT;
+    break;
+  case STATE_PULL_EACH_MODE_COUNT:
+    if (receiveMessage(EDITOR_VERB_PULL_EACH_MODE_ACK)) {
+      if (Modes::numModes() == 0) {
+        m_state = STATE_PULL_EACH_MODE_DONE;
+      } else {
+        m_previousModeIndex = Modes::curModeIndex();
+        m_state = STATE_PULL_EACH_MODE_SEND;
+      }
+    }
+    break;
+  case STATE_PULL_EACH_MODE_SEND:
+    m_receiveBuffer.clear();
+    // send the current mode
+    sendCurMode();
+    // wait for the ack
+    m_state = STATE_PULL_EACH_MODE_WAIT;
+    break;
+  case STATE_PULL_EACH_MODE_WAIT:
+    // recive the ack from the editor to send next mode
+    if (receiveMessage(EDITOR_VERB_PULL_EACH_MODE_ACK)) {
+      // if there is still more modes
+      if (Modes::curModeIndex() < (Modes::numModes() - 1)) {
+        // then iterate to the next mode and send
+        Modes::nextMode();
+        m_state = STATE_PULL_EACH_MODE_SEND;
+      } else {
+        // otherwise done sending modes
+        m_state = STATE_PULL_EACH_MODE_DONE;
+      }
+    }
+    break;
+  case STATE_PULL_EACH_MODE_DONE:
+    m_receiveBuffer.clear();
+    // send our acknowledgement that the modes were sent
+    SerialComs::write(EDITOR_VERB_PULL_EACH_MODE_DONE);
+    // switch back to the previous mode
+    Modes::setCurMode(m_previousModeIndex);
+    // go idle
+    m_state = STATE_IDLE;
+    break;
+  case STATE_PUSH_EACH_MODE:
+    // editor requested to push modes, find out how many
+    m_receiveBuffer.clear();
+    // ack the command and wait for the amount of modes
+    SerialComs::write(EDITOR_VERB_PUSH_EACH_MODE_ACK);
+    m_state = STATE_PUSH_EACH_MODE_COUNT;
+    break;
+  case STATE_PUSH_EACH_MODE_COUNT:
+    if (receiveModeCount()) {
+      // clear modes and start receiving
+      Modes::clearModes();
+      // write out an ack
+      m_receiveBuffer.clear();
+      SerialComs::write(EDITOR_VERB_PUSH_EACH_MODE_ACK);
+      // ready to receive a mode
+      m_state = STATE_PUSH_EACH_MODE_RECEIVE;
+    }
+    break;
+  case STATE_PUSH_EACH_MODE_RECEIVE:
+    // receive the modes into the receive buffer
+    if (receiveMode()) {
+      m_receiveBuffer.clear();
+      SerialComs::write(EDITOR_VERB_PUSH_EACH_MODE_ACK);
+      if (m_numModesToReceive > 0) {
+        m_numModesToReceive--;
+      }
+      if (!m_numModesToReceive) {
+        // success modes were received send the done
+        m_state = STATE_PUSH_EACH_MODE_DONE;
+      }
+    }
+    break;
+  case STATE_PUSH_EACH_MODE_DONE:
+    // did originally receive/send a DONE message here but it wasn't working
+    // on lightshow.lol so just skip to IDLE
+    m_state = STATE_IDLE;
+    break;
   case STATE_PULL_HEADER_CHROMALINK:
     pullHeaderChromalink();
     m_state = STATE_PULL_HEADER_CHROMALINK_SEND;
@@ -293,89 +376,6 @@ Menu::MenuAction EditorConnection::run()
     // say we are done
     m_receiveBuffer.clear();
     SerialComs::write(EDITOR_VERB_PUSH_CHROMA_MODE_ACK);
-    m_state = STATE_IDLE;
-    break;
-  case STATE_PULL_EACH_MODE:
-    // editor requested pull modes, send the modes
-    m_receiveBuffer.clear();
-    sendModeCount();
-    m_state = STATE_PULL_EACH_MODE_COUNT;
-    break;
-  case STATE_PULL_EACH_MODE_COUNT:
-    if (receiveMessage(EDITOR_VERB_PULL_EACH_MODE_ACK)) {
-      if (Modes::numModes() == 0) {
-        m_state = STATE_PULL_EACH_MODE_DONE;
-      } else {
-        m_previousModeIndex = Modes::curModeIndex();
-        m_state = STATE_PULL_EACH_MODE_SEND;
-      }
-    }
-    break;
-  case STATE_PULL_EACH_MODE_SEND:
-    m_receiveBuffer.clear();
-    // send the current mode
-    sendCurMode();
-    // wait for the ack
-    m_state = STATE_PULL_EACH_MODE_WAIT;
-    break;
-  case STATE_PULL_EACH_MODE_WAIT:
-    // recive the ack from the editor to send next mode
-    if (receiveMessage(EDITOR_VERB_PULL_EACH_MODE_ACK)) {
-      // if there is still more modes
-      if (Modes::curModeIndex() < (Modes::numModes() - 1)) {
-        // then iterate to the next mode and send
-        Modes::nextMode();
-        m_state = STATE_PULL_EACH_MODE_SEND;
-      } else {
-        // otherwise done sending modes
-        m_state = STATE_PULL_EACH_MODE_DONE;
-      }
-    }
-    break;
-  case STATE_PULL_EACH_MODE_DONE:
-    m_receiveBuffer.clear();
-    // send our acknowledgement that the modes were sent
-    SerialComs::write(EDITOR_VERB_PULL_EACH_MODE_DONE);
-    // switch back to the previous mode
-    Modes::setCurMode(m_previousModeIndex);
-    // go idle
-    m_state = STATE_IDLE;
-    break;
-  case STATE_PUSH_EACH_MODE:
-    // editor requested to push modes, find out how many
-    m_receiveBuffer.clear();
-    // ack the command and wait for the amount of modes
-    SerialComs::write(EDITOR_VERB_PUSH_EACH_MODE_ACK);
-    m_state = STATE_PUSH_EACH_MODE_COUNT;
-    break;
-  case STATE_PUSH_EACH_MODE_COUNT:
-    if (receiveModeCount()) {
-      // clear modes and start receiving
-      Modes::clearModes();
-      // write out an ack
-      m_receiveBuffer.clear();
-      SerialComs::write(EDITOR_VERB_PUSH_EACH_MODE_ACK);
-      // ready to receive a mode
-      m_state = STATE_PUSH_EACH_MODE_RECEIVE;
-    }
-    break;
-  case STATE_PUSH_EACH_MODE_RECEIVE:
-    // receive the modes into the receive buffer
-    if (receiveMode()) {
-      m_receiveBuffer.clear();
-      SerialComs::write(EDITOR_VERB_PUSH_EACH_MODE_ACK);
-      if (m_numModesToReceive > 0) {
-        m_numModesToReceive--;
-      }
-      if (!m_numModesToReceive) {
-        // success modes were received send the done
-        m_state = STATE_PUSH_EACH_MODE_DONE;
-      }
-    }
-    break;
-  case STATE_PUSH_EACH_MODE_DONE:
-    // did originally receive/send a DONE message here but it wasn't working
-    // on lightshow.lol so just skip to IDLE
     m_state = STATE_IDLE;
     break;
   }

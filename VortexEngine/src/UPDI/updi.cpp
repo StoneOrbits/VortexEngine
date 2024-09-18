@@ -247,10 +247,7 @@ bool UPDI::writeMode(uint8_t idx, ByteStream &modeBuffer)
     // 17 is size of duo header
     // 76 is size of each duo mode
     base = 0x1400 + 17 + (idx * 76);
-    //for (uint16_t i = 0; i < modeBuffer.rawSize(); ++i) {
-    //  sts_b(base + i, ptr[i]);
-    //}
-    // 0xFe00 is the end of flash, 0x200 before
+    // the size of the mode being written out
     uint16_t size = modeBuffer.rawSize();
     // The storage slot may lay across a page boundary which means potentially writing
     // two pages instead of just one. In order to update only part of a page, the page
@@ -341,9 +338,6 @@ bool UPDI::eraseMemory()
   uint8_t status = 0;
 #ifdef VORTEX_EMBEDDED
   sendDoubleBreak();
-  if (!enterProgrammingMode()) {
-    return false;
-  }
   sendEraseKey();
   status = ldcs(ASI_Key_Status);
   if (status != 0x8) {
@@ -361,8 +355,6 @@ bool UPDI::readMemory()
   if (!modes) {
     ERROR_LOG("Failed to initialize modes list");
     return;
-  }
-  for (uint8_t m = 0; m < headerData->numModes; ++m) {
   }
   for (uint8_t m = 0; m < headerData->numModes; ++m) {
     ByteStream &mode = modes[m];
@@ -439,19 +431,6 @@ bool UPDI::writeMemory()
 }
 
 #ifdef VORTEX_EMBEDDED
-
-bool UPDI::enterProgrammingMode()
-{
-  ERROR_LOG("Entering programming mode");
-  uint8_t buf[256] = { 0 };
-  memset(buf, 0, sizeof(buf));
-  // As per datasheet:
-  //  This selects the guard time value that will be used by the UPDI when the
-  //  transmission direction switches from RX to TX.
-  //  0x6 = UPDI guard time: 2 cycles
-
-  return true;
-}
 
 void UPDI::resetOn()
 {

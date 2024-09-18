@@ -88,6 +88,20 @@ private:
     STATE_LISTEN_MODE_VL,
     STATE_LISTEN_MODE_VL_DONE,
 
+    // editor pulls the modes from device (safer version)
+    STATE_PULL_EACH_MODE,
+    STATE_PULL_EACH_MODE_COUNT,
+    STATE_PULL_EACH_MODE_SEND,
+    STATE_PULL_EACH_MODE_WAIT,
+    STATE_PULL_EACH_MODE_DONE,
+
+    // editor pushes modes to device (safer version)
+    STATE_PUSH_EACH_MODE,
+    STATE_PUSH_EACH_MODE_COUNT,
+    STATE_PUSH_EACH_MODE_RECEIVE,
+    STATE_PUSH_EACH_MODE_WAIT,
+    STATE_PUSH_EACH_MODE_DONE,
+
     // pull the header from the chromalinked duo
     STATE_PULL_HEADER_CHROMALINK,
     STATE_PULL_HEADER_CHROMALINK_SEND,
@@ -110,19 +124,11 @@ private:
     STATE_PUSH_MODE_CHROMALINK_RECEIVE,
     STATE_PUSH_MODE_CHROMALINK_DONE,
 
-    // editor pulls the modes from device (safer version)
-    STATE_PULL_EACH_MODE,
-    STATE_PULL_EACH_MODE_COUNT,
-    STATE_PULL_EACH_MODE_SEND,
-    STATE_PULL_EACH_MODE_WAIT,
-    STATE_PULL_EACH_MODE_DONE,
-
-    // editor pushes modes to device (safer version)
-    STATE_PUSH_EACH_MODE,
-    STATE_PUSH_EACH_MODE_COUNT,
-    STATE_PUSH_EACH_MODE_RECEIVE,
-    STATE_PUSH_EACH_MODE_WAIT,
-    STATE_PUSH_EACH_MODE_DONE,
+    // flash the firmware of the chromalinked duo
+    STATE_CHROMALINK_FLASH_FIRMWARE,
+    STATE_CHROMALINK_FLASH_FIRMWARE_RECEIVE_SIZE,
+    STATE_CHROMALINK_FLASH_FIRMWARE_RECEIVE,
+    STATE_CHROMALINK_FLASH_FIRMWARE_DONE,
   };
 
   // state of the editor
