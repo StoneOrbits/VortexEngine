@@ -39,9 +39,13 @@ Once these two devices are connected, there is two basic operations: **push** an
 
 The act of 'pushing' the modes will send the editor mode list to the connected device, saving the mode list on the device.
 
+If the default modes are needed they can always be restored with the [Factory Reset Menu](factory_reset_menu.html)
+
 ### Pull
 
 On the other hande 'pulling' the modes will make a copy of the device modes in the editor mode list, ready for editing.
+
+Disconnecting a device and connecting a new one will not effect the editor mode list, so a set of modes could easily be pulled from one device then pushed to another device.
 
 ### Transmit
 
