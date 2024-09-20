@@ -26,6 +26,9 @@
 #define MODE_LED_ALL_SINGLE (MODE_LED_COUNT + 2)
 #define MODE_LED_ANY (MODE_LED_COUNT + 3)
 
+// MAP_LED(LED_ALL) but for the cur mode
+#define MAP_MODE_LED_ALL (LedMap)((2 << (LED_COUNT - 1)) - 1)
+
 // for internal reference to the led count
 Mode::Mode(VortexEngine &engine, uint8_t numLeds) :
   m_engine(engine),
@@ -760,7 +763,7 @@ bool Mode::hasSameSingleLed() const
 bool Mode::hasSparseSingleLed() const
 {
   LedMap map = getSingleLedMap();
-  if (map == MAP_LED(MODE_LED_ALL) || map == 0) {
+  if (map == MAP_MODE_LED_ALL || map == 0) {
     return false;
   }
   // if anything else is set it's sparse
