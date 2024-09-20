@@ -168,7 +168,13 @@ bool UPDI::writeHeader(ByteStream &headerBuffer)
     reset();
     return false;
   }
+  if (headerBuffer.rawSize() != 17) {
+    ERROR_LOG("ERROR Header Size Invalid!");
+    reset();
+    return false;
+  }
   sendDoubleBreak();
+  enterProgrammingMode();
   stcs(Control_A, 0x6);
   uint8_t mode = cpu_mode<0xEF>();
   if (mode != 0x82 && mode != 0x21 && mode != 0xA2 && mode != 0x08) {
@@ -191,18 +197,22 @@ bool UPDI::writeHeader(ByteStream &headerBuffer)
     mode = cpu_mode();
   }
   uint8_t *ptr = (uint8_t *)headerBuffer.rawData();
-  for (uint16_t i = 0; i < headerBuffer.rawSize(); ++i) {
+  for (uint8_t i = 0; i < EEPROM_PAGE_SIZE; ++i) {
     uint16_t addr = 0x1400 + i;
-    stptr_p((const uint8_t *)&addr, 2);
-    ptr[i] = ld_b();
+    uint8_t value;
+    if (i < headerBuffer.rawSize()) {
+      // if this is within the slot then write out the new data
+      value = ptr[i];
+    } else {
+      // otherwise just write-back the same value to fill the pagebuffer
+      stptr_p((const uint8_t *)&addr, 2);
+      value = ld_b();
+    }
+    sts_b(addr, value);
   }
-  headerBuffer.sanity();
-  if (!headerBuffer.checkCRC()) {
-    headerBuffer.clear();
-    ERROR_LOG("ERROR Header CRC Invalid!");
-    reset();
-    return false;
-  }
+  nvmCmd(NVM_ERWP);
+  nvmWait();
+  //reset();
 #endif
   return true;
 }
@@ -217,6 +227,7 @@ bool UPDI::writeMode(uint8_t idx, ByteStream &modeBuffer)
     return false;
   }
   sendDoubleBreak();
+  enterProgrammingMode();
   stcs(Control_A, 0x6);
   uint8_t mode = cpu_mode<0xEF>();
   if (mode != 0x82 && mode != 0x21 && mode != 0xA2 && mode != 0x08) {
@@ -338,6 +349,7 @@ bool UPDI::eraseMemory()
   uint8_t status = 0;
 #ifdef VORTEX_EMBEDDED
   sendDoubleBreak();
+  enterProgrammingMode();
   sendEraseKey();
   status = ldcs(ASI_Key_Status);
   if (status != 0x8) {
@@ -431,6 +443,25 @@ bool UPDI::writeMemory()
 }
 
 #ifdef VORTEX_EMBEDDED
+
+void UPDI::enterProgrammingMode()
+{
+  ERROR_LOG("Entering programming mode");
+  uint8_t buf[256] = { 0 };
+  memset(buf, 0, sizeof(buf));
+  // As per datasheet:
+  //  This selects the guard time value that will be used by the UPDI when the
+  //  transmission direction switches from RX to TX.
+  //  0x6 = UPDI guard time: 2 cycles
+  stcs(Control_A, 0x6);
+  uint8_t mode = 0;
+  mode = cpu_mode<0xEF>();
+  if (mode != 0x82 && mode != 0x21 && mode != 0xA2) {
+    sendDoubleBreak();
+    uint8_t status = ldcs(Status_B);
+    ERROR_LOGF("Bad CPU Mode 0x%02x... error: 0x%02x", mode, status);
+  }
+}
 
 void UPDI::resetOn()
 {

@@ -49,8 +49,6 @@ private:
   void receiveModeVL();
   void showReceiveModeVL();
   bool receiveModeIdx(uint8_t &idx);
-  bool receiveChromaHdr();
-  bool receiveChromaMode();
 
   enum EditorConnectionState {
     // the editor is not connected

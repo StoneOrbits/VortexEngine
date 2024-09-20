@@ -60,7 +60,7 @@ bool SerialComs::isConnectedReal()
   unsigned long currentTime = Time::getCurtime();
   if (!currentState) {
     // Check if the state has been false for at least 1 millisecond
-    if (lastChangeTime && (currentTime - lastChangeTime) < 100) {
+    if (lastChangeTime && (currentTime - lastChangeTime) < 300) {
       return lastState; // State hasn't been false long enough
     }
     if (currentState != lastState) {

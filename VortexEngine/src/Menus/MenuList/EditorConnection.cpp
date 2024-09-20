@@ -107,7 +107,7 @@ Menu::MenuAction EditorConnection::run()
     handleCommand();
     // watch for disconnects
     if (!SerialComs::isConnectedReal()) {
-      Leds::holdAll(RGB_GREEN);
+      Leds::holdAll(RGB_RED);
       leaveMenu(true);
     }
     break;
@@ -326,6 +326,7 @@ Menu::MenuAction EditorConnection::run()
     m_receiveBuffer.clear();
     // send our acknowledgement that the header was sent
     SerialComs::write(EDITOR_VERB_PULL_CHROMA_MODE_ACK);
+    m_curStep = 0;
     // go idle
     m_state = STATE_IDLE;
     break;
@@ -339,7 +340,7 @@ Menu::MenuAction EditorConnection::run()
     break;
   case STATE_PUSH_HEADER_CHROMALINK_RECEIVE:
     // receive the modes into the receive buffer
-    if (receiveChromaHdr()) {
+    if (pushHeaderChromalink()) {
       // success modes were received send the done
       m_state = STATE_PUSH_HEADER_CHROMALINK_DONE;
     }
@@ -367,7 +368,7 @@ Menu::MenuAction EditorConnection::run()
     m_state = STATE_PUSH_MODE_CHROMALINK_RECEIVE;
     break;
   case STATE_PUSH_MODE_CHROMALINK_RECEIVE:
-    if (!receiveChromaMode()) {
+    if (!pushModeChromalink()) {
       break;
     }
     m_state = STATE_PUSH_MODE_CHROMALINK_DONE;
@@ -376,6 +377,7 @@ Menu::MenuAction EditorConnection::run()
     // say we are done
     m_receiveBuffer.clear();
     SerialComs::write(EDITOR_VERB_PUSH_CHROMA_MODE_ACK);
+    m_curStep = 0;
     m_state = STATE_IDLE;
     break;
   }
@@ -407,13 +409,12 @@ bool EditorConnection::pullHeaderChromalink()
   ByteStream saveHeader;
   m_curStep = 0;
   Leds::setAll(RGB_YELLOW2);
+  Leds::update();
   if (!UPDI::readHeader(saveHeader)) {
     Leds::setIndex((LedPos)m_curStep++, RGB_RED3);
     Leds::update();
     return false;
   }
-  Leds::setIndex((LedPos)m_curStep++, RGB_GREEN3);
-  Leds::update();
   if (!saveHeader.size() || !saveHeader.checkCRC()) {
     Leds::setIndex((LedPos)m_curStep++, RGB_RED3);
   } else {
@@ -428,6 +429,23 @@ bool EditorConnection::pullHeaderChromalink()
 
 bool EditorConnection::pushHeaderChromalink()
 {
+  // wait for the header then write it via updi
+  ByteStream buf;
+  m_curStep = 0;
+  Leds::setAll(RGB_YELLOW2);
+  Leds::update();
+  if (!receiveBuffer(buf)) {
+    Leds::setIndex((LedPos)m_curStep++, RGB_RED3);
+    Leds::update();
+    return false;
+  }
+  if (!UPDI::writeHeader(buf)) {
+    Leds::setIndex((LedPos)m_curStep++, RGB_RED3);
+    Leds::update();
+    return false;
+  }
+  Leds::setIndex((LedPos)m_curStep++, RGB_GREEN3);
+  Leds::update();
   return true;
 }
 
@@ -456,6 +474,20 @@ bool EditorConnection::pullModeChromalink()
 
 bool EditorConnection::pushModeChromalink()
 {
+  // wait for the mode then write it via updi
+  ByteStream buf;
+  if (!receiveBuffer(buf)) {
+    Leds::setIndex((LedPos)m_curStep++, RGB_RED3);
+    Leds::update();
+    return false;
+  }
+  if (!UPDI::writeMode(m_chromaModeIdx, buf)) {
+    Leds::setIndex((LedPos)m_curStep++, RGB_RED3);
+    Leds::update();
+    return false;
+  }
+  Leds::setIndex((LedPos)m_curStep++, RGB_GREEN3);
+  Leds::update();
   return true;
 }
 
@@ -522,7 +554,9 @@ void EditorConnection::showEditor()
     Leds::blinkAll(250, 150, RGB_WHITE0);
     break;
   case STATE_IDLE:
-    m_previewMode.play();
+    if (m_curStep == 0) {
+      m_previewMode.play();
+    }
     break;
   default:
     // do nothing!
@@ -758,22 +792,3 @@ bool EditorConnection::receiveModeIdx(uint8_t &idx)
   return true;
 }
 
-bool EditorConnection::receiveChromaHdr()
-{
-  // create a new ByteStream that will hold the full buffer of data
-  ByteStream buf;
-  if (!receiveBuffer(buf)) {
-    return false;
-  }
-  return UPDI::writeHeader(buf);
-}
-
-bool EditorConnection::receiveChromaMode()
-{
-  // create a new ByteStream that will hold the full buffer of data
-  ByteStream buf;
-  if (!receiveBuffer(buf)) {
-    return false;
-  }
-  return UPDI::writeMode(m_chromaModeIdx, buf);
-}
