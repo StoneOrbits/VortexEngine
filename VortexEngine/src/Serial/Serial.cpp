@@ -89,6 +89,7 @@ void SerialComs::write(const char *msg, ...)
   m_engine.vortexLib().vcallbacks()->serialWrite(buf, len);
 #else
   Serial.write(buf, len);
+  Serial.flush();
 #endif
   va_end(list);
 #endif
@@ -108,6 +109,7 @@ void SerialComs::write(ByteStream &byteStream)
 #else
   Serial.write((const uint8_t *)&size, sizeof(size));
   Serial.write((const uint8_t *)byteStream.rawData(), byteStream.rawSize());
+  Serial.flush();
 #endif
 #endif
 }
