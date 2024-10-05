@@ -5,6 +5,7 @@
 #include "../VortexConfig.h"
 #include "../Time/TimeControl.h"
 #include "../Log/Log.h"
+#include "../Leds/Leds.h"
 #include "../Serial/ByteStream.h"
 #include "../Patterns/Pattern.h"
 #include "../Modes/Mode.h"
@@ -67,33 +68,12 @@ bool UPDI::readHeader(ByteStream &header)
   if (!header.init(5)) {
     return false;
   }
-  sendDoubleBreak();
-  stcs(Control_A, 0x6);
-  uint8_t mode = cpu_mode<0xEF>();
-  if (mode != 0x82 && mode != 0x21 && mode != 0xA2 && mode != 0x08) {
-    sendDoubleBreak();
-    uint8_t status = ldcs(Status_B);
-    ERROR_LOGF("Bad CPU Mode 0x%02x... error: 0x%02x", mode, status);
-    return false;
-  }
-  if (mode != 0x08) {
-    sendProgKey();
-    uint8_t status = ldcs(ASI_Key_Status);
-    if (status != 0x10) {
-      ERROR_LOGF("Bad prog key status: 0x%02x", status);
-      return false;
-    }
-    reset();
-  }
-  mode = cpu_mode();
-  while (mode != 0x8) {
-    mode = cpu_mode();
-  }
+  enterProgrammingMode();
   uint8_t *ptr = (uint8_t *)header.rawData();
+  uint16_t addr = 0x1400;
+  stptr_p((const uint8_t *)&addr, 2);
   for (uint16_t i = 0; i < header.rawSize(); ++i) {
-    uint16_t addr = 0x1400 + i;
-    stptr_p((const uint8_t *)&addr, 2);
-    ptr[i] = ld_b();
+    ptr[i] = ldinc_b();
   }
   header.sanity();
   if (!header.checkCRC()) {
@@ -113,30 +93,10 @@ bool UPDI::readMode(uint8_t idx, ByteStream &modeBuffer)
   if (!modeBuffer.init(76)) {
     return false;
   }
-  sendDoubleBreak();
-  stcs(Control_A, 0x6);
-  uint8_t mode = cpu_mode<0xEF>();
-  if (mode != 0x82 && mode != 0x21 && mode != 0xA2 && mode != 0x08) {
-    sendDoubleBreak();
-    uint8_t status = ldcs(Status_B);
-    ERROR_LOGF("Bad CPU Mode 0x%02x... error: 0x%02x", mode, status);
-    return false;
-  }
-  if (mode != 0x08) {
-    sendProgKey();
-    uint8_t status = ldcs(ASI_Key_Status);
-    if (status != 0x10) {
-      ERROR_LOGF("Bad prog key status: 0x%02x", status);
-      return false;
-    }
-    reset();
-  }
-  mode = cpu_mode();
-  while (mode != 0x8) {
-    mode = cpu_mode();
-  }
+  enterProgrammingMode();
   // 76 is the max duo mode size (the slot size)
   uint8_t *ptr = (uint8_t *)modeBuffer.rawData();
+  uint16_t numBytes = modeBuffer.rawSize();
   uint16_t base;
   // there are 3 modes in the eeprom after the header
   if (idx < 3) {
@@ -148,11 +108,10 @@ bool UPDI::readMode(uint8_t idx, ByteStream &modeBuffer)
     // 0xFe00 is the end of flash, 0x200 before
     base = 0xFe00 + ((idx - 3) * 76);
   }
+  stptr_p((const uint8_t *)&base, 2);
+  //rep(numBytes - 1);
   for (uint16_t i = 0; i < modeBuffer.rawSize(); ++i) {
-    uint16_t addr = base + i;
-    // base of eeprom + size of header + mode slot
-    stptr_p((const uint8_t *)&addr, 2);
-    ptr[i] = ld_b();
+    ptr[i] = ldinc_b();
   }
   reset();
 #endif
@@ -173,45 +132,62 @@ bool UPDI::writeHeader(ByteStream &headerBuffer)
     reset();
     return false;
   }
-  sendDoubleBreak();
   enterProgrammingMode();
-  stcs(Control_A, 0x6);
-  uint8_t mode = cpu_mode<0xEF>();
-  if (mode != 0x82 && mode != 0x21 && mode != 0xA2 && mode != 0x08) {
-    sendDoubleBreak();
-    uint8_t status = ldcs(Status_B);
-    ERROR_LOGF("Bad CPU Mode 0x%02x... error: 0x%02x", mode, status);
-    return false;
-  }
-  if (mode != 0x08) {
-    sendProgKey();
-    uint8_t status = ldcs(ASI_Key_Status);
-    if (status != 0x10) {
-      ERROR_LOGF("Bad prog key status: 0x%02x", status);
-      return false;
+  //uint8_t *ptr = (uint8_t *)headerBuffer.rawData();
+  //for (uint8_t i = 0; i < EEPROM_PAGE_SIZE; ++i) {
+  //  uint16_t addr = 0x1400 + i;
+  //  uint8_t value;
+  //  if (i < headerBuffer.rawSize()) {
+  //    // if this is within the slot then write out the new data
+  //    value = ptr[i];
+  //  } else {
+  //    // otherwise just write-back the same value to fill the pagebuffer
+  //    stptr_p((const uint8_t *)&addr, 2);
+  //    value = ld_b();
+  //  }
+  //  sts_b(addr, value);
+  //}
+  //nvmCmd(NVM_ERWP);
+  //nvmWait();
+  //uint8_t pageBuffer[EEPROM_PAGE_SIZE];
+  //if (!readEepromPage(0x1400, pageBuffer)) {
+  //  return false;
+  //}
+  //memcpy(pageBuffer, headerBuffer.rawData(), headerBuffer.rawSize());
+  //if (!writeEepromPage(0x1400, pageBuffer)) {
+  //  return false;
+  //}
+
+    // read out the page so the |xxxxxxxxxxx part
+    ByteStream pageBuffer(EEPROM_PAGE_SIZE);
+    uint8_t *pagePtr = (uint8_t *)pageBuffer.data();
+    uint16_t eepromStart = 0x1400;
+    stptr_p((const uint8_t *)&eepromStart, 2);
+    for (uint16_t i = 0; i < EEPROM_PAGE_SIZE; ++i) {
+      pagePtr[i] = ldinc_b();
     }
-    reset();
-  }
-  mode = cpu_mode();
-  while (mode != 0x8) {
-    mode = cpu_mode();
-  }
-  uint8_t *ptr = (uint8_t *)headerBuffer.rawData();
-  for (uint8_t i = 0; i < EEPROM_PAGE_SIZE; ++i) {
-    uint16_t addr = 0x1400 + i;
-    uint8_t value;
-    if (i < headerBuffer.rawSize()) {
-      // if this is within the slot then write out the new data
-      value = ptr[i];
-    } else {
-      // otherwise just write-back the same value to fill the pagebuffer
-      stptr_p((const uint8_t *)&addr, 2);
-      value = ld_b();
+    nvmWait();
+
+    // overlay the actual data, so the SSSSS part of |xxxxxxSSSS
+    memcpy(pagePtr, headerBuffer.rawData(), headerBuffer.rawSize());
+
+    // write back the page
+    nvmCmd(NVM_PBC);
+    stptr_p((const uint8_t *)&eepromStart, 2);
+    //stcs(Control_A, 0x0E);
+    //rep(pageSize - 1);
+    //stinc_b_noget(buf[0]);
+    //for (uint8_t i = 1; i < pageSize; ++i) {
+    //  sendByte(buf[i]);
+    //}
+    for (uint16_t i = 0; i < EEPROM_PAGE_SIZE; ++i) {
+      //stinc_b_noget(buf[i]);
+      sts_b(eepromStart + i, pagePtr[i]);
     }
-    sts_b(addr, value);
-  }
-  nvmCmd(NVM_ERWP);
-  nvmWait();
+    //stcs(Control_A, 0x06);
+    nvmCmd(NVM_WP);
+    nvmWait();
+
   //reset();
 #endif
   return true;
@@ -222,123 +198,362 @@ bool UPDI::writeMode(uint8_t idx, ByteStream &modeBuffer)
 #ifdef VORTEX_EMBEDDED
   modeBuffer.sanity();
   if (!modeBuffer.checkCRC()) {
+    ERROR_LOG("ERROR Mode CRC Invalid!");
+    reset();
+    return false;
+  }
+  // there are 3 modes in the eeprom after the header
+  if (idx < 3) {
+    return writeModeEeprom(idx, modeBuffer);
+  }
+  return writeModeFlash(idx, modeBuffer);
+#else
+  return true;
+#endif
+}
+
+#ifdef VORTEX_EMBEDDED
+bool UPDI::writeModeEeprom(uint8_t idx, ByteStream &modeBuffer)
+{
+  enterProgrammingMode();
+  // 0x1400 is eeprom base
+  // 17 is size of duo header
+  // 76 is size of each duo mode
+  uint16_t base = 0x1400 + 17 + (idx * 76);
+  // the size of the mode being written out
+  uint16_t size = modeBuffer.rawSize();
+  uint8_t *ptr = (uint8_t *)modeBuffer.rawData();
+  // The storage slot may lay across a page boundary which means potentially writing
+  // two pages instead of just one. In order to update only part of a page, the page
+  // buffer must be filled with both the previous content along with the new data.
+  // For example, imagine 2 pages of data: |xxxxxxSSSS|SSSxxxxxxx| the x's are other
+  // data that must be preserved, and the S's denote the storage slot being written.
+  // This would take place over two iterations of the loop, each writing out one page
+  // by read-then-writing-back the x's and writing out the new S's. This is necessary
+  // because the page buffer must be filled to perform a page write, at least I think
+  while (size > 0) {
+    uint16_t pageStart = base & ~(EEPROM_PAGE_SIZE - 1);
+    uint16_t offset = base % EEPROM_PAGE_SIZE;
+    uint16_t space = EEPROM_PAGE_SIZE - offset;
+    uint16_t writeSize = (size < space) ? size : space;
+
+    // read out the page so the |xxxxxxxxxxx part
+    ByteStream pageBuffer(EEPROM_PAGE_SIZE);
+    uint8_t *pagePtr = (uint8_t *)pageBuffer.data();
+    stptr_p((const uint8_t *)&pageStart, 2);
+    for (uint16_t i = 0; i < EEPROM_PAGE_SIZE; ++i) {
+      pagePtr[i] = ldinc_b();
+    }
+    nvmWait();
+
+    // overlay the actual data, so the SSSSS part of |xxxxxxSSSS
+    memcpy(pagePtr + offset, ptr, writeSize);
+
+    // write back the page
+    nvmCmd(NVM_PBC);
+    stptr_p((const uint8_t *)&pageStart, 2);
+    //stcs(Control_A, 0x0E);
+    //rep(pageSize - 1);
+    //stinc_b_noget(buf[0]);
+    //for (uint8_t i = 1; i < pageSize; ++i) {
+    //  sendByte(buf[i]);
+    //}
+    for (uint16_t i = 0; i < EEPROM_PAGE_SIZE; ++i) {
+      //stinc_b_noget(buf[i]);
+      sts_b(pageStart + i, pagePtr[i]);
+    }
+    //stcs(Control_A, 0x06);
+    nvmCmd(NVM_ERWP);
+    nvmWait();
+
+    //for (uint8_t i = 0; i < EEPROM_PAGE_SIZE; ++i) {
+    //  uint8_t value;
+    //  if (i >= offset && i < offset + writeSize) {
+    //    // if this is within the slot then write out the new data
+    //    value = ptr[i - offset];
+    //  } else {
+    //    // otherwise just write-back the same value to fill the pagebuffer
+    //    uint16_t addr = pageStart + i;
+    //    stptr_p((const uint8_t *)&addr, 2);
+    //    value = ld_b();
+    //  }
+    //  sts_b(pageStart + i, value);
+    //}
+
+    //bool cont = false;
+    //for (uint8_t i = 0; i < EEPROM_PAGE_SIZE; ++i) {
+    //  // if outside the write area
+    //  if (i < offset || i >= (offset + writeSize)) {
+    //    // if continuously reading just read and continue
+    //    if (cont) {
+    //      ptr[i] = ldinc_b();
+    //      continue;
+    //    }
+    //    // otherwise start reading here
+    //    uint16_t addr = pageStart + i;
+    //    stptr_p((const uint8_t *)&addr, 2);
+    //    ptr[i] = ldinc_b();
+    //    cont = true;
+    //  } else {
+    //    // no longer continuously reading
+    //    cont = false;
+    //  }
+    //}
+
+
+    //// first read out the rest of the page
+    //stptr_p((const uint8_t *)&base, 2);
+    ////rep(numBytes - 1);
+    //for (uint16_t i = 0; i < modeBuffer.rawSize(); ++i) {
+    //  ptr[i] = ldinc_b();
+    //}
+
+    //nvmCmd(NVM_ERWP);
+    //nvmWait();
+    //nvmCmd(NVM_PBC);
+    //stptr_w(pageStart + offset);
+    //stcs(Control_A, 0x0E);
+    //rep(writeSize - 1);
+    //stinc_b_noget(ptr[0]);
+    //for (uint8_t i = 1; i < writeSize; ++i) {
+    //  sendByte(ptr[i]);
+    //}
+    //stcs(Control_A, 0x06);
+    //nvmCmd(NVM_WP);
+    //nvmWait();
+
+    // continue to the next page
+    base += writeSize;
+    ptr += writeSize;
+    size -= writeSize;
+  }
+  reset();
+  return true;
+}
+
+bool UPDI::writeModeFlash(uint8_t idx, ByteStream &modeBuffer)
+{
+  enterProgrammingMode();
+  // there are 3 modes in the eeprom after the header
+  // 0xFe00 is the end of flash, 0x200 before
+  uint16_t base = 0xFe00 + ((idx - 3) * 76);
+  uint16_t size = modeBuffer.rawSize();
+  uint8_t *ptr = (uint8_t *)modeBuffer.rawData();
+  // The storage slot may lay across a page boundary which means potentially writing
+  // two pages instead of just one. In order to update only part of a page, the page
+  // buffer must be filled with both the previous content along with the new data.
+  // For example, imagine 2 pages of data: |xxxxxxSSSS|SSSxxxxxxx| the x's are other
+  // data that must be preserved, and the S's denote the storage slot being written.
+  // This would take place over two iterations of the loop, each writing out one page
+  // by read-then-writing-back the x's and writing out the new S's. This is necessary
+  // because the page buffer must be filled to perform a page write, at least I think
+  while (size > 0) {
+    uint16_t pageStart = base & ~(FLASH_PAGE_SIZE - 1);
+    uint16_t offset = base % FLASH_PAGE_SIZE;
+    uint16_t space = FLASH_PAGE_SIZE - offset;
+    uint16_t writeSize = (size < space) ? size : space;
+
+    // read out the page
+    ByteStream pageBuffer(FLASH_PAGE_SIZE);
+    uint8_t *pagePtr = (uint8_t *)pageBuffer.data();
+//#define NUM_SLICES 8
+//#define PAGE_SLICE (FLASH_PAGE_SIZE / NUM_SLICES)
+//    for (uint16_t j = 0; j < NUM_SLICES; ++j) {
+//      uint16_t pos = pageStart = j;
+//      stptr_p((const uint8_t *)&pos, 2);
+//      for (uint16_t i = 0; i < PAGE_SLICE; ++i) {
+//        ptr[(j * PAGE_SLICE) + i] = ldinc_b();
+//      }
+//      // wait idk
+//      nvmWait();
+//    }
+
+    stptr_p((const uint8_t *)&pageStart, 2);
+    for (uint16_t i = 0; i < FLASH_PAGE_SIZE; ++i) {
+      pagePtr[i] = ldinc_b();
+    }
+    //if (!readFlashPage(pageStart, pageBuffer)) {
+    //  return false;
+    //}
+    // copy in the thing
+    memcpy(pagePtr + offset, ptr, writeSize);
+
+    // write back the page
+    nvmCmd(NVM_PBC);
+    stptr_p((const uint8_t *)&pageStart, 2);
+    //stcs(Control_A, 0x0E);
+    //rep(pageSize - 1);
+    //stinc_b_noget(buf[0]);
+    //for (uint8_t i = 1; i < pageSize; ++i) {
+    //  sendByte(buf[i]);
+    //}
+    for (uint16_t i = 0; i < FLASH_PAGE_SIZE; ++i) {
+      //stinc_b_noget(buf[i]);
+      sts_b(pageStart + i, pagePtr[i]);
+    }
+    //stcs(Control_A, 0x06);
+    nvmCmd(NVM_ERWP);
+    nvmWait();
+
+    //if (!writeFlashPage(pageStart, pageBuffer)) {
+    //  return false;
+    //}
+
+    //for (uint8_t i = 0; i < FLASH_PAGE_SIZE; ++i) {
+    //  uint8_t value;
+    //  if (i >= offset && i < offset + writeSize) {
+    //    // if this is within the slot then write out the new data
+    //    value = ptr[i - offset];
+    //  } else {
+    //    // otherwise just write-back the same value to fill the pagebuffer
+    //    uint16_t addr = pageStart + i;
+    //    stptr_p((const uint8_t *)&addr, 2);
+    //    value = ld_b();
+    //  }
+    //  sts_b(pageStart + i, value);
+    //}
+
+    //bool cont = false;
+    //for (uint8_t i = 0; i < FLASH_PAGE_SIZE; ++i) {
+    //  // if outside the write area
+    //  if (i < offset || i >= (offset + writeSize)) {
+    //    // if continuously reading just read and continue
+    //    if (cont) {
+    //      ptr[i] = ldinc_b();
+    //      continue;
+    //    }
+    //    // otherwise start reading here
+    //    uint16_t addr = pageStart + i;
+    //    stptr_p((const uint8_t *)&addr, 2);
+    //    ptr[i] = ldinc_b();
+    //    cont = true;
+    //  } else {
+    //    // no longer continuously reading
+    //    cont = false;
+    //  }
+    //}
+
+
+
+    //nvmCmd(NVM_ERWP);
+    //nvmWait();
+    //nvmCmd(NVM_PBC);
+    //stptr_w(pageStart + offset);
+    //stcs(Control_A, 0x0E);
+    //rep(writeSize - 1);
+    //stinc_b_noget(ptr[0]);
+    //for (uint8_t i = 1; i < writeSize; ++i) {
+    //  sendByte(ptr[i]);
+    //}
+    //stcs(Control_A, 0x06);
+    //nvmCmd(NVM_WP);
+    //nvmWait();
+
+    // continue to the next page
+    base += writeSize;
+    ptr += writeSize;
+    size -= writeSize;
+  }
+  reset();
+  return true;
+}
+
+bool UPDI::writePage(uint16_t addr, const uint8_t *buf, uint16_t pageSize)
+{
+  nvmCmd(NVM_PBC);
+  stptr_p((const uint8_t *)&addr, 2);
+  //stcs(Control_A, 0x0E);
+  //rep(pageSize - 1);
+  //stinc_b_noget(buf[0]);
+  //for (uint8_t i = 1; i < pageSize; ++i) {
+  //  sendByte(buf[i]);
+  //}
+  for (uint8_t i = 0; i < pageSize; ++i) {
+    //stinc_b_noget(buf[i]);
+    sts_b(addr + i, buf[i]);
+  }
+  //stcs(Control_A, 0x06);
+  nvmCmd(NVM_ERWP);
+  nvmWait();
+  return true;
+}
+
+bool UPDI::readPage(uint8_t addr, uint8_t *buf, uint16_t pageSize)
+{
+  stptr_p((const uint8_t *)&addr, 2);
+  for (uint16_t i = 0; i < pageSize; ++i) {
+    buf[i] = ldinc_b();
+  }
+  //stcs(Control_A, 0x0E);
+  //rep(pageSize - 1);
+  //buf[0] = ldinc_b();
+  //for (uint16_t i = 0; i < pageSize; ++i) {
+  //  stptr_w(addr + i);
+  //  buf[i] = ld_b();
+  //}
+  //stcs(Control_A, 0x06);
+  return true;
+}
+
+bool UPDI::writeFlashPage(uint16_t addr, const uint8_t *buf)
+{
+  return writePage(addr, buf, FLASH_PAGE_SIZE);
+}
+
+bool UPDI::readFlashPage(uint8_t addr, uint8_t *buf)
+{
+  return readPage(addr, buf, FLASH_PAGE_SIZE);
+}
+
+bool UPDI::writeEepromPage(uint16_t addr, const uint8_t *buf)
+{
+  return writePage(addr, buf, EEPROM_PAGE_SIZE);
+}
+
+bool UPDI::readEepromPage(uint8_t addr, uint8_t *buf)
+{
+  return readPage(addr, buf, EEPROM_PAGE_SIZE);
+}
+
+#endif
+
+bool UPDI::writeFirmware(uint32_t position, ByteStream &firmwareBuffer)
+{
+#ifdef VORTEX_EMBEDDED
+  firmwareBuffer.sanity();
+  if (!firmwareBuffer.checkCRC()) {
     ERROR_LOG("ERROR Header CRC Invalid!");
     reset();
     return false;
   }
-  sendDoubleBreak();
   enterProgrammingMode();
-  stcs(Control_A, 0x6);
-  uint8_t mode = cpu_mode<0xEF>();
-  if (mode != 0x82 && mode != 0x21 && mode != 0xA2 && mode != 0x08) {
-    sendDoubleBreak();
-    uint8_t status = ldcs(Status_B);
-    ERROR_LOGF("Bad CPU Mode 0x%02x... error: 0x%02x", mode, status);
-    return false;
-  }
-  if (mode != 0x08) {
-    sendProgKey();
-    uint8_t status = ldcs(ASI_Key_Status);
-    if (status != 0x10) {
-      ERROR_LOGF("Bad prog key status: 0x%02x", status);
-      return false;
-    }
-    reset();
-  }
-  mode = cpu_mode();
-  while (mode != 0x8) {
-    mode = cpu_mode();
-  }
   // 76 is the max duo mode size (the slot size)
-  uint8_t *ptr = (uint8_t *)modeBuffer.rawData();
-  uint16_t base;
+  uint8_t *ptr = (uint8_t *)firmwareBuffer.data();
   // there are 3 modes in the eeprom after the header
-  if (idx < 3) {
-    // 0x1400 is eeprom base
-    // 17 is size of duo header
-    // 76 is size of each duo mode
-    base = 0x1400 + 17 + (idx * 76);
-    // the size of the mode being written out
-    uint16_t size = modeBuffer.rawSize();
-    // The storage slot may lay across a page boundary which means potentially writing
-    // two pages instead of just one. In order to update only part of a page, the page
-    // buffer must be filled with both the previous content along with the new data.
-    // For example, imagine 2 pages of data: |xxxxxxSSSS|SSSxxxxxxx| the x's are other
-    // data that must be preserved, and the S's denote the storage slot being written.
-    // This would take place over two iterations of the loop, each writing out one page
-    // by read-then-writing-back the x's and writing out the new S's. This is necessary
-    // because the page buffer must be filled to perform a page write, at least I think
-    while (size > 0) {
-      uint16_t pageStart = base & ~(EEPROM_PAGE_SIZE - 1);
-      uint16_t offset = base % EEPROM_PAGE_SIZE;
-      uint16_t space = EEPROM_PAGE_SIZE - offset;
-      uint16_t writeSize = (size < space) ? size : space;
-
-      for (uint8_t i = 0; i < EEPROM_PAGE_SIZE; ++i) {
-        uint8_t value;
-        if (i >= offset && i < offset + writeSize) {
-          // if this is within the slot then write out the new data
-          value = ptr[i - offset];
-        } else {
-          // otherwise just write-back the same value to fill the pagebuffer
-          uint16_t addr = pageStart + i;
-          stptr_p((const uint8_t *)&addr, 2);
-          value = ld_b();
-        }
-        sts_b(pageStart + i, value);
-      }
-
-      nvmCmd(NVM_ERWP);
-      nvmWait();
-
-      // continue to the next page
-      base += writeSize;
-      ptr += writeSize;
-      size -= writeSize;
+  // 0xFe00 is the end of flash, 0x200 before
+  uint16_t base = 0x8000 + position;
+  uint16_t size = firmwareBuffer.size();
+  while (size > 0) {
+    uint16_t writeSize = (size < FLASH_PAGE_SIZE) ? size : FLASH_PAGE_SIZE;
+    //for (uint8_t i = 0; i < FLASH_PAGE_SIZE; ++i) {
+    //  uint8_t value = (i < writeSize) ? ptr[i] : 0;
+    //  sts_b(base + i, value);
+    //}
+    stptr_w(base);
+    stcs(Control_A, 0x0E);
+    rep(writeSize - 1);
+    stinc_b_noget(ptr[0]);
+    for (uint8_t i = 1; i < writeSize; ++i) {
+      sendByte(ptr[i]);
     }
-
-  } else {
-    // 0xFe00 is the end of flash, 0x200 before
-    uint16_t base = 0xFe00 + ((idx - 3) * 76);
-    uint16_t size = modeBuffer.rawSize();
-    // The storage slot may lay across a page boundary which means potentially writing
-    // two pages instead of just one. In order to update only part of a page, the page
-    // buffer must be filled with both the previous content along with the new data.
-    // For example, imagine 2 pages of data: |xxxxxxSSSS|SSSxxxxxxx| the x's are other
-    // data that must be preserved, and the S's denote the storage slot being written.
-    // This would take place over two iterations of the loop, each writing out one page
-    // by read-then-writing-back the x's and writing out the new S's. This is necessary
-    // because the page buffer must be filled to perform a page write, at least I think
-    while (size > 0) {
-      uint16_t pageStart = base & ~(FLASH_PAGE_SIZE - 1);
-      uint16_t offset = base % FLASH_PAGE_SIZE;
-      uint16_t space = FLASH_PAGE_SIZE - offset;
-      uint16_t writeSize = (size < space) ? size : space;
-
-      for (uint8_t i = 0; i < FLASH_PAGE_SIZE; ++i) {
-        uint8_t value;
-        if (i >= offset && i < offset + writeSize) {
-          // if this is within the slot then write out the new data
-          value = ptr[i - offset];
-        } else {
-          // otherwise just write-back the same value to fill the pagebuffer
-          uint16_t addr = pageStart + i;
-          stptr_p((const uint8_t *)&addr, 2);
-          value = ld_b();
-        }
-        sts_b(pageStart + i, value);
-      }
-
-      nvmCmd(NVM_ERWP);
-      nvmWait();
-
-      // continue to the next page
-      base += writeSize;
-      ptr += writeSize;
-      size -= writeSize;
-    }
+    stcs(Control_A, 0x06);
+    nvmCmd(NVM_WP);
+    nvmWait();
+    // continue to the next page
+    base += writeSize;
+    ptr += writeSize;
+    size -= writeSize;
   }
-
   reset();
 #endif
   return true;
@@ -349,7 +564,6 @@ bool UPDI::eraseMemory()
   uint8_t status = 0;
 #ifdef VORTEX_EMBEDDED
   sendDoubleBreak();
-  enterProgrammingMode();
   sendEraseKey();
   status = ldcs(ASI_Key_Status);
   if (status != 0x8) {
@@ -446,20 +660,36 @@ bool UPDI::writeMemory()
 
 void UPDI::enterProgrammingMode()
 {
-  ERROR_LOG("Entering programming mode");
-  uint8_t buf[256] = { 0 };
-  memset(buf, 0, sizeof(buf));
-  // As per datasheet:
-  //  This selects the guard time value that will be used by the UPDI when the
-  //  transmission direction switches from RX to TX.
-  //  0x6 = UPDI guard time: 2 cycles
-  stcs(Control_A, 0x6);
-  uint8_t mode = 0;
-  mode = cpu_mode<0xEF>();
-  if (mode != 0x82 && mode != 0x21 && mode != 0xA2) {
+  uint8_t mode;
+  while (1) {
     sendDoubleBreak();
-    uint8_t status = ldcs(Status_B);
-    ERROR_LOGF("Bad CPU Mode 0x%02x... error: 0x%02x", mode, status);
+    stcs(Control_A, 0x6);
+    mode = cpu_mode<0xEF>();
+    if (mode != 0x82 && mode != 0x21 && mode != 0xA2 && mode != 0x08) {
+      sendDoubleBreak();
+      uint8_t status = ldcs(Status_B);
+      ERROR_LOGF("Bad CPU Mode 0x%02x... error: 0x%02x", mode, status);
+      reset();
+      continue;
+      //return false;
+    }
+    if (mode != 0x08) {
+      sendProgKey();
+      uint8_t status = ldcs(ASI_Key_Status);
+      if (status != 0x10) {
+        ERROR_LOGF("Bad prog key status: 0x%02x", status);
+        reset();
+        continue;
+        //return false;
+      }
+      reset();
+    }
+    // break the while (1)
+    break;
+  }
+  mode = cpu_mode();
+  while (mode != 0x8) {
+    mode = cpu_mode();
   }
 }
 
@@ -608,6 +838,40 @@ void UPDI::stptr_p(const uint8_t *addr_p, uint8_t n)
   receiveByte();
 }
 
+void UPDI::stptr_l(uint32_t address)
+{
+  sendByte(0x55);
+  sendByte(0x6A);
+  sendByte(address & 0xFF);
+  sendByte((address >> 8) & 0xFF);
+  sendByte((address >> 16) & 0xFF);
+  receiveByte();
+}
+
+void UPDI::stptr_w(uint16_t address)
+{
+  sendByte(0x55);
+  sendByte(0x69);
+  sendByte(address & 0xFF);
+  sendByte(address >> 8);
+  receiveByte();
+}
+
+void UPDI::stptr_inc_16(uint8_t *data, uint16_t len)
+{
+  sendByte(0x55);
+  sendByte(0x65);
+  receiveByte();
+  uint16_t n = 2;
+  while (n < len)
+  {
+    sendByte(data[n]);
+    sendByte(data[n + 1]);
+    receiveByte();
+    n += 2;
+  }
+}
+
 void UPDI::rep(uint8_t repeats)
 {
   sendByte(0x55);
@@ -648,6 +912,22 @@ uint8_t UPDI::ld_b()
   sendByte(0x20);
   return receiveByte();
 }
+
+void UPDI::stinc_b_noget(uint8_t data)
+{
+  sendByte(0x55);
+  sendByte(0x64);
+  sendByte(data);
+}
+
+void UPDI::stinc_w_noget(uint16_t data)
+{
+  sendByte(0x55);
+  sendByte(0x65);
+  sendByte(data & 0xFF);
+  sendByte((data >> 8) & 0xFF);
+}
+
 
 #endif
 

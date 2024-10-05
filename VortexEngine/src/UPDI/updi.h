@@ -8,7 +8,8 @@
 
 class ByteStream;
 
-class UPDI {
+class UPDI
+{
 public:
   static bool init();
   static void cleanup();
@@ -20,12 +21,27 @@ public:
   static bool writeHeader(ByteStream &headerBuffer);
   static bool writeMode(uint8_t idx, ByteStream &modeBuffer);
 
+  static bool writeFirmware(uint32_t offset, ByteStream &firmwareBuffer);
+
   static bool eraseMemory();
   static bool readMemory();
   static bool writeMemory();
 
 private:
+
 #ifdef VORTEX_EMBEDDED
+  static bool writeModeEeprom(uint8_t idx, ByteStream &modeBuffer);
+  static bool writeModeFlash(uint8_t idx, ByteStream &modeBuffer);
+
+  static bool writePage(uint16_t addr, const uint8_t *buf, uint16_t pageSize = 128);
+  static bool readPage(uint8_t addr, uint8_t *buf, uint16_t pageSize = 128);
+
+  static bool writeFlashPage(uint16_t addr, const uint8_t *buf);
+  static bool readFlashPage(uint8_t addr, uint8_t *buf);
+
+  static bool writeEepromPage(uint16_t addr, const uint8_t *buf);
+  static bool readEepromPage(uint8_t addr, uint8_t *buf);
+
   // *** Base Addresses ***
   enum base
   {
@@ -98,7 +114,12 @@ private:
 
   static uint8_t ldcs(cs_reg r);
   static void stcs(cs_reg r, uint8_t data);
+  static void stptr_w(uint16_t addr);
   static void stptr_p(const uint8_t *addr_p, uint8_t n);
+  static void stptr_l(uint32_t address);
+  static void stptr_inc_16(uint8_t *data, uint16_t len);
+  static void stinc_b_noget(uint8_t data);
+  static void stinc_w_noget(uint16_t data);
   static void rep(uint8_t repeats);
   static uint8_t ldinc_b();
   static uint8_t lds_b(uint16_t address);
