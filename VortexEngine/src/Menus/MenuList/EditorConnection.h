@@ -24,6 +24,7 @@ public:
   bool pushHeaderChromalink();
   bool pullModeChromalink();
   bool pushModeChromalink();
+  bool writeDuoFirmware();
 
   // handlers for clicks
   void onShortClickM() override;
@@ -49,8 +50,7 @@ private:
   void receiveModeVL();
   void showReceiveModeVL();
   bool receiveModeIdx(uint8_t &idx);
-  bool receiveChromaHdr();
-  bool receiveChromaMode();
+  bool receiveFirmwareSize(uint32_t &idx);
 
   enum EditorConnectionState {
     // the editor is not connected
@@ -88,28 +88,6 @@ private:
     STATE_LISTEN_MODE_VL,
     STATE_LISTEN_MODE_VL_DONE,
 
-    // pull the header from the chromalinked duo
-    STATE_PULL_HEADER_CHROMALINK,
-    STATE_PULL_HEADER_CHROMALINK_SEND,
-    STATE_PULL_HEADER_CHROMALINK_DONE,
-
-    // pull a mode from the chromalinked duo
-    STATE_PULL_MODE_CHROMALINK,
-    STATE_PULL_MODE_CHROMALINK_IDX,
-    STATE_PULL_MODE_CHROMALINK_SEND,
-    STATE_PULL_MODE_CHROMALINK_DONE,
-
-    // push the header to the chromalinked duo
-    STATE_PUSH_HEADER_CHROMALINK,
-    STATE_PUSH_HEADER_CHROMALINK_RECEIVE,
-    STATE_PUSH_HEADER_CHROMALINK_DONE,
-    
-    // push a mode to the chromalinked duo
-    STATE_PUSH_MODE_CHROMALINK,
-    STATE_PUSH_MODE_CHROMALINK_RECEIVE_IDX,
-    STATE_PUSH_MODE_CHROMALINK_RECEIVE,
-    STATE_PUSH_MODE_CHROMALINK_DONE,
-
     // editor pulls the modes from device (safer version)
     STATE_PULL_EACH_MODE,
     STATE_PULL_EACH_MODE_COUNT,
@@ -123,6 +101,27 @@ private:
     STATE_PUSH_EACH_MODE_RECEIVE,
     STATE_PUSH_EACH_MODE_WAIT,
     STATE_PUSH_EACH_MODE_DONE,
+
+    // pull the header from the chromalinked duo
+    STATE_PULL_HEADER_CHROMALINK,
+
+    // pull a mode from the chromalinked duo
+    STATE_PULL_MODE_CHROMALINK,
+    STATE_PULL_MODE_CHROMALINK_SEND,
+
+    // push the header to the chromalinked duo
+    STATE_PUSH_HEADER_CHROMALINK,
+    STATE_PUSH_HEADER_CHROMALINK_RECEIVE,
+    
+    // push a mode to the chromalinked duo
+    STATE_PUSH_MODE_CHROMALINK,
+    STATE_PUSH_MODE_CHROMALINK_RECEIVE_IDX,
+    STATE_PUSH_MODE_CHROMALINK_RECEIVE,
+
+    // flash the firmware of the chromalinked duo
+    STATE_CHROMALINK_FLASH_FIRMWARE,
+    STATE_CHROMALINK_FLASH_FIRMWARE_RECEIVE_SIZE,
+    STATE_CHROMALINK_FLASH_FIRMWARE_RECEIVE,
   };
 
   // state of the editor
@@ -142,6 +141,10 @@ private:
 
   // current step of transfer
   uint32_t m_curStep;
+  // firmware size for flashing duo
+  uint32_t m_firmwareSize;
+  // how much firmware written so far
+  uint32_t m_firmwareOffset;
 };
 
 #endif
