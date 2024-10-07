@@ -85,8 +85,10 @@ Menu::MenuAction EditorConnection::run()
   // TODO: auto leave the editor menu when unplugged
   // show the editor
   showEditor();
-  // receive any data from serial into the receive buffer
-  receiveData();
+  if (m_state != STATE_CHROMALINK_FLASH_FIRMWARE_RECEIVE) {
+    // receive any data from serial into the receive buffer
+    receiveData();
+  }
   // operate on the state of the editor connection
   switch (m_state) {
   case STATE_DISCONNECTED:
@@ -384,7 +386,6 @@ Menu::MenuAction EditorConnection::run()
       break;
     }
     // send ack
-    m_receiveBuffer.clear();
     SerialComs::write(EDITOR_VERB_FLASH_FIRMWARE_ACK);
     // only once the entire firmware is written
     if (m_firmwareOffset >= m_firmwareSize) {
@@ -489,7 +490,7 @@ bool EditorConnection::writeDuoFirmware()
 {
   // wait for the mode then write it via updi
   ByteStream buf;
-  if (!receiveBuffer(buf)) {
+  if (!receiveFirmwareChunk(buf)) {
     return false;
   }
   if (!UPDI::writeFirmware(m_firmwareOffset, buf)) {
@@ -619,21 +620,54 @@ bool EditorConnection::receiveBuffer(ByteStream &buffer)
 {
   // need at least the buffer size first
   uint32_t size = 0;
+
+  static uint8_t tries = 0;
+  tries %= 20;
   if (m_receiveBuffer.size() < sizeof(size)) {
-    // wait, not enough data available yet
-    return false;
+    Leds::setAll(RGB_CYAN4);
+    Leds::setRange(LED_0, (LedPos)tries++, RGB_YELLOW);
+    Leds::update();
+      // wait, not enough data available yet
+      return false;
   }
+
   // grab the size out of the start
   m_receiveBuffer.resetUnserializer();
   size = m_receiveBuffer.peek32();
   if (m_receiveBuffer.size() < (size + sizeof(size))) {
-    // don't unserialize yet, not ready
-    return false;
+    Leds::setAll(RGB_CYAN4);
+    Leds::setRange(LED_0, (LedPos)tries++, RGB_ORANGE);
+    Leds::update();
+      // don't unserialize yet, not ready
+      return false;
   }
   // okay unserialize now, first unserialize the size
   if (!m_receiveBuffer.unserialize32(&size)) {
+    Leds::setAll(RGB_CYAN4);
+    Leds::setRange(LED_0, (LedPos)tries++, RGB_RED);
+    Leds::update();
     return false;
   }
+  // create a new ByteStream that will hold the full buffer of data
+  buffer.init(m_receiveBuffer.rawSize());
+  // then copy everything from the receive buffer into the rawdata
+  // which is going to overwrite the crc/size/flags of the ByteStream
+  memcpy(buffer.rawData(), m_receiveBuffer.data() + sizeof(size),
+    m_receiveBuffer.size() - sizeof(size));
+  // clear the receive buffer
+  m_receiveBuffer.clear();
+  if (!buffer.checkCRC()) {
+    return false;
+  }
+  return true;
+}
+
+bool EditorConnection::receiveFirmwareChunk(ByteStream &buffer)
+{
+  // need at least the buffer size first
+  uint32_t size = 0;
+  // read the 140 byte chunk
+  SerialComs::readAmount(144, m_receiveBuffer);
   // create a new ByteStream that will hold the full buffer of data
   buffer.init(m_receiveBuffer.rawSize());
   // then copy everything from the receive buffer into the rawdata

@@ -126,7 +126,7 @@ void SerialComs::write(const char *msg, ...)
   Vortex::vcallbacks()->serialWrite(buf, len);
 #else
   Serial.write(buf, len);
-  Serial.flush();
+  //Serial.flush();
 #endif
   va_end(list);
 #endif
@@ -146,7 +146,7 @@ void SerialComs::write(ByteStream &byteStream)
 #else
   Serial.write((const uint8_t *)&size, sizeof(size));
   Serial.write((const uint8_t *)byteStream.rawData(), byteStream.rawSize());
-  Serial.flush();
+  //Serial.flush();
 #endif
 #endif
 }
@@ -176,6 +176,26 @@ void SerialComs::read(ByteStream &byteStream)
 #endif
     byteStream.serialize8(byte);
   } while (--amt > 0);
+#endif
+}
+
+void SerialComs::readAmount(uint32_t amount, ByteStream &byteStream)
+{
+#if VORTEX_SLIM == 0
+  if (!isConnected()) {
+    return;
+  }
+  do {
+    uint8_t byte = 0;
+#ifdef VORTEX_LIB
+    if (!Vortex::vcallbacks()->serialRead((char *)&byte, 1)) {
+      return;
+    }
+#else
+    byte = Serial.read();
+#endif
+    byteStream.serialize8(byte);
+  } while (--amount > 0);
 #endif
 }
 

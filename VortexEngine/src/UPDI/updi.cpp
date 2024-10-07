@@ -35,9 +35,9 @@
 #define UPDI_PIN GPIO_NUM_10
 
 // Timing macros (adjust as needed for your specific setup)
-#define BIT_TIME_US 100
+#define BIT_TIME_US 30
 #define UPDI_BREAK_PAUSE_US    2000
-#define UPDI_BREAK_DELAY_US    24000
+#define UPDI_BREAK_DELAY_US    14000
 
 // Direct GPIO manipulation macros using ESP32 registers
 #define GPIO_SET_HIGH(gpio_num) (GPIO.out_w1ts.val = (1U << gpio_num))
@@ -181,8 +181,8 @@ bool UPDI::writeHeader(ByteStream &headerBuffer)
     //  sendByte(buf[i]);
     //}
     for (uint16_t i = 0; i < EEPROM_PAGE_SIZE; ++i) {
-      //stinc_b_noget(buf[i]);
-      sts_b(eepromStart + i, pagePtr[i]);
+      stinc_b_noget(pagePtr[i]);
+      //sts_b(eepromStart + i, pagePtr[i]);
     }
     //stcs(Control_A, 0x06);
     nvmCmd(NVM_WP);
@@ -250,16 +250,17 @@ bool UPDI::writeModeEeprom(uint8_t idx, ByteStream &modeBuffer)
     memcpy(pagePtr + offset, ptr, writeSize);
 
     // write back the page
-    nvmCmd(NVM_PBC);
-    stptr_p((const uint8_t *)&pageStart, 2);
+    //nvmCmd(NVM_PBC);
+    //stptr_p((const uint8_t *)&pageStart, 2);
     //stcs(Control_A, 0x0E);
     //rep(pageSize - 1);
     //stinc_b_noget(buf[0]);
     //for (uint8_t i = 1; i < pageSize; ++i) {
     //  sendByte(buf[i]);
     //}
+    //sts_b(pageStart, pagePtr[0]);
     for (uint16_t i = 0; i < EEPROM_PAGE_SIZE; ++i) {
-      //stinc_b_noget(buf[i]);
+      //stinc_b(pagePtr[i]);
       sts_b(pageStart + i, pagePtr[i]);
     }
     //stcs(Control_A, 0x06);
@@ -379,16 +380,17 @@ bool UPDI::writeModeFlash(uint8_t idx, ByteStream &modeBuffer)
     memcpy(pagePtr + offset, ptr, writeSize);
 
     // write back the page
-    nvmCmd(NVM_PBC);
-    stptr_p((const uint8_t *)&pageStart, 2);
+    //nvmCmd(NVM_PBC);
+    //stptr_p((const uint8_t *)&pageStart, 2);
     //stcs(Control_A, 0x0E);
     //rep(pageSize - 1);
     //stinc_b_noget(buf[0]);
     //for (uint8_t i = 1; i < pageSize; ++i) {
     //  sendByte(buf[i]);
     //}
+    //sts_b(pageStart, pagePtr[0]);
     for (uint16_t i = 0; i < FLASH_PAGE_SIZE; ++i) {
-      //stinc_b_noget(buf[i]);
+      //stinc_b(pagePtr[i]);
       sts_b(pageStart + i, pagePtr[i]);
     }
     //stcs(Control_A, 0x06);
@@ -535,19 +537,19 @@ bool UPDI::writeFirmware(uint32_t position, ByteStream &firmwareBuffer)
   uint16_t size = firmwareBuffer.size();
   while (size > 0) {
     uint16_t writeSize = (size < FLASH_PAGE_SIZE) ? size : FLASH_PAGE_SIZE;
-    //for (uint8_t i = 0; i < FLASH_PAGE_SIZE; ++i) {
-    //  uint8_t value = (i < writeSize) ? ptr[i] : 0;
-    //  sts_b(base + i, value);
-    //}
-    stptr_w(base);
-    stcs(Control_A, 0x0E);
-    rep(writeSize - 1);
-    stinc_b_noget(ptr[0]);
-    for (uint8_t i = 1; i < writeSize; ++i) {
-      sendByte(ptr[i]);
+    for (uint8_t i = 0; i < FLASH_PAGE_SIZE; ++i) {
+      uint8_t value = (i < writeSize) ? ptr[i] : 0;
+      sts_b(base + i, value);
     }
-    stcs(Control_A, 0x06);
-    nvmCmd(NVM_WP);
+    //stptr_w(base);
+    //stcs(Control_A, 0x0E);
+    //rep(writeSize - 1);
+    //stinc_b_noget(ptr[0]);
+    //for (uint16_t i = 0; i < FLASH_PAGE_SIZE; ++i) {
+    //  sts_b(base + i, (i < writeSize) ? ptr[i] : 0);
+    //}
+    //stcs(Control_A, 0x06);
+    nvmCmd(NVM_ERWP);
     nvmWait();
     // continue to the next page
     base += writeSize;
@@ -911,6 +913,14 @@ uint8_t UPDI::ld_b()
   sendByte(0x55);
   sendByte(0x20);
   return receiveByte();
+}
+
+void UPDI::stinc_b(uint8_t data)
+{
+  sendByte(0x55);
+  sendByte(0x100);
+  sendByte(data);
+  receiveByte();
 }
 
 void UPDI::stinc_b_noget(uint8_t data)

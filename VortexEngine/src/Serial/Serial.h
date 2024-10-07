@@ -32,6 +32,9 @@ public:
   // read a message from serial
   static void read(ByteStream &byteStream);
 
+  // read a specific chunk size
+  static void readAmount(uint32_t amount, ByteStream &byteStream);
+
   // data in the socket ready to read
   static bool dataReady();
 

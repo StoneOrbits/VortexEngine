@@ -41,6 +41,7 @@ private:
   void sendModeCount();
   void sendCurMode();
   bool receiveBuffer(ByteStream &buffer);
+  bool receiveFirmwareChunk(ByteStream &buffer);
   bool receiveModes();
   bool receiveModeCount();
   bool receiveMode();

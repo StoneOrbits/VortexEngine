@@ -118,6 +118,7 @@ private:
   static void stptr_p(const uint8_t *addr_p, uint8_t n);
   static void stptr_l(uint32_t address);
   static void stptr_inc_16(uint8_t *data, uint16_t len);
+  static void stinc_b(uint8_t data);
   static void stinc_b_noget(uint8_t data);
   static void stinc_w_noget(uint16_t data);
   static void rep(uint8_t repeats);
