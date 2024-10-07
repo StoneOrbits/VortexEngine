@@ -31,10 +31,10 @@ RGBColor Leds::m_ledColors[LED_COUNT] = { RGB_OFF };
 bool Leds::init()
 {
 #ifdef VORTEX_EMBEDDED
-  FastLED.addLeds<WS2812B, LED_PIN, GRB>((CRGB *)m_ledColors, LED_COUNT);
+  FastLED.addLeds<WS2812B, LED_PIN, RGB>((CRGB *)m_ledColors, LED_COUNT);
   FastLED.setMaxRefreshRate(0);
-  pinMode(MOSFET_PIN, OUTPUT);
-  digitalWrite(MOSFET_PIN, HIGH);
+  //pinMode(MOSFET_PIN, OUTPUT);
+  //digitalWrite(MOSFET_PIN, HIGH);
 #endif
 #ifdef VORTEX_LIB
   Vortex::vcallbacks()->ledsInit(m_ledColors, LED_COUNT);
