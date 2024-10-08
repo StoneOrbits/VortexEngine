@@ -276,6 +276,13 @@ bool Modes::serializeSaveHeader(ByteStream &saveBuffer)
   if (!saveBuffer.serialize8((uint8_t)Leds::getBrightness())) {
     return false;
   }
+  // first byte == 0x1 means this is a v2 header 27 bytes instead of 17
+  // normally this byte would be the first byte of the first mode which
+  // would be the number of leds -- this could never be 0
+  saveBuffer.serialize8(0);
+  // next byte is the build number
+  saveBuffer.serialize8(VORTEX_BUILD_NUMBER);
+  // new version save header has +10 extra bytes for 15 + 12 = 27 total
   DEBUG_LOGF("Serialized all modes, uncompressed size: %u", saveBuffer.size());
   return true;
 }

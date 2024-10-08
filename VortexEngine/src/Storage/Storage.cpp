@@ -44,8 +44,8 @@ std::string Storage::m_storageFilename;
 // as the program leaves 256 bytes of space at the end of flash then this will fit
 #define FLASH_STORAGE_SPACE ((volatile uint8_t *)(0x10000 - FLASH_STORAGE_SIZE))
 
-// 12 for the serialbuffer header + 5 for the actual header data
-#define STORAGE_HEADER_SIZE 17
+// 12 for the serialbuffer header + 5 for the actual header data + 10 for extra
+#define STORAGE_HEADER_SIZE 27
 
 uint32_t Storage::m_lastSaveSize = 0;
 
