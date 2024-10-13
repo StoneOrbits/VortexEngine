@@ -85,10 +85,8 @@ Menu::MenuAction EditorConnection::run()
   // TODO: auto leave the editor menu when unplugged
   // show the editor
   showEditor();
-  if (m_state != STATE_CHROMALINK_FLASH_FIRMWARE_RECEIVE) {
-    // receive any data from serial into the receive buffer
-    receiveData();
-  }
+  // receive any data from serial into the receive buffer
+  receiveData();
   // operate on the state of the editor connection
   switch (m_state) {
   case STATE_DISCONNECTED:
@@ -375,9 +373,10 @@ Menu::MenuAction EditorConnection::run()
     UPDI::eraseMemory();
     m_curStep = 0;
     m_firmwareOffset = 0;
-    Leds::setAll(RGB_YELLOW);
+    Leds::setAll(RGB_YELLOW3);
     m_receiveBuffer.clear();
     SerialComs::write(EDITOR_VERB_READY);
+    Time::delayMilliseconds(300);
     m_state = STATE_CHROMALINK_FLASH_FIRMWARE_RECEIVE;
     break;
   case STATE_CHROMALINK_FLASH_FIRMWARE_RECEIVE:
@@ -387,6 +386,7 @@ Menu::MenuAction EditorConnection::run()
     }
     // send ack
     SerialComs::write(EDITOR_VERB_FLASH_FIRMWARE_ACK);
+    Time::delayMilliseconds(10);
     // only once the entire firmware is written
     if (m_firmwareOffset >= m_firmwareSize) {
       // then done
@@ -490,7 +490,7 @@ bool EditorConnection::writeDuoFirmware()
 {
   // wait for the mode then write it via updi
   ByteStream buf;
-  if (!receiveFirmwareChunk(buf)) {
+  if (!receiveBuffer(buf)) {
     return false;
   }
   if (!UPDI::writeFirmware(m_firmwareOffset, buf)) {
@@ -499,7 +499,7 @@ bool EditorConnection::writeDuoFirmware()
   m_firmwareOffset += buf.size();
   float percent = m_firmwareOffset / (float)m_firmwareSize;
   LedPos pos = (LedPos)(percent * LED_COUNT);
-  Leds::setAll(RGB_YELLOW);
+  Leds::setAll(RGB_YELLOW3);
   Leds::setRange(LED_0, pos, RGB_GREEN3);
   return true;
 }
@@ -625,10 +625,9 @@ bool EditorConnection::receiveBuffer(ByteStream &buffer)
   tries %= 20;
   if (m_receiveBuffer.size() < sizeof(size)) {
     Leds::setAll(RGB_CYAN4);
-    Leds::setRange(LED_0, (LedPos)tries++, RGB_YELLOW);
-    Leds::update();
-      // wait, not enough data available yet
-      return false;
+    Leds::setRange(LED_0, (LedPos)tries++, RGB_YELLOW4);
+    // wait, not enough data available yet
+    return false;
   }
 
   // grab the size out of the start
@@ -636,16 +635,14 @@ bool EditorConnection::receiveBuffer(ByteStream &buffer)
   size = m_receiveBuffer.peek32();
   if (m_receiveBuffer.size() < (size + sizeof(size))) {
     Leds::setAll(RGB_CYAN4);
-    Leds::setRange(LED_0, (LedPos)tries++, RGB_ORANGE);
-    Leds::update();
-      // don't unserialize yet, not ready
-      return false;
+    Leds::setRange(LED_0, (LedPos)tries++, RGB_ORANGE4);
+    // don't unserialize yet, not ready
+    return false;
   }
   // okay unserialize now, first unserialize the size
   if (!m_receiveBuffer.unserialize32(&size)) {
     Leds::setAll(RGB_CYAN4);
-    Leds::setRange(LED_0, (LedPos)tries++, RGB_RED);
-    Leds::update();
+    Leds::setRange(LED_0, (LedPos)tries++, RGB_RED4);
     return false;
   }
   // create a new ByteStream that will hold the full buffer of data

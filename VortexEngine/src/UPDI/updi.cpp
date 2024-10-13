@@ -462,21 +462,32 @@ bool UPDI::writeModeFlash(uint8_t idx, ByteStream &modeBuffer)
 
 bool UPDI::writePage(uint16_t addr, const uint8_t *buf, uint16_t pageSize)
 {
-  nvmCmd(NVM_PBC);
-  stptr_p((const uint8_t *)&addr, 2);
-  //stcs(Control_A, 0x0E);
-  //rep(pageSize - 1);
-  //stinc_b_noget(buf[0]);
-  //for (uint8_t i = 1; i < pageSize; ++i) {
-  //  sendByte(buf[i]);
+    stptr_w(addr);
+    stcs(Control_A, 0x0E);
+    rep(FLASH_PAGE_SIZE - 1);
+    stinc_b_noget(buf[0]);
+    for (uint16_t i = 1; i < FLASH_PAGE_SIZE; ++i) {
+      sendByte(buf[i]);
+    }
+    stcs(Control_A, 0x06);
+    nvmCmd(NVM_ERWP);
+    nvmWait();
+
+  //nvmCmd(NVM_PBC);
+  //stptr_p((const uint8_t *)&addr, 2);
+  ////stcs(Control_A, 0x0E);
+  ////rep(pageSize - 1);
+  ////stinc_b_noget(buf[0]);
+  ////for (uint8_t i = 1; i < pageSize; ++i) {
+  ////  sendByte(buf[i]);
+  ////}
+  //for (uint8_t i = 0; i < pageSize; ++i) {
+  //  //stinc_b_noget(buf[i]);
+  //  sts_b(addr + i, buf[i]);
   //}
-  for (uint8_t i = 0; i < pageSize; ++i) {
-    //stinc_b_noget(buf[i]);
-    sts_b(addr + i, buf[i]);
-  }
-  //stcs(Control_A, 0x06);
-  nvmCmd(NVM_ERWP);
-  nvmWait();
+  ////stcs(Control_A, 0x06);
+  //nvmCmd(NVM_ERWP);
+  //nvmWait();
   return true;
 }
 
@@ -537,18 +548,19 @@ bool UPDI::writeFirmware(uint32_t position, ByteStream &firmwareBuffer)
   uint16_t size = firmwareBuffer.size();
   while (size > 0) {
     uint16_t writeSize = (size < FLASH_PAGE_SIZE) ? size : FLASH_PAGE_SIZE;
-    for (uint8_t i = 0; i < FLASH_PAGE_SIZE; ++i) {
-      uint8_t value = (i < writeSize) ? ptr[i] : 0;
-      sts_b(base + i, value);
-    }
-    //stptr_w(base);
-    //stcs(Control_A, 0x0E);
-    //rep(writeSize - 1);
-    //stinc_b_noget(ptr[0]);
-    //for (uint16_t i = 0; i < FLASH_PAGE_SIZE; ++i) {
-    //  sts_b(base + i, (i < writeSize) ? ptr[i] : 0);
+    //for (uint8_t i = 0; i < FLASH_PAGE_SIZE; ++i) {
+    //  uint8_t value = (i < writeSize) ? ptr[i] : 0;
+    //  sts_b(base + i, value);
     //}
-    //stcs(Control_A, 0x06);
+    stptr_w(base);
+    stcs(Control_A, 0x0E);
+    rep(FLASH_PAGE_SIZE - 1);
+    stinc_b_noget(ptr[0]);
+    for (uint16_t i = 1; i < FLASH_PAGE_SIZE; ++i) {
+      sendByte((i < writeSize) ? ptr[i] : 0);
+      //sts_b(base + i, (i < writeSize) ? ptr[i] : 0);
+    }
+    stcs(Control_A, 0x06);
     nvmCmd(NVM_ERWP);
     nvmWait();
     // continue to the next page
