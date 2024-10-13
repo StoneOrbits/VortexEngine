@@ -37,6 +37,7 @@ private:
   void handleCommand();
   void showEditor();
   void receiveData();
+  void handleState();
   void sendModes();
   void sendModeCount();
   void sendCurMode();

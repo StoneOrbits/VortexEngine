@@ -87,8 +87,17 @@ Menu::MenuAction EditorConnection::run()
   showEditor();
   // receive any data from serial into the receive buffer
   receiveData();
+  // handle the current state
+  handleState();
+  return MENU_CONTINUE;
+}
+
+void EditorConnection::handleState()
+{
   // operate on the state of the editor connection
   switch (m_state) {
+  // -------------------------------
+  //  Disconnected
   case STATE_DISCONNECTED:
     // not connected yet so check for connections
     if (!SerialComs::isConnected()) {
@@ -100,12 +109,18 @@ Menu::MenuAction EditorConnection::run()
     // a connection was found, say hello
     m_state = STATE_GREETING;
     break;
+
+  // -------------------------------
+  //  Send Greeting
   case STATE_GREETING:
     m_receiveBuffer.clear();
     // send the hello greeting with our version number and build time
     SerialComs::write(EDITOR_VERB_GREETING);
     m_state = STATE_IDLE;
     break;
+
+  // -------------------------------
+  //  Chillin
   case STATE_IDLE:
     // parse the receive buffer for any commands from the editor
     handleCommand();
@@ -115,6 +130,9 @@ Menu::MenuAction EditorConnection::run()
       leaveMenu(true);
     }
     break;
+
+  // -------------------------------
+  //  Send Modes to PC
   case STATE_PULL_MODES:
     // editor requested pull modes, send the modes
     sendModes();
@@ -133,6 +151,9 @@ Menu::MenuAction EditorConnection::run()
     // go idle
     m_state = STATE_IDLE;
     break;
+
+  // -------------------------------
+  //  Receive Modes from PC
   case STATE_PUSH_MODES:
     // editor requested to push modes, clear first and reset first
     m_receiveBuffer.clear();
@@ -154,6 +175,9 @@ Menu::MenuAction EditorConnection::run()
     SerialComs::write(EDITOR_VERB_PUSH_MODES_ACK);
     m_state = STATE_IDLE;
     break;
+
+  // -------------------------------
+  //  Demo Mode from PC
   case STATE_DEMO_MODE:
     // editor requested to push modes, clear first and reset first
     m_receiveBuffer.clear();
@@ -175,12 +199,18 @@ Menu::MenuAction EditorConnection::run()
     SerialComs::write(EDITOR_VERB_DEMO_MODE_ACK);
     m_state = STATE_IDLE;
     break;
+
+  // -------------------------------
+  //  Reset Demo to Nothing
   case STATE_CLEAR_DEMO:
     clearDemo();
     m_receiveBuffer.clear();
     SerialComs::write(EDITOR_VERB_CLEAR_DEMO_ACK);
     m_state = STATE_IDLE;
     break;
+
+  // -------------------------------
+  //  Send Mode to Duo
   case STATE_TRANSMIT_MODE_VL:
 #if VL_ENABLE_SENDER == 1
     // if still sending and the send command indicated more data
@@ -198,6 +228,9 @@ Menu::MenuAction EditorConnection::run()
     SerialComs::write(EDITOR_VERB_TRANSMIT_VL_ACK);
     m_state = STATE_IDLE;
     break;
+
+  // -------------------------------
+  //  Receive Mode from Duo
   case STATE_LISTEN_MODE_VL:
     showReceiveModeVL();
     receiveModeVL();
@@ -208,6 +241,9 @@ Menu::MenuAction EditorConnection::run()
     SerialComs::write(EDITOR_VERB_LISTEN_VL_ACK);
     m_state = STATE_IDLE;
     break;
+
+  // -------------------------------
+  //  Send Modes to PC Safer
   case STATE_PULL_EACH_MODE:
     // editor requested pull modes, send the modes
     m_receiveBuffer.clear();
@@ -254,6 +290,9 @@ Menu::MenuAction EditorConnection::run()
     // go idle
     m_state = STATE_IDLE;
     break;
+
+  // -------------------------------
+  //  Receive Modes from PC Safer
   case STATE_PUSH_EACH_MODE:
     // editor requested to push modes, find out how many
     m_receiveBuffer.clear();
@@ -291,6 +330,9 @@ Menu::MenuAction EditorConnection::run()
     // on lightshow.lol so just skip to IDLE
     m_state = STATE_IDLE;
     break;
+
+  // -------------------------------
+  //  Get Chromalinked Duo Header
   case STATE_PULL_HEADER_CHROMALINK:
     if (!pullHeaderChromalink()) {
       // error?
@@ -300,6 +342,9 @@ Menu::MenuAction EditorConnection::run()
     m_receiveBuffer.clear();
     m_state = STATE_IDLE;
     break;
+
+  // -------------------------------
+  //  Get Chromalinked Duo Mode
   case STATE_PULL_MODE_CHROMALINK:
     // now say we are ready
     m_receiveBuffer.clear();
@@ -315,6 +360,9 @@ Menu::MenuAction EditorConnection::run()
     m_curStep = 0;
     m_state = STATE_IDLE;
     break;
+
+  // -------------------------------
+  //  Set Chromalinked Duo Header
   case STATE_PUSH_HEADER_CHROMALINK:
     // editor requested to push modes, clear first and reset first
     m_receiveBuffer.clear();
@@ -333,6 +381,9 @@ Menu::MenuAction EditorConnection::run()
     m_receiveBuffer.clear();
     m_state = STATE_IDLE;
     break;
+
+  // -------------------------------
+  //  Set Chromalinked Duo Mode
   case STATE_PUSH_MODE_CHROMALINK:
     // editor requested to push modes, clear first and reset first
     m_receiveBuffer.clear();
@@ -358,6 +409,9 @@ Menu::MenuAction EditorConnection::run()
     m_receiveBuffer.clear();
     m_state = STATE_IDLE;
     break;
+
+  // -------------------------------
+  //  Flash Chromalinked Duo
   case STATE_CHROMALINK_FLASH_FIRMWARE:
     // editor requested to push modes, clear first and reset first
     m_receiveBuffer.clear();
@@ -376,6 +430,10 @@ Menu::MenuAction EditorConnection::run()
     Leds::setAll(RGB_YELLOW3);
     m_receiveBuffer.clear();
     SerialComs::write(EDITOR_VERB_READY);
+    // TODO: this god awful delay idk why it's necessary but without 
+    // it the serial seems to get stuck. It appears like an esp internals
+    // issue with serial but maybe this logic is just buggy -- it runs fine
+    // when simulated in test framework connected to editor though
     Time::delayMilliseconds(300);
     m_state = STATE_CHROMALINK_FLASH_FIRMWARE_RECEIVE;
     break;
@@ -386,7 +444,11 @@ Menu::MenuAction EditorConnection::run()
     }
     // send ack
     SerialComs::write(EDITOR_VERB_FLASH_FIRMWARE_ACK);
-    Time::delayMilliseconds(10);
+    // TODO: this god awful delay idk why it's necessary but without 
+    // it the serial seems to get stuck. It appears like an esp internals
+    // issue with serial but maybe this logic is just buggy -- it runs fine
+    // when simulated in test framework connected to editor though
+    Time::delayMilliseconds(5);
     // only once the entire firmware is written
     if (m_firmwareOffset >= m_firmwareSize) {
       // then done
@@ -396,7 +458,6 @@ Menu::MenuAction EditorConnection::run()
     }
     break;
   }
-  return MENU_CONTINUE;
 }
 
 void EditorConnection::sendCurModeVL()
@@ -453,18 +514,12 @@ bool EditorConnection::pullModeChromalink()
   uint8_t modeIdx = 0;
   // only 9 modes on duo, maybe this should be a macro or something
   if (!receiveModeIdx(modeIdx) || modeIdx >= 9) {
-    Leds::setIndex((LedPos)m_curStep++, RGB_RED3);
-    Leds::update();
     return false;
   }
   ByteStream modeBuffer;
   if (!UPDI::readMode(modeIdx, modeBuffer)) {
-    Leds::setIndex((LedPos)m_curStep++, RGB_RED3);
-    Leds::update();
     return false;
   }
-  Leds::setIndex((LedPos)m_curStep++, RGB_GREEN3);
-  Leds::update();
   SerialComs::write(modeBuffer);
   return true;
 }
@@ -477,12 +532,8 @@ bool EditorConnection::pushModeChromalink()
     return false;
   }
   if (!UPDI::writeMode(m_chromaModeIdx, buf)) {
-    // TODO: Fixme
-    //return false;
-    return true;
+    return false;
   }
-  Leds::setIndex((LedPos)m_curStep++, RGB_GREEN3);
-  Leds::update();
   return true;
 }
 
@@ -497,10 +548,9 @@ bool EditorConnection::writeDuoFirmware()
     return false;
   }
   m_firmwareOffset += buf.size();
-  float percent = m_firmwareOffset / (float)m_firmwareSize;
-  LedPos pos = (LedPos)(percent * LED_COUNT);
+  // create a progress bar I guess
   Leds::setAll(RGB_YELLOW3);
-  Leds::setRange(LED_0, pos, RGB_GREEN3);
+  Leds::setRange(LED_0, (LedPos)((m_firmwareOffset / (float)m_firmwareSize) * LED_COUNT), RGB_GREEN3);
   return true;
 }
 
