@@ -365,6 +365,9 @@ bool VortexEngine::serializeVersion(ByteStream &stream)
   if (!stream.serialize8((uint8_t)VORTEX_VERSION_MINOR)) {
     return false;
   }
+  if (!stream.serialize8((uint8_t)VORTEX_BUILD_NUMBER)) {
+    return false;
+  }
   return true;
 }
 
@@ -373,7 +376,7 @@ bool VortexEngine::checkVersion(uint8_t major, uint8_t minor)
   if (major != VORTEX_VERSION_MAJOR) {
     return false;
   }
-  // minor version doesn't matter
+  // minor version and build number doesn't matter
   return true;
 }
 

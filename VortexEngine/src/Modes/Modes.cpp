@@ -100,8 +100,9 @@ void Modes::play()
 // full save/load to/from buffer
 bool Modes::saveToBuffer(ByteStream &modesBuffer)
 {
-  // first write out the header
-  if (!serializeSaveHeader(modesBuffer)) {
+  // first write out the header, but false means don't write the nummodes as
+  // apart of the header because serialize will write that out
+  if (!serializeSaveHeader(modesBuffer, false)) {
     return false;
   }
   // serialize all modes data into the modesBuffer
@@ -138,12 +139,8 @@ bool Modes::loadFromBuffer(ByteStream &modesBuffer)
 
 bool Modes::saveHeader()
 {
-  ByteStream headerBuffer(MAX_MODE_SIZE);
+  ByteStream headerBuffer(15);
   if (!serializeSaveHeader(headerBuffer)) {
-    return false;
-  }
-  // serialize the number of modes
-  if (!headerBuffer.serialize8(m_numModes)) {
     return false;
   }
   if (!Storage::write(0, headerBuffer)) {
@@ -261,7 +258,7 @@ bool Modes::loadStorage()
   return true;
 }
 
-bool Modes::serializeSaveHeader(ByteStream &saveBuffer)
+bool Modes::serializeSaveHeader(ByteStream &saveBuffer, bool saveNumModes)
 {
   // serialize the engine version into the modes buffer
   if (!VortexEngine::serializeVersion(saveBuffer)) {
@@ -276,12 +273,18 @@ bool Modes::serializeSaveHeader(ByteStream &saveBuffer)
   if (!saveBuffer.serialize8((uint8_t)Leds::getBrightness())) {
     return false;
   }
-  // first byte == 0x1 means this is a v2 header 27 bytes instead of 17
-  // normally this byte would be the first byte of the first mode which
-  // would be the number of leds -- this could never be 0
-  saveBuffer.serialize8(0);
-  // next byte is the build number
-  saveBuffer.serialize8(VORTEX_BUILD_NUMBER);
+  // these are unused bytes of the save header
+  saveBuffer.fill(9);
+  // the reason sometimes the num modes aren't saved here is because the 'serialize'
+  // and 'unserialize' functions need to be opposites. In order for them to work they
+  // need to include the numModes. Sometimes this function is called before serialize()
+  // in which case it doesn't need to save the number of modes because serialize() will
+  if (saveNumModes) {
+    // serialize the number of modes
+    if (!saveBuffer.serialize8(m_numModes)) {
+      return false;
+    }
+  }
   // new version save header has +10 extra bytes for 15 + 12 = 27 total
   DEBUG_LOGF("Serialized all modes, uncompressed size: %u", saveBuffer.size());
   return true;
@@ -297,11 +300,15 @@ bool Modes::unserializeSaveHeader(ByteStream &saveHeader)
   saveHeader.resetUnserializer();
   uint8_t major = 0;
   uint8_t minor = 0;
+  uint8_t build = 0;
   // unserialize the vortex version
   if (!saveHeader.unserialize8(&major)) {
     return false;
   }
   if (!saveHeader.unserialize8(&minor)) {
+    return false;
+  }
+  if (!saveHeader.unserialize8(&build)) {
     return false;
   }
   // check the version for incompatibility
@@ -324,6 +331,8 @@ bool Modes::unserializeSaveHeader(ByteStream &saveHeader)
   if (brightness) {
     Leds::setBrightness(brightness);
   }
+  // unused 9 bytes
+  saveHeader.skip(9);
   return true;
 }
 
