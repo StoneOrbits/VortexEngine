@@ -39,6 +39,12 @@
 #define UPDI_BREAK_PAUSE_US    2000
 #define UPDI_BREAK_DELAY_US    14000
 
+// the raw size of the duo header
+// 12 bytes for the ByteStream heder
+// 5 for the actual header
+// 10 for extra data (also header, added later)
+#define DUO_HEADER_SIZE 27
+
 // Direct GPIO manipulation macros using ESP32 registers
 #define GPIO_SET_HIGH(gpio_num) (GPIO.out_w1ts.val = (1U << gpio_num))
 #define GPIO_SET_LOW(gpio_num) (GPIO.out_w1tc.val = (1U << gpio_num))
@@ -65,7 +71,8 @@ void UPDI::cleanup()
 bool UPDI::readHeader(ByteStream &header)
 {
 #ifdef VORTEX_EMBEDDED
-  if (!header.init(5)) {
+  // TODO: if duo is before 1.4.0 then use 5 byte save header
+  if (!header.init(15)) {
     return false;
   }
   enterProgrammingMode();
@@ -101,9 +108,9 @@ bool UPDI::readMode(uint8_t idx, ByteStream &modeBuffer)
   // there are 3 modes in the eeprom after the header
   if (idx < 3) {
     // 0x1400 is eeprom base
-    // 17 is size of duo header
+    // DUO_HEADER_SIZE is size of duo header
     // 76 is size of each duo mode
-    base = 0x1400 + 17 + (idx * 76);
+    base = 0x1400 + DUO_HEADER_SIZE + (idx * 76);
   } else {
     // 0xFe00 is the end of flash, 0x200 before
     base = 0xFe00 + ((idx - 3) * 76);
@@ -127,7 +134,7 @@ bool UPDI::writeHeader(ByteStream &headerBuffer)
     reset();
     return false;
   }
-  if (headerBuffer.rawSize() != 17) {
+  if (headerBuffer.rawSize() != DUO_HEADER_SIZE) {
     ERROR_LOG("ERROR Header Size Invalid!");
     reset();
     return false;
@@ -217,9 +224,9 @@ bool UPDI::writeModeEeprom(uint8_t idx, ByteStream &modeBuffer)
 {
   enterProgrammingMode();
   // 0x1400 is eeprom base
-  // 17 is size of duo header
+  // DUO_HEADER_SIZE is size of duo header
   // 76 is size of each duo mode
-  uint16_t base = 0x1400 + 17 + (idx * 76);
+  uint16_t base = 0x1400 + DUO_HEADER_SIZE + (idx * 76);
   // the size of the mode being written out
   uint16_t size = modeBuffer.rawSize();
   uint8_t *ptr = (uint8_t *)modeBuffer.rawData();
