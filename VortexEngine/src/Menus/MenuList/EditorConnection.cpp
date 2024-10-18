@@ -549,7 +549,7 @@ bool EditorConnection::writeDuoFirmware()
   }
   m_firmwareOffset += buf.size();
   // create a progress bar I guess
-  Leds::setAll(RGB_YELLOW3);
+  Leds::setAll(RGB_RED0);
   Leds::setRange(LED_0, (LedPos)((m_firmwareOffset / (float)m_firmwareSize) * LED_COUNT), RGB_GREEN3);
   return true;
 }
@@ -674,8 +674,6 @@ bool EditorConnection::receiveBuffer(ByteStream &buffer)
   static uint8_t tries = 0;
   tries %= 20;
   if (m_receiveBuffer.size() < sizeof(size)) {
-    Leds::setAll(RGB_CYAN4);
-    Leds::setRange(LED_0, (LedPos)tries++, RGB_YELLOW4);
     // wait, not enough data available yet
     return false;
   }
@@ -684,15 +682,11 @@ bool EditorConnection::receiveBuffer(ByteStream &buffer)
   m_receiveBuffer.resetUnserializer();
   size = m_receiveBuffer.peek32();
   if (m_receiveBuffer.size() < (size + sizeof(size))) {
-    Leds::setAll(RGB_CYAN4);
-    Leds::setRange(LED_0, (LedPos)tries++, RGB_ORANGE4);
     // don't unserialize yet, not ready
     return false;
   }
   // okay unserialize now, first unserialize the size
   if (!m_receiveBuffer.unserialize32(&size)) {
-    Leds::setAll(RGB_CYAN4);
-    Leds::setRange(LED_0, (LedPos)tries++, RGB_RED4);
     return false;
   }
   // create a new ByteStream that will hold the full buffer of data
