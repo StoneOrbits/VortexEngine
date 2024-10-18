@@ -892,14 +892,15 @@ bool EditorConnection::receiveModeIdx(uint8_t &idx)
 
 bool EditorConnection::receiveFirmwareSize(uint32_t &size)
 {
-  // wait for the mode then write it via updi
-  ByteStream buf;
-  if (!receiveBuffer(buf)) {
+  // need at least the buffer size first
+  if (m_receiveBuffer.size() < sizeof(size)) {
+    // wait, not enough data available yet
     return false;
   }
-  if (buf.size() < sizeof(uint32_t)) {
+  m_receiveBuffer.resetUnserializer();
+  // okay unserialize now, first unserialize the size
+  if (!m_receiveBuffer.unserialize32(&size)) {
     return false;
   }
-  return buf.unserialize32(&size);
+  return true;
 }
-
