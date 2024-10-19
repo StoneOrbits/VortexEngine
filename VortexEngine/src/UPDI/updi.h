@@ -14,6 +14,8 @@ public:
   static bool init();
   static void cleanup();
 
+  static uint8_t isConnected();
+
   // read the duo save header over updi
   static bool readHeader(ByteStream &headerBuffer);
   static bool readMode(uint8_t idx, ByteStream &modeBuffer);
@@ -26,6 +28,8 @@ public:
   static bool eraseMemory();
   static bool readMemory();
   static bool writeMemory();
+
+  static bool reset();
 
 private:
 
@@ -104,7 +108,6 @@ private:
 
   static void resetOn();
   static bool resetOff();
-  static bool reset();
 
   static void sendByte(uint8_t byte);
   static uint8_t receiveByte();

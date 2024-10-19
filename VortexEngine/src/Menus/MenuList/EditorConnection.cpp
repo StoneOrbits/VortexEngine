@@ -46,7 +46,7 @@ bool EditorConnection::init()
   // skip led selection
   m_ledSelected = true;
   clearDemo();
-  
+
   DEBUG_LOG("Entering Editor Connection");
   return true;
 }
@@ -114,8 +114,13 @@ void EditorConnection::handleState()
   //  Send Greeting
   case STATE_GREETING:
     m_receiveBuffer.clear();
-    // send the hello greeting with our version number and build time
-    SerialComs::write(EDITOR_VERB_GREETING);
+
+    if (UPDI::isConnected()) {
+      SerialComs::write(EDITOR_VERB_GREETING_UPDI);
+    } else {
+      // send the hello greeting with our version number and build time
+      SerialComs::write(EDITOR_VERB_GREETING);
+    }
     m_state = STATE_IDLE;
     break;
 
@@ -376,6 +381,8 @@ void EditorConnection::handleState()
     if (!pushHeaderChromalink()) {
       break;
     }
+    // the trick is to send header after the modes so the reset comes at the end
+    UPDI::reset();
     // success modes were received send the done
     SerialComs::write(EDITOR_VERB_PUSH_CHROMA_HDR_ACK);
     m_receiveBuffer.clear();
@@ -548,6 +555,9 @@ bool EditorConnection::writeDuoFirmware()
     return false;
   }
   m_firmwareOffset += buf.size();
+  if (m_firmwareOffset >= m_firmwareSize) {
+    UPDI::reset();
+  }
   // create a progress bar I guess
   Leds::setAll(RGB_RED0);
   Leds::setRange(LED_0, (LedPos)((m_firmwareOffset / (float)m_firmwareSize) * LED_COUNT), RGB_GREEN3);

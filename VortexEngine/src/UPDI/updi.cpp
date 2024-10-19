@@ -62,6 +62,17 @@ void UPDI::cleanup()
 {
 }
 
+uint8_t UPDI::isConnected()
+{
+#ifdef VORTEX_EMBEDDED
+  sendDoubleBreak();
+  stcs(Control_A, 0x6);
+  return cpu_mode<0xEF>();
+#else
+  return true;
+#endif
+}
+
 bool UPDI::readHeader(ByteStream &header)
 {
 #ifdef VORTEX_EMBEDDED
@@ -113,12 +124,45 @@ bool UPDI::readMode(uint8_t idx, ByteStream &modeBuffer)
   for (uint16_t i = 0; i < modeBuffer.rawSize(); ++i) {
     ptr[i] = ldinc_b();
   }
-  reset();
 #endif
   return true;
 }
 
 bool UPDI::writeHeader(ByteStream &headerBuffer)
+{
+#ifdef VORTEX_EMBEDDED
+  enterProgrammingMode();
+  // 0x1400 is eeprom base
+  // 17 is size of duo header
+  // 76 is size of each duo mode
+  uint16_t base = 0x1400;
+  // the size of the mode being written out
+  uint16_t size = headerBuffer.rawSize();
+  uint8_t *ptr = (uint8_t *)headerBuffer.rawData();
+
+  // read out the page so the |xxxxxxxxxxx part
+  ByteStream pageBuffer(EEPROM_PAGE_SIZE);
+  uint8_t *pagePtr = (uint8_t *)pageBuffer.data();
+  uint16_t end = base + 17;
+  stptr_p((const uint8_t *)&end, 2);
+  for (uint16_t i = 17; i < EEPROM_PAGE_SIZE; ++i) {
+    pagePtr[i] = ldinc_b();
+  }
+  nvmWait();
+
+  // overlay the actual data, so the SSSSS part of |xxxxxxSSSS
+  memcpy(pagePtr, ptr, size);
+
+  for (uint16_t i = 0; i < EEPROM_PAGE_SIZE; ++i) {
+    sts_b(base + i, pagePtr[i]);
+  }
+  nvmCmd(NVM_ERWP);
+  nvmWait();
+#endif
+  return true;
+}
+
+#if 0
 {
 #ifdef VORTEX_EMBEDDED
   headerBuffer.sanity();
@@ -192,6 +236,7 @@ bool UPDI::writeHeader(ByteStream &headerBuffer)
 #endif
   return true;
 }
+#endif
 
 bool UPDI::writeMode(uint8_t idx, ByteStream &modeBuffer)
 {
@@ -328,7 +373,6 @@ bool UPDI::writeModeEeprom(uint8_t idx, ByteStream &modeBuffer)
     ptr += writeSize;
     size -= writeSize;
   }
-  reset();
   return true;
 }
 
@@ -456,7 +500,6 @@ bool UPDI::writeModeFlash(uint8_t idx, ByteStream &modeBuffer)
     ptr += writeSize;
     size -= writeSize;
   }
-  reset();
   return true;
 }
 
@@ -568,7 +611,6 @@ bool UPDI::writeFirmware(uint32_t position, ByteStream &firmwareBuffer)
     ptr += writeSize;
     size -= writeSize;
   }
-  reset();
 #endif
   return true;
 }
@@ -763,7 +805,7 @@ uint8_t UPDI::receiveByte()
 {
   uint8_t byte = 0;
   uint32_t counter = 0;
-#define TIMEOUT_TT 40000000
+#define TIMEOUT_TT 40000
   while (GPIO_READ(UPDI_PIN) == 1 && counter++ < TIMEOUT_TT);
   if (counter >= TIMEOUT_TT) {
     ERROR_LOG("Timed out waiting for start bit");
