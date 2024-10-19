@@ -88,13 +88,14 @@ bool createByteStreamFromData(val bytesArray, ByteStream &stream)
 {
   // Convert val to std::vector<uint8_t>
   std::vector<uint8_t> data = vecFromJSArray<uint8_t>(bytesArray);
+  return stream.init(data.size(), data.data());
+}
 
-  // Assuming size is part of the data or passed separately
-  size_t size = data.size();
-  if (!stream.rawInit(data.data(), size)) {
-    return true;
-  }
-  return false;
+bool createByteStreamFromRawData(val bytesArray, ByteStream &stream)
+{
+  // Convert val to std::vector<uint8_t>
+  std::vector<uint8_t> data = vecFromJSArray<uint8_t>(bytesArray);
+  return stream.rawInit(data.data(), data.size());
 }
 
 // js is dumb and has issues doing this conversion I guess
@@ -157,7 +158,7 @@ EMSCRIPTEN_BINDINGS(Vortex) {
 
     // member functions
     .function("rawInit", &ByteStream::rawInit, allow_raw_pointer<const uint8_t *>())
-    .function("init", &ByteStream::init, allow_raw_pointer<const unsigned char *>())
+    .function("init", &ByteStream::init, allow_raw_pointer<const uint8_t *>())
     .function("clear", &ByteStream::clear)
     .function("shrink", &ByteStream::shrink)
     .function("append", &ByteStream::append)
@@ -541,6 +542,7 @@ EMSCRIPTEN_BINDINGS(Vortex) {
     .function("getModes", &Vortex::getModes)
     .function("setModes", &Vortex::setModes)
     .function("getCurMode", &Vortex::getCurMode)
+    .function("getCurModeRaw", &Vortex::getCurModeRaw)
     .function("matchLedCount", &Vortex::matchLedCount)
     .function("checkLedCount", &Vortex::checkLedCount)
     .function("setLedCount", &Vortex::setLedCount)
@@ -550,6 +552,7 @@ EMSCRIPTEN_BINDINGS(Vortex) {
     .function("numLedsInMode", &Vortex::numLedsInMode)
     .function("addNewMode", select_overload<bool(bool)>(&Vortex::addNewMode))
     .function("addNewMode", select_overload<bool(ByteStream &, bool)>(&Vortex::addNewMode))
+    .function("addNewModeRaw", &Vortex::addNewModeRaw)
     .function("setCurMode", &Vortex::setCurMode)
     .function("nextMode", &Vortex::nextMode)
     .function("delCurMode", &Vortex::delCurMode)
@@ -603,6 +606,7 @@ EMSCRIPTEN_BINDINGS(Vortex) {
   function("getDataArray", &getDataArray);
   function("getRawDataArray", &getRawDataArray);
   function("createByteStreamFromData", &createByteStreamFromData);
+  function("createByteStreamFromRawData", &createByteStreamFromRawData);
 
 }
 #endif
@@ -1193,8 +1197,7 @@ void Vortex::addMenuTargetLeds(LedPos pos)
 bool Vortex::getModes(ByteStream &outStream)
 {
   // now serialize all the modes
-  m_engine.modes().saveToBuffer(outStream);
-  return true;
+  return m_engine.modes().saveToBuffer(outStream);
 }
 
 bool Vortex::setModes(ByteStream &stream, bool save)
@@ -1281,6 +1284,24 @@ bool Vortex::getCurMode(ByteStream &outStream)
   return m_engine.modes().curMode()->saveToBuffer(outStream);
 }
 
+// same as getCurMode but with just the raw mode buffer instead of the full mode save
+bool Vortex::getCurModeRaw(ByteStream &outStream)
+{
+  Mode *pMode = m_engine.modes().curMode();
+  if (!pMode) {
+    return false;
+  }
+  // save to ensure we get the correct mode, not using doSave() because it causes
+  // an undo buffer entry to be added
+  if (!m_engine.modes().saveStorage()) {
+    return false;
+  }
+  if (!m_engine.modes().curMode()->serialize(outStream)) {
+    return false;
+  }
+  return outStream.recalcCRC();
+}
+
 void Vortex::clearModes()
 {
   m_engine.modes().clearModes();
@@ -1332,6 +1353,21 @@ bool Vortex::addNewMode(bool save)
 bool Vortex::addNewMode(ByteStream &stream, bool save)
 {
   if (!m_engine.modes().addModeFromBuffer(stream)) {
+    return false;
+  }
+  return !save || doSave();
+}
+
+// this function exists to aid in adding duo modes which don't come with
+// the regular mode saveheader attached to them, they need to be loaded
+// with mode.unserialize rather than mode.loadFromBuffer
+bool Vortex::addNewModeRaw(ByteStream &stream, bool save)
+{
+  Mode tmp(m_engine, getLedCount());
+  if (!tmp.unserialize(stream)) {
+    return false;
+  }
+  if (!m_engine.modes().addMode(&tmp)) {
     return false;
   }
   return !save || doSave();

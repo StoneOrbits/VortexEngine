@@ -181,7 +181,6 @@ public:
   // convert modes to/from a bytestream
   bool getModes(ByteStream &outStream);
   bool setModes(ByteStream &stream, bool save = true);
-  bool getCurMode(ByteStream &stream);
   void clearModes();
 
   // match the ledcount of the savefile in the stream, vtxMode = true
@@ -199,6 +198,9 @@ public:
   bool addMode(const Mode *mode, bool save = true);
   bool addNewMode(bool save = true);
   bool addNewMode(ByteStream &stream, bool save = true);
+  bool addNewModeRaw(ByteStream &stream, bool save = true);
+  bool getCurMode(ByteStream &stream);
+  bool getCurModeRaw(ByteStream &stream);
   bool setCurMode(uint32_t index, bool save = true);
   bool nextMode(bool save = true);
   bool delCurMode(bool save = true);
