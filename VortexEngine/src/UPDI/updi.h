@@ -26,9 +26,6 @@ public:
   static bool writeFirmware(uint32_t offset, ByteStream &firmwareBuffer);
 
   static bool eraseMemory();
-  static bool readMemory();
-  static bool writeMemory();
-
   static bool reset();
 
 private:

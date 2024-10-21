@@ -162,82 +162,6 @@ bool UPDI::writeHeader(ByteStream &headerBuffer)
   return true;
 }
 
-#if 0
-{
-#ifdef VORTEX_EMBEDDED
-  headerBuffer.sanity();
-  if (!headerBuffer.checkCRC()) {
-    ERROR_LOG("ERROR Header CRC Invalid!");
-    reset();
-    return false;
-  }
-  if (headerBuffer.rawSize() != 17) {
-    ERROR_LOG("ERROR Header Size Invalid!");
-    reset();
-    return false;
-  }
-  enterProgrammingMode();
-  //uint8_t *ptr = (uint8_t *)headerBuffer.rawData();
-  //for (uint8_t i = 0; i < EEPROM_PAGE_SIZE; ++i) {
-  //  uint16_t addr = 0x1400 + i;
-  //  uint8_t value;
-  //  if (i < headerBuffer.rawSize()) {
-  //    // if this is within the slot then write out the new data
-  //    value = ptr[i];
-  //  } else {
-  //    // otherwise just write-back the same value to fill the pagebuffer
-  //    stptr_p((const uint8_t *)&addr, 2);
-  //    value = ld_b();
-  //  }
-  //  sts_b(addr, value);
-  //}
-  //nvmCmd(NVM_ERWP);
-  //nvmWait();
-  //uint8_t pageBuffer[EEPROM_PAGE_SIZE];
-  //if (!readEepromPage(0x1400, pageBuffer)) {
-  //  return false;
-  //}
-  //memcpy(pageBuffer, headerBuffer.rawData(), headerBuffer.rawSize());
-  //if (!writeEepromPage(0x1400, pageBuffer)) {
-  //  return false;
-  //}
-
-    // read out the page so the |xxxxxxxxxxx part
-    ByteStream pageBuffer(EEPROM_PAGE_SIZE);
-    uint8_t *pagePtr = (uint8_t *)pageBuffer.data();
-    uint16_t eepromStart = 0x1400;
-    stptr_p((const uint8_t *)&eepromStart, 2);
-    for (uint16_t i = 0; i < EEPROM_PAGE_SIZE; ++i) {
-      pagePtr[i] = ldinc_b();
-    }
-    nvmWait();
-
-    // overlay the actual data, so the SSSSS part of |xxxxxxSSSS
-    memcpy(pagePtr, headerBuffer.rawData(), headerBuffer.rawSize());
-
-    // write back the page
-    nvmCmd(NVM_PBC);
-    stptr_p((const uint8_t *)&eepromStart, 2);
-    //stcs(Control_A, 0x0E);
-    //rep(pageSize - 1);
-    //stinc_b_noget(buf[0]);
-    //for (uint8_t i = 1; i < pageSize; ++i) {
-    //  sendByte(buf[i]);
-    //}
-    for (uint16_t i = 0; i < EEPROM_PAGE_SIZE; ++i) {
-      stinc_b_noget(pagePtr[i]);
-      //sts_b(eepromStart + i, pagePtr[i]);
-    }
-    //stcs(Control_A, 0x06);
-    nvmCmd(NVM_WP);
-    nvmWait();
-
-  //reset();
-#endif
-  return true;
-}
-#endif
-
 bool UPDI::writeMode(uint8_t idx, ByteStream &modeBuffer)
 {
 #ifdef VORTEX_EMBEDDED
@@ -630,86 +554,14 @@ bool UPDI::eraseMemory()
   return status == 0x8;
 }
 
-bool UPDI::readMemory()
+bool UPDI::reset()
 {
-#if 0
-  ByteStream *modes = new ByteStream[headerData->numModes];
-  if (!modes) {
-    ERROR_LOG("Failed to initialize modes list");
-    return;
-  }
-  for (uint8_t m = 0; m < headerData->numModes; ++m) {
-    ByteStream &mode = modes[m];
-    // don't mess with a bad mode
-    mode.sanity();
-    // now check it's crc
-    if (!mode.checkCRC()) {
-      ERROR_LOGF("ERROR Mode %u CRC Invalid!", m);
-      continue;
-    }
-    // NOTE: this is a bit of a hack, this Mode object has 20 leds because it's for
-    //       a chromadeck, but we will just use the first 2 and disregard the mode->ledCount
-    Mode newMode;
-    newMode.unserialize(mode);
-    ERROR_LOGF("Mode %u:", m);
-    ERROR_LOGF(" Flags: 0x%08x", newMode.getFlags());
-    ERROR_LOG(" Patterns:");
-    for (uint8_t p = 0; p < 2; ++p) {
-      Pattern *pat = newMode.getPattern((LedPos)p);
-      ERROR_LOGF("  Pattern %u:", p);
-      ERROR_LOGF("   Pattern ID: %u", pat->getPatternID());
-      PatternArgs args;
-      pat->getArgs(args);
-      // should only be 5 or 7 args on duo
-      if (pat->getNumArgs() == 5) {
-        ERROR_LOGF("   Params: %u %u %u %u %u", args.arg1, args.arg2, args.arg3, args.arg4, args.arg5);
-      } else if (pat->getNumArgs() == 7) {
-        ERROR_LOGF("   Params: %u %u %u %u %u %u %u", args.arg1, args.arg2, args.arg3, args.arg4, args.arg5, args.arg6, args.arg7);
-      } else {
-        // otherwise just log all 8
-        ERROR_LOGF("   Params: %u %u %u %u %u %u %u %u", args.arg1, args.arg2, args.arg3, args.arg4, args.arg5, args.arg6, args.arg7, args.arg8);
-      }
-      Colorset set = pat->getColorset();
-      switch (set.numColors()) {
-      case 0:
-        ERROR_LOG("   Colors: none");
-        break;
-      case 1:
-        ERROR_LOGF("   Colors: %06X", set.get(0).raw());
-        break;
-      case 2:
-        ERROR_LOGF("   Colors: %06X, %06X", set.get(0).raw(), set.get(1).raw());
-        break;
-      case 3:
-        ERROR_LOGF("   Colors: %06X, %06X, %06X", set.get(0).raw(), set.get(1).raw(), set.get(2).raw());
-        break;
-      case 4:
-        ERROR_LOGF("   Colors: %06X, %06X, %06X, %06X", set.get(0).raw(), set.get(1).raw(), set.get(2).raw(), set.get(3).raw());
-        break;
-      case 5:
-        ERROR_LOGF("   Colors: %06X, %06X, %06X, %06X, %06X", set.get(0).raw(), set.get(1).raw(), set.get(2).raw(), set.get(3).raw(), set.get(4).raw());
-        break;
-      case 6:
-        ERROR_LOGF("   Colors: %06X, %06X, %06X, %06X, %06X, %06X", set.get(0).raw(), set.get(1).raw(), set.get(2).raw(), set.get(3).raw(), set.get(4).raw(), set.get(5).raw());
-        break;
-      case 7:
-        ERROR_LOGF("   Colors: %06X, %06X, %06X, %06X, %06X, %06X, %06X", set.get(0).raw(), set.get(1).raw(), set.get(2).raw(), set.get(3).raw(), set.get(4).raw(), set.get(5).raw(), set.get(6).raw());
-        break;
-      case 8:
-      default:
-        ERROR_LOGF("   Colors: %06X, %06X, %06X, %06X, %06X, %06X, %06X, %06X", set.get(0).raw(), set.get(1).raw(), set.get(2).raw(), set.get(3).raw(), set.get(4).raw(), set.get(5).raw(), set.get(6).raw(), set.get(7).raw());
-        break;
-      }
-    }
-  }
-  reset();
+#ifdef VORTEX_EMBEDDED
+  resetOn();
+  return resetOff();
+#else
+  return true;
 #endif
-  return true;
-}
-
-bool UPDI::writeMemory()
-{
-  return true;
 }
 
 #ifdef VORTEX_EMBEDDED
@@ -763,12 +615,6 @@ bool UPDI::resetOff()
     timeout++;
   }
   return timeout < 2;
-}
-
-bool UPDI::reset()
-{
-  resetOn();
-  return resetOff();
 }
 
 void UPDI::sendByte(uint8_t byte)
