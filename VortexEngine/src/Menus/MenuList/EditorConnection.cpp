@@ -114,13 +114,8 @@ void EditorConnection::handleState()
   //  Send Greeting
   case STATE_GREETING:
     m_receiveBuffer.clear();
-
-    if (UPDI::isConnected()) {
-      SerialComs::write(EDITOR_VERB_GREETING_UPDI);
-    } else {
-      // send the hello greeting with our version number and build time
-      SerialComs::write(EDITOR_VERB_GREETING);
-    }
+    // send the hello greeting with our version number and build time
+    SerialComs::write(EDITOR_VERB_GREETING);
     m_state = STATE_IDLE;
     break;
 
