@@ -81,8 +81,16 @@ void Modes::play()
     DEBUG_LOG("Error failed to load any modes!");
     return;
   }
-  // shortclick cycles to the next mode
+  // shortclick either turns off the lights, cycles to the next mode
+  // or possibly locks the lights based on the situation
   if (g_pButton->onShortClick()) {
+    if (Modes::oneClickModeEnabled()) {
+      // enter sleep doesn't return on arduino, but it does on vortexlib
+      // so we need to return right after -- we can't just use an else
+      // don't need to save when switching on/off in one click mode
+      VortexEngine::enterSleep(false);
+      return;
+    }
     nextMode();
   }
   // play the current mode
@@ -114,7 +122,6 @@ bool Modes::loadFromBuffer(ByteStream &modesBuffer)
     // failed to decompress?
     return false;
   }
-  // read out the header first
   if (!unserializeSaveHeader(modesBuffer)) {
     return false;
   }
@@ -388,10 +395,12 @@ bool Modes::setDefaults()
 {
   clearModes();
   // add each default mode with each of the given colors
-  for (uint8_t i = 0; i < num_default_modes; ++i) {
-    const default_mode_entry &def = default_modes[i];
-    Colorset set(def.numColors, def.cols);
-    addMode(def.patternID, nullptr, &set);
+  for (uint8_t i = 0; i < MAX_MODES; ++i) {
+    Mode defMode(defaultModes[i]);
+    if (!addMode(&defMode)) {
+      ERROR_LOGF("Failed to add default mode %u", i);
+      return false;
+    }
   }
   return true;
 }
