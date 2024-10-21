@@ -102,7 +102,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: firmware-artifact
-          path: vortex.hex
+          path: vortex.bin
 
   wasm:
     needs: [setup, test, embedded]
@@ -168,8 +168,8 @@ jobs:
       - name: Rename and Deploy Firmware
         run: |
           DEVICE_TYPE="duo"
-          VERSIONED_FILENAME="VortexEngine-${DEVICE_TYPE}-${{ needs.setup.outputs.vortex_version_number }}.hex"
-          mv build/vortex.hex build/$VERSIONED_FILENAME
+          VERSIONED_FILENAME="VortexEngine-${DEVICE_TYPE}-${{ needs.setup.outputs.vortex_version_number }}.bin"
+          mv build/vortex.bin build/$VERSIONED_FILENAME
           echo "Version is ${{ needs.setup.outputs.vortex_version_number }}"
           echo "Filename is is $VERSIONED_FILENAME"
           curl -X POST \
