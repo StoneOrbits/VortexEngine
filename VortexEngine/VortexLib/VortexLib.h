@@ -252,6 +252,7 @@ public:
   // whether the engine is sleeping, and/or to enter sleep
   static void enterSleep(bool save);
   static bool isSleeping();
+  static void wakeup();
 
   // enable, fetch and clear the internal command log
   static void enableCommandLog(bool enable) { m_commandLogEnabled = enable; }

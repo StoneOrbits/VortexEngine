@@ -580,6 +580,7 @@ EMSCRIPTEN_BINDINGS(Vortex) {
     .class_function("sleepEnabled", &Vortex::sleepEnabled)
     .class_function("enterSleep", &Vortex::enterSleep)
     .class_function("isSleeping", &Vortex::isSleeping)
+    .class_function("wakeup", &Vortex::wakeup)
     .class_function("enableCommandLog", &Vortex::enableCommandLog)
     .class_function("getCommandLog", &Vortex::getCommandLog)
     .class_function("clearCommandLog", &Vortex::clearCommandLog)
@@ -919,6 +920,11 @@ void Vortex::enterSleep(bool save)
 bool Vortex::isSleeping()
 {
   return VortexEngine::isSleeping();
+}
+
+void Vortex::wakeup()
+{
+  VortexEngine::wakeup();
 }
 
 bool Vortex::tick()
