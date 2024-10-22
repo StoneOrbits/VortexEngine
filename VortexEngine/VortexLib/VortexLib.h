@@ -78,12 +78,12 @@ using json = nlohmann::json;
 // the vortex engine as much as possible
 class Vortex
 {
-  Vortex();
   // internal initializer
   static bool init(VortexCallbacks *callbacks);
 
 public:
   // needs to be public for wasm build idk the binding doesn't work otherwise
+  Vortex();
   ~Vortex();
 
   // simple initialization nothing special
@@ -385,7 +385,7 @@ private:
   // handle to the console and logfile
   static FILE *m_consoleHandle;
 #if LOG_TO_FILE == 1
-  FILE *m_logHandle;
+  static FILE *m_logHandle;
 #endif
 #ifdef WASM
   //// pointer to the led array and led count in the engine
