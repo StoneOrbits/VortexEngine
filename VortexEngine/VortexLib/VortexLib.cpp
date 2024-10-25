@@ -464,7 +464,7 @@ EMSCRIPTEN_BINDINGS(Vortex) {
     .function("onLedSelected", &Menu::onLedSelected)
     .function("onShortClick", &Menu::onShortClick)
     .function("onLongClick", &Menu::onLongClick)
-    .function("leaveMenu", &Menu::leaveMenu);
+    .function("leaveMenu", &Menu::leaveMenu)
     .function("getPreviewMode", &Menu::getPreviewMode)
     .function("getMenuColor", &Menu::getMenuColor)
     .function("getTargetLeds", &Menu::getTargetLeds)
