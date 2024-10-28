@@ -129,6 +129,7 @@ public:
   static void menuEnterClick(uint8_t buttonIndex = 0);
   static void advMenuEnterClick(uint8_t buttonIndex = 0);
   static void deleteColClick(uint8_t buttonIndex = 0);
+  static void factoryResetClick(uint8_t buttonIndex = 0);
   static void sleepClick(uint8_t buttonIndex = 0);
   static void forceSleepClick(uint8_t buttonIndex = 0);
   static void pressButton(uint8_t buttonIndex = 0);
@@ -342,6 +343,8 @@ private:
     EVENT_ADV_MENU_ENTER_CLICK,
     // a press that is long enough to delete a color from col select
     EVENT_DELETE_COL,
+    // a press that is long enough to confirm factory reset
+    EVENT_FACTORY_RESET_CLICK,
     // a press just long enough to put the device to sleep from main modes
     EVENT_SLEEP_CLICK,
     // a press very long so that the chip triggers it's force sleep
