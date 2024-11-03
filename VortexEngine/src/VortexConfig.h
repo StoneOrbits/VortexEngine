@@ -566,6 +566,18 @@
 // because the eeprom is also used but that isn't reflected here
 #define STORAGE_SIZE 0x200
 
+// The header is max 15 bytes big, it has 6 bytes of actual header data and 9
+// extra bytes of leftover data right now
+#define HEADER_SIZE 15
+#define HEADER_DATA_SIZE 6
+#define EXTRA_HEADER_SPACE (HEADER_SIZE - HEADER_DATA_SIZE)
+// within the extra header space 2 bytes are being used right now, one is for
+// the vortex build number so that the Chromalink can access it, the other is
+// the number of modes
+
+// The full header size includes the 12 bytes for the serialbuffer header
+#define STORAGE_HEADER_SIZE (HEADER_SIZE + 12)
+
 // ===================================================================
 //  Test Framework configurations
 //

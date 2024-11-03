@@ -139,18 +139,24 @@ bool Modes::loadFromBuffer(ByteStream &modesBuffer)
 
 bool Modes::saveHeader()
 {
-  ByteStream headerBuffer(15);
+  ByteStream headerBuffer(MAX_MODE_SIZE);
+  // serialize the traditional save header that would appear in a savefile
   if (!serializeSaveHeader(headerBuffer)) {
     return false;
   }
-  // serialize the number of modes
+  // save the number of modes in the duo header
   if (!headerBuffer.serialize8(m_numModes)) {
     return false;
   }
-  // these are unused bytes of the save header
-  for (uint8_t i = 0; i < 8; ++i) {
-    headerBuffer.serialize8(0);
+  // only on the duo just save some extra stuff to the header slot
+#ifdef VORTEX_EMBEDDED
+  // Duo also saves the build number to the save header so the chromalink can
+  // read it out, other devices just have the version hardcoded into their
+  // editor connection hello message.
+  if (!headerBuffer.serialize8((uint8_t)VORTEX_BUILD_NUMBER)) {
+    return false;
   }
+#endif
   if (!Storage::write(0, headerBuffer)) {
     return false;
   }
@@ -272,13 +278,6 @@ bool Modes::serializeSaveHeader(ByteStream &saveBuffer)
   if (!VortexEngine::serializeVersion(saveBuffer)) {
     return false;
   }
-  // Duo also saves the build number to the save header so the chromalink can
-  // read it out, other devices just have the version hardcoded into their
-  // editor connection hello message. The build number isn't saved to the mode
-  // buffer so it's not apart of VortexEngine::serializeVersion()
-  if (!saveBuffer.serialize8((uint8_t)VORTEX_BUILD_NUMBER)) {
-    return false;
-  }
   if (!saveBuffer.serialize8(m_globalFlags)) {
     return false;
   }
@@ -300,15 +299,11 @@ bool Modes::unserializeSaveHeader(ByteStream &saveHeader)
   saveHeader.resetUnserializer();
   uint8_t major = 0;
   uint8_t minor = 0;
-  uint8_t build = 0;
   // unserialize the vortex version
   if (!saveHeader.unserialize8(&major)) {
     return false;
   }
   if (!saveHeader.unserialize8(&minor)) {
-    return false;
-  }
-  if (!saveHeader.unserialize8(&build)) {
     return false;
   }
   // check the version for incompatibility
@@ -327,11 +322,6 @@ bool Modes::unserializeSaveHeader(ByteStream &saveHeader)
   }
   if (brightness) {
     Leds::setBrightness(brightness);
-  }
-  // unused 9 bytes
-  uint8_t scratch;
-  for (uint8_t i = 0; i < 9; ++i) {
-    saveHeader.unserialize8(&scratch);
   }
   return true;
 }
