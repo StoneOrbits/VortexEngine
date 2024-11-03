@@ -317,7 +317,6 @@ bool Modes::unserializeSaveHeader(ByteStream &saveHeader)
     ERROR_LOGF("Incompatible savefile version: %u.%u", major, minor);
     return false;
   }
-  // unserialize the global flags
   if (!saveHeader.unserialize8(&m_globalFlags)) {
     return false;
   }
