@@ -279,7 +279,6 @@ bool Modes::serializeSaveHeader(ByteStream &saveBuffer)
   if (!saveBuffer.serialize8((uint8_t)VORTEX_BUILD_NUMBER)) {
     return false;
   }
-  // serialize global flags
   if (!saveBuffer.serialize8(m_globalFlags)) {
     return false;
   }
@@ -287,7 +286,6 @@ bool Modes::serializeSaveHeader(ByteStream &saveBuffer)
   if (!saveBuffer.serialize8((uint8_t)Leds::getBrightness())) {
     return false;
   }
-  // new version save header has +10 extra bytes for 15 + 12 = 27 total
   DEBUG_LOGF("Serialized all modes, uncompressed size: %u", saveBuffer.size());
   return true;
 }
