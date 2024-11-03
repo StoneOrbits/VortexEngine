@@ -373,7 +373,7 @@ bool VortexEngine::checkVersion(uint8_t major, uint8_t minor)
   if (major != VORTEX_VERSION_MAJOR) {
     return false;
   }
-  // minor version and build number doesn't matter
+  // minor version doesn't matter
   return true;
 }
 
