@@ -102,7 +102,7 @@ bool Modes::saveToBuffer(ByteStream &modesBuffer)
 {
   // first write out the header, but false means don't write the nummodes as
   // apart of the header because serialize will write that out
-  if (!serializeSaveHeader(modesBuffer, false)) {
+  if (!serializeSaveHeader(modesBuffer)) {
     return false;
   }
   // serialize all modes data into the modesBuffer
@@ -142,6 +142,14 @@ bool Modes::saveHeader()
   ByteStream headerBuffer(15);
   if (!serializeSaveHeader(headerBuffer)) {
     return false;
+  }
+  // serialize the number of modes
+  if (!headerBuffer.serialize8(m_numModes)) {
+    return false;
+  }
+  // these are unused bytes of the save header
+  for (uint8_t i = 0; i < 8; ++i) {
+    headerBuffer.serialize8(0);
   }
   if (!Storage::write(0, headerBuffer)) {
     return false;
@@ -258,7 +266,7 @@ bool Modes::loadStorage()
   return true;
 }
 
-bool Modes::serializeSaveHeader(ByteStream &saveBuffer, bool saveNumModes)
+bool Modes::serializeSaveHeader(ByteStream &saveBuffer)
 {
   // serialize the engine version into the modes buffer
   if (!VortexEngine::serializeVersion(saveBuffer)) {
@@ -278,20 +286,6 @@ bool Modes::serializeSaveHeader(ByteStream &saveBuffer, bool saveNumModes)
   // serialize the global brightness
   if (!saveBuffer.serialize8((uint8_t)Leds::getBrightness())) {
     return false;
-  }
-  // these are unused bytes of the save header
-  for (uint8_t i = 0; i < 9; ++i) {
-    saveBuffer.serialize8(0);
-  }
-  // the reason sometimes the num modes aren't saved here is because the 'serialize'
-  // and 'unserialize' functions need to be opposites. In order for them to work they
-  // need to include the numModes. Sometimes this function is called before serialize()
-  // in which case it doesn't need to save the number of modes because serialize() will
-  if (saveNumModes) {
-    // serialize the number of modes
-    if (!saveBuffer.serialize8(m_numModes)) {
-      return false;
-    }
   }
   // new version save header has +10 extra bytes for 15 + 12 = 27 total
   DEBUG_LOGF("Serialized all modes, uncompressed size: %u", saveBuffer.size());

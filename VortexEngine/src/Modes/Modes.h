@@ -55,7 +55,7 @@ public:
   static bool loadStorage();
 
   // save load the savefile header from storage
-  static bool serializeSaveHeader(ByteStream &saveBuffer, bool saveNumModes = true);
+  static bool serializeSaveHeader(ByteStream &saveBuffer);
   static bool unserializeSaveHeader(ByteStream &saveBuffer);
 
   // saves all modes to a buffer
