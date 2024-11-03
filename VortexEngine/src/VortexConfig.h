@@ -566,16 +566,6 @@
 // because the eeprom is also used but that isn't reflected here
 #define STORAGE_SIZE 0x200
 
-// The header is max 15 bytes big, this is decided by the MAX_MODE_SIZE being
-// 76, since there's only 256 bytes in the eeprom that leaves exactly 27 bytes
-// leftover after packing 3x modes. Out of the 27 bytes 12 is the ByteStream
-// header leaving 15 for the max header size. Of the 15 only 7 bytes are really
-// being used and the rest are extra bytes reserved for future use
-#define HEADER_SIZE 15
-
-// The full header size includes the 12 bytes for the serialbuffer header
-#define STORAGE_HEADER_SIZE (HEADER_SIZE + 12)
-
 // ===================================================================
 //  Test Framework configurations
 //
