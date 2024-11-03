@@ -100,8 +100,6 @@ void Modes::play()
 // full save/load to/from buffer
 bool Modes::saveToBuffer(ByteStream &modesBuffer)
 {
-  // first write out the header, but false means don't write the nummodes as
-  // apart of the header because serialize will write that out
   if (!serializeSaveHeader(modesBuffer)) {
     return false;
   }
@@ -140,11 +138,10 @@ bool Modes::loadFromBuffer(ByteStream &modesBuffer)
 bool Modes::saveHeader()
 {
   ByteStream headerBuffer(MAX_MODE_SIZE);
-  // serialize the traditional save header that would appear in a savefile
   if (!serializeSaveHeader(headerBuffer)) {
     return false;
   }
-  // save the number of modes in the duo header
+  // the number of modes
   if (!headerBuffer.serialize8(m_numModes)) {
     return false;
   }
@@ -152,7 +149,8 @@ bool Modes::saveHeader()
 #ifdef VORTEX_EMBEDDED
   // Duo also saves the build number to the save header so the chromalink can
   // read it out, other devices just have the version hardcoded into their
-  // editor connection hello message.
+  // editor connection hello message. Don't do this in VortexLib because
+  // it will alter the savefile format and break compatibility
   if (!headerBuffer.serialize8((uint8_t)VORTEX_BUILD_NUMBER)) {
     return false;
   }
