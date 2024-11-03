@@ -98,11 +98,6 @@ public:
   uint16_t peek16() const;
   uint32_t peek32() const;
 
-  // move the unserializer forward as long as size permits
-  bool skip(uint32_t amount);
-  // move the serializer forward as long as capacity permits
-  bool fill(uint32_t amount);
-
   // overload [] for array access (no bounds check lol)
   uint8_t &operator[](uint32_t index) { return m_pData->buf[index]; }
   // overload (uint8_t *) for cast to buffer

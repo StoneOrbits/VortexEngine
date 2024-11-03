@@ -264,8 +264,14 @@ bool Modes::serializeSaveHeader(ByteStream &saveBuffer, bool saveNumModes)
   if (!VortexEngine::serializeVersion(saveBuffer)) {
     return false;
   }
-  // NOTE: instead of global brightness the duo uses this to store the
-  //       startup mode ID. The duo doesn't offer a global brightness option
+  // Duo also saves the build number to the save header so the chromalink can
+  // read it out, other devices just have the version hardcoded into their
+  // editor connection hello message. The build number isn't saved to the mode
+  // buffer so it's not apart of VortexEngine::serializeVersion()
+  if (!saveBuffer.serialize8((uint8_t)VORTEX_BUILD_NUMBER)) {
+    return false;
+  }
+  // serialize global flags
   if (!saveBuffer.serialize8(m_globalFlags)) {
     return false;
   }
@@ -274,7 +280,9 @@ bool Modes::serializeSaveHeader(ByteStream &saveBuffer, bool saveNumModes)
     return false;
   }
   // these are unused bytes of the save header
-  saveBuffer.fill(9);
+  for (uint8_t i = 0; i < 9; ++i) {
+    saveBuffer.serialize8(0);
+  }
   // the reason sometimes the num modes aren't saved here is because the 'serialize'
   // and 'unserialize' functions need to be opposites. In order for them to work they
   // need to include the numModes. Sometimes this function is called before serialize()
@@ -317,9 +325,7 @@ bool Modes::unserializeSaveHeader(ByteStream &saveHeader)
     ERROR_LOGF("Incompatible savefile version: %u.%u", major, minor);
     return false;
   }
-  // NOTE: instead of global brightness the duo uses this to store the
-  //       startup mode ID. The duo doesn't offer a global brightness option
-  // unserialize the global brightness
+  // unserialize the global flags
   if (!saveHeader.unserialize8(&m_globalFlags)) {
     return false;
   }
@@ -332,7 +338,10 @@ bool Modes::unserializeSaveHeader(ByteStream &saveHeader)
     Leds::setBrightness(brightness);
   }
   // unused 9 bytes
-  saveHeader.skip(9);
+  uint8_t scratch;
+  for (uint8_t i = 0; i < 9; ++i) {
+    saveHeader.unserialize8(&scratch);
+  }
   return true;
 }
 

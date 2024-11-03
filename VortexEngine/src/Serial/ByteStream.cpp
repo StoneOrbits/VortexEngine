@@ -471,28 +471,6 @@ uint32_t ByteStream::peek32() const
   return *(uint32_t *)frontUnserializer();
 }
 
-bool ByteStream::skip(uint32_t amount)
-{
-  if (!m_pData || m_position >= m_pData->size || (m_pData->size - m_position) < amount) {
-    return false;
-  }
-  // skip forward
-  m_position += amount;
-  return true;
-}
-
-bool ByteStream::fill(uint32_t amount)
-{
-  if (!m_pData || m_pData->size >= m_capacity || (m_capacity - m_pData->size) < amount) {
-    return false;
-  }
-  // fill
-  m_pData->size += amount;
-  return true;
-}
-
-
-
 bool ByteStream::is_compressed() const
 {
   if (!m_pData) {
