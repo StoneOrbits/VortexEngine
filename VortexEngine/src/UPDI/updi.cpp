@@ -51,6 +51,12 @@
 // the key here is setting the gpio as GPIO_FLOATING to prevent contention
 #define GPIO_SET_INPUT(gpio_num) (GPIO.enable_w1tc.val = (1U << gpio_num)); gpio_set_pull_mode((gpio_num_t)gpio_num, GPIO_FLOATING);
 
+#define DUO_HEADER_SIZE 27
+#define DUO_MAX_MODE_SIZE 76
+
+// whether an old duo is connected
+bool UPDI::oldDuoConnected = false;
+
 #endif
 
 bool UPDI::init()
@@ -76,7 +82,8 @@ uint8_t UPDI::isConnected()
 bool UPDI::readHeader(ByteStream &header)
 {
 #ifdef VORTEX_EMBEDDED
-  if (!header.init(5)) {
+  // 15 is the max space the duo header can take
+  if (!header.init(15)) {
     return false;
   }
   enterProgrammingMode();
@@ -93,6 +100,9 @@ bool UPDI::readHeader(ByteStream &header)
     reset();
     return false;
   }
+  // whether an old duo was connected (minor version 4 the storage layout changed)
+  HeaderData *pData = (HeaderData *)header.data();
+  oldDuoConnected = (pData && pData->vMinor < 4);
 #endif
   return true;
 }
@@ -101,7 +111,7 @@ bool UPDI::readMode(uint8_t idx, ByteStream &modeBuffer)
 {
 #ifdef VORTEX_EMBEDDED
   // initialize mode buffer
-  if (!modeBuffer.init(76)) {
+  if (!modeBuffer.init(DUO_MAX_MODE_SIZE)) {
     return false;
   }
   enterProgrammingMode();
@@ -114,16 +124,28 @@ bool UPDI::readMode(uint8_t idx, ByteStream &modeBuffer)
     // 0x1400 is eeprom base
     // 17 is size of duo header
     // 76 is size of each duo mode
-    base = 0x1400 + 17 + (idx * 76);
+    base = 0x1400 + DUO_HEADER_SIZE + (idx * DUO_MAX_MODE_SIZE);
+    // old duo had less space for the header at start, before 1.4.x
+    if (oldDuoConnected) {
+      base -= 10;
+    }
   } else {
     // 0xFe00 is the end of flash, 0x200 before
-    base = 0xFe00 + ((idx - 3) * 76);
+    base = 0xFe00 + ((idx - 3) * DUO_MAX_MODE_SIZE);
   }
   stptr_p((const uint8_t *)&base, 2);
   //rep(numBytes - 1);
   for (uint16_t i = 0; i < modeBuffer.rawSize(); ++i) {
     ptr[i] = ldinc_b();
   }
+  modeBuffer.sanity();
+  if (!modeBuffer.checkCRC()) {
+    modeBuffer.clear();
+    ERROR_LOG("ERROR Mode buffer CRC Invalid!");
+    reset();
+    return false;
+  }
+
 #endif
   return true;
 }
@@ -143,9 +165,9 @@ bool UPDI::writeHeader(ByteStream &headerBuffer)
   // read out the page so the |xxxxxxxxxxx part
   ByteStream pageBuffer(EEPROM_PAGE_SIZE);
   uint8_t *pagePtr = (uint8_t *)pageBuffer.data();
-  uint16_t end = base + 17;
+  uint16_t end = base + DUO_HEADER_SIZE;
   stptr_p((const uint8_t *)&end, 2);
-  for (uint16_t i = 17; i < EEPROM_PAGE_SIZE; ++i) {
+  for (uint16_t i = DUO_HEADER_SIZE; i < EEPROM_PAGE_SIZE; ++i) {
     pagePtr[i] = ldinc_b();
   }
   nvmWait();
@@ -188,7 +210,11 @@ bool UPDI::writeModeEeprom(uint8_t idx, ByteStream &modeBuffer)
   // 0x1400 is eeprom base
   // 17 is size of duo header
   // 76 is size of each duo mode
-  uint16_t base = 0x1400 + 17 + (idx * 76);
+  uint16_t base = 0x1400 + DUO_HEADER_SIZE + (idx * DUO_MAX_MODE_SIZE);
+  // old duo had less space for the header at start, before 1.4.x
+  if (oldDuoConnected) {
+    base -= 10;
+  }
   // the size of the mode being written out
   uint16_t size = modeBuffer.rawSize();
   uint8_t *ptr = (uint8_t *)modeBuffer.rawData();
@@ -305,7 +331,7 @@ bool UPDI::writeModeFlash(uint8_t idx, ByteStream &modeBuffer)
   enterProgrammingMode();
   // there are 3 modes in the eeprom after the header
   // 0xFe00 is the end of flash, 0x200 before
-  uint16_t base = 0xFe00 + ((idx - 3) * 76);
+  uint16_t base = 0xFe00 + ((idx - 3) * DUO_MAX_MODE_SIZE);
   uint16_t size = modeBuffer.rawSize();
   uint8_t *ptr = (uint8_t *)modeBuffer.rawData();
   // The storage slot may lay across a page boundary which means potentially writing

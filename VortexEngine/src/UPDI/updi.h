@@ -140,6 +140,27 @@ private:
   static void sendEraseKey() { sendKey("NVMErase"); }
   static void sendProgKey() { sendKey("NVMProg "); }
   static void sendUserrowKey() { sendKey("NVMUs&te"); }
+
+  struct HeaderData
+  {
+    HeaderData() :
+      vMajor(0), vMinor(0), globalFlags(0),
+      brightness(0), numModes(0), vBuild(0)
+    {
+    }
+    uint8_t vMajor;
+    uint8_t vMinor;
+    uint8_t globalFlags;
+    uint8_t brightness;
+    uint8_t numModes;
+    // The build was added later and on the duo it only exists in the savefile header
+    // so that the chromalink can read it, it normally wouldn't be apart of this structure
+    // only the major/minor are in the vortex savefile format and mode format.
+    uint8_t vBuild;
+  };
+
+  // whether an old duo was connected
+  static bool oldDuoConnected;
 #endif
 };
 

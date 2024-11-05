@@ -522,6 +522,12 @@ bool EditorConnection::pullModeChromalink()
   if (!UPDI::readMode(modeIdx, modeBuffer)) {
     return false;
   }
+  modeBuffer.sanity();
+  if (!modeBuffer.size() || !modeBuffer.checkCRC()) {
+    // error?
+    return false;
+  }
+
   SerialComs::write(modeBuffer);
   return true;
 }
