@@ -8,7 +8,7 @@ function updateLedSelection() {
     if (currentLed === 0) {
       clearCycling();
       leds.forEach(led => {
-        led.style.backgroundColor = '#ff00ff'; // Active color
+        led.style.backgroundColor = '#9600ff'; // Active color
         led.style.opacity = '1'; // Full opacity
       });
       statusText.innerHTML = "<strong>Selection:</strong> All LEDs";
