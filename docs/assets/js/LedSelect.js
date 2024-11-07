@@ -8,6 +8,7 @@ function updateLedSelection() {
     if (currentLed === 0) {
       clearCycling();
       leds.forEach(led => {
+        led.style.backgroundColor = '#9600ff'; // Active color
         led.style.opacity = '1'; // Full opacity
       });
       statusText.innerHTML = "<strong>Selection:</strong> All LEDs";
@@ -17,18 +18,21 @@ function updateLedSelection() {
     } else if (currentLed === 2) {
       clearCycling();
       leds.forEach((led, index) => {
+        led.style.backgroundColor = index % 2 === 0 ? '#9600ff' : '#555555';
         led.style.opacity = index % 2 === 0 ? '1' : '0.3';
       });
       statusText.innerHTML = "<strong>Selection:</strong> Group Odds";
     } else if (currentLed === 3) {
       clearCycling();
       leds.forEach((led, index) => {
+        led.style.backgroundColor = index % 2 !== 0 ? '#9600ff' : '#555555';
         led.style.opacity = index % 2 !== 0 ? '1' : '0.3';
       });
       statusText.innerHTML = "<strong>Selection:</strong> Group Evens";
     } else {
       clearCycling();
       leds.forEach((led, index) => {
+        led.style.backgroundColor = index === currentLed - 4 ? '#9600ff' : '#555555';
         led.style.opacity = index === currentLed - 4 ? '1' : '0.3';
       });
       statusText.innerHTML = `<strong>Selection:</strong> LED ${currentLed - 3}`; // Adjusting text to start from 1
