@@ -21,9 +21,11 @@ There are three ways to use the _navigation buttons_ on your device: **short cli
   2. A **long click** is like saying '_this one please_', to select an option
   3. And finally, **holds** are primarily used to open the menus 
 
-Some devices have a 2nd navigaion button. A **long click** on this button is like saying '_nevermind_', and returns to displaying modes.  
+Some devices have 2 buttons. A **long click** on the second button is like saying '_nevermind_', or '_back_', and returns to displaying modes.  
 
 Almost everything can be achieved with only **short** and **long** clicks.
 
-Now that you understand the basics of controlling your vortex device, try **holding** the navigation button till the leds start alternating white blinks. This is how the menus are opened, continue reading more over at [The Menus](menus.html)
+Those are the basics of controlling a Vortex Device.
+
+Next, try opening the menus by **holding** the navigation button till the leds blink white, then continue reading more over at [The Menus](menus.html)
 
