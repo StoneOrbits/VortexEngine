@@ -52,13 +52,17 @@ published: true
 
 # Led Selection
 
-When you enter menus like <span style="color: #00ff00;">Color Select</span>, <span style="color: #3366ff;">Pattern Select</span>, or <span style="color: #ffffff;">Randomizer</span>, all of the LEDs will change to <span style="color: #9600ff;">magenta</span>. 
+When entering a menu like <span style="color: #00ff00;">Color Select</span>, <span style="color: #3366ff;">Pattern Select</span>, or <span style="color: #ffffff;">Randomizer</span>, the first step will always be _led selection_.
 
-This is the **ALL LEDs** option. Cycle to see different options and select which LEDs you want to change. The changes you make in these menus will only affect the LEDs that were selected when you entered the menu.
+When you enter the _led selection step_ of a menu the LEDs will begin blinking <span style="color: #9600ff;">purple</span>. 
+
+This purple color indicates which leds will be affected by the menu, the first option is the **ALL LEDs** option -- ergo all the leds will blink purple. 
 
 ## Demonstration of LED Selection
 
-Below is a simple demonstration of how LED selection works. The squares represent the LEDs on your device. You can click the "Next LED" button to move the selection to the next LED.
+Below is a simple demonstration of how LED selection works. The squares represent the LEDs on your device. 
+
+Press the _Next LED_ button to cycle through the different led selection options.
 
 <div id="led-selection-container">
   <div id="led-container">
@@ -76,12 +80,18 @@ Below is a simple demonstration of how LED selection works. The squares represen
 
 ## Led Selection Options
 
-Because each device has a different number of LEDs with a different LED layout, Each device has an unique set of options in LED selection. Here are a few of the available options:
+Because each device has a different number of LEDs often in a different layout, there may be unique led selection options offered by some devices but not others.
 
-**-ALL LEDs:** Selects all LEDs at once for use with all patterns.
+However, similar to the above demonstration, all devices provide at least the following options:
 
-**-MutliLED:** Selects all LEDs at once for use with MultiLED patterns.
+ **ALL LEDs:** Change all LEDs at once
 
-**-LED Group:** These groups vary the most from device to device. They allow targeting premade groups of LEDs such as Odd LEDs or Even LEDs.
+ **Mutli-LED:** Change all LEDs to a multi-led pattern
 
-**-Single LED:** This allows the targeting of a single LED and can be used to customize each LED independantly.
+ **Even LEDs:** For example every even led 0, 2, 4
+
+ **Odd LED:** The inverse of even, 1, 3, 5, etc
+
+ **Single LED:** Select any single led to change
+
+The Multi-LED option is unique in that it only appears in the <span style="color: #3366ff;">Pattern Select</span> menu.
