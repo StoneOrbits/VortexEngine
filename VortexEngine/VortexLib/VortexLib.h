@@ -4,7 +4,9 @@
 #include <Windows.h>
 #endif
 
+#include "VortexEngine.h"
 #include "Patterns/Patterns.h"
+#include "Random/Random.h"
 #include "Leds/LedTypes.h"
 #include "json.hpp"
 
@@ -31,7 +33,6 @@
 // the Vortex class provides all kinds of APIs for controlling and manipulating
 // the engine while it is running.
 //
-
 class VortexCallbacks
 {
 public:
@@ -67,7 +68,6 @@ class PatternArgs;
 class ByteStream;
 class Colorset;
 class Pattern;
-class Random;
 class Button;
 class Mode;
 
@@ -78,16 +78,20 @@ using json = nlohmann::json;
 // the vortex engine as much as possible
 class Vortex
 {
-  Vortex();
   // internal initializer
   static bool init(VortexCallbacks *callbacks);
+
 public:
   // needs to be public for wasm build idk the binding doesn't work otherwise
+  Vortex();
   ~Vortex();
 
-  // public initializer, you must provide a derivation of the class VortexCallbacks
+  // simple initialization nothing special
+  static void init() { initEx<VortexCallbacks>(); }
+
+  // extended initialization, provide a callbacks class to receive events
   template <typename T>
-  static T *init()
+  static T *initEx()
   {
     if (!std::is_base_of<VortexCallbacks, T>()) {
       return nullptr;
@@ -156,24 +160,38 @@ public:
   static void loadStorage();
 
   // open various menus on the core (if they exist!)
-  static void openRandomizer();
-  static void openColorSelect();
-  static void openPatternSelect();
-  static void openGlobalBrightness();
-  static void openFactoryReset();
-  static void openModeSharing();
-  static void openEditorConnection();
+  static void openRandomizer(bool advanced = false);
+  static void openColorSelect(bool advanced = false);
+  static void openPatternSelect(bool advanced = false);
+  static void openGlobalBrightness(bool advanced = false);
+  static void openFactoryReset(bool advanced = false);
+  static void openModeSharing(bool advanced = false);
+  static void openEditorConnection(bool advanced = false);
+
+  // set the target leds for the open menu
+  //void clearMenuTargetLeds();
+  //void setMenuTargetLeds(LedMap targetLeds);
+  //void addMenuTargetLeds(LedPos pos);
 
   // convert modes to/from a bytestream
   static bool getModes(ByteStream &outStream);
   static bool setModes(ByteStream &stream, bool save = true);
   static bool getCurMode(ByteStream &stream);
 
+  // match the ledcount of the savefile in the stream, vtxMode = true
+  // to indicate it is a .vtxmode file or not
+  static bool matchLedCount(ByteStream &stream, bool vtxMode);
+  // TODO: do we need this?
+  static bool checkLedCount();
+  static uint8_t setLedCount(uint8_t ledCount);
+  static uint8_t getLedCount();
+
   // functions to operate on the current mode selection
   static uint32_t curModeIndex();
   static uint32_t numModes();
   static uint32_t numLedsInMode();
-  static bool addNewMode(Random *pRandCtx = nullptr, bool save = true);
+  static bool addMode(const Mode *mode, bool save = true);
+  static bool addNewMode(bool save = true);
   static bool addNewMode(ByteStream &stream, bool save = true);
   static bool setCurMode(uint32_t index, bool save = true);
   static bool nextMode(bool save = true);
@@ -183,8 +201,8 @@ public:
   // functions to operate on the current Mode
   static bool setPattern(PatternID id, const PatternArgs *args = nullptr,
     const Colorset *set = nullptr, bool save = true);
-  static PatternID getPatternID(LedPos pos = LED_ANY);
-  static std::string getPatternName(LedPos pos = LED_ANY);
+  static PatternID getPatternID(LedPos pos);
+  static std::string getPatternName(LedPos pos);
   static std::string getModeName();
   static bool setPatternAt(LedPos pos, PatternID id,
     const PatternArgs *args = nullptr, const Colorset *set = nullptr,
@@ -258,29 +276,43 @@ public:
 
   // convert a mode to/from a json object
   static json modeToJson(const Mode *mode);
-  static Mode *modeFromJson(const json& modeJson);
-
+  static Mode *modeFromJson(const json &modeJson);
   // convert a pattern to/from a json object
   static json patternToJson(const Pattern *pattern);
-  static Pattern *patternFromJson(const json& patternJson);
-
+  static Pattern *patternFromJson(const json &patternJson);
+  // save current mode to json or load a mode by json
+  static json saveModeToJson();
+  static bool loadModeFromJson(const json &modeJson);
   // save/load the engine storage to/from raw json object
-  static json saveJson();
-  static bool loadJson(const json& json);
+  static json saveToJson();
+  static bool loadFromJson(const json &json);
 
-  // dump/parse the json to/from string
-  static void dumpJson(const char *filename = nullptr, bool pretty = false);
+  // print/parse the current mode json
+  static std::string printModeJson(bool pretty = false);
+  static bool parseModeJson(const std::string &json);
+  // print/parse a pattern of the current mode json
+  static std::string printPatternJson(LedPos pos, bool pretty = false);
+  static bool parsePatternJson(LedPos pos, const std::string &json);
+  // print/parse the json from a string
+  static std::string printJson(bool pretty = false);
   static bool parseJson(const std::string &json);
+  // print/parse the json from a string in a file
+  static bool printJsonToFile(const std::string &filename, bool pretty = false);
   static bool parseJsonFromFile(const std::string &filename);
 
   // save and add undo buffer
   static bool doSave();
   static bool applyUndo();
 
-private:
-  // the last command to have been executed
-  static char m_lastCommand;
+#ifdef WASM
+  //// pointer to the led array and led count in the engine
+  //RGBColor *leds() { return m_leds; }
+  //int ledCount() { return m_led_count; }
+  //// initialize
+  //void initWasm(int led_count, RGBColor *leds) { m_led_count = led_count; m_leds = leds; }
+#endif
 
+private:
   // internal function to handle numeric values in commands
   static void handleNumber(char c);
 
@@ -355,6 +387,11 @@ private:
 #if LOG_TO_FILE == 1
   static FILE *m_logHandle;
 #endif
+#ifdef WASM
+  //// pointer to the led array and led count in the engine
+  //RGBColor *m_leds;
+  //int m_led_count;
+#endif
   // queue of button events, deque so can push to front and back
   static std::deque<VortexButtonEvent> m_buttonEventQueue;
   // whether initialized
@@ -376,4 +413,8 @@ private:
   static bool m_sleepEnabled;
   // whether lock is enabled
   static bool m_lockEnabled;
+  // the last command to have been executed
+  static char m_lastCommand;
+  // internal random ctx for stuff
+  static Random m_randCtx;
 };
