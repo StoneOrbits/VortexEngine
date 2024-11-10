@@ -632,7 +632,7 @@ void VortexCLI::cleanup()
   }
   if (m_jsonMode & JSON_MODE_WRITE_STDOUT) {
     // dump the current save in json format
-    Vortex::printJsonToFile(nullptr, m_jsonPretty);
+    Vortex::printJson(m_jsonPretty);
   }
   if (m_jsonMode & JSON_MODE_WRITE_FILE) {
     Vortex::printJsonToFile(m_jsonOutFile.c_str(), m_jsonPretty);
