@@ -480,8 +480,12 @@ EMSCRIPTEN_BINDINGS(Vortex) {
     .function("init", &Menu::init)
     .function("run", &Menu::run)
     .function("onLedSelected", &Menu::onLedSelected)
-    .function("onShortClick", &Menu::onShortClick)
-    .function("onLongClick", &Menu::onLongClick)
+    .function("onShortClickL", &Menu::onShortClickL)
+    .function("onShortClickM", &Menu::onShortClickM)
+    .function("onShortClickR", &Menu::onShortClickR)
+    .function("onLongClickL", &Menu::onLongClickL)
+    .function("onLongClickM", &Menu::onLongClickM)
+    .function("onLongClickR", &Menu::onLongClickR)
     .function("leaveMenu", &Menu::leaveMenu);
     //.function("setTargetLeds", &Menu::setTargetLeds);
 
