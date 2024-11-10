@@ -89,6 +89,7 @@ Menu::MenuAction EditorConnection::run()
   // operate on the state of the editor connection
   switch (m_state) {
   case STATE_DISCONNECTED:
+  default:
     // not connected yet so check for connections
     if (!m_engine.serial().isConnected()) {
       if (!m_engine.serial().checkSerial()) {
