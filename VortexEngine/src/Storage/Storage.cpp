@@ -43,9 +43,14 @@ std::string Storage::m_storageFilename;
 // The position of the flash storage is right before the end of the flash, as long
 // as the program leaves 256 bytes of space at the end of flash then this will fit
 #define FLASH_STORAGE_SPACE ((volatile uint8_t *)(0x10000 - FLASH_STORAGE_SIZE))
-
-// 12 for the serialbuffer header + 5 for the actual header data
-#define STORAGE_HEADER_SIZE 17
+// The header is max 15 bytes big, this is decided by the MAX_MODE_SIZE being
+// 76, since there's only 256 bytes in the eeprom that leaves exactly 27 bytes
+// leftover after packing 3x modes. Out of the 27 bytes 12 is the ByteStream
+// header leaving 15 for the max header size. Of the 15 only 7 bytes are really
+// being used and the rest are extra bytes reserved for future use
+#define HEADER_SIZE 15
+// The full header size includes the 12 bytes for the serialbuffer header
+#define STORAGE_HEADER_SIZE (HEADER_SIZE + 12)
 
 uint32_t Storage::m_lastSaveSize = 0;
 
