@@ -676,14 +676,10 @@ bool EditorConnection::receiveBuffer(ByteStream &buffer)
 {
   // need at least the buffer size first
   uint32_t size = 0;
-
-  static uint8_t tries = 0;
-  tries %= 20;
   if (m_receiveBuffer.size() < sizeof(size)) {
     // wait, not enough data available yet
     return false;
   }
-
   // grab the size out of the start
   m_receiveBuffer.resetUnserializer();
   size = m_receiveBuffer.peek32();
