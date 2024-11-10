@@ -99,6 +99,7 @@ void EditorConnection::handleState()
   // -------------------------------
   //  Disconnected
   case STATE_DISCONNECTED:
+  default:
     // not connected yet so check for connections
     if (!SerialComs::isConnected()) {
       if (!SerialComs::checkSerial()) {
