@@ -180,31 +180,52 @@ void ColorSelect::onLongClickM()
 
 void ColorSelect::showSlotSelection()
 {
-  uint8_t exitIndex = m_colorset.numColors();
-  uint32_t holdDur = g_pButtonM->holdDuration();
-  bool withinNumColors = m_curSelection < exitIndex;
-  bool holdDurationCheck = g_pButtonM->isPressed() && holdDur >= DELETE_THRESHOLD_TICKS;
-  bool holdDurationModCheck = (holdDur % (DELETE_CYCLE_TICKS * 2)) > DELETE_CYCLE_TICKS;
-  const RGBColor &col = m_colorset[m_curSelection];
-  if (withinNumColors && holdDurationCheck && holdDurationModCheck) {
-    // breath red for delete slot
-    Leds::breatheIndex(LED_ALL, 0, holdDur);
-  } else if (withinNumColors) {
-    if (col.empty()) {
-      Leds::setAll(RGB_WHITE0);
+  // Render the colors on radial indices 0-7
+  for (uint8_t i = 0; i < 8; ++i) {
+    RGBColor col;
+    if (m_colorset.numColors() <= i) {
+      Leds::setMap(MAP_RADIAL_INNER(i), RGB_WHITE0);
+      //Leds::blinkMap(MAP_RADIAL(i + 8));
+    } else {
+      Leds::setMap(MAP_RADIAL_OUTER(i), m_colorset.get(i));
+      Leds::setMap(MAP_RADIAL_INNER(i), RGB_WHITE2);
     }
-    // blink the selected slot color
-    Leds::blinkAll(150, 650, col);
-  } else if (exitIndex < MAX_COLOR_SLOTS) {
-    if (m_curSelection == exitIndex) {
-      // blink both leds and blink faster to indicate 'add' new color
-      Leds::blinkAll(100, 150, RGB_WHITE2);
-    }
-    exitIndex++;
   }
-  if (m_curSelection == exitIndex) {
-    showFullSet(50, 100);
-  }
+
+  // Radial index 8: Exit
+  Leds::setMap(MAP_RADIAL_INNER(8), RGB_WHITE1);
+  Leds::setMap(MAP_RADIAL_OUTER(8), RGB_RED3);
+
+  //Leds::setMap(MAP_RADIAL_INNER(7), HSVColor(Time::getCurtime() / 10, 255, 255));
+  //Leds::setMap(MAP_RADIAL_OUTER(7), RGB_WHITE4);
+  //Leds::blinkMap(MAP_RADIAL(6));
+    
+
+  //uint8_t exitIndex = m_colorset.numColors();
+  //uint32_t holdDur = g_pButtonM->holdDuration();
+  //bool withinNumColors = m_curSelection < exitIndex;
+  //bool holdDurationCheck = g_pButtonM->isPressed() && holdDur >= DELETE_THRESHOLD_TICKS;
+  //bool holdDurationModCheck = (holdDur % (DELETE_CYCLE_TICKS * 2)) > DELETE_CYCLE_TICKS;
+  //const RGBColor &col = m_colorset[m_curSelection];
+  //if (withinNumColors && holdDurationCheck && holdDurationModCheck) {
+  //  // breath red for delete slot
+  //  Leds::breatheIndex(LED_ALL, 0, holdDur);
+  //} else if (withinNumColors) {
+  //  if (col.empty()) {
+  //    Leds::setAll(RGB_WHITE0);
+  //  }
+  //  // blink the selected slot color
+  //  Leds::blinkAll(150, 650, col);
+  //} else if (exitIndex < MAX_COLOR_SLOTS) {
+  //  if (m_curSelection == exitIndex) {
+  //    // blink both leds and blink faster to indicate 'add' new color
+  //    Leds::blinkAll(100, 150, RGB_WHITE2);
+  //  }
+  //  exitIndex++;
+  //}
+  //if (m_curSelection == exitIndex) {
+  //  showFullSet(50, 100);
+  //}
 }
 
 void ColorSelect::showSelection(ColorSelectState mode)

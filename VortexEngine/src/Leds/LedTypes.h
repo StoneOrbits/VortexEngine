@@ -222,12 +222,26 @@ inline LedPos ledmapGetNextLed(LedMap map, LedPos pos)
 #define MAP_LINE_4      (MAP_LED(LED_3) | MAP_LED(LED_13) | MAP_LED(LED_18) | MAP_LED(LED_8))
 #define MAP_LINE_5      (MAP_LED(LED_4) | MAP_LED(LED_14) | MAP_LED(LED_19) | MAP_LED(LED_9))
 
-//Chromadeck bitmap
 #define MAP_OPPOSITES_1 (MAP_LED(LED_0) | MAP_LED(LED_5) | MAP_LED(LED_10) | MAP_LED(LED_15))
 #define MAP_OPPOSITES_2 (MAP_LED(LED_1) | MAP_LED(LED_6) | MAP_LED(LED_11) | MAP_LED(LED_16))
 #define MAP_OPPOSITES_3 (MAP_LED(LED_2) | MAP_LED(LED_7) | MAP_LED(LED_12) | MAP_LED(LED_17))
 #define MAP_OPPOSITES_4 (MAP_LED(LED_3) | MAP_LED(LED_8) | MAP_LED(LED_13) | MAP_LED(LED_18))
 #define MAP_OPPOSITES_5 (MAP_LED(LED_4) | MAP_LED(LED_9) | MAP_LED(LED_14) | MAP_LED(LED_19))
+
+// radial led maps around the chromadeck
+#define MAP_RADIAL_OUTER(n)   (MAP_LED(LED_0 + ((n) % LED_10)))
+#define MAP_RADIAL_INNER(n)   (MAP_LED(LED_10 + ((n) % LED_10)))
+#define MAP_RADIAL(n)         (MAP_RADIAL_INNER(n) | MAP_RADIAL_OUTER(n))
+#define MAP_RADIAL_0          MAP_RADIAL(0)
+#define MAP_RADIAL_1          MAP_RADIAL(1)
+#define MAP_RADIAL_2          MAP_RADIAL(2)
+#define MAP_RADIAL_3          MAP_RADIAL(3)
+#define MAP_RADIAL_4          MAP_RADIAL(4)
+#define MAP_RADIAL_5          MAP_RADIAL(5)
+#define MAP_RADIAL_6          MAP_RADIAL(6)
+#define MAP_RADIAL_7          MAP_RADIAL(7)
+#define MAP_RADIAL_8          MAP_RADIAL(8)
+#define MAP_RADIAL_9          MAP_RADIAL(9)
 
 // set a single led
 inline void ledmapSetLed(LedMap &map, LedPos pos)
