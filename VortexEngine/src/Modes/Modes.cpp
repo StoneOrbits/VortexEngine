@@ -717,7 +717,21 @@ bool Modes::setFlag(uint8_t flag, bool enable, bool save)
     m_globalFlags &= ~flag;
   }
   DEBUG_LOGF("Toggled instant on/off to %s", enable ? "on" : "off");
-  return !save || saveHeader();
+  if (!save) {
+    return true;
+  }
+  ByteStream headerBuffer;
+  // read out the storage header so we can update the flag field
+  if (!Storage::read(0, headerBuffer) || !headerBuffer.size()) {
+    // if cannot read out the header buffer then just save it normally (it doesn't exist yet)
+    return saveHeader();
+  }
+  // the flags is always the 3rd byte in the header
+  ((uint8_t *)headerBuffer.data())[2] = m_globalFlags;
+  // need to force the crc recalc since storage write won't force it
+  headerBuffer.recalcCRC(true);
+  // write the save header back to storage (this will recalc the for us CRC)
+  return Storage::write(0, headerBuffer);
 }
 
 #ifdef VORTEX_LIB
