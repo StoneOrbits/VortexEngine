@@ -718,15 +718,19 @@ bool Modes::setFlag(uint8_t flag, bool enable, bool save)
   }
   DEBUG_LOGF("Toggled instant on/off to %s", enable ? "on" : "off");
   if (!save) {
+    // if save is not requested then just return here
     return true;
   }
+  // otherwise need to update the global flags field of the save header in storage
   ByteStream headerBuffer;
   // read out the storage header so we can update the flag field
   if (!Storage::read(0, headerBuffer) || !headerBuffer.size()) {
-    // if cannot read out the header buffer then just save it normally (it doesn't exist yet)
+    // if cannot read the save header then just save it normally
     return saveHeader();
   }
-  // layout of the duo header, never really used anywhere else in this structure
+  // layout of the duo header, this struct is never really used anywhere else
+  // except here the actual layout of the save header is dictated by
+  // saveHeader() and serializeSaveHeader()
   struct DuoHeader {
     uint8_t vMajor;
     uint8_t vMinor;
@@ -735,14 +739,14 @@ bool Modes::setFlag(uint8_t flag, bool enable, bool save)
     uint8_t numModes;
     uint8_t vBuild;
   };
+  // data cannot be NULL since size is non zero
   DuoHeader *pHeader = (DuoHeader *)headerBuffer.data();
-  if (!pHeader) {
-    return false;
-  }
+  // update the global flags field in the header
   pHeader->globalFlags = m_globalFlags;
-  // need to force the crc recalc since storage write won't force it
-  headerBuffer.recalcCRC(true);
-  // write the save header back to storage (this will recalc the for us CRC)
+  // need to force the crc to recalc since we modified the data, just mark the
+  // CRC as dirty and Storage::write() will re-calculate the CRC if it's dirty
+  headerBuffer.setCRCDirty();
+  // write the save header back to storage
   return Storage::write(0, headerBuffer);
 }
 

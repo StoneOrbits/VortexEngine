@@ -338,6 +338,15 @@ bool ByteStream::isCRCDirty() const
   return (m_pData && (m_pData->flags & BUFFER_FLAG_DIRTY) != 0);
 }
 
+void ByteStream::setCRCDirty()
+{
+  if (!m_pData) {
+    return;
+  }
+  // set the dirty flag
+  m_pData->flags |= BUFFER_FLAG_DIRTY;
+}
+
 bool ByteStream::serialize8(uint8_t byte)
 {
   //DEBUG_LOGF("Serialize8(): %u", byte);
