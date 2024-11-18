@@ -716,7 +716,36 @@ bool Modes::setFlag(uint8_t flag, bool enable, bool save)
     m_globalFlags &= ~flag;
   }
   DEBUG_LOGF("Toggled instant on/off to %s", enable ? "on" : "off");
-  return !save || saveHeader();
+  if (!save) {
+    // if save is not requested then just return here
+    return true;
+  }
+  // otherwise need to update the global flags field of the save header in storage
+  ByteStream headerBuffer;
+  // read out the storage header so we can update the flag field
+  if (!Storage::read(0, headerBuffer) || !headerBuffer.size()) {
+    // if cannot read the save header then just save it normally
+    return saveHeader();
+  }
+  // layout of the save header, this struct is never really used anywhere else
+  // except here the actual layout of the save header is dictated by
+  // saveHeader() and serializeSaveHeader()
+  struct SaveHeader {
+    uint8_t vMajor;
+    uint8_t vMinor;
+    uint8_t globalFlags;
+    uint8_t brightness;
+    uint8_t numModes;
+  };
+  // data cannot be NULL since size is non zero
+  SaveHeader *pHeader = (SaveHeader *)headerBuffer.data();
+  // update the global flags field in the header
+  pHeader->globalFlags = m_globalFlags;
+  // need to force the crc to recalc since we modified the data, just mark the
+  // CRC as dirty and Storage::write() will re-calculate the CRC if it's dirty
+  headerBuffer.setCRCDirty();
+  // write the save header back to storage
+  return Storage::write(0, headerBuffer);
 }
 
 #ifdef VORTEX_LIB
