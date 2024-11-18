@@ -708,7 +708,7 @@ bool Modes::setFlag(uint8_t flag, bool enable, bool save)
   // otherwise need to update the global flags field of the save header in storage
   ByteStream headerBuffer;
   // read out the storage header so we can update the flag field
-  if (!Storage::read(0, headerBuffer) || !headerBuffer.size()) {
+  if (!m_engine.storage().read(0, headerBuffer) || !headerBuffer.size()) {
     // if cannot read the save header then just save it normally
     return saveHeader();
   }
@@ -730,7 +730,7 @@ bool Modes::setFlag(uint8_t flag, bool enable, bool save)
   // CRC as dirty and Storage::write() will re-calculate the CRC if it's dirty
   headerBuffer.setCRCDirty();
   // write the save header back to storage
-  return Storage::write(0, headerBuffer);
+  return m_engine.storage().write(0, headerBuffer);
 }
 
 #ifdef VORTEX_LIB
