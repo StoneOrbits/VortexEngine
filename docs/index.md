@@ -13,7 +13,11 @@ Welcome to the Vortex Engine Wiki! Here you can find documentation and guides co
 
 Are you a new Vortex Device owner looking to get started?
 
-Follow the [Getting Started Guide](getting_started.html)
+Follow the [Getting Started Guide](getting_started.html) for the **Vortex Orbit**, **Handles**, and **Wired Gloveset**.
+
+If you have a **Chromadeck** then look at the [Chromadeck Getting Started Guide](chromadeck_getting_started.html)
+
+Or if you have a Duo then follow the [Duo Getting Started Guide](duo_getting_started.html)
 
 ## Upgrade Guide
 

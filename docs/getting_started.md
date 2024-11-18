@@ -3,6 +3,7 @@ layout: default
 title: Getting Started
 nav_order: 0
 parent: Vortex Engine
+has_children: true
 ---
 
 # Getting Started
