@@ -1,4 +1,4 @@
-.PHONY: clean computer_version
+.PHONY: all clean install serial upload compute_version
 
 ifeq ($(OS),Windows_NT) # Windows
     BINDIR="C:/Program Files (x86)/Atmel/Studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/"
@@ -206,8 +206,6 @@ compute_version:
 	$(eval VORTEX_VERSION_MINOR := $(if $(VORTEX_VERSION_MINOR),$(VORTEX_VERSION_MINOR),1))
 	$(eval VORTEX_BUILD_NUMBER := $(if $(VORTEX_BUILD_NUMBER),$(VORTEX_BUILD_NUMBER),0))
 	$(eval VORTEX_VERSION_NUMBER := $(VORTEX_VERSION_MAJOR).$(VORTEX_VERSION_MINOR).$(VORTEX_BUILD_NUMBER))
-
-
 
 # include dependency files to ensure partial rebuilds work correctly
 -include $(DFILES)
