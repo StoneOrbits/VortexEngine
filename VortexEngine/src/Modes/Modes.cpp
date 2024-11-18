@@ -726,8 +726,20 @@ bool Modes::setFlag(uint8_t flag, bool enable, bool save)
     // if cannot read out the header buffer then just save it normally (it doesn't exist yet)
     return saveHeader();
   }
-  // the flags is always the 3rd byte in the header
-  ((uint8_t *)headerBuffer.data())[2] = m_globalFlags;
+  // layout of the duo header, never really used anywhere else in this structure
+  struct DuoHeader {
+    uint8_t vMajor;
+    uint8_t vMinor;
+    uint8_t globalFlags;
+    uint8_t brightness;
+    uint8_t numModes;
+    uint8_t vBuild;
+  };
+  DuoHeader *pHeader = (DuoHeader *)headerBuffer.data();
+  if (!pHeader) {
+    return false;
+  }
+  pHeader->globalFlags = m_globalFlags;
   // need to force the crc recalc since storage write won't force it
   headerBuffer.recalcCRC(true);
   // write the save header back to storage (this will recalc the for us CRC)
