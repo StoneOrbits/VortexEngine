@@ -1,4 +1,4 @@
-.PHONY: all install build upload clean
+.PHONY: all install build upload clean compute_version
 
 ARDUINO_CLI = ./bin/arduino-cli --verbose
 BOARD = adafruit:samd:adafruit_trinket_m0
@@ -9,19 +9,6 @@ CONFIG_FILE = $(HOME)/.arduino15/arduino-cli.yaml
 
 # The branch/tag suffix for this device
 BRANCH_SUFFIX=g
-
-# Fetch tags, determine version numbers based on the latest tag, and slice off the branch suffix
-VORTEX_VERSION_MAJOR ?= $(shell git fetch --depth=1 origin +refs/tags/*:refs/tags/* &> /dev/null && git tag --list "*$(BRANCH_SUFFIX)" | sort -V | tail -n1 | cut -d. -f1)
-VORTEX_VERSION_MINOR ?= $(shell git tag --list "*$(BRANCH_SUFFIX)" | sort -V | tail -n1 | sed 's/$(BRANCH_SUFFIX)$$//' | cut -d. -f2)
-VORTEX_BUILD_NUMBER ?= $(shell git rev-list --count HEAD)
-
-# If no tags are found, default to 0.1.0
-VORTEX_VERSION_MAJOR := $(if $(VORTEX_VERSION_MAJOR),$(VORTEX_VERSION_MAJOR),0)
-VORTEX_VERSION_MINOR := $(if $(VORTEX_VERSION_MINOR),$(VORTEX_VERSION_MINOR),1)
-VORTEX_BUILD_NUMBER := $(if $(VORTEX_BUILD_NUMBER),$(VORTEX_BUILD_NUMBER),0)
-
-# Combine into a full version number
-VORTEX_VERSION_NUMBER := $(VORTEX_VERSION_MAJOR).$(VORTEX_VERSION_MINOR).$(VORTEX_BUILD_NUMBER)
 
 DEFINES=\
 	-D VORTEX_VERSION_MAJOR=$(VORTEX_VERSION_MAJOR) \
@@ -54,7 +41,7 @@ install:
 	chmod +x rewrite_trinket_source.sh
 	./rewrite_trinket_source.sh
 
-build:
+build: compute_version
 	$(ARDUINO_CLI) compile --fqbn $(BOARD) $(PROJECT_NAME) \
 		--config-file $(CONFIG_FILE) \
 		--build-path $(BUILD_PATH) \
@@ -71,3 +58,14 @@ core-list:
 
 clean:
 	rm -rf $(BUILD_PATH)
+
+# calculate the version number of the build
+compute_version:
+	$(eval LATEST_TAG ?= $(shell git fetch --depth=1 origin +refs/tags/*:refs/tags/* &> /dev/null && git tag --list "*$(BRANCH_SUFFIX)" | sort -V | tail -n1))
+	$(eval VORTEX_VERSION_MAJOR ?= $(shell echo $(LATEST_TAG) | cut -d. -f1))
+	$(eval VORTEX_VERSION_MINOR ?= $(shell echo $(LATEST_TAG) | sed 's/$(BRANCH_SUFFIX)$$//' | cut -d. -f2))
+	$(eval VORTEX_BUILD_NUMBER ?= $(shell git rev-list --count $(LATEST_TAG)..HEAD))
+	$(eval VORTEX_VERSION_MAJOR := $(if $(VORTEX_VERSION_MAJOR),$(VORTEX_VERSION_MAJOR),0))
+	$(eval VORTEX_VERSION_MINOR := $(if $(VORTEX_VERSION_MINOR),$(VORTEX_VERSION_MINOR),1))
+	$(eval VORTEX_BUILD_NUMBER := $(if $(VORTEX_BUILD_NUMBER),$(VORTEX_BUILD_NUMBER),0))
+	$(eval VORTEX_VERSION_NUMBER := $(VORTEX_VERSION_MAJOR).$(VORTEX_VERSION_MINOR).$(VORTEX_BUILD_NUMBER))
