@@ -2,7 +2,7 @@
 .SUFFIXES:
 
 # List all make targets which are not filenames
-.PHONY: all tests clean wasm fetch-tags
+.PHONY: all tests clean wasm compute_version
 
 # compiler tool definitions
 ifdef WASM
@@ -27,19 +27,6 @@ endif
 
 # The branch/tag suffix for this device (Cli is usually desktop)
 BRANCH_SUFFIX=l
-
-# Determine the current version based on Git tags
-# NOTE: Make sure to get fetch --tags first!
-VORTEX_VERSION_MAJOR ?= $(shell git tag --list "*$(BRANCH_SUFFIX)" | sort -V | tail -n1 | cut -d. -f1)
-VORTEX_VERSION_MINOR ?= $(shell git tag --list "*$(BRANCH_SUFFIX)" | sort -V | tail -n1 | sed 's/$(BRANCH_SUFFIX)$$//' | cut -d. -f2)
-VORTEX_BUILD_NUMBER ?= $(shell git rev-list --count $(shell git tag --list "*$(BRANCH_SUFFIX)" | sort -V | tail -n1)..HEAD)
-
-# If no tags are found, default to 0.1.0
-VORTEX_VERSION_MAJOR := $(if $(VORTEX_VERSION_MAJOR),$(VORTEX_VERSION_MAJOR),0)
-VORTEX_VERSION_MINOR := $(if $(VORTEX_VERSION_MINOR),$(VORTEX_VERSION_MINOR),1)
-VORTEX_BUILD_NUMBER := $(if $(VORTEX_BUILD_NUMBER),$(VORTEX_BUILD_NUMBER),0)
-
-VORTEX_VERSION_NUMBER ?= $(VORTEX_VERSION_MAJOR).$(VORTEX_VERSION_MINOR).$(VORTEX_BUILD_NUMBER)
 
 # compiler defines
 DEFINES=\
@@ -127,7 +114,7 @@ TARGETS=vortex.a
 endif
 
 # Default target for 'make' command
-all: $(TARGETS)
+all: compute_version $(TARGETS)
 
 # unit test target
 tests: $(TESTS)
@@ -160,6 +147,17 @@ FORCE:
 # generic clean target
 clean:
 	@$(RM) $(DFILES) $(OBJS) $(TARGETS) $(TESTS) VortexLib.js vortex.wasm
+
+# calculate the version number of the build
+compute_version:
+	$(eval LATEST_TAG ?= $(shell git fetch --depth=1 origin +refs/tags/*:refs/tags/* &> /dev/null && git tag --list | grep --invert-match '[a-zA-Z]' | sort -V | tail -n1))
+	$(eval VORTEX_VERSION_MAJOR ?= $(shell echo $(LATEST_TAG) | cut -d. -f1))
+	$(eval VORTEX_VERSION_MINOR ?= $(shell echo $(LATEST_TAG) | cut -d. -f2))
+	$(eval VORTEX_BUILD_NUMBER ?= $(shell git rev-list --count $(LATEST_TAG)..HEAD))
+	$(eval VORTEX_VERSION_MAJOR := $(if $(VORTEX_VERSION_MAJOR),$(VORTEX_VERSION_MAJOR),0))
+	$(eval VORTEX_VERSION_MINOR := $(if $(VORTEX_VERSION_MINOR),$(VORTEX_VERSION_MINOR),1))
+	$(eval VORTEX_BUILD_NUMBER := $(if $(VORTEX_BUILD_NUMBER),$(VORTEX_BUILD_NUMBER),0))
+	$(eval VORTEX_VERSION_NUMBER := $(VORTEX_VERSION_MAJOR).$(VORTEX_VERSION_MINOR).$(VORTEX_BUILD_NUMBER))
 
 # Now include our target dependency files
 # the hyphen means ignore non-existent files
