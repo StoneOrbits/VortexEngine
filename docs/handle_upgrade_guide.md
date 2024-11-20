@@ -1,11 +1,11 @@
 ---
 layout: default
-title: Upgrade Guide
-nav_order: 0
-parent: Guides & Tutorials
+title: Handle Upgrade Guide
+nav_order: 2
+parent: Upgrade Guides
 ---
 
-# Upgrade Guide
+# Handle Upgrade Guide
 
 The latest firmware for your device can be found on the Vortex Community [downloads page](https://vortex.community/downloads).
 
@@ -19,7 +19,7 @@ First, connect your device to the PC via USB.
 
 </div>
 
-![Device Buttons](assets/images/device-buttons.png)
+![Device Buttons](assets/images/device-handle-buttons.png)
 
 Next, double click the <span style="color: #ff0000">reset button</span> and a new drive should appear, this may take a few tries.
 
