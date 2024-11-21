@@ -110,7 +110,7 @@ TARGETS=vortex.a
 endif
 
 # Default target for 'make' command
-all: compute_version $(TARGETS)
+all: $(TARGETS)
 
 # unit test target
 tests: $(TESTS)
@@ -120,11 +120,11 @@ wasm: FORCE
 	env WASM=1 $(MAKE)
 
 # target for vortex lib
-vortex.a: $(DEPS)
-	$(AR) $@ $^
+vortex.a: compute_version $(DEPS)
+	$(AR) $@ $(DEPS)
 
-VortexLib.js: $(DEPS)
-	$(CC) $(LDFLAGS) $^ -o $@ $(LLIBS)
+VortexLib.js: compute_version $(DEPS)
+	$(CC) $(LDFLAGS) $(DEPS) -o $@ $(LLIBS)
 
 # catch-all make target to generate .o and .d files
 %.o: %.cpp
