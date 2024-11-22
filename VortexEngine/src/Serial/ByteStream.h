@@ -76,6 +76,8 @@ public:
   // check whether the data in the buffer has changed since the
   // crc has been re-calculated, if it is dirty, call recalcCRC
   bool isCRCDirty() const;
+  // mark the CRC as dirty (manually modified the buffer or something)
+  void setCRCDirty();
 
   // serialize a byte into the buffer
   bool serialize8(uint8_t byte);
