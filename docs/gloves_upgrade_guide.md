@@ -7,6 +7,10 @@ parent: Upgrade Guides
 
 # Gloves Upgrade Guide
 
+<div style="float: right; margin-left: 60px; margin-top: 10px; margin-right: 10px">
+  <img src="assets/images/device-gloves-buttons.png" style="width:15em">
+</div>
+
 The latest firmware for your device can be found on the Vortex Community [downloads page](https://vortex.community/downloads).
 
 First, connect your device to the PC via USB.
@@ -18,8 +22,6 @@ First, connect your device to the PC via USB.
 - Mac may work but is not officially supported.
 
 </div>
-
-![Device Buttons](assets/images/device-gloves-buttons.png)
 
 Next, double click the <span style="color: #ff0000">reset button</span> and a new drive should appear, this may take a few tries.
 
