@@ -24,26 +24,32 @@ This is a sophisticated enhancement of the core to turn Vortex into a powerful d
 
 ### Orbit (Vortex Classic Orbit)
 ![Orbit](https://github.com/StoneOrbits/VortexEngine/actions/workflows/orbit_build.yml/badge.svg?branch=orbit)  
+![Orbit Version](https://img.shields.io/endpoint?url=https://vortex.community/downloads/json/orbit?badge=true&label=Latest+Orbit+Version)  
 The firmware specifically designed for the Vortex Classic Orbit resides here.
 
 ### Handle (Vortex Omega Handles)
 ![Handle](https://github.com/StoneOrbits/VortexEngine/actions/workflows/handle_build.yml/badge.svg?branch=handle)  
+![Handle Version](https://img.shields.io/endpoint?url=https://vortex.community/downloads/json/handle?badge=true&label=Latest+Handle+Version)  
 This branch hosts the firmware designed for the Vortex Omega Handles.
 
 ### Gloves (Vortex Wired Gloveset)
 ![Gloves](https://github.com/StoneOrbits/VortexEngine/actions/workflows/gloves_build.yml/badge.svg?branch=gloves)  
+![Gloves Version](https://img.shields.io/endpoint?url=https://vortex.community/downloads/json/gloves?badge=true&label=Latest+Gloves+Version)  
 Here, you'll find the firmware for the Vortex Wired Gloveset.
 
 ### Duo (Vortex Duo Modular Chip)
 ![Duo](https://github.com/StoneOrbits/VortexEngine/actions/workflows/duo_build.yml/badge.svg?branch=duo)  
+![Duo Version](https://img.shields.io/endpoint?url=https://vortex.community/downloads/json/duo?badge=true&label=Latest+Duo+Version)  
 This branch contains the firmware for the Vortex Duo Modular Chip.
 
 ### Chromadeck (Vortex Chromadeck Mode Bank)
 ![Chromadeck](https://github.com/StoneOrbits/VortexEngine/actions/workflows/chromadeck_build.yml/badge.svg?branch=chromadeck)  
+![Chromadeck Version](https://img.shields.io/endpoint?url=https://vortex.community/downloads/json/chromadeck?badge=true&label=Latest+Chromadeck+Version)  
 This branch contains the firmware for the Vortex Chromadeck dynamic storage and transfer tool.
 
 ### Spark (Spark Orbit and Handle)
 ![Spark](https://github.com/StoneOrbits/VortexEngine/actions/workflows/spark_build.yml/badge.svg?branch=spark)  
+![Spark Version](https://img.shields.io/endpoint?url=https://vortex.community/downloads/json/spark?badge=true&label=Latest+Spark+Version)  
 This branch contains the firmware for the Vortex Spark firmware, this powers multiple devices: the Spark Orbit and Spark Handle.
 
 To access a device's firmware, simply switch to its corresponding branch.
