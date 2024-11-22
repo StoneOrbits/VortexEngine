@@ -121,3 +121,38 @@ jobs:
         with:
           name: doxygen-docs-desktop
           path: docs/desktop
+
+  deploy:
+    needs: [setup, test, wasm, docs]
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/desktop'
+    steps:
+      - uses: actions/checkout@v4
+      - name: Collect files for desktop library
+        run: |
+          mkdir -p build/desktop-library
+          # Copy necessary files to the build directory
+          cp VortexEngine/VortexLib/vortex.a build/desktop-library/
+          cp VortexEngine/VortexLib/VortexLib.wasm build/desktop-library/
+          cp VortexEngine/VortexLib/VortexLib.js build/desktop-library/
+          cp VortexEngine/VortexCLI/vortex build/desktop-library/
+      - name: Create zip archive for desktop library
+        run: |
+          cd build/desktop-library
+          zip -r VortexDesktopLibrary-${{ needs.setup.outputs.vortex_version_number }}.zip *
+          mv VortexDesktopLibrary-${{ needs.setup.outputs.vortex_version_number }}.zip ../
+      - name: Upload Desktop Library to Vortex Community
+        run: |
+          DEVICE_TYPE="desktop"
+          VERSIONED_ZIP="VortexDesktopLibrary-${DEVICE_TYPE}-${{ needs.setup.outputs.vortex_version_number }}.zip"
+          mv build/VortexDesktopLibrary-${{ needs.setup.outputs.vortex_version_number }}.zip build/$VERSIONED_ZIP
+          echo "Version is ${{ needs.setup.outputs.vortex_version_number }}"
+          echo "Filename is $VERSIONED_ZIP"
+          curl -X POST \
+            -F "file=@build/$VERSIONED_ZIP" \
+            -F "device=$DEVICE_TYPE" \
+            -F "version=${{ needs.setup.outputs.vortex_version_number }}" \
+            -F "category=library" \
+            -F "clientApiKey=${{ secrets.VORTEX_COMMUNITY_API_KEY }}" \
+            https://vortex.community/firmware/upload
+
