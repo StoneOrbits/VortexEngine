@@ -146,21 +146,15 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: test-artifacts
+          path: build/desktop-library
       - name: Download wasm build artifacts
         uses: actions/download-artifact@v4
         with:
           name: wasm-artifacts
-      - name: Collect files for desktop library
-        run: |
-          mkdir -p desktop-library
-          # Copy necessary files to the build directory
-          cp vortex.a build/desktop-library/
-          cp VortexLib.wasm build/desktop-library/
-          cp VortexLib.js build/desktop-library/
-          cp vortex build/desktop-library/
+          path: build/desktop-library
       - name: Create zip archive for desktop library
         run: |
-          cd desktop-library
+          cd build/desktop-library
           zip -r VortexDesktopLibrary-${{ needs.setup.outputs.vortex_version_number }}.zip *
           mv VortexDesktopLibrary-${{ needs.setup.outputs.vortex_version_number }}.zip ../
       - name: Upload Desktop Library to Vortex Community
