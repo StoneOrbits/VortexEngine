@@ -7,9 +7,7 @@ parent: Upgrade Guides
 
 # Gloves Upgrade Guide
 
-<div style="float: right; margin-left: 60px; margin-top: 10px; margin-right: 10px">
-  <img src="assets/images/device-gloves-buttons.png" style="width:15em">
-</div>
+<img src="assets/images/device-gloves.png" style="max-width: 250px; width: 40%; float: right">
 
 The latest firmware for your device can be found on the Vortex Community [downloads page](https://vortex.community/downloads).
 
@@ -23,7 +21,7 @@ First, connect your device to the PC via USB.
 
 </div>
 
-Next, double click the <span style="color: #ff0000">reset button</span> and a new drive should appear, this may take a few tries.
+Next, double click the <span style="display: inline-block; width: 10px; height: 10px; background-color: #ff0000; border-radius: 50%;border: 1px solid black;"></span> <span style="color: #ff0000">reset button</span> as seen in the above image. A new drive should appear when successful, this may take a few tries.
 
 <div style="text-align: center; margin: 20px">
   <img src="assets/images/trinketboot-drive.png" style="box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2); border-radius: 5px;">

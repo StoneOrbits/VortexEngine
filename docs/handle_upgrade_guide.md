@@ -7,9 +7,7 @@ parent: Upgrade Guides
 
 # Handle Upgrade Guide
 
-<div style="float: right; margin-left: 60px; margin-top: 10px; margin-right: 10px">
-  <img src="assets/images/device-handle-buttons.png" style="width:15em">
-</div>
+<img src="assets/images/device-handle-buttons.png" style="max-width: 250px; width: 40%; float: right">
 
 The latest firmware for your device can be found on the Vortex Community [downloads page](https://vortex.community/downloads).
 
