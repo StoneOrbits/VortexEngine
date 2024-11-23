@@ -158,7 +158,10 @@ enum Pair : uint8_t
 };
 
 // Compile-time check on the number of pairs and leds
-static_assert(LED_COUNT == (PAIR_COUNT * 2), "Incorrect number of Pairs for Leds! Adjust the Led enum or Pair enum to match");
+// Orbit has different definition of a 'pair' since the edge
+// leds are in their own pairs as both the 'even and odd' led
+// it causes there to be more pairs than expected
+static_assert(LED_COUNT == ((PAIR_COUNT * 2) - 4), "Incorrect number of Pairs for Leds! Adjust the Led enum or Pair enum to match");
 
 // check if an led is even or odd
 #define isEven(pos) ((pos % 2) == 0)
