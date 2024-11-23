@@ -84,15 +84,15 @@ static_assert(LED_COUNT == (PAIR_COUNT * 2), "Incorrect number of Pairs for Leds
 #define PAIR_4 PAIR_1
 
 // check if an led is even or odd
-#define isEven(pos) ((pos % 2) == 0)
-#define isOdd(pos) ((pos % 2) != 0)
+#define isEven(pos) (pos < 3)
+#define isOdd(pos) (pos >= 3)
 
 // convert a pair to even or odd led position
-#define pairEven(pair) (LedPos)((uint32_t)pair * 2)
-#define pairOdd(pair) (LedPos)(((uint32_t)pair * 2) + 1)
+#define pairEven(pair) (LedPos)((uint32_t)pair)
+#define pairOdd(pair) (LedPos)(((uint32_t)pair) + 3)
 
 // convert an led position to a pair
-#define ledToPair(pos) (Pair)((uint32_t)pos / 2)
+#define ledToPair(pos) (Pair)((uint32_t)pos >= 3 ? 1 : 0)
 
 // LedMap is a bitmap of leds, used for expressing whether to turn certain leds on
 // or off with a single integer
