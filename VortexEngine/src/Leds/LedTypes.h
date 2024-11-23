@@ -73,7 +73,8 @@ enum Pair : uint8_t
 };
 
 // Compile-time check on the number of pairs and leds
-static_assert(LED_COUNT == (PAIR_COUNT * 2), "Incorrect number of Pairs for Leds! Adjust the Led enum or Pair enum to match");
+// The handle only has 3 leds so the pair check is a little offset
+static_assert(LED_COUNT == ((PAIR_COUNT * 2) - 1), "Incorrect number of Pairs for Leds! Adjust the Led enum or Pair enum to match");
 
 // backwards compatibility for multi led patterns
 #define LED_3 LED_0
