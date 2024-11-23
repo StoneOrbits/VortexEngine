@@ -72,6 +72,9 @@ enum Pair : uint8_t
   PAIR_LAST = (PAIR_COUNT - 1),
 };
 
+// Compile-time check on the number of pairs and leds
+static_assert(LED_COUNT == (PAIR_COUNT * 2), "Incorrect number of Pairs for Leds! Adjust the Led enum or Pair enum to match");
+
 // backwards compatibility for multi led patterns
 #define LED_3 LED_0
 #define LED_4 LED_1
