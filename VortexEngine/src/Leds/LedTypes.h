@@ -67,8 +67,6 @@ enum Pair : uint8_t
   PAIR_0 = PAIR_FIRST,
   PAIR_1,
   PAIR_2,
-  PAIR_3,
-  PAIR_4,
 
   PAIR_COUNT,
   PAIR_LAST = (PAIR_COUNT - 1),
@@ -82,6 +80,8 @@ static_assert(LED_COUNT == (PAIR_COUNT * 2), "Incorrect number of Pairs for Leds
 #define LED_7 LED_1
 #define LED_8 LED_2
 #define LED_9 LED_3
+#define PAIR_3 PAIR_0
+#define PAIR_4 PAIR_1
 
 // check if an led is even or odd
 #define isEven(pos) ((pos % 2) == 0)
