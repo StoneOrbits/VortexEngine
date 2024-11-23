@@ -96,6 +96,9 @@ enum Pair : uint8_t
   PAIR_LAST = (PAIR_COUNT - 1),
 };
 
+// Compile-time check on the number of pairs and leds
+static_assert(LED_COUNT == (PAIR_COUNT * 2), "Incorrect number of Pairs for Leds! Adjust the Led enum or Pair enum to match");
+
 // check if an led is even or odd
 #define isEven(pos) ((pos % 2) == 0)
 #define isOdd(pos) ((pos % 2) != 0)
