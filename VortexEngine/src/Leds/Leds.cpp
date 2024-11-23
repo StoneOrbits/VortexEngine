@@ -91,8 +91,10 @@ void Leds::setRangeEvens(Pair first, Pair last, RGBColor col)
 
 void Leds::setAllEvens(RGBColor col)
 {
-  for (Pair pos = PAIR_FIRST; pos <= PAIR_LAST; pos++) {
-    setIndex(pairEven(pos), col);
+  for (LedPos pos = LED_FIRST; pos <= LED_LAST; pos++) {
+    if (pos % 2) {
+      setIndex(pos, col);
+    }
   }
 }
 
@@ -105,8 +107,10 @@ void Leds::setRangeOdds(Pair first, Pair last, RGBColor col)
 
 void Leds::setAllOdds(RGBColor col)
 {
-  for (Pair pos = PAIR_FIRST; pos <= PAIR_LAST; pos++) {
-    setIndex(pairOdd(pos), col);
+  for (LedPos pos = LED_FIRST; pos <= LED_LAST; pos++) {
+    if (!(pos % 2)) {
+      setIndex(pos, col);
+    }
   }
 }
 
@@ -119,8 +123,10 @@ void Leds::clearRangeEvens(Pair first, Pair last)
 
 void Leds::clearAllEvens()
 {
-  for (Pair pos = PAIR_FIRST; pos <= PAIR_LAST; pos++) {
-    clearIndex(pairEven(pos));
+  for (LedPos pos = LED_FIRST; pos <= LED_LAST; pos++) {
+    if (pos % 2) {
+      clearIndex(pos);
+    }
   }
 }
 
@@ -133,8 +139,10 @@ void Leds::clearRangeOdds(Pair first, Pair last)
 
 void Leds::clearAllOdds()
 {
-  for (Pair pos = PAIR_FIRST; pos <= PAIR_LAST; pos++) {
-    clearIndex(pairOdd(pos));
+  for (LedPos pos = LED_FIRST; pos <= LED_LAST; pos++) {
+    if (!(pos % 2)) {
+      clearIndex(pos);
+    }
   }
 }
 

@@ -140,6 +140,15 @@ void Menu::nextBulbSelection()
     m_targetLeds = MAP_PAIR_ODDS;
     break;
   case MAP_PAIR_ODDS:
+    m_targetLeds = MAP_OPPOSITES_1;
+    break;
+  case MAP_OPPOSITES_1:
+    m_targetLeds = MAP_OPPOSITES_2;
+    break;
+  case MAP_OPPOSITES_2:
+    m_targetLeds = MAP_OPPOSITES_3;
+    break;
+  case MAP_OPPOSITES_3:
     m_targetLeds = MAP_LED(LED_FIRST);
     break;
   case MAP_LED(LED_LAST):
