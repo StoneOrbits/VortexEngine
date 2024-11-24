@@ -172,7 +172,7 @@ upload: all
 # upload via SerialUPDI
 serial: all
 	$(PYTHON) -u $(PYPROG) -t uart -u $(SERIAL_PORT) -b 921600 -d $(AVRDUDE_CHIP) \
-		--fuses 0:$(WDTCFG) 1:$(BODCFG) 2:$(OSCCFG) 4:$(TCD0CFG) 5:$(SYSCFG0) 6:$(SYSCFG1) 7:$(APPEND) 8:$(BOOTEND) -f $< -a write -v
+		--fuses 0:$(WDTCFG) 1:$(BODCFG) 2:$(OSCCFG) 4:$(TCD0CFG) 5:$(SYSCFG0) 6:$(SYSCFG1) 7:$(APPEND) 8:$(BOOTEND) -f $(TARGET).hex -a write -v
 
 ifneq ($(OS),Windows_NT) # Linux
 build: all
