@@ -13,7 +13,6 @@ public:
 
 protected:
   virtual void blinkOn() override;
-  virtual void blinkOff() override;
   virtual void poststep() override;
 
   Random m_randCtx;

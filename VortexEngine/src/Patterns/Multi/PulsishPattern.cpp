@@ -55,16 +55,16 @@ void PulsishPattern::play()
 {
   // when the step timer triggers
   if (m_stepTimer.alarm() == 0) {
-    m_progress = (m_progress + 1) % LED_COUNT;
+    m_progress = (m_progress + 1) % PAIR_COUNT;
   }
 
   switch (m_blinkTimer.alarm()) {
   case -1: // just return
     return;
   case 0: // turn on the leds
-    for (LedPos pos = LED_FIRST; pos < LED_COUNT; ++pos) {
-      if (pos != m_progress) {
-        Leds::setIndex(pos, m_colorset.cur());
+    for (Pair pair = PAIR_FIRST; pair < PAIR_COUNT; ++pair) {
+      if (pair != m_progress) {
+        Leds::setPair(pair, m_colorset.cur());
       }
     }
     m_colorset.skip();
@@ -73,9 +73,9 @@ void PulsishPattern::play()
     }
     break;
   case 1:
-    for (LedPos pos = LED_FIRST; pos < LED_COUNT; ++pos) {
-      if (pos != m_progress) {
-        Leds::clearIndex(pos);
+    for (Pair pair = PAIR_FIRST; pair < PAIR_COUNT; ++pair) {
+      if (pair != m_progress) {
+        Leds::clearPair(pair);
       }
     }
     break;
@@ -85,10 +85,10 @@ void PulsishPattern::play()
   case -1: // just return
     return;
   case 0: // turn on the leds
-    Leds::setIndex((LedPos)m_progress, m_colorset.get(0));
+    Leds::setPair((Pair)m_progress, m_colorset.get(0));
     break;
   case 1:
-    Leds::clearIndex((LedPos)m_progress);
+    Leds::clearPair((Pair)m_progress);
     break;
   }
 }
