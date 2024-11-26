@@ -51,30 +51,29 @@ class VortexWASMCallbacks : public VortexCallbacks {
     }
 };
 
-static void init_wasm()
+static void init_vortex()
 {
-  Vortex::init<VortexWASMCallbacks>();
+  Vortex::initEx<VortexWASMCallbacks>();
 }
 
-static void cleanup_wasm()
+static void cleanup_vortex()
 {
   Vortex::cleanup();
 }
 
 // This wraps Vortex::tick but returns an array of led colors for the tick
-val tick_wasm() {
+val tick_vortex() {
+  // first run a tick
   Vortex::tick();
-
+  // then extract the color that was produced by the tick
   val ledArray = val::array();
-  for (int i = 0; i < led_count; ++i) {
+  for (uint32_t i = 0; i < led_count; ++i) {
     val color = val::object();
     color.set("red", leds[i].red);
     color.set("green", leds[i].green);
     color.set("blue", leds[i].blue);
-
     ledArray.set(i, color);
   }
-
   return ledArray;
 }
 
@@ -106,14 +105,33 @@ emscripten::val getRawDataArray(const ByteStream &byteStream)
   return rawDataArray;
 }
 
+bool createByteStreamFromData(val bytesArray, ByteStream &stream)
+{
+  // Convert val to std::vector<uint8_t>
+  std::vector<uint8_t> data = vecFromJSArray<uint8_t>(bytesArray);
+
+  // Assuming size is part of the data or passed separately
+  size_t size = data.size();
+  if (!stream.rawInit(data.data(), size)) {
+    return true;
+  }
+  return false;
+}
+
+// js is dumb and has issues doing this conversion I guess
+PatternID intToPatternID(int val)
+{
+  return (PatternID)val;
+}
+
 EMSCRIPTEN_BINDINGS(Vortex) {
   // vector<string>
   register_vector<std::string>("VectorString");
 
   // basic control functions
-  function("Init", &init_wasm);
-  function("Cleanup", &cleanup_wasm);
-  function("Tick", &tick_wasm);
+  function("Init", &init_vortex);
+  function("Cleanup", &cleanup_vortex);
+  function("Tick", &tick_vortex);
 
   // Bind the HSVColor class
   class_<HSVColor>("HSVColor")
@@ -154,6 +172,7 @@ EMSCRIPTEN_BINDINGS(Vortex) {
     .constructor<uint32_t, const uint8_t *>()
 
     // member functions
+    .function("rawInit", &ByteStream::rawInit, allow_raw_pointer<const uint8_t *>())
     .function("init", &ByteStream::init, allow_raw_pointer<const unsigned char *>())
     .function("clear", &ByteStream::clear)
     .function("shrink", &ByteStream::shrink)
@@ -196,35 +215,21 @@ EMSCRIPTEN_BINDINGS(Vortex) {
     .value("LED_3", LedPos::LED_3)
     .value("LED_4", LedPos::LED_4)
     .value("LED_5", LedPos::LED_5)
-    .value("LED_6", LedPos::LED_6)
-    .value("LED_7", LedPos::LED_7)
-    .value("LED_8", LedPos::LED_8)
-    .value("LED_9", LedPos::LED_9)
-#if FIXED_LED_COUNT == 1
     .value("LED_COUNT", LedPos::LED_COUNT)
     .value("LED_LAST", LedPos::LED_LAST)
     .value("LED_ALL", LedPos::LED_ALL)
     .value("LED_MULTI", LedPos::LED_MULTI)
     .value("LED_ALL_SINGLE", LedPos::LED_ALL_SINGLE)
     .value("LED_ANY", LedPos::LED_ANY);
-  // If you decide to uncomment and use LED_EVENS and LED_ODDS in the future
-  // .value("LED_EVENS", LedPos::LED_EVENS)
-  // .value("LED_ODDS", LedPos::LED_ODDS)
-#else
-    ; // terminate the previous one
 
-  // Binding dynamic values from Leds class
-  class_<Leds>("Leds")
-    .class_function("ledCount", &Leds::ledCount)
-    .class_function("ledLast", &Leds::ledLast)
-    .class_function("ledMulti", &Leds::ledMulti)
-    .class_function("ledAllSingle", &Leds::ledAllSingle)
-    .class_function("ledAny", &Leds::ledAny);
-#endif
+  function("intToPatternID", &intToPatternID);
+  function("isMultiLedPatternID", &isMultiLedPatternID);
+  function("isSingleLedPatternID", &isSingleLedPatternID);
 
   enum_<PatternID>("PatternID")
     // Meta Constants
     .value("PATTERN_NONE", PatternID::PATTERN_NONE)
+
     // single led patterns
     .value("PATTERN_STROBE", PatternID::PATTERN_STROBE)
     .value("PATTERN_HYPERSTROBE", PatternID::PATTERN_HYPERSTROBE)
@@ -280,7 +285,17 @@ EMSCRIPTEN_BINDINGS(Vortex) {
     .value("PATTERN_BOUNCE", PatternID::PATTERN_BOUNCE)
     .value("PATTERN_SPLITSTROBIE", PatternID::PATTERN_SPLITSTROBIE)
     .value("PATTERN_BACKSTROBE", PatternID::PATTERN_BACKSTROBE)
-    .value("PATTERN_VORTEX", PatternID::PATTERN_VORTEX);
+    .value("PATTERN_VORTEX", PatternID::PATTERN_VORTEX)
+    .value("PATTERN_COUNT", PatternID::PATTERN_COUNT);
+    // meta constants
+    //.value("PATTERN_FIRST", PatternID::PATTERN_FIRST)
+    //.value("PATTERN_SINGLE_FIRST", PatternID::PATTERN_SINGLE_FIRST)
+    //.value("PATTERN_MULTI_FIRST", PatternID::PATTERN_MULTI_FIRST)
+    //.value("PATTERN_SINGLE_LAST", PatternID::PATTERN_SINGLE_LAST)
+    //.value("PATTERN_SINGLE_COUNT", PatternID::PATTERN_SINGLE_COUNT)
+    //.value("PATTERN_MULTI_LAST", PatternID::PATTERN_MULTI_LAST)
+    //.value("PATTERN_MULTI_COUNT", PatternID::PATTERN_MULTI_COUNT)
+    //.value("PATTERN_LAST", PatternID::PATTERN_LAST)
 
   enum_<MenuEntryID>("MenuEntryID")
     .value("MENU_NONE", MenuEntryID::MENU_NONE)
@@ -351,6 +366,14 @@ EMSCRIPTEN_BINDINGS(Vortex) {
     .function("init", select_overload<void(uint8_t, uint8_t, uint8_t, uint8_t, uint8_t, uint8_t)>(&PatternArgs::init))
     .function("init", select_overload<void(uint8_t, uint8_t, uint8_t, uint8_t, uint8_t, uint8_t, uint8_t)>(&PatternArgs::init))
     .function("init", select_overload<void(uint8_t, uint8_t, uint8_t, uint8_t, uint8_t, uint8_t, uint8_t, uint8_t)>(&PatternArgs::init))
+    .function("addArgs", select_overload<void(uint8_t)>(&PatternArgs::addArgs))
+    .function("addArgs", select_overload<void(uint8_t, uint8_t)>(&PatternArgs::addArgs))
+    .function("addArgs", select_overload<void(uint8_t, uint8_t, uint8_t)>(&PatternArgs::addArgs))
+    .function("addArgs", select_overload<void(uint8_t, uint8_t, uint8_t, uint8_t)>(&PatternArgs::addArgs))
+    .function("addArgs", select_overload<void(uint8_t, uint8_t, uint8_t, uint8_t, uint8_t)>(&PatternArgs::addArgs))
+    .function("addArgs", select_overload<void(uint8_t, uint8_t, uint8_t, uint8_t, uint8_t, uint8_t)>(&PatternArgs::addArgs))
+    .function("addArgs", select_overload<void(uint8_t, uint8_t, uint8_t, uint8_t, uint8_t, uint8_t, uint8_t)>(&PatternArgs::addArgs))
+    .function("addArgs", select_overload<void(uint8_t, uint8_t, uint8_t, uint8_t, uint8_t, uint8_t, uint8_t, uint8_t)>(&PatternArgs::addArgs))
     .property("arg1", &PatternArgs::arg1)
     .property("arg2", &PatternArgs::arg2)
     .property("arg3", &PatternArgs::arg3)
@@ -385,17 +408,17 @@ EMSCRIPTEN_BINDINGS(Vortex) {
     .class_function("dupe", &PatternBuilder::dupe, allow_raw_pointers())
     .class_function("makeSingle", &PatternBuilder::makeSingle, allow_raw_pointers())
     .class_function("makeMulti", &PatternBuilder::makeMulti, allow_raw_pointers())
-    //.class_function("unserialize", &PatternBuilder::unserialize)
+    //.function("unserialize", &PatternBuilder::unserialize)
     .class_function("getDefaultArgs", &PatternBuilder::getDefaultArgs)
     .class_function("numDefaultArgs", &PatternBuilder::numDefaultArgs);
 
   class_<Mode>("Mode")
-    .constructor<>()
+    //.constructor<>()
     // overloading only works with param count not typing
     //.constructor<PatternID, const Colorset &>()
     //.constructor<PatternID, const PatternArgs &, const Colorset &>()
     //.constructor<PatternID, const PatternArgs *, const Colorset *>()
-    .constructor<const Mode *>()
+    //.constructor<const Mode *>()
     .function("copyFrom", select_overload<void(const Mode &)>(&Mode::operator=))
     .function("equals", &Mode::operator==)
     .function("notEquals", &Mode::operator!=)
@@ -406,6 +429,7 @@ EMSCRIPTEN_BINDINGS(Vortex) {
     .function("serialize", &Mode::serialize)
     .function("unserialize", &Mode::unserialize)
     .function("equalsMode", &Mode::equals, allow_raw_pointer<const Mode *>())
+    //.function("setLedCount", &Mode::setLedCount)
     .function("getLedCount", &Mode::getLedCount)
     .function("getColorset", select_overload<const Colorset(LedPos) const>(&Mode::getColorset))
     .function("getPatternID", &Mode::getPatternID)
@@ -417,7 +441,35 @@ EMSCRIPTEN_BINDINGS(Vortex) {
     .function("clearPattern", &Mode::clearPattern)
     .function("clearColorset", &Mode::clearColorset)
     .function("setArg", &Mode::setArg)
-    .function("getArg", &Mode::getArg);
+    .function("getArg", &Mode::getArg)
+    .function("hasMultiLed", &Mode::hasMultiLed)
+    .function("hasSingleLed", &Mode::hasSingleLed)
+    .function("hasSameSingleLed", &Mode::hasSameSingleLed)
+    .function("hasSparseSingleLed", &Mode::hasSparseSingleLed)
+    .function("isEmpty", &Mode::isEmpty)
+    //.function("getSingleLedMap", &Mode::getSingleLedMap)
+    .function("isMultiLed", &Mode::isMultiLed);
+
+  class_<Menus>("Menus")
+    .class_function("init", &Menus::init)
+    .class_function("cleanup", &Menus::cleanup)
+    .class_function("run", &Menus::run)
+    .class_function("openMenuSelection", &Menus::openMenuSelection)
+    .class_function("openMenu", &Menus::openMenu)
+    .class_function("showSelection", &Menus::showSelection)
+    .class_function("checkOpen", &Menus::checkOpen)
+    .class_function("checkInMenu", &Menus::checkInMenu)
+    .class_function("curMenu", &Menus::curMenu, allow_raw_pointers())
+    .class_function("curMenuID", &Menus::curMenuID);
+
+  class_<Menu>("Menu")
+    .function("init", &Menu::init)
+    .function("run", &Menu::run)
+    .function("onLedSelected", &Menu::onLedSelected)
+    .function("onShortClick", &Menu::onShortClick)
+    .function("onLongClick", &Menu::onLongClick)
+    .function("leaveMenu", &Menu::leaveMenu);
+    //.function("setTargetLeds", &Menu::setTargetLeds);
 
   class_<Modes>("Modes")
     .class_function("init", &Modes::init)
@@ -444,6 +496,8 @@ EMSCRIPTEN_BINDINGS(Vortex) {
     .class_function("clearModes", &Modes::clearModes)
     .class_function("setStartupMode", &Modes::setStartupMode)
     .class_function("startupMode", &Modes::startupMode)
+    //.class_function("initCurMode", &Modes::initCurMode, allow_raw_pointers())
+    //.class_function("saveCurMode", &Modes::saveCurMode)
     .class_function("setFlag", &Modes::setFlag)
     .class_function("getFlag", &Modes::getFlag)
     .class_function("resetFlags", &Modes::resetFlags)
@@ -457,6 +511,7 @@ EMSCRIPTEN_BINDINGS(Vortex) {
     .class_function("keychainModeEnabled", &Modes::keychainModeEnabled);
 
   class_<Vortex>("Vortex")
+    .class_function("init", select_overload<void()>(&Vortex::init))
     .class_function("setInstantTimestep", &Vortex::setInstantTimestep)
     .class_function("shortClick", &Vortex::shortClick)
     .class_function("longClick", &Vortex::longClick)
@@ -475,7 +530,7 @@ EMSCRIPTEN_BINDINGS(Vortex) {
     .class_function("quitClick", &Vortex::quitClick)
     .class_function("IRDeliver", &Vortex::IRDeliver)
     .class_function("VLDeliver", &Vortex::VLDeliver)
-    //.class_function("getStorageStats", &Vortex::getStorageStats)
+    //.function("getStorageStats", &Vortex::getStorageStats)
     .class_function("loadStorage", &Vortex::loadStorage)
     .class_function("openRandomizer", &Vortex::openRandomizer)
     .class_function("openColorSelect", &Vortex::openColorSelect)
@@ -484,23 +539,29 @@ EMSCRIPTEN_BINDINGS(Vortex) {
     .class_function("openFactoryReset", &Vortex::openFactoryReset)
     .class_function("openModeSharing", &Vortex::openModeSharing)
     .class_function("openEditorConnection", &Vortex::openEditorConnection)
+    //.class_function("clearMenuTargetLeds", &Vortex::clearMenuTargetLeds)
+    //.class_function("setMenuTargetLeds", &Vortex::setMenuTargetLeds)
+    //.class_function("addMenuTargetLeds", &Vortex::addMenuTargetLeds)
     .class_function("getModes", &Vortex::getModes)
     .class_function("setModes", &Vortex::setModes)
     .class_function("getCurMode", &Vortex::getCurMode)
+    .class_function("matchLedCount", &Vortex::matchLedCount)
+    .class_function("checkLedCount", &Vortex::checkLedCount)
+    .class_function("setLedCount", &Vortex::setLedCount)
     .class_function("curModeIndex", &Vortex::curModeIndex)
     .class_function("numModes", &Vortex::numModes)
     .class_function("numLedsInMode", &Vortex::numLedsInMode)
-    //.class_function("addNewMode", select_overload<bool(Random*, bool)>(&Vortex::addNewMode))
+    .class_function("addNewMode", select_overload<bool(bool)>(&Vortex::addNewMode))
     .class_function("addNewMode", select_overload<bool(ByteStream &, bool)>(&Vortex::addNewMode))
     .class_function("setCurMode", &Vortex::setCurMode)
     .class_function("nextMode", &Vortex::nextMode)
     .class_function("delCurMode", &Vortex::delCurMode)
     .class_function("shiftCurMode", &Vortex::shiftCurMode)
-    //.class_function("setPattern", &Vortex::setPattern)
+    //.function("setPattern", &Vortex::setPattern)
     .class_function("getPatternID", &Vortex::getPatternID)
     .class_function("getPatternName", &Vortex::getPatternName)
     .class_function("getModeName", &Vortex::getModeName)
-    //.class_function("setPatternAt", &Vortex::setPatternAt)
+    //.function("setPatternAt", &Vortex::setPatternAt)
     .class_function("getColorset", &Vortex::getColorset)
     .class_function("setColorset", &Vortex::setColorset)
     .class_function("getPatternArgs", &Vortex::getPatternArgs)
@@ -517,7 +578,7 @@ EMSCRIPTEN_BINDINGS(Vortex) {
     .class_function("setTickrate", &Vortex::setTickrate)
     .class_function("getTickrate", &Vortex::getTickrate)
     .class_function("enableUndo", &Vortex::enableUndo)
-    //.class_function("vcallbacks", &Vortex::vcallbacks)
+    //.function("vcallbacks", &Vortex::vcallbacks)
     .class_function("doCommand", &Vortex::doCommand)
     .class_function("setSleepEnabled", &Vortex::setSleepEnabled)
     .class_function("sleepEnabled", &Vortex::sleepEnabled)
@@ -532,12 +593,18 @@ EMSCRIPTEN_BINDINGS(Vortex) {
     .class_function("storageEnabled", &Vortex::storageEnabled)
     .class_function("setStorageFilename", &Vortex::setStorageFilename)
     .class_function("getStorageFilename", &Vortex::getStorageFilename)
+    .class_function("printModeJson", &Vortex::printModeJson)
+    .class_function("parseModeJson", &Vortex::parseModeJson)
+    .class_function("printPatternJson", &Vortex::printPatternJson)
+    .class_function("parsePatternJson", &Vortex::parsePatternJson)
+    .class_function("printJson", &Vortex::printJson)
+    .class_function("parseJson", &Vortex::parseJson)
     .class_function("setLockEnabled", &Vortex::setLockEnabled)
     .class_function("lockEnabled", &Vortex::lockEnabled);
 
   function("getDataArray", &getDataArray);
   function("getRawDataArray", &getRawDataArray);
-
+  function("createByteStreamFromData", &createByteStreamFromData);
 
 }
 #endif
@@ -580,6 +647,7 @@ bool Vortex::m_lockstepEnabled = false;
 bool Vortex::m_storageEnabled = false;
 bool Vortex::m_sleepEnabled = true;
 bool Vortex::m_lockEnabled = true;
+Random Vortex::m_randCtx;
 
 #ifdef _WIN32
 BOOL WINAPI DllMain(HINSTANCE hinstDLL, DWORD fdwReason, LPVOID lpvReserved)
@@ -615,6 +683,16 @@ Vortex::Vortex()
   if (!m_storedCallbacks) {
     // error! out of memory
   }
+#ifdef _WIN32
+  m_randCtx.seed((uint32_t)(time(NULL) ^ GetTickCount64()));
+#else
+  struct timespec ts;
+  unsigned long theTick = 0U;
+  clock_gettime(CLOCK_MONOTONIC, &ts);
+  theTick = ts.tv_nsec / 1000000;
+  theTick += ts.tv_sec * 1000;
+  m_randCtx.seed(time(NULL) ^ theTick);
+#endif
 }
 
 Vortex::~Vortex()
@@ -662,6 +740,8 @@ bool Vortex::init(VortexCallbacks *callbacks)
   // load the modes
   // TODO: don't load modes here? separate api?
   Modes::load();
+  // clear the modes
+  //Modes::clearModes();
   // save and set undo buffer
   doSave();
 
@@ -1043,42 +1123,70 @@ void Vortex::loadStorage()
   Modes::loadStorage();
 }
 
-void Vortex::openRandomizer()
+void Vortex::openRandomizer(bool advanced)
 {
-  Menus::openMenu(MENU_RANDOMIZER);
+  Menus::openMenu(MENU_RANDOMIZER, advanced);
 }
 
-void Vortex::openColorSelect()
+void Vortex::openColorSelect(bool advanced)
 {
-  Menus::openMenu(MENU_COLOR_SELECT);
+  Menus::openMenu(MENU_COLOR_SELECT, advanced);
 }
 
-void Vortex::openPatternSelect()
+void Vortex::openPatternSelect(bool advanced)
 {
-  Menus::openMenu(MENU_PATTERN_SELECT);
+  Menus::openMenu(MENU_PATTERN_SELECT, advanced);
 }
 
-void Vortex::openGlobalBrightness()
+void Vortex::openGlobalBrightness(bool advanced)
 {
-  Menus::openMenu(MENU_GLOBAL_BRIGHTNESS);
+  Menus::openMenu(MENU_GLOBAL_BRIGHTNESS, advanced);
 }
 
-void Vortex::openFactoryReset()
+void Vortex::openFactoryReset(bool advanced)
 {
-  Menus::openMenu(MENU_FACTORY_RESET);
+  Menus::openMenu(MENU_FACTORY_RESET, advanced);
 }
 
-void Vortex::openModeSharing()
+void Vortex::openModeSharing(bool advanced)
 {
-  Menus::openMenu(MENU_MODE_SHARING);
+  Menus::openMenu(MENU_MODE_SHARING, advanced);
 }
 
-void Vortex::openEditorConnection()
+void Vortex::openEditorConnection(bool advanced)
 {
 #if ENABLE_EDITOR_CONNECTION == 1
-  Menus::openMenu(MENU_EDITOR_CONNECTION);
+  Menus::openMenu(MENU_EDITOR_CONNECTION, advanced);
 #endif
 }
+
+//void Vortex::clearMenuTargetLeds()
+//{
+//  Menu *cur = Menus::curMenu();
+//  if (!cur) {
+//    return;
+//  }
+//  cur->setTargetLeds(MAP_LED_NONE);
+//}
+//
+//void Vortex::setMenuTargetLeds(LedMap targetLeds)
+//{
+//  Menu *cur = Menus::curMenu();
+//  if (!cur) {
+//    return;
+//  }
+//  cur->setTargetLeds(targetLeds);
+//}
+//
+//void Vortex::addMenuTargetLeds(LedPos pos)
+//{
+//  Menu *cur = Menus::curMenu();
+//  if (!cur) {
+//    return;
+//  }
+//  LedMap curMap = cur->getTargetLeds();
+//  cur->setTargetLeds((LedMap)(curMap | MAP_LED(pos)));
+//}
 
 bool Vortex::getModes(ByteStream &outStream)
 {
@@ -1092,10 +1200,61 @@ bool Vortex::setModes(ByteStream &stream, bool save)
   Modes::clearModes();
   // now unserialize the stream of data that was read
   if (!Modes::loadFromBuffer(stream)) {
-    //printf("Unserialize failed\n");
     return false;
   }
   return !save || doSave();
+}
+
+bool Vortex::matchLedCount(ByteStream &stream, bool vtxMode)
+{
+  if (!stream.decompress()) {
+    return false;
+  }
+  // reset the unserializer index before unserializing anything
+  stream.resetUnserializer();
+  uint8_t major = 0;
+  uint8_t minor = 0;
+  // unserialize the vortex version
+  stream.unserialize8(&major);
+  stream.unserialize8(&minor);
+  // unserialize the global brightness
+  if (!vtxMode) {
+    uint8_t flags;
+    stream.unserialize8(&flags);
+    uint8_t brightness = 0;
+    stream.unserialize8(&brightness);
+    uint8_t numModes = 0;
+    stream.unserialize8(&numModes);
+  }
+  uint8_t ledCount = 0;
+  stream.unserialize8(&ledCount);
+  // put the unserializer back where it was for the next thing
+  stream.resetUnserializer();
+  return setLedCount(ledCount);
+}
+
+bool Vortex::checkLedCount()
+{
+  Mode *mode = Modes::curMode();
+  if (!mode) {
+    return false;
+  }
+  uint8_t numLeds = mode->getLedCount();
+  if (numLeds != LED_COUNT) {
+    //Leds::setLedCount(numLeds);
+    return false;
+  }
+  return true;
+}
+
+uint8_t Vortex::setLedCount(uint8_t count)
+{
+  return true;
+}
+
+uint8_t Vortex::getLedCount()
+{
+  return LED_COUNT;
 }
 
 bool Vortex::getCurMode(ByteStream &outStream)
@@ -1131,19 +1290,23 @@ uint32_t Vortex::numLedsInMode()
   return pMode->getLedCount();
 }
 
-bool Vortex::addNewMode(Random *pRandCtx, bool save)
+bool Vortex::addMode(const Mode *mode, bool save)
+{
+  if (!Modes::addMode(mode)) {
+    return false;
+  }
+  return !save || doSave();
+}
+
+bool Vortex::addNewMode(bool save)
 {
   Colorset set;
-  Random ctx;
-  if (!pRandCtx) {
-    pRandCtx = &ctx;
-  }
-  set.randomize(*pRandCtx);
+  set.randomize(m_randCtx);
   // create a random pattern ID from all patterns
   PatternID randomPattern;
   do {
     // continuously re-randomize the pattern so we don't get solids
-    randomPattern = (PatternID)pRandCtx->next16(PATTERN_FIRST, PATTERN_COUNT);
+    randomPattern = (PatternID)m_randCtx.next16(PATTERN_FIRST, PATTERN_SINGLE_LAST);
   } while (randomPattern == PATTERN_SOLID);
   if (!Modes::addMode(randomPattern, nullptr, &set)) {
     return false;
@@ -1825,11 +1988,11 @@ Mode *Vortex::modeFromJson(const json &modeJson)
     return nullptr;
   }
 
-#if FIXED_LED_COUNT == 0
   if (modeJson.contains("num_leds") && modeJson["num_leds"].is_number_unsigned()) {
-    mode->setLedCount(modeJson["num_leds"].get<uint8_t>());
+    if (modeJson["num_leds"].get<uint8_t>() != LED_COUNT) {
+      // error?
+    }
   }
-#endif
 
   // Extract and set multiPattern
   if (modeJson.contains("multi_pat") && modeJson["multi_pat"].is_object()) {
@@ -1840,6 +2003,7 @@ Mode *Vortex::modeFromJson(const json &modeJson)
       multiPattern->getArgs(args);
       Colorset set = multiPattern->getColorset();
       mode->setPattern(multiPattern->getPatternID(), LED_MULTI, &args, &set);
+      delete multiPattern;
     }
   }
 
@@ -1854,9 +2018,23 @@ Mode *Vortex::modeFromJson(const json &modeJson)
           pattern->getArgs(args);
           Colorset set = pattern->getColorset();
           mode->setPattern(pattern->getPatternID(), pos++, &args, &set);
+          delete pattern;
         }
       }
     }
+  }
+
+  // fallback to load 1-led pattern data as the mode if multi_pat and single_pats are missing
+  if (!modeJson.contains("multi_pat") && !modeJson.contains("single_pats")) {
+    Pattern *pattern = patternFromJson(modeJson);
+    if (!pattern) {
+      return mode;
+    }
+    PatternArgs args;
+    pattern->getArgs(args);
+    Colorset set = pattern->getColorset();
+    mode->setPattern(pattern->getPatternID(), LED_FIRST, &args, &set);
+    delete pattern;
   }
 
   return mode;
@@ -1909,7 +2087,7 @@ Pattern *Vortex::patternFromJson(const json &patternJson)
   }
 
   // Validate the pattern ID
-  if (id <= PATTERN_FIRST || id >= PATTERN_COUNT) {
+  if (id >= PATTERN_COUNT) {
     return nullptr;
   }
 
@@ -1951,7 +2129,47 @@ Pattern *Vortex::patternFromJson(const json &patternJson)
   return pattern;
 }
 
-json Vortex::saveJson()
+json Vortex::saveModeToJson()
+{
+  json saveJson;
+  Mode *cur = Modes::curMode();
+  if (!cur) {
+    return nullptr;
+  }
+  return modeToJson(cur);
+}
+
+bool Vortex::loadModeFromJson(const json &js)
+{
+  if (js.is_null()) {
+    return false;
+  }
+
+  // TODO: reintroduce version to vtxmode format
+  //uint8_t major = 0;
+  //uint8_t minor = 0;
+  //if (js.contains("version_major") && js["version_major"].is_number_unsigned()) {
+  //  major = js["version_major"].get<uint8_t>();
+  //}
+
+  //if (js.contains("version_minor") && js["version_minor"].is_number_unsigned()) {
+  //  minor = js["version_minor"].get<uint8_t>();
+  //}
+
+  //if (!VortexEngine::checkVersion(major, minor)) {
+  //  return false;
+  //}
+
+  Mode *mode = modeFromJson(js);
+  if (!mode) {
+    return false;
+  }
+  bool rv = Modes::addMode(mode);
+  delete mode;
+  return rv;
+}
+
+json Vortex::saveToJson()
 {
   json saveJson;
 
@@ -1966,13 +2184,7 @@ json Vortex::saveJson()
   json modesArray = json::array();
   Modes::setCurMode(0);
   for (uint8_t i = 0; i < numModes; ++i) {
-    Mode *cur = Modes::curMode();
-    if (cur) {
-      json modeJson = modeToJson(cur);
-      modesArray.push_back(modeJson);
-    } else {
-      modesArray.push_back(nullptr);
-    }
+    modesArray.push_back(saveModeToJson());
     Modes::nextMode();
   }
   saveJson["modes"] = modesArray;
@@ -1980,7 +2192,7 @@ json Vortex::saveJson()
   return saveJson;
 }
 
-bool Vortex::loadJson(const json& js)
+bool Vortex::loadFromJson(const json& js)
 {
   if (js.is_null()) {
     return false;
@@ -2015,46 +2227,128 @@ bool Vortex::loadJson(const json& js)
     num_modes = js["num_modes"].get<uint8_t>();
   }
 
-  if (js.contains("modes") && js["modes"].is_array()) {
-    Modes::clearModes();
-    for (const auto &modeValue : js["modes"]) {
-      if (!modeValue.is_null() && modeValue.is_object()) {
-        Mode *mode = modeFromJson(modeValue);
-        if (mode) {
-          Modes::addMode(mode);
-        }
-      }
+  if (!js.contains("modes") || !js["modes"].is_array()) {
+    return false;
+  }
+
+  Modes::clearModes();
+  for (const auto &modeValue : js["modes"]) {
+    if (modeValue.is_null() || !modeValue.is_object()) {
+      continue;
+    }
+    if (!loadModeFromJson(modeValue)) {
+      // error?
+      return false;
     }
   }
 
   return Modes::numModes() == num_modes;
 }
 
-// dump the json to output
-void Vortex::dumpJson(const char *filename, bool pretty)
+// print/parse the current mode json
+std::string Vortex::printModeJson(bool pretty)
 {
-  json json = saveJson();
-  std::string jsonStr = pretty ? json.dump(4) : json.dump();
-
-  if (filename) {
-    std::ofstream file(filename);
-    if (file.is_open()) {
-      file << jsonStr;
-    }
-  } else {
-    std::cout << jsonStr << std::endl;
+  std::string jsonStr = "{}";
+  Mode *cur = Modes::curMode();
+  if (!cur) {
+    return jsonStr;
   }
+  json modeJs = modeToJson(cur);
+  return pretty ? modeJs.dump(4) : modeJs.dump();
+}
+
+bool Vortex::parseModeJson(const std::string &jsonStr)
+{
+  json jsonObj;
+  try {
+    jsonObj = json::parse(jsonStr);
+  } catch (json::parse_error &e) {
+    std::cerr << "JSON Parse Error: " << e.what() << std::endl;
+    return false;
+  }
+  Mode *tempMode = modeFromJson(jsonObj);
+  if (!tempMode) {
+    return false;
+  }
+  // update the current mode with the parsed json mode
+  bool result = Modes::updateCurMode(tempMode);
+  delete tempMode;
+  return result;
+}
+
+// print/parse a pattern of the current mode json
+std::string Vortex::printPatternJson(LedPos pos, bool pretty)
+{
+  std::string jsonStr = "{}";
+  Mode *cur = Modes::curMode();
+  if (!cur) {
+    return jsonStr;
+  }
+  Pattern *pat = cur->getPattern(pos);
+  if (!pat) {
+    return jsonStr;
+  }
+  json patternJs = patternToJson(pat);
+  return pretty ? patternJs.dump(4) : patternJs.dump();
+}
+
+bool Vortex::parsePatternJson(LedPos pos, const std::string &jsonStr)
+{
+  Mode *cur = Modes::curMode();
+  if (!cur) {
+    return false;
+  }
+  json jsonObj;
+  try {
+    jsonObj = json::parse(jsonStr);
+  } catch (json::parse_error &e) {
+    std::cerr << "JSON Parse Error: " << e.what() << std::endl;
+    return false;
+  }
+  Pattern *tempPat = patternFromJson(jsonObj);
+  if (!tempPat) {
+    return false;
+  }
+  // update the current mode with the parsed json mode
+  PatternID patID = tempPat->getPatternID();
+  PatternArgs args;
+  tempPat->getArgs(args);
+  Colorset set = tempPat->getColorset();
+  delete tempPat;
+  return cur->setPattern(patID, pos, &args, &set);
+}
+
+// dump the json to output
+std::string Vortex::printJson(bool pretty)
+{
+  json json = saveToJson();
+  return pretty ? json.dump(4) : json.dump();
 }
 
 bool Vortex::parseJson(const std::string &jsonStr)
 {
   try {
     json jsonObj = json::parse(jsonStr);
-    return loadJson(jsonObj);
+    return loadFromJson(jsonObj);
   } catch (json::parse_error &e) {
     std::cerr << "JSON Parse Error: " << e.what() << std::endl;
     return false;
   }
+}
+
+bool Vortex::printJsonToFile(const std::string &filename, bool pretty)
+{
+  std::ofstream file(filename);
+  if (!file.is_open()) {
+    return false;
+  }
+  std::string jsonStr = printJson(pretty);
+  if (!jsonStr.length()) {
+    return false;
+  }
+  file << jsonStr;
+  file.close();
+  return true;
 }
 
 bool Vortex::parseJsonFromFile(const std::string &filename)
@@ -2063,10 +2357,9 @@ bool Vortex::parseJsonFromFile(const std::string &filename)
   if (!file.is_open()) {
     return false;
   }
-
   try {
     json jsonObj = json::parse(file);
-    return loadJson(jsonObj);
+    return loadFromJson(jsonObj);
   } catch (json::parse_error &e) {
     std::cerr << "JSON Parse Error: " << e.what() << std::endl;
     return false;

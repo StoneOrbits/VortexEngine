@@ -67,29 +67,32 @@ enum Pair : uint8_t
   PAIR_0 = PAIR_FIRST,
   PAIR_1,
   PAIR_2,
-  PAIR_3,
-  PAIR_4,
 
   PAIR_COUNT,
   PAIR_LAST = (PAIR_COUNT - 1),
 };
+
+// Compile-time check on the number of pairs and leds
+static_assert(LED_COUNT == (PAIR_COUNT * 2), "Incorrect number of Pairs for Leds! Adjust the Led enum or Pair enum to match");
 
 // map other leds for multi compatibility
 #define LED_6 LED_0
 #define LED_7 LED_1
 #define LED_8 LED_2
 #define LED_9 LED_3
+#define PAIR_3 PAIR_0
+#define PAIR_4 PAIR_1
 
 // check if an led is even or odd
-#define isEven(pos) ((pos % 2) == 0)
-#define isOdd(pos) ((pos % 2) != 0)
+#define isEven(pos) (pos < 3)
+#define isOdd(pos) (pos >= 3)
 
 // convert a pair to even or odd led position
-#define pairEven(pair) (LedPos)((uint32_t)pair * 2)
-#define pairOdd(pair) (LedPos)(((uint32_t)pair * 2) + 1)
+#define pairEven(pair) (LedPos)((uint32_t)pair)
+#define pairOdd(pair) (LedPos)(((uint32_t)pair) + 3)
 
 // convert an led position to a pair
-#define ledToPair(pos) (Pair)((uint32_t)pos / 2)
+#define ledToPair(pos) (Pair)((uint32_t)pos >= 3 ? 1 : 0)
 
 // LedMap is a bitmap of leds, used for expressing whether to turn certain leds on
 // or off with a single integer
