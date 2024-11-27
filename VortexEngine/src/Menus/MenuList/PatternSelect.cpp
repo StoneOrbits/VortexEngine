@@ -61,7 +61,7 @@ void PatternSelect::onShortClick()
     bool doSkip = m_engine.button().onConsecutivePresses(2);
     MAP_FOREACH_LED(m_targetLeds) {
       Pattern *pat = m_previewMode.getPattern(pos);
-      if (pat->getNumArgs() <= m_argIndex) {
+      if (!pat || pat->getNumArgs() <= m_argIndex) {
         continue;
       }
       uint8_t &arg = pat->argRef(m_argIndex);
@@ -154,7 +154,8 @@ void PatternSelect::onLongClick()
     }
     m_engine.leds().holdAll(m_menuColor);
   }
-  needsSave = !m_engine.modes().curMode()->equals(&m_previewMode);
+  Mode *cur = m_engine.modes().curMode();
+  needsSave = !cur || !cur->equals(&m_previewMode);
   if (needsSave) {
     // update the current mode with the new pattern
     m_engine.modes().updateCurMode(&m_previewMode);
