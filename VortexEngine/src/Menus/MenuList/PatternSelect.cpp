@@ -17,8 +17,8 @@
 
 PatternSelect::PatternSelect(VortexEngine &engine, const RGBColor &col, bool advanced) :
   Menu(engine, col, advanced),
+  m_newPatternID(PATTERN_FIRST),
   m_srcLed(LED_FIRST),
-  m_argIndex(0),
   m_started(false)
 {
 }
@@ -45,7 +45,7 @@ Menu::MenuAction PatternSelect::run()
   // run the current mode
   m_previewMode.play();
   // show dimmer selections in advanced mode
-  m_engine.menus().showSelection(m_advanced ? RGB_GREEN0 : RGB_WHITE5);
+  m_engine.menus().showSelection(RGB_WHITE5);
   return MENU_CONTINUE;
 }
 
@@ -56,46 +56,6 @@ void PatternSelect::onLedSelected()
 
 void PatternSelect::onShortClick()
 {
-  if (m_advanced) {
-    // double click = skip 10
-    bool doSkip = m_engine.button().onConsecutivePresses(2);
-    MAP_FOREACH_LED(m_targetLeds) {
-      Pattern *pat = m_previewMode.getPattern(pos);
-      if (!pat || pat->getNumArgs() <= m_argIndex) {
-        continue;
-      }
-      uint8_t &arg = pat->argRef(m_argIndex);
-      if (doSkip) {
-        arg += 10 - (arg % 10);
-      } else {
-        arg++;
-      }
-      // on/off/gap/dash duration max 100
-      uint8_t max = 100;
-      if (m_argIndex == 6) {
-        // blend number of numflips
-        max = 4;
-      } else if (m_argIndex > 3) {
-        // group size, solid index, blendspeed
-        max = 20;
-      }
-      if (arg > max) {
-        // red flash indicates reaching end
-        m_engine.leds().holdAll(RGB_RED);
-        arg %= (max + 1);
-      }
-      // do not let argument0 be reset to 0
-      if (!m_argIndex && !arg) {
-        arg = 1;
-      }
-    }
-    m_previewMode.init();
-    if (doSkip) {
-      // hold white for a moment to show they are skipping 25
-      m_engine.leds().holdAll(RGB_YELLOW1);
-    }
-    return;
-  }
   nextPattern();
 }
 
@@ -146,14 +106,6 @@ void PatternSelect::nextPattern()
 void PatternSelect::onLongClick()
 {
   bool needsSave = false;
-  if (m_advanced) {
-    m_argIndex++;
-    if (m_argIndex < m_previewMode.getPattern(m_srcLed)->getNumArgs()) {
-      // if we haven't reached number of args yet then just return and kee pgoing
-      return;
-    }
-    m_engine.leds().holdAll(m_menuColor);
-  }
   Mode *cur = m_engine.modes().curMode();
   needsSave = !cur || !cur->equals(&m_previewMode);
   if (needsSave) {
