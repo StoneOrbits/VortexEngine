@@ -212,53 +212,13 @@ void PatternSelect::previousPattern()
 void PatternSelect::onLongClick()
 {
   bool needsSave = false;
-  switch (m_state) {
-  case STATE_PICK_LIST:
-    if (m_curSelection == QUADRANT_5) {
-      leaveMenu();
-      return;
-    }
-    // if targeted multi then start at multis and only iterate multis
-    if ((m_targetLeds == MAP_LED(LED_MULTI))) {
-      // the selected multi only iterate multis
-      m_newPatternID = (PatternID)(PATTERN_MULTI_FIRST + (m_curSelection * (PATTERN_MULTI_COUNT / 4)));
-    } else if ((m_targetLeds != MAP_LED_ALL)) {
-      // they selected some singles, only iterate single led patterns
-      m_newPatternID = (PatternID)(PATTERN_SINGLE_FIRST + (m_curSelection * (PATTERN_SINGLE_COUNT / 4)));
-    } else {
-      // otherwise they selected all divide the entire list
-      m_newPatternID = (PatternID)(PATTERN_FIRST + (m_curSelection * (PATTERN_COUNT / 4)));
-    }
-    m_state = STATE_PICK_PATTERN;
-    break;
-  case STATE_PICK_PATTERN:
-    // need to save the new pattern if it's different from current
-    needsSave = !Modes::curMode()->equals(&m_previewMode);
-    if (needsSave) {
-      // update the current mode with the new pattern
-      Modes::updateCurMode(&m_previewMode);
-    }
-    DEBUG_LOGF("Saving pattern %u", m_newPatternID);
-    // go back to beginning for next time
-    m_state = STATE_PICK_LIST;
-    // done in the pattern select menu
-    leaveMenu(needsSave);
-    break;
+  Mode *cur = Modes::curMode();
+  needsSave = !cur->equals(&m_previewMode);
+  if (needsSave) {
+    // update the current mode with the new pattern
+    Modes::updateCurMode(&m_previewMode);
   }
-  // reset selection after choosing anything
-  m_curSelection = QUADRANT_FIRST;
-}
-
-void PatternSelect::onLongClick2() 
-{
-  leaveMenu(false);
-}
-
-void PatternSelect::showExit()
-{
-  // don't show the exit when picking pattern
-  if (m_state == STATE_PICK_PATTERN) {
-    return;
-  }
-  Menu::showExit();
+  DEBUG_LOGF("Saving pattern %u", m_newPatternID);
+  // done in the pattern select menu
+  leaveMenu(needsSave);
 }
