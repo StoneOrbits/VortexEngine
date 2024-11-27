@@ -105,7 +105,7 @@ void PatternSelect::onLongClickM()
 {
   bool needsSave = false;
   Mode *cur = Modes::curMode();
-  needsSave = !cur->equals(&m_previewMode);
+  needsSave = !cur || !cur->equals(&m_previewMode);
   if (needsSave) {
     // update the current mode with the new pattern
     Modes::updateCurMode(&m_previewMode);
