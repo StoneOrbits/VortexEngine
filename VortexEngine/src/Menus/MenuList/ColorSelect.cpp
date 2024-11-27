@@ -98,7 +98,7 @@ void ColorSelect::onLedSelected()
   }
 }
 
-void ColorSelect::onShortClick()
+void ColorSelect::onShortClickM()
 {
   // increment selection
   m_curSelection++;
@@ -109,7 +109,7 @@ void ColorSelect::onShortClick()
   }
 }
 
-void ColorSelect::onLongClick()
+void ColorSelect::onLongClickM()
 {
   // if we're on 'exit' and we're on any menu past the slot selection
   if (m_curSelection == 4 && m_state > STATE_PICK_SLOT) {
@@ -123,7 +123,7 @@ void ColorSelect::onLongClick()
   }
   // reuse these variables lots
   uint8_t numColors = m_colorset.numColors();
-  uint32_t holdDur = g_pButton->holdDuration();
+  uint32_t holdDur = g_pButtonM->holdDuration();
   switch (m_state) {
   case STATE_INIT:
     // nothing
@@ -181,9 +181,9 @@ void ColorSelect::onLongClick()
 void ColorSelect::showSlotSelection()
 {
   uint8_t exitIndex = m_colorset.numColors();
-  uint32_t holdDur = g_pButton->holdDuration();
+  uint32_t holdDur = g_pButtonM->holdDuration();
   bool withinNumColors = m_curSelection < exitIndex;
-  bool holdDurationCheck = g_pButton->isPressed() && holdDur >= DELETE_THRESHOLD_TICKS;
+  bool holdDurationCheck = g_pButtonM->isPressed() && holdDur >= DELETE_THRESHOLD_TICKS;
   bool holdDurationModCheck = (holdDur % (DELETE_CYCLE_TICKS * 2)) > DELETE_CYCLE_TICKS;
   const RGBColor &col = m_colorset[m_curSelection];
   if (withinNumColors && holdDurationCheck && holdDurationModCheck) {
