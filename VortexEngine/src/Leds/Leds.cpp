@@ -33,8 +33,6 @@ bool Leds::init()
 #ifdef VORTEX_EMBEDDED
   FastLED.addLeds<WS2812B, LED_PIN, RGB>((CRGB *)m_ledColors, LED_COUNT);
   FastLED.setMaxRefreshRate(0);
-  //pinMode(MOSFET_PIN, OUTPUT);
-  //digitalWrite(MOSFET_PIN, HIGH);
 #endif
 #ifdef VORTEX_LIB
   Vortex::vcallbacks()->ledsInit(m_ledColors, LED_COUNT);
@@ -92,7 +90,7 @@ void Leds::setRangeEvens(Pair first, Pair last, RGBColor col)
 void Leds::setAllEvens(RGBColor col)
 {
   for (LedPos pos = LED_FIRST; pos <= LED_LAST; pos++) {
-    if (pos % 2) {
+    if (isEven(pos)) {
       setIndex(pos, col);
     }
   }
@@ -108,7 +106,7 @@ void Leds::setRangeOdds(Pair first, Pair last, RGBColor col)
 void Leds::setAllOdds(RGBColor col)
 {
   for (LedPos pos = LED_FIRST; pos <= LED_LAST; pos++) {
-    if (!(pos % 2)) {
+    if (isOdd(pos)) {
       setIndex(pos, col);
     }
   }
@@ -124,7 +122,7 @@ void Leds::clearRangeEvens(Pair first, Pair last)
 void Leds::clearAllEvens()
 {
   for (LedPos pos = LED_FIRST; pos <= LED_LAST; pos++) {
-    if (pos % 2) {
+    if (isEven(pos)) {
       clearIndex(pos);
     }
   }
@@ -140,7 +138,7 @@ void Leds::clearRangeOdds(Pair first, Pair last)
 void Leds::clearAllOdds()
 {
   for (LedPos pos = LED_FIRST; pos <= LED_LAST; pos++) {
-    if (!(pos % 2)) {
+    if (isOdd(pos)) {
       clearIndex(pos);
     }
   }
