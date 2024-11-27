@@ -59,7 +59,7 @@ void PatternSelect::onShortClickM()
     bool doSkip = g_pButtonM->onConsecutivePresses(2);
     MAP_FOREACH_LED(m_targetLeds) {
       Pattern *pat = m_previewMode.getPattern(pos);
-      if (pat->getNumArgs() <= m_argIndex) {
+      if (!pat || pat->getNumArgs() <= m_argIndex) {
         continue;
       }
       uint8_t &arg = pat->argRef(m_argIndex);
@@ -152,7 +152,8 @@ void PatternSelect::onLongClickM()
     }
     Leds::holdAll(m_menuColor);
   }
-  needsSave = !Modes::curMode()->equals(&m_previewMode);
+  Mode *cur = Modes::curMode();
+  needsSave = !cur->equals(&m_previewMode);
   if (needsSave) {
     // update the current mode with the new pattern
     Modes::updateCurMode(&m_previewMode);
