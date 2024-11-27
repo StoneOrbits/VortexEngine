@@ -39,6 +39,9 @@ private:
   bool receiveMessage(const char *message);
   void clearDemo();
 
+  // override showExit so it isn't displayed on thumb
+  virtual void showExit() override;
+
   enum EditorConnectionState {
     // the editor is not connected
     STATE_DISCONNECTED,
