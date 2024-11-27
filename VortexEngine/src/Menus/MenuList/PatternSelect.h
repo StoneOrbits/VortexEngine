@@ -25,10 +25,10 @@ public:
 private:
   void nextPatternID();
   void nextPattern();
-  
+
   // the patternid of the current demo
   PatternID m_newPatternID;
-  
+
   // helpful member
   LedPos m_srcLed;
 
