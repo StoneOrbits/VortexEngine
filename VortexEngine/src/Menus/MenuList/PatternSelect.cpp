@@ -15,7 +15,6 @@
 
 PatternSelect::PatternSelect(const RGBColor &col, bool advanced) :
   Menu(col, advanced),
-  m_newPatternID(PATTERN_FIRST),
   m_srcLed(LED_FIRST),
   m_started(false)
 {
