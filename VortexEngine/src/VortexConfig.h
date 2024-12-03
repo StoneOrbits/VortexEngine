@@ -197,7 +197,7 @@
 // This should not be set to 0, it should be a specific maximum for
 // each separate device
 //
-#define MAX_MODES             5
+#define MAX_MODES             9
 
 // Default Tickrate in Ticks Per Second (TPS)
 //
