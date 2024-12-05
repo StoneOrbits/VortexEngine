@@ -34,10 +34,14 @@ bool ModeSharing::init()
   }
   // skip led selection
   m_ledSelected = true;
-  // start on receive because it's the more responsive of the two
-  // the odds of opening receive and then accidentally receiving
-  // a mode that is being broadcast nearby is completely unlikely
-  beginReceivingVL();
+  if (m_advanced) {
+    // start on receive because it's the more responsive of the two
+    // the odds of opening receive and then accidentally receiving
+    // a mode that is being broadcast nearby is completely unlikely
+    beginReceivingVL();
+  } else {
+    beginReceivingIR();
+  }
   DEBUG_LOG("Entering Mode Sharing");
   return true;
 }
@@ -78,7 +82,7 @@ Menu::MenuAction ModeSharing::run()
 }
 
 // handlers for clicks
-void ModeSharing::onShortClickM()
+void ModeSharing::onShortClick()
 {
   switch (m_sharingMode) {
   case ModeShareState::SHARE_RECEIVE_VL:
@@ -104,15 +108,9 @@ void ModeSharing::onShortClickM()
   Leds::clearAll();
 }
 
-// handlers for clicks
-void ModeSharing::onShortClickL()
+void ModeSharing::onLongClick()
 {
-  switchVLIR();
-}
-
-void ModeSharing::onShortClickR()
-{
-  switchVLIR();
+  leaveMenu();
 }
 
 void ModeSharing::switchVLIR()
@@ -130,12 +128,6 @@ void ModeSharing::switchVLIR()
     break;
   }
   Leds::clearAll();
-}
-
-void ModeSharing::onLongClickM()
-{
-  Modes::updateCurMode(&m_previewMode);
-  leaveMenu(true);
 }
 
 void ModeSharing::beginSendingIR()
@@ -208,11 +200,9 @@ void ModeSharing::receiveModeIR()
     return;
   }
   DEBUG_LOGF("Success receiving mode: %u", m_previewMode.getPatternID());
-  if (!m_advanced) {
-    Modes::updateCurMode(&m_previewMode);
-    // leave menu and save settings, even if the mode was the same whatever
-    leaveMenu(true);
-  }
+  Modes::updateCurMode(&m_previewMode);
+  // leave menu and save settings, even if the mode was the same whatever
+  leaveMenu(true);
 }
 
 void ModeSharing::beginSendingVL()
@@ -275,11 +265,9 @@ void ModeSharing::receiveModeVL()
     return;
   }
   DEBUG_LOGF("Success receiving mode: %u", m_previewMode.getPatternID());
-  if (!m_advanced) {
-    Modes::updateCurMode(&m_previewMode);
-    // leave menu and save settings, even if the mode was the same whatever
-    leaveMenu(true);
-  }
+  Modes::updateCurMode(&m_previewMode);
+  // leave menu and save settings, even if the mode was the same whatever
+  leaveMenu(true);
 }
 
 void ModeSharing::showSendModeVL()
@@ -302,11 +290,7 @@ void ModeSharing::showReceiveModeVL()
     Leds::clearAll();
     Leds::setRange(LED_FIRST, (LedPos)(VLReceiver::percentReceived() / 10), RGBColor(0, 1, 0));
   } else {
-    if (m_advanced) {
-      m_previewMode.play();
-    } else {
-      Leds::setAll(0x010101);
-    }
+    Leds::setAll(0x010101);
   }
 }
 
@@ -317,10 +301,6 @@ void ModeSharing::showReceiveModeIR()
     Leds::clearAll();
     Leds::setRange(LED_FIRST, (LedPos)(VLReceiver::percentReceived() / 10), RGBColor(0, 1, 0));
   } else {
-    if (m_advanced) {
-      m_previewMode.play();
-    } else {
-      Leds::setAll(RGB_CYAN0);
-    }
+    Leds::setAll(RGB_CYAN0);
   }
 }
