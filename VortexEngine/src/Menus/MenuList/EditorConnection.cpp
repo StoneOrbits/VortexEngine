@@ -12,7 +12,6 @@
 #include "../../Modes/Modes.h"
 #include "../../Modes/Mode.h"
 #include "../../Leds/Leds.h"
-#include "../../UPDI/updi.h"
 #include "../../Log/Log.h"
 
 #include <string.h>
@@ -331,135 +330,6 @@ void EditorConnection::handleState()
     // on lightshow.lol so just skip to IDLE
     m_state = STATE_IDLE;
     break;
-
-  // -------------------------------
-  //  Get Chromalinked Duo Header
-  case STATE_PULL_HEADER_CHROMALINK:
-    if (!pullHeaderChromalink()) {
-      // error?
-      break;
-    }
-    // done
-    m_receiveBuffer.clear();
-    m_state = STATE_IDLE;
-    break;
-
-  // -------------------------------
-  //  Get Chromalinked Duo Mode
-  case STATE_PULL_MODE_CHROMALINK:
-    // now say we are ready
-    m_receiveBuffer.clear();
-    SerialComs::write(EDITOR_VERB_READY);
-    m_state = STATE_PULL_MODE_CHROMALINK_SEND;
-    break;
-  case STATE_PULL_MODE_CHROMALINK_SEND:
-    // send the stuff
-    if (!pullModeChromalink()) {
-      break;
-    }
-    // done
-    m_curStep = 0;
-    m_state = STATE_IDLE;
-    break;
-
-  // -------------------------------
-  //  Set Chromalinked Duo Header
-  case STATE_PUSH_HEADER_CHROMALINK:
-    // editor requested to push modes, clear first and reset first
-    m_receiveBuffer.clear();
-    // now say we are ready
-    SerialComs::write(EDITOR_VERB_READY);
-    // move to receiving
-    m_state = STATE_PUSH_HEADER_CHROMALINK_RECEIVE;
-    break;
-  case STATE_PUSH_HEADER_CHROMALINK_RECEIVE:
-    // receive the modes into the receive buffer
-    if (!pushHeaderChromalink()) {
-      break;
-    }
-    // the trick is to send header after the modes so the reset comes at the end
-    UPDI::reset();
-    // success modes were received send the done
-    SerialComs::write(EDITOR_VERB_PUSH_CHROMA_HDR_ACK);
-    m_receiveBuffer.clear();
-    m_state = STATE_IDLE;
-    break;
-
-  // -------------------------------
-  //  Set Chromalinked Duo Mode
-  case STATE_PUSH_MODE_CHROMALINK:
-    // editor requested to push modes, clear first and reset first
-    m_receiveBuffer.clear();
-    // now say we are ready
-    SerialComs::write(EDITOR_VERB_READY);
-    // move to receiving
-    m_state = STATE_PUSH_MODE_CHROMALINK_RECEIVE_IDX;
-    break;
-  case STATE_PUSH_MODE_CHROMALINK_RECEIVE_IDX:
-    if (!receiveModeIdx(m_chromaModeIdx)) {
-      break;
-    }
-    m_receiveBuffer.clear();
-    SerialComs::write(EDITOR_VERB_READY);
-    m_state = STATE_PUSH_MODE_CHROMALINK_RECEIVE;
-    break;
-  case STATE_PUSH_MODE_CHROMALINK_RECEIVE:
-    if (!pushModeChromalink()) {
-      break;
-    }
-    SerialComs::write(EDITOR_VERB_PUSH_CHROMA_MODE_ACK);
-    // done
-    m_receiveBuffer.clear();
-    m_state = STATE_IDLE;
-    break;
-
-  // -------------------------------
-  //  Flash Chromalinked Duo
-  case STATE_CHROMALINK_FLASH_FIRMWARE:
-    // editor requested to push modes, clear first and reset first
-    m_receiveBuffer.clear();
-    // now say we are ready
-    SerialComs::write(EDITOR_VERB_READY);
-    // move to receiving
-    m_state = STATE_CHROMALINK_FLASH_FIRMWARE_RECEIVE_SIZE;
-    break;
-  case STATE_CHROMALINK_FLASH_FIRMWARE_RECEIVE_SIZE:
-    if (!receiveFirmwareSize(m_firmwareSize)) {
-      break;
-    }
-    UPDI::eraseMemory();
-    m_curStep = 0;
-    m_firmwareOffset = 0;
-    Leds::setAll(RGB_YELLOW3);
-    m_receiveBuffer.clear();
-    SerialComs::write(EDITOR_VERB_READY);
-    // TODO: this god awful delay idk why it's necessary but without 
-    // it the serial seems to get stuck. It appears like an esp internals
-    // issue with serial but maybe this logic is just buggy -- it runs fine
-    // when simulated in test framework connected to editor though
-    Time::delayMilliseconds(300);
-    m_state = STATE_CHROMALINK_FLASH_FIRMWARE_RECEIVE;
-    break;
-  case STATE_CHROMALINK_FLASH_FIRMWARE_RECEIVE:
-    // receive and write a chunk of firwmare
-    if (!writeDuoFirmware()) {
-      break;
-    }
-    // send ack
-    SerialComs::write(EDITOR_VERB_FLASH_FIRMWARE_ACK);
-    // TODO: this god awful delay idk why it's necessary but without 
-    // it the serial seems to get stuck. It appears like an esp internals
-    // issue with serial but maybe this logic is just buggy -- it runs fine
-    // when simulated in test framework connected to editor though
-    Time::delayMilliseconds(5);
-    // only once the entire firmware is written
-    if (m_firmwareOffset >= m_firmwareSize) {
-      // then done
-      m_receiveBuffer.clear();
-      m_curStep = 0;
-      m_state = STATE_IDLE;
-    }
-    break;
   }
 }
 
@@ -480,84 +350,6 @@ void EditorConnection::listenModeVL()
   VLReceiver::beginReceiving();
 #endif
   m_state = STATE_LISTEN_MODE_VL;
-}
-
-bool EditorConnection::pullHeaderChromalink()
-{
-  // first read the duo save header
-  ByteStream saveHeader;
-  if (!UPDI::readHeader(saveHeader)) {
-    return false;
-  }
-  if (!saveHeader.size() || !saveHeader.checkCRC()) {
-    // error?
-    return false;
-  }
-  SerialComs::write(saveHeader);
-  return true;
-}
-
-bool EditorConnection::pushHeaderChromalink()
-{
-  // wait for the header then write it via updi
-  ByteStream buf;
-  if (!receiveBuffer(buf)) {
-    return false;
-  }
-  if (!UPDI::writeHeader(buf)) {
-    return false;
-  }
-  return true;
-}
-
-// pull/push through the chromalink
-bool EditorConnection::pullModeChromalink()
-{
-  // try to receive the mode index
-  uint8_t modeIdx = 0;
-  // only 9 modes on duo, maybe this should be a macro or something
-  if (!receiveModeIdx(modeIdx) || modeIdx >= 9) {
-    return false;
-  }
-  ByteStream modeBuffer;
-  if (!UPDI::readMode(modeIdx, modeBuffer)) {
-    return false;
-  }
-  SerialComs::write(modeBuffer);
-  return true;
-}
-
-bool EditorConnection::pushModeChromalink()
-{
-  // wait for the mode then write it via updi
-  ByteStream buf;
-  if (!receiveBuffer(buf)) {
-    return false;
-  }
-  if (!UPDI::writeMode(m_chromaModeIdx, buf)) {
-    return false;
-  }
-  return true;
-}
-
-bool EditorConnection::writeDuoFirmware()
-{
-  // wait for the mode then write it via updi
-  ByteStream buf;
-  if (!receiveBuffer(buf)) {
-    return false;
-  }
-  if (!UPDI::writeFirmware(m_firmwareOffset, buf)) {
-    return false;
-  }
-  m_firmwareOffset += buf.size();
-  if (m_firmwareOffset >= m_firmwareSize) {
-    UPDI::reset();
-  }
-  // create a progress bar I guess
-  Leds::setAll(RGB_RED0);
-  Leds::setRange(LED_0, (LedPos)((m_firmwareOffset / (float)m_firmwareSize) * LED_COUNT), RGB_GREEN3);
-  return true;
 }
 
 void EditorConnection::onShortClickM()
@@ -604,16 +396,6 @@ void EditorConnection::handleCommand()
     sendCurModeVL();
   } else if (receiveMessage(EDITOR_VERB_LISTEN_VL)) {
     listenModeVL();
-  } else if (receiveMessage(EDITOR_VERB_PULL_CHROMA_HDR)) {
-    m_state = STATE_PULL_HEADER_CHROMALINK;
-  } else if (receiveMessage(EDITOR_VERB_PUSH_CHROMA_HDR)) {
-    m_state = STATE_PUSH_HEADER_CHROMALINK;
-  } else if (receiveMessage(EDITOR_VERB_PULL_CHROMA_MODE)) {
-    m_state = STATE_PULL_MODE_CHROMALINK;
-  } else if (receiveMessage(EDITOR_VERB_PUSH_CHROMA_MODE)) {
-    m_state = STATE_PUSH_MODE_CHROMALINK;
-  } else if (receiveMessage(EDITOR_VERB_FLASH_FIRMWARE)) {
-    m_state = STATE_CHROMALINK_FLASH_FIRMWARE;
   }
 }
 
@@ -865,7 +647,6 @@ void EditorConnection::showReceiveModeVL()
     // using uint32_t to avoid overflow, the result should be within 10 to 255
     //Leds::setAll(RGBColor(0, VLReceiver::percentReceived(), 0));
     Leds::setRange(LED_0, (LedPos)(VLReceiver::percentReceived() / 10), RGB_GREEN6);
-    Leds::setRange(LED_10, (LedPos)(LED_10 + (VLReceiver::percentReceived() / 10)), RGB_GREEN6);
   } else {
     Leds::setAll(RGB_WHITE0);
   }
