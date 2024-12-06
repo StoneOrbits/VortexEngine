@@ -12,7 +12,7 @@
 #define BUTTON_PIN 47
 #else
 // orbit is on 7
-#define BUTTON_PIN 7
+#define BUTTON_PIN 5
 #endif
 
 // Since there is only one button I am just going to expose a global pointer to
