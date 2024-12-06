@@ -352,7 +352,7 @@ void EditorConnection::listenModeVL()
   m_state = STATE_LISTEN_MODE_VL;
 }
 
-void EditorConnection::onShortClickM()
+void EditorConnection::onShortClick()
 {
   // if the device has received any commands do not reset!
   if (!m_allowReset) {
@@ -366,7 +366,7 @@ void EditorConnection::onShortClickM()
   m_allowReset = false;
 }
 
-void EditorConnection::onLongClickM()
+void EditorConnection::onLongClick()
 {
   leaveMenu(true);
 }

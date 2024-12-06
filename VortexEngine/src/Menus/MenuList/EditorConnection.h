@@ -19,16 +19,9 @@ public:
   void sendCurModeVL();
   void listenModeVL();
 
-  // pull/push through the chromalink
-  bool pullHeaderChromalink();
-  bool pushHeaderChromalink();
-  bool pullModeChromalink();
-  bool pushModeChromalink();
-  bool writeDuoFirmware();
-
   // handlers for clicks
-  void onShortClickM() override;
-  void onLongClickM() override;
+  void onShortClick() override;
+  void onLongClick() override;
 
   // menu conn
   void leaveMenu(bool doSave = false) override;
