@@ -7,6 +7,6 @@ parent: Vortex Editors
 
 # lightshow.lol
 
-The website lightshow.lol is a web-based Vortex Editor.
+This page is under construction and will be completed soon!
 
 
