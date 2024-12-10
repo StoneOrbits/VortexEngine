@@ -180,7 +180,7 @@ void VortexEngine::runMainLogic()
 
   // check for serial first before anything runs, but as a result if we open
   // editor we have to call modes load inside here
-  if (SerialComs::checkSerial()) {
+  if (!Menus::checkInMenu() && SerialComs::checkSerial()) {
     // directly open the editor connection menu because we are connected to USB serial
     Menus::openMenu(MENU_EDITOR_CONNECTION);
   }
