@@ -7,13 +7,8 @@
 #include "../Time/Timings.h"
 #endif
 
-#if SPARK_HANDLE == 1
-// handle is on 47
-#define BUTTON_PIN 47
-#else
-// orbit is on 7
+// spark button pin
 #define BUTTON_PIN 5
-#endif
 
 // Since there is only one button I am just going to expose a global pointer to
 // access it, instead of making the Button class static in case a second button

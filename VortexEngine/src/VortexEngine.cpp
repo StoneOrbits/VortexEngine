@@ -31,7 +31,7 @@ bool VortexEngine::init()
 {
   // all of the global controllers
   if (!Time::init()) {
-    DEBUG_LOG("Time failed to initialize");
+    //DEBUG_LOG("Time failed to initialize");
     return false;
   }
   if (!SerialComs::init()) {
@@ -180,7 +180,7 @@ void VortexEngine::runMainLogic()
 
   // check for serial first before anything runs, but as a result if we open
   // editor we have to call modes load inside here
-  if (!Menus::checkInMenu() && SerialComs::checkSerial()) {
+  if ((Menus::curMenuID() != MENU_EDITOR_CONNECTION) && SerialComs::checkSerial()) {
     // directly open the editor connection menu because we are connected to USB serial
     Menus::openMenu(MENU_EDITOR_CONNECTION);
   }
