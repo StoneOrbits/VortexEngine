@@ -109,9 +109,9 @@ bool Menus::runMenuSelection()
     // Hide the editor connection menu because it opens automatically
     // TODO: Create a better way to hide this menu color, this menu
     //       will automatically open when the device is plugged in
-    //if (m_selection == MENU_EDITOR_CONNECTION) {
-    //  m_selection++;
-    //}
+    if (m_selection == MENU_EDITOR_CONNECTION) {
+      m_selection++;
+    }
 #endif
     DEBUG_LOGF("Cyling to ring menu %u", m_selection);
     // reset the open time so that it starts again
