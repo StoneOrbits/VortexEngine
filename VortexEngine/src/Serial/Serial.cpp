@@ -57,20 +57,21 @@ bool SerialComs::isConnectedReal()
 #endif
 
   unsigned long currentTime = Time::getCurtime();
-
-  if (currentState != lastState) {
-    if (!currentState) {
-      // Check if the state has been false for at least 1 millisecond
-      if ((currentTime - lastChangeTime) < 1) {
-        return lastState; // State hasn't been false long enough
-      }
+  if (!currentState) {
+    // Check if the state has been false for at least 1 millisecond
+    if (lastChangeTime && (currentTime - lastChangeTime) < 300) {
+      return lastState; // State hasn't been false long enough
     }
-
-    // Update the last state and change time
-    lastChangeTime = currentTime;
+    if (currentState != lastState) {
+      // Update the last state and change time
+      lastChangeTime = currentTime;
+      lastState = currentState;
+      return lastState;
+    }
+  } else {
     lastState = currentState;
+    lastChangeTime = currentTime;
   }
-
   return currentState;
 }
 
@@ -174,6 +175,26 @@ void SerialComs::read(ByteStream &byteStream)
 #endif
     byteStream.serialize8(byte);
   } while (--amt > 0);
+#endif
+}
+
+void SerialComs::readAmount(uint32_t amount, ByteStream &byteStream)
+{
+#if VORTEX_SLIM == 0
+  if (!isConnected()) {
+    return;
+  }
+  do {
+    uint8_t byte = 0;
+#ifdef VORTEX_LIB
+    if (!Vortex::vcallbacks()->serialRead((char *)&byte, 1)) {
+      return;
+    }
+#else
+    byte = Serial.read();
+#endif
+    byteStream.serialize8(byte);
+  } while (--amount > 0);
 #endif
 }
 

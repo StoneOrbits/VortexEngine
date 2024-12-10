@@ -164,6 +164,11 @@ inline LedPos ledmapGetNextLed(LedMap map, LedPos pos)
 #define MAP_PAIR_EVEN_EVENS (MAP_PAIR_EVEN(PAIR_3) | MAP_PAIR_EVEN(PAIR_1))
 #define MAP_PAIR_EVEN_ODDS (MAP_PAIR_ODD(PAIR_3) | MAP_PAIR_ODD(PAIR_1))
 
+// bitmaps specific to Sparks
+#define MAP_OPPOSITES_1 (MAP_LED(LED_0) | MAP_LED(LED_3))
+#define MAP_OPPOSITES_2 (MAP_LED(LED_1) | MAP_LED(LED_4))
+#define MAP_OPPOSITES_3 (MAP_LED(LED_2) | MAP_LED(LED_5))
+
 // set a single led
 inline void ledmapSetLed(LedMap &map, LedPos pos)
 {

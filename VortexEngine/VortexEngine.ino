@@ -1,5 +1,4 @@
 #include <Arduino.h>
-
 #include "src/VortexEngine.h"
 
 void setup()

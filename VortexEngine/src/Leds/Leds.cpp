@@ -15,12 +15,7 @@
 #ifdef VORTEX_EMBEDDED
 #pragma GCC diagnostic ignored "-Wclass-memaccess"
 #include <FastLED.h>
-#define LED_PIN       0
-#if SPARK_HANDLE == 1
-#define MOSFET_PIN    48
-#else
-#define MOSFET_PIN    18
-#endif
+#define LED_PIN     0
 #endif
 
 // global brightness
@@ -31,10 +26,8 @@ RGBColor Leds::m_ledColors[LED_COUNT] = { RGB_OFF };
 bool Leds::init()
 {
 #ifdef VORTEX_EMBEDDED
-  FastLED.addLeds<WS2812B, LED_PIN, GRB>((CRGB *)m_ledColors, LED_COUNT);
+  FastLED.addLeds<WS2812B, LED_PIN, RGB>((CRGB *)m_ledColors, LED_COUNT);
   FastLED.setMaxRefreshRate(0);
-  pinMode(MOSFET_PIN, OUTPUT);
-  digitalWrite(MOSFET_PIN, HIGH);
 #endif
 #ifdef VORTEX_LIB
   Vortex::vcallbacks()->ledsInit(m_ledColors, LED_COUNT);
@@ -91,8 +84,10 @@ void Leds::setRangeEvens(Pair first, Pair last, RGBColor col)
 
 void Leds::setAllEvens(RGBColor col)
 {
-  for (Pair pos = PAIR_FIRST; pos <= PAIR_LAST; pos++) {
-    setIndex(pairEven(pos), col);
+  for (LedPos pos = LED_FIRST; pos <= LED_LAST; pos++) {
+    if (isEven(pos)) {
+      setIndex(pos, col);
+    }
   }
 }
 
@@ -105,8 +100,10 @@ void Leds::setRangeOdds(Pair first, Pair last, RGBColor col)
 
 void Leds::setAllOdds(RGBColor col)
 {
-  for (Pair pos = PAIR_FIRST; pos <= PAIR_LAST; pos++) {
-    setIndex(pairOdd(pos), col);
+  for (LedPos pos = LED_FIRST; pos <= LED_LAST; pos++) {
+    if (isOdd(pos)) {
+      setIndex(pos, col);
+    }
   }
 }
 
@@ -119,8 +116,10 @@ void Leds::clearRangeEvens(Pair first, Pair last)
 
 void Leds::clearAllEvens()
 {
-  for (Pair pos = PAIR_FIRST; pos <= PAIR_LAST; pos++) {
-    clearIndex(pairEven(pos));
+  for (LedPos pos = LED_FIRST; pos <= LED_LAST; pos++) {
+    if (isEven(pos)) {
+      clearIndex(pos);
+    }
   }
 }
 
@@ -133,8 +132,10 @@ void Leds::clearRangeOdds(Pair first, Pair last)
 
 void Leds::clearAllOdds()
 {
-  for (Pair pos = PAIR_FIRST; pos <= PAIR_LAST; pos++) {
-    clearIndex(pairOdd(pos));
+  for (LedPos pos = LED_FIRST; pos <= LED_LAST; pos++) {
+    if (isOdd(pos)) {
+      clearIndex(pos);
+    }
   }
 }
 
