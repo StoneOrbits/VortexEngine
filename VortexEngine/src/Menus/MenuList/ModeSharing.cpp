@@ -16,7 +16,7 @@
 
 ModeSharing::ModeSharing(const RGBColor &col, bool advanced) :
   Menu(col, advanced),
-  m_sharingMode(ModeShareState::SHARE_RECEIVE_VL),
+  m_sharingMode(ModeShareState::SHARE_RECEIVE_IR),
   m_timeOutStartTime(0),
   m_lastSendTime(0),
   m_shouldEndSend(false)
