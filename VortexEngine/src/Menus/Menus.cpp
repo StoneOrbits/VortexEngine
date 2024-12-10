@@ -123,6 +123,9 @@ bool Menus::runMenuSelection()
   if (g_pButtonL->onShortClick()) {
     // decrement selection and wrap around at num menus
     m_selection = m_selection ? m_selection - 1 : NUM_MENUS - 1;
+    if (m_selection == MENU_EDITOR_CONNECTION) {
+      m_selection++;
+    }
     DEBUG_LOGF("Cyling backwards to ring menu %u", m_selection);
     // reset the open time so that it starts again
     m_openTime = Time::getCurtime();
