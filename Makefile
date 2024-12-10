@@ -35,7 +35,7 @@ install:
 	$(ARDUINO_CLI) lib update-index
 	$(ARDUINO_CLI) core update-index --config-file $(CONFIG_FILE)
 	$(ARDUINO_CLI) core install esp32:esp32 --config-file $(CONFIG_FILE)
-	$(ARDUINO_CLI) lib install FastLED
+	$(ARDUINO_CLI) lib install FastLED@3.7.6
 
 build: compute_version
 	$(ARDUINO_CLI) compile --fqbn $(BOARD) $(PROJECT_NAME) \
