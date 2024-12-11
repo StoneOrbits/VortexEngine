@@ -52,7 +52,7 @@ void PatternSelect::onLedSelected()
   m_srcLed = ledmapGetFirstLed(m_targetLeds);
 }
 
-void PatternSelect::onShortClick()
+void PatternSelect::onShortClickM()
 {
   nextPattern();
 }
@@ -101,7 +101,7 @@ void PatternSelect::nextPattern()
   DEBUG_LOGF("Iterated to pattern id %d", m_newPatternID);
 }
 
-void PatternSelect::onLongClick()
+void PatternSelect::onLongClickM()
 {
   bool needsSave = false;
   Mode *cur = Modes::curMode();
