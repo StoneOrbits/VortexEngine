@@ -174,6 +174,19 @@ serial: all
 	$(PYTHON) -u $(PYPROG) -t uart -u $(SERIAL_PORT) -b 921600 -d $(AVRDUDE_CHIP) \
 		--fuses 0:$(WDTCFG) 1:$(BODCFG) 2:$(OSCCFG) 4:$(TCD0CFG) 5:$(SYSCFG0) 6:$(SYSCFG1) 7:$(APPEND) 8:$(BOOTEND) -f $(TARGET).hex -a write -v
 
+production:
+	@FILE_URL=$$(curl -s https://vortex.community/downloads/json/duo | sed -n 's/.*"fileUrl":"\([^"]*\)".*/\1/p'); \
+	FILENAME=$$(basename $$FILE_URL); \
+	if [ ! -f "$$FILENAME" ]; then \
+		echo "Downloading new firmware: $$FILENAME"; \
+		curl -L -O "$$FILE_URL"; \
+	fi; \
+	$(OBJCOPY) -I binary -O ihex $$FILENAME firmware.hex > /dev/null; \
+	echo "Uploading Duo Firmware: $$FILENAME"; \
+	$(PYTHON) -u $(PYPROG) -t uart -u $(SERIAL_PORT) -b 921600 -d $(AVRDUDE_CHIP) \
+		--fuses 0:$(WDTCFG) 1:$(BODCFG) 2:$(OSCCFG) 4:$(TCD0CFG) 5:$(SYSCFG0) 6:$(SYSCFG1) 7:$(APPEND) 8:$(BOOTEND) -f firmware.hex -a write -v
+	rm -f firmware.hex > /dev/null
+
 ifneq ($(OS),Windows_NT) # Linux
 build: all
 INSTALL_DIR=~/atmel_setup
