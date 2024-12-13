@@ -112,8 +112,10 @@ bool UPDI::readHeader(ByteStream &header)
   // major.minor are the first two bytes of the buffer
   uint8_t major = header.data()[0];
   uint8_t minor = header.data()[1];
-  // LEGACY DUO! Old Storage format is used
-  m_legacyStorage = (major >= 1 && minor < 4);
+  // build was only added to this storage space later on
+  uint8_t build = (header.size() > 5) ? header.data()[5] : 0;
+  // LEGACY DUO! Old Storage format is used before 1.3.25
+  m_legacyStorage = (major <= 1 && minor <= 3 && build <= 25);
 #endif
   return true;
 }
