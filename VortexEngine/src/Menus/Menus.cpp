@@ -128,7 +128,7 @@ bool Menus::runMenuSelection()
     // TODO: Create a better way to hide this menu color, this menu
     //       will automatically open when the device is plugged in
     if (m_selection == MENU_EDITOR_CONNECTION) {
-      m_selection++;
+      m_selection = MENU_EDITOR_CONNECTION - 1;
     }
 #endif
     DEBUG_LOGF("Cyling backwards to ring menu %u", m_selection);
