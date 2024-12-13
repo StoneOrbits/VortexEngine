@@ -208,7 +208,7 @@ install:
 endif
 
 clean:
-	rm -f $(OBJS) $(TARGET).elf $(TARGET).hex $(DFILES)
+	rm -f $(OBJS) $(TARGET).elf $(TARGET).hex $(TARGET).bin $(DFILES)
 
 compute_version:
 	$(eval LATEST_TAG ?= $(shell git fetch --depth=1 origin +refs/tags/*:refs/tags/* &> /dev/null && git tag --list "*$(BRANCH_SUFFIX)" | sort -V | tail -n1))
