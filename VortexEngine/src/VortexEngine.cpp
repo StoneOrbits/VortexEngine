@@ -93,6 +93,10 @@ bool VortexEngine::init()
     return false;
   }
 
+  MainMenu::select();
+  Menus::openMenu(MENU_COLOR_SELECT);
+  Vortex::longClick(1);
+
 #if COMPRESSION_TEST == 1
   compressionTest();
 #endif
