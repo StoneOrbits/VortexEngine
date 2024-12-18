@@ -140,8 +140,10 @@ private:
   static void sendEraseKey() { sendKey("NVMErase"); }
   static void sendProgKey() { sendKey("NVMProg "); }
   static void sendUserrowKey() { sendKey("NVMUs&te"); }
+
+  // whether connected to a legacy duo
+  static bool m_legacyStorage;
 #endif
 };
-
 
 #endif // UPDI_H

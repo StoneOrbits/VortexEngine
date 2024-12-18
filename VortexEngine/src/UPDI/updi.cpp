@@ -51,6 +51,22 @@
 // the key here is setting the gpio as GPIO_FLOATING to prevent contention
 #define GPIO_SET_INPUT(gpio_num) (GPIO.enable_w1tc.val = (1U << gpio_num)); gpio_set_pull_mode((gpio_num_t)gpio_num, GPIO_FLOATING);
 
+// the max size of a single mode
+#define DUO_MODE_SIZE 76
+// the size of the actual storage header data
+#define DUO_HEADER_SIZE 15
+// the full size of the storage header, data + metadata (first 27 bytes of eeprom)
+#define DUO_HEADER_FULL_SIZE (DUO_HEADER_SIZE + 12)
+// the base address of eeprom and where the save header starts
+// followed by 3 modes each 76 makes 255 bytes of eeprom
+#define DUO_EEPROM_BASE 0x1400
+// then the next 6 modes are stored in flash from 0xfe00 to 0x10000
+// which is 512 bytes of space that can be adjusted
+#define DUO_FLASH_STORAGE_BASE 0xFe00
+// the actual firmware is 0x8000 to 0x10000
+#define DUO_FIRMWARE_BASE 0x8000
+
+bool UPDI::m_legacyStorage = false;
 #endif
 
 bool UPDI::init()
@@ -76,12 +92,12 @@ uint8_t UPDI::isConnected()
 bool UPDI::readHeader(ByteStream &header)
 {
 #ifdef VORTEX_EMBEDDED
-  if (!header.init(5)) {
+  if (!header.init(DUO_HEADER_SIZE)) {
     return false;
   }
   enterProgrammingMode();
   uint8_t *ptr = (uint8_t *)header.rawData();
-  uint16_t addr = 0x1400;
+  uint16_t addr = DUO_EEPROM_BASE;
   stptr_p((const uint8_t *)&addr, 2);
   for (uint16_t i = 0; i < header.rawSize(); ++i) {
     ptr[i] = ldinc_b();
@@ -93,6 +109,13 @@ bool UPDI::readHeader(ByteStream &header)
     reset();
     return false;
   }
+  // major.minor are the first two bytes of the buffer
+  uint8_t major = header.data()[0];
+  uint8_t minor = header.data()[1];
+  // build was only added to this storage space later on
+  uint8_t build = (header.size() > 5) ? header.data()[5] : 0;
+  // LEGACY DUO! Old Storage format is used before 1.3.25
+  m_legacyStorage = (major <= 1 && minor <= 3 && build <= 25);
 #endif
   return true;
 }
@@ -101,23 +124,26 @@ bool UPDI::readMode(uint8_t idx, ByteStream &modeBuffer)
 {
 #ifdef VORTEX_EMBEDDED
   // initialize mode buffer
-  if (!modeBuffer.init(76)) {
+  if (!modeBuffer.init(DUO_MODE_SIZE)) {
     return false;
   }
   enterProgrammingMode();
-  // 76 is the max duo mode size (the slot size)
+  // DUO_MODE_SIZE is the max duo mode size (the slot size)
   uint8_t *ptr = (uint8_t *)modeBuffer.rawData();
   uint16_t numBytes = modeBuffer.rawSize();
   uint16_t base;
   // there are 3 modes in the eeprom after the header
   if (idx < 3) {
-    // 0x1400 is eeprom base
-    // 17 is size of duo header
-    // 76 is size of each duo mode
-    base = 0x1400 + 17 + (idx * 76);
+    // DUO_EEPROM_BASE is eeprom base
+    // DUO_HEADER_FULL_SIZE is size of duo header
+    // DUO_MODE_SIZE is size of each duo mode
+    base = DUO_EEPROM_BASE + (DUO_HEADER_FULL_SIZE) + (idx * DUO_MODE_SIZE);
+    if (m_legacyStorage) {
+      base -= 10;
+    }
   } else {
-    // 0xFe00 is the end of flash, 0x200 before
-    base = 0xFe00 + ((idx - 3) * 76);
+    // DUO_FLASH_STORAGE_BASE is the end of flash, 0x200 before
+    base = DUO_FLASH_STORAGE_BASE + ((idx - 3) * DUO_MODE_SIZE);
   }
   stptr_p((const uint8_t *)&base, 2);
   //rep(numBytes - 1);
@@ -132,10 +158,10 @@ bool UPDI::writeHeader(ByteStream &headerBuffer)
 {
 #ifdef VORTEX_EMBEDDED
   enterProgrammingMode();
-  // 0x1400 is eeprom base
-  // 17 is size of duo header
-  // 76 is size of each duo mode
-  uint16_t base = 0x1400;
+  // DUO_EEPROM_BASE is eeprom base
+  // DUO_HEADER_FULL_SIZE is size of duo header
+  // DUO_MODE_SIZE is size of each duo mode
+  uint16_t base = DUO_EEPROM_BASE;
   // the size of the mode being written out
   uint16_t size = headerBuffer.rawSize();
   uint8_t *ptr = (uint8_t *)headerBuffer.rawData();
@@ -143,9 +169,9 @@ bool UPDI::writeHeader(ByteStream &headerBuffer)
   // read out the page so the |xxxxxxxxxxx part
   ByteStream pageBuffer(EEPROM_PAGE_SIZE);
   uint8_t *pagePtr = (uint8_t *)pageBuffer.data();
-  uint16_t end = base + 17;
+  uint16_t end = base + DUO_HEADER_FULL_SIZE;
   stptr_p((const uint8_t *)&end, 2);
-  for (uint16_t i = 17; i < EEPROM_PAGE_SIZE; ++i) {
+  for (uint16_t i = DUO_HEADER_FULL_SIZE; i < EEPROM_PAGE_SIZE; ++i) {
     pagePtr[i] = ldinc_b();
   }
   nvmWait();
@@ -185,10 +211,10 @@ bool UPDI::writeMode(uint8_t idx, ByteStream &modeBuffer)
 bool UPDI::writeModeEeprom(uint8_t idx, ByteStream &modeBuffer)
 {
   enterProgrammingMode();
-  // 0x1400 is eeprom base
-  // 17 is size of duo header
-  // 76 is size of each duo mode
-  uint16_t base = 0x1400 + 17 + (idx * 76);
+  // DUO_EEPROM_BASE is eeprom base
+  // DUO_HEADER_FULL_SIZE is size of duo header
+  // DUO_MODE_SIZE is size of each duo mode
+  uint16_t base = DUO_EEPROM_BASE + DUO_HEADER_FULL_SIZE + (idx * DUO_MODE_SIZE);
   // the size of the mode being written out
   uint16_t size = modeBuffer.rawSize();
   uint8_t *ptr = (uint8_t *)modeBuffer.rawData();
@@ -304,8 +330,8 @@ bool UPDI::writeModeFlash(uint8_t idx, ByteStream &modeBuffer)
 {
   enterProgrammingMode();
   // there are 3 modes in the eeprom after the header
-  // 0xFe00 is the end of flash, 0x200 before
-  uint16_t base = 0xFe00 + ((idx - 3) * 76);
+  // DUO_FLASH_STORAGE_BASE is the end of flash, 0x200 before
+  uint16_t base = DUO_FLASH_STORAGE_BASE + ((idx - 3) * DUO_MODE_SIZE);
   uint16_t size = modeBuffer.rawSize();
   uint8_t *ptr = (uint8_t *)modeBuffer.rawData();
   // The storage slot may lay across a page boundary which means potentially writing
@@ -507,11 +533,11 @@ bool UPDI::writeFirmware(uint32_t position, ByteStream &firmwareBuffer)
     return false;
   }
   enterProgrammingMode();
-  // 76 is the max duo mode size (the slot size)
+  // DUO_MODE_SIZE is the max duo mode size (the slot size)
   uint8_t *ptr = (uint8_t *)firmwareBuffer.data();
   // there are 3 modes in the eeprom after the header
-  // 0xFe00 is the end of flash, 0x200 before
-  uint16_t base = 0x8000 + position;
+  // DUO_FLASH_STORAGE_BASE is the end of flash, 0x200 before
+  uint16_t base = DUO_FIRMWARE_BASE + position;
   uint16_t size = firmwareBuffer.size();
   while (size > 0) {
     uint16_t writeSize = (size < FLASH_PAGE_SIZE) ? size : FLASH_PAGE_SIZE;
