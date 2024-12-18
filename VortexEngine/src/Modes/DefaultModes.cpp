@@ -24,7 +24,7 @@ const default_mode_entry default_modes[MAX_MODES] = {
     }
   },
   {
-    PATTERN_WARPWORM, 2, {
+    PATTERN_FILL, 2, {
       RGB_GREEN,
       0x26004B,
     }
