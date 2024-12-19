@@ -198,6 +198,13 @@ inline LedPos ledmapGetNextLed(LedMap map, LedPos pos)
 #define MAP_LINE_4      (MAP_LED(LED_3) | MAP_LED(LED_13) | MAP_LED(LED_18) | MAP_LED(LED_8))
 #define MAP_LINE_5      (MAP_LED(LED_4) | MAP_LED(LED_14) | MAP_LED(LED_19) | MAP_LED(LED_9))
 
+//Chromadeck bitmap
+#define MAP_OPPOSITES_1 (MAP_LED(LED_0) | MAP_LED(LED_5) | MAP_LED(LED_10) | MAP_LED(LED_15))
+#define MAP_OPPOSITES_2 (MAP_LED(LED_1) | MAP_LED(LED_6) | MAP_LED(LED_11) | MAP_LED(LED_16))
+#define MAP_OPPOSITES_3 (MAP_LED(LED_2) | MAP_LED(LED_7) | MAP_LED(LED_12) | MAP_LED(LED_17))
+#define MAP_OPPOSITES_4 (MAP_LED(LED_3) | MAP_LED(LED_8) | MAP_LED(LED_13) | MAP_LED(LED_18))
+#define MAP_OPPOSITES_5 (MAP_LED(LED_4) | MAP_LED(LED_9) | MAP_LED(LED_14) | MAP_LED(LED_19))
+
 // set a single led
 inline void ledmapSetLed(LedMap &map, LedPos pos)
 {
