@@ -72,7 +72,7 @@ void PatternSelect::nextPatternID()
     beginList = PATTERN_MULTI_FIRST;
   }
 #endif
-  m_newPatternID = (PatternID)((m_newPatternID + 1) % endList);
+  m_newPatternID = (PatternID)((m_newPatternID + 1) % (endList + 1));
   if (m_newPatternID > endList || m_newPatternID < beginList) {
     m_newPatternID = beginList;
   }
