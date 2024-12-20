@@ -122,7 +122,7 @@ Menu::MenuAction Menu::run()
     m_ledSelection = (m_ledSelection > 0) ? (m_ledSelection - 1) : (NUM_PERMUTATIONS - 1);
   }
   // on a long press of the button, lock in the target led
-  if (g_pButtonM->onLongClick()) {
+  if (g_pButtonM->onLongClick() || g_pButtonM->onShortClick()) {
     // if no target, set at least cur mask
     if (m_targetLeds == 0) {
     //if (m_targetLeds == MAP_LED_NONE) {
