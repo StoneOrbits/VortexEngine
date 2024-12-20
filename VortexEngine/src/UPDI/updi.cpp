@@ -66,7 +66,12 @@
 // the actual firmware is 0x8000 to 0x10000
 #define DUO_FIRMWARE_BASE 0x8000
 
-bool UPDI::m_legacyStorage = false;
+// the old duo header was embedded in the entire mode save
+// so we have to load the whole modes
+#define LEGACY_DUO_HEADER_SIZE 255
+
+
+UPDI::StorageType UPDI::m_storageType = MODERN_STORAGE;
 #endif
 
 bool UPDI::init()
@@ -99,11 +104,30 @@ bool UPDI::readHeader(ByteStream &header)
   uint8_t *ptr = (uint8_t *)header.rawData();
   uint16_t addr = DUO_EEPROM_BASE;
   stptr_p((const uint8_t *)&addr, 2);
+  for (uint16_t i = 0; i < 4; ++i) {
+    ptr[i] = ldinc_b();
+  }
+  const uint32_t size = *(uint32_t *)ptr;
+  if (!size) {
+    Leds::holdAll(RGB_RED);
+    return false;
+  }
+  // more than 30 is old old duo where header is combined with save
+  if (size > 30) {
+    return readHeaderLegacy2(header);
+  }
+  // less than 20 is old duo where header is separate but smaller
+  if (size < 20) {
+    return readHeaderLegacy1(header);
+  }
+  // modern duo header is 27 total and separate from modes
+  stptr_p((const uint8_t *)&addr, 2);
   for (uint16_t i = 0; i < header.rawSize(); ++i) {
     ptr[i] = ldinc_b();
   }
   header.sanity();
   if (!header.checkCRC()) {
+    Leds::holdAll(RGB_YELLOW);
     header.clear();
     ERROR_LOG("ERROR Header CRC Invalid!");
     reset();
@@ -114,15 +138,94 @@ bool UPDI::readHeader(ByteStream &header)
   uint8_t minor = header.data()[1];
   // build was only added to this storage space later on
   uint8_t build = (header.size() > 5) ? header.data()[5] : 0;
-  // LEGACY DUO! Old Storage format is used before 1.3.25
-  m_legacyStorage = (major <= 1 && minor <= 3 && build <= 25);
+  // Modern Duo with segmented header and build number in header
+  m_storageType = MODERN_STORAGE;
 #endif
   return true;
 }
 
+#ifdef VORTEX_EMBEDDED
+// kinda old duos like 1.2.0 to 1.3.0
+bool UPDI::readHeaderLegacy1(ByteStream &header)
+{
+  // around 1.2.0 the duo storage was segmented to fix the storage issue
+  // so the header is a separate buffer that's still at the start but only
+  // takes up about 17 bytes (12 + 5) of the start of the eeprom because
+  // it is contained in it's own ByteStream. Later on the size was increased
+  // by 10 bytes and 1 more of those bytes were used to store the build number
+  if (!header.init(5)) {
+    return false;
+  }
+  enterProgrammingMode();
+  uint8_t *ptr = (uint8_t *)header.rawData();
+  uint16_t addr = DUO_EEPROM_BASE;
+  stptr_p((const uint8_t *)&addr, 2);
+  for (uint16_t i = 0; i < header.rawSize(); ++i) {
+    ptr[i] = ldinc_b();
+  }
+  header.sanity();
+  if (!header.checkCRC()) {
+    Leds::holdAll(RGB_BLUE);
+    header.clear();
+    ERROR_LOG("ERROR Header CRC Invalid!");
+    reset();
+    return false;
+  }
+  // major.minor are the first two bytes of the buffer
+  uint8_t major = header.data()[0];
+  uint8_t minor = header.data()[1];
+  // LEGACY DUO! Old Storage format with segmented header and no build number
+  m_storageType = LEGACY_STORAGE_1;
+  return true;
+}
+
+// really old duos like 1.0.0
+bool UPDI::readHeaderLegacy2(ByteStream &header)
+{
+  // Different size for old old duos, the whole eeprom was the only storage
+  // and it was thought the userrow provided another 128 but in reality that
+  // didn't actually work and only 255 bytes were available causing a bad
+  // storage bug that erased modes. So this reads the entire storage even
+  // though we only need the header at the start
+  if (!header.init(255)) {
+    return false;
+  }
+  //enterProgrammingMode();
+  uint8_t *ptr = (uint8_t *)header.rawData();
+  uint16_t addr = DUO_EEPROM_BASE;
+  stptr_p((const uint8_t *)&addr, 2);
+  for (uint16_t i = 0; i < header.rawSize(); ++i) {
+    ptr[i] = ldinc_b();
+  }
+  header.sanity();
+  if (!header.checkCRC()) {
+    Leds::holdAll(RGB_PURPLE);
+    header.clear();
+    ERROR_LOG("ERROR Header CRC Invalid!");
+    reset();
+    return false;
+  }
+  // major.minor are the first two bytes of the buffer
+  uint8_t major = header.data()[0];
+  uint8_t minor = header.data()[1];
+  // build was only added to this storage space later on
+  uint8_t build = 0;
+  // LEGACY DUO! Old Storage format with combined header and no build number
+  m_storageType = LEGACY_STORAGE_2;
+  return true;
+}
+
+#endif
+
 bool UPDI::readMode(uint8_t idx, ByteStream &modeBuffer)
 {
 #ifdef VORTEX_EMBEDDED
+  if (m_storageType == LEGACY_STORAGE_2) {
+    // nope I'm not going to write code to read the old duos they can
+    // just send the mode c2c to the deck if they want to save it then
+    // they can update their duo and push the mode back to it
+    return false;
+  }
   // initialize mode buffer
   if (!modeBuffer.init(DUO_MODE_SIZE)) {
     return false;
@@ -138,7 +241,9 @@ bool UPDI::readMode(uint8_t idx, ByteStream &modeBuffer)
     // DUO_HEADER_FULL_SIZE is size of duo header
     // DUO_MODE_SIZE is size of each duo mode
     base = DUO_EEPROM_BASE + (DUO_HEADER_FULL_SIZE) + (idx * DUO_MODE_SIZE);
-    if (m_legacyStorage) {
+    // legacy storage 1 the header is a bit smaller so the first mode is a bit
+    // sooner in the eeprom but that's the only difference
+    if (m_storageType == LEGACY_STORAGE_1) {
       base -= 10;
     }
   } else {
@@ -157,6 +262,10 @@ bool UPDI::readMode(uint8_t idx, ByteStream &modeBuffer)
 bool UPDI::writeHeader(ByteStream &headerBuffer)
 {
 #ifdef VORTEX_EMBEDDED
+  if (m_storageType != MODERN_STORAGE) {
+    // nope!
+    return false;
+  }
   enterProgrammingMode();
   // DUO_EEPROM_BASE is eeprom base
   // DUO_HEADER_FULL_SIZE is size of duo header
@@ -191,6 +300,10 @@ bool UPDI::writeHeader(ByteStream &headerBuffer)
 bool UPDI::writeMode(uint8_t idx, ByteStream &modeBuffer)
 {
 #ifdef VORTEX_EMBEDDED
+  if (m_storageType != MODERN_STORAGE) {
+    // nope!
+    return false;
+  }
   modeBuffer.sanity();
   if (!modeBuffer.checkCRC()) {
     ERROR_LOG("ERROR Mode CRC Invalid!");

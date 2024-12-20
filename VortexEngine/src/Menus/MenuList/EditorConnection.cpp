@@ -486,15 +486,12 @@ bool EditorConnection::pullHeaderChromalink()
 {
   // first read the duo save header
   ByteStream saveHeader;
-  if (!UPDI::readHeader(saveHeader)) {
-    return false;
-  }
-  if (!saveHeader.size() || !saveHeader.checkCRC()) {
-    // error?
-    return false;
-  }
+  // doesn't matter if reading the header fails, we still need to send it
+  bool success = UPDI::readHeader(saveHeader);
+  // send whatever we read, might be empty buffer if it failed
   SerialComs::write(saveHeader);
-  return true;
+  // return whether reading the header was successful
+  return success;
 }
 
 bool EditorConnection::pushHeaderChromalink()
@@ -520,11 +517,12 @@ bool EditorConnection::pullModeChromalink()
     return false;
   }
   ByteStream modeBuffer;
-  if (!UPDI::readMode(modeIdx, modeBuffer)) {
-    return false;
-  }
+  // same doesn't matter if this fails still need to send
+  bool success = UPDI::readMode(modeIdx, modeBuffer);
+  // send the mode, could be empty buffer if reading failed
   SerialComs::write(modeBuffer);
-  return true;
+  // return whether reading the mode was successful
+  return success;
 }
 
 bool EditorConnection::pushModeChromalink()

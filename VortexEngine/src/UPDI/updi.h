@@ -31,6 +31,11 @@ public:
 private:
 
 #ifdef VORTEX_EMBEDDED
+  // really old duos like 1.0.0
+  static bool readHeaderLegacy1(ByteStream &headerBuffer);
+  // kinda old duos like 1.2.0 to 1.3.0
+  static bool readHeaderLegacy2(ByteStream &headerBuffer);
+
   static bool writeModeEeprom(uint8_t idx, ByteStream &modeBuffer);
   static bool writeModeFlash(uint8_t idx, ByteStream &modeBuffer);
 
@@ -141,8 +146,18 @@ private:
   static void sendProgKey() { sendKey("NVMProg "); }
   static void sendUserrowKey() { sendKey("NVMUs&te"); }
 
+  enum StorageType
+  {
+    // modern duos like 1.4.0+
+    MODERN_STORAGE,
+    // duos like 1.2.0. to 1.3..0
+    LEGACY_STORAGE_1,
+    // old duos like 1.0.0 to 1.2.0
+    LEGACY_STORAGE_2,
+  };
+
   // whether connected to a legacy duo
-  static bool m_legacyStorage;
+  static StorageType m_storageType;
 #endif
 };
 
