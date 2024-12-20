@@ -36,6 +36,9 @@ bool MainMenu::run()
   if (g_pButtonM->onShortClick()) {
     select();
   }
+  if (g_pButtonM->onLongClick()) {
+    select();
+  }
   // press >
   if (g_pButtonR->onShortClick()) {
     pressRight();
