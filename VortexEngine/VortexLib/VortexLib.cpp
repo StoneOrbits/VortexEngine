@@ -308,6 +308,7 @@ EMSCRIPTEN_BINDINGS(Vortex) {
     .function("peek", &Colorset::peek)
     .function("peekNext", &Colorset::peekNext)
     .function("numColors", &Colorset::numColors)
+    .function("shift", &Colorset::shift)
     .function("onStart", &Colorset::onStart)
     .function("onEnd", &Colorset::onEnd)
     .function("serialize", &Colorset::serialize)
