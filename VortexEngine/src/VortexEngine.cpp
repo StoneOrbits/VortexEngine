@@ -182,7 +182,7 @@ void VortexEngine::runMainLogic()
   // the current tick
   uint32_t now = Time::getCurtime();
 
-  SerialsComs::checkSerial();
+  SerialComs::checkSerial();
   // check for serial first before main menus run, but as a result if we open
   // editor we have to call modes load inside here
   //if (SerialComs::checkSerial()) {
