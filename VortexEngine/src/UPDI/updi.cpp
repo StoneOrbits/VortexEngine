@@ -68,7 +68,8 @@
 
 // the old duo header was embedded in the entire mode save
 // so we have to load the whole modes
-#define LEGACY_DUO_HEADER_SIZE 255
+#define LEGACY_DUO_HEADER_SIZE_1 5
+#define LEGACY_DUO_HEADER_SIZE_2 255
 
 
 UPDI::StorageType UPDI::m_storageType = MODERN_STORAGE;
@@ -76,6 +77,9 @@ UPDI::StorageType UPDI::m_storageType = MODERN_STORAGE;
 
 bool UPDI::init()
 {
+#ifdef VORTEX_EMBEDDED
+  m_storageType = MODERN_STORAGE;
+#endif
   return true;
 }
 
@@ -109,15 +113,14 @@ bool UPDI::readHeader(ByteStream &header)
   }
   const uint32_t size = *(uint32_t *)ptr;
   if (!size) {
-    Leds::holdAll(RGB_RED);
     return false;
   }
   // more than 30 is old old duo where header is combined with save
   if (size > 30) {
     return readHeaderLegacy2(header);
   }
-  // less than 20 is old duo where header is separate but smaller
-  if (size < 20) {
+  // less than 6 is old duo where header is separate but smaller (no build number)
+  if (size < 6) {
     return readHeaderLegacy1(header);
   }
   // modern duo header is 27 total and separate from modes
@@ -127,7 +130,6 @@ bool UPDI::readHeader(ByteStream &header)
   }
   header.sanity();
   if (!header.checkCRC()) {
-    Leds::holdAll(RGB_YELLOW);
     header.clear();
     ERROR_LOG("ERROR Header CRC Invalid!");
     reset();
@@ -153,7 +155,7 @@ bool UPDI::readHeaderLegacy1(ByteStream &header)
   // takes up about 17 bytes (12 + 5) of the start of the eeprom because
   // it is contained in it's own ByteStream. Later on the size was increased
   // by 10 bytes and 1 more of those bytes were used to store the build number
-  if (!header.init(5)) {
+  if (!header.init(LEGACY_DUO_HEADER_SIZE_1)) {
     return false;
   }
   enterProgrammingMode();
@@ -165,7 +167,6 @@ bool UPDI::readHeaderLegacy1(ByteStream &header)
   }
   header.sanity();
   if (!header.checkCRC()) {
-    Leds::holdAll(RGB_BLUE);
     header.clear();
     ERROR_LOG("ERROR Header CRC Invalid!");
     reset();
@@ -187,7 +188,7 @@ bool UPDI::readHeaderLegacy2(ByteStream &header)
   // didn't actually work and only 255 bytes were available causing a bad
   // storage bug that erased modes. So this reads the entire storage even
   // though we only need the header at the start
-  if (!header.init(255)) {
+  if (!header.init(LEGACY_DUO_HEADER_SIZE_2)) {
     return false;
   }
   //enterProgrammingMode();
@@ -199,7 +200,6 @@ bool UPDI::readHeaderLegacy2(ByteStream &header)
   }
   header.sanity();
   if (!header.checkCRC()) {
-    Leds::holdAll(RGB_PURPLE);
     header.clear();
     ERROR_LOG("ERROR Header CRC Invalid!");
     reset();
@@ -254,6 +254,13 @@ bool UPDI::readMode(uint8_t idx, ByteStream &modeBuffer)
   //rep(numBytes - 1);
   for (uint16_t i = 0; i < modeBuffer.rawSize(); ++i) {
     ptr[i] = ldinc_b();
+  }
+  modeBuffer.sanity();
+  if (!modeBuffer.checkCRC()) {
+    modeBuffer.clear();
+    ERROR_LOG("ERROR Header CRC Invalid!");
+    reset();
+    return false;
   }
 #endif
   return true;
