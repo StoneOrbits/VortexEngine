@@ -5,31 +5,27 @@ nav_order: 0
 parent: Vortex Editors
 ---
 
+{: .warning }
+This page is under construction and will be ready soon
+
 # Lightshow.lol
 
-Welcome to the Vortex Engine wiki! This page details how to use the web based Vortex Editor [lightshow.lol](https://lightshow.lol) 
+Welcome to the Vortex Engine wiki! This page details how to use the web-based Vortex Editor [lightshow.lol](https://lightshow.lol) 
 
 ## Basics
 
 Lightshow.lol is an online tool that allows you to design, preview, and export custom [modes](modes.html) for any Vortex devices. 
 
-A **mode** consists of a [pattern](patterns.html) and [colorset](colorsets.html) for each LED of the device. 
+The lightshow preview is the main focus of the page, with various control panels serving to modify the pattern, colorset, and preview animation.
 
-Lightshow.lol will preview the currently selected mode by simulating the blinking col and speed of each led of the device while playing that mode.
+{: .important }
+Although the preview is an exact simulation of a real device, the preview will never look exactly the same as LEDs.
 
-## The Lightshow Preview
+## Preview Animation
 
-Immediately present when entering lightshow.lol is the circular lightshow of blinking colors, this is the preview of the currently selected mode.
+This preview can be directly controlled with the animation panel:
 
-It is important to remember:
 
-#### / ! \ Device Leds and Colors on Screens Won't Always Match / ! \
-
-> This color doesn't match! This device/led must be broken!
-
-No! Rest assured, the exact same color 'data' is being displayed on both pieces of hardware (the led and your monitor)
-
-Monitors use various tricks to produce colours that are inherently different from the way individual programmable RGB leds produce color. 
 
 ## GUI Panels
 
