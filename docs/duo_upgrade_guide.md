@@ -23,30 +23,30 @@ First, connect the Chromadeck to the PC via USB and make sure it is [up to date]
 
 Next, navigate a **Google Chrome** browser to https://lightshow.lol
 
- 1. With the Chromadeck plugged in via USB, click the 'Connect Device' USB icon:
+ - With the Chromadeck plugged in via USB, click the 'Connect Device' USB icon:
 
 <div style="text-align: center; margin: 20px">
   <img style="max-width:400px;" src="assets/images/connect-device.png">
 </div>
 
- 2. Chrome will popup a new window, select 'USB JTAG/serial debug unit' from the list
+ - Chrome will popup a new window, select 'USB JTAG/serial debug unit' from the list
 
 <div style="text-align: center; margin: 20px">
   <img style="max-width:400px;" src="assets/images/connect-chromadeck-serialport.png">
 </div>
 
- 3. Once the chromadeck is connected the UI should look like this, simply hit 'Update Firmware' in the Chromalink panel:
+ - Once the chromadeck is connected the UI should look like this, simply hit 'Update Firmware' in the Chromalink panel:
 
 <div style="text-align: center; margin: 20px">
   <a style="color: white;"><b>NOTE</b>: It is unnecessary to press Connect Duo!</a>
   <img style="margin-top:10px;" src="assets/images/update-firmware-ui.png">
 </div>
 
- 4. Wait for the firmware flash to complete
+ - Wait for the firmware flash to complete
  
- 5. Remove the Duo from the Chromalink and reconnect the battery
+ - Remove the Duo from the Chromalink and reconnect the battery
  
- 6. Turn the Duo on and cycle through all of it's modes to verify the flash was successful
+ - Turn the Duo on and cycle through all of it's modes to verify the flash was successful
 
 ## Troubleshooting
 
