@@ -50,8 +50,13 @@ Next, navigate a **Google Chrome** browser to https://lightshow.lol
 
 ## Troubleshooting
 
-**The firmware flash doesn't start and the Chromadeck is yellow**
+**The firmware flash doesn't start and the Chromadeck is yellow**  
+
 This is a well known and common issue we are working to fix, simply remove your duo from the holder and re-seat it in the holder and the firmware flash will begin
 
-**It doesn't work!**
+**It doesn't work!**  
+
 If you encounter any other issues, try refreshing to page and unplugging and reconnecting your chromadeck. Although it shouldn't be necessary, make sure the power switch is in the ON position while it is plugged in.
+
+**It still doesn't work!**
+Join our [discord](https://discord.gg/4R9at8S8Sn) and ask for help!
