@@ -21,30 +21,30 @@ This page covers how to update the firmware on the Vortex Spark.
 
 First, navigate a **Google Chrome** browser to https://lightshow.lol
 
- 1. With the Spark plugged in via USB, click the 'Connect Device' USB icon:
+ - With the Spark plugged in via USB, click the 'Connect Device' USB icon:
 
 <div style="text-align: center; margin: 20px">
   <img style="max-width:400px;" src="assets/images/connect-device.png">
 </div>
 
- 2. Chrome will popup a new window, select 'USB JTAG/serial debug unit' from the list
+ - Chrome will popup a new window, select 'USB JTAG/serial debug unit' from the list
 
 <div style="text-align: center; margin: 20px">
   <img style="max-width:400px;" src="assets/images/connect-chromadeck-serialport.png">
 </div>
 
- 3. Once the spark is connected the UI should look like this, simply hit 'Update Firmware Now' in the Device Updates panel:
+ - Once the spark is connected the UI should look like this, simply hit 'Update Firmware Now' in the Device Updates panel:
 
 <div style="text-align: center; margin: 20px">
-  <p style="color: white;"><b>NOTE</b>: Ignore the 'Update Firmware' in the Chromalink Duo panel!
-  <img style="margin-top:10px;" src="assets/images/spark-firmware-update.png">
+  <p style="color: white;"><b>NOTE</b>: Ignore the 'Update Firmware' in the Chromalink Duo panel!</p>
+  <img src="assets/images/spark-firmware-update.png">
 </div>
 
- 4. Wait for the firmware flash to complete
+ - Wait for the firmware flash to complete
  
- 5. Unplug the Spark and cycle the power switch to verify it turns on
+ - Unplug the Spark and cycle the power switch to verify it turns on
  
- 6. Cycle through all of the modes to verify the flash was successful
+ - Cycle through all of the modes to verify the flash was successful
 
 ## Troubleshooting
 

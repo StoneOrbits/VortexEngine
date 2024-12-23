@@ -36,9 +36,10 @@ First, navigate a **Google Chrome** browser to https://lightshow.lol
  - Once the chromadeck is connected the UI should look like this, simply hit 'Update Firmware Now' in the Device Updates panel:
 
 <div style="text-align: center; margin: 20px">
-  <p style="color: white;"><b>NOTE</b>: Ignore the 'Update Firmware' button in the Chromalink Duo panel!
-  <img style="margin-top:10px;" src="assets/images/chromadeck-firmware-update.png">
-</div>
+  <p style="color: white;"><b>NOTE</b>: Ignore the 'Update Firmware' button in the Chromalink Duo panel!</p>
+  <img src="assets/images/chromadeck-firmware-update.png">
+</div>  
+
 
  - Wait for the firmware flash to complete
  
