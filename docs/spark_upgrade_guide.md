@@ -36,7 +36,7 @@ First, navigate a **Google Chrome** browser to https://lightshow.lol
  3. Once the spark is connected the UI should look like this, simply hit 'Update Firmware Now' in the Device Updates panel:
 
 <div style="text-align: center; margin: 20px">
-  <a style="color: white;"><b>NOTE</b>: Ignore the 'Update Firmware' in the Chromalink Duo panel!
+  <p style="color: white;"><b>NOTE</b>: Ignore the 'Update Firmware' in the Chromalink Duo panel!
   <img style="margin-top:10px;" src="assets/images/spark-firmware-update.png">
 </div>
 

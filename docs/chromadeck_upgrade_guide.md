@@ -21,30 +21,30 @@ This page covers how to update the firmware on the Vortex Chromadeck.
 
 First, navigate a **Google Chrome** browser to https://lightshow.lol
 
- 1. With the Chromadeck plugged in via USB, click the 'Connect Device' USB icon:
+ - With the Chromadeck plugged in via USB, click the 'Connect Device' USB icon:
 
 <div style="text-align: center; margin: 20px">
   <img style="max-width:400px;" src="assets/images/connect-device.png">
 </div>
 
- 2. Chrome will popup a new window, select 'USB JTAG/serial debug unit' from the list
+ - Chrome will popup a new window, select 'USB JTAG/serial debug unit' from the list
 
 <div style="text-align: center; margin: 20px">
   <img style="max-width:400px;" src="assets/images/connect-chromadeck-serialport.png">
 </div>
 
- 3. Once the chromadeck is connected the UI should look like this, simply hit 'Update Firmware Now' in the Device Updates panel:
+ - Once the chromadeck is connected the UI should look like this, simply hit 'Update Firmware Now' in the Device Updates panel:
 
 <div style="text-align: center; margin: 20px">
-  <a style="color: white;"><b>NOTE</b>: Ignore the 'Update Firmware' in the Chromalink Duo panel!
+  <p style="color: white;"><b>NOTE</b>: Ignore the 'Update Firmware' button in the Chromalink Duo panel!
   <img style="margin-top:10px;" src="assets/images/chromadeck-firmware-update.png">
 </div>
 
- 4. Wait for the firmware flash to complete
+ - Wait for the firmware flash to complete
  
- 5. Unplug the Chromadeck and cycle the power switch to verify it turns on
+ - Unplug the Chromadeck and cycle the power switch to verify it turns on
  
- 6. Cycle through all of the modes to verify the flash was successful
+ - Cycle through all of the modes to verify the flash was successful
 
 ## Troubleshooting
 
