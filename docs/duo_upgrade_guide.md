@@ -14,9 +14,9 @@ parent: Upgrade Guides
 
 <img src="assets/images/duo-logo-square-512.png" style="max-width: 250px; width: 40%; float: right">
 
-To update your Duo you will need a Chromadeck and a Chromalink cable.
+Both a **Chromadeck** and a **Chromalink** cable are necessary to update the Duo firmware
 
-Before updating the Duo, connect the **Chromadeck** to the PC via USB and make sure it is [up to date](chromadeck_upgrade_guide.html)
+Before updating the Duo, ensure the **Chromadeck** is up to date by following the [update guide.](chromadeck_upgrade_guide.html)
 
 <div style="margin-left: 50px; margin-right: 50px; margin-bottom: 30px;" markdown="1">
 
