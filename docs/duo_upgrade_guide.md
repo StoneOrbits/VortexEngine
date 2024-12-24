@@ -7,7 +7,7 @@ parent: Upgrade Guides
 
 <div style="text-align: center; margin: 20px">
   <h1 style="color:orange;">⚠ <b style="color:red;">Warning</b> ⚠<br></h1>
-  <h4>Upgrading Duos <i>can</i> be dangerous! Be patient and following these steps carefully, StoneOrbits is not responsible for any damage</p>
+  <h4>Upgrading Duos <i>can</i> be dangerous! Be patient and following these steps carefully, StoneOrbits is not responsible for any damage</h4>
 </div>
 
 # Duo Upgrade Guide
@@ -83,5 +83,5 @@ This is a well known and common issue we are working to fix, simply remove your 
 
 If you encounter any other issues, try refreshing to page and unplugging and reconnecting your chromadeck. Although it shouldn't be necessary, make sure the power switch is in the ON position while it is plugged in.
 
-**It still doesn't work!**
+**It still doesn't work!**  
 Join our [discord](https://discord.gg/4R9at8S8Sn) and ask for help!
