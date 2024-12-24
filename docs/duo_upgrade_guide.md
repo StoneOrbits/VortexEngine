@@ -18,18 +18,19 @@ Both a **Chromadeck** and a **Chromalink** cable are necessary to update the Duo
 
 Before updating the Duo firmware, always ensure the **Chromadeck** is [up to date](chromadeck_upgrade_guide.html)
 
-<div style="margin-left: 50px; margin-right: 50px; margin-bottom: 30px;" markdown="1">
+<div style="margin-left: 50px; margin-right: 50px; margin-bottom: 20px;" markdown="1">
 
 - **Use a data-capable USB cable, power-only cables won't work.**
 - Windows will notify upon successful connection
 - Mac may work but is not officially supported.
 
 </div>
-
- - First, plug the **Chromadeck** into the PC and connect the **Chromalink** cable to the side of the **Chromadeck**, and turn the Chromadeck power switch on
 &nbsp;
 
- - **Gently** and **carefully** peel the Duo battery away from the Duo like shown below, failure to do this tep will degrade the battery
+ - Plug the **Chromadeck** into the PC, turn the power switch on, and connect the **Chromalink** cable to the side of the **Chromadeck**
+&nbsp;
+
+ - **Gently** and **carefully** peel the Duo battery away from the Duo like shown below, leaving it connected will degrade the battery
 
 <div style="text-align: center; margin: 5px">
   <p style="color:white;">⚠ <b>Warning</b> ⚠<br>
@@ -45,11 +46,13 @@ Before updating the Duo firmware, always ensure the **Chromadeck** is [up to dat
   <img style="max-width:260px;border-radius:5px;border:1px solid gray;" src="assets/images/insert-dock-2.gif">
 </div>
 
- - **[Optional]** Turn the Duo on to verify it is connected properly
+ - **[Optional]** Turn the Duo on to verify it is receiving power from the Chromadeck
 
  - Navigate a **Google Chrome** browser to [lightshow.lol](https://lightshow.lol) and click the 'Connect Device' USB icon:
 
 <div style="text-align: center; margin: 20px">
+  <p style="color:white;"><b>Note:</b>
+  Other browsers may work if they support <a href="https://developer.mozilla.org/en-US/docs/Web/API/Web_Serial_API#browser_compatibility">WebSerial</a></p>
   <img src="assets/images/connect-device.png">
 </div>
 

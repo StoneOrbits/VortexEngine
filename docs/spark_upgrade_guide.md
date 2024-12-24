@@ -20,12 +20,13 @@ It is important to keep the Spark up to date to avoid bugs and use the latest sa
 - Mac may work but is not officially supported.
 
 </div>
+&nbsp;
 
-First, navigate a **Google Chrome** browser to https://lightshow.lol
-
- - With the Spark plugged in via USB, click the 'Connect Device' USB icon:
+ - With the Spark plugged in, navigate a **Google Chrome** browser to [lightshow.lol](https://lightshow.lol) and click the **Connect Device** USB icon:
 
 <div style="text-align: center; margin: 20px">
+  <p style="color:white;"><b>Note:</b>
+  Other browsers may work if they support <a href="https://developer.mozilla.org/en-US/docs/Web/API/Web_Serial_API#browser_compatibility">WebSerial</a></p>
   <img src="assets/images/connect-device.png">
 </div>
 
