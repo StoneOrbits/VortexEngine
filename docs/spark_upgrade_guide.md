@@ -29,7 +29,7 @@ It is important to keep the Spark up to date to avoid bugs and use the latest sa
   <img src="assets/images/connect-device.png">
 </div>
 
- - Chrome will popup a new window, select 'USB JTAG/serial debug unit' from the list
+ - Chrome will popup a new window, select **USB JTAG/serial debug unit** from the list
 
 <div style="text-align: center; margin: 20px">
   <img src="assets/images/connect-chromadeck-serialport.png">

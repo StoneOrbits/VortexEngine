@@ -47,7 +47,7 @@ Before updating the Duo firmware, always ensure the **Chromadeck** is [up to dat
 
  - **[Optional]** Turn the Duo on to verify it is receiving power from the Chromadeck
 
- - Navigate a **Google Chrome** browser to [lightshow.lol](https://lightshow.lol) and click the 'Connect Device' USB icon:
+ - Navigate a **Google Chrome** browser to [lightshow.lol](https://lightshow.lol) and click the **Connect Device** USB icon:
 
 <div style="text-align: center; margin: 20px">
   <p style="color:white;"><b>Note:</b>
