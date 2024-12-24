@@ -69,6 +69,7 @@ Before updating the Duo firmware, always ensure the **Chromadeck** is [up to dat
 </div>
 
  - Let the flash complete then remove the Duo from the Chromalink and reconnect the battery
+&nbsp; 
  
  - Turn the Duo on and cycle through all of it's modes to verify the flash was successful
 

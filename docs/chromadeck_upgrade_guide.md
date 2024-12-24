@@ -35,16 +35,15 @@ It is important to keep the Chromadeck up to date to avoid bugs and use the late
   <img src="assets/images/connect-chromadeck-serialport.png">
 </div>
 
- - Once the chromadeck is connected the UI should look like this, simply hit 'Update Firmware Now' in the Device Updates panel:
+ - Once the Spark is connected the UI should look like this, press **Update Firmware Now** in the **Device Updates** panel:
 
-<div style="text-align: center; margin: 20px">
-  <p style="color: white;"><b>NOTE</b>: Ignore the 'Update Firmware' button in the Chromalink Duo panel!</p>
+<div style="text-align: center; margin: 20px; display:flex; flex-direction: column; align-items: center;">
   <img src="assets/images/chromadeck-firmware-update.png">
 </div>  
 
-
  - Let the firmware flash complete, unplug the Chromadeck, then flip the power switch to check that it turns on
- 
+&nbsp; 
+
  - Cycle through all of the modes to verify the flash was successful
 
 ## Troubleshooting
