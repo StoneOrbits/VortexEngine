@@ -35,7 +35,7 @@ It is important to keep the Spark up to date to avoid bugs and use the latest sa
   <img src="assets/images/connect-chromadeck-serialport.png">
 </div>
 
- - Once the Spark is connected the UI should look like this, press **Update Firmware Now** in the **Device Updates** panel:
+ - When the Spark connects the **Device Updates** panel will appear, press the **Update Firmware Now** button to update the Spark:
 
 <div style="text-align: center; margin: 20px; display:flex; flex-direction: column; align-items: center;">
   <img src="assets/images/spark-firmware-update.png">

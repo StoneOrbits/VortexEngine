@@ -61,11 +61,11 @@ Before updating the Duo firmware, always ensure the **Chromadeck** is [up to dat
   <img src="assets/images/connect-chromadeck-serialport.png">
 </div>
 
- - Now the Chromadeck is connected and the UI should look like this, press **Update Firmware** in the **Chromalink Duo Panel**:
+ - When the Chromadeck connects the **Chromalink Duo** panel will appear, press the **Update Firmware** button to update the Duo:
 
 <div style="text-align: center; margin: 20px; display:flex; flex-direction: column; align-items: center;">
-  <p style="color: white;"><b>NOTE</b>: It is unnecessary to press Connect Duo!</p>
-  <img style="margin-top:10px;" src="assets/images/update-firmware-ui.png">
+  <p style="color: white;"><b>NOTE</b>: It is unnecessary to press Connect Duo when updating Firmware!</p>
+  <img src="assets/images/update-firmware-ui.png">
 </div>
 
  - Let the flash complete then remove the Duo from the Chromalink and reconnect the battery
