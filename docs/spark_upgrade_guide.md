@@ -9,7 +9,9 @@ parent: Upgrade Guides
 
 <img src="assets/images/spark-logo-square-512.png" style="max-width: 250px; width: 40%; float: right">
 
-This page covers how to update the firmware on the Vortex Spark.
+This page details how to update the firmware on the Vortex Spark.
+
+It is important to keep the Spark up to date to avoid bugs and use the latest safety fixes.
 
 <div style="margin-left: 50px; margin-right: 50px" markdown="1">
 
@@ -40,9 +42,7 @@ First, navigate a **Google Chrome** browser to https://lightshow.lol
   <img src="assets/images/spark-firmware-update.png">
 </div>
 
- - Wait for the firmware flash to complete
- 
- - Unplug the Spark and cycle the power switch to verify it turns on
+ - Let the firmware flash complete, unplug the Spark, then flip the power switch to check that it turns on
  
  - Cycle through all of the modes to verify the flash was successful
 

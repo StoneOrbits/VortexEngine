@@ -9,7 +9,9 @@ parent: Upgrade Guides
 
 <img src="assets/images/chromadeck-logo-square-512.png" style="max-width: 250px; width: 40%; float: right">
 
-This page covers how to update the firmware on the Vortex Chromadeck.
+This page details how to update the firmware on the Vortex Chromadeck.
+
+It is important to keep the Chromadeck up to date to avoid bugs and use the latest safety fixes.
 
 <div style="margin-left: 50px; margin-right: 50px" markdown="1">
 
@@ -41,16 +43,14 @@ First, navigate a **Google Chrome** browser to https://lightshow.lol
 </div>  
 
 
- - Wait for the firmware flash to complete
- 
- - Unplug the Chromadeck and cycle the power switch to verify it turns on
+ - Let the firmware flash complete, unplug the Chromadeck, then flip the power switch to check that it turns on
  
  - Cycle through all of the modes to verify the flash was successful
 
 ## Troubleshooting
 
-**It doesn't work!**
-If you encounter any other issues, try refreshing to page and unplugging and reconnecting your chromadeck. Although it shouldn't be necessary, make sure the power switch is in the ON position while it is plugged in.
+**It doesn't work!**  
+If you encounter any other issues, try refreshing to page and unplugging and reconnecting your chromadeck. Also make sure the power switch is in the ON position while it is plugged in.
 
-**It still doesn't work!**
+**It still doesn't work!**  
 Join our [discord](https://discord.gg/4R9at8S8Sn) and ask for help!
