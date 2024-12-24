@@ -12,7 +12,7 @@ parent: Upgrade Guides
 
 # Duo Upgrade Guide
 
-<img src="assets/images/duo-logo-square-512.png" style="max-width: 250px; width: 40%; float: right">
+<img src="assets/images/duo-logo-square-512.png" style="max-width: 250px; width: 40%; float: right; margin-bottom: 20px">
 
 Both a **Chromadeck** and a **Chromalink** cable are necessary to update the Duo firmware
 
