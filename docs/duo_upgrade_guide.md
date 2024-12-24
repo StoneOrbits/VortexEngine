@@ -29,17 +29,16 @@ Before updating the Duo, ensure the **Chromadeck** is up to date by following th
  - First, plug the **Chromadeck** into the PC and connect the **Chromalink** cable to the side of the **Chromadeck**, and turn the Chromadeck power switch on
 &nbsp;
 
- - **Gently** and **carefully** peel the Duo battery away from the Duo like shown below, failure to remove will degrade the battery
+ - **Gently** and **carefully** peel the Duo battery away from the Duo like shown below, failure to do this tep will degrade the battery
 
 <div style="text-align: center; margin: 5px">
   <p style="color:white;">⚠ <b>Warning</b> ⚠<br>
-  Damage to the Duo or battery is not covered by warranty!</p>
+  StoneOrbits is not responsible for damage to the Duo or battery!</p>
   <img style="max-width:260px;border-radius:5px;border:1px solid gray;" src="assets/images/battery-removal-1.gif">
   <img style="max-width:260px;border-radius:5px;border:1px solid gray;" src="assets/images/battery-removal-2.gif">
 </div>
 
- 
- - Slot the Duo into the **Chromalink** by seating it flat in the center then sliding it into place like shown below
+ - Seat the Duo into the **Chromalink** dock and slide it into place like shown below
 
 <div style="text-align: center; margin: 20px">
   <img style="max-width:260px;border-radius:5px;border:1px solid gray;" src="assets/images/insert-dock-1.gif">
@@ -60,28 +59,29 @@ Before updating the Duo, ensure the **Chromadeck** is up to date by following th
   <img style="max-width:400px;" src="assets/images/connect-chromadeck-serialport.png">
 </div>
 
- - Now the UI should look like this, press **Update Firmware** in the **Chromalink Duo Panel**:
+ - Now the Chromadeck is connected and the UI should look like this, press **Update Firmware** in the **Chromalink Duo Panel**:
 
 <div style="text-align: center; margin: 20px">
   <a style="color: white;"><b>NOTE</b>: It is unnecessary to press Connect Duo!</a>
   <img style="margin-top:10px;" src="assets/images/update-firmware-ui.png">
 </div>
 
- - Wait for the firmware flash to complete
- 
- - Remove the Duo from the Chromalink and reconnect the battery
+ - Let the flash complete then remove the Duo from the Chromalink and reconnect the battery
  
  - Turn the Duo on and cycle through all of it's modes to verify the flash was successful
 
 ## Troubleshooting
 
-**The firmware flash doesn't start and the Chromadeck is yellow**  
+**The Duo doesn't turn on**  
+Repeat the process if the Duo doesn't work, make sure the duo was properly seated into the Chromalink and the progress bar in the Chromalink window fills
 
-This is a well known and common issue we are working to fix, simply remove your duo from the holder and re-seat it in the holder and the firmware flash will begin
+**The progress bar doesn't start and the Chromadeck LEDs are yellow**  
+
+This is a well known and common issue we are working to fix, simply remove the Duo from the Chromalink dock and put it back, the firmware flash will begin immediately.
 
 **It doesn't work!**  
 
-If you encounter any other issues, try refreshing to page and unplugging and reconnecting your chromadeck. Although it shouldn't be necessary, make sure the power switch is in the ON position while it is plugged in.
+If you encounter any other issues, try refreshing the page and unplugging and reconnecting your chromadeck. Also make sure the power switch is in the ON position while it is plugged in.
 
 **It still doesn't work!**  
 Join our [discord](https://discord.gg/4R9at8S8Sn) and ask for help!
