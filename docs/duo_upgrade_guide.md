@@ -63,7 +63,7 @@ Before updating the Duo firmware, always ensure the **Chromadeck** is [up to dat
 
  - Now the Chromadeck is connected and the UI should look like this, press **Update Firmware** in the **Chromalink Duo Panel**:
 
-<div style="text-align: center; margin: 20px">
+<div style="text-align: center; margin: 20px; display:flex; flex-direction: column;">
   <a style="color: white;"><b>NOTE</b>: It is unnecessary to press Connect Duo!</a>
   <img style="margin-top:10px;" src="assets/images/update-firmware-ui.png">
 </div>
