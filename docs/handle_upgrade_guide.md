@@ -31,7 +31,7 @@ Finally, Drag & Drop the device firmware into the Trinketboot drive to automatic
 
 As long as the file transfer completes, the firmware should be updated.
 
-## Troubleshooting
+# Troubleshooting
 
 **The drive doesn't show up**
 Most likely you are not using a data-capable usb cable, try different usb cables and different usb ports on the PC.

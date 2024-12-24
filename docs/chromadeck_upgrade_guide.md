@@ -46,7 +46,7 @@ It is important to keep the Chromadeck up to date to avoid bugs and use the late
 
  - Cycle through all of the modes to verify the flash was successful
 
-## Troubleshooting
+# Troubleshooting
 
 **It doesn't work!**  
 If you encounter any other issues, try refreshing to page and unplugging and reconnecting your chromadeck. Also make sure the power switch is in the ON position while it is plugged in.

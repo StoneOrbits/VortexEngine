@@ -73,7 +73,7 @@ Before updating the Duo firmware, always ensure the **Chromadeck** is [up to dat
  
  - Turn the Duo on and cycle through all of it's modes to verify the flash was successful
 
-## Troubleshooting
+# Troubleshooting
 
 **The Duo doesn't turn on**  
 Repeat the process if the Duo doesn't work, make sure the duo was properly seated into the Chromalink and the progress bar in the Chromalink window fills
