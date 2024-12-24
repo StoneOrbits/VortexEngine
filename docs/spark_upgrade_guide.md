@@ -13,14 +13,13 @@ This page details how to update the firmware on the Vortex Spark.
 
 It is important to keep the Spark up to date to avoid bugs and use the latest safety fixes.
 
-<div style="margin-left: 50px; margin-right: 50px" markdown="1">
+<div style="margin-left: 50px; margin-right: 50px; margin-bottom: 30px;" markdown="1">
 
 - **Use a data-capable USB cable, power-only cables won't work.**
 - Windows will notify upon successful connection
 - Mac may work but is not officially supported.
 
 </div>
-&nbsp;
 
  - With the Spark plugged in, navigate a **Google Chrome** browser to [lightshow.lol](https://lightshow.lol) and click the **Connect Device** USB icon:
 

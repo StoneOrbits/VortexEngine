@@ -18,14 +18,13 @@ Both a **Chromadeck** and a **Chromalink** cable are necessary to update the Duo
 
 Before updating the Duo firmware, always ensure the **Chromadeck** is [up to date](chromadeck_upgrade_guide.html)
 
-<div style="margin-left: 50px; margin-right: 50px; margin-bottom: 20px;" markdown="1">
+<div style="margin-left: 50px; margin-right: 50px; margin-bottom: 30px;" markdown="1">
 
 - **Use a data-capable USB cable, power-only cables won't work.**
 - Windows will notify upon successful connection
 - Mac may work but is not officially supported.
 
 </div>
-&nbsp;
 
  - Plug the **Chromadeck** into the PC, turn the power switch on, and connect the **Chromalink** cable to the side of the **Chromadeck**
 &nbsp;
