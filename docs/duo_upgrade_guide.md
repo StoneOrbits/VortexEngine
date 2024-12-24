@@ -6,8 +6,8 @@ parent: Upgrade Guides
 ---
 
 <div style="text-align: center; margin: 20px">
-  <h1 style="color:orange;">⚠ <b style="color:red;">Warning</b> ⚠<br></h1>
-  <h4>Upgrading Duos <i>can</i> be dangerous! Be patient and following these steps carefully, StoneOrbits is not responsible for any damage</h4>
+  <h1 style="color:orange;">⚠ <b style="color:red;">Warning</b> ⚠</br></h1>
+  <h2>Upgrading Duos <i>can</i> be dangerous! Be patient and following these steps carefully, StoneOrbits is not responsible for any damage</h4>
 </div>
 
 # Duo Upgrade Guide
