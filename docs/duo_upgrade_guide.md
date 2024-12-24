@@ -50,13 +50,13 @@ Before updating the Duo, ensure the **Chromadeck** is up to date by following th
  - Navigate a **Google Chrome** browser to [lightshow.lol](https://lightshow.lol) and click the 'Connect Device' USB icon:
 
 <div style="text-align: center; margin: 20px">
-  <img style="max-width:400px;" src="assets/images/connect-device.png">
+  <img src="assets/images/connect-device.png">
 </div>
 
  - Chrome will open a new popup window, select **USB JTAG/serial debug unit** from the list
 
 <div style="text-align: center; margin: 20px">
-  <img style="max-width:400px;" src="assets/images/connect-chromadeck-serialport.png">
+  <img src="assets/images/connect-chromadeck-serialport.png">
 </div>
 
  - Now the Chromadeck is connected and the UI should look like this, press **Update Firmware** in the **Chromalink Duo Panel**:

@@ -26,13 +26,13 @@ First, navigate a **Google Chrome** browser to https://lightshow.lol
  - With the Spark plugged in via USB, click the 'Connect Device' USB icon:
 
 <div style="text-align: center; margin: 20px">
-  <img style="max-width:400px;" src="assets/images/connect-device.png">
+  <img src="assets/images/connect-device.png">
 </div>
 
  - Chrome will popup a new window, select 'USB JTAG/serial debug unit' from the list
 
 <div style="text-align: center; margin: 20px">
-  <img style="max-width:400px;" src="assets/images/connect-chromadeck-serialport.png">
+  <img src="assets/images/connect-chromadeck-serialport.png">
 </div>
 
  - Once the spark is connected the UI should look like this, simply hit 'Update Firmware Now' in the Device Updates panel:
