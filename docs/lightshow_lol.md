@@ -24,6 +24,7 @@ has_children: true
     flex-direction: column;
     align-items: center;
     transition: transform 0.2s;
+    border: 1px solid #080808;
   }
 
   .panel-link:hover {
