@@ -3,12 +3,64 @@ layout: default
 title: Lightshow.lol
 nav_order: 0
 parent: Vortex Editors
+has_children: true
 ---
 
-# Lightshow.lol
+<style>
+  .panel-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 16px;
+    margin: 16px 0;
+  }
 
-{: .warning }
-This page is under construction and will be ready soon
+  .panel-link {
+    background-color: #2e2e2e;
+    border-radius: 8px;
+    text-decoration: none;
+    color: #ffffff;
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: transform 0.2s;
+  }
+
+  .panel-link:hover {
+    transform: scale(1.02);
+  }
+
+  .panel-title {
+    margin-bottom: 8px;
+    font-weight: bold;
+  }
+
+  .panel-img {
+    max-width: 100%;
+  }
+
+  .important-inline {
+    display: inline-block;
+    background-color: #fe00001f;
+    color: #ffffff;
+    border: 1px solid #ff5050;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.6);
+    padding: 12px;
+    margin: 5px;
+  }
+  .important-inline-header {
+    display: block;
+    font-size: 1em;
+  }
+</style>
+
+
+<div style="text-align: center; margin: 20px">
+  <h1 style="color:orange;">⚠ <b style="color:yellow;">This page is under construction</b> ⚠<br></h1>
+</div>
+
+# Lightshow.lol
 
 Welcome to the Vortex Engine wiki! This page details how to use the web-based Vortex Editor [lightshow.lol](https://lightshow.lol). 
 
@@ -18,90 +70,42 @@ Lightshow.lol is an online tool that allows you to design, preview, and export c
 
 The lightshow preview is the main focus of the page, with various control panels serving to modify the pattern, colorset, and preview animation.
 
-{: .important }
-Although the preview is an exact simulation of a real device, the preview will never look exactly the same as LEDs.
+<span class="important-inline">
+  <strong class="important-inline-header">Important</strong>
+  <span>Although the preview is an exact simulation of a real device, due to the difference in the way color is produced by LEDs and displays <b>the preview will never look exactly the same as real LEDs</b>.</span>
+</span>
 
-## Preview Animation
+----
+<h2>Panel Breakdown</h2>
+<p>Select one of the Panels below to learn more about it</p>
 
-{: .important }
-The animation panel only affects the virtual preview on screen, not the actual device!
-
-<img style="float:right;max-width:40%;margin:10px;" src="assets/images/lightshow-lol-animation.png">
-
-The five animation shape options are self-explanatory, but the six slider options in this panel are:
-
-- **Speed**: This represents how fast the animation will progress.
-- **Trail**: This corresponds to how long the colors will remain visible (i.e., the length of the trail).
-- **Size**: This is the size of each blink of color on the screen.
-- **Blur**: This controls the appearance of the blink on the screen, increasing softness and diffusion.
-- **Radius**: This controls the size of the animation pattern on the screen.
-- **Spread**: With many LEDs, this controls the distance between LEDs in the preview.
-
-## Device Controls
-
-<img style="float:right;max-width:40%;margin:10px;" src="assets/images/lightshow-lol-device.png">
-
-The **Device Controls** panel is the most basic of panels, offering only two simple purposes: selecting or connecting a device.
-
-- If a device is simply **selected**, the editor will allow creation of a mode tailored to that specific device (matching the number of LEDs).
-- If a device is **connected** via USB, the editor will lock the device selection to the connected device type, unlocking further controls in the **Modes Panel** for communicating with the device.
-
-In both cases—whether **Selecting** or **Connecting** a device—the **LED Selection** panel will appear, showing an image of the device and all of its LEDs.
-
-## Modes Panel
-
-<img style="float:right;max-width:40%;margin:10px;" src="assets/images/lightshow-lol-modes.png">
-
-The **Modes Panel** organizes and manages your lightshow's overall structure. A **mode** is a collection of patterns (one for each LED), which can be switched on the device.
-
-### Key Features
-
-- **Mode Creation:** Add, edit, or delete modes with ease.
-- **Mode Preview:** Simulate switching between modes to see their effect in real-time.
-- **Import/Export:** Import existing modes from your device or export them for sharing.
-- **Sharing:** Quickly share your mode with the Vortex Community.
-
-## LED Selection Panel
-
-<img style="float:right;max-width:40%;margin:10px;" src="assets/images/lightshow-lol-led-select.png">
-
-The **LED Selection Panel** allows you to interact with and assign configurations to individual LEDs on your device.
-
-### Key Features
-
-- **Visual Interface:** View a layout of all LEDs on your device.
-- **Individual Customization:** Select individual LEDs to assign patterns and colors.
-- **Batch Selection:** Group LEDs for simultaneous modifications.
-
-## Pattern Panel
-
-<img style="float:right;max-width:40%;margin:10px;" src="assets/images/lightshow-lol-pattern.png">
-
-The **Pattern Panel** is where you design and assign animations for your LEDs. Patterns determine how LEDs blink or animate over time.
-
-### Key Features
-
-- **Pattern Library:** Choose from a library of predefined patterns (e.g., strobe, dops, blend).
-- **Custom Parameters:** Adjust parameters like blink size, gap size, blend speed, etc
-
-## Colorset Panel
-
-<img style="float:right;max-width:40%;margin:10px;" src="assets/images/lightshow-lol-colorset.png">
-
-The **Colorset Panel** represents the list of colors for the selected leds of the current mode.
-
-### Key Features
-
-- **Drag and Drop** Drag to rearrange colors in your colorset.
-- **Dynamic Color Picker:** Click to modify the color with the Color Picker
-
-## Color Picker
-
-<img style="float:right;max-width:40%;margin:10px;" src="assets/images/lightshow-lol-color-picker.png">
-
-The **Color Picker** is a detailed interface for picking new colors for a colorset.
-
-### Key Features
-
-- **Precision Control:** Fine-tune colors with RGB/HEX inputs.
-- **Quick Adjustments:** Easily modify brightness, saturation, and hue.
+<div class="panel-grid">
+  <a href="lightshow_lol_animation.html" class="panel-link">
+    <span class="panel-title">🔗 Animation Panel →</span>
+    <img src="assets/images/lightshow-lol-animation.png" class="panel-img">
+  </a>
+  <a href="lightshow_lol_device_controls.html" class="panel-link">
+    <span class="panel-title">🔗 Device Control →</span>
+    <img src="assets/images/lightshow-lol-device.png" class="panel-img">
+  </a>
+  <a href="lightshow_lol_modes.html" class="panel-link">
+    <span class="panel-title">🔗 Modes Panel →</span>
+    <img src="assets/images/lightshow-lol-modes.png" class="panel-img">
+  </a>
+  <a href="lightshow_lol_led_selection.html" class="panel-link">
+    <span class="panel-title">🔗 Led Selection →</span>
+    <img src="assets/images/lightshow-lol-led-select.png" class="panel-img">
+  </a>
+  <a href="lightshow_lol_pattern.html" class="panel-link">
+    <span class="panel-title">🔗 Pattern Panel →</span>
+    <img src="assets/images/lightshow-lol-pattern.png" class="panel-img">
+  </a>
+  <a href="lightshow_lol_colorset.html" class="panel-link">
+    <span class="panel-title">🔗 Colorset Panel →</span>
+    <img src="assets/images/lightshow-lol-colorset.png" class="panel-img">
+  </a>
+  <a href="lightshow_lol_color_picker.html" class="panel-link">
+    <span class="panel-title">🔗 Color Picker →</span>
+    <img src="assets/images/lightshow-lol-color-picker.png" class="panel-img">
+  </a>
+</div>
