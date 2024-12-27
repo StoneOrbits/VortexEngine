@@ -428,16 +428,13 @@ void EditorConnection::handleState()
       break;
     }
     UPDI::eraseMemory();
+
+
     m_curStep = 0;
     m_firmwareOffset = 0;
-    Leds::setAll(RGB_YELLOW3);
     m_receiveBuffer.clear();
+    Leds::setAll(RGB_YELLOW3);
     SerialComs::write(EDITOR_VERB_READY);
-    // TODO: this god awful delay idk why it's necessary but without 
-    // it the serial seems to get stuck. It appears like an esp internals
-    // issue with serial but maybe this logic is just buggy -- it runs fine
-    // when simulated in test framework connected to editor though
-    Time::delayMilliseconds(300);
     m_state = STATE_CHROMALINK_FLASH_FIRMWARE_RECEIVE;
     break;
   case STATE_CHROMALINK_FLASH_FIRMWARE_RECEIVE:
@@ -447,11 +444,6 @@ void EditorConnection::handleState()
     }
     // send ack
     SerialComs::write(EDITOR_VERB_FLASH_FIRMWARE_ACK);
-    // TODO: this god awful delay idk why it's necessary but without 
-    // it the serial seems to get stuck. It appears like an esp internals
-    // issue with serial but maybe this logic is just buggy -- it runs fine
-    // when simulated in test framework connected to editor though
-    Time::delayMilliseconds(5);
     // only once the entire firmware is written
     if (m_firmwareOffset >= m_firmwareSize) {
       // then done
