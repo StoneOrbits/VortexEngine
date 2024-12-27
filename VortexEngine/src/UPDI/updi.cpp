@@ -720,12 +720,12 @@ void UPDI::enterProgrammingMode()
     stcs(Control_A, 0x6);
     mode = cpu_mode<0xEF>();
     if (mode != 0x82 && mode != 0x21 && mode != 0xA2 && mode != 0x08) {
-      sendDoubleBreak();
+      //sendDoubleBreak();
+      sendBreak();
       uint8_t status = ldcs(Status_B);
       ERROR_LOGF("Bad CPU Mode 0x%02x... error: 0x%02x", mode, status);
-      reset();
+      //reset();
       continue;
-      //return false;
     }
     if (mode != 0x08) {
       sendProgKey();
@@ -734,7 +734,6 @@ void UPDI::enterProgrammingMode()
         ERROR_LOGF("Bad prog key status: 0x%02x", status);
         reset();
         continue;
-        //return false;
       }
       reset();
     }
