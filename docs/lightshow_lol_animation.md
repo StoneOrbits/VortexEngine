@@ -6,12 +6,17 @@ parent: Lightshow.lol
 ---
 
 <style>
+  .panel-grid-title {
+    margin: 0 auto;
+    text-align: center;
+
+  }
+
   .panel-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     gap: 16px;
     margin: 0 auto;
-    margin-top: 50px;
     max-width: 80%;
   }
 
@@ -50,7 +55,7 @@ parent: Lightshow.lol
 
 The **Preview** is the spinning circle of colors immediately visible when entering the page, the **Animation Panel** specifically controls the appearance of this **Preview**.
 
-The preview will react to changes made in various UI panels (like Pattern or Colorset) but the **Animation Panel** is slightly different. The **Animation Panel** only affects the **Preview** on screen, not how the device looks.
+The **Preview** will react to changes made in various UI panels (like Pattern or Colorset) but the **Animation Panel** is slightly different. The **Animation Panel** only affects the **Preview** on screen, not how the device looks.
 
 The five animation shape options are self-explanatory, but the six slider options in this panel are:
 
@@ -61,6 +66,11 @@ The five animation shape options are self-explanatory, but the six slider option
 - **Radius**: This controls the size of the animation pattern on the screen.
 - **Spread**: With many LEDs, this controls the distance between LEDs in the preview.
 
+
+
+<div class="panel-grid-title">
+  <p>  </p>
+</div>
 <div class="panel-grid">
   <a href="lightshow_lol_color_picker.html" class="panel-link">
     <span class="panel-title">← Color Picker 🔗</span>
