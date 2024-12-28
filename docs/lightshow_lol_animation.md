@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Preview Animation
+title: Animation
 nav_order: 0
 parent: Lightshow.lol
 ---
