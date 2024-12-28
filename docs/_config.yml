@@ -1,10 +1,9 @@
 title: Vortex Engine
 description: Documentation for the Vortex Engine
 remote_theme: pmarsceill/just-the-docs
-color_scheme: light
+color_scheme: dark
 search_enabled: true
 heading_anchors: true
-markdown: kramdown
 include:
   - assets/images/
   - assets/js/
