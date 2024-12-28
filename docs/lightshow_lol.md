@@ -75,20 +75,6 @@ The lightshow preview is the main focus of the page, with various control panels
 {: .warning }
 Although the preview is an exact simulation of a real device, due to the difference in the way color is produced by LEDs and displays **the preview will never look exactly the same as real LEDs**
 
-{: .note }
-Although the preview is an exact simulation of a real device, due to the difference in the way color is produced by LEDs and displays **the preview will never look exactly the same as real LEDs**
-
-{: .important }
-Although the preview is an exact simulation of a real device, due to the difference in the way color is produced by LEDs and displays **the preview will never look exactly the same as real LEDs**
-
-{: .green }
-Although the preview is an exact simulation of a real device, due to the difference in the way color is produced by LEDs and displays **the preview will never look exactly the same as real LEDs**
-
-{: .yellow }
-Although the preview is an exact simulation of a real device, due to the difference in the way color is produced by LEDs and displays **the preview will never look exactly the same as real LEDs**
-
-
-
 ### What is a Vortex Editor
 
 In the **Vortex Engine** ecosystem a [mode](modes.html) consists of a [pattern](patterns.html) and a [colorset](colorsets.html) for each LED on a device.
