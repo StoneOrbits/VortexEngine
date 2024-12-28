@@ -5,9 +5,46 @@ nav_order: 0
 parent: Lightshow.lol
 ---
 
+<style>
+  .panel-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 16px;
+    margin: 0 auto;
+    margin-top: 50px;
+    max-width: 40%;
+  }
+
+  .panel-link {
+    background-color: #2e2e2e;
+    border-radius: 8px;
+    text-decoration: none;
+    color: #ffffff;
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: transform 0.2s;
+    border: 1px solid #080808;
+  }
+
+  .panel-link:hover {
+    transform: scale(1.02);
+  }
+
+  .panel-title {
+    margin-bottom: 8px;
+    font-weight: bold;
+  }
+
+  .panel-img {
+    max-width: 100%;
+  }
+</style>
+
 # Preview Animation
 
-<div style="text-align: center; margin: 20px">
+<div style="float: right; margin: 20px; max-width: 40%">
   <img src="assets/images/lightshow-lol-animation.png">
 </div>
 
@@ -23,3 +60,10 @@ The five animation shape options are self-explanatory, but the six slider option
 - **Blur**: This controls the appearance of the blink on the screen, increasing softness and diffusion.
 - **Radius**: This controls the size of the animation pattern on the screen.
 - **Spread**: With many LEDs, this controls the distance between LEDs in the preview.
+
+<div class="panel-grid">
+  <a href="lightshow_lol_device_controls.html" class="panel-link">
+    <span class="panel-title">🔗 Next Device Control →</span>
+    <img src="assets/images/lightshow-lol-device.png" class="panel-img">
+  </a>
+</div>
