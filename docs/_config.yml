@@ -21,9 +21,6 @@ callouts:
   yellow:
     title: Yellow
     color: yellow
-  orange:
-    title: Orange
-    color: orange
 include:
   - assets/images/
   - assets/js/

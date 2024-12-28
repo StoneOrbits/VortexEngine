@@ -87,9 +87,6 @@ Although the preview is an exact simulation of a real device, due to the differe
 {: .yellow }
 Although the preview is an exact simulation of a real device, due to the difference in the way color is produced by LEDs and displays **the preview will never look exactly the same as real LEDs**
 
-{: .orange }
-Although the preview is an exact simulation of a real device, due to the difference in the way color is produced by LEDs and displays **the preview will never look exactly the same as real LEDs**
-
 
 
 ### What is a Vortex Editor
