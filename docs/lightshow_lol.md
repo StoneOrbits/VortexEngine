@@ -72,14 +72,24 @@ Lightshow.lol is an online tool that allows you to design, preview, and export c
 
 The lightshow preview is the main focus of the page, with various control panels serving to modify the pattern, colorset, and preview animation.
 
-<span class="important-inline">
-  <strong class="important-inline-header">Important</strong>
-  <span>Although the preview is an exact simulation of a real device, due to the difference in the way color is produced by LEDs and displays <b>the preview will never look exactly the same as real LEDs</b>.</span>
-</span>
-
-
 {: .warning }
 Although the preview is an exact simulation of a real device, due to the difference in the way color is produced by LEDs and displays **the preview will never look exactly the same as real LEDs**
+
+{: .note }
+Although the preview is an exact simulation of a real device, due to the difference in the way color is produced by LEDs and displays **the preview will never look exactly the same as real LEDs**
+
+{: .important }
+Although the preview is an exact simulation of a real device, due to the difference in the way color is produced by LEDs and displays **the preview will never look exactly the same as real LEDs**
+
+{: .green }
+Although the preview is an exact simulation of a real device, due to the difference in the way color is produced by LEDs and displays **the preview will never look exactly the same as real LEDs**
+
+{: .yellow }
+Although the preview is an exact simulation of a real device, due to the difference in the way color is produced by LEDs and displays **the preview will never look exactly the same as real LEDs**
+
+{: .orange }
+Although the preview is an exact simulation of a real device, due to the difference in the way color is produced by LEDs and displays **the preview will never look exactly the same as real LEDs**
+
 
 
 ### What is a Vortex Editor

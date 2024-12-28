@@ -9,6 +9,21 @@ callouts:
   warning:
     title: Warning
     color: red
+  note:
+    title: Note
+    color: purple
+  important:
+    title: Important
+    color: blue
+  green:
+    title: Green
+    color: green
+  yellow:
+    title: Yellow
+    color: yellow
+  orange:
+    title: Orange
+    color: orange
 include:
   - assets/images/
   - assets/js/
