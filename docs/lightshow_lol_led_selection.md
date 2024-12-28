@@ -10,7 +10,6 @@ parent: Lightshow.lol
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     gap: 16px;
     margin: 0 auto;
-    margin-top: 50px;
     max-width: 80%;
   }
 
@@ -34,6 +33,7 @@ parent: Lightshow.lol
   .panel-title {
     margin-bottom: 8px;
     font-weight: bold;
+    color: #ffcc00;
   }
 
   .panel-img {
@@ -55,6 +55,8 @@ The **LED Selection Panel** allows you to interact with and assign configuration
 The LED Selection panel only appears after a device has been selected or connected from the [Device Control Panel](lightshow_lol_device_controls.html).
 
 Led selections can be added or removed by holding shift or ctrl respectively, and the image supports drawing boxes with the cursor to affect multiple leds at a time.
+
+## Other Panels
 
 <div class="panel-grid">
   <a href="lightshow_lol_modes.html" class="panel-link">

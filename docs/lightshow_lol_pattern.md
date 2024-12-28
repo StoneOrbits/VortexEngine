@@ -10,7 +10,6 @@ parent: Lightshow.lol
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     gap: 16px;
     margin: 0 auto;
-    margin-top: 50px;
     max-width: 80%;
   }
 
@@ -34,6 +33,7 @@ parent: Lightshow.lol
   .panel-title {
     margin-bottom: 8px;
     font-weight: bold;
+    color: #ffcc00;
   }
 
   .panel-img {
@@ -52,6 +52,8 @@ The **Pattern Panel** is where you design and assign animations for your LEDs. P
 - **Custom Parameters:** Adjust parameters like blink size, gap size, blend speed, etc
 
 The various parameters control the appearance of the blinking of the LED, like the timing and length of blinks.
+
+## Other Panels
 
 <div class="panel-grid">
   <a href="lightshow_lol_led_selection.html" class="panel-link">

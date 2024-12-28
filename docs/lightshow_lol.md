@@ -9,7 +9,7 @@ has_children: true
 <style>
   .panel-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
     gap: 16px;
     margin: 16px 0;
   }
@@ -34,6 +34,7 @@ has_children: true
   .panel-title {
     margin-bottom: 8px;
     font-weight: bold;
+    color: #ffcc00;
   }
 
   .panel-img {
@@ -76,9 +77,18 @@ The lightshow preview is the main focus of the page, with various control panels
   <span>Although the preview is an exact simulation of a real device, due to the difference in the way color is produced by LEDs and displays <b>the preview will never look exactly the same as real LEDs</b>.</span>
 </span>
 
-----
-<h2>Panel Breakdown</h2>
-<p>Select one of the Panels below to learn more about it</p>
+### What is a Vortex Editor
+
+In the **Vortex Engine** ecosystem a [mode](modes.html) consists of a [pattern](patterns.html) and a [colorset](colorsets.html) for each LED on a device.
+
+For example, the **Spark Orbit** has **6 LEDs** which means **6 Patterns** and **6 Colorsets** -- one for each LED.
+
+A **Vortex Editor** is any kind of software designed to edit the **Patterns** or **Colorsets** in the **Modes** of a **Vortex Device**.
+
+### Panel Breakdown
+In order to get familiar with how lightshow.lol works it is important to first familiarize yourself with each UI Panel.
+
+Select one of the Panels below to learn more about it:
 
 <div class="panel-grid">
   <a href="lightshow_lol_animation.html" class="panel-link">
@@ -109,4 +119,19 @@ The lightshow preview is the main focus of the page, with various control panels
     <span class="panel-title">🔗 Color Picker →</span>
     <img src="assets/images/lightshow-lol-color-picker.png" class="panel-img">
   </a>
+  <a href="lightshow_lol_update_panel.html" class="panel-link">
+    <span class="panel-title">🔗 Update Panel →</span>
+    <img src="assets/images/lightshow-lol-device-update.png" class="panel-img">
+  </a>
+  <a href="lightshow_lol_chromalink_duo.html" class="panel-link">
+    <span class="panel-title">🔗 Chromalink Panel →</span>
+    <img src="assets/images/lightshow-lol-chromalink-duo.png" class="panel-img">
+  </a>
 </div>
+
+### Example Workflows
+
+Once you're satisfied with your understanding of the UI Panels then read the example workflows at the bottom of this page.
+
+To use Lightshow.lol with
+

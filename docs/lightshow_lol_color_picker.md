@@ -10,7 +10,6 @@ parent: Lightshow.lol
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     gap: 16px;
     margin: 0 auto;
-    margin-top: 50px;
     max-width: 80%;
   }
 
@@ -34,6 +33,7 @@ parent: Lightshow.lol
   .panel-title {
     margin-bottom: 8px;
     font-weight: bold;
+    color: #ffcc00;
   }
 
   .panel-img {
@@ -55,13 +55,15 @@ The color picker is opened by selecting a color in the colorset, and it can be c
 
 When a device is connected it will display a live preview of the color being chosen as the user navigates the color picker.
 
+## Other Panels
+
 <div class="panel-grid">
   <a href="lightshow_lol_colorset.html" class="panel-link">
     <span class="panel-title">← Colorset Panel 🔗</span>
     <img src="assets/images/lightshow-lol-colorset.png" class="panel-img">
   </a>
-  <a href="lightshow_lol_animation.html" class="panel-link">
-    <span class="panel-title">🔗 Animation Panel →</span>
-    <img src="assets/images/lightshow-lol-animation.png" class="panel-img">
+  <a href="lightshow_lol_update_panel.html" class="panel-link">
+    <span class="panel-title">🔗 Update Panel →</span>
+    <img src="assets/images/lightshow-lol-device-update.png" class="panel-img">
   </a>
 </div>

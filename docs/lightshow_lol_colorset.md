@@ -10,7 +10,6 @@ parent: Lightshow.lol
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     gap: 16px;
     margin: 0 auto;
-    margin-top: 50px;
     max-width: 80%;
   }
 
@@ -34,6 +33,7 @@ parent: Lightshow.lol
   .panel-title {
     margin-bottom: 8px;
     font-weight: bold;
+    color: #ffcc00;
   }
 
   .panel-img {
@@ -52,6 +52,8 @@ The **Colorset Panel** represents the list of colors for the selected leds of th
 - **Dynamic Color Picker:** Click to modify the color with the Color Picker
 
 There is a maximum of 8 colors in a colorset, black is considered 'off' which can be used to extend gaps in the pattern.
+
+## Other Panels
 
 <div class="panel-grid">
   <a href="lightshow_lol_pattern.html" class="panel-link">

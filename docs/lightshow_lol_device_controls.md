@@ -10,7 +10,6 @@ parent: Lightshow.lol
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     gap: 16px;
     margin: 0 auto;
-    margin-top: 50px;
     max-width: 80%;
   }
 
@@ -34,6 +33,7 @@ parent: Lightshow.lol
   .panel-title {
     margin-bottom: 8px;
     font-weight: bold;
+    color: #ffcc00;
   }
 
   .panel-img {
@@ -51,6 +51,8 @@ The **Device Controls Panel** is very simple, offering only two purposes: **sele
   - **connected**: device selection is locked, connection with the evice is established.
 
 In both cases, whether **Selecting** or **Connecting** a device, the **LED Selection Panel** will appear, this will be covered below.
+
+## Other Panels
 
 <div class="panel-grid">
   <a href="lightshow_lol_animation.html" class="panel-link">

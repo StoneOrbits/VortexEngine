@@ -10,7 +10,6 @@ parent: Lightshow.lol
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     gap: 16px;
     margin: 0 auto;
-    margin-top: 50px;
     max-width: 80%;
   }
 
@@ -34,6 +33,7 @@ parent: Lightshow.lol
   .panel-title {
     margin-bottom: 8px;
     font-weight: bold;
+    color: #ffcc00;
   }
 
   .panel-img {
@@ -53,6 +53,7 @@ The **Modes Panel** organizes and manages your lightshow's overall structure. A 
 - **Import/Export:** Import existing modes from your device or export them for sharing.
 - **Sharing:** Quickly share your mode with the Vortex Community.
 
+## Other Panels
 
 <div class="panel-grid">
   <a href="lightshow_lol_device_controls.html" class="panel-link">
