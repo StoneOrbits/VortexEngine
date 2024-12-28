@@ -51,7 +51,7 @@ The **Pattern Panel** is where you design and assign animations for your LEDs. P
 - **Pattern Library:** Choose from a library of predefined patterns (e.g., strobe, dops, blend).
 - **Custom Parameters:** Adjust parameters like blink size, gap size, blend speed, etc
 
-Test test test
+The various parameters control the appearance of the blinking of the LED, like the timing and length of blinks.
 
 <div class="panel-grid">
   <a href="lightshow_lol_led_selection.html" class="panel-link">

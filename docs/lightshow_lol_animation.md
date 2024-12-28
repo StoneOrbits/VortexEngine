@@ -63,7 +63,7 @@ The five animation shape options are self-explanatory, but the six slider option
 
 <div class="panel-grid">
   <a href="lightshow_lol_device_controls.html" class="panel-link">
-    <span class="panel-title">🔗 Next Device Control →</span>
+    <span class="panel-title">🔗 Device Control →</span>
     <img src="assets/images/lightshow-lol-device.png" class="panel-img">
   </a>
 </div>

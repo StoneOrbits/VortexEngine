@@ -54,11 +54,11 @@ In both cases, whether **Selecting** or **Connecting** a device, the **LED Selec
 
 <div class="panel-grid">
   <a href="lightshow_lol_animation.html" class="panel-link">
-    <span class="panel-title">← Prev Animation Panel 🔗</span>
+    <span class="panel-title">← Animation Panel 🔗</span>
     <img src="assets/images/lightshow-lol-animation.png" class="panel-img">
   </a>
   <a href="lightshow_lol_modes.html" class="panel-link">
-    <span class="panel-title">🔗 Next Modes Panel →</span>
+    <span class="panel-title">🔗 Modes Panel →</span>
     <img src="assets/images/lightshow-lol-modes.png" class="panel-img">
   </a>
 </div>
