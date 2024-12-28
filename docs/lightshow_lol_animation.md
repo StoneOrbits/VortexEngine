@@ -12,7 +12,7 @@ parent: Lightshow.lol
     gap: 16px;
     margin: 0 auto;
     margin-top: 50px;
-    max-width: 40%;
+    max-width: 80%;
   }
 
   .panel-link {
@@ -62,6 +62,10 @@ The five animation shape options are self-explanatory, but the six slider option
 - **Spread**: With many LEDs, this controls the distance between LEDs in the preview.
 
 <div class="panel-grid">
+  <a href="lightshow_lol_color_picker.html" class="panel-link">
+    <span class="panel-title">← Color Picker 🔗</span>
+    <img src="assets/images/lightshow-lol-color-picker.png" class="panel-img">
+  </a>
   <a href="lightshow_lol_device_controls.html" class="panel-link">
     <span class="panel-title">🔗 Device Control →</span>
     <img src="assets/images/lightshow-lol-device.png" class="panel-img">
