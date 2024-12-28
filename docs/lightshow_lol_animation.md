@@ -17,6 +17,7 @@ parent: Lightshow.lol
     gap: 16px;
     margin: 0 auto;
     max-width: 80%;
+    margin-top: 10px;
   }
 
   .panel-link {
@@ -87,9 +88,8 @@ The five animation shape options are self-explanatory, but the six slider option
 - **Radius**: The size of the animation pattern on screen.
 - **Spread**: With many LEDs, the distance between LEDs in the preview.
 
-<div class="panel-grid-title">
-  <p> </p>
-</div>
+## Other Panels
+
 <div class="panel-grid">
   <a href="lightshow_lol_chromalink_duo.html" class="panel-link">
     <span class="panel-title">← Chromalink Panel 🔗</span>

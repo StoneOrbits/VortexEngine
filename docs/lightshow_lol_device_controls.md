@@ -11,6 +11,7 @@ parent: Lightshow.lol
     gap: 16px;
     margin: 0 auto;
     max-width: 80%;
+    margin-top: 10px;
   }
 
   .panel-link {
