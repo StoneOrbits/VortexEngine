@@ -26,16 +26,25 @@ Before updating the Duo firmware, always ensure the **Chromadeck** is [up to dat
 
 </div>
 
- - Plug the **Chromadeck** into the PC, turn the power switch on, and connect the **Chromalink** cable to the side of the **Chromadeck**
-&nbsp;
+ - Start by carefully removing the Duo from it's case
+
+<div style="text-align: center; margin: 5px">
+  <img style="max-width:260px;border-radius:5px;border:1px solid gray;" src="assets/images/duo-case-removal.gif">
+</div>
 
  - **Gently** and **carefully** peel the Duo battery away from the Duo like shown below, leaving it connected will degrade the battery
 
 <div style="text-align: center; margin: 5px">
-  <p style="color:white;">⚠ <b>Warning</b> ⚠<br>
-  StoneOrbits is not responsible for damage to the Duo or battery!</p>
+  <p style="color:white;"><span style="color:yellow;">⚠</span> <b>Warning</b> <span style="color:yellow;">⚠</span><br>
+  StoneOrbits is not responsible for any damage to the Duo or battery!</p>
   <img style="max-width:260px;border-radius:5px;border:1px solid gray;" src="assets/images/battery-removal-1.gif">
   <img style="max-width:260px;border-radius:5px;border:1px solid gray;" src="assets/images/battery-removal-2.gif">
+</div>
+
+ - Connect the **Chromalink** cable to the **Chromadeck**, then plug the **Chromadeck** into the PC and power it on
+<div style="text-align: center; margin: 5px">
+  <img style="max-width:260px;border-radius:5px;border:1px solid gray;" src="assets/images/connect-chromalink.gif">
+  <img style="max-width:260px;border-radius:5px;border:1px solid gray;" src="assets/images/connect-chromadeck.gif">
 </div>
 
  - Seat the Duo into the **Chromalink** dock and slide it into place like shown below
@@ -46,6 +55,7 @@ Before updating the Duo firmware, always ensure the **Chromadeck** is [up to dat
 </div>
 
  - **[Optional]** Turn the Duo on to verify it is receiving power from the Chromadeck
+ &nbsp;
 
  - Navigate a **Google Chrome** browser to [lightshow.lol](https://lightshow.lol) and click the **Connect Device** USB icon:
 
@@ -61,7 +71,16 @@ Before updating the Duo firmware, always ensure the **Chromadeck** is [up to dat
   <img src="assets/images/connect-chromadeck-serialport.png">
 </div>
 
- - When the Chromadeck connects the **Chromalink Duo** panel will appear, press the **Update Firmware** button to update the Duo:
+ - With the Chromadeck connected there are two new panels: **Device Updates** & **Chromalink Duo**
+
+ <div style="text-align: center; margin: 5px">
+  <b style="color:white;">Note: </b> If you haven't <a href="chromadeck_upgrade_guide.html">updated the Chromadeck</a> yet, do it <b style="color:white;">now</b>!</p>
+ 
+  <img style="margin:5px;max-width:280px;border-radius:5px;" src="assets/images/lightshow-lol-chromadeck-update-done.png">
+  <img style="margin:5px;max-width:260px;max-height:190px;border-radius:5px;" src="assets/images/lightshow-lol-chromalink-duo-basic.png">
+</div>
+ 
+- If the **Chromadeck** firmware is up to date, then press the **Update Firmware** button in the **Chromalink Duo Panel** to update the Duo:
 
 <div style="text-align: center; margin: 20px; display:flex; flex-direction: column; align-items: center;">
   <p style="color: white;"><b>NOTE</b>: It is unnecessary to press Connect Duo when updating Firmware!</p>
@@ -70,6 +89,10 @@ Before updating the Duo firmware, always ensure the **Chromadeck** is [up to dat
 
  - Let the flash complete then remove the Duo from the Chromalink and reconnect the battery
 &nbsp; 
+
+<div style="text-align: center; margin: 5px">
+  <img style="max-width:300px;border-radius:5px;border:1px solid gray;" src="assets/images/duo-case-insertion.gif">
+</div>
  
  - Turn the Duo on and cycle through all of it's modes to verify the flash was successful
 
