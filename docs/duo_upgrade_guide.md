@@ -30,6 +30,7 @@ Before updating the Duo firmware, always ensure the **Chromadeck** is [up to dat
 
 <div style="text-align: center; margin: 5px">
   <img style="max-width:260px;border-radius:5px;border:1px solid gray;" src="assets/images/duo-case-removal.gif">
+  <img style="max-width:260px;border-radius:5px;border:1px solid gray;" src="assets/images/duo-case-removal-2.gif">
 </div>
 
  - **Gently** and **carefully** peel the Duo battery away from the Duo like shown below, leaving it connected will degrade the battery
@@ -71,30 +72,37 @@ Before updating the Duo firmware, always ensure the **Chromadeck** is [up to dat
   <img src="assets/images/connect-chromadeck-serialport.png">
 </div>
 
- - With the Chromadeck connected there are two new panels: **Device Updates** & **Chromalink Duo**
+ - With the **Chromadeck** connected to lightshow.lol, two new panels will be visible: **Device Updates** & **Chromalink Duo**
 
  <div style="text-align: center; margin: 5px">
   <b style="color:white;">Note: </b> If you haven't <a href="chromadeck_upgrade_guide.html">updated the Chromadeck</a> yet, do it <b style="color:white;">now</b>!</p>
  
-  <img style="margin:5px;max-width:280px;border-radius:5px;" src="assets/images/lightshow-lol-chromadeck-update-done.png">
-  <img style="margin:5px;max-width:260px;max-height:190px;border-radius:5px;" src="assets/images/lightshow-lol-chromalink-duo-basic.png">
+  <img style="max-width:280px;" src="assets/images/lightshow-lol-chromadeck-update-done.png">
+  <img style="max-width:260px;max-height:190px;" src="assets/images/lightshow-lol-chromalink-duo-basic.png">
 </div>
  
 - If the **Chromadeck** firmware is up to date, then press the **Update Firmware** button in the **Chromalink Duo Panel** to update the Duo:
 
-<div style="text-align: center; margin: 20px; display:flex; flex-direction: column; align-items: center;">
-  <p style="color: white;"><b>NOTE</b>: It is unnecessary to press Connect Duo when updating Firmware!</p>
-  <img src="assets/images/update-firmware-ui.png">
+<div style="text-align: center; margin-top: 20px;">
+  <p><b style="color: white;">Note</b>: It is unnecessary to press Connect Duo when updating Firmware!</p>
+</div>
+<div style="text-align: center; margin: 20px">
+  <img style="max-width:260px;" src="assets/images/update-firmware-ui.png">
+  <img style="max-width:260px;" src="assets/images/update-firmware-ui-progress.png">
 </div>
 
- - Let the flash complete then remove the Duo from the Chromalink and reconnect the battery
-&nbsp; 
+ - Let the flash complete, remove the **Duo** from the **Chromalink**, reconnect the battery, and insert it back into the case
 
-<div style="text-align: center; margin: 5px">
-  <img style="max-width:300px;border-radius:5px;border:1px solid gray;" src="assets/images/duo-case-insertion.gif">
+<div style="text-align: center; margin: 20px">
+  <img style="max-width:260px;border-radius:5px;border:1px solid gray;" src="assets/images/duo-battery-connect.gif">
+  <img style="max-width:260px;border-radius:5px;border:1px solid gray;" src="assets/images/duo-case-insertion.gif">
 </div>
  
  - Turn the Duo on and cycle through all of it's modes to verify the flash was successful
+
+<div style="text-align: center; margin-top: 30px;">
+  <p><b style="color: white;">Congratulations</b> You have successfully updated the Duo Firmware!</p>
+</div>
 
 # Troubleshooting
 
