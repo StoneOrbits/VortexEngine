@@ -123,7 +123,7 @@ Select one of the Panels below to learn more about it:
   </a>
   <a href="lightshow_lol_chromalink_duo.html" class="panel-link">
     <span class="panel-title">🔗 Chromalink Panel →</span>
-    <img src="assets/images/lightshow-lol-chromalink-duo.png" class="panel-img">
+    <img src="assets/images/lightshow-lol-chromalink-duo-basic.png" class="panel-img">
   </a>
 </div>
 
