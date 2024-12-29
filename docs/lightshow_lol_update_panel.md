@@ -62,7 +62,7 @@ The other devices like Vortex Orbit, Handles and Wired Gloves are not supported 
     <span class="panel-title">← Color Picker 🔗</span>
     <img src="assets/images/lightshow-lol-color-picker.png" class="panel-img" alt="Color Picker">
   </a>
-  <a href="lightshow_lol_color_picker.html" class="panel-link">
+  <a href="lightshow_lol_chromalink_duo.html" class="panel-link">
     <span class="panel-title">🔗 Chromalink Panel →</span>
     <img src="assets/images/lightshow-lol-chromalink-duo-basic.png" class="panel-img">
   </a>
