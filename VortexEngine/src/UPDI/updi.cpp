@@ -710,6 +710,15 @@ bool UPDI::reset()
 #endif
 }
 
+bool UPDI::disable()
+{
+#ifdef VORTEX_EMBEDDED
+  // UPDIDIS bit to CTRLB
+  stcs(Control_B, 0x2);
+#endif
+  return true;
+}
+
 #ifdef VORTEX_EMBEDDED
 
 void UPDI::enterProgrammingMode()

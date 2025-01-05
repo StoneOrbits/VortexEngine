@@ -379,6 +379,7 @@ void EditorConnection::handleState()
     }
     // the trick is to send header after the modes so the reset comes at the end
     UPDI::reset();
+    UPDI::disable();
     // success modes were received send the done
     SerialComs::write(EDITOR_VERB_PUSH_CHROMA_HDR_ACK);
     m_receiveBuffer.clear();
@@ -480,6 +481,8 @@ bool EditorConnection::pullHeaderChromalink()
   ByteStream saveHeader;
   // doesn't matter if reading the header fails, we still need to send it
   bool success = UPDI::readHeader(saveHeader);
+  UPDI::reset();
+  UPDI::disable();
   // send whatever we read, might be empty buffer if it failed
   SerialComs::write(saveHeader);
   // return whether reading the header was successful
@@ -496,6 +499,8 @@ bool EditorConnection::pushHeaderChromalink()
   if (!UPDI::writeHeader(buf)) {
     return false;
   }
+  UPDI::reset();
+  UPDI::disable();
   return true;
 }
 
@@ -513,6 +518,8 @@ bool EditorConnection::pullModeChromalink()
   bool success = UPDI::readMode(modeIdx, modeBuffer);
   // send the mode, could be empty buffer if reading failed
   SerialComs::write(modeBuffer);
+  UPDI::reset();
+  UPDI::disable();
   // return whether reading the mode was successful
   return success;
 }
@@ -527,6 +534,9 @@ bool EditorConnection::pushModeChromalink()
   if (!UPDI::writeMode(m_chromaModeIdx, buf)) {
     return false;
   }
+  // the trick is to send header after the modes so the reset comes at the end
+  UPDI::reset();
+  UPDI::disable();
   return true;
 }
 
@@ -542,7 +552,9 @@ bool EditorConnection::writeDuoFirmware()
   }
   m_firmwareOffset += buf.size();
   if (m_firmwareOffset >= m_firmwareSize) {
+    // done
     UPDI::reset();
+    UPDI::disable();
   }
   // create a progress bar I guess
   Leds::setAll(RGB_RED0);

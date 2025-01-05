@@ -28,6 +28,9 @@ public:
   static bool eraseMemory();
   static bool reset();
 
+  // end the updi connection and reset the chip
+  static bool disable();
+
 private:
 
 #ifdef VORTEX_EMBEDDED
