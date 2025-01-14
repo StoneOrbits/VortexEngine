@@ -8,19 +8,19 @@ markdown: kramdown
 callouts:
   warning:
     title: Warning
-    color: red
+    color: yellow
   note:
     title: Note
     color: purple
   important:
     title: Important
-    color: blue
-  green:
-    title: Green
+    color: red
+  remember:
+    title: Remember
     color: green
-  yellow:
-    title: Yellow
-    color: yellow
+  example:
+    title: Example
+    color: blue
 include:
   - assets/images/
   - assets/js/
