@@ -144,8 +144,18 @@ void SerialComs::write(ByteStream &byteStream)
   Vortex::vcallbacks()->serialWrite((const uint8_t *)&size, sizeof(size));
   Vortex::vcallbacks()->serialWrite((const uint8_t *)byteStream.rawData(), byteStream.rawSize());
 #else
+  //uint32_t bufSize = sizeof(size) + size;
+  //uint8_t *buf = new uint8_t[size];
+  //if (!buf) {
+  //  return;
+  //}
+  //memcpy(buf, &size, sizeof(size));
+  //memcpy(buf + sizeof(size), byteStream.rawData(), size);
   Serial.write((const uint8_t *)&size, sizeof(size));
   Serial.write((const uint8_t *)byteStream.rawData(), byteStream.rawSize());
+  //Serial.write(buf, bufSize);
+  //delete[] buf;
+  //delay(100);
   Serial.flush();
 #endif
 #endif
