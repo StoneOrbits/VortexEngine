@@ -9,6 +9,7 @@
 #include "../../Time/TimeControl.h"
 #include "../../Time/Timings.h"
 #include "../../Colors/Colorset.h"
+#include "../../Modes/DuoDefaultModes.h"
 #include "../../Modes/Modes.h"
 #include "../../Modes/Mode.h"
 #include "../../Leds/Leds.h"
@@ -29,7 +30,8 @@ EditorConnection::EditorConnection(const RGBColor &col, bool advanced) :
   m_numModesToReceive(0),
   m_curStep(0),
   m_firmwareSize(0),
-  m_firmwareOffset(0)
+  m_firmwareOffset(0),
+  m_backupModes(true)
 {
 }
 
@@ -428,30 +430,55 @@ void EditorConnection::handleState()
     if (!receiveFirmwareSize(m_firmwareSize)) {
       break;
     }
-    UPDI::eraseMemory();
-
-
     m_curStep = 0;
     m_firmwareOffset = 0;
-    m_receiveBuffer.clear();
-    Leds::setAll(RGB_YELLOW3);
-    SerialComs::write(EDITOR_VERB_READY);
-    m_state = STATE_CHROMALINK_FLASH_FIRMWARE_RECEIVE;
+    m_backupModeNum = 0;
+    Leds::setAll(RGB_ORANGE3);
+    m_state = STATE_CHROMALINK_FLASH_FIRMWARE_BACKUP_MODES;
     break;
-  case STATE_CHROMALINK_FLASH_FIRMWARE_RECEIVE:
+  case STATE_CHROMALINK_FLASH_FIRMWARE_BACKUP_MODES:
+    if (!backupDuoModes()) {
+      // not done
+      break;
+    }
+    m_state = STATE_CHROMALINK_FLASH_FIRMWARE_ERASE_MEMORY;
+    break;
+  case STATE_CHROMALINK_FLASH_FIRMWARE_ERASE_MEMORY:
+    UPDI::eraseMemory();
+    m_receiveBuffer.clear();
+    Leds::setAll(RGB_YELLOW5);
+    SerialComs::write(EDITOR_VERB_READY);
+    m_state = STATE_CHROMALINK_FLASH_FIRMWARE_FLASH_CHUNKS;
+    break;
+  case STATE_CHROMALINK_FLASH_FIRMWARE_FLASH_CHUNKS:
     // receive and write a chunk of firwmare
     if (!writeDuoFirmware()) {
       break;
     }
+    m_state = STATE_CHROMALINK_FLASH_FIRMWARE_RESTORE_MODES;
+    break;
+  case STATE_CHROMALINK_FLASH_FIRMWARE_RESTORE_MODES:
+    // only once the entire firmware is written
+    if (!restoreDuoModes()) {
+      break;
+    }
+    m_state = STATE_CHROMALINK_FLASH_FIRMWARE_DONE;
+    break;
+  case STATE_CHROMALINK_FLASH_FIRMWARE_DONE:
+    // done reset everything
+    m_receiveBuffer.clear();
+    m_firmwareOffset = 0;
+    m_backupModeNum = 0;
+    m_curStep = 0;
+    // done with updi
+    UPDI::reset();
+    UPDI::disable();
+    // show green
+    Leds::setAll(RGB_GREEN);
     // send ack
     SerialComs::write(EDITOR_VERB_FLASH_FIRMWARE_ACK);
-    // only once the entire firmware is written
-    if (m_firmwareOffset >= m_firmwareSize) {
-      // then done
-      m_receiveBuffer.clear();
-      m_curStep = 0;
-      m_state = STATE_IDLE;
-    }
+    // go back to idle
+    m_state = STATE_IDLE;
     break;
   }
 }
@@ -540,26 +567,63 @@ bool EditorConnection::pushModeChromalink()
   return true;
 }
 
-bool EditorConnection::writeDuoFirmware()
+bool EditorConnection::backupDuoModes()
 {
+  Leds::setRadial((Radial)m_backupModeNum, RGB_YELLOW4);
+  if (m_backupModeNum == 9) {
+    // reset counter for the restore step later
+    m_backupModeNum = 0;
+    // done
+    return true;
+  }
+  // read or just use defaults?
+  if (!m_backupModes || !UPDI::readMode(m_backupModeNum, m_duoModeBackups[m_backupModeNum])) {
+    // if not backing up, or backup failed, then store the default mode data in the backup
+    // because we will always write out the backups after flashing
+    m_duoModeBackups[m_backupModeNum].init(duo_default_mode_sizes[m_backupModeNum], duo_default_modes[m_backupModeNum]);
+  }
+  // go to next mode
+  m_backupModeNum++;
+  return false;
+}
+
+bool EditorConnection::restoreDuoModes()
+{
+  Leds::setRadials(RADIAL_0, (Radial)((m_firmwareOffset / (float)m_firmwareSize) * RADIAL_COUNT), RGB_GREEN6);
+  if (m_backupModeNum == 9) {
+    // reset counter for the restore step later
+    m_backupModeNum = 0;
+    // done
+    return true;
+  }
+  // each pass write out the backups, these may be the defaults
+  UPDI::writeMode(m_backupModeNum, m_duoModeBackups[m_backupModeNum]);
+  // go to next mode
+  m_backupModeNum++;
+  return true;
+}
+
+bool EditorConnection::writeDuoFirmware()
+{ 
+  Leds::setRadials(RADIAL_0, (Radial)((m_firmwareOffset / (float)m_firmwareSize) * RADIAL_COUNT), RGB_GREEN3);
+  // first pass and backup modes is enabled
+  if (m_firmwareOffset >= m_firmwareSize) {
+    // done
+    return true;
+  }
   // wait for the mode then write it via updi
   ByteStream buf;
   if (!receiveBuffer(buf)) {
     return false;
   }
+  // write out the firmware and record it if successful
   if (!UPDI::writeFirmware(m_firmwareOffset, buf)) {
+    // big error? this shouldn't happen
     return false;
   }
   m_firmwareOffset += buf.size();
-  if (m_firmwareOffset >= m_firmwareSize) {
-    // done
-    UPDI::reset();
-    UPDI::disable();
-  }
-  // create a progress bar I guess
-  Leds::setAll(RGB_RED0);
-  Leds::setRange(LED_0, (LedPos)((m_firmwareOffset / (float)m_firmwareSize) * LED_COUNT), RGB_GREEN3);
-  return true;
+  // not done  yet
+  return false;
 }
 
 void EditorConnection::onShortClickM()

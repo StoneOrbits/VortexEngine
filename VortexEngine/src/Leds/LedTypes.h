@@ -99,6 +99,30 @@ enum Pair : uint8_t
 // Compile-time check on the number of pairs and leds
 static_assert(LED_COUNT == (PAIR_COUNT * 2), "Incorrect number of Pairs for Leds! Adjust the Led enum or Pair enum to match");
 
+enum Radial : uint8_t
+{
+  RADIAL_FIRST = 0,
+
+  RADIAL_0 = RADIAL_FIRST,
+  RADIAL_1,
+  RADIAL_2,
+  RADIAL_3,
+  RADIAL_4,
+  RADIAL_5,
+  RADIAL_6,
+  RADIAL_7,
+  RADIAL_8,
+  RADIAL_9,
+
+  RADIAL_COUNT,
+  RADIAL_LAST = (RADIAL_COUNT - 1),
+};
+
+static_assert(RADIAL_COUNT == (LED_COUNT / 2), "Incorrect number of Radials for Leds! Adjust the Led enum or Radial enum to match");
+
+#define radialInner(radial) (LedPos)(LED_10 + radial)
+#define radialOuter(radial) (LedPos)(LED_0 + radial)
+
 // check if an led is even or odd
 #define isEven(pos) ((pos % 2) == 0)
 #define isOdd(pos) ((pos % 2) != 0)
@@ -278,6 +302,27 @@ inline Pair operator+(Pair &c, int b)
 inline Pair operator-(Pair &c, int b)
 {
   return (Pair)((uint32_t)c - b);
+}
+
+// Radial operators
+inline Radial &operator++(Radial &c)
+{
+  c = Radial(((uint32_t)c) + 1);
+  return c;
+}
+inline Radial operator++(Radial &c, int)
+{
+  Radial temp = c;
+  ++c;
+  return temp;
+}
+inline Radial operator+(Radial &c, int b)
+{
+  return (Radial)((uint32_t)c + b);
+}
+inline Radial operator-(Radial &c, int b)
+{
+  return (Radial)((uint32_t)c - b);
 }
 
 #endif
