@@ -437,11 +437,9 @@ void EditorConnection::handleState()
     m_state = STATE_CHROMALINK_FLASH_FIRMWARE_BACKUP_MODES;
     break;
   case STATE_CHROMALINK_FLASH_FIRMWARE_BACKUP_MODES:
-    //if (!backupDuoModes()) {
-    //  // not done
-    //  break;
-    //}
-    m_state = STATE_CHROMALINK_FLASH_FIRMWARE_ERASE_MEMORY;
+    if (backupDuoModes()) {
+      m_state = STATE_CHROMALINK_FLASH_FIRMWARE_ERASE_MEMORY;
+    }
     break;
   case STATE_CHROMALINK_FLASH_FIRMWARE_ERASE_MEMORY:
     Leds::setAll(RGB_CYAN0);
@@ -456,16 +454,12 @@ void EditorConnection::handleState()
       // done go to next state
       m_state = STATE_CHROMALINK_FLASH_FIRMWARE_RESTORE_MODES;
     }
-    // send ack for each chunk
-    m_receiveBuffer.clear();
-    SerialComs::write(EDITOR_VERB_FLASH_FIRMWARE_ACK);
     break;
   case STATE_CHROMALINK_FLASH_FIRMWARE_RESTORE_MODES:
-    //// only once the entire firmware is written
-    //if (!restoreDuoModes()) {
-    //  break;
-    //}
-    m_state = STATE_CHROMALINK_FLASH_FIRMWARE_DONE;
+    // only once the entire firmware is written
+    if (restoreDuoModes()) {
+      m_state = STATE_CHROMALINK_FLASH_FIRMWARE_DONE;
+    }
     break;
   case STATE_CHROMALINK_FLASH_FIRMWARE_DONE:
     // done reset everything
@@ -541,6 +535,8 @@ bool EditorConnection::pullModeChromalink()
   if (!receiveModeIdx(modeIdx) || modeIdx >= 9) {
     return false;
   }
+  // lol just use the mode index as the radial to set
+  Leds::setRadial((Radial)modeIdx, RGB_GREEN4);
   ByteStream modeBuffer;
   // same doesn't matter if this fails still need to send
   bool success = UPDI::readMode(modeIdx, modeBuffer);
@@ -555,7 +551,7 @@ bool EditorConnection::pullModeChromalink()
 bool EditorConnection::pushModeChromalink()
 {
   // lol just use the mode index as the radial to set
-  Leds::setRadial((Radial)m_chromaModeIdx, RGB_GREEN4);
+  Leds::setRadials(RADIAL_0, (Radial)m_chromaModeIdx, RGB_GREEN4);
   // wait for the mode then write it via updi
   ByteStream buf;
   if (!receiveBuffer(buf)) {
@@ -572,7 +568,7 @@ bool EditorConnection::pushModeChromalink()
 
 bool EditorConnection::backupDuoModes()
 {
-  Leds::setRadial((Radial)m_backupModeNum, RGB_CYAN0);
+  Leds::setRadials(RADIAL_0, (Radial)m_backupModeNum, RGB_CYAN0);
   if (m_backupModeNum == 9) {
     // reset counter for the restore step later
     m_backupModeNum = 0;
@@ -580,11 +576,11 @@ bool EditorConnection::backupDuoModes()
     return true;
   }
   // read or just use defaults?
-  //if (!m_backupModes || !UPDI::readMode(m_backupModeNum, m_duoModeBackups[m_backupModeNum])) {
+  if (!m_backupModes || !UPDI::readMode(m_backupModeNum, m_duoModeBackups[m_backupModeNum])) {
     // if not backing up, or backup failed, then store the default mode data in the backup
     // because we will always write out the backups after flashing
     m_duoModeBackups[m_backupModeNum].init(duo_default_mode_sizes[m_backupModeNum], duo_default_modes[m_backupModeNum]);
-  //}
+  }
   // go to next mode
   m_backupModeNum++;
   return false;
@@ -592,7 +588,7 @@ bool EditorConnection::backupDuoModes()
 
 bool EditorConnection::restoreDuoModes()
 {
-  Leds::setRadial((Radial)m_backupModeNum, RGB_GREEN6);
+  Leds::setRadials(RADIAL_0, (Radial)m_backupModeNum, RGB_GREEN6);
   if (m_backupModeNum == 9) {
     // reset counter for the restore step later
     m_backupModeNum = 0;
@@ -603,7 +599,7 @@ bool EditorConnection::restoreDuoModes()
   UPDI::writeMode(m_backupModeNum, m_duoModeBackups[m_backupModeNum]);
   // go to next mode
   m_backupModeNum++;
-  return true;
+  return false;
 }
 
 bool EditorConnection::writeDuoFirmware()
@@ -627,6 +623,9 @@ bool EditorConnection::writeDuoFirmware()
     return false;
   }
   m_firmwareOffset += buf.size();
+  // send ack for each chunk
+  m_receiveBuffer.clear();
+  SerialComs::write(EDITOR_VERB_FLASH_FIRMWARE_ACK);
   // not done  yet
   return false;
 }
