@@ -88,7 +88,7 @@ parent: Guides & Tutorials
 }
 </style>
 
-<img align="right" width="" height="220" class="device-icon" src="assets/images/spark-logo-square-512.png">
+<img align="right" width="" height="220" class="device-icon" src="assets/images/spark-handle-render-square-512.png">
 
 # Spark Handle Guide
 
