@@ -1,8 +1,9 @@
 ---
 layout: default
-title: Handles Guide
-nav_order: 3
-parent: Guides & Tutorials
+title: Special Duo Functions
+nav_order: 1
+parent: Duo Guide
+published: true
 ---
 
 <style>
@@ -88,31 +89,61 @@ parent: Guides & Tutorials
 }
 </style>
 
-<img align="right" width="" height="220" class="device-icon" src="assets/images/device-handle.png">
+<img align="right" width="" height="220" class="device-icon" src="assets/images/duo-logo-square-512.png">
 
-# Handle Guide
+# Duo Special Functions
 
-Welcome to the Vortex Handle Guide, this page aims to get you up and running as fast as possible.
+These are functions unique to the Duo Light.
 
-## Buttons
+## Force Shut Down
 
-The handle has one <span style="color: #00c6ff">navigation button</span> and a small <span style="color: #00ff00">power switch</span>.
+The Duo always has the ability to be powered down from any mode or menu. This can help in case the user is unsure what is happening on the chip and wants to start over without accidentally changing settings. 
 
-There is also a very small <span style="color: #ff0000">reset button</span> for updating the device firmware.
+**To Force Shut Down:** Hold the button for 5 or more seconds until the LEDs turn off.
 
-To access the USB port or the reset button remove the outer handle cover by pushing the string side in.
+## One-Click Mode
 
-## Navigating Modes
+While off, hold the button until the LEDs show white. This activates one click mode. The mode that was displayed before the chip was powered off will be selected for one-click mode. 
 
-Short click the <span style="color: #00c6ff">navigation button</span> to cycle forward through the 14 available modes.
+**While in One-Click mode**:
+- Only one mode will be available.
+- Click the button to toggle the chip on or off.
+- While off, hold the button till the LEDs show white to deactivate One-Click mode.
 
-To edit a mode, navigate to it then hold the navigation button until the lights flash white to open the menus.
+## Battery Lock
 
-## Menus
+To prevent the Duo from turning on by accidentally while being stored or transported, the battery can be locked.
 
-Once the menus are open, use short clicks to cycle through the following menu options, long click to enter a menu.
+**While off:** Click the button rapidly 5 times to activate the lock feature. 
+**When locked:** Click the button rapidly 5 times to unlock.
 
-{% raw %}
+Hold the navigation button and release when the lights go out to power off the Duo.
+
+## Advanced Menus
+
+Most menus have an advanced version which gives greater control over that menu's features. These advanced menus are inaccessible by default. 
+
+#### Unlocking Advanced Menus
+
+ - Enter the menu list by holding the button. 
+ - Cycle through the menu colors by rapidly clicking 12 times to toggle the advanced menu lock. 
+   - The LEDs will flash pink to indicate advanced menus are now available.
+   - The LEDs will flash red to indicate advanced menus are now locked.
+ - The advanced menus will remain unlocked even when the chip is powered down.
+
+ #### Entering Advanced Menus
+
+##### **This is only accessible when advanced menus are unlocked*
+
+ - Enter the menu list by holding the button.
+ - Click to cycle to the desired menu color.
+ - Hold the button and release after the menu color blinks faster to enter that advanced menu.
+
+## Advanced Menus
+
+Coming Soon
+
+<!-- {% raw %}
 <div class="menu-wrapper">
 <a href="randomizer_menu.html">
   <div class="color-list-entry"><span class="rounded-box white"></span>Randomizer</div>
@@ -138,4 +169,9 @@ Once the menus are open, use short clicks to cycle through the following menu op
   <div class="color-list-entry"><span class="rounded-box red"></span>Factory Reset</div>
 </a>
 </div>
-{% endraw %}
+{% endraw %} -->
+
+
+
+
+

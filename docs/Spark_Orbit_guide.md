@@ -1,7 +1,7 @@
 ---
 layout: default
-title: Handles Guide
-nav_order: 3
+title: Spark Orbit Guide
+nav_order: 1
 parent: Guides & Tutorials
 ---
 
@@ -88,19 +88,16 @@ parent: Guides & Tutorials
 }
 </style>
 
-<img align="right" width="" height="220" class="device-icon" src="assets/images/device-handle.png">
+<img align="right" width="" height="220" class="device-icon" src="assets/images/spark-logo-square-512.png">
 
-# Handle Guide
+# Spark Orbit Guide
 
-Welcome to the Vortex Handle Guide, this page aims to get you up and running as fast as possible.
+Welcome to the Spark Orbit Guide, this page aims to get you up and running as fast as possible.
 
 ## Buttons
 
-The handle has one <span style="color: #00c6ff">navigation button</span> and a small <span style="color: #00ff00">power switch</span>.
+The Spark Orbit has one <span style="color: #00c6ff">navigation button</span> and a small <span style="color: #00ff00">power switch</span>.
 
-There is also a very small <span style="color: #ff0000">reset button</span> for updating the device firmware.
-
-To access the USB port or the reset button remove the outer handle cover by pushing the string side in.
 
 ## Navigating Modes
 

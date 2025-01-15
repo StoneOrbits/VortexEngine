@@ -1,7 +1,7 @@
 ---
 layout: default
-title: Handles Guide
-nav_order: 3
+title: Chromadeck Guide
+nav_order: 1
 parent: Guides & Tutorials
 ---
 
@@ -88,25 +88,27 @@ parent: Guides & Tutorials
 }
 </style>
 
-<img align="right" width="" height="220" class="device-icon" src="assets/images/device-handle.png">
+<img align="right" width="" height="220" class="device-icon" src="assets/images/chromadeck-logo-square-512.png">
 
-# Handle Guide
+# Chromadeck Guide
 
-Welcome to the Vortex Handle Guide, this page aims to get you up and running as fast as possible.
+Welcome to the Chromadeck Guide, this page aims to get you up and running as fast as possible.
 
 ## Buttons
 
-The handle has one <span style="color: #00c6ff">navigation button</span> and a small <span style="color: #00ff00">power switch</span>.
+The Chromadeck has three <span style="color: #00c6ff">navigation button</span> and a small <span style="color: #00ff00">power switch</span>.
 
-There is also a very small <span style="color: #ff0000">reset button</span> for updating the device firmware.
+## Profiles
 
-To access the USB port or the reset button remove the outer handle cover by pushing the string side in.
+The Chromadeck has 10 profiles, each with 14 mode slots. When powered on, first us the left an right buttons to highlight a profile, and the middle button to select it. 
+
+Switch the power off and back on again to return to profile selection.
 
 ## Navigating Modes
 
-Short click the <span style="color: #00c6ff">navigation button</span> to cycle forward through the 14 available modes.
+Short click the left or right <span style="color: #00c6ff">navigation buttons</span> to cycle through the 14 available modes in the selected profile.
 
-To edit a mode, navigate to it then hold the navigation button until the lights flash white to open the menus.
+To edit a mode, navigate to it then hold the middle navigation button until the lights flash white to open the menus.
 
 ## Menus
 
