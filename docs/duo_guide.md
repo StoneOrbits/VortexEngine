@@ -109,7 +109,7 @@ The Duo has one <span style="color: #00c6ff">navigation button</span>, this butt
 
 **Special Functions**
 
-- The Duo has some unique <a href="duo_special_functions_guide.html"></span>Special Functions</div></a>. Check out the basic menus before diving into these options.
+- The Duo has some unique <a href="duo_special_functions_guide.html">Special Functions</div></a>. Check out the basic menus before diving into these options.
 
 ## Navigating Modes
 

@@ -123,7 +123,7 @@ Hold the navigation button and release when the lights go out to power off the D
 
 Most menus have an advanced version which gives greater control over that menu's features. These advanced menus are inaccessible by default. 
 
-#### Unlocking Advanced Menus
+### Unlocking Advanced Menus
 
  - Enter the menu list by holding the button. 
  - Cycle through the menu colors by rapidly clicking 12 times to toggle the advanced menu lock. 
@@ -131,7 +131,7 @@ Most menus have an advanced version which gives greater control over that menu's
    - The LEDs will flash red to indicate advanced menus are now locked.
  - The advanced menus will remain unlocked even when the chip is powered down.
 
- #### Entering Advanced Menus
+### Entering Advanced Menus
 
 ##### **This is only accessible when advanced menus are unlocked*
 
