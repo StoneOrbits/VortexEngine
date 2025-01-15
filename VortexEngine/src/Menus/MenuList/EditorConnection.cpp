@@ -588,7 +588,7 @@ bool EditorConnection::backupDuoModes()
 
 bool EditorConnection::restoreDuoModes()
 {
-  Leds::setRadials(RADIAL_0, (Radial)m_backupModeNum, RGB_GREEN6);
+  Leds::setRadials(RADIAL_0, (Radial)m_backupModeNum, RGB_CYAN4);
   if (m_backupModeNum == 9) {
     // reset counter for the restore step later
     m_backupModeNum = 0;
