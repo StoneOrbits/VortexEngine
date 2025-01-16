@@ -18,12 +18,14 @@ has_children: true
 }
 .classic-icon {
    margin: 0px;
-   margin-left: 50px;
+   margin-left: 45px;
    width: 55%;
    height: 20%;
 }
 .center-title {
-   text-align: center;
+  text-align: center;
+  display: block;
+  width: 100%;
 }
 </style>
 
@@ -37,7 +39,9 @@ You can expect to find <span style="color: #00c6ff">navigation buttons</span> an
 
 ## New Devices
 
-### <div class="center-title">Spark Orbit - Spark Handles - Chromadeck</div>
+<div class="center-title">
+  <h3 style="margin: 0;">Spark Orbit - Spark Handles - Chromadeck</h3>
+</div>
 
 <div style="text-align: center;">
   <img width="220" height="220" class="device-icon" src="assets/images/spark-orbit-render-square-512.png" alt="Spark Orbit">
@@ -46,7 +50,9 @@ You can expect to find <span style="color: #00c6ff">navigation buttons</span> an
   
 </div>
 
-### <div class="center-title">Duo</div>
+<div class="center-title">
+  <h3 style="margin: 0;">Duo</h3>
+</div>
 
 <div style="text-align: center;">
   <img width="220" height="220" class="duo-icon" src="assets/images/duo-logo-button-square-512.png" alt="Duo">
@@ -58,8 +64,10 @@ You can expect to find <span style="color: #00c6ff">navigation buttons</span> an
 
 
 ## Classic Devices
-### <div class="center-title">Omega Handles - Vortex Orbit - Vortex Gloves</div>
-<div style="text-align: center;">
+
+<div class="center-title">
+  <h3 style="margin: 0;">Omega Handles - Vortex Orbit - Vortex Gloves</h3>
+</div><div style="text-align: center;">
   <img width="220" height="220" class="classic-icon" src="assets/images/device-buttons.png" alt="Device Buttons">
 <p><strong>For Omega Handles, Vortex Orbits, and Vortex Gloves,</strong> there is also a very small <span style="color: #ff0000">reset button</span> which is primarily used for updating the device firmware.</p>
 </div>
