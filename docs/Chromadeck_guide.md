@@ -88,7 +88,7 @@ parent: Guides & Tutorials
 }
 </style>
 
-<img align="right" width="" height="220" class="device-icon" src="assets/images/chromadeck-logo-square-512.png">
+<img align="right" width="" height="220" class="device-icon" src="assets/images/chromadeck-render-square-512.png">
 
 # Chromadeck Guide
 

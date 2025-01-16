@@ -5,18 +5,64 @@ nav_order: 0
 parent: Vortex Engine
 has_children: true
 ---
+<style>
+.device-icon {
+   margin: 0px;
+   width: 17%;
+   height: 17%;
+}
+.duo-icon {
+   margin: 0px;
+   width: 7%;
+   height: 7%;
+}
+.classic-icon {
+   margin: 0px;
+   margin-left: 50px;
+   width: 55%;
+   height: 20%;
+}
+.center-title {
+   text-align: center;
+}
+</style>
 
 # Getting Started
 
 If this is your first time with a Vortex Device then congratulations and welcome to the Vortex Engine tutorial.
 
-Regardless of which device you have, Orbit, Handles, Wired Gloves, or others, most devices work and function almost entirely the same.
+Regardless of which device you have most devices work and function almost entirely the same.
 
-If you are using a Vortex Device like an orbit, handles, or wired gloves then you can expect to find one or two <span style="color: #00c6ff">navigation buttons</span> and a small <span style="color: #00ff00">power switch</span> on the device.
+You can expect to find <span style="color: #00c6ff">navigation buttons</span> and a small <span style="color: #00ff00">power switch</span> on any device.
 
-There is also a very small <span style="color: #ff0000">reset button</span> which is primarily used for updating the device firmware.
+## New Devices
 
-![Device Buttons](assets/images/device-buttons.png)
+### <div class="center-title">Spark Orbit - Spark Handles - Chromadeck</div>
+
+<div style="text-align: center;">
+  <img width="220" height="220" class="device-icon" src="assets/images/spark-orbit-render-square-512.png" alt="Spark Orbit">
+  <img width="220" height="220" class="device-icon" src="assets/images/spark-handle-render-square-512.png" alt="Spark Handle">
+  <img width="220" height="220" class="device-icon" src="assets/images/chromadeck-render-square-512.png" alt="Chromadeck">
+  
+</div>
+
+### <div class="center-title">Duo</div>
+
+<div style="text-align: center;">
+  <img width="220" height="220" class="duo-icon" src="assets/images/duo-logo-button-square-512.png" alt="Duo">
+</div>
+
+<div style="text-align: center;">
+  The Duo's navigation button is also it's power switch.
+</div>
+
+
+## Classic Devices
+### <div class="center-title">Omega Handles - Vortex Orbit - Vortex Gloves</div>
+<div style="text-align: center;">
+  <img width="220" height="220" class="classic-icon" src="assets/images/device-buttons.png" alt="Device Buttons">
+<p><strong>For Omega Handles, Vortex Orbits, and Vortex Gloves,</strong> there is also a very small <span style="color: #ff0000">reset button</span> which is primarily used for updating the device firmware.</p>
+</div>
 
 ## Next Steps
 

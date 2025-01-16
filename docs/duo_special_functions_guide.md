@@ -97,13 +97,15 @@ These are functions unique to the Duo Light.
 
 ## Force Shut Down
 
-The Duo always has the ability to be powered down from any mode or menu. This can help in case the user is unsure what is happening on the chip and wants to start over without accidentally changing settings. 
+The Duo has the ability to be powered down from any mode or menu. This can help in case the user is unsure what is happening on the chip and wants to start over without accidentally changing settings. 
 
 **To Force Shut Down:** Hold the button for 5 or more seconds until the LEDs turn off.
 
 ## One-Click Mode
 
-While off, hold the button until the LEDs show white. This activates one click mode. The mode that was displayed before the chip was powered off will be selected for one-click mode. 
+**While off:** 
+- Hold the button until the LEDs show white to activate One-Click mode. 
+- The mode that was displayed before the chip was powered off will be selected for one-click mode. 
 
 **While in One-Click mode**:
 - Only one mode will be available.
@@ -116,8 +118,6 @@ To prevent the Duo from turning on by accidentally while being stored or transpo
 
 **While off:** Click the button rapidly 5 times to activate the lock feature. 
 **When locked:** Click the button rapidly 5 times to unlock.
-
-Hold the navigation button and release when the lights go out to power off the Duo.
 
 ## Advanced Menus
 
