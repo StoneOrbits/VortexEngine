@@ -67,20 +67,23 @@ This page details how to use the web-based Vortex Editor [lightshow.lol](https:/
 
 ## Basics
 
-Lightshow.lol is an online editor. It is designed to both dispaly previews and edit the **Patterns**, **Colorsets**, and **Modes** of a **Vortex Device** in real-time. It can also export [modes](modes.html) to any Vortex devices or upload them directly to [Vortex.Community](vortex_community.html) for sharing. 
+Lightshow.lol is an online tool that allows you to design, preview, and export custom [modes](modes.html) for any Vortex devices. 
+
+The lightshow preview is the main focus of the page, with various control panels serving to modify the pattern, colorset, and preview animation.
 
 {: .warning }
 Although the preview is an exact simulation of a real device, due to the difference in the way color is produced by LEDs and displays **the preview will never look exactly the same as real LEDs**
 
-## How to Guides
+### What is a Vortex Editor
 
-Ligthshow.lol is incredibly powerful and feature packed. It's also very intuitive once you are familair with it. To get started, checkout these [helpful examples](lightshow_lol_examples.html) that show how to use different features. 
+In the **Vortex Engine** ecosystem a [mode](modes.html) consists of a [pattern](patterns.html) and a [colorset](colorsets.html) for each LED on a device.
 
-## Lightshow.lol 
+For example, the **Spark Orbit** has **6 LEDs** which means **6 Patterns** and **6 Colorsets** -- one for each LED.
 
-In the middle of the screen there is an animated trail of colorful dots. These dots serve as your preview of the mode you're currently building. 
+A **Vortex Editor** is any kind of software designed to edit the **Patterns** or **Colorsets** in the **Modes** of a **Vortex Device**.
 
-Each of the surrounding panels can be used to modify the mode being displayed.
+### Panel Breakdown
+In order to get familiar with how lightshow.lol works it is important to first familiarize yourself with each UI Panel.
 
 Select one of the Panels below to learn more about it:
 
@@ -88,18 +91,6 @@ Select one of the Panels below to learn more about it:
   <a href="lightshow_lol_animation.html" class="panel-link">
     <span class="panel-title">🔗 Animation Panel →</span>
     <img src="assets/images/lightshow-lol-animation.png" class="panel-img">
-  </a>
-    <a href="lightshow_lol_pattern.html" class="panel-link">
-    <span class="panel-title">🔗 Pattern Panel →</span>
-    <img src="assets/images/lightshow-lol-pattern.png" class="panel-img">
-  </a>
-    <a href="lightshow_lol_colorset.html" class="panel-link">
-    <span class="panel-title">🔗 Colorset Panel →</span>
-    <img src="assets/images/lightshow-lol-colorset.png" class="panel-img">
-  </a>
-    <a href="lightshow_lol_color_picker.html" class="panel-link">
-    <span class="panel-title">🔗 Color Picker →</span>
-    <img src="assets/images/lightshow-lol-color-picker.png" class="panel-img">
   </a>
   <a href="lightshow_lol_device_controls.html" class="panel-link">
     <span class="panel-title">🔗 Device Control →</span>
@@ -113,6 +104,18 @@ Select one of the Panels below to learn more about it:
     <span class="panel-title">🔗 Led Selection →</span>
     <img src="assets/images/lightshow-lol-led-select.png" class="panel-img">
   </a>
+  <a href="lightshow_lol_pattern.html" class="panel-link">
+    <span class="panel-title">🔗 Pattern Panel →</span>
+    <img src="assets/images/lightshow-lol-pattern.png" class="panel-img">
+  </a>
+  <a href="lightshow_lol_colorset.html" class="panel-link">
+    <span class="panel-title">🔗 Colorset Panel →</span>
+    <img src="assets/images/lightshow-lol-colorset.png" class="panel-img">
+  </a>
+  <a href="lightshow_lol_color_picker.html" class="panel-link">
+    <span class="panel-title">🔗 Color Picker →</span>
+    <img src="assets/images/lightshow-lol-color-picker.png" class="panel-img">
+  </a>
   <a href="lightshow_lol_update_panel.html" class="panel-link">
     <span class="panel-title">🔗 Update Panel →</span>
     <img src="assets/images/lightshow-lol-device-update.png" class="panel-img">
@@ -122,4 +125,10 @@ Select one of the Panels below to learn more about it:
     <img src="assets/images/lightshow-lol-chromalink-duo-basic.png" class="panel-img">
   </a>
 </div>
+
+### Example Workflows
+
+Once you're satisfied with your understanding of the UI Panels then read the example workflows at the bottom of this page.
+
+To use Lightshow.lol with
 

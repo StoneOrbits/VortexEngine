@@ -56,7 +56,7 @@ A [_Pattern_]() is one of the two main components of a mode. The pattern determi
 
 A [_Colorset_](colorsets.html) is the other main component of a mode. This is a set of up to 8 colors which a pattern will use. A single colorset and pattern together are the simplest version of a mode.
 
-## LED
+## LEDs
 
-All Vortex devices are comprised of at least 2 LEDs and some have over 20. In a single mode, each LED on the device can have its own Colorset and Pattern. The simplest modes will have the same pattern and colorset on each LED, while the most complex will have a unique pattern and colorset on every LED.
+All Vortex devices are comprised of at least 2 LEDs and some have over 20. In any mode, every LED on the device can have its own Colorset and Pattern. The simplest modes will have the same pattern and colorset on each LED, while the most complex will have a unique pattern and colorset on every LED.
 

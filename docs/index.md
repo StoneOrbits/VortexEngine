@@ -4,6 +4,7 @@ title: Vortex Engine
 nav_order: 1
 has_children: true
 ---
+
 <style>
 .engine-icon {
    margin: 0px;
@@ -16,18 +17,14 @@ has_children: true
    height: 20%
 }
 </style>
-
-
-
 <div style="display: flex; align-items: center;">
   <img class="engine-icon" style="margin-right: 15px; width: 6%; height: auto;" src="assets/images/vedit22shadow.png" alt="Vortex Engine Icon">
   <h1 style="margin: 0;">Vortex Engine</h1>
-  <p><br><br></p>
+  <p><br><br><br></p>
 </div>
 
-<div style="text-align: center;">
-  Welcome to the Vortex Engine Wiki! Here you can find documentation and guides covering all aspects of the Vortex Engine project.
-</div>
+
+Welcome to the Vortex Engine Wiki! Here you can find documentation and guides covering all aspects of the Vortex Engine project.
 
 
 ## Getting Started
@@ -52,7 +49,7 @@ Are you looking to learn how Vortex Engine works and how to get the most out of 
 
  ## Online Mode Editor
 
- One of the geatest features of the Vortex Engine is [Lightshow.lol](lightshow.lol). This online mode editor was built using the Vortex Engine and provides an intuitive UI and precise control over your modes.
+ One of the geatest features of the Vortex Engine is [Lightshow.lol](https://lightshow.lol). This online mode editor was built using the Vortex Engine and provides an intuitive UI and precise control over your modes.
 
 Learn more about its capabilities and features.
  [Lightshow.lol Guide](lightshow_lol.html)
@@ -73,6 +70,6 @@ Join the Vortex Community Discord to share your experiences, enhance your use of
 <div style="text-align: center;">
   <img width="220" height="220" class="device-icon" src="assets/images/spark-orbit-render.png" alt="Spark Orbit">
   <img width="220" height="220" class="device-icon" src="assets/images/spark-handle-render.png" alt="Spark Handle">
-  <img width="220" height="220" class="device-icon" src="assets/images/chromadeck-render.png" alt="Chromadeck">
+  <img width="220" height="220" class="device-icon" src="assets/images/Chromadeck-Render.png" alt="Chromadeck">
   
 </div>
