@@ -32,10 +32,12 @@ You can expect to find <span style="color: #00c6ff">navigation buttons</span> an
   <img width="220" height="220" class="device-icon" src="assets/images/spark-handle-render-square-512.png" alt="Spark Handle">
   <img width="220" height="220" class="device-icon" src="assets/images/chromadeck-render-square-512.png" alt="Chromadeck">
 
-## Duo
-The Duo's navigation button also doubles as it's power switch.
+## <div style="text-align: center;">Duo</div>
 
-  <img class="engine-icon" style="margin-right: 15px; width: 9%; height: auto;" src="assets/images/duo-logo-button-square-512.png" alt="Duo">
+<div style="text-align: center;">
+  <p>The Duo's navigation button also doubles as its power switch.</p>
+  <img class="engine-icon" style="margin: 0 auto; width: 9%; height: auto;" src="assets/images/duo-logo-button-square-512.png" alt="Duo">
+</div>
 
 ## Next Steps
 
