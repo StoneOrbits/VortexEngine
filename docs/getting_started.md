@@ -20,35 +20,32 @@ has_children: true
 
 # Getting Started
 
-If this is your first time with a Vortex Device then congratulations and welcome to the Vortex Engine tutorial.
+Each device is slightly different than the others. Look at your device's page to learn it's specifics.
+- Get started with the [Lastest Devices](getting_started_latest_devices.html) - **Spark Orbit, Spark Handles, Chromadeck**.
+- Get started with the [Duo](getting_started_duo.html).
+- Get started with the [Classic Devices](getting_started_classic_devices.html).
 
-Regardless of which device you have most devices work and function almost entirely the same.
+# Inputs
 
-You can expect to find <span style="color: #00c6ff">navigation buttons</span> and a small <span style="color: #00ff00">power switch</span> on any device.
+All devices have some combination of buttons and a power switch. This is an overview of what these inputs do on all device.
 
-## Spark Orbit - Spark Handles - Chromadeck
+## Power Switch
+Most devices can be powered on or off by toggling the power switch. The Duo is powered on and off with its navigation button instead.
 
-  <img width="220" height="220" class="device-icon" src="assets/images/spark-orbit-render-square-512.png" alt="Spark Orbit">
-  <img width="220" height="220" class="device-icon" src="assets/images/spark-handle-render-square-512.png" alt="Spark Handle">
-  <img width="220" height="220" class="device-icon" src="assets/images/chromadeck-render-square-512.png" alt="Chromadeck">
+## Buttons
+Each device has at least 1 button.
 
-## Duo
-  <p>The Duo's navigation button also doubles as its power switch.</p>
-<div style="text-align: center;">
-  <img class="engine-icon" style="margin: 0 auto; width: 9%; height: auto;" src="assets/images/duo-logo-button-square-512.png" alt="Duo">
-</div>
+There are three ways to use the _navigation buttons_ on your device: **short clicks**, **long clicks**, and **holds**
 
+  1. A **short click** is like saying '_next please_', to cycle through options  
+  2. A **long click** is like saying '_this one please_', to select an option
+  3. And finally, **holds** are primarily used to open the menus 
 
-## Next Steps
+Some devices have 2 or 3 buttons. These allow for more options while navigating the menus.
 
-To begin learning how to use your device head over to [Basic Usage](basic_usage.html) where we will explore navigating modes, and utilizing the on-device menus.
+Almost everything can be achieved with only **short** and **long** clicks.
 
-If your device is new then it will already be up to date, but if you have an older device or would like to learn how to upgrade your device head over to [Upgrade Guides](upgrade_guides.html)
+Those are the basics of controlling a Vortex Device.
 
-## Quick Guides
+Next, try opening the menus by **holding** the navigation button till the leds blink white, then continue reading more over at [The Menus](menus.html)
 
-If you really just want to jump into things as fast as possible, be sure to check out the [Quick Guides](guides.html)
-
-## Classic Devices
-
-See [Classic Devices](getting_started_classic_devices.html) if you're looking for information on the **Vortex Orbit, Omega Handles, or Vortex gloves**

@@ -6,37 +6,10 @@ parent: Vortex Engine
 ---
 
 # Basic Usage
-While all Vortex devices work nearly indentically, each device has slightly different features. Check a devices page to better understand it's unique features.
 
-- [Spark Orbit](Spark_Orbit_guide.html)
-- [Spark Handle](Spark_Handle_guide.html)
-- [Chromadeck](Chromadeck_guide.html)
-- [Duo](duo_guide.html)
-- [Vortex Orbit](orbit_guide.html)
-- [Omega Handle](handles_guide.html)
-- [Vortex Glove](gloves_guide.html)
+The Vortex Engine is a powerful and versatile platform that can be loaded onto many devices to drive their LEDs. To learn how to use the Vortex Engine for any Vortex device, familiarize yourself with these terms and concepts.
 
-# Inputs
-
-## Power Switch
-Most devices can be powered on or off by toggling the power switch. The Duo is powered on and off with its navigation button.
-
-## Buttons
-Each device has at least 1 button.
-
-There are three ways to use the _navigation buttons_ on your device: **short clicks**, **long clicks**, and **holds**
-
-  1. A **short click** is like saying '_next please_', to cycle through options  
-  2. A **long click** is like saying '_this one please_', to select an option
-  3. And finally, **holds** are primarily used to open the menus 
-
-Some devices have 2 or 3 buttons. These allow for more options while navigating the menus.
-
-Almost everything can be achieved with only **short** and **long** clicks.
-
-Those are the basics of controlling a Vortex Device.
-
-Next, try opening the menus by **holding** the navigation button till the leds blink white, then continue reading more over at [The Menus](menus.html)
+If you'd like to get hands on with a specific device, learn how to use [specific vortex devices](vortex_devices.html).
 
 # Key Terminology
 
