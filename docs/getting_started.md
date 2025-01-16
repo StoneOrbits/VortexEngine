@@ -2,7 +2,7 @@
 layout: default
 title: Getting Started
 nav_order: 0
-parent: Vortex Engine
+parent: Vortex Devices
 has_children: true
 ---
 <style>
@@ -32,12 +32,12 @@ You can expect to find <span style="color: #00c6ff">navigation buttons</span> an
   <img width="220" height="220" class="device-icon" src="assets/images/spark-handle-render-square-512.png" alt="Spark Handle">
   <img width="220" height="220" class="device-icon" src="assets/images/chromadeck-render-square-512.png" alt="Chromadeck">
 
-## <div style="text-align: center;">Duo</div>
-
-<div style="text-align: center;">
+## Duo
   <p>The Duo's navigation button also doubles as its power switch.</p>
+<div style="text-align: center;">
   <img class="engine-icon" style="margin: 0 auto; width: 9%; height: auto;" src="assets/images/duo-logo-button-square-512.png" alt="Duo">
 </div>
+
 
 ## Next Steps
 

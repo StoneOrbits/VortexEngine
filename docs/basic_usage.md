@@ -8,13 +8,13 @@ parent: Vortex Engine
 # Basic Usage
 While all Vortex devices work nearly indentically, each device has slightly different features. Check a devices page to better understand it's unique features.
 
-- [Spark Orbit](Spark_Orbit_guide)
-- [Spark Handle](Spark_Handle_guide)
+- [Spark Orbit](Spark_Orbit_guide.html)
+- [Spark Handle](Spark_Handle_guide.html)
 - [Chromadeck](Chromadeck_guide.html)
-- [Duo](duo_guide)
-- [Vortex Orbit](orbit_guide)
-- [Omega Handle](handles_guide)
-- [Vortex Glove](gloves_guide)
+- [Duo](duo_guide.html)
+- [Vortex Orbit](orbit_guide.html)
+- [Omega Handle](handles_guide.html)
+- [Vortex Glove](gloves_guide.html)
 
 # Inputs
 
