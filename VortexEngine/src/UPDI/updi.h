@@ -109,7 +109,7 @@ private:
     NVM_WFU       /* Write fuse */
   };
 
-  static void enterProgrammingMode();
+  static bool enterProgrammingMode();
 
   static void resetOn();
   static bool resetOff();

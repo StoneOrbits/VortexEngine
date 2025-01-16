@@ -338,8 +338,7 @@ void EditorConnection::handleState()
   //  Get Chromalinked Duo Header
   case STATE_PULL_HEADER_CHROMALINK:
     if (!pullHeaderChromalink()) {
-      // error?
-      break;
+      Leds::holdAll(RGB_RED);
     }
     // done
     m_receiveBuffer.clear();
@@ -357,7 +356,7 @@ void EditorConnection::handleState()
   case STATE_PULL_MODE_CHROMALINK_SEND:
     // send the stuff
     if (!pullModeChromalink()) {
-      break;
+      Leds::holdAll(RGB_RED);
     }
     // done
     m_curStep = 0;
@@ -428,6 +427,7 @@ void EditorConnection::handleState()
     break;
   case STATE_CHROMALINK_FLASH_FIRMWARE_RECEIVE_SIZE:
     if (!receiveFirmwareSize(m_firmwareSize)) {
+      // continue waiting
       break;
     }
     m_curStep = 0;
@@ -540,6 +540,11 @@ bool EditorConnection::pullModeChromalink()
   ByteStream modeBuffer;
   // same doesn't matter if this fails still need to send
   bool success = UPDI::readMode(modeIdx, modeBuffer);
+  if (!success) {
+    // just send back a 0 if it failed
+    modeBuffer.init(1);
+    modeBuffer.serialize8(0);
+  }
   // send the mode, could be empty buffer if reading failed
   SerialComs::write(modeBuffer);
   UPDI::reset();
@@ -605,7 +610,7 @@ bool EditorConnection::restoreDuoModes()
 bool EditorConnection::writeDuoFirmware()
 { 
   // render some progress, do it before updating the offset so it starts at 0
-  Leds::setAll(RGB_CYAN0);
+  Leds::setAll(RGB_YELLOW3);
   Leds::setRadials(RADIAL_0, (Radial)((m_firmwareOffset / (float)m_firmwareSize) * RADIAL_COUNT), RGB_GREEN3);
   // first pass and backup modes is enabled
   if (m_firmwareOffset >= m_firmwareSize) {
