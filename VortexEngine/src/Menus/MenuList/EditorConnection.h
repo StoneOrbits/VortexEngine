@@ -161,7 +161,7 @@ private:
   // whether to backup duo modes on firmware update
   bool m_backupModes;
   // backups of duo modes when flashing firmware
-  ByteStream m_duoModeBackups[9];
+  ByteStream m_modeBackups[9];
   // counter for reading/writing modes during firmware flash
   uint8_t m_backupModeNum;
 };

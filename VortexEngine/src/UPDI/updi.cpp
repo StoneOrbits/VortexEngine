@@ -104,11 +104,9 @@ bool UPDI::readHeader(ByteStream &header)
   if (!header.init(DUO_HEADER_SIZE)) {
     return false;
   }
-  Leds::holdAll(RGB_PURPLE);
   if (!enterProgrammingMode()) {
     return false;
   }
-  Leds::holdAll(RGB_YELLOW);
   uint8_t *ptr = (uint8_t *)header.rawData();
   uint16_t addr = DUO_EEPROM_BASE;
   stptr_p((const uint8_t *)&addr, 2);
@@ -119,7 +117,6 @@ bool UPDI::readHeader(ByteStream &header)
   if (!size) {
     return false;
   }
-  Leds::holdAll(RGB_BLUE);
   // more than 30 is old old duo where header is combined with save
   if (size > 30) {
     return readHeaderLegacy2(header);
@@ -128,7 +125,6 @@ bool UPDI::readHeader(ByteStream &header)
   if (size < 6) {
     return readHeaderLegacy1(header);
   }
-  Leds::holdAll(RGB_GREEN0);
   // modern duo header is 27 total and separate from modes
   stptr_p((const uint8_t *)&addr, 2);
   for (uint16_t i = 0; i < header.rawSize(); ++i) {
@@ -759,8 +755,9 @@ bool UPDI::enterProgrammingMode()
       uint8_t status = ldcs(ASI_Key_Status);
       if (status != 0x10) {
         ERROR_LOGF("Bad prog key status: 0x%02x", status);
-        sendBreak();
-        uint8_t status = ldcs(Status_B);
+        reset();
+        //sendBreak();
+        //uint8_t status = ldcs(Status_B);
         continue;
       }
       reset();

@@ -580,11 +580,20 @@ bool EditorConnection::backupDuoModes()
     // done
     return true;
   }
-  // read or just use defaults?
-  if (!m_backupModes || !UPDI::readMode(m_backupModeNum, m_duoModeBackups[m_backupModeNum])) {
-    // if not backing up, or backup failed, then store the default mode data in the backup
-    // because we will always write out the backups after flashing
-    m_duoModeBackups[m_backupModeNum].init(duo_default_mode_sizes[m_backupModeNum], duo_default_modes[m_backupModeNum]);
+  // may use the defaults if backing up fails, default is whether backup is enabled
+  bool useDefault = !m_backupModes;
+  if (m_backupModes) {
+    ByteStream &cur = m_modeBackups[m_backupModeNum];
+    // if the mode cannot be loaded, or if it's CRC is bad then just use the default
+    if (!UPDI::readMode(m_backupModeNum, cur) || !cur.checkCRC() || !cur.size()) {
+      useDefault = true;
+    }
+  }
+  if (useDefault) {
+    // if not backing up, or backup failed, then store the default mode data in
+    // the backup because we will always write out the backups after flashing
+    m_modeBackups[m_backupModeNum].init(duo_default_sizes[m_backupModeNum],
+                                        duo_default_modes[m_backupModeNum]);
   }
   // go to next mode
   m_backupModeNum++;
@@ -601,7 +610,7 @@ bool EditorConnection::restoreDuoModes()
     return true;
   }
   // each pass write out the backups, these may be the defaults
-  UPDI::writeMode(m_backupModeNum, m_duoModeBackups[m_backupModeNum]);
+  UPDI::writeMode(m_backupModeNum, m_modeBackups[m_backupModeNum]);
   // go to next mode
   m_backupModeNum++;
   return false;
