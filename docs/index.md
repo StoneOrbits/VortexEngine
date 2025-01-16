@@ -22,6 +22,7 @@ has_children: true
 <div style="display: flex; align-items: center;">
   <img class="engine-icon" style="margin-right: 15px; width: 6%; height: auto;" src="assets/images/vedit22shadow.png" alt="Vortex Engine Icon">
   <h1 style="margin: 0;">Vortex Engine</h1>
+  <p><br><br></p>
 </div>
 
 <div style="text-align: center;">

@@ -16,17 +16,6 @@ has_children: true
    width: 7%;
    height: 7%;
 }
-.classic-icon {
-   margin: 0px;
-   margin-left: 45px;
-   width: 55%;
-   height: 20%;
-}
-.center-title {
-  text-align: center;
-  display: block;
-  width: 100%;
-}
 </style>
 
 # Getting Started
@@ -37,40 +26,16 @@ Regardless of which device you have most devices work and function almost entire
 
 You can expect to find <span style="color: #00c6ff">navigation buttons</span> and a small <span style="color: #00ff00">power switch</span> on any device.
 
-## New Devices
+## Spark Orbit - Spark Handles - Chromadeck
 
-<div class="center-title">
-  <h3 style="margin: 0;">Spark Orbit - Spark Handles - Chromadeck</h3>
-</div>
-
-<div style="text-align: center;">
   <img width="220" height="220" class="device-icon" src="assets/images/spark-orbit-render-square-512.png" alt="Spark Orbit">
   <img width="220" height="220" class="device-icon" src="assets/images/spark-handle-render-square-512.png" alt="Spark Handle">
   <img width="220" height="220" class="device-icon" src="assets/images/chromadeck-render-square-512.png" alt="Chromadeck">
-  
-</div>
 
-<div class="center-title">
-  <h3 style="margin: 0;">Duo</h3>
-</div>
+## Duo
+The Duo's navigation button also doubles as it's power switch.
 
-<div style="text-align: center;">
-  <img width="220" height="220" class="duo-icon" src="assets/images/duo-logo-button-square-512.png" alt="Duo">
-</div>
-
-<div style="text-align: center;">
-  The Duo's navigation button is also it's power switch.
-</div>
-
-
-## Classic Devices
-
-<div class="center-title">
-  <h3 style="margin: 0;">Omega Handles - Vortex Orbit - Vortex Gloves</h3>
-</div><div style="text-align: center;">
-  <img width="220" height="220" class="classic-icon" src="assets/images/device-buttons.png" alt="Device Buttons">
-<p><strong>For Omega Handles, Vortex Orbits, and Vortex Gloves,</strong> there is also a very small <span style="color: #ff0000">reset button</span> which is primarily used for updating the device firmware.</p>
-</div>
+  <img class="engine-icon" style="margin-right: 15px; width: 9%; height: auto;" src="assets/images/duo-logo-button-square-512.png" alt="Duo">
 
 ## Next Steps
 
@@ -81,3 +46,7 @@ If your device is new then it will already be up to date, but if you have an old
 ## Quick Guides
 
 If you really just want to jump into things as fast as possible, be sure to check out the [Quick Guides](guides.html)
+
+## Classic Devices
+
+See [Classic Devices](getting_started_classic_devices.html) if you're looking for information on the **Vortex Orbit, Omega Handles, or Vortex gloves**
