@@ -1,8 +1,8 @@
 ---
 layout: default
-title: Getting Started
+title: Getting Started (Classic)
 nav_order: 0
-parent: Vortex Engine
+parent: Getting Started
 has_children: true
 ---
 <style>
