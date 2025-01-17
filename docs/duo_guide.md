@@ -115,6 +115,25 @@ Welcome to the Duo LED Guide, this page aims to get you up and running as fast a
 - To open the menus, navigate to a mode then hold the navigation button until the lights flash white.
 - After opening the menus, use short clicks to cycle through the following menu options, long click to enter a menu.
 
+---
+
+# Duo Interactive Tutorial
+
+Learn how to use the Duo with this interactive tutorial:
+
+<div style="text-align: center; margin: 20px 0;">
+  <iframe 
+    src="https://opensourcelightshows.github.io/DuoTutorial/" 
+    width="50%" 
+    height="600" 
+    style="border: 5px solid #444; border-radius: 8px;"
+    title="Duo Tutorial"
+    allowfullscreen>
+  </iframe>
+</div>
+
+---
+
 ## Menus
 
 {% raw %}
