@@ -2,7 +2,7 @@
 layout: default
 title: Duo Reassembly Guide
 nav_order: 3
-parent: Duo Connecting or Updating Guide
+parent: Duo Chromalink Guide
 ---
 
  # Reassembling Your Duo

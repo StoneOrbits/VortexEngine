@@ -2,12 +2,14 @@
 layout: default
 title: Duo Connection Guide
 nav_order: 2
-parent: Duo Connecting or Updating Guide
+parent: Duo Chromalink Guide
 ---
 
-# Connecting Your Duo
+# Connecting the Duo
 
-Your Duo must be up to date to connect successfully. Make sure you [update your Duo](duo_upgrade_guide.html) before continuing with this guide.
+It is important the duo is up to date before connecting to the PC. Make sure to [update the Duo](duo_upgrade_guide.html) before continuing with this guide.
+
+If you have modes you want to save you can always transfer them from an old chip to an updated chip.
 
 ---
 

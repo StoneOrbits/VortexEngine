@@ -2,7 +2,7 @@
 layout: default
 title: Duo Update Guide
 nav_order: 1
-parent: Duo Connecting or Updating Guide
+parent: Duo Chromalink Guide
 ---
 <style>
 .warning-box {
@@ -38,7 +38,7 @@ parent: Duo Connecting or Updating Guide
  - With the **Chromadeck** connected to lightshow.lol, two new panels will be visible: **Device Updates** & **Chromalink Duo**
 
 {: .note }
-<b style="color:white;">Note: </b> If you haven't <a href="chromadeck_upgrade_guide.html">updated the Chromadeck</a> yet, do it <b style="color:white;">now</b>!</p>
+<b style="color:white;">Note: </b> If you haven't <a href="chromadeck_upgrade_guide.html">updated the Chromadeck</a> yet, do it <b style="color:white;">now</b>!
 
 <div style="text-align: center; margin: 5px"> 
   <img style="max-width:280px;" src="assets/images/lightshow-lol-chromadeck-update-done.png">

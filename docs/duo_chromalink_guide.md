@@ -18,14 +18,8 @@ parent: Duo Guide
 }
 </style>
 
-<div style="text-align: center; margin: 20px">
-  <h1 style="color:orange;">⚠ <b style="color:red;">Warning</b> ⚠<br></h1>
-</div>
-
 {: .warning}
 Upgrading Duos <i>can</i> be dangerous! Be patient and follow these steps carefully, StoneOrbits is not responsible for any damage
-
----
 
 # Preparing Duos for Connecting or Updating
 
@@ -54,12 +48,7 @@ With the Duo, Chromadeck, Chromalink, Computer, and USB-C cable ready, proceed t
   <img style="max-width:260px;border-radius:5px;border:1px solid gray;" src="assets/images/duo-case-removal-2.gif">
 </div>
 
-## Removing the Battery
-
-<div style="text-align: center; margin: 5px">
-  <p style="color:white;"><span style="color:yellow;">⚠</span> <b>Warning</b> <span style="color:yellow;">⚠</span><br>
-  <strong>This is a potentially dangeous step!</strong></p>
-</div>
+## Remove the Battery
 
 {: .warning}
 Failure to remove the battery will dramatically shorten the battery lifespan,
@@ -69,12 +58,17 @@ not responsible for any damage caused during this step.
 - In order to safely update the Duo, the battery must be carefully disconnected first. 
 - **Gently** and **carefully** peel the Duo battery away from the Duo like shown below.
 
+<div style="text-align: center; margin: 5px">
+  <p style="color:white;"><span style="color:yellow;">⚠</span> <b>Warning</b> <span style="color:yellow;">⚠</span><br>
+  <strong>This is a potentially dangeous step!</strong></p>
+</div>
+
 <div style="text-align: center; margin: 5px">  
   <img style="max-width:260px;border-radius:5px;border:1px solid gray;" src="assets/images/battery-removal-1.gif">
   <img style="max-width:260px;border-radius:5px;border:1px solid gray;" src="assets/images/battery-removal-2.gif">
 </div>
 
-## Setting up the Chromalink
+## Set up the Chromalink
 
  - Connect the **Chromalink** cable to the **Chromadeck**, then plug the **Chromadeck** into the PC and power it on.
 
@@ -83,7 +77,7 @@ not responsible for any damage caused during this step.
   <img style="max-width:260px;border-radius:5px;border:1px solid gray;" src="assets/images/connect-chromadeck.gif">
 </div>
 
-## Connecting the Duo to the Chromalink
+## Connecting the Duo
 
  - Seat the Duo into the **Chromalink** dock and slide it into place like shown below
 
