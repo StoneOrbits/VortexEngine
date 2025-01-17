@@ -25,4 +25,6 @@ The Chromalink is a single-chip Duo dock which connects to your Duo's programmin
 </div>
 
 ---
+# Next Steps
 
+Learn how to set up and [use your Chromalink with your Duos](duo_connecting_or_upgrading_guide.html)

@@ -92,7 +92,7 @@ parent: Vortex Devices
 
 # Chromadeck Guide
 
-Welcome to the Chromadeck Guide, this page aims to get you up and running as fast as possible.
+Welcome to the Chromadeck Guide, this page aims to get you up and running as fast as possible. Go here to learn about the [Chromalink](chromalink_guide.html), the Chromadeck's optional accessory.
 
 ## Baiscs
   The Chromadeck has three <strong style="color: #00c6ff">navigation buttons</strong>, and a small <strong style="color: #00ff00;">power switch</strong>.
