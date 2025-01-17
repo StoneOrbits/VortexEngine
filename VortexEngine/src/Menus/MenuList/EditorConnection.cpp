@@ -9,6 +9,7 @@
 #include "../../Time/TimeControl.h"
 #include "../../Time/Timings.h"
 #include "../../Colors/Colorset.h"
+#include "../../Modes/DuoDefaultModes.h"
 #include "../../Modes/Modes.h"
 #include "../../Modes/Mode.h"
 #include "../../Leds/Leds.h"
@@ -29,7 +30,8 @@ EditorConnection::EditorConnection(const RGBColor &col, bool advanced) :
   m_numModesToReceive(0),
   m_curStep(0),
   m_firmwareSize(0),
-  m_firmwareOffset(0)
+  m_firmwareOffset(0),
+  m_backupModes(true)
 {
 }
 
@@ -333,11 +335,26 @@ void EditorConnection::handleState()
     break;
 
   // -------------------------------
+  //  Set Global Brightness
+  case STATE_SET_GLOBAL_BRIGHTNESS:
+    m_receiveBuffer.clear();
+    SerialComs::write(EDITOR_VERB_READY);
+    m_state = STATE_SET_GLOBAL_BRIGHTNESS_RECEIVE;
+    break;
+  case STATE_SET_GLOBAL_BRIGHTNESS_RECEIVE:
+    // set the brightness of the device
+    if (!receiveBrightness()) {
+      break;
+    }
+    m_receiveBuffer.clear();
+    m_state = STATE_IDLE;
+    break;
+
+  // -------------------------------
   //  Get Chromalinked Duo Header
   case STATE_PULL_HEADER_CHROMALINK:
     if (!pullHeaderChromalink()) {
-      // error?
-      break;
+      Leds::holdAll(RGB_RED);
     }
     // done
     m_receiveBuffer.clear();
@@ -355,6 +372,7 @@ void EditorConnection::handleState()
   case STATE_PULL_MODE_CHROMALINK_SEND:
     // send the stuff
     if (!pullModeChromalink()) {
+      // error?
       break;
     }
     // done
@@ -380,9 +398,9 @@ void EditorConnection::handleState()
     // the trick is to send header after the modes so the reset comes at the end
     UPDI::reset();
     UPDI::disable();
+    m_receiveBuffer.clear();
     // success modes were received send the done
     SerialComs::write(EDITOR_VERB_PUSH_CHROMA_HDR_ACK);
-    m_receiveBuffer.clear();
     m_state = STATE_IDLE;
     break;
 
@@ -408,9 +426,9 @@ void EditorConnection::handleState()
     if (!pushModeChromalink()) {
       break;
     }
+    m_receiveBuffer.clear();
     SerialComs::write(EDITOR_VERB_PUSH_CHROMA_MODE_ACK);
     // done
-    m_receiveBuffer.clear();
     m_state = STATE_IDLE;
     break;
 
@@ -426,32 +444,54 @@ void EditorConnection::handleState()
     break;
   case STATE_CHROMALINK_FLASH_FIRMWARE_RECEIVE_SIZE:
     if (!receiveFirmwareSize(m_firmwareSize)) {
+      // continue waiting
       break;
     }
-    UPDI::eraseMemory();
-
-
     m_curStep = 0;
     m_firmwareOffset = 0;
-    m_receiveBuffer.clear();
-    Leds::setAll(RGB_YELLOW3);
-    SerialComs::write(EDITOR_VERB_READY);
-    m_state = STATE_CHROMALINK_FLASH_FIRMWARE_RECEIVE;
+    m_backupModeNum = 0;
+    Leds::setAll(RGB_ORANGE3);
+    m_state = STATE_CHROMALINK_FLASH_FIRMWARE_BACKUP_MODES;
     break;
-  case STATE_CHROMALINK_FLASH_FIRMWARE_RECEIVE:
+  case STATE_CHROMALINK_FLASH_FIRMWARE_BACKUP_MODES:
+    if (backupDuoModes()) {
+      m_state = STATE_CHROMALINK_FLASH_FIRMWARE_ERASE_MEMORY;
+    }
+    break;
+  case STATE_CHROMALINK_FLASH_FIRMWARE_ERASE_MEMORY:
+    Leds::setAll(RGB_CYAN0);
+    UPDI::eraseMemory();
+    m_receiveBuffer.clear();
+    SerialComs::write(EDITOR_VERB_READY);
+    m_state = STATE_CHROMALINK_FLASH_FIRMWARE_FLASH_CHUNKS;
+    break;
+  case STATE_CHROMALINK_FLASH_FIRMWARE_FLASH_CHUNKS:
     // receive and write a chunk of firwmare
-    if (!writeDuoFirmware()) {
-      break;
+    if (writeDuoFirmware()) {
+      // done go to next state
+      m_state = STATE_CHROMALINK_FLASH_FIRMWARE_RESTORE_MODES;
     }
-    // send ack
-    SerialComs::write(EDITOR_VERB_FLASH_FIRMWARE_ACK);
+    break;
+  case STATE_CHROMALINK_FLASH_FIRMWARE_RESTORE_MODES:
     // only once the entire firmware is written
-    if (m_firmwareOffset >= m_firmwareSize) {
-      // then done
-      m_receiveBuffer.clear();
-      m_curStep = 0;
-      m_state = STATE_IDLE;
+    if (restoreDuoModes()) {
+      m_state = STATE_CHROMALINK_FLASH_FIRMWARE_DONE;
     }
+    break;
+  case STATE_CHROMALINK_FLASH_FIRMWARE_DONE:
+    // done reset everything
+    m_receiveBuffer.clear();
+    m_firmwareOffset = 0;
+    m_backupModeNum = 0;
+    m_curStep = 0;
+    // done with updi
+    UPDI::reset();
+    UPDI::disable();
+    // show green
+    Leds::setAll(RGB_GREEN);
+    SerialComs::write(EDITOR_VERB_FLASH_FIRMWARE_DONE);
+    // go back to idle
+    m_state = STATE_IDLE;
     break;
   }
 }
@@ -509,23 +549,32 @@ bool EditorConnection::pullModeChromalink()
 {
   // try to receive the mode index
   uint8_t modeIdx = 0;
+  bool success = false;
   // only 9 modes on duo, maybe this should be a macro or something
-  if (!receiveModeIdx(modeIdx) || modeIdx >= 9) {
-    return false;
+  if (receiveModeIdx(modeIdx) && modeIdx < 9) {
+    ByteStream modeBuffer;
+    // same doesn't matter if this fails still need to send
+    success = UPDI::readMode(modeIdx, modeBuffer);
+    UPDI::reset();
+    UPDI::disable();
+    // lol just use the mode index as the radial to set
+    Leds::setRadial((Radial)modeIdx, success ? RGB_GREEN4 : RGB_RED4);
+    if (!success) {
+      // just send back a 0 if it failed
+      modeBuffer.init(1);
+      modeBuffer.serialize8(0);
+    }
+    // send the mode, could be empty buffer if reading failed
+    SerialComs::write(modeBuffer);
   }
-  ByteStream modeBuffer;
-  // same doesn't matter if this fails still need to send
-  bool success = UPDI::readMode(modeIdx, modeBuffer);
-  // send the mode, could be empty buffer if reading failed
-  SerialComs::write(modeBuffer);
-  UPDI::reset();
-  UPDI::disable();
   // return whether reading the mode was successful
   return success;
 }
 
 bool EditorConnection::pushModeChromalink()
 {
+  // lol just use the mode index as the radial to set
+  Leds::setRadials(RADIAL_0, (Radial)m_chromaModeIdx, RGB_GREEN4);
   // wait for the mode then write it via updi
   ByteStream buf;
   if (!receiveBuffer(buf)) {
@@ -540,26 +589,92 @@ bool EditorConnection::pushModeChromalink()
   return true;
 }
 
-bool EditorConnection::writeDuoFirmware()
+bool EditorConnection::backupDuoModes()
 {
+  if (m_backupModeNum == 9) {
+    // reset counter for the restore step later
+    m_backupModeNum = 0;
+    // done
+    return true;
+  }
+  // backing up the first mode
+  if (m_backupModeNum == 0) {
+    // default this to true to begin
+    m_backupModes = true;
+    // double check the version and valid header before backing up modes
+    ByteStream duoHeader;
+    UPDI::readHeader(duoHeader);
+    if (duoHeader.size() >= 5) {
+      uint8_t major = duoHeader.data()[0];
+      uint8_t minor = duoHeader.data()[1];
+      if (major < 1 || minor < 3) {
+        // turn off mode backup the version isn't high enough
+        m_backupModes = false;
+      }
+    }
+  }
+  // may use the defaults if backing up fails, default is whether backup is enabled
+  bool useDefault = !m_backupModes;
+  if (m_backupModes) {
+    ByteStream &cur = m_modeBackups[m_backupModeNum];
+    // if the mode cannot be loaded, or if it's CRC is bad then just use the default
+    if (!UPDI::readMode(m_backupModeNum, cur) || !cur.checkCRC() || !cur.size()) {
+      useDefault = true;
+    }
+  }
+  // if not backing up, or backup failed, then store the default mode data in
+  // the backup because we will always write out the backups after flashing
+  if (useDefault) {
+    m_modeBackups[m_backupModeNum].init(duo_default_sizes[m_backupModeNum], duo_default_modes[m_backupModeNum]);
+  }
+  Leds::setRadials(RADIAL_0, (Radial)m_backupModeNum, useDefault ? RGB_CYAN0 : RGB_PURPLE);
+  // go to next mode
+  m_backupModeNum++;
+  return false;
+}
+
+bool EditorConnection::restoreDuoModes()
+{
+  Leds::setRadials(RADIAL_0, (Radial)m_backupModeNum, RGB_CYAN4);
+  if (m_backupModeNum == 9) {
+    // reset counter for the restore step later
+    m_backupModeNum = 0;
+    // done
+    return true;
+  }
+  // each pass write out the backups, these may be the defaults
+  UPDI::writeMode(m_backupModeNum, m_modeBackups[m_backupModeNum]);
+  // go to next mode
+  m_backupModeNum++;
+  return false;
+}
+
+bool EditorConnection::writeDuoFirmware()
+{ 
+  // render some progress, do it before updating the offset so it starts at 0
+  Leds::setAll(RGB_YELLOW3);
+  Leds::setRadials(RADIAL_0, (Radial)((m_firmwareOffset / (float)m_firmwareSize) * RADIAL_COUNT), RGB_GREEN3);
+  // first pass and backup modes is enabled
+  if (m_firmwareOffset >= m_firmwareSize) {
+    // done
+    return true;
+  }
   // wait for the mode then write it via updi
   ByteStream buf;
   if (!receiveBuffer(buf)) {
     return false;
   }
+  // write out the firmware and record it if successful
   if (!UPDI::writeFirmware(m_firmwareOffset, buf)) {
+    // big error? this shouldn't happen
     return false;
   }
   m_firmwareOffset += buf.size();
-  if (m_firmwareOffset >= m_firmwareSize) {
-    // done
-    UPDI::reset();
-    UPDI::disable();
-  }
-  // create a progress bar I guess
-  Leds::setAll(RGB_RED0);
-  Leds::setRange(LED_0, (LedPos)((m_firmwareOffset / (float)m_firmwareSize) * LED_COUNT), RGB_GREEN3);
-  return true;
+  // send ack for each chunk
+  m_receiveBuffer.clear();
+  SerialComs::write(EDITOR_VERB_FLASH_FIRMWARE_ACK);
+  // not done  yet
+  return false;
 }
 
 void EditorConnection::onShortClickM()
@@ -616,6 +731,8 @@ void EditorConnection::handleCommand()
     m_state = STATE_PUSH_MODE_CHROMALINK;
   } else if (receiveMessage(EDITOR_VERB_FLASH_FIRMWARE)) {
     m_state = STATE_CHROMALINK_FLASH_FIRMWARE;
+  } else if (receiveMessage(EDITOR_VERB_SET_GLOBAL_BRIGHTNESS)) {
+    m_state = STATE_SET_GLOBAL_BRIGHTNESS;
   }
 }
 
@@ -702,7 +819,13 @@ bool EditorConnection::receiveBuffer(ByteStream &buffer)
   // clear the receive buffer
   m_receiveBuffer.clear();
   if (!buffer.checkCRC()) {
-    return false;
+    // TODO: this needs a different return value or something, usually false
+    // just means keep listening but in this case it listened and received bad
+    // data so we need to report this somehow
+    Leds::holdAll(RGB_RED);
+    buffer.clear();
+    // return true otherwise we'll get locked in this state forever
+    return true;
   }
   return true;
 }
@@ -829,6 +952,25 @@ void EditorConnection::clearDemo()
   PatternArgs args(1, 0, 0);
   m_previewMode.setPattern(PATTERN_STROBE, LED_ALL, &args, &set);
   m_previewMode.init();
+}
+
+
+bool EditorConnection::receiveBrightness()
+{
+  // create a new ByteStream that will hold the full buffer of data
+  ByteStream buf;
+  if (!receiveBuffer(buf)) {
+    return false;
+  }
+  if (!buf.size()) {
+    // failure but cannot return false we'll get stuck
+    return true;
+  }
+  uint8_t brightness = buf.data()[0];
+  if (brightness > 0) {
+    Leds::setBrightness(brightness);
+  }
+  return true;
 }
 
 void EditorConnection::receiveModeVL()

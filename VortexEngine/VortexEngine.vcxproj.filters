@@ -339,6 +339,9 @@
     <ClCompile Include="src\UPDI\updi.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\Modes\DuoDefaultModes.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\VortexConfig.h">
@@ -567,6 +570,9 @@
       <Filter>Header Files\Menus</Filter>
     </ClInclude>
     <ClInclude Include="src\UPDI\updi.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Modes\DuoDefaultModes.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

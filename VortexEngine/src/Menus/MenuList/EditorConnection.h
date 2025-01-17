@@ -24,7 +24,10 @@ public:
   bool pushHeaderChromalink();
   bool pullModeChromalink();
   bool pushModeChromalink();
+
   bool writeDuoFirmware();
+  bool backupDuoModes();
+  bool restoreDuoModes();
 
   // handlers for clicks
   void onShortClickM() override;
@@ -49,6 +52,7 @@ private:
   bool receiveDemoMode();
   bool receiveMessage(const char *message);
   void clearDemo();
+  bool receiveBrightness();
   void receiveModeVL();
   void showReceiveModeVL();
   bool receiveModeIdx(uint8_t &idx);
@@ -104,6 +108,10 @@ private:
     STATE_PUSH_EACH_MODE_WAIT,
     STATE_PUSH_EACH_MODE_DONE,
 
+    // set global brightness
+    STATE_SET_GLOBAL_BRIGHTNESS,
+    STATE_SET_GLOBAL_BRIGHTNESS_RECEIVE,
+
     // pull the header from the chromalinked duo
     STATE_PULL_HEADER_CHROMALINK,
 
@@ -123,7 +131,14 @@ private:
     // flash the firmware of the chromalinked duo
     STATE_CHROMALINK_FLASH_FIRMWARE,
     STATE_CHROMALINK_FLASH_FIRMWARE_RECEIVE_SIZE,
-    STATE_CHROMALINK_FLASH_FIRMWARE_RECEIVE,
+    STATE_CHROMALINK_FLASH_FIRMWARE_BACKUP_MODES,
+    STATE_CHROMALINK_FLASH_FIRMWARE_ERASE_MEMORY,
+    STATE_CHROMALINK_FLASH_FIRMWARE_FLASH_CHUNKS,
+    STATE_CHROMALINK_FLASH_FIRMWARE_RESTORE_MODES,
+    STATE_CHROMALINK_FLASH_FIRMWARE_DONE,
+
+    // toggle whether flashing firmware will backup modes
+    STATE_CHROMALINK_FLASH_FIRMWARE_TOGGLE_BACKUP,
   };
 
   // state of the editor
@@ -147,6 +162,13 @@ private:
   uint32_t m_firmwareSize;
   // how much firmware written so far
   uint32_t m_firmwareOffset;
+
+  // whether to backup duo modes on firmware update
+  bool m_backupModes;
+  // backups of duo modes when flashing firmware
+  ByteStream m_modeBackups[9];
+  // counter for reading/writing modes during firmware flash
+  uint8_t m_backupModeNum;
 };
 
 #endif

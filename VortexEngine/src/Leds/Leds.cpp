@@ -75,6 +75,19 @@ void Leds::setPairs(Pair first, Pair last, RGBColor col)
   setRange(pairEven(first), pairOdd(last), col);
 }
 
+void Leds::setRadial(Radial radial, RGBColor col)
+{
+  setIndex(radialInner(radial), col);
+  setIndex(radialOuter(radial), col);
+}
+
+void Leds::setRadials(Radial first, Radial last, RGBColor col)
+{
+  for (Radial rad = first; rad < last; rad++) {
+    setRadial(rad, col);
+  }
+}
+
 void Leds::setRangeEvens(Pair first, Pair last, RGBColor col)
 {
   for (Pair pos = first; pos <= last; pos++) {

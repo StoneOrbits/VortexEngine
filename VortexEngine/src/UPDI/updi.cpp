@@ -104,7 +104,9 @@ bool UPDI::readHeader(ByteStream &header)
   if (!header.init(DUO_HEADER_SIZE)) {
     return false;
   }
-  enterProgrammingMode();
+  if (!enterProgrammingMode()) {
+    return false;
+  }
   uint8_t *ptr = (uint8_t *)header.rawData();
   uint16_t addr = DUO_EEPROM_BASE;
   stptr_p((const uint8_t *)&addr, 2);
@@ -132,7 +134,6 @@ bool UPDI::readHeader(ByteStream &header)
   if (!header.checkCRC()) {
     header.clear();
     ERROR_LOG("ERROR Header CRC Invalid!");
-    reset();
     return false;
   }
   // major.minor are the first two bytes of the buffer
@@ -158,7 +159,9 @@ bool UPDI::readHeaderLegacy1(ByteStream &header)
   if (!header.init(LEGACY_DUO_HEADER_SIZE_1)) {
     return false;
   }
-  enterProgrammingMode();
+  if (!enterProgrammingMode()) {
+    return false;
+  }
   uint8_t *ptr = (uint8_t *)header.rawData();
   uint16_t addr = DUO_EEPROM_BASE;
   stptr_p((const uint8_t *)&addr, 2);
@@ -191,7 +194,9 @@ bool UPDI::readHeaderLegacy2(ByteStream &header)
   if (!header.init(LEGACY_DUO_HEADER_SIZE_2)) {
     return false;
   }
-  //enterProgrammingMode();
+  //if (!enterProgrammingMode()) {
+  //  return false;
+  //}
   uint8_t *ptr = (uint8_t *)header.rawData();
   uint16_t addr = DUO_EEPROM_BASE;
   stptr_p((const uint8_t *)&addr, 2);
@@ -228,9 +233,13 @@ bool UPDI::readMode(uint8_t idx, ByteStream &modeBuffer)
   }
   // initialize mode buffer
   if (!modeBuffer.init(DUO_MODE_SIZE)) {
+    modeBuffer.clear();
     return false;
   }
-  enterProgrammingMode();
+  if (!enterProgrammingMode()) {
+    modeBuffer.clear();
+    return false;
+  }
   // DUO_MODE_SIZE is the max duo mode size (the slot size)
   uint8_t *ptr = (uint8_t *)modeBuffer.rawData();
   uint16_t numBytes = modeBuffer.rawSize();
@@ -259,7 +268,6 @@ bool UPDI::readMode(uint8_t idx, ByteStream &modeBuffer)
   if (!modeBuffer.checkCRC()) {
     modeBuffer.clear();
     ERROR_LOG("ERROR Header CRC Invalid!");
-    reset();
     return false;
   }
 #endif
@@ -273,7 +281,9 @@ bool UPDI::writeHeader(ByteStream &headerBuffer)
     // nope!
     return false;
   }
-  enterProgrammingMode();
+  if (!enterProgrammingMode()) {
+    return false;
+  }
   // DUO_EEPROM_BASE is eeprom base
   // DUO_HEADER_FULL_SIZE is size of duo header
   // DUO_MODE_SIZE is size of each duo mode
@@ -330,7 +340,9 @@ bool UPDI::writeMode(uint8_t idx, ByteStream &modeBuffer)
 #ifdef VORTEX_EMBEDDED
 bool UPDI::writeModeEeprom(uint8_t idx, ByteStream &modeBuffer)
 {
-  enterProgrammingMode();
+  if (!enterProgrammingMode()) {
+    return false;
+  }
   // DUO_EEPROM_BASE is eeprom base
   // DUO_HEADER_FULL_SIZE is size of duo header
   // DUO_MODE_SIZE is size of each duo mode
@@ -448,7 +460,9 @@ bool UPDI::writeModeEeprom(uint8_t idx, ByteStream &modeBuffer)
 
 bool UPDI::writeModeFlash(uint8_t idx, ByteStream &modeBuffer)
 {
-  enterProgrammingMode();
+  if (!enterProgrammingMode()) {
+    return false;
+  }
   // there are 3 modes in the eeprom after the header
   // DUO_FLASH_STORAGE_BASE is the end of flash, 0x200 before
   uint16_t base = DUO_FLASH_STORAGE_BASE + ((idx - 3) * DUO_MODE_SIZE);
@@ -652,7 +666,9 @@ bool UPDI::writeFirmware(uint32_t position, ByteStream &firmwareBuffer)
     reset();
     return false;
   }
-  enterProgrammingMode();
+  if (!enterProgrammingMode()) {
+    return false;
+  }
   // DUO_MODE_SIZE is the max duo mode size (the slot size)
   uint8_t *ptr = (uint8_t *)firmwareBuffer.data();
   // there are 3 modes in the eeprom after the header
@@ -720,20 +736,20 @@ bool UPDI::disable()
 }
 
 #ifdef VORTEX_EMBEDDED
+#define MAX_TRIES 1000
 
-void UPDI::enterProgrammingMode()
+bool UPDI::enterProgrammingMode()
 {
   uint8_t mode;
-  while (1) {
+  uint32_t tries = 0;
+  while (tries++ < MAX_TRIES) {
     sendDoubleBreak();
     stcs(Control_A, 0x6);
     mode = cpu_mode<0xEF>();
     if (mode != 0x82 && mode != 0x21 && mode != 0xA2 && mode != 0x08) {
-      //sendDoubleBreak();
+      ERROR_LOGF("Bad CPU Mode 0x%02x... error: 0x%02x", mode, status);
       sendBreak();
       uint8_t status = ldcs(Status_B);
-      ERROR_LOGF("Bad CPU Mode 0x%02x... error: 0x%02x", mode, status);
-      //reset();
       continue;
     }
     if (mode != 0x08) {
@@ -742,17 +758,23 @@ void UPDI::enterProgrammingMode()
       if (status != 0x10) {
         ERROR_LOGF("Bad prog key status: 0x%02x", status);
         reset();
+        //sendBreak();
+        //uint8_t status = ldcs(Status_B);
         continue;
       }
       reset();
     }
-    // break the while (1)
     break;
+  }
+  if (tries >= MAX_TRIES) {
+    Leds::holdAll(RGB_RED);
+    return false;
   }
   mode = cpu_mode();
   while (mode != 0x8) {
     mode = cpu_mode();
   }
+  return true;
 }
 
 void UPDI::resetOn()
