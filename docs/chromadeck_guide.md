@@ -90,7 +90,7 @@ parent: Vortex Devices
 
 <img align="right" width="" height="220" class="device-icon" src="assets/images/chromadeck-render-square-512.png">
 
-# Chromadeck Guide
+# Chromadeck
 
 Welcome to the Chromadeck Guide, this page aims to get you up and running as fast as possible. Go here to learn about the [Chromalink](chromalink_guide.html), the Chromadeck's optional accessory.
 

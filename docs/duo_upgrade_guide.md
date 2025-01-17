@@ -2,7 +2,7 @@
 layout: default
 title: Upgrade Guide
 nav_order: 2
-parent: Duo
+parent: Chromalink Guide
 ---
 <style>
 .warning-box {
@@ -62,9 +62,19 @@ parent: Duo
  - After completion, pressing the button should turn the Duo on.
 
  - If it powers on successfully, proceed to the next step or go to the [Chromalink Guide](chromalink_guide.html) to see how to use your Duo with Lightshow.lol
- 
+
+# Duo Reassembly
+
+- Remove the **Duo** from the **Chromalink** and reconnect the battery. Make sure the corners of the connector are flush for a reliable connection.
+- Click the button to power on the Duo and verify the battery is fully connected, if it doesn't work then check the battery connector.
+
+<div style="text-align: center; margin: 20px">
+  <img style="max-width:260px;border-radius:5px;border:1px solid gray;" src="assets/images/duo-battery-connect.gif">
+  <img style="max-width:260px;border-radius:5px;border:1px solid gray;" src="assets/images/duo-case-insertion.gif">
+</div>
+
 <div style="text-align: center; margin-top: 30px;">
-  <p><b style="color: white;">Congratulations</b> You have successfully updated the Duo Firmware!</p>
+  <p><b style="color: white;">Congratulations</b> The Duo firmware is now updated!</p>
 </div>
 
  ---

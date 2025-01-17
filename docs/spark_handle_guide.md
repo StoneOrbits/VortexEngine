@@ -90,7 +90,7 @@ parent: Vortex Devices
 
 <img align="right" width="" height="220" class="device-icon" src="assets/images/spark-handle-render-square-512.png">
 
-# Spark Handle Guide
+# Spark Handle
 
 Welcome to the Spark Handle Guide, this page aims to get you up and running as fast as possible.
 

@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Duo Chromalink Guide
+title: Chromalink Guide
 nav_order: 2
 parent: Duo
 ---
@@ -99,4 +99,3 @@ not responsible for any damage caused during this step.
 
 - [Updating the Duo](duo_upgrade_guide.html)
 - [Programming the Duo](duo_connection_guide.html)
-- [Reassembling the Duo](duo_reassembly_guide.html)

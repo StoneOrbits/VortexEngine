@@ -91,10 +91,9 @@ published: true
 
 <img align="right" width="" height="220" class="device-icon" src="assets/images/duo-logo-button-square-512.png">
 
-# Duo Guide
+# The Duo
 
 Welcome to the Duo LED Guide, this page aims to get you up and running as fast as possible.
-
 
 ## Basics
 
