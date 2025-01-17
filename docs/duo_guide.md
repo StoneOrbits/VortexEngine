@@ -107,7 +107,7 @@ Welcome to the Duo LED Guide, this page aims to get you up and running as fast a
 
 **Special Functions**
 
-- The Duo has some unique <a href="duo_special_functions_guide.html">Special Functions</div></a>. Check out the basic menus before diving into these options.
+- The Duo has some unique <a href="duo_special_functions_guide.html">Special Functions</a>. Check out the basic menus before diving into these options.
 
 **Using The Button**
 
@@ -151,7 +151,7 @@ Welcome to the Duo LED Guide, this page aims to get you up and running as fast a
 <div class="next-steps">
   <ul>
     <li><a href="basic_usage.html">Explore Vortex Engine</a>: Learn key terms, concepts, and how to use on-device menus.</li>
-    <li><a href="upgrade_guides.html">Upgrade Your Device</a>: Ensure your device has the latest firmware for optimal performance.</li>
+    <li><a href="duo_upgrade_guide.html">Upgrade Your Device</a>: Ensure your device has the latest firmware for optimal performance.</li>
   </ul>
 </div>
 

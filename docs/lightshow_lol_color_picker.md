@@ -51,10 +51,10 @@ The **Color Picker** is a detailed interface for picking new colors for a colors
 
 - **Precision Control:** Fine-tune colors with RGB/HEX inputs.
 - **Quick Adjustments:** Easily modify brightness, saturation, and hue.
+- **Real-Time Preview:** See a live preview of the color being chosen on any connected device.
+
 
 The color picker is opened by selecting a color in the colorset, and it can be closed unlike most other panels. The color picker will update the color of the last color that was clicked in the colorset.
-
-When a device is connected it will display a live preview of the color being chosen as the user navigates the color picker.
 
 ## Other Panels
 

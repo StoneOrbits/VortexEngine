@@ -75,11 +75,14 @@ parent: Lightshow.lol
   <img src="assets/images/lightshow-lol-animation.png" alt="Lightshow.lol Animation">
 </div>
 
-The **Preview** is the spinning circle of colors immediately visible when entering the page, and the **Animation Panel** specifically controls the appearance of this **Preview**.
+The **Preview** is the spinning circle of colors visible in the middle of the page.
+The **Animation Panel** specifically controls the appearance of this **Preview**.
 
-While the **Preview** will react to changes made in various UI panels (like Pattern or Colorset), the **Animation Panel** only affects the on-screen preview, not how the actual device looks.
+Changing the settings on the **Animation Panel** will not affect how the mode looks on your device, only how it appears in the **Preview** on your screen.
 
-The five animation shape options are self-explanatory, but the six slider options in this panel are:
+The five animation shapes change the shape of the trail's path in the preview.
+
+The six slider options affect other qualities of the trails:
 
 - **Speed**: How fast the animation progresses.
 - **Trail**: How long the colors remain visible (the length of the trail).

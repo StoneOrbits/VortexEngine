@@ -49,10 +49,9 @@ The **Chromalink Panel** handles the connection with a **Duo** made via the **Ch
 
 ### Key Features
 
-- **Realtime Update Check:** Checks with the database on vortex.community for latest firmware version
-- **Instant Firmware Flash:** Immediately update the firmware to the latest with the click of a button
-- **Custom Firmware Flash:** Upload custom Duo Firmwares from your filesystem with the press of a button
-- **Up-to-date Notification:** This window will inform if the firmware is completely up to date
+- **Update Check:** Checks with the database on vortex.community for latest firmware version and informs the user if the firmware is completely up to date.
+- **Flash Firmware:** Updates the firmware to the latest version.
+- **Custom Firmware Flash:** Upload custom Duo Firmwares from your computer.
 
 Once the duo is connected with **Connect Duo** the device status appears along with the Duo version and number of modes.
 
@@ -67,9 +66,9 @@ It is possible to adjust the total number of modes on a Duo with the editor, sim
     <span class="panel-title">← Update Panel 🔗</span>
     <img src="assets/images/lightshow-lol-device-update.png" class="panel-img">
   </a>
-  <a href="lightshow_lol_animation.html" class="panel-link">
-    <span class="panel-title">🔗 Animation Panel →</span>
-    <img src="assets/images/lightshow-lol-animation.png" class="panel-img">
+  <a href="lightshow_lol_modes.html" class="panel-link">
+    <span class="panel-title">🔗 Modes Panel →</span>
+    <img src="assets/images/lightshow-lol-modes.png" class="panel-img">
   </a>
 </div>
 

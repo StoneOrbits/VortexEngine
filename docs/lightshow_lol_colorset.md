@@ -45,14 +45,18 @@ parent: Lightshow.lol
 
 <img style="float:right;max-width:40%;margin:10px;" src="assets/images/lightshow-lol-colorset.png">
 
-The **Colorset Panel** represents the list of colors for the selected leds of the current mode.
+The **Colorset Panel** represents the list of up to 8 colors for the selected leds of the current mode.
 
 ### Key Features
 
 - **Drag and Drop** Drag to rearrange colors in your colorset.
 - **Dynamic Color Picker:** Click to modify the color with the Color Picker
 
-There is a maximum of 8 colors in a colorset, black is considered 'off' which can be used to extend gaps in the pattern.
+### Tips
+
+- There is a maximum of 8 colors in a colorset. 
+- Black is considered 'off' which can be used to extend gaps in the pattern. Changing a color to black is not the same as deleting a color.
+- Hold the left mouse button on a color to delete it and remove it from the colorset.
 
 ## Other Panels
 

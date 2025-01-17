@@ -67,14 +67,14 @@ This page details how to use the web-based Vortex Editor [lightshow.lol](https:/
 
 ## Basics
 
-Lightshow.lol is an online editor. It is designed to both dispaly previews and edit the **Patterns**, **Colorsets**, and **Modes** of a **Vortex Device** in real-time. It can also export [modes](modes.html) to any Vortex devices or upload them directly to [Vortex.Community](vortex_community.html) for sharing. 
+Lightshow.lol is an online editor designed to both dispaly previews of the **Patterns**, **Colorsets**, and **Modes** of a **Vortex Device**, and edit them in real-time. It can also export [modes](modes.html) to any Vortex devices or upload them directly to [Vortex.Community](vortex_community.html) for sharing. 
 
-{: .warning }
+{: .note }
 Although the preview is an exact simulation of a real device, due to the difference in the way color is produced by LEDs and displays **the preview will never look exactly the same as real LEDs**
 
 ## How to Guides
 
-Ligthshow.lol is incredibly powerful and feature packed. It's also very intuitive once you are familair with it. To get started, checkout these [helpful examples](lightshow_lol_examples.html) that show how to use different features. 
+Ligthshow.lol is intuitive, feature-packed, and incredibly powerful once you understand it's panels. To get started, checkout these [helpful examples](lightshow_lol_examples.html) that show how to use different features. 
 
 ## Lightshow.lol 
 

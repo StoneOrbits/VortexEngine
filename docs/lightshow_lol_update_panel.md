@@ -45,7 +45,7 @@ parent: Lightshow.lol
 
 <img style="float:right;max-width:40%;margin:10px;" src="assets/images/lightshow-lol-device-update.png">
 
-The **Device Update Panel** is responsible for checking and delivering updates for the ESP32-class Vortex Devices such as the Spark orbit/handles, and the Chromadeck.
+The **Device Update Panel** is responsible for checking and delivering updates for the Spark Orbit, Spark Handles, and the Chromadeck.
 
 ### Key Features
 

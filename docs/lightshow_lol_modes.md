@@ -45,13 +45,13 @@ parent: Lightshow.lol
 
 <img style="float:right;max-width:40%;margin:10px;" src="assets/images/lightshow-lol-modes.png">
 
-The **Modes Panel** organizes and manages your lightshow's overall structure. A **mode** is a collection of patterns (one for each LED), which can be switched on the device.
+The **Modes Panel** organizes and manages your device's list of modes. A [mode](modes.html) is a collection of patterns and colorsets (one for each LED). You can retrieve a copy of your device's modes, add new ones, delete, or modify modes, and save the modes to your device.
 
 ### Key Features
 
 - **Mode Creation:** Add, edit, or delete modes with ease.
-- **Mode Preview:** Simulate switching between modes to see their effect in real-time.
-- **Import/Export:** Import existing modes from your device or export them for sharing.
+- **Mode Preview:** Switch between modes to see their effects in real-time.
+- **Pull/Push:** Pull existing modes from your device or push save new modes to your device.
 - **Sharing:** Quickly share your mode with the Vortex Community.
 
 ## Other Panels

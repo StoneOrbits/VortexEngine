@@ -45,23 +45,22 @@ parent: Lightshow.lol
 
 <img style="float:right;max-width:40%;margin:10px;" src="assets/images/lightshow-lol-device.png">
 
-The **Device Controls Panel** is very simple, offering only two purposes: **selecting** or **connecting** a **device**.
+The **Device Controls Panel** is very simple, offering only two purposes: to **select** or **connect** a **device**.
 
-- When a **device** is:
-  - **selected**: modes tailored to that device can be made (same LED count).
-  - **connected**: device selection is locked, connection with the evice is established.
+- **Select** a device when you want to make a mode for that type of device without needing to connect it.
+- **Connecting** a device will automatically select the correct type from the device list.
 
-In both cases, whether **Selecting** or **Connecting** a device, the **LED Selection Panel** will appear, this will be covered below.
+In both cases, whether **Selecting** or **Connecting** a device, the **LED Selection Panel** will appear.
 
 ## Other Panels
 
 <div class="panel-grid">
-  <a href="lightshow_lol_animation.html" class="panel-link">
-    <span class="panel-title">← Animation Panel 🔗</span>
-    <img src="assets/images/lightshow-lol-animation.png" class="panel-img">
-  </a>
   <a href="lightshow_lol_modes.html" class="panel-link">
     <span class="panel-title">🔗 Modes Panel →</span>
     <img src="assets/images/lightshow-lol-modes.png" class="panel-img">
+  </a>
+    <a href="lightshow_lol_led_selection.html" class="panel-link">
+    <span class="panel-title">← LED Selection Panel 🔗</span>
+    <img src="assets/images/lightshow-lol-led-select.png" class="panel-img">
   </a>
 </div>
