@@ -94,7 +94,7 @@ parent: Vortex Devices
 
 Welcome to the Chromadeck Guide, this page aims to get you up and running as fast as possible. Go here to learn about the [Chromalink](chromalink_guide.html), the Chromadeck's optional accessory.
 
-## Baiscs
+## Basics
   The Chromadeck has three <strong style="color: #00c6ff">navigation buttons</strong>, and a small <strong style="color: #00ff00;">power switch</strong>.
   
 
@@ -108,8 +108,8 @@ Welcome to the Chromadeck Guide, this page aims to get you up and running as fas
 - The Chromadeck has 10 profiles, each with 14 mode slots. 
 
 **Buttons**
-- First use the left an right <span style="color: #00c6ff">navigation buttons</span> to highlight a profile, and the middle button to select it. 
-- Short click the left an right <span style="color: #00c6ff">navigation buttons</span> to cycle through the 14 modes slots of the select profile.
+- First use the left and right <span style="color: #00c6ff">navigation buttons</span> to highlight a profile, and the middle button to select it. 
+- Short click the left and right <span style="color: #00c6ff">navigation buttons</span> to cycle through the 14 modes slots of the select profile.
 - Navigate to a mode then hold the <span style="color: #00c6ff">navigation button</span> until the lights flash white to open the menus.
 
 ## Menus

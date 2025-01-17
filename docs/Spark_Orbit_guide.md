@@ -95,7 +95,7 @@ parent: Vortex Devices
 Welcome to the Spark Orbit Guide, this page aims to get you up and running as fast as possible.
 
 
-## Baiscs
+## Basics
   The Spark Orbit has one <strong style="color: #00c6ff">navigation button</strong>, and a small <strong style="color: #00ff00;">power switch</strong>.
 
 **Switch**
