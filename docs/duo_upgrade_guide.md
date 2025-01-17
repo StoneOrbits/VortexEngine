@@ -27,6 +27,7 @@ parent: Duo Guide
 </div>
 
 ---
+
 # Duo Upgrade Guide
 
 <img src="assets/images/duo-logo-square-512.png" style="max-width: 250px; width: 40%; float: right; margin-bottom: 20px">
@@ -45,6 +46,7 @@ Before updating Duo firmware, always ensure the **Chromadeck** is [up to date](c
 With your Duo, Chromadeck, Chromalink, Computer, and USB-C cable ready, proceed to the next step.
 
 ---
+
 **Remove the Casing**
 
 <div>
@@ -58,18 +60,20 @@ With your Duo, Chromadeck, Chromalink, Computer, and USB-C cable ready, proceed 
 </div>
 
 ---
+
 **Removing the Battery**
-{: .warning }
-<div class="warning-box">
+
+
 <div style="text-align: center; margin: 5px">
   <p style="color:white;"><span style="color:yellow;">⚠</span> <b>Warning</b> <span style="color:yellow;">⚠</span><br>
-  <strong>This is a potentially dangeous step! 
+  <strong>This is a potentially dangeous step!</strong></p>
 </div>
-{: .warning }
-- Failure to remove the battery before connecting to the Chromalink will cause the battery's lifespan to shorten dramatically. 
-- Removing the battery incorrectly can break the battery connector, rendering the chip broken and unusable. 
-- StoneOrbits is not responsible for any damage to the Duo or battery caused this way.</strong></p>
-</div>
+
+{: .warning}
+Failure to remove the battery before connecting to the Chromalink will cause the battery's lifespan to shorten dramatically. 
+Removing the battery incorrectly can break the battery connector, rendering the chip broken and unusable. 
+StoneOrbits is not responsible for any damage to the Duo or battery caused this way.
+
 
 - In order to safely update the Duo, the battery must be carefully disconnected first. 
 - **Gently** and **peel** the Duo battery away from the Duo like shown below.
@@ -79,6 +83,7 @@ With your Duo, Chromadeck, Chromalink, Computer, and USB-C cable ready, proceed 
 </div>
 
 ---
+
 **Setting up the Chromadeck and Chromalink**
  - Connect the **Chromalink** cable to the **Chromadeck**, then plug the **Chromadeck** into the PC and power it on.
 <div style="text-align: center; margin: 5px">
@@ -87,6 +92,7 @@ With your Duo, Chromadeck, Chromalink, Computer, and USB-C cable ready, proceed 
 </div>
 
 ---
+
 **Connecting the Duo to the Chromalink**
  - Seat the Duo into the **Chromalink** dock and slide it into place like shown below
 
@@ -96,11 +102,13 @@ With your Duo, Chromadeck, Chromalink, Computer, and USB-C cable ready, proceed 
 </div>
 
 ---
+
 **Verify Connection**
 
  - To verify the Duo is securely connected to the Chromalink, press the button to turn it on.
  - If it does not turn on, review the previous steps to make sure there are no mistakes.
  --- 
+
  &nbsp;
 
 **Updating the Duo**
@@ -145,6 +153,7 @@ With your Duo, Chromadeck, Chromalink, Computer, and USB-C cable ready, proceed 
  - If it powers on successfully, proceed to the next step or go to the [Chromalink Guide](chromalink_guide.html) to see how to use your Duo with Lightshow.lol
  
  ---
+
  **Puting everything Back Together**
 
 - remove the **Duo** from the **Chromalink** and reconnect the battery. Make sure the corners of the connector are flush for a reliable connection.
@@ -162,6 +171,7 @@ With your Duo, Chromadeck, Chromalink, Computer, and USB-C cable ready, proceed 
 </div>
 
 ---
+
 # Troubleshooting
 
 **The Duo doesn't turn on**  
