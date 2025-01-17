@@ -41,7 +41,7 @@ With the Duo, Chromadeck, Chromalink, Computer, and USB-C cable ready, proceed t
 ## Remove the Casing
 
  - Start by carefully removing the Duo from it's case. It should come out with little resistance.
- - If it does not come out easily, check to see if the bulb is caught on the opening as shown in the 2nd image below.
+ - If it does not come out easily, ensure the bulb is not caught on the opening like in the 2nd image below.
 
 <div style="text-align: center; margin: 5px">
   <img style="max-width:260px;border-radius:5px;border:1px solid gray;" src="assets/images/duo-case-removal.gif">
@@ -52,15 +52,14 @@ With the Duo, Chromadeck, Chromalink, Computer, and USB-C cable ready, proceed t
 
 {: .warning}
 Failure to remove the battery will dramatically shorten the battery lifespan,
-and incorrect battery removal may damage the battery connector.  StoneOrbits is
-not responsible for any damage caused during this step.
+and incorrect battery removal may permanently break the battery connector.
 
 - In order to safely update the Duo, the battery must be carefully disconnected first. 
 - **Gently** and **carefully** peel the Duo battery away from the Duo like shown below.
 
 <div style="text-align: center; margin: 5px">
   <p style="color:white;"><span style="color:yellow;">⚠</span> <b>Warning</b> <span style="color:yellow;">⚠</span><br>
-  <strong>This is a potentially dangeous step!</strong></p>
+  <strong>This is a potentially dangeous step! Be gentle!</strong></p>
 </div>
 
 <div style="text-align: center; margin: 5px">  
@@ -89,13 +88,9 @@ not responsible for any damage caused during this step.
 ## Verify Connection
 
  - To verify the Duo is securely connected to the Chromalink, press the button to turn it on.
- - If it does not turn on, make sure your Chromadeck is on first and review the previous steps to make sure there are no mistakes.
+ - If it does not turn on, ensure the Chromadeck is turned on then review the previous steps.
 
 <div style="text-align: center; margin-top: 30px;">
-  <p><h3 style="color: white;">Congratulations!</h3> Your Duo is ready for connecting and updating!</p>
+  <p><h3 style="color: white;">Congratulations!</h3> Your Duo is ready for <a href="duo_upgrade_guide.html">updating!</a></p>
 </div>
 
-# Next Steps
-
-- [Updating the Duo](duo_upgrade_guide.html)
-- [Programming the Duo](duo_connection_guide.html)

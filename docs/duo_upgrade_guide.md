@@ -11,11 +11,8 @@ Now that the Duo is connected to the PC via the Chromalink, follow these steps t
 
  - Navigate a **Google Chrome** browser to [lightshow.lol](https://lightshow.lol) and click the **Connect Device** USB icon:
 
-<div style="text-align: center; margin: 20px">
-  <p style="color:white;"><b>Note:</b>
-  Other browsers may work if they support <a href="https://developer.mozilla.org/en-US/docs/Web/API/Web_Serial_API#browser_compatibility">WebSerial</a></p>
-  <img src="assets/images/connect-device.png">
-</div>
+{: .note }
+At the time of writing this Chrome and Edge are the only browsers that will work, other browsers may work in the future if they gain support for <a href="https://developer.mozilla.org/en-US/docs/Web/API/Web_Serial_API#browser_compatibility">WebSerial</a></p>
 
  - Chrome will open a new popup window, select **USB JTAG/serial debug unit** from the list
 
@@ -25,8 +22,7 @@ Now that the Duo is connected to the PC via the Chromalink, follow these steps t
 
  - With the **Chromadeck** connected to lightshow.lol, two new panels will be visible: **Device Updates** & **Chromalink Duo**
 
-{: .note }
-<b style="color:white;">Note: </b> If you haven't <a href="chromadeck_upgrade_guide.html">updated the Chromadeck</a> yet, do it <b style="color:white;">now</b>!
+ - If you haven't <a href="chromadeck_upgrade_guide.html">updated the Chromadeck</a> yet, do it <b style="color:white;">now</b>!
 
 <div style="text-align: center; margin: 5px"> 
   <img style="max-width:280px;" src="assets/images/lightshow-lol-chromadeck-update-done.png">
@@ -36,7 +32,7 @@ Now that the Duo is connected to the PC via the Chromalink, follow these steps t
 - If the **Chromadeck** firmware is up to date, then press the **Update Firmware** button in the **Chromalink Duo Panel** to update the Duo:
 
 {: .note }
-<p><b style="color: white;">Note</b>: It is unnecessary to press Connect Duo when updating Firmware!</p>
+It is **unnecessary** to press 'Connect Duo' when updating the Firmware!
 
 <div style="text-align: center; margin: 20px">
   <img style="max-width:260px;" src="assets/images/update-firmware-ui.png">
@@ -62,7 +58,7 @@ Both the blue progress bar and the Chromadeck leds will fill as the flashing tak
 </div>
 
 <div style="text-align: center; margin-top: 30px;">
-  <p><b style="color: white;">Congratulations</b> The Duo firmware is now updated!</p>
+  <p><b style="color: white;">Congratulations</b> The Duo firmware is now updated, ry <a href="duo_programming_guide.html">programming the Duo!</a></p>
 </div>
 
  ---

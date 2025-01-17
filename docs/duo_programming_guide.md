@@ -9,46 +9,21 @@ parent: Chromalink Guide
 
 It is important the Duo is up to date before programming from the PC. Make sure to [update the Duo](duo_upgrade_guide.html) before continuing with this guide.
 
----
+Check out the [Lightshow.lol Guide](lightshow_lol.html) to see all the awesome things you can do from here!
 
- - Navigate a **Google Chrome** browser to [lightshow.lol](https://lightshow.lol) and click the **Connect Device** USB icon:
+# Duo Reassembly
 
-<div style="text-align: center; margin: 20px">
-  <p style="color:white;"><b>Note:</b>
-  Other browsers may work if they support <a href="https://developer.mozilla.org/en-US/docs/Web/API/Web_Serial_API#browser_compatibility">WebSerial</a></p>
-  <img src="assets/images/connect-device.png">
-</div>
-
- - Chrome will open a new popup window, select **USB JTAG/serial debug unit** from the list
+- Remove the **Duo** from the **Chromalink** and reconnect the battery. Make sure the corners of the connector are flush for a reliable connection.
+- Click the button to power on the Duo and verify the battery is fully connected, if it doesn't work then check the battery connector.
 
 <div style="text-align: center; margin: 20px">
-  <img src="assets/images/connect-chromadeck-serialport.png">
+  <img style="max-width:260px;border-radius:5px;border:1px solid gray;" src="assets/images/duo-battery-connect.gif">
+  <img style="max-width:260px;border-radius:5px;border:1px solid gray;" src="assets/images/duo-case-insertion.gif">
 </div>
-
- - With the **Chromadeck** connected to lightshow.lol, two new panels will be visible: **Device Updates** & **Chromalink Duo**
-
-{: .note }
-  <b style="color:white;">Note: </b> If you haven't <a href="chromadeck_upgrade_guide.html">updated the Chromadeck</a> yet, do it <b style="color:white;">now</b>!</p>
-  
-  <div style="text-align: center; margin: 5px">
-  <img style="max-width:280px;" src="assets/images/lightshow-lol-chromadeck-update-done.png">
-  <img style="max-width:260px;max-height:190px;" src="assets/images/lightshow-lol-chromalink-duo-basic.png">
-</div>
- 
-- If the **Chromadeck** firmware is up to date, then press the **Connect Duo** button in the **Chromalink Duo Panel** to connect the Duo:
-
-{: .note }
-<p><b style="color: white;">Note</b>: It is necessary for your Duo to be up to date before Connecting!</p>
-
-<div style="text-align: center; margin: 20px">
-  <img style="max-width:260px;max-height:260px;" src="assets/images/lightshow-lol-chromalink-duo-basic.png">
 
 <div style="text-align: center; margin-top: 30px;">
-  <p><b style="color: white;">Congratulations</b> Your Duo is now connected!</p>
+  <p><b style="color: white;">Congratulations</b> The Duo firmware is now updated!</p>
 </div>
-</div>
-
-Check out the [Lightshow.lol Guide](lightshow_lol.html) to see all the awesome things you can do from here!
 
 ---
 
