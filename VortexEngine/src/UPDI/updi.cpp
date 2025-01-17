@@ -233,9 +233,11 @@ bool UPDI::readMode(uint8_t idx, ByteStream &modeBuffer)
   }
   // initialize mode buffer
   if (!modeBuffer.init(DUO_MODE_SIZE)) {
+    modeBuffer.clear();
     return false;
   }
   if (!enterProgrammingMode()) {
+    modeBuffer.clear();
     return false;
   }
   // DUO_MODE_SIZE is the max duo mode size (the slot size)

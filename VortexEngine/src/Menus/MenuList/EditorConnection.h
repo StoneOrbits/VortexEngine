@@ -52,6 +52,7 @@ private:
   bool receiveDemoMode();
   bool receiveMessage(const char *message);
   void clearDemo();
+  bool receiveBrightness();
   void receiveModeVL();
   void showReceiveModeVL();
   bool receiveModeIdx(uint8_t &idx);
@@ -106,6 +107,10 @@ private:
     STATE_PUSH_EACH_MODE_RECEIVE,
     STATE_PUSH_EACH_MODE_WAIT,
     STATE_PUSH_EACH_MODE_DONE,
+
+    // set global brightness
+    STATE_SET_GLOBAL_BRIGHTNESS,
+    STATE_SET_GLOBAL_BRIGHTNESS_RECEIVE,
 
     // pull the header from the chromalinked duo
     STATE_PULL_HEADER_CHROMALINK,
