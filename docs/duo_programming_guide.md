@@ -11,6 +11,10 @@ It is important the Duo is up to date before programming from the PC. Make sure 
 
 Check out the [Lightshow.lol Guide](lightshow_lol.html) to see all the awesome things you can do from here!
 
+<div style="text-align: center; margin-top: 30px;">
+  <p><b style="color: white;">Congratulations</b> on programming the Duo from the PC, continue reading to reassemble the Duo</p>
+</div>
+
 # Duo Reassembly
 
 - Remove the **Duo** from the **Chromalink** and reconnect the battery. Make sure the corners of the connector are flush for a reliable connection.
@@ -19,10 +23,6 @@ Check out the [Lightshow.lol Guide](lightshow_lol.html) to see all the awesome t
 <div style="text-align: center; margin: 20px">
   <img style="max-width:260px;border-radius:5px;border:1px solid gray;" src="assets/images/duo-battery-connect.gif">
   <img style="max-width:260px;border-radius:5px;border:1px solid gray;" src="assets/images/duo-case-insertion.gif">
-</div>
-
-<div style="text-align: center; margin-top: 30px;">
-  <p><b style="color: white;">Congratulations</b> The Duo firmware is now updated!</p>
 </div>
 
 ---

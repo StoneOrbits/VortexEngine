@@ -20,19 +20,20 @@ At the time of writing this **Chrome**, **Edge** and **Opera** are the only supp
   <img src="assets/images/connect-chromadeck-serialport.png">
 </div>
 
- - With the **Chromadeck** connected to lightshow.lol, two new panels will be visible: **Device Updates** & **Chromalink Duo**
-
- - If you haven't <a href="chromadeck_upgrade_guide.html">updated the Chromadeck</a> yet, do it <b style="color:white;">now</b>!
+ - With the **Chromadeck** connected, two new panels will appear: **Device Updates** & **Chromalink Duo**
 
 <div style="text-align: center; margin: 5px"> 
   <img style="max-width:280px;" src="assets/images/lightshow-lol-chromadeck-update-done.png">
   <img style="max-width:260px;max-height:190px;" src="assets/images/lightshow-lol-chromalink-duo-basic.png">
 </div>
+
+
+ - If you haven't <a href="chromadeck_upgrade_guide.html">updated the Chromadeck</a> yet, do it <b style="color:white;">now</b>!
  
-- If the **Chromadeck** firmware is up to date, then press the **Update Firmware** button in the **Chromalink Duo Panel** to update the Duo:
+ - If the **Chromadeck** is up to date, then press the **Update Firmware** button in the **Chromalink Duo Panel**:
 
 {: .note }
-It is **unnecessary** to press 'Connect Duo' when updating the Firmware!
+It is **unnecessary** to press 'Connect Duo' when updating the Firmware! That is only needed for programming the Duo.
 
 <div style="text-align: center; margin: 20px">
   <img style="max-width:260px;" src="assets/images/update-firmware-ui.png">
@@ -41,11 +42,13 @@ It is **unnecessary** to press 'Connect Duo' when updating the Firmware!
   
 Both the blue progress bar and the Chromadeck leds will fill as the flashing takes place
 
- - Let the flash complete.
+ - Let the flash complete, after completion the Duo should be able to turn on with a button press
 
- - After completion, pressing the button should turn the Duo on
+ - If it powers on successfully then the firmware update was complete, if not try repeating this process
 
- - If it powers on successfully, proceed to the next step or go to the [Programming Guide](duo_programming_guide.html) to see how to program the Duo with Lightshow.lol
+<div style="text-align: center; margin-top: 30px;">
+  <p><b style="color: white;">Congratulations</b> The Duo firmware is now updated, try <a href="duo_programming_guide.html">programming the Duo</a> or continue reading to reassemble the Duo</p>
+</div>
 
 # Duo Reassembly
 
@@ -57,9 +60,6 @@ Both the blue progress bar and the Chromadeck leds will fill as the flashing tak
   <img style="max-width:260px;border-radius:5px;border:1px solid gray;" src="assets/images/duo-case-insertion.gif">
 </div>
 
-<div style="text-align: center; margin-top: 30px;">
-  <p><b style="color: white;">Congratulations</b> The Duo firmware is now updated, ry <a href="duo_programming_guide.html">programming the Duo!</a></p>
-</div>
 
  ---
 

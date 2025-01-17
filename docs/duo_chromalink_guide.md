@@ -91,6 +91,6 @@ and incorrect battery removal may permanently break the battery connector.
  - If it does not turn on, ensure the Chromadeck is turned on then review the previous steps.
 
 <div style="text-align: center; margin-top: 30px;">
-  <p><h3 style="color: white;">Congratulations!</h3> Your Duo is ready for <a href="duo_upgrade_guide.html">updating!</a></p>
+  <p><h3 style="color: white;">Congratulations</h3> The Duo is ready for <a href="duo_upgrade_guide.html">updates</a></p>
 </div>
 
