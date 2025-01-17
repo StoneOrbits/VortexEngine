@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Vortex Orbit Guide
+title: Vortex Orbit
 nav_order: 6
 parent: Vortex Devices
 ---

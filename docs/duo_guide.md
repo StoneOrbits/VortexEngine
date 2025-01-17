@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Duo Guide
+title: Duo
 nav_order: 5
 parent: Vortex Devices
 published: true

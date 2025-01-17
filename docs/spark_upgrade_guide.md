@@ -1,8 +1,8 @@
 ---
 layout: default
-title: Spark Upgrade Guide
+title: Upgrade Guide
 nav_order: 5
-parent: Spark Orbit Guide
+parent: Spark Orbit
 ---
 
 # Spark Upgrade Guide

@@ -1,8 +1,8 @@
 ---
 layout: default
-title: Duo Update Guide
-nav_order: 1
-parent: The Chromalink
+title: Upgrade Guide
+nav_order: 2
+parent: Duo
 ---
 <style>
 .warning-box {
