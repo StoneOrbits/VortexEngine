@@ -116,40 +116,28 @@ published: true
 
 Welcome to the Duo LED Guide, this page aims to get you up and running as fast as possible.
 
----
 
-## Basic Operation
+## Basics
 
-<div class="info-box">
   The Duo has one <span style="color: #00c6ff">navigation button</span>, this button also acts as the <strong style="color: #00ff00;">power switch</strong>.
 </div>
 
-**Powering On**
+**Power**
 
-- Click the button to power on the Duo.
-
-**Powering Off**
-
-- Hold the navigation button and release when the lights go out to power off the Duo.
+- _While off:_ Click the button to power on the Duo.
+- _When On_: Hold the navigation button and release when the lights go out to power off the Duo.
 
 **Special Functions**
 
 - The Duo has some unique <a href="duo_special_functions_guide.html">Special Functions</div></a>. Check out the basic menus before diving into these options.
 
-**Navigating Modes**
+**Using The Button**
 
-- Short click the <span style="color: #00c6ff">navigation button</span> to forward through the 9 available modes.
-
-**Open Menus**
+- Short click the <span style="color: #00c6ff">navigation button</span> to cycle forward through the 9 available modes.
 - To open the menus, navigate to a mode then hold the navigation button until the lights flash white.
-
-**Navigating Menus**
 - After opening the menus, use short clicks to cycle through the following menu options, long click to enter a menu.
----
 
 ## Menus
-
-Each menu can be used to control your device in different ways. 
 
 {% raw %}
 <div class="menu-wrapper">
@@ -184,9 +172,8 @@ Each menu can be used to control your device in different ways.
 ## Next Steps
 <div class="next-steps">
   <ul>
-    <li><a href="basic_usage.html">Explore Vortex Engine Usage</a>: Learn key terms, concepts, and how to use on-device menus.</li>
+    <li><a href="basic_usage.html">Explore Vortex Engine</a>: Learn key terms, concepts, and how to use on-device menus.</li>
     <li><a href="upgrade_guides.html">Upgrade Your Device</a>: Ensure your device has the latest firmware for optimal performance.</li>
-    <li><a href="guides.html">Quick Guides</a>: Jump right in with step-by-step instructions for using your Duo.</li>
   </ul>
 </div>
 
