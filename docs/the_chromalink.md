@@ -2,10 +2,10 @@
 layout: default
 title: The Chromalink
 nav_order: 3
-parent: Chromadeck Guide
+parent: The Chromadeck
 ---
 
-# Chromalink Guide
+# The Chromalink
 
 The Chromalink is a special accessory for the Chromadeck that unlocks more features of the Duo LED chip. Normally Duos cannot be programmed from a PC, but the Chromalink makes that possible.
 

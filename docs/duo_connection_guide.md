@@ -2,7 +2,7 @@
 layout: default
 title: Duo Connection Guide
 nav_order: 2
-parent: Duo Chromalink Guide
+parent: The Chromalink
 ---
 
 # Connecting the Duo
