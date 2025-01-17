@@ -1,25 +1,13 @@
 ---
 layout: default
 title: Upgrade Guide
-nav_order: 2
+nav_order: 1
 parent: Chromalink Guide
 ---
-<style>
-.warning-box {
-   background-color: rgba(255,255,0,.25);
-   border: 1px solid #ddd;
-   border-radius: 8px;
-   padding: 15px;
-   margin: 20px 0;
-   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
-.info-box strong {
-   color: #0056b3;
-}
-</style>
 
+# Updating the Duo
 
-# Updating Your Duo
+Now that the Duo is connected to the PC via the Chromalink, follow these steps to update the Duo firmware:
 
  - Navigate a **Google Chrome** browser to [lightshow.lol](https://lightshow.lol) and click the **Connect Device** USB icon:
 
@@ -53,15 +41,15 @@ parent: Chromalink Guide
 <div style="text-align: center; margin: 20px">
   <img style="max-width:260px;" src="assets/images/update-firmware-ui.png">
   <img style="max-width:260px;" src="assets/images/update-firmware-ui-progress.png">
-  
-  You should see the blue bar on your screen fill with progress and your Chromadeck will fill with green LEDs to represent the progress as well.
 </div>
+  
+Both the blue progress bar and the Chromadeck leds will fill as the flashing takes place
 
  - Let the flash complete.
 
- - After completion, pressing the button should turn the Duo on.
+ - After completion, pressing the button should turn the Duo on
 
- - If it powers on successfully, proceed to the next step or go to the [Chromalink Guide](chromalink_guide.html) to see how to use your Duo with Lightshow.lol
+ - If it powers on successfully, proceed to the next step or go to the [Programming Guide](duo_programming_guide.html) to see how to program the Duo with Lightshow.lol
 
 # Duo Reassembly
 

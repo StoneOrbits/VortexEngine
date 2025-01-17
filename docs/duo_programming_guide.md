@@ -1,15 +1,13 @@
 ---
 layout: default
-title: Duo Connection Guide
+title: Programming Guide
 nav_order: 2
-parent: The Chromalink
+parent: Chromalink Guide
 ---
 
-# Connecting the Duo
+# Programming the Duo
 
-It is important the duo is up to date before connecting to the PC. Make sure to [update the Duo](duo_upgrade_guide.html) before continuing with this guide.
-
-If you have modes you want to save you can always transfer them from an old chip to an updated chip.
+It is important the Duo is up to date before programming from the PC. Make sure to [update the Duo](duo_upgrade_guide.html) before continuing with this guide.
 
 ---
 
