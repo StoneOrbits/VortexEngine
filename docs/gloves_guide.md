@@ -144,7 +144,7 @@ Once the menus are open, use short clicks to cycle through the following menu op
 <div class="next-steps">
   <ul>
     <li><a href="basic_usage.html">Explore Vortex Engine</a>: Learn key terms, concepts, and how to use on-device menus.</li>
-    <li><a href="upgrade_guides.html">Upgrade Your Device</a>: Ensure your device has the latest firmware for optimal performance.</li>
+    <li><a href="gloves_upgrade_guide.html">Upgrade Your Device</a>: Ensure your device has the latest firmware for optimal performance.</li>
   </ul>
 </div>
 
