@@ -9,10 +9,10 @@ parent: Chromalink Guide
 
 Now that the Duo is connected to the PC via the Chromalink, follow these steps to update the Duo firmware:
 
- - Navigate a **Google Chrome** browser to [lightshow.lol](https://lightshow.lol) and click the **Connect Device** USB icon:
-
 {: .note }
-At the time of writing this Chrome and Edge are the only browsers that will work, other browsers may work in the future if they gain support for <a href="https://developer.mozilla.org/en-US/docs/Web/API/Web_Serial_API#browser_compatibility">WebSerial</a></p>
+At the time of writing this Chrome and Edge are the only supported browsers, other browsers may work in the future if they gain support for <a href="https://developer.mozilla.org/en-US/docs/Web/API/Web_Serial_API#browser_compatibility">WebSerial</a>
+
+ - Navigate a **Google Chrome** browser to [lightshow.lol](https://lightshow.lol) and click the **Connect Device** USB icon:
 
  - Chrome will open a new popup window, select **USB JTAG/serial debug unit** from the list
 
