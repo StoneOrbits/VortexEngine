@@ -24,7 +24,7 @@ parent: Duo Guide
 
 {: .warning}
 Upgrading Duos <i>can</i> cause damage to them if you do not follow instructions!  
-Be patient, careful, and double-check instuctions before proceeding. 
+Be patient, careful, and double-check instuctions before proceeding.
 StoneOrbits is not responsible for damage caused this way.
 
 
@@ -70,9 +70,9 @@ With your Duo, Chromadeck, Chromalink, Computer, and USB-C cable ready, proceed 
 </div>
 
 {: .warning}
-- Failure to remove the battery before connecting to the Chromalink will cause the battery's lifespan to shorten dramatically. 
-- Removing the battery incorrectly can break the battery connector, rendering the chip broken and unusable. 
-- StoneOrbits is not responsible for any damage to the Duo or battery caused this way.
+Failure to remove the battery before connecting to the Chromalink will cause the battery's lifespan to shorten dramatically. 
+Removing the battery incorrectly can break the battery connector, rendering the chip broken and unusable. 
+StoneOrbits is not responsible for any damage to the Duo or battery caused this way.
 
 
 - In order to safely update the Duo, the battery must be carefully disconnected first. 

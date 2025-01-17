@@ -54,3 +54,11 @@ Those are the basics of controlling a Vortex Device.
 
 Next, try opening the menus by **holding** the navigation button till the leds blink white, then continue reading more over at [The Menus](menus.html)
 
+## Animated Guide
+
+This guide is a helpful but brief overview of Classic Vortex devices. Use the wiki's [Vortex Devices](vortex_devices.html) page for more details and the latest devices:
+
+{% raw %}
+<iframe src="https://docs.google.com/presentation/d/e/1PACX-1vRLsq6i3h9JlYHX0wS3SG9eDZ1vzIsRIU8GAZ9C2QW80uRoexr6_MAmvv_RAu7yuKxZiHy0dH9s2c3q/embed?start=false&loop=false&delayms=3000" frameborder="0" width="100%" height="569" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true"></iframe>
+{% endraw %}
+

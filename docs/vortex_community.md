@@ -1,8 +1,7 @@
 ---
 layout: default
 title: Vortex Community
-nav_order: 3
-parent: Vortex Software
+nav_order: 4
 ---
 
 # Vortex Community
