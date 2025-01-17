@@ -4,6 +4,7 @@ title: Classic Devices
 nav_order: 2
 parent: Getting Started
 has_children: true
+published: false
 ---
 <style>
 .classic-icon {

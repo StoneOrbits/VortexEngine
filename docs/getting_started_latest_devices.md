@@ -4,6 +4,7 @@ title: Latest Devices
 nav_order: 0
 parent: Getting Started
 has_children: true
+published: false
 ---
 <style>
 .device-icon {

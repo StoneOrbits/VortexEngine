@@ -4,6 +4,7 @@ title: Duo
 nav_order: 1
 parent: Getting Started
 has_children: true
+published: false
 ---
 <style>
 .device-icon {
@@ -63,7 +64,7 @@ Welcome to the Duo! This guide will help you get started and make the most of yo
 ## Next Steps
 <div class="next-steps">
   <ul>
-    <li><a href="basic_usage.html">Explore Basic Duo Usage</a>: Learn key terms, concepts, and how to use on-device menus.</li>
+    <li><a href="duo_guide.html">Explore Basic Duo Usage</a>: Learn key terms, concepts, and how to use on-device menus.</li>
     <li><a href="basic_usage.html">Explore Vortex Engine</a>: Learn key terms, concepts, and how to use on-device menus.</li>
     <li><a href="upgrade_guides.html">Upgrade Your Device</a>: Ensure your device has the latest firmware for optimal performance.</li>
     <li><a href="guides.html">Quick Guides</a>: Jump right in with step-by-step instructions for using your Duo.</li>

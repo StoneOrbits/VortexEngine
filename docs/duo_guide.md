@@ -13,6 +13,18 @@ published: true
    height: 30%
 }
 
+.info-box {
+   background-color: #171a1f;
+   border: 1px solid #ddd;
+   border-radius: 8px;
+   padding: 15px;
+   margin: 20px 0;
+   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+.info-box strong {
+   color: #0056b3;
+}
+
 .white { background-color: rgba(255, 255, 255); }
 .cyan { background-color: rgba(0, 255, 255); }
 .purple { background-color: rgba(128, 0, 128); }
@@ -89,15 +101,19 @@ published: true
 }
 </style>
 
-<img align="right" width="" height="220" class="device-icon" src="assets/images/duo-logo-square-512.png">
+<img align="right" width="" height="220" class="device-icon" src="assets/images/duo-logo-button-square-512.png">
 
 # Duo Guide
 
 Welcome to the Duo LED Guide, this page aims to get you up and running as fast as possible.
 
+---
+
 ## Basic Operation
 
-The Duo has one <span style="color: #00c6ff">navigation button</span>, this button also acts as the power switch. 
+<div class="info-box">
+  The Duo has one <span style="color: #00c6ff">navigation button</span>, this button also acts as the <strong style="color: #00ff00;">power switch</strong>.
+</div>
 
 **Powering On**
 
@@ -111,15 +127,20 @@ The Duo has one <span style="color: #00c6ff">navigation button</span>, this butt
 
 - The Duo has some unique <a href="duo_special_functions_guide.html">Special Functions</div></a>. Check out the basic menus before diving into these options.
 
-## Navigating Modes
+**Navigating Modes**
 
-Short click the <span style="color: #00c6ff">navigation button</span> to forward through the 9 available modes.
+- Short click the <span style="color: #00c6ff">navigation button</span> to forward through the 9 available modes.
 
-To edit a mode, navigate to it then hold the navigation button until the lights flash white to open the menus.
+**Open Menus**
+- To open the menus, navigate to a mode then hold the navigation button until the lights flash white.
+
+**Navigating Menus**
+- After opening the menus, use short clicks to cycle through the following menu options, long click to enter a menu.
+---
 
 ## Menus
 
-Use short clicks to cycle through the following menu options, long click to enter a menu.
+Each menu can be used to control your device in different ways. 
 
 {% raw %}
 <div class="menu-wrapper">
@@ -149,6 +170,20 @@ Use short clicks to cycle through the following menu options, long click to ente
 </div>
 {% endraw %}
 
+---
+
+## Next Steps
+<div class="next-steps">
+  <ul>
+    <li><a href="basic_usage.html">Explore Vortex Engine Usage</a>: Learn key terms, concepts, and how to use on-device menus.</li>
+    <li><a href="upgrade_guides.html">Upgrade Your Device</a>: Ensure your device has the latest firmware for optimal performance.</li>
+    <li><a href="guides.html">Quick Guides</a>: Jump right in with step-by-step instructions for using your Duo.</li>
+  </ul>
+</div>
+
+---
+
+If you have any questions or need further assistance, check out the [Support Page](support.html).
 
 
 

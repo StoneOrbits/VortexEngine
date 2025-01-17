@@ -48,7 +48,7 @@ The Votex Engine is a open-source project designed to drive LEDs with microcontr
       <li><a href="Chromadeck_guide.html">Chromadeck Guide</a></li>
     </ul>
   </div>
-  <img style="width: 20%; height: auto;" src="assets/images/chromadeck-render.png" alt="Chromadeck Image">
+  <img style="width: 20%; height: auto;" src="assets/images/Chromadeck-Render.png" alt="Chromadeck Image">
 </div>
 
 <hr>
