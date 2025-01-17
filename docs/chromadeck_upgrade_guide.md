@@ -2,12 +2,12 @@
 layout: default
 title: Chromadeck Upgrade Guide
 nav_order: 4
-parent: Upgrade Guides
+parent: Chromadeck Guide
 ---
 
 # Chromadeck Upgrade Guide
 
-<img src="assets/images/chromadeck-logo-square-512.png" style="max-width: 250px; width: 40%; float: right">
+<img src="assets/images/Chromadeck-Render.png" style="max-width: 250px; width: 40%; float: right">
 
 This page details how to update the firmware on the Vortex Chromadeck.
 

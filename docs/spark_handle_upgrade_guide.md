@@ -2,12 +2,12 @@
 layout: default
 title: Spark Upgrade Guide
 nav_order: 5
-parent: Spark Orbit Guide
+parent: Spark Handle Guide
 ---
 
 # Spark Upgrade Guide
 
-<img src="assets/images/spark-orbit-render.png" style="max-width: 250px; width: 40%; float: right">
+<img src="assets/images/spark-handle-render.png" style="max-width: 250px; width: 40%; float: right">
 
 This page details how to update the firmware on the Vortex Spark.
 

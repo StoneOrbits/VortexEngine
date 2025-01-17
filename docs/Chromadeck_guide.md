@@ -95,7 +95,7 @@ parent: Vortex Devices
 Welcome to the Chromadeck Guide, this page aims to get you up and running as fast as possible.
 
 ## Baiscs
-  The Chromadeck has three <span style="color: #00c6ff">navigation buttons</span>, and a small <strong style="color: #00ff00;">power switch</strong>.
+  The Chromadeck has three <strong style="color: #00c6ff">navigation buttons</strong>, and a small <strong style="color: #00ff00;">power switch</strong>.
   
 
 **Switch**

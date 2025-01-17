@@ -96,7 +96,7 @@ Welcome to the Spark Orbit Guide, this page aims to get you up and running as fa
 
 
 ## Baiscs
-  The Spark Orbit has one <span style="color: #00c6ff">navigation button</span>, and a small <strong style="color: #00ff00;">power switch</strong>.
+  The Spark Orbit has one <strong style="color: #00c6ff">navigation button</strong>, and a small <strong style="color: #00ff00;">power switch</strong>.
 
 **Switch**
 

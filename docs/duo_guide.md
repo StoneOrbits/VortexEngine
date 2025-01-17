@@ -11,15 +11,6 @@ published: true
    margin: 20px auto;
    width: 20%;
    height: auto;
-   display: block;
-   border-radius: 8px;
-}
-
-@media (min-width: 768px) {
-   .device-icon {
-      margin-top: 0; /* Prevent overlap with horizontal bar */
-      margin-right: 0; /* Align image properly */
-   }
 }
 
 .white { background-color: rgba(255, 255, 255); }
@@ -107,8 +98,7 @@ Welcome to the Duo LED Guide, this page aims to get you up and running as fast a
 
 ## Basics
 
-  The Duo has one <span style="color: #00c6ff">navigation button</span>, this button also acts as the <strong style="color: #00ff00;">power switch</strong>.
-</div>
+  The Duo has one <strong style="color: #00c6ff">navigation button</strong>, this button also acts as the <strong style="color: #00ff00;">power switch</strong>.
 
 **Power**
 

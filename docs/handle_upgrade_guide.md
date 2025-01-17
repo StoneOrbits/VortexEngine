@@ -2,7 +2,7 @@
 layout: default
 title: Handle Upgrade Guide
 nav_order: 2
-parent: Upgrade Guides
+parent: Omega Handles Guide
 ---
 
 # Handle Upgrade Guide

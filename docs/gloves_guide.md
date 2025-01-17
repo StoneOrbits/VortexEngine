@@ -137,3 +137,17 @@ Once the menus are open, use short clicks to cycle through the following menu op
 </a>
 </div>
 {% endraw %}
+
+---
+
+## Next Steps
+<div class="next-steps">
+  <ul>
+    <li><a href="basic_usage.html">Explore Vortex Engine</a>: Learn key terms, concepts, and how to use on-device menus.</li>
+    <li><a href="upgrade_guides.html">Upgrade Your Device</a>: Ensure your device has the latest firmware for optimal performance.</li>
+  </ul>
+</div>
+
+---
+
+If you have any questions or need further assistance, check out the [Support Page](support.html).

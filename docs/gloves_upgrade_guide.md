@@ -2,7 +2,7 @@
 layout: default
 title: Gloves Upgrade Guide
 nav_order: 0
-parent: Upgrade Guides
+parent: Vortex Gloves Guide
 ---
 
 # Gloves Upgrade Guide

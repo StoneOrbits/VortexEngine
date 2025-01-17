@@ -2,7 +2,7 @@
 layout: default
 title: Orbit Upgrade Guide
 nav_order: 1
-parent: Upgrade Guides
+parent: Vortex Orbit Guide
 ---
 
 # Orbit Upgrade Guide
