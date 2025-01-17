@@ -49,8 +49,6 @@ With your Duo, Chromadeck, Chromalink, Computer, and USB-C cable ready, proceed 
 
 **Remove the Casing**
 
-<div>
-
  - Start by carefully removing the Duo from it's case. It should come out with little resistance.
  - If you find it does not come out easily, check to see if the bulb is caught on the opening as shown in the 2nd gif.
 
@@ -112,7 +110,7 @@ StoneOrbits is not responsible for any damage to the Duo or battery caused this 
  &nbsp;
 
 **Updating the Duo**
-</div>
+
  - Navigate a **Google Chrome** browser to [lightshow.lol](https://lightshow.lol) and click the **Connect Device** USB icon:
 
 <div style="text-align: center; margin: 20px">
