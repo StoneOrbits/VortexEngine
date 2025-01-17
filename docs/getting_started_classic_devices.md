@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Getting Started (Classic)
+title: Classic Devices
 nav_order: 2
 parent: Getting Started
 has_children: true

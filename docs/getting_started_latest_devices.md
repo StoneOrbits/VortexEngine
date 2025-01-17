@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Getting Started (Latest Devices)
+title: Latest Devices
 nav_order: 0
 parent: Getting Started
 has_children: true

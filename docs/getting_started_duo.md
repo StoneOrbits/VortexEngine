@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Getting Started (Duo)
+title: Duo
 nav_order: 1
 parent: Getting Started
 has_children: true
@@ -8,32 +8,67 @@ has_children: true
 <style>
 .device-icon {
    margin: 0px;
-   width: 17%;
-   height: 17%;
+   width: 20%;
+   height: auto;
+   display: block;
+   margin-left: auto;
+   margin-right: auto;
+   border-radius: 8px;
 }
-.duo-icon {
-   margin: 0px;
-   width: 7%;
-   height: 7%;
+.info-box {
+   background-color: #f9f9f9;
+   border: 1px solid #ddd;
+   border-radius: 8px;
+   padding: 15px;
+   margin: 20px 0;
+   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+.info-box strong {
+   color: #0056b3;
+}
+.next-steps ul {
+   list-style-type: none;
+   padding: 0;
+}
+.next-steps li {
+   margin: 10px 0;
+}
+.next-steps a {
+   color: #007bff;
+   text-decoration: none;
+   font-weight: bold;
+}
+.next-steps a:hover {
+   text-decoration: underline;
 }
 </style>
 
-# Getting Started (Duo)
-
-The Duo's <span style="color: #00c6ff">navigation buttons</span> doubles as it's <span style="color: #00ff00">power switch</span>.
-
+# Getting Started with the Duo
 
 <div style="text-align: center;">
-  <img class="engine-icon" style="margin: 0 auto; width: 20%; height: auto;" src="assets/images/duo-logo-button-square-512.png" alt="Duo">
+  <img class="device-icon" src="assets/images/duo-logo-button-square-512.png" alt="Duo">
 </div>
 
+Welcome to your Duo device! This guide will help you get started and make the most of your Duo’s features.
+
+---
+
+## Key Features
+<div class="info-box">
+  The Duo’s <strong style="color: #00c6ff;">navigation button</strong> doubles as its <strong style="color: #00ff00;">power switch</strong>. Short presses navigate modes, and long presses activate menu options.
+</div>
+
+---
 
 ## Next Steps
+<div class="next-steps">
+  <ul>
+    <li><a href="basic_usage.html">Explore Basic Usage</a>: Learn how to navigate modes and use on-device menus.</li>
+    <li><a href="upgrade_guides.html">Upgrade Your Device</a>: Ensure your device has the latest firmware for optimal performance.</li>
+    <li><a href="guides.html">Quick Guides</a>: Jump right in with step-by-step instructions for using your Duo.</li>
+  </ul>
+</div>
 
-To begin learning how to use your device head over to [Basic Usage](basic_usage.html) where we will explore navigating modes, and utilizing the on-device menus.
+---
 
-If your device is new then it will already be up to date, but if you have an older device or would like to learn how to upgrade your device head over to [Upgrade Guides](upgrade_guides.html)
-
-## Quick Guides
-
-If you really just want to jump into things as fast as possible, be sure to check out the [Quick Guides](guides.html)
+If you have any questions or need further assistance, check out the [Support Page](support.html).
