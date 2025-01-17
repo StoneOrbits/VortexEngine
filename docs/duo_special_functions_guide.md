@@ -8,9 +8,9 @@ published: true
 
 <style>
 .device-icon {
-   margin: 0px;
-   width: 30%;
-   height: 30%
+   margin: 20px;
+   width: 20%;
+   height: 20%
 }
 
 .white { background-color: rgba(255, 255, 255); }
@@ -82,11 +82,6 @@ published: true
    display: block; /* Ensures the link covers the whole section */
 }
 
-.device-icon {
-   margin: 20px;
-   width: 30%;
-   height: 30%;
-}
 </style>
 
 <img align="right" width="" height="220" class="device-icon" src="assets/images/duo-logo-square-512.png">

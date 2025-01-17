@@ -1,22 +1,9 @@
 ---
 layout: default
-title: Duo Upgrade Guide
-nav_order: 2
+title: Chromalink Guide
+nav_order: 3
 parent: Duo Guide
 ---
-<style>
-.warning-box {
-   background-color: rgba(255,255,0,.25);
-   border: 1px solid #ddd;
-   border-radius: 8px;
-   padding: 15px;
-   margin: 20px 0;
-   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
-.info-box strong {
-   color: #0056b3;
-}
-</style>
 
 <div style="text-align: center; margin: 20px">
   <h1 style="color:orange;">⚠ <b style="color:red;">Warning</b> ⚠<br></h1>
@@ -27,16 +14,17 @@ Connecting Duos to a Chromadeck <i>can</i> cause damage to them if you do not fo
 Be patient, careful, and double-check instuctions before proceeding.
 StoneOrbits is not responsible for damage caused this way.
 
-
 ---
 
-# Duo Upgrade Guide
+# Chromalink Guide
 
 <img src="assets/images/duo-logo-square-512.png" style="max-width: 250px; width: 40%; float: right; margin-bottom: 20px">
 
-Both a **Chromadeck** and a **Chromalink** cable are necessary to update the Duo.
+This process is nearly identical to updating a Duo until the final steps. Please make sure your Duo is [up to date](duo_upgrade_guide.html) before following this connection guide carefully.
 
-Before updating Duo firmware, always ensure the **Chromadeck** is [up to date](chromadeck_upgrade_guide.html)
+Both a **Chromadeck** and a **Chromalink** cable are necessary to connect a Duo to Lightshow.lol.
+
+Before connecting your Duo, always ensure the **Chromadeck** is [up to date](chromadeck_upgrade_guide.html)
  first.
 <div style="margin-left: 50px; margin-right: 50px; margin-bottom: 30px;" markdown="1">
 
@@ -74,7 +62,6 @@ Failure to remove the battery before connecting to the Chromalink will cause the
 Removing the battery incorrectly can break the battery connector, rendering the chip broken and unrepairable. 
 StoneOrbits is not responsible for any damage to the Duo or battery caused this way.
 
-
 - In order to safely update the Duo, the battery must be carefully disconnected first. 
 - **Gently** and **peel** the Duo battery away from the Duo like shown below.
 <div style="text-align: center; margin: 5px">  
@@ -107,12 +94,15 @@ StoneOrbits is not responsible for any damage to the Duo or battery caused this 
 
  - To verify the Duo is securely connected to the Chromalink, press the button to turn it on.
  - If it does not turn on, review the previous steps to make sure there are no mistakes.
- 
---- 
+ --- 
 
- &nbsp;
+  &nbsp;
 
-**Updating the Duo**
+**Connecting the Duo**
+
+
+
+
 
  - Navigate a **Google Chrome** browser to [lightshow.lol](https://lightshow.lol) and click the **Connect Device** USB icon:
 
@@ -137,23 +127,22 @@ StoneOrbits is not responsible for any damage to the Duo or battery caused this 
   <img style="max-width:260px;max-height:190px;" src="assets/images/lightshow-lol-chromalink-duo-basic.png">
 </div>
  
-- If the **Chromadeck** firmware is up to date, then press the **Update Firmware** button in the **Chromalink Duo Panel** to update the Duo:
+- If the **Chromadeck** firmware is up to date, then press the **Connect Duo** button in the **Chromalink Duo Panel** to connect the Duo:
 
 <div style="text-align: center; margin-top: 20px;">
-  <p><b style="color: white;">Note</b>: It is unnecessary to press Connect Duo when updating Firmware!</p>
+  <p><b style="color: white;">Note</b>: It is necessary for your Duo to be up to date before Connecting!</p>
 </div>
 <div style="text-align: center; margin: 20px">
-  <img style="max-width:260px;" src="assets/images/update-firmware-ui.png">
-  <img style="max-width:260px;" src="assets/images/update-firmware-ui-progress.png">
+  <img style="max-width:260px;max-height:260px;" src="assets/images/lightshow-lol-chromalink-duo-basic.png">
+
+<div style="text-align: center; margin-top: 30px;">
+  <p><b style="color: white;">Congratulations</b> Your Duo is now connected!</p>
+</div>
 </div>
 
- - Let the flash complete.
+Check out the [Lightshow.lol Guide](lightshow_lol.html) to see all the awesome things you can do from here!
 
- - After completion, pressing the button should turn the Duo on.
-
- - If it powers on successfully, proceed to the next step or go to the [Chromalink Guide](chromalink_guide.html) to see how to use your Duo with Lightshow.lol
- 
- ---
+---
 
  **Puting everything Back Together**
 
@@ -175,16 +164,9 @@ StoneOrbits is not responsible for any damage to the Duo or battery caused this 
 
 # Troubleshooting
 
-**The Duo doesn't turn on**  
-Repeat the process if the Duo doesn't work, make sure the duo was properly seated into the Chromalink and the progress bar in the Chromalink window fills.
-
-**The progress bar doesn't start and the Chromadeck LEDs are yellow**  
-
-This is a well known and common issue we are working to fix, simply remove the Duo from the Chromalink dock and put it back, the firmware flash will begin immediately.
-
 **It doesn't work!**  
 
-If you encounter any other issues, try refreshing the page and unplugging and reconnecting your chromadeck. Also make sure the power switch is in the ON position while it is plugged in.
+If you encounter any issues, try refreshing the page and unplugging and reconnecting your chromadeck. Also make sure the power switch is in the ON position while it is plugged in.
 
 **It still doesn't work!**  
 Join our [discord](https://discord.gg/4R9at8S8Sn) and ask for help!
