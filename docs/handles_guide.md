@@ -1,8 +1,8 @@
 ---
 layout: default
-title: Handles Guide
-nav_order: 3
-parent: Guides & Tutorials
+title: Omega Handles Guide
+nav_order: 7
+parent: Vortex Devices
 ---
 
 <style>

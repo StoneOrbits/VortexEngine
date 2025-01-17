@@ -1,8 +1,8 @@
 ---
 layout: default
 title: Chromadeck Guide
-nav_order: 1
-parent: Guides & Tutorials
+nav_order: 4
+parent: Vortex Devices
 ---
 
 <style>

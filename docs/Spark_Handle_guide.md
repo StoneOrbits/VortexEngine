@@ -1,8 +1,8 @@
 ---
 layout: default
 title: Spark Handle Guide
-nav_order: 1
-parent: Guides & Tutorials
+nav_order: 3
+parent: Vortex Devices
 ---
 
 <style>

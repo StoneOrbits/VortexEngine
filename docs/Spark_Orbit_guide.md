@@ -1,8 +1,8 @@
 ---
 layout: default
 title: Spark Orbit Guide
-nav_order: 1
-parent: Guides & Tutorials
+nav_order: 2
+parent: Vortex Devices
 ---
 
 <style>

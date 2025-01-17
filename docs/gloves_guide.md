@@ -1,8 +1,8 @@
 ---
 layout: default
-title: Gloves Guide
-nav_order: 3
-parent: Guides & Tutorials
+title: Vortex Gloves Guide
+nav_order: 8
+parent: Vortex Devices
 ---
 
 <style>
