@@ -8,9 +8,18 @@ published: true
 
 <style>
 .device-icon {
-   margin: 0px;
-   width: 30%;
-   height: 30%
+   margin: 20px auto;
+   width: 20%;
+   height: auto;
+   display: block;
+   border-radius: 8px;
+}
+
+@media (min-width: 768px) {
+   .device-icon {
+      margin-top: 0; /* Prevent overlap with horizontal bar */
+      margin-right: 0; /* Align image properly */
+   }
 }
 
 .info-box {

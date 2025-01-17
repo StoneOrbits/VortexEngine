@@ -21,9 +21,14 @@ has_children: true
 # Getting Started
 
 Each device is slightly different than the others. Look at your device's page to learn it's specifics.
-- Get started with the [Lastest Devices](getting_started_latest_devices.html) - **Spark Orbit, Spark Handles, Chromadeck**.
-- Get started with the [Duo](getting_started_duo.html).
-- Get started with the [Classic Devices](getting_started_classic_devices.html).
+
+- [Spark Orbit](spark_orbit_guide.html)
+- [Spark Handle](spark_handle_guide.html)
+- [Spark Chromadeck](chromadeck_guide.html)
+- [Duo](duo_guide.html)
+- [Vortex Orbit](orbit_guide.html)
+- [Omega Handle](handles_guide.html)
+- [Vortex Glove](gloves_guide.html)
 
 # Inputs
 
