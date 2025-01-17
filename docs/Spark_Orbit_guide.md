@@ -12,18 +12,6 @@ parent: Vortex Devices
    height: 30%
 }
 
-.info-box {
-   background-color: #171a1f;
-   border: 1px solid #ddd;
-   border-radius: 8px;
-   padding: 15px;
-   margin: 20px 0;
-   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
-.info-box strong {
-   color: #0056b3;
-}
-
 .white { background-color: rgba(255, 255, 255); }
 .cyan { background-color: rgba(0, 255, 255); }
 .purple { background-color: rgba(128, 0, 128); }
@@ -112,7 +100,7 @@ Welcome to the Spark Orbit Guide, this page aims to get you up and running as fa
 
 **Switch**
 
-- Slide the switch to power the Saprk on or off.
+- Slide the switch to power the Spark on or off.
 
 **Button**
 

@@ -94,21 +94,23 @@ parent: Vortex Devices
 
 Welcome to the Chromadeck Guide, this page aims to get you up and running as fast as possible.
 
-## Buttons
+## Baiscs
+  The Chromadeck has three <span style="color: #00c6ff">navigation buttons</span>, and a small <strong style="color: #00ff00;">power switch</strong>.
+  
 
-The Chromadeck has three <span style="color: #00c6ff">navigation button</span> and a small <span style="color: #00ff00">power switch</span>.
+**Switch**
 
-## Profiles
+- Slide the switch to power the Chromadeck on or off.
 
-The Chromadeck has 10 profiles, each with 14 mode slots. When powered on, first us the left an right buttons to highlight a profile, and the middle button to select it. 
+**Profile Selection**
 
-Switch the power off and back on again to return to profile selection.
+- When powered on, the Chromadeck will always begin with profile selection. 
+- The Chromadeck has 10 profiles, each with 14 mode slots. 
 
-## Navigating Modes
-
-Short click the left or right <span style="color: #00c6ff">navigation buttons</span> to cycle through the 14 available modes in the selected profile.
-
-To edit a mode, navigate to it then hold the middle navigation button until the lights flash white to open the menus.
+**Buttons**
+- First use the left an right <span style="color: #00c6ff">navigation buttons</span> to highlight a profile, and the middle button to select it. 
+- Short click the left an right <span style="color: #00c6ff">navigation buttons</span> to cycle through the 14 modes slots of the select profile.
+- Navigate to a mode then hold the <span style="color: #00c6ff">navigation button</span> until the lights flash white to open the menus.
 
 ## Menus
 
@@ -141,3 +143,17 @@ Once the menus are open, use short clicks to cycle through the following menu op
 </a>
 </div>
 {% endraw %}
+
+---
+
+## Next Steps
+<div class="next-steps">
+  <ul>
+    <li><a href="basic_usage.html">Explore Vortex Engine</a>: Learn key terms, concepts, and how to use on-device menus.</li>
+    <li><a href="upgrade_guides.html">Upgrade Your Device</a>: Ensure your device has the latest firmware for optimal performance.</li>
+  </ul>
+</div>
+
+---
+
+If you have any questions or need further assistance, check out the [Support Page](support.html).

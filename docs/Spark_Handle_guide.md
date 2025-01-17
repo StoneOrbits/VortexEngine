@@ -94,16 +94,19 @@ parent: Vortex Devices
 
 Welcome to the Spark Handle Guide, this page aims to get you up and running as fast as possible.
 
-## Buttons
+## Basics
+  The Spark handle has one <span style="color: #00c6ff">navigation button</span>, and a small <strong style="color: #00ff00;">power switch</strong>.
 
-The Spark Handle has one <span style="color: #00c6ff">navigation button</span> and a small <span style="color: #00ff00">power switch</span>.
+**Switch**
 
+- Slide the switch to power the Spark on or off.
 
-## Navigating Modes
+**Button**
 
-Short click the <span style="color: #00c6ff">navigation button</span> to cycle forward through the 14 available modes.
+- Short click the <span style="color: #00c6ff">navigation button</span> to cycle forward through the 14 available modes.
 
-To edit a mode, navigate to it then hold the navigation button until the lights flash white to open the menus.
+- Navigate to a mode then hold the <span style="color: #00c6ff">navigation button</span> until the lights flash white to open the menus.
+
 
 ## Menus
 
@@ -136,3 +139,17 @@ Once the menus are open, use short clicks to cycle through the following menu op
 </a>
 </div>
 {% endraw %}
+
+---
+
+## Next Steps
+<div class="next-steps">
+  <ul>
+    <li><a href="basic_usage.html">Explore Vortex Engine</a>: Learn key terms, concepts, and how to use on-device menus.</li>
+    <li><a href="upgrade_guides.html">Upgrade Your Device</a>: Ensure your device has the latest firmware for optimal performance.</li>
+  </ul>
+</div>
+
+---
+
+If you have any questions or need further assistance, check out the [Support Page](support.html).
