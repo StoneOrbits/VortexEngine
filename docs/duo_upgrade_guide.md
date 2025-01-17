@@ -17,14 +17,13 @@ parent: Duo Guide
    color: #0056b3;
 }
 </style>
-<div class= warning-box>
-<div style="text-align: center; margin: 20px">
+
+<div class= warning-box style="text-align: center; margin: 20px">
   <h1 style="color:orange;">⚠ <b style="color:red;">Warning</b> ⚠<br></h1>
   <h2>Upgrading Duos <i>can</i> cause damage to them if you do not follow instructions!  
   Be patient, careful, and double-check instuctions before proceeding. 
   
   StoneOrbits is not responsible for damage caused this way.</h2>
-</div>
 </div>
 
 ---
@@ -60,12 +59,13 @@ With your Duo, Chromadeck, Chromalink, Computer, and USB-C cable ready, proceed 
 
 ---
 **Removing the Battery**
+{: .warning }
 <div class="warning-box">
 <div style="text-align: center; margin: 5px">
   <p style="color:white;"><span style="color:yellow;">⚠</span> <b>Warning</b> <span style="color:yellow;">⚠</span><br>
   <strong>This is a potentially dangeous step! 
 </div>
-
+{: .warning }
 - Failure to remove the battery before connecting to the Chromalink will cause the battery's lifespan to shorten dramatically. 
 - Removing the battery incorrectly can break the battery connector, rendering the chip broken and unusable. 
 - StoneOrbits is not responsible for any damage to the Duo or battery caused this way.</strong></p>
