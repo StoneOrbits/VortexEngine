@@ -47,7 +47,8 @@ Both the blue progress bar and the Chromadeck leds will fill as the flashing tak
  - If it powers on successfully then the firmware update was complete, if not try repeating this process
 
 <div style="text-align: center; margin-top: 30px;">
-  <p><h3 style="color: white;">Congratulations</h3>The Duo firmware is now updated, try <a href="duo_programming_guide.html">programming the Duo</a> or continue reading to reassemble the Duo</p>
+  <p><h3 style="color: white;">Congratulations</h3>The Duo firmware is now updated!</p>
+  <p>Next try <a href="duo_programming_guide.html">programming the Duo</a> or continue reading to reassemble the Duo</p>
 </div>
 
 # Duo Reassembly

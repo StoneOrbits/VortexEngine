@@ -19,7 +19,7 @@ parent: Duo
 </style>
 
 {: .warning}
-Upgrading Duos <i>can</i> be dangerous! Be patient and follow these steps carefully, StoneOrbits is not responsible for any damage
+Upgrading Duos <i>can</i> be dangerous! Be patient and follow these steps carefully, StoneOrbits is not responsible for any damage caused this way.
 
 # Chromalink Duo Guide
 
