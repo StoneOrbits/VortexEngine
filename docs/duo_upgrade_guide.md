@@ -40,11 +40,11 @@ It is **unnecessary** to press 'Connect Duo' when updating the Firmware! That is
   <img style="max-width:260px;" src="assets/images/update-firmware-ui-progress.png">
 </div>
   
-Both the blue progress bar and the Chromadeck leds will fill as the flashing takes place
+ - Both the blue progress bar and the Chromadeck leds will fill as the flashing takes place
 
  - Let the flash complete, after completion the Duo should be able to turn on with a button press
 
- - If it powers on successfully then the firmware update was complete, if not try repeating this process
+ - If it powers on then success, if not try repeating this process from the beginning
 
 <div style="text-align: center; margin-top: 30px;">
   <p><h3 style="color: white;">Congratulations</h3>The Duo firmware is now updated!</p>
