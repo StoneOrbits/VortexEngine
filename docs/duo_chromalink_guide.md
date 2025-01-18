@@ -21,7 +21,7 @@ parent: Duo
 {: .warning}
 Upgrading Duos <i>can</i> be dangerous! Be patient and follow these steps carefully, StoneOrbits is not responsible for any damage
 
-# Prepare Duo & Chromalink
+# Chromalink Duo Guide
 
 <img src="assets/images/duo-logo-square-512.png" style="max-width: 250px; width: 40%; float: right; margin-bottom: 20px">
 
