@@ -41,6 +41,9 @@ public:
   static void setRadial(Radial radial, RGBColor col);
   static void setRadials(Radial first, Radial last, RGBColor col);
 
+  // draw a progress meter based on a ratio of progress to total
+  static void setRadialProgress(uint32_t progress, uint32_t total, RGBColor col);
+
   // Turn off both LEDs on a pair, these are appropriate for use in internal pattern logic
   static void clearRadial(Radial radial) { setRadial(radial, RGB_OFF); }
   static void clearRadials(Radial first, Radial last) { setRadials(first, last, RGB_OFF); }

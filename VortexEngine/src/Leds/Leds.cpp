@@ -88,6 +88,16 @@ void Leds::setRadials(Radial first, Radial last, RGBColor col)
   }
 }
 
+void Leds::setRadialProgress(uint32_t progress, uint32_t total, RGBColor col)
+{
+  HSVColor hsvCol = col;
+  float ratio = (float)(progress * 100.0) / (float)(total * 100.0);
+  Radial last = (Radial)((ratio + 0.05) * RADIAL_COUNT);
+  uint32_t variance = Time::getCurtime() / 10;
+  uint32_t magnitude = 10;
+  setRadials(RADIAL_0, last, col);
+}
+
 void Leds::setRangeEvens(Pair first, Pair last, RGBColor col)
 {
   for (Pair pos = first; pos <= last; pos++) {

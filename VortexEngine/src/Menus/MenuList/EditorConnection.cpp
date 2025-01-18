@@ -19,6 +19,7 @@
 #include <string.h>
 
 #define FIRMWARE_TRANSFER_BLOCK_SIZE 512
+#define NUM_DUO_MODES 9
 
 EditorConnection::EditorConnection(const RGBColor &col, bool advanced) :
   Menu(col, advanced),
@@ -31,7 +32,8 @@ EditorConnection::EditorConnection(const RGBColor &col, bool advanced) :
   m_curStep(0),
   m_firmwareSize(0),
   m_firmwareOffset(0),
-  m_backupModes(true)
+  m_backupModes(true),
+  m_backupModeNum(0)
 {
 }
 
@@ -550,15 +552,14 @@ bool EditorConnection::pullModeChromalink()
   // try to receive the mode index
   uint8_t modeIdx = 0;
   bool success = false;
-  // only 9 modes on duo, maybe this should be a macro or something
-  if (receiveModeIdx(modeIdx) && modeIdx < 9) {
+  if (receiveModeIdx(modeIdx) && modeIdx < NUM_DUO_MODES) {
     ByteStream modeBuffer;
     // same doesn't matter if this fails still need to send
     success = UPDI::readMode(modeIdx, modeBuffer);
     UPDI::reset();
     UPDI::disable();
-    // lol just use the mode index as the radial to set
-    Leds::setRadial((Radial)modeIdx, success ? RGB_GREEN4 : RGB_RED4);
+    // just use the mode index as the radial progress
+    Leds::setRadialProgress(modeIdx, NUM_DUO_MODES, success ? RGB_GREEN4 : RGB_RED4);
     if (!success) {
       // just send back a 0 if it failed
       modeBuffer.init(1);
@@ -573,8 +574,8 @@ bool EditorConnection::pullModeChromalink()
 
 bool EditorConnection::pushModeChromalink()
 {
-  // lol just use the mode index as the radial to set
-  Leds::setRadials(RADIAL_0, (Radial)m_chromaModeIdx, RGB_GREEN4);
+  // just use the mode index as the radial progress
+  Leds::setRadialProgress(m_chromaModeIdx + 1, NUM_DUO_MODES, RGB_GREEN4);
   // wait for the mode then write it via updi
   ByteStream buf;
   if (!receiveBuffer(buf)) {
@@ -591,7 +592,7 @@ bool EditorConnection::pushModeChromalink()
 
 bool EditorConnection::backupDuoModes()
 {
-  if (m_backupModeNum == 9) {
+  if (m_backupModeNum == NUM_DUO_MODES) {
     // reset counter for the restore step later
     m_backupModeNum = 0;
     // done
@@ -627,16 +628,16 @@ bool EditorConnection::backupDuoModes()
   if (useDefault) {
     m_modeBackups[m_backupModeNum].init(duo_default_sizes[m_backupModeNum], duo_default_modes[m_backupModeNum]);
   }
-  Leds::setRadials(RADIAL_0, (Radial)m_backupModeNum, useDefault ? RGB_CYAN0 : RGB_PURPLE);
   // go to next mode
   m_backupModeNum++;
+  // show progress
+  Leds::setRadialProgress(m_backupModeNum, NUM_DUO_MODES, useDefault ? RGB_CYAN0 : RGB_PURPLE);
   return false;
 }
 
 bool EditorConnection::restoreDuoModes()
 {
-  Leds::setRadials(RADIAL_0, (Radial)m_backupModeNum, RGB_CYAN4);
-  if (m_backupModeNum == 9) {
+  if (m_backupModeNum == NUM_DUO_MODES) {
     // reset counter for the restore step later
     m_backupModeNum = 0;
     // done
@@ -646,14 +647,15 @@ bool EditorConnection::restoreDuoModes()
   UPDI::writeMode(m_backupModeNum, m_modeBackups[m_backupModeNum]);
   // go to next mode
   m_backupModeNum++;
+  // show progress
+  Leds::setRadialProgress(m_backupModeNum, NUM_DUO_MODES, RGB_CYAN4);
   return false;
 }
 
 bool EditorConnection::writeDuoFirmware()
 { 
   // render some progress, do it before updating the offset so it starts at 0
-  Leds::setAll(RGB_YELLOW3);
-  Leds::setRadials(RADIAL_0, (Radial)((m_firmwareOffset / (float)m_firmwareSize) * RADIAL_COUNT), RGB_GREEN3);
+  Leds::setRadialProgress(m_firmwareOffset, m_firmwareSize, RGB_GREEN4);
   // first pass and backup modes is enabled
   if (m_firmwareOffset >= m_firmwareSize) {
     // done
