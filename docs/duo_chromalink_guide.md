@@ -21,16 +21,15 @@ parent: Duo
 {: .warning}
 Upgrading Duos <i>can</i> be dangerous! Be patient and follow these steps carefully, StoneOrbits is not responsible for any damage
 
-# Preparing Duos for Connecting or Updating
+# Prepare Duo & Chromalink
 
 <img src="assets/images/duo-logo-square-512.png" style="max-width: 250px; width: 40%; float: right; margin-bottom: 20px">
 
 Both a **Chromadeck** and a **Chromalink** cable are necessary to connect to or update a Duo.
 
-Before connecting to or updating Duo firmware, always ensure the **Chromadeck** is [up to date](chromadeck_upgrade_guide.html)
- first.
-<div style="margin-left: 50px; margin-right: 50px; margin-bottom: 30px;" markdown="1">
+Before connecting to or updating Duo firmware, always ensure the **Chromadeck** is [up to date](chromadeck_upgrade_guide.html) first.
 
+<div style="margin-left: 50px; margin-right: 50px; margin-bottom: 30px;" markdown="1">
 - **Use a data-capable USB cable, power-only cables won't work.**
 - Windows will notify upon successful connection
 - Mac may work but is not officially supported.
