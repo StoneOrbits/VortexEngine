@@ -1,8 +1,8 @@
 ---
 layout: default
-title: Chromadeck Upgrade Guide
+title: Upgrade Guide
 nav_order: 2
-parent: Chromadeck Guide
+parent: Chromadeck
 ---
 
 # Chromadeck Upgrade Guide

@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Spark Orbit Guide
+title: Spark Orbit
 nav_order: 2
 parent: Vortex Devices
 ---
@@ -90,7 +90,7 @@ parent: Vortex Devices
 
 <img align="right" width="" height="220" class="device-icon" src="assets/images/spark-orbit-render-square-512.png">
 
-# Spark Orbit Guide
+# Spark Orbit
 
 Welcome to the Spark Orbit Guide, this page aims to get you up and running as fast as possible.
 

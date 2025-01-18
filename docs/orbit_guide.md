@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Vortex Orbit Guide
+title: Vortex Orbit
 nav_order: 6
 parent: Vortex Devices
 ---
@@ -90,7 +90,7 @@ parent: Vortex Devices
 
 <img align="right" width="" height="220" class="device-icon" src="assets/images/device-orbit.png">
 
-# Orbit Guide
+# Vortex Orbit
 
 Welcome to the Vortex Orbit Guide, this page aims to get you up and running as fast as possible.
 

@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Vortex Gloves Guide
+title: Vortex Gloves
 nav_order: 8
 parent: Vortex Devices
 ---
@@ -90,7 +90,7 @@ parent: Vortex Devices
 
 <img align="right" width="" height="220" class="device-icon" src="assets/images/device-gloves.png">
 
-# Gloves Guide
+# Vortex Gloves
 
 Welcome to the Vortex Wired Gloves Guide, this page aims to get you up and running as fast as possible.
 

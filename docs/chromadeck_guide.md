@@ -1,16 +1,15 @@
 ---
 layout: default
-title: Special Duo Functions
-nav_order: 1
-parent: Duo Guide
-published: true
+title: Chromadeck
+nav_order: 4
+parent: Vortex Devices
 ---
 
 <style>
 .device-icon {
-   margin: 20px;
-   width: 20%;
-   height: 20%
+   margin: 0px;
+   width: 30%;
+   height: 30%
 }
 
 .white { background-color: rgba(255, 255, 255); }
@@ -82,63 +81,42 @@ published: true
    display: block; /* Ensures the link covers the whole section */
 }
 
+.device-icon {
+   margin: 20px;
+   width: 30%;
+   height: 30%;
+}
 </style>
 
-<img align="right" width="" height="220" class="device-icon" src="assets/images/duo-logo-square-512.png">
+<img align="right" width="" height="220" class="device-icon" src="assets/images/chromadeck-render-square-512.png">
 
-# Duo Special Functions
+# Chromadeck
 
-These are functions unique to the Duo Light.
+Welcome to the Chromadeck Guide, this page aims to get you up and running as fast as possible. Go here to learn about the [Chromalink](the_chromalink.html), the Chromadeck's optional accessory.
 
-## Force Shut Down
+## Basics
+  The Chromadeck has three <strong style="color: #00c6ff">navigation buttons</strong>, and a small <strong style="color: #00ff00;">power switch</strong>.
+  
 
-The Duo has the ability to be powered down from any mode or menu. This can help in case the user is unsure what is happening on the chip and wants to start over without accidentally changing settings. 
+**Switch**
 
-**To Force Shut Down:** Hold the button for 5 or more seconds until the LEDs turn off.
+- Slide the switch to power the Chromadeck on or off.
 
-## One-Click Mode
+**Profile Selection**
 
-**While off:** 
-- Hold the button until the LEDs show white to activate One-Click mode. 
-- The mode that was displayed before the chip was powered off will be selected for one-click mode. 
+- When powered on, the Chromadeck will always begin with profile selection. 
+- The Chromadeck has 10 profiles, each with 14 mode slots. 
 
-**While in One-Click mode**:
-- Only one mode will be available.
-- Click the button to toggle the chip on or off.
-- While off, hold the button till the LEDs show white to deactivate One-Click mode.
+**Buttons**
+- First use the left and right <span style="color: #00c6ff">navigation buttons</span> to highlight a profile, and the middle button to select it. 
+- Short click the left and right <span style="color: #00c6ff">navigation buttons</span> to cycle through the 14 modes slots of the select profile.
+- Navigate to a mode then hold the <span style="color: #00c6ff">navigation button</span> until the lights flash white to open the menus.
 
-## Battery Lock
+## Menus
 
-To prevent the Duo from turning on by accidentally while being stored or transported, the battery can be locked.
+Once the menus are open, use short clicks to cycle through the following menu options, long click to enter a menu.
 
-**While off:** Click the button rapidly 5 times to activate the lock feature. 
-**When locked:** Click the button rapidly 5 times to unlock.
-
-## Advanced Menus
-
-Most menus have an advanced version which gives greater control over that menu's features. These advanced menus are inaccessible by default. 
-
-### Unlocking Advanced Menus
-
- - Enter the menu list by holding the button. 
- - Cycle through the menu colors by rapidly clicking 12 times to toggle the advanced menu lock. 
-   - The LEDs will flash pink to indicate advanced menus are now available.
-   - The LEDs will flash red to indicate advanced menus are now locked.
- - The advanced menus will remain unlocked even when the chip is powered down.
-
-### Entering Advanced Menus
-
-##### **This is only accessible when advanced menus are unlocked*
-
- - Enter the menu list by holding the button.
- - Click to cycle to the desired menu color.
- - Hold the button and release after the menu color blinks faster to enter that advanced menu.
-
-## Advanced Menus
-
-Coming Soon
-
-<!-- {% raw %}
+{% raw %}
 <div class="menu-wrapper">
 <a href="randomizer_menu.html">
   <div class="color-list-entry"><span class="rounded-box white"></span>Randomizer</div>
@@ -164,9 +142,18 @@ Coming Soon
   <div class="color-list-entry"><span class="rounded-box red"></span>Factory Reset</div>
 </a>
 </div>
-{% endraw %} -->
+{% endraw %}
 
+---
 
+## Next Steps
+<div class="next-steps">
+  <ul>
+    <li><a href="basic_usage.html">Explore Vortex Engine</a>: Learn key terms, concepts, and how to use on-device menus.</li>
+    <li><a href="chromadeck_upgrade_guide.html">Upgrade Your Device</a>: Ensure your device has the latest firmware for optimal performance.</li>
+  </ul>
+</div>
 
+---
 
-
+If you have any questions or need further assistance, check out the [Support Page](support.html).

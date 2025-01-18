@@ -1,13 +1,15 @@
 ---
 layout: default
-title: Upgrade Guide
-nav_order: 1
+title: Programming Guide
+nav_order: 2
 parent: Chromalink Guide
 ---
 
-# Updating the Duo
+# Programming the Duo
 
-Now that the Duo is connected to the PC via the Chromalink, follow these steps to update the Duo firmware:
+It is important the Duo is up to date before programming from the PC. Make sure to [update the Duo](duo_upgrade_guide.html) before continuing with this guide.
+
+ - Make sure the Duo is seated in the Chromalink, the link is connected to the Chromadeck, and the Chromadeck is plugged in and turned on
 
 {: .note }
 At the time of writing this **Chrome**, **Edge** and **Opera** are the only supported browsers, other browsers may work in the future if they gain support for <a href="https://developer.mozilla.org/en-US/docs/Web/API/Web_Serial_API#browser_compatibility">WebSerial</a>
@@ -27,28 +29,19 @@ At the time of writing this **Chrome**, **Edge** and **Opera** are the only supp
   <img style="max-width:260px;max-height:190px;" src="assets/images/lightshow-lol-chromalink-duo-basic.png">
 </div>
 
-
  - If you haven't <a href="chromadeck_upgrade_guide.html">updated the Chromadeck</a> yet, do it <b style="color:white;">now</b>!
  
  - If the **Chromadeck** is up to date, then press the **Update Firmware** button in the **Chromalink Duo Panel**:
 
-{: .note }
-It is **unnecessary** to press 'Connect Duo' when updating the Firmware! That is only needed for programming the Duo.
+# Connecting the Chromalink
 
-<div style="text-align: center; margin: 20px">
-  <img style="max-width:260px;" src="assets/images/update-firmware-ui.png">
-  <img style="max-width:260px;" src="assets/images/update-firmware-ui-progress.png">
-</div>
-  
-Both the blue progress bar and the Chromadeck leds will fill as the flashing takes place
+Hit the 'Connect Duo' button in the Chromalink window and it should load information about the Duo like the version and number of modes.
 
- - Let the flash complete, after completion the Duo should be able to turn on with a button press
 
- - If it powers on successfully then the firmware update was complete, if not try repeating this process
+Check out the [Lightshow.lol Guide](lightshow_lol.html) to see all the awesome things you can do from here!
 
 <div style="text-align: center; margin-top: 30px;">
-  <p><h3 style="color: white;">Congratulations</h3>The Duo firmware is now updated!</p>
-  <p>Next try <a href="duo_programming_guide.html">programming the Duo</a> or continue reading to reassemble the Duo</p>
+  <p><b style="color: white;">Congratulations</b> on programming the Duo from the PC, continue reading to reassemble the Duo</p>
 </div>
 
 # Duo Reassembly
@@ -61,22 +54,21 @@ Both the blue progress bar and the Chromadeck leds will fill as the flashing tak
   <img style="max-width:260px;border-radius:5px;border:1px solid gray;" src="assets/images/duo-case-insertion.gif">
 </div>
 
-
- ---
+---
 
 # Troubleshooting
 
 **The Duo doesn't turn on**  
-
-Repeat the process if the Duo doesn't work, make sure the duo was properly seated into the Chromalink and the progress bar in the Chromalink window fills.
-
-**The progress bar doesn't start and the Chromadeck LEDs are yellow**  
-
-This is a well known and common issue we are working to fix, simply remove the Duo from the Chromalink dock and put it back, the firmware flash will begin immediately.
+Make sure the duo was properly seated into the Chromalink.
 
 **It doesn't work!**  
-
-If you encounter any other issues, try refreshing the page and unplugging and reconnecting your chromadeck. Also make sure the power switch is in the ON position while it is plugged in.
+If you encounter any issues, try refreshing the page and unplugging and reconnecting your chromadeck. Also make sure the power switch is in the ON position while it is plugged in.
 
 **It still doesn't work!**  
 Join our [discord](https://discord.gg/4R9at8S8Sn) and ask for help!
+
+---
+
+## Reassembly
+Once you've finished editing your modes, make sure you [put everything back together](duo_reassembly_guide.html).
+

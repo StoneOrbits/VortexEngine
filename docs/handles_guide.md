@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Omega Handles Guide
+title: Omega Handles
 nav_order: 7
 parent: Vortex Devices
 ---
@@ -90,7 +90,7 @@ parent: Vortex Devices
 
 <img align="right" width="" height="220" class="device-icon" src="assets/images/device-handle.png">
 
-# Handle Guide
+# Omega Handle
 
 Welcome to the Vortex Handle Guide, this page aims to get you up and running as fast as possible.
 
