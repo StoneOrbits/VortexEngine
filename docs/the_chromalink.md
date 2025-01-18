@@ -30,4 +30,4 @@ This allows both reading and writing the Duo modes from the PC, or loading custo
 
 # Next Step
 
-Learn how to [use the Chromalink with Duos](duo_connecting_or_upgrading_guide.html)
+Learn how to [use the Chromalink](duo_chromalink_guide.html)
