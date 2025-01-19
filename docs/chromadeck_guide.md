@@ -88,19 +88,19 @@ parent: Vortex Devices
 }
 </style>
 
-<img align="right" width="" height="220" class="device-icon" src="assets/images/chromadeck-render-square-512.png">
+<img align="right" width="" height="220" class="device-icon" src="assets/images/device-chromadeck-square-512.png">
 
 # Chromadeck
 
-Welcome to the Chromadeck Guide, this page aims to get you up and running as fast as possible. Go here to learn about the [Chromalink](the_chromalink.html), the Chromadeck's optional accessory.
+Welcome to the Chromadeck Guide, this page covers the basic features of the Chromadeck.
 
-## Basics
-  The Chromadeck has three <strong style="color: #00c6ff">navigation buttons</strong>, and a small <strong style="color: #00ff00;">power switch</strong>.
-  
+The Chromadeck has three <strong style="color: #00c6ff">navigation buttons</strong>, and a small <strong style="color: #00ff00;">power switch</strong>.
 
-**Switch**
+On the notched left side of the Chromadeck is a <strong style="color: #ff4646;">USB-C Port</strong> for charging and PC connectivity. On the notch opposite is the <strong style="color: #c446ff;">Chromalink Port</strong>.
 
-- Slide the switch to power the Chromadeck on or off.
+## The Chromalink
+
+The [Chromalink](the_chromalink.html) is the primary (and currently only) accessory of the Chromadeck that enables programming of the [Duo Light](duo_guide.html).
 
 **Profile Selection**
 
