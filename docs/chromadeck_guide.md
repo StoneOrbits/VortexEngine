@@ -100,7 +100,14 @@ On the notched left side of the Chromadeck is a <strong style="color: #ff4646;">
 
 ## The Chromalink
 
-The [Chromalink](the_chromalink.html) is the primary accessory of the Chromadeck that enables programming the [Duo Light](duo_guide.html).
+The [Chromalink](the_chromalink.html) is the primary accessory of the Chromadeck that enables updating and programming the [Duo](duo_guide.html) from a PC.
+
+{ .warning }
+Please follow the [Chomadeck Update Guide](chromadeck_upgrade_guide.html) before using the Chromalink!
+
+With an updated Chromadeck the [Duo Chromalink Guide](duo_chromalink_guide.html) will explain how to get started using the Chromalink with a Duo.
+
+Alternatively, continue reading to learn how to use the Chromadeck as a mode storage bank or mode transfer utility.
 
 ## Basic Usage
 
@@ -149,6 +156,10 @@ Once the menus are open, use short clicks to cycle through the following menu op
 </a>
 </div>
 {% endraw %}
+
+## Mode Storage
+
+## Mode Transfers
 
 ---
 
