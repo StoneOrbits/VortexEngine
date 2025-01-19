@@ -94,20 +94,26 @@ parent: Vortex Devices
 
 Welcome to the Chromadeck Guide, this page covers the basic features of the Chromadeck.
 
-The Chromadeck has three <strong style="color: #00c6ff">navigation buttons</strong>, and a small <strong style="color: #00ff00;">power switch</strong>.
+On the front of the Chromadeck are three <strong style="color: #00c6ff">navigation buttons</strong>, and a small <strong style="color: #00ff00;">power switch</strong>.
 
-On the notched left side of the Chromadeck is a <strong style="color: #ff4646;">USB-C Port</strong> for charging and PC connectivity. On the notch opposite is the <strong style="color: #c446ff;">Chromalink Port</strong>.
+On the notched left side of the Chromadeck is a <strong style="color: #ff4646;">USB-C Port</strong> for charging and PC connectivity.  On the opposite notch is the <strong style="color: #c446ff;">Chromalink Port</strong>.
 
 ## The Chromalink
 
-The [Chromalink](the_chromalink.html) is the primary (and currently only) accessory of the Chromadeck that enables programming of the [Duo Light](duo_guide.html).
+The [Chromalink](the_chromalink.html) is the primary accessory of the Chromadeck that enables programming the [Duo Light](duo_guide.html).
 
-**Profile Selection**
+## Basic Usage
+
+When the Chromadeck is not connected to the PC it can be used just like any other Vortex Device, it can play modes and offers the same menus as other devices.
+
+When the Chromadeck is first powered on it will display a rainbow gradient around it's leds, this is the one special part about a Chromadeck that no other device has known as **Profile Selection**.
+
+### Profile Selection
 
 - When powered on, the Chromadeck will always begin with profile selection. 
 - The Chromadeck has 10 profiles, each with 14 mode slots. 
 
-**Buttons**
+### Buttons
 - First use the left and right <span style="color: #00c6ff">navigation buttons</span> to highlight a profile, and the middle button to select it. 
 - Short click the left and right <span style="color: #00c6ff">navigation buttons</span> to cycle through the 14 modes slots of the select profile.
 - Navigate to a mode then hold the <span style="color: #00c6ff">navigation button</span> until the lights flash white to open the menus.
