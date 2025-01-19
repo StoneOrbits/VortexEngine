@@ -102,7 +102,7 @@ On the notched left side of the Chromadeck is a <strong style="color: #ff4646;">
 
 The [Chromalink](the_chromalink.html) is the primary accessory of the Chromadeck that enables updating and programming the [Duo](duo_guide.html) from a PC.
 
-{ .warning }
+{: .warning }
 Please follow the [Chomadeck Update Guide](chromadeck_upgrade_guide.html) before using the Chromalink!
 
 With an updated Chromadeck the [Duo Chromalink Guide](duo_chromalink_guide.html) will explain how to get started using the Chromalink with a Duo.
@@ -159,7 +159,11 @@ Once the menus are open, use short clicks to cycle through the following menu op
 
 ## Mode Storage
 
+The Chromadeck can be used to store a large number of modes in an organized collection. 
+
 ## Mode Transfers
+
+The Chromadeck also acts as a mode transfer utility, offering all forms of mode transfer for Vortex Device it can be used to facility a mode transfer between devices that previously were not supported. For example a Duo mode could be transferred to a Vortex Orbit using the Chromadeck.
 
 ---
 
