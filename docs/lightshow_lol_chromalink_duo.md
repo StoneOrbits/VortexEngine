@@ -41,6 +41,7 @@ parent: Lightshow.lol
     max-width: 100%;
   }
 </style>
+
 # Chromalink Duo
 
 <img style="float:right;max-width:40%;margin:10px;" src="assets/images/lightshow-lol-chromalink-duo.png">

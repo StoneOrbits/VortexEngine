@@ -18,7 +18,7 @@ parent: Duo
 }
 </style>
 
-{: .warning}
+{: .warning }
 Upgrading Duos <i>can</i> be dangerous! Be patient and follow these steps carefully, StoneOrbits is not responsible for any damage caused this way.
 
 # Chromalink Duo Guide
@@ -49,7 +49,7 @@ With the Duo, Chromadeck, Chromalink, Computer, and USB-C cable ready, proceed t
 
 ## Remove the Battery
 
-{: .warning}
+{: .warning }
 Failure to remove the battery will dramatically shorten the battery lifespan,
 and incorrect battery removal may permanently break the battery connector.
 
