@@ -6,6 +6,13 @@
 #include "../../Serial/ByteStream.h"
 #include "../../Modes/Mode.h"
 
+// various return codes that internal functions use
+enum ReturnCode {
+  RV_FAIL = 0,
+  RV_OK,
+  RV_WAIT,
+};
+
 class EditorConnection : public Menu
 {
 public:
@@ -26,18 +33,21 @@ public:
   void leaveMenu(bool doSave = false) override;
 
 private:
+  void handleCommand();
   void showEditor();
   void receiveData();
+  void handleState();
   void sendModes();
   void sendModeCount();
   void sendCurMode();
-  bool receiveModes();
+  ReturnCode receiveBuffer(ByteStream &buffer);
+  ReturnCode receiveModes();
   bool receiveModeCount();
   bool receiveMode();
-  bool receiveDemoMode();
-  void handleCommand();
+  ReturnCode receiveDemoMode();
   bool receiveMessage(const char *message);
   void clearDemo();
+  ReturnCode receiveBrightness();
 
   // override showExit so it isn't displayed on thumb
   virtual void showExit() override;
@@ -87,6 +97,10 @@ private:
     STATE_PUSH_EACH_MODE_RECEIVE,
     STATE_PUSH_EACH_MODE_WAIT,
     STATE_PUSH_EACH_MODE_DONE,
+
+    // set global brightness
+    STATE_SET_GLOBAL_BRIGHTNESS,
+    STATE_SET_GLOBAL_BRIGHTNESS_RECEIVE,
   };
 
   // state of the editor
@@ -99,6 +113,9 @@ private:
   uint8_t m_previousModeIndex;
   // the number of modes that should be received
   uint8_t m_numModesToReceive;
+
+  // internal return value tracker
+  ReturnCode rv;
 };
 
 #endif
