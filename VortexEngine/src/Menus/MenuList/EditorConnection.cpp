@@ -588,9 +588,9 @@ ReturnCode EditorConnection::receiveDemoMode()
 {
   // create a new ByteStream that will hold the full buffer of data
   ByteStream buf;
-  ReturnCode rv = receiveBuffer(buf);
-  if (rv != RV_OK) {
-    return rv;
+  m_rv = receiveBuffer(buf);
+  if (m_rv != RV_OK) {
+    return m_rv;
   }
   // unserialize the mode into the demo mode
   if (!m_previewMode.loadFromBuffer(buf)) {
