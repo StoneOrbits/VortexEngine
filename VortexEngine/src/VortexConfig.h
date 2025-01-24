@@ -529,6 +529,8 @@
 // the done message from the device when it done the command
 #define EDITOR_VERB_PUSH_EACH_MODE_DONE   "H"
 
+// set the global brightness of the device
+#define EDITOR_VERB_SET_GLOBAL_BRIGHTNESS "L"
 
 // ===================================================================
 //  Manually Configured Sizes
