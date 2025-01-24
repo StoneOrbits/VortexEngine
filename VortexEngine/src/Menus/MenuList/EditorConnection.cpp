@@ -113,7 +113,7 @@ void EditorConnection::handleState()
     // parse the receive buffer for any commands from the editor
     handleCommand();
     // watch for disconnects
-    if (!SerialComs::isConnected()) {
+    if (!SerialComs::isConnectedReal()) {
       Leds::holdAll(RGB_RED);
       leaveMenu(true);
     }
