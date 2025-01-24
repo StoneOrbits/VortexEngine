@@ -6,7 +6,6 @@
 #include "../../Storage/Storage.h"
 #include "../../Wireless/VLSender.h"
 #include "../../Time/TimeControl.h"
-#include "../../Time/Timings.h"
 #include "../../Colors/Colorset.h"
 #include "../../Modes/Modes.h"
 #include "../../Modes/Mode.h"
@@ -38,7 +37,6 @@ bool EditorConnection::init()
   // skip led selection
   m_ledSelected = true;
   clearDemo();
-
   DEBUG_LOG("Entering Editor Connection");
   return true;
 }
@@ -352,7 +350,6 @@ void EditorConnection::onLongClick()
   leaveMenu(true);
 }
 
-// handlers for clicks
 void EditorConnection::leaveMenu(bool doSave)
 {
   SerialComs::write(EDITOR_VERB_GOODBYE);
