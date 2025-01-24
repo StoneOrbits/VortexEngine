@@ -331,7 +331,6 @@ void EditorConnection::sendCurModeVL()
   m_state = STATE_TRANSMIT_MODE_VL;
 }
 
-// handlers for clicks
 void EditorConnection::onShortClick()
 {
   // if the device has received any commands do not reset!
@@ -579,34 +578,12 @@ ReturnCode EditorConnection::receiveMode()
 
 ReturnCode EditorConnection::receiveDemoMode()
 {
-  // need at least the buffer size first
-  uint32_t size = 0;
-  if (m_receiveBuffer.size() < sizeof(size)) {
-    // wait, not enough data available yet
-    return RV_WAIT;
-  }
-  // grab the size out of the start
-  m_receiveBuffer.resetUnserializer();
-  size = m_receiveBuffer.peek32();
-  if (m_receiveBuffer.size() < (size + sizeof(size))) {
-    // don't unserialize yet, not ready
-    return RV_WAIT;
-  }
-  // okay unserialize now, first unserialize the size
-  if (!m_receiveBuffer.consume32(&size)) {
-    return RV_FAIL;
-  }
   // create a new ByteStream that will hold the full buffer of data
   ByteStream buf;
-  if (!buf.init(m_receiveBuffer.rawSize())) {
-    return RV_FAIL;
+  m_rv = receiveBuffer(buf);
+  if (m_rv != RV_OK) {
+    return m_rv;
   }
-  // then copy everything from the receive buffer into the rawdata
-  // which is going to overwrite the crc/size/flags of the ByteStream
-  if (!m_receiveBuffer.consume(buf.rawData(), m_receiveBuffer.size())) {
-    return RV_FAIL;
-  }
-  buf.sanity();
   // unserialize the mode into the demo mode
   if (!m_previewMode.loadFromBuffer(buf)) {
     // failure
