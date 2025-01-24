@@ -7,7 +7,8 @@
 #include "../../Modes/Mode.h"
 
 // various return codes that internal functions use
-enum ReturnCode {
+enum ReturnCode
+{
   RV_FAIL = 0,
   RV_OK,
   RV_WAIT,
@@ -33,6 +34,8 @@ public:
   void leaveMenu(bool doSave = false) override;
 
 private:
+  void clearDemo();
+  void handleErrors();
   void handleCommand();
   void showEditor();
   void receiveData();
@@ -42,11 +45,10 @@ private:
   void sendCurMode();
   ReturnCode receiveBuffer(ByteStream &buffer);
   ReturnCode receiveModes();
-  bool receiveModeCount();
-  bool receiveMode();
+  ReturnCode receiveModeCount();
+  ReturnCode receiveMode();
   ReturnCode receiveDemoMode();
-  bool receiveMessage(const char *message);
-  void clearDemo();
+  ReturnCode receiveMessage(const char *message);
   ReturnCode receiveBrightness();
 
   // override showExit so it isn't displayed on thumb
@@ -113,9 +115,8 @@ private:
   uint8_t m_previousModeIndex;
   // the number of modes that should be received
   uint8_t m_numModesToReceive;
-
   // internal return value tracker
-  ReturnCode rv;
+  ReturnCode m_rv;
 };
 
 #endif
