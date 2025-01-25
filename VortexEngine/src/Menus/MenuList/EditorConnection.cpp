@@ -378,7 +378,7 @@ void EditorConnection::handleState()
   // -------------------------------
   //  Get Chromalinked Duo Header
   case STATE_PULL_HEADER_CHROMALINK:
-    if (!pullHeaderChromalink()) {
+    if (pullHeaderChromalink() == RV_FAIL) {
       Leds::holdAll(RGB_RED);
     }
     // done
@@ -433,7 +433,8 @@ void EditorConnection::handleState()
     m_state = STATE_PUSH_MODE_CHROMALINK_RECEIVE_IDX;
     break;
   case STATE_PUSH_MODE_CHROMALINK_RECEIVE_IDX:
-    if (!receiveModeIdx(m_chromaModeIdx)) {
+    if (receiveModeIdx(m_chromaModeIdx) == RV_WAIT) {
+      // just wait
       break;
     }
     SerialComs::write(EDITOR_VERB_READY);
@@ -509,6 +510,7 @@ void EditorConnection::handleState()
     // show green
     Leds::setAll(RGB_GREEN);
     SerialComs::write(EDITOR_VERB_FLASH_FIRMWARE_DONE);
+    m_state = STATE_IDLE;
     break;
   }
 }
@@ -909,25 +911,28 @@ ReturnCode EditorConnection::pullModeChromalink()
 {
   // try to receive the mode index
   uint8_t modeIdx = 0;
-  bool success = false;
-  // only 9 modes on duo, maybe this should be a macro or something
-  if (receiveModeIdx(modeIdx) && modeIdx < 9) {
-    ByteStream modeBuffer;
-    // same doesn't matter if this fails still need to send
-    success = UPDI::readMode(modeIdx, modeBuffer);
-    UPDI::reset();
-    UPDI::disable();
-    // lol just use the mode index as the radial to set
-    Leds::setRadial((Radial)modeIdx, success ? RGB_GREEN4 : RGB_RED4);
-    if (!success) {
-      // just send back a 0 if it failed
-      modeBuffer.init(1);
-      modeBuffer.serialize8(0);
-    }
-    // send the mode, could be empty buffer if reading failed
-    SerialComs::write(modeBuffer);
+  m_rv = receiveModeIdx(modeIdx);
+  if (m_rv != RV_OK) {
+    return m_rv;
   }
-  // return whether reading the mode was successful
+  // only 9 modes on duo, maybe this should be a macro or something
+  if (modeIdx >= 9) {
+    return RV_FAIL;
+  }
+  ByteStream modeBuffer;
+  // same doesn't matter if this fails still need to send
+  bool success = UPDI::readMode(modeIdx, modeBuffer);
+  UPDI::reset();
+  UPDI::disable();
+  // lol just use the mode index as the radial to set
+  Leds::setRadial((Radial)modeIdx, success ? RGB_GREEN4 : RGB_RED4);
+  if (!success) {
+    // just send back a 0 if it failed
+    modeBuffer.init(1);
+    modeBuffer.serialize8(0);
+  }
+  // send the mode, could be empty buffer if reading failed
+  SerialComs::write(modeBuffer);
   return success ? RV_OK : RV_FAIL;
 }
 
@@ -1013,7 +1018,7 @@ ReturnCode EditorConnection::restoreDuoModes()
 ReturnCode EditorConnection::writeDuoFirmware()
 { 
   // render some progress, do it before updating the offset so it starts at 0
-  Leds::setAll(RGB_YELLOW3);
+  Leds::setAll(RGB_YELLOW0);
   Leds::setRadials(RADIAL_0, (Radial)((m_firmwareOffset / (float)m_firmwareSize) * RADIAL_COUNT), RGB_GREEN3);
   // first pass and backup modes is enabled
   if (m_firmwareOffset >= m_firmwareSize) {
