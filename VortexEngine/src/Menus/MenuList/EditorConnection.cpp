@@ -470,12 +470,12 @@ ReturnCode EditorConnection::receiveBuffer(ByteStream &buffer)
     return RV_FAIL;
   }
   // create a new ByteStream that will hold the full buffer of data
-  if (!buffer.init(m_receiveBuffer.rawSize())) {
+  if (!buffer.init(size)) {
     return RV_FAIL;
   }
   // then copy everything from the receive buffer into the rawdata
   // which is going to overwrite the crc/size/flags of the ByteStream
-  if (!m_receiveBuffer.consume(buffer.rawData(), m_receiveBuffer.size())) {
+  if (!m_receiveBuffer.consume(buffer.rawData(), size)) {
     return RV_FAIL;
   }
   buffer.sanity();
@@ -503,31 +503,11 @@ ReturnCode EditorConnection::receiveModes()
 
 ReturnCode EditorConnection::receiveModeCount()
 {
-  // need at least the buffer size first
-  uint32_t size = 0;
-  if (m_receiveBuffer.size() < sizeof(size)) {
-    // wait, not enough data available yet
-    return RV_WAIT;
+  ByteStream buf;
+  m_rv = receiveBuffer(buf);
+  if (m_rv != RV_OK) {
+    return m_rv;
   }
-  // grab the size out of the start
-  m_receiveBuffer.resetUnserializer();
-  size = m_receiveBuffer.peek32();
-  if (m_receiveBuffer.size() < (size + sizeof(size))) {
-    // don't unserialize yet, not ready
-    return RV_WAIT;
-  }
-  // okay unserialize now, first unserialize the size
-  if (!m_receiveBuffer.consume32(&size)) {
-    return RV_FAIL;
-  }
-  // create a new ByteStream that will hold the full buffer of data
-  ByteStream buf(m_receiveBuffer.rawSize());
-  // then copy everything from the receive buffer into the rawdata
-  // which is going to overwrite the crc/size/flags of the ByteStream
-  if (!m_receiveBuffer.consume(buf.rawData(), m_receiveBuffer.size())) {
-    return RV_FAIL;
-  }
-  buf.sanity();
   // unserialize the mode count
   if (!buf.consume8(&m_numModesToReceive)) {
     return RV_FAIL;
@@ -541,34 +521,11 @@ ReturnCode EditorConnection::receiveModeCount()
 
 ReturnCode EditorConnection::receiveMode()
 {
-  // need at least the buffer size first
-  uint32_t size = 0;
-  if (m_receiveBuffer.size() < sizeof(size)) {
-    // wait, not enough data available yet
-    return RV_WAIT;
-  }
-  // grab the size out of the start
-  m_receiveBuffer.resetUnserializer();
-  size = m_receiveBuffer.peek32();
-  if (m_receiveBuffer.size() < (size + sizeof(size))) {
-    // don't unserialize yet, not ready
-    return RV_WAIT;
-  }
-  // okay unserialize now, first unserialize the size
-  if (!m_receiveBuffer.consume32(&size)) {
-    return RV_FAIL;
-  }
-  // create a new ByteStream that will hold the full buffer of data
   ByteStream buf;
-  if (!buf.init(m_receiveBuffer.rawSize())) {
-    return RV_FAIL;
+  m_rv = receiveBuffer(buf);
+  if (m_rv != RV_OK) {
+    return m_rv;
   }
-  // then copy everything from the receive buffer into the rawdata
-  // which is going to overwrite the crc/size/flags of the ByteStream
-  if (!m_receiveBuffer.consume(buf.rawData(), m_receiveBuffer.size())) {
-    return RV_FAIL;
-  }
-  buf.sanity();
   // unserialize the mode into the demo mode
   if (!Modes::addModeFromBuffer(buf)) {
     return RV_FAIL;
