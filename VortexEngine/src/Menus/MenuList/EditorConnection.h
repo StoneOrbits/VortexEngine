@@ -23,28 +23,25 @@ public:
   bool init() override;
   MenuAction run() override;
 
-  // broadcast the current preview mode over VL
-  void sendCurModeVL();
-
   // handlers for clicks
   void onShortClick() override;
   void onShortClick2() override;
   void onLongClick() override;
   void onLongClick2() override;
 
-  // menu conn
   void leaveMenu(bool doSave = false) override;
 
 private:
   void clearDemo();
   void handleErrors();
   void handleCommand();
+  void handleState();
   void showEditor();
   void receiveData();
-  void handleState();
   void sendModes();
   void sendModeCount();
   void sendCurMode();
+  void sendCurModeVL();
   ReturnCode sendBrightness();
   ReturnCode receiveBuffer(ByteStream &buffer);
   ReturnCode receiveModes();
@@ -84,6 +81,7 @@ private:
 
     // transmit the mode over visible light
     STATE_TRANSMIT_MODE_VL,
+    STATE_TRANSMIT_MODE_VL_TRANSMIT,
     STATE_TRANSMIT_MODE_VL_DONE,
 
     // editor pulls the modes from device (safer version)
@@ -107,6 +105,13 @@ private:
     // get global brightness
     STATE_GET_GLOBAL_BRIGHTNESS,
   };
+
+  struct CommandState
+  {
+    const char *cmd;
+    EditorConnection::EditorConnectionState cmdState;
+  };
+  static const CommandState commands[];
 
   // state of the editor
   EditorConnectionState m_state;
