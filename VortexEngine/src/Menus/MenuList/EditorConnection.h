@@ -6,6 +6,14 @@
 #include "../../Serial/ByteStream.h"
 #include "../../Modes/Mode.h"
 
+// various return codes that internal functions use
+enum ReturnCode
+{
+  RV_FAIL = 0,
+  RV_OK,
+  RV_WAIT,
+};
+
 class EditorConnection : public Menu
 {
 public:
@@ -15,20 +23,6 @@ public:
   bool init() override;
   MenuAction run() override;
 
-  // broadcast the current preview mode over VL
-  void sendCurModeVL();
-  void listenModeVL();
-
-  // pull/push through the chromalink
-  bool pullHeaderChromalink();
-  bool pushHeaderChromalink();
-  bool pullModeChromalink();
-  bool pushModeChromalink();
-
-  bool writeDuoFirmware();
-  bool backupDuoModes();
-  bool restoreDuoModes();
-
   // handlers for clicks
   void onShortClickM() override;
   void onLongClickM() override;
@@ -36,27 +30,41 @@ public:
   // menu conn
   void leaveMenu(bool doSave = false) override;
 
+  // broadcast the current preview mode over VL
+  void sendCurModeVL();
+  void listenModeVL();
+
 private:
+  void handleState();
+  void clearDemo();
+  void handleErrors();
   void handleCommand();
   void showEditor();
   void receiveData();
-  void handleState();
   void sendModes();
   void sendModeCount();
   void sendCurMode();
-  bool receiveBuffer(ByteStream &buffer);
-  bool receiveFirmwareChunk(ByteStream &buffer);
-  bool receiveModes();
-  bool receiveModeCount();
-  bool receiveMode();
-  bool receiveDemoMode();
-  bool receiveMessage(const char *message);
-  void clearDemo();
-  bool receiveBrightness();
-  void receiveModeVL();
+  ReturnCode receiveBuffer(ByteStream &buffer);
+  ReturnCode receiveModes();
+  ReturnCode receiveModeCount();
+  ReturnCode receiveMode();
+  ReturnCode receiveDemoMode();
+  ReturnCode receiveMessage(const char *message);
+  ReturnCode receiveBrightness();
+  ReturnCode receiveFirmwareChunk(ByteStream &buffer);
+  ReturnCode receiveModeVL();
   void showReceiveModeVL();
-  bool receiveModeIdx(uint8_t &idx);
-  bool receiveFirmwareSize(uint32_t &idx);
+  ReturnCode receiveModeIdx(uint8_t &idx);
+  ReturnCode receiveFirmwareSize(uint32_t &idx);
+  // pull/push through the chromalink
+  ReturnCode pullHeaderChromalink();
+  ReturnCode pushHeaderChromalink();
+  ReturnCode pullModeChromalink();
+  ReturnCode pushModeChromalink();
+  // backup and restore duo modes
+  ReturnCode writeDuoFirmware();
+  ReturnCode backupDuoModes();
+  ReturnCode restoreDuoModes();
 
   enum EditorConnectionState {
     // the editor is not connected
@@ -155,6 +163,8 @@ private:
   uint8_t m_previousModeIndex;
   // the number of modes that should be received
   uint8_t m_numModesToReceive;
+  // internal return value tracker
+  ReturnCode m_rv;
 
   // current step of transfer
   uint32_t m_curStep;

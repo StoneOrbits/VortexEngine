@@ -543,7 +543,6 @@
 // set the global brightness of the device
 #define EDITOR_VERB_SET_GLOBAL_BRIGHTNESS "L"
 
-
 // ===================================================================
 //  Manually Configured Sizes
 //
