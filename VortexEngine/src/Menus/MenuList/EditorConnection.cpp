@@ -71,7 +71,17 @@ void EditorConnection::onShortClick()
   m_allowReset = false;
 }
 
+void EditorConnection::onShortClick2()
+{
+  sendCurModeVL();
+}
+
 void EditorConnection::onLongClick()
+{
+  leaveMenu(true);
+}
+
+void EditorConnection::onLongClick2()
 {
   leaveMenu(true);
 }
@@ -172,7 +182,7 @@ void EditorConnection::handleState()
     // parse the receive buffer for any commands from the editor
     handleCommand();
     // watch for disconnects
-    if (!SerialComs::isConnectedReal()) {
+    if (!SerialComs::isConnected()) {
       Leds::holdAll(RGB_RED);
       leaveMenu(true);
     }
