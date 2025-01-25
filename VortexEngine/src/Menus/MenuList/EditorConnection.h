@@ -49,6 +49,8 @@ private:
   ReturnCode receiveModes();
   ReturnCode receiveModeCount();
   ReturnCode receiveMode();
+  ReturnCode receiveModeVL();
+  void showReceiveModeVL();
   ReturnCode receiveDemoMode();
   ReturnCode receiveMessage(const char *message);
   ReturnCode receiveBrightness();

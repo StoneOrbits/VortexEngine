@@ -224,7 +224,10 @@ void EditorConnection::handleState()
   //  Receive Mode from Duo
   case STATE_LISTEN_MODE_VL:
     showReceiveModeVL();
-    receiveModeVL();
+    if (receiveModeVL() == RV_WAIT) {
+      break;
+    }
+    m_state = STATE_LISTEN_MODE_VL_DONE;
     break;
   case STATE_LISTEN_MODE_VL_DONE:
     // done transmitting
@@ -581,6 +584,47 @@ ReturnCode EditorConnection::receiveMode()
     return RV_FAIL;
   }
   return RV_OK;
+}
+
+ReturnCode EditorConnection::receiveModeVL()
+{
+  // if reveiving new data set our last data time
+  if (VLReceiver::onNewData()) {
+    m_timeOutStartTime = Time::getCurtime();
+    // if our last data was more than time out duration reset the recveiver
+  } else if (m_timeOutStartTime > 0 && (m_timeOutStartTime + MAX_TIMEOUT_DURATION) < Time::getCurtime()) {
+    VLReceiver::resetVLState();
+    m_timeOutStartTime = 0;
+    return RV_WAIT;
+  }
+  // check if the VLReceiver has a full packet available
+  if (!VLReceiver::dataReady()) {
+    // nothing available yet
+    return RV_WAIT;
+  }
+  DEBUG_LOG("Mode ready to receive! Receiving...");
+  // receive the VL mode into the current mode
+  if (!VLReceiver::receiveMode(&m_previewMode)) {
+    ERROR_LOG("Failed to receive mode");
+    return RV_FAIL;
+  }
+  DEBUG_LOGF("Success receiving mode: %u", m_previewMode.getPatternID());
+  Modes::updateCurMode(&m_previewMode);
+  ByteStream modeBuffer;
+  m_previewMode.saveToBuffer(modeBuffer);
+  SerialComs::write(modeBuffer);
+  return RV_OK;
+}
+
+void EditorConnection::showReceiveModeVL()
+{
+  if (VLReceiver::isReceiving()) {
+    // using uint32_t to avoid overflow, the result should be within 10 to 255
+    //Leds::setAll(RGBColor(0, VLReceiver::percentReceived(), 0));
+    Leds::setRange(LED_0, (LedPos)(VLReceiver::percentReceived() / 10), RGB_GREEN6);
+  } else {
+    Leds::setAll(RGB_WHITE0);
+  }
 }
 
 ReturnCode EditorConnection::receiveDemoMode()
