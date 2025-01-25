@@ -45,6 +45,7 @@ private:
   void sendModes();
   void sendModeCount();
   void sendCurMode();
+  ReturnCode sendBrightness();
   ReturnCode receiveBuffer(ByteStream &buffer);
   ReturnCode receiveModes();
   ReturnCode receiveModeCount();
@@ -102,6 +103,9 @@ private:
     // set global brightness
     STATE_SET_GLOBAL_BRIGHTNESS,
     STATE_SET_GLOBAL_BRIGHTNESS_RECEIVE,
+
+    // get global brightness
+    STATE_GET_GLOBAL_BRIGHTNESS,
   };
 
   // state of the editor
