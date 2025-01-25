@@ -29,12 +29,7 @@ public:
 
   void leaveMenu(bool doSave = false) override;
 
-  // broadcast the current preview mode over VL
-  void sendCurModeVL();
-  void listenModeVL();
-
 private:
-  void handleState();
   void clearDemo();
   void handleErrors();
   void handleCommand();
@@ -53,7 +48,6 @@ private:
   ReturnCode receiveDemoMode();
   ReturnCode receiveMessage(const char *message);
   ReturnCode receiveBrightness();
-  ReturnCode receiveFirmwareChunk(ByteStream &buffer);
   ReturnCode receiveModeVL();
   void showReceiveModeVL();
   ReturnCode receiveModeIdx(uint8_t &idx);

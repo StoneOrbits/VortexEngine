@@ -777,29 +777,6 @@ ReturnCode EditorConnection::receiveBrightness()
   return RV_OK;
 }
 
-ReturnCode EditorConnection::receiveFirmwareChunk(ByteStream &buffer)
-{
-  // need at least the buffer size first
-  uint32_t size = 0;
-  // read the 140 byte chunk
-  SerialComs::readAmount(144, m_receiveBuffer);
-  // create a new ByteStream that will hold the full buffer of data
-  // create a new ByteStream that will hold the full buffer of data
-  if (!buffer.init(m_receiveBuffer.rawSize())) {
-    return RV_FAIL;
-  }
-  // then copy everything from the receive buffer into the rawdata
-  // which is going to overwrite the crc/size/flags of the ByteStream
-  if (!m_receiveBuffer.consume(buffer.rawData(), m_receiveBuffer.size())) {
-    return RV_FAIL;
-  }
-  // clear the receive buffer
-  if (!buffer.checkCRC()) {
-    return RV_FAIL;
-  }
-  return RV_OK;
-}
-
 ReturnCode EditorConnection::receiveModeVL()
 {
   // if reveiving new data set our last data time
