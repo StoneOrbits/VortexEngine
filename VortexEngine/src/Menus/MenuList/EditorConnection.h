@@ -27,7 +27,6 @@ public:
   void onShortClickM() override;
   void onLongClickM() override;
 
-  // menu conn
   void leaveMenu(bool doSave = false) override;
 
   // broadcast the current preview mode over VL
@@ -39,11 +38,13 @@ private:
   void clearDemo();
   void handleErrors();
   void handleCommand();
+  void handleState();
   void showEditor();
   void receiveData();
   void sendModes();
   void sendModeCount();
   void sendCurMode();
+  void sendCurModeVL();
   ReturnCode sendBrightness();
   ReturnCode receiveBuffer(ByteStream &buffer);
   ReturnCode receiveModes();
@@ -97,6 +98,7 @@ private:
 
     // transmit the mode over visible light
     STATE_TRANSMIT_MODE_VL,
+    STATE_TRANSMIT_MODE_VL_TRANSMIT,
     STATE_TRANSMIT_MODE_VL_DONE,
 
     // receive a mode over VL
@@ -152,6 +154,13 @@ private:
     // toggle whether flashing firmware will backup modes
     STATE_CHROMALINK_FLASH_FIRMWARE_TOGGLE_BACKUP,
   };
+
+  struct CommandState
+  {
+    const char *cmd;
+    EditorConnection::EditorConnectionState cmdState;
+  };
+  static const CommandState commands[];
 
   // state of the editor
   EditorConnectionState m_state;

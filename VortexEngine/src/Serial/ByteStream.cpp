@@ -462,8 +462,10 @@ bool ByteStream::consume8(uint8_t *bytes)
   if (!m_pData || m_position >= m_pData->size || (m_pData->size - m_position) < sizeof(uint8_t)) {
     return false;
   }
-  // copy out the data
-  memcpy(bytes, m_pData->buf, sizeof(uint8_t));
+  if (bytes) {
+    // copy out the data
+    memcpy(bytes, m_pData->buf, sizeof(uint8_t));
+  }
   // adjust the size
   m_pData->size -= sizeof(uint8_t);
   // shift the data
@@ -478,8 +480,10 @@ bool ByteStream::consume16(uint16_t *bytes)
   if (!m_pData || m_position >= m_pData->size || (m_pData->size - m_position) < sizeof(uint16_t)) {
     return false;
   }
-  // copy out the data
-  memcpy(bytes, m_pData->buf, sizeof(uint16_t));
+  if (bytes) {
+    // copy out the data
+    memcpy(bytes, m_pData->buf, sizeof(uint16_t));
+  }
   // adjust the size
   m_pData->size -= sizeof(uint16_t);
   // shift the data
@@ -494,8 +498,10 @@ bool ByteStream::consume32(uint32_t *bytes)
   if (!m_pData || m_position >= m_pData->size || (m_pData->size - m_position) < sizeof(uint32_t)) {
     return false;
   }
-  // copy out the data
-  memcpy(bytes, m_pData->buf, sizeof(uint32_t));
+  if (bytes) {
+    // copy out the data
+    memcpy(bytes, m_pData->buf, sizeof(uint32_t));
+  }
   // adjust the size
   m_pData->size -= sizeof(uint32_t);
   // shift the data
@@ -505,7 +511,7 @@ bool ByteStream::consume32(uint32_t *bytes)
   return true;
 }
 
-bool ByteStream::consume(void *bytes, uint32_t size)
+bool ByteStream::consume(uint32_t size, void *bytes)
 {
   if (!m_pData || m_position >= m_pData->size || (m_pData->size - m_position) < size) {
     return false;

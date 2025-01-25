@@ -89,30 +89,65 @@ void EditorConnection::onLongClickM()
   leaveMenu(true);
 }
 
-// handlers for clicks
 void EditorConnection::leaveMenu(bool doSave)
 {
   SerialComs::write(EDITOR_VERB_GOODBYE);
   Menu::leaveMenu(true);
 }
 
-void EditorConnection::sendCurModeVL()
+void EditorConnection::clearDemo()
 {
-#if VL_ENABLE_SENDER == 1
-  // immediately load the mode and send it now
-  VLSender::loadMode(&m_previewMode);
-  VLSender::send();
-#endif
-  m_state = STATE_TRANSMIT_MODE_VL;
+  Colorset set(RGB_WHITE0);
+  PatternArgs args(1, 0, 0);
+  m_previewMode.setPattern(PATTERN_STROBE, LED_ALL, &args, &set);
+  m_previewMode.init();
 }
 
-void EditorConnection::listenModeVL()
+void EditorConnection::handleErrors()
 {
-#if VL_ENABLE_SENDER == 1
-  // immediately load the mode and send it now
-  VLReceiver::beginReceiving();
-#endif
-  m_state = STATE_LISTEN_MODE_VL;
+  if (m_rv == RV_FAIL) {
+    // handle failure from before, reset rv
+    m_rv = RV_OK;
+    // clear the buffer I guess
+    m_receiveBuffer.clear();
+  }
+  // TODO: Custom error codes?
+}
+
+const EditorConnection::CommandState EditorConnection::commands[] = {
+  { EDITOR_VERB_PULL_MODES, STATE_PULL_MODES },
+  { EDITOR_VERB_PUSH_MODES, STATE_PUSH_MODES },
+  { EDITOR_VERB_DEMO_MODE, STATE_DEMO_MODE },
+  { EDITOR_VERB_CLEAR_DEMO, STATE_CLEAR_DEMO },
+  { EDITOR_VERB_PULL_EACH_MODE, STATE_PULL_EACH_MODE },
+  { EDITOR_VERB_PUSH_EACH_MODE, STATE_PUSH_EACH_MODE },
+  { EDITOR_VERB_TRANSMIT_VL, STATE_TRANSMIT_MODE_VL },
+  { EDITOR_VERB_SET_GLOBAL_BRIGHTNESS, STATE_SET_GLOBAL_BRIGHTNESS },
+  { EDITOR_VERB_GET_GLOBAL_BRIGHTNESS, STATE_GET_GLOBAL_BRIGHTNESS },
+};
+#define NUM_COMMANDS (sizeof(commands) / sizeof(commands[0]))
+
+void EditorConnection::handleCommand()
+{
+  if (m_receiveBuffer.size() < 1) {
+    return;
+  }
+  for (uint32_t i = 0; i < NUM_COMMANDS; ++i) {
+    // commands are just one letter, don't consume it yet so we can compare
+    // each cmd in the list, this probably should be a lookup table
+    char receiveCmd = m_receiveBuffer.data()[0];
+    // if the command matches
+    if (receiveCmd != commands[i].cmd[0]) {
+      continue;
+    }
+    // then consume the data from the receive buffer and update the state
+    m_receiveBuffer.consume8();
+    m_state = commands[i].cmdState;
+    // we have now received at least one command, do not allow resetting
+    m_allowReset = false;
+    // don't need to check any more commands
+    break;
+  }
 }
 
 void EditorConnection::handleState()
@@ -234,6 +269,14 @@ void EditorConnection::handleState()
   // -------------------------------
   //  Send Mode to Duo
   case STATE_TRANSMIT_MODE_VL:
+#if VL_ENABLE_SENDER == 1
+    // immediately load the mode and send it now
+    VLSender::loadMode(&m_previewMode);
+    VLSender::send();
+#endif
+    m_state = STATE_TRANSMIT_MODE_VL_TRANSMIT;
+    break;
+  case STATE_TRANSMIT_MODE_VL_TRANSMIT:
 #if VL_ENABLE_SENDER == 1
     // if still sending and the send command indicated more data
     if (VLSender::isSending() && VLSender::send()) {
@@ -515,63 +558,6 @@ void EditorConnection::handleState()
   }
 }
 
-void EditorConnection::clearDemo()
-{
-  Colorset set(RGB_WHITE0);
-  PatternArgs args(1, 0, 0);
-  m_previewMode.setPattern(PATTERN_STROBE, LED_ALL, &args, &set);
-  m_previewMode.init();
-}
-
-void EditorConnection::handleErrors()
-{
-  if (m_rv == RV_FAIL) {
-    Leds::holdAll(RGB_RED);
-    Leds::holdAll(RGB_GREEN);
-    Leds::holdAll(RGB_BLUE);
-    // handle failure from before, reset rv
-    m_rv = RV_OK;
-    // clear the buffer I guess
-    m_receiveBuffer.clear();
-  }
-  // TODO: Custom error codes?
-}
-
-void EditorConnection::handleCommand()
-{
-  if (receiveMessage(EDITOR_VERB_PULL_MODES) == RV_OK) {
-    m_state = STATE_PULL_MODES;
-  } else if (receiveMessage(EDITOR_VERB_PUSH_MODES) == RV_OK) {
-    m_state = STATE_PUSH_MODES;
-  } else if (receiveMessage(EDITOR_VERB_DEMO_MODE) == RV_OK) {
-    m_state = STATE_DEMO_MODE;
-  } else if (receiveMessage(EDITOR_VERB_CLEAR_DEMO) == RV_OK) {
-    m_state = STATE_CLEAR_DEMO;
-  } else if (receiveMessage(EDITOR_VERB_PULL_EACH_MODE) == RV_OK) {
-    m_state = STATE_PULL_EACH_MODE;
-  } else if (receiveMessage(EDITOR_VERB_PUSH_EACH_MODE) == RV_OK) {
-    m_state = STATE_PUSH_EACH_MODE;
-  } else if (receiveMessage(EDITOR_VERB_TRANSMIT_VL) == RV_OK) {
-    sendCurModeVL();
-  } else if (receiveMessage(EDITOR_VERB_LISTEN_VL) == RV_OK) {
-    listenModeVL();
-  } else if (receiveMessage(EDITOR_VERB_PULL_CHROMA_HDR) == RV_OK) {
-    m_state = STATE_PULL_HEADER_CHROMALINK;
-  } else if (receiveMessage(EDITOR_VERB_PUSH_CHROMA_HDR) == RV_OK) {
-    m_state = STATE_PUSH_HEADER_CHROMALINK;
-  } else if (receiveMessage(EDITOR_VERB_PULL_CHROMA_MODE) == RV_OK) {
-    m_state = STATE_PULL_MODE_CHROMALINK;
-  } else if (receiveMessage(EDITOR_VERB_PUSH_CHROMA_MODE) == RV_OK) {
-    m_state = STATE_PUSH_MODE_CHROMALINK;
-  } else if (receiveMessage(EDITOR_VERB_FLASH_FIRMWARE) == RV_OK) {
-    m_state = STATE_CHROMALINK_FLASH_FIRMWARE;
-  } else if (receiveMessage(EDITOR_VERB_SET_GLOBAL_BRIGHTNESS) == RV_OK) {
-    m_state = STATE_SET_GLOBAL_BRIGHTNESS;
-  } else if (receiveMessage(EDITOR_VERB_GET_GLOBAL_BRIGHTNESS) == RV_OK) {
-    m_state = STATE_GET_GLOBAL_BRIGHTNESS;
-  }
-}
-
 void EditorConnection::showEditor()
 {
   switch (m_state) {
@@ -630,6 +616,13 @@ void EditorConnection::sendCurMode()
   SerialComs::write(modeBuffer);
 }
 
+void EditorConnection::sendCurModeVL()
+{
+#if VL_ENABLE_SENDER == 1
+  m_state = STATE_TRANSMIT_MODE_VL;
+#endif
+}
+
 ReturnCode EditorConnection::sendBrightness()
 {
   ByteStream brightnessBuf;
@@ -666,7 +659,7 @@ ReturnCode EditorConnection::receiveBuffer(ByteStream &buffer)
   }
   // then copy everything from the receive buffer into the rawdata
   // which is going to overwrite the crc/size/flags of the ByteStream
-  if (!m_receiveBuffer.consume(buffer.rawData(), size)) {
+  if (!m_receiveBuffer.consume(size, buffer.rawData())) {
     return RV_FAIL;
   }
   buffer.sanity();
@@ -751,7 +744,7 @@ ReturnCode EditorConnection::receiveMessage(const char *message)
   if (memcmp(m_receiveBuffer.data(), message, len) != 0) {
     return RV_WAIT;
   }
-  if (!m_receiveBuffer.consume(nullptr, len)) {
+  if (!m_receiveBuffer.consume(len)) {
     return RV_FAIL;
   }
   // we have now received at least one command, do not allow resetting
@@ -772,7 +765,11 @@ ReturnCode EditorConnection::receiveBrightness()
     // failure
     return RV_FAIL;
   }
-  uint8_t brightness = buf.data()[0];
+  uint8_t brightness = 255;
+  if (!buf.consume8(&brightness) || brightness == 0) {
+    // they should never send 0 brightness
+    return RV_FAIL;
+  }
   if (brightness > 0) {
     Leds::setBrightness(brightness);
     Modes::saveHeader();

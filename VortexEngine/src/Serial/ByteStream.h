@@ -97,12 +97,12 @@ public:
   bool unserialize32(uint32_t *bytes);
 
   // unserialize data and erase it from the buffer
-  bool consume8(uint8_t *byte);
-  bool consume16(uint16_t *bytes);
-  bool consume32(uint32_t *bytes);
+  bool consume8(uint8_t *byte = nullptr);
+  bool consume16(uint16_t *bytes = nullptr);
+  bool consume32(uint32_t *bytes = nullptr);
 
   // unserialize and consume a whole chunk
-  bool consume(void *bytes, uint32_t size);
+  bool consume(uint32_t size, void *bytes = nullptr);
 
   uint8_t peek8() const;
   uint16_t peek16() const;
