@@ -604,7 +604,11 @@ ReturnCode EditorConnection::receiveBrightness()
     // failure
     return RV_FAIL;
   }
-  uint8_t brightness = buf.data()[0];
+  uint8_t brightness = 255;
+  if (!buf.consume8(&brightness) || brightness == 0) {
+    // they should never send 0 brightness
+    return RV_FAIL;
+  }
   if (brightness > 0) {
     Leds::setBrightness(brightness);
     Modes::saveHeader();
