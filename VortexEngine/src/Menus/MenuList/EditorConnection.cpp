@@ -445,9 +445,7 @@ void EditorConnection::showEditor()
     Leds::blinkAll(250, 150, RGB_WHITE0);
     break;
   case STATE_IDLE:
-    if (m_curStep == 0) {
-      m_previewMode.play();
-    }
+    m_previewMode.play();
     break;
   default:
     // do nothing!
