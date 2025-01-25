@@ -553,10 +553,10 @@ ReturnCode EditorConnection::receiveBrightness()
 {
   // create a new ByteStream that will hold the full buffer of data
   ByteStream buf;
-  ReturnCode rv = receiveBuffer(buf);
-  if (rv != RV_OK) {
+  m_rv = receiveBuffer(buf);
+  if (m_rv != RV_OK) {
     // RV_WAIT or RV_FAIL
-    return rv;
+    return m_rv;
   }
   if (!buf.size()) {
     // failure
