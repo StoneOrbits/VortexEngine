@@ -50,7 +50,6 @@ bool EditorConnection::init()
   // skip led selection
   m_ledSelected = true;
   clearDemo();
-
   DEBUG_LOG("Entering Editor Connection");
   return true;
 }
@@ -568,9 +567,9 @@ void EditorConnection::showEditor()
     Leds::blinkAll(250, 150, RGB_WHITE0);
     break;
   case STATE_IDLE:
-    if (m_curStep == 0) {
+    //if (m_curStep == 0) {
       m_previewMode.play();
-    }
+    //}
     break;
   default:
     // do nothing!
@@ -582,6 +581,9 @@ void EditorConnection::showEditor()
 
 void EditorConnection::receiveData()
 {
+  if (m_receiveBuffer.size() >= 512) {
+    return;
+  }
   // read more data into the receive buffer
   SerialComs::read(m_receiveBuffer);
 }
@@ -786,10 +788,10 @@ ReturnCode EditorConnection::receiveBrightness()
 {
   // create a new ByteStream that will hold the full buffer of data
   ByteStream buf;
-  ReturnCode rv = receiveBuffer(buf);
-  if (rv != RV_OK) {
+  m_rv = receiveBuffer(buf);
+  if (m_rv != RV_OK) {
     // RV_WAIT or RV_FAIL
-    return rv;
+    return m_rv;
   }
   if (!buf.size()) {
     // failure
@@ -916,8 +918,9 @@ ReturnCode EditorConnection::pushHeaderChromalink()
 {
   // wait for the header then write it via updi
   ByteStream buf;
-  if (!receiveBuffer(buf)) {
-    return RV_WAIT;
+  m_rv = receiveBuffer(buf);
+  if (m_rv != RV_OK) {
+    return m_rv;
   }
   if (!UPDI::writeHeader(buf)) {
     return RV_FAIL;
@@ -960,8 +963,9 @@ ReturnCode EditorConnection::pushModeChromalink()
   Leds::setRadials(RADIAL_0, (Radial)m_chromaModeIdx, RGB_GREEN4);
   // wait for the mode then write it via updi
   ByteStream buf;
-  if (!receiveBuffer(buf)) {
-    return RV_WAIT;
+  m_rv = receiveBuffer(buf);
+  if (m_rv != RV_OK) {
+    return m_rv;
   }
   if (!UPDI::writeMode(m_chromaModeIdx, buf)) {
     return RV_FAIL;
@@ -1044,8 +1048,9 @@ ReturnCode EditorConnection::writeDuoFirmware()
   }
   // wait for the mode then write it via updi
   ByteStream buf;
-  if (!receiveBuffer(buf)) {
-    return RV_WAIT;
+  m_rv = receiveBuffer(buf);
+  if (m_rv != RV_OK) {
+    return m_rv;
   }
   // write out the firmware and record it if successful
   if (!UPDI::writeFirmware(m_firmwareOffset, buf)) {
