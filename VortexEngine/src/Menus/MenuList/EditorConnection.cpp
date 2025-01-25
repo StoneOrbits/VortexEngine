@@ -228,7 +228,6 @@ void EditorConnection::handleState()
     break;
   case STATE_LISTEN_MODE_VL_DONE:
     // done transmitting
-    m_receiveBuffer.clear();
     SerialComs::write(EDITOR_VERB_LISTEN_VL_ACK);
     m_state = STATE_IDLE;
     break;
