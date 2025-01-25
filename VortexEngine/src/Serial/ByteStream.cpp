@@ -510,8 +510,10 @@ bool ByteStream::consume(void *bytes, uint32_t size)
   if (!m_pData || m_position >= m_pData->size || (m_pData->size - m_position) < size) {
     return false;
   }
-  // copy out the data
-  memcpy(bytes, m_pData->buf, size);
+  if (bytes) {
+    // copy out the data
+    memcpy(bytes, m_pData->buf, size);
+  }
   // adjust the size
   m_pData->size -= size;
   // shift the data

@@ -518,6 +518,9 @@ void EditorConnection::clearDemo()
 void EditorConnection::handleErrors()
 {
   if (m_rv == RV_FAIL) {
+    Leds::holdAll(RGB_RED);
+    Leds::holdAll(RGB_GREEN);
+    Leds::holdAll(RGB_BLUE);
     // handle failure from before, reset rv
     m_rv = RV_OK;
     // clear the buffer I guess
@@ -528,33 +531,33 @@ void EditorConnection::handleErrors()
 
 void EditorConnection::handleCommand()
 {
-  if (receiveMessage(EDITOR_VERB_PULL_MODES)) {
+  if (receiveMessage(EDITOR_VERB_PULL_MODES) == RV_OK) {
     m_state = STATE_PULL_MODES;
-  } else if (receiveMessage(EDITOR_VERB_PUSH_MODES)) {
+  } else if (receiveMessage(EDITOR_VERB_PUSH_MODES) == RV_OK) {
     m_state = STATE_PUSH_MODES;
-  } else if (receiveMessage(EDITOR_VERB_DEMO_MODE)) {
+  } else if (receiveMessage(EDITOR_VERB_DEMO_MODE) == RV_OK) {
     m_state = STATE_DEMO_MODE;
-  } else if (receiveMessage(EDITOR_VERB_CLEAR_DEMO)) {
+  } else if (receiveMessage(EDITOR_VERB_CLEAR_DEMO) == RV_OK) {
     m_state = STATE_CLEAR_DEMO;
-  } else if (receiveMessage(EDITOR_VERB_PULL_EACH_MODE)) {
+  } else if (receiveMessage(EDITOR_VERB_PULL_EACH_MODE) == RV_OK) {
     m_state = STATE_PULL_EACH_MODE;
-  } else if (receiveMessage(EDITOR_VERB_PUSH_EACH_MODE)) {
+  } else if (receiveMessage(EDITOR_VERB_PUSH_EACH_MODE) == RV_OK) {
     m_state = STATE_PUSH_EACH_MODE;
-  } else if (receiveMessage(EDITOR_VERB_TRANSMIT_VL)) {
+  } else if (receiveMessage(EDITOR_VERB_TRANSMIT_VL) == RV_OK) {
     sendCurModeVL();
-  } else if (receiveMessage(EDITOR_VERB_LISTEN_VL)) {
+  } else if (receiveMessage(EDITOR_VERB_LISTEN_VL) == RV_OK) {
     listenModeVL();
-  } else if (receiveMessage(EDITOR_VERB_PULL_CHROMA_HDR)) {
+  } else if (receiveMessage(EDITOR_VERB_PULL_CHROMA_HDR) == RV_OK) {
     m_state = STATE_PULL_HEADER_CHROMALINK;
-  } else if (receiveMessage(EDITOR_VERB_PUSH_CHROMA_HDR)) {
+  } else if (receiveMessage(EDITOR_VERB_PUSH_CHROMA_HDR) == RV_OK) {
     m_state = STATE_PUSH_HEADER_CHROMALINK;
-  } else if (receiveMessage(EDITOR_VERB_PULL_CHROMA_MODE)) {
+  } else if (receiveMessage(EDITOR_VERB_PULL_CHROMA_MODE) == RV_OK) {
     m_state = STATE_PULL_MODE_CHROMALINK;
-  } else if (receiveMessage(EDITOR_VERB_PUSH_CHROMA_MODE)) {
+  } else if (receiveMessage(EDITOR_VERB_PUSH_CHROMA_MODE) == RV_OK) {
     m_state = STATE_PUSH_MODE_CHROMALINK;
-  } else if (receiveMessage(EDITOR_VERB_FLASH_FIRMWARE)) {
+  } else if (receiveMessage(EDITOR_VERB_FLASH_FIRMWARE) == RV_OK) {
     m_state = STATE_CHROMALINK_FLASH_FIRMWARE;
-  } else if (receiveMessage(EDITOR_VERB_SET_GLOBAL_BRIGHTNESS)) {
+  } else if (receiveMessage(EDITOR_VERB_SET_GLOBAL_BRIGHTNESS) == RV_OK) {
     m_state = STATE_SET_GLOBAL_BRIGHTNESS;
   }
 }
@@ -567,9 +570,9 @@ void EditorConnection::showEditor()
     Leds::blinkAll(250, 150, RGB_WHITE0);
     break;
   case STATE_IDLE:
-    //if (m_curStep == 0) {
+    if (m_curStep == 0) {
       m_previewMode.play();
-    //}
+    }
     break;
   default:
     // do nothing!
@@ -638,12 +641,12 @@ ReturnCode EditorConnection::receiveBuffer(ByteStream &buffer)
     return RV_FAIL;
   }
   // create a new ByteStream that will hold the full buffer of data
-  if (!buffer.init(m_receiveBuffer.rawSize())) {
+  if (!buffer.init(size)) {
     return RV_FAIL;
   }
   // then copy everything from the receive buffer into the rawdata
   // which is going to overwrite the crc/size/flags of the ByteStream
-  if (!m_receiveBuffer.consume(buffer.rawData(), m_receiveBuffer.size())) {
+  if (!m_receiveBuffer.consume(buffer.rawData(), size)) {
     return RV_FAIL;
   }
   buffer.sanity();
@@ -772,12 +775,10 @@ ReturnCode EditorConnection::receiveMessage(const char *message)
     return RV_WAIT;
   }
   if (memcmp(m_receiveBuffer.data(), message, len) != 0) {
-    return RV_FAIL;
+    return RV_WAIT;
   }
-  for (size_t i = 0; i < len; ++i) {
-    if (!m_receiveBuffer.consume8(&byte)) {
-      return RV_FAIL;
-    }
+  if (!m_receiveBuffer.consume(nullptr, len)) {
+    return RV_FAIL;
   }
   // we have now received at least one command, do not allow resetting
   m_allowReset = false;

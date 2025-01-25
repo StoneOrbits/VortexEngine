@@ -120,8 +120,8 @@ enum Radial : uint8_t
 
 static_assert(RADIAL_COUNT == (LED_COUNT / 2), "Incorrect number of Radials for Leds! Adjust the Led enum or Radial enum to match");
 
-#define radialInner(radial) (LedPos)(LED_10 + radial)
-#define radialOuter(radial) (LedPos)(LED_0 + radial)
+#define radialInner(radial) (LedPos)((uint32_t)LED_10 + (uint32_t)radial)
+#define radialOuter(radial) (LedPos)((uint32_t)LED_0 + (uint32_t)radial)
 
 // check if an led is even or odd
 #define isEven(pos) ((pos % 2) == 0)
