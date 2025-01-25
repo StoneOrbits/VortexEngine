@@ -369,6 +369,13 @@ void EditorConnection::handleState()
     break;
 
   // -------------------------------
+  //  Get Global Brightness
+  case STATE_GET_GLOBAL_BRIGHTNESS:
+    sendBrightness();
+    m_state = STATE_IDLE;
+    break;
+
+  // -------------------------------
   //  Get Chromalinked Duo Header
   case STATE_PULL_HEADER_CHROMALINK:
     if (!pullHeaderChromalink()) {
@@ -502,7 +509,6 @@ void EditorConnection::handleState()
     // show green
     Leds::setAll(RGB_GREEN);
     SerialComs::write(EDITOR_VERB_FLASH_FIRMWARE_DONE);
-    m_state = STATE_IDLE;
     break;
   }
 }
@@ -559,6 +565,8 @@ void EditorConnection::handleCommand()
     m_state = STATE_CHROMALINK_FLASH_FIRMWARE;
   } else if (receiveMessage(EDITOR_VERB_SET_GLOBAL_BRIGHTNESS) == RV_OK) {
     m_state = STATE_SET_GLOBAL_BRIGHTNESS;
+  } else if (receiveMessage(EDITOR_VERB_GET_GLOBAL_BRIGHTNESS) == RV_OK) {
+    m_state = STATE_GET_GLOBAL_BRIGHTNESS;
   }
 }
 
@@ -620,6 +628,16 @@ void EditorConnection::sendCurMode()
   SerialComs::write(modeBuffer);
 }
 
+ReturnCode EditorConnection::sendBrightness()
+{
+  ByteStream brightnessBuf;
+  if (!brightnessBuf.serialize8(Leds::getBrightness())) {
+    return RV_FAIL;
+  }
+  SerialComs::write(brightnessBuf);
+  return RV_OK;
+}
+
 ReturnCode EditorConnection::receiveBuffer(ByteStream &buffer)
 {
   // need at least the buffer size first
@@ -674,34 +692,11 @@ ReturnCode EditorConnection::receiveModes()
 
 ReturnCode EditorConnection::receiveModeCount()
 {
-  // need at least the buffer size first
-  uint32_t size = 0;
-  if (m_receiveBuffer.size() < sizeof(size)) {
-    // wait, not enough data available yet
-    return RV_WAIT;
-  }
-  // grab the size out of the start
-  m_receiveBuffer.resetUnserializer();
-  size = m_receiveBuffer.peek32();
-  if (m_receiveBuffer.size() < (size + sizeof(size))) {
-    // don't unserialize yet, not ready
-    return RV_WAIT;
-  }
-  // okay unserialize now, first unserialize the size
-  if (!m_receiveBuffer.consume32(&size)) {
-    return RV_FAIL;
-  }
-  // create a new ByteStream that will hold the full buffer of data
   ByteStream buf;
-  if (!buf.init(m_receiveBuffer.rawSize())) {
-    return RV_FAIL;
+  m_rv = receiveBuffer(buf);
+  if (m_rv != RV_OK) {
+    return m_rv;
   }
-  // then copy everything from the receive buffer into the rawdata
-  // which is going to overwrite the crc/size/flags of the ByteStream
-  if (!m_receiveBuffer.consume(buf.rawData(), m_receiveBuffer.size())) {
-    return RV_FAIL;
-  }
-  buf.sanity();
   // unserialize the mode count
   if (!buf.consume8(&m_numModesToReceive)) {
     return RV_FAIL;
@@ -715,34 +710,11 @@ ReturnCode EditorConnection::receiveModeCount()
 
 ReturnCode EditorConnection::receiveMode()
 {
-  // need at least the buffer size first
-  uint32_t size = 0;
-  if (m_receiveBuffer.size() < sizeof(size)) {
-    // wait, not enough data available yet
-    return RV_WAIT;
-  }
-  // grab the size out of the start
-  m_receiveBuffer.resetUnserializer();
-  size = m_receiveBuffer.peek32();
-  if (m_receiveBuffer.size() < (size + sizeof(size))) {
-    // don't unserialize yet, not ready
-    return RV_WAIT;
-  }
-  // okay unserialize now, first unserialize the size
-  if (!m_receiveBuffer.consume32(&size)) {
-    return RV_FAIL;
-  }
-  // create a new ByteStream that will hold the full buffer of data
   ByteStream buf;
-  if (!buf.init(m_receiveBuffer.rawSize())) {
-    return RV_FAIL;
+  m_rv = receiveBuffer(buf);
+  if (m_rv != RV_OK) {
+    return m_rv;
   }
-  // then copy everything from the receive buffer into the rawdata
-  // which is going to overwrite the crc/size/flags of the ByteStream
-  if (!m_receiveBuffer.consume(buf.rawData(), m_receiveBuffer.size())) {
-    return RV_FAIL;
-  }
-  buf.sanity();
   // unserialize the mode into the demo mode
   if (!Modes::addModeFromBuffer(buf)) {
     return RV_FAIL;
@@ -801,6 +773,7 @@ ReturnCode EditorConnection::receiveBrightness()
   uint8_t brightness = buf.data()[0];
   if (brightness > 0) {
     Leds::setBrightness(brightness);
+    Modes::saveHeader();
   }
   return RV_OK;
 }
