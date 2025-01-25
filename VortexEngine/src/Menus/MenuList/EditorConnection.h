@@ -6,6 +6,14 @@
 #include "../../Serial/ByteStream.h"
 #include "../../Modes/Mode.h"
 
+// various return codes that internal functions use
+enum ReturnCode
+{
+  RV_FAIL = 0,
+  RV_OK,
+  RV_WAIT,
+};
+
 class EditorConnection : public Menu
 {
 public:
@@ -27,6 +35,8 @@ public:
   void leaveMenu(bool doSave = false) override;
 
 private:
+  void clearDemo();
+  void handleErrors();
   void handleCommand();
   void showEditor();
   void receiveData();
@@ -34,18 +44,14 @@ private:
   void sendModes();
   void sendModeCount();
   void sendCurMode();
-  bool receiveBuffer(ByteStream &buffer);
-  bool receiveFirmwareChunk(ByteStream &buffer);
-  bool receiveModes();
-  bool receiveModeCount();
-  bool receiveMode();
-  bool receiveDemoMode();
-  bool receiveMessage(const char *message);
-  void clearDemo();
-  void receiveModeVL();
-  void showReceiveModeVL();
-  bool receiveModeIdx(uint8_t &idx);
-  bool receiveFirmwareSize(uint32_t &idx);
+  ReturnCode sendBrightness();
+  ReturnCode receiveBuffer(ByteStream &buffer);
+  ReturnCode receiveModes();
+  ReturnCode receiveModeCount();
+  ReturnCode receiveMode();
+  ReturnCode receiveDemoMode();
+  ReturnCode receiveMessage(const char *message);
+  ReturnCode receiveBrightness();
 
   enum EditorConnectionState {
     // the editor is not connected
@@ -96,27 +102,13 @@ private:
     STATE_PUSH_EACH_MODE_RECEIVE,
     STATE_PUSH_EACH_MODE_WAIT,
     STATE_PUSH_EACH_MODE_DONE,
-
-    // pull the header from the chromalinked duo
-    STATE_PULL_HEADER_CHROMALINK,
-
-    // pull a mode from the chromalinked duo
-    STATE_PULL_MODE_CHROMALINK,
-    STATE_PULL_MODE_CHROMALINK_SEND,
-
-    // push the header to the chromalinked duo
-    STATE_PUSH_HEADER_CHROMALINK,
-    STATE_PUSH_HEADER_CHROMALINK_RECEIVE,
     
-    // push a mode to the chromalinked duo
-    STATE_PUSH_MODE_CHROMALINK,
-    STATE_PUSH_MODE_CHROMALINK_RECEIVE_IDX,
-    STATE_PUSH_MODE_CHROMALINK_RECEIVE,
+    // set global brightness
+    STATE_SET_GLOBAL_BRIGHTNESS,
+    STATE_SET_GLOBAL_BRIGHTNESS_RECEIVE,
 
-    // flash the firmware of the chromalinked duo
-    STATE_CHROMALINK_FLASH_FIRMWARE,
-    STATE_CHROMALINK_FLASH_FIRMWARE_RECEIVE_SIZE,
-    STATE_CHROMALINK_FLASH_FIRMWARE_RECEIVE,
+    // get global brightness
+    STATE_GET_GLOBAL_BRIGHTNESS,
   };
 
   // state of the editor
@@ -133,13 +125,8 @@ private:
   uint8_t m_previousModeIndex;
   // the number of modes that should be received
   uint8_t m_numModesToReceive;
-
-  // current step of transfer
-  uint32_t m_curStep;
-  // firmware size for flashing duo
-  uint32_t m_firmwareSize;
-  // how much firmware written so far
-  uint32_t m_firmwareOffset;
+  // internal return value tracker
+  ReturnCode m_rv;
 };
 
 #endif

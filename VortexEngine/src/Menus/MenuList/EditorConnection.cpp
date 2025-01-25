@@ -26,9 +26,7 @@ EditorConnection::EditorConnection(const RGBColor &col, bool advanced) :
   m_allowReset(true),
   m_previousModeIndex(0),
   m_numModesToReceive(0),
-  m_curStep(0),
-  m_firmwareSize(0),
-  m_firmwareOffset(0)
+  m_rv(RV_OK)
 {
 }
 
@@ -50,29 +48,25 @@ bool EditorConnection::init()
   return true;
 }
 
-bool EditorConnection::receiveMessage(const char *message)
+ReturnCode EditorConnection::receiveMessage(const char *message)
 {
   size_t len = strlen(message);
   uint8_t byte = 0;
   // wait for the editor to ack the idle
   if (m_receiveBuffer.size() < len) {
-    return false;
+    return RV_WAIT;
   }
-  if (memcmp(m_receiveBuffer.frontUnserializer(), message, len) != 0) {
-    return false;
+  if (memcmp(m_receiveBuffer.data(), message, len) != 0) {
+    return RV_FAIL;
   }
   for (size_t i = 0; i < len; ++i) {
-    if (!m_receiveBuffer.unserialize8(&byte)) {
-      return false;
+    if (!m_receiveBuffer.consume8(&byte)) {
+      return RV_FAIL;
     }
-  }
-  // if everything was read out, reset
-  if (m_receiveBuffer.unserializerAtEnd()) {
-    m_receiveBuffer.clear();
   }
   // we have now received at least one command, do not allow resetting
   m_allowReset = false;
-  return true;
+  return RV_OK;
 }
 
 Menu::MenuAction EditorConnection::run()
@@ -113,7 +107,6 @@ void EditorConnection::handleState()
   // -------------------------------
   //  Send Greeting
   case STATE_GREETING:
-    m_receiveBuffer.clear();
     // send the hello greeting with our version number and build time
     SerialComs::write(EDITOR_VERB_GREETING);
     m_state = STATE_IDLE;
@@ -122,6 +115,8 @@ void EditorConnection::handleState()
   // -------------------------------
   //  Chillin
   case STATE_IDLE:
+    // handle any errors that may have occurred last run
+    handleErrors();
     // parse the receive buffer for any commands from the editor
     handleCommand();
     // watch for disconnects
@@ -140,12 +135,13 @@ void EditorConnection::handleState()
     break;
   case STATE_PULL_MODES_SEND:
     // recive the send modes ack from the editor
-    if (receiveMessage(EDITOR_VERB_PULL_MODES_DONE)) {
-      m_state = STATE_PULL_MODES_DONE;
+    if (receiveMessage(EDITOR_VERB_PULL_MODES_DONE) == RV_WAIT) {
+      // just wait
+      break;
     }
+    m_state = STATE_PULL_MODES_DONE;
     break;
   case STATE_PULL_MODES_DONE:
-    m_receiveBuffer.clear();
     // send our acknowledgement that the modes were sent
     SerialComs::write(EDITOR_VERB_PULL_MODES_ACK);
     // go idle
@@ -155,8 +151,6 @@ void EditorConnection::handleState()
   // -------------------------------
   //  Receive Modes from PC
   case STATE_PUSH_MODES:
-    // editor requested to push modes, clear first and reset first
-    m_receiveBuffer.clear();
     // now say we are ready
     SerialComs::write(EDITOR_VERB_READY);
     // move to receiving
@@ -164,14 +158,14 @@ void EditorConnection::handleState()
     break;
   case STATE_PUSH_MODES_RECEIVE:
     // receive the modes into the receive buffer
-    if (receiveModes()) {
-      // success modes were received send the done
-      m_state = STATE_PUSH_MODES_DONE;
+    if (receiveModes() == RV_WAIT) {
+      // just keep waiting
+      break;
     }
+    // success modes were received send the done
+    m_state = STATE_PUSH_MODES_DONE;
     break;
   case STATE_PUSH_MODES_DONE:
-    // say we are done
-    m_receiveBuffer.clear();
     SerialComs::write(EDITOR_VERB_PUSH_MODES_ACK);
     m_state = STATE_IDLE;
     break;
@@ -179,8 +173,6 @@ void EditorConnection::handleState()
   // -------------------------------
   //  Demo Mode from PC
   case STATE_DEMO_MODE:
-    // editor requested to push modes, clear first and reset first
-    m_receiveBuffer.clear();
     // now say we are ready
     SerialComs::write(EDITOR_VERB_READY);
     // move to receiving
@@ -188,14 +180,15 @@ void EditorConnection::handleState()
     break;
   case STATE_DEMO_MODE_RECEIVE:
     // receive the modes into the receive buffer
-    if (receiveDemoMode()) {
-      // success modes were received send the done
-      m_state = STATE_DEMO_MODE_DONE;
+    if (receiveDemoMode() == RV_WAIT) {
+      // just wait
+      break;
     }
+    // success modes were received send the done
+    m_state = STATE_DEMO_MODE_DONE;
     break;
   case STATE_DEMO_MODE_DONE:
     // say we are done
-    m_receiveBuffer.clear();
     SerialComs::write(EDITOR_VERB_DEMO_MODE_ACK);
     m_state = STATE_IDLE;
     break;
@@ -204,7 +197,6 @@ void EditorConnection::handleState()
   //  Reset Demo to Nothing
   case STATE_CLEAR_DEMO:
     clearDemo();
-    m_receiveBuffer.clear();
     SerialComs::write(EDITOR_VERB_CLEAR_DEMO_ACK);
     m_state = STATE_IDLE;
     break;
@@ -224,7 +216,6 @@ void EditorConnection::handleState()
     break;
   case STATE_TRANSMIT_MODE_VL_DONE:
     // done transmitting
-    m_receiveBuffer.clear();
     SerialComs::write(EDITOR_VERB_TRANSMIT_VL_ACK);
     m_state = STATE_IDLE;
     break;
@@ -246,22 +237,22 @@ void EditorConnection::handleState()
   //  Send Modes to PC Safer
   case STATE_PULL_EACH_MODE:
     // editor requested pull modes, send the modes
-    m_receiveBuffer.clear();
     sendModeCount();
     m_state = STATE_PULL_EACH_MODE_COUNT;
     break;
   case STATE_PULL_EACH_MODE_COUNT:
-    if (receiveMessage(EDITOR_VERB_PULL_EACH_MODE_ACK)) {
-      if (Modes::numModes() == 0) {
-        m_state = STATE_PULL_EACH_MODE_DONE;
-      } else {
-        m_previousModeIndex = Modes::curModeIndex();
-        m_state = STATE_PULL_EACH_MODE_SEND;
-      }
+    if (receiveMessage(EDITOR_VERB_PULL_EACH_MODE_ACK) == RV_WAIT) {
+      // just wait
+      break;
+    }
+    if (Modes::numModes() == 0) {
+      m_state = STATE_PULL_EACH_MODE_DONE;
+    } else {
+      m_previousModeIndex = Modes::curModeIndex();
+      m_state = STATE_PULL_EACH_MODE_SEND;
     }
     break;
   case STATE_PULL_EACH_MODE_SEND:
-    m_receiveBuffer.clear();
     // send the current mode
     sendCurMode();
     // wait for the ack
@@ -269,20 +260,21 @@ void EditorConnection::handleState()
     break;
   case STATE_PULL_EACH_MODE_WAIT:
     // recive the ack from the editor to send next mode
-    if (receiveMessage(EDITOR_VERB_PULL_EACH_MODE_ACK)) {
-      // if there is still more modes
-      if (Modes::curModeIndex() < (Modes::numModes() - 1)) {
-        // then iterate to the next mode and send
-        Modes::nextMode();
-        m_state = STATE_PULL_EACH_MODE_SEND;
-      } else {
-        // otherwise done sending modes
-        m_state = STATE_PULL_EACH_MODE_DONE;
-      }
+    if (receiveMessage(EDITOR_VERB_PULL_EACH_MODE_ACK) == RV_WAIT) {
+      // just wait
+      break;
+    }
+    // if there is still more modes
+    if (Modes::curModeIndex() < (Modes::numModes() - 1)) {
+      // then iterate to the next mode and send
+      Modes::nextMode();
+      m_state = STATE_PULL_EACH_MODE_SEND;
+    } else {
+      // otherwise done sending modes
+      m_state = STATE_PULL_EACH_MODE_DONE;
     }
     break;
   case STATE_PULL_EACH_MODE_DONE:
-    m_receiveBuffer.clear();
     // send our acknowledgement that the modes were sent
     SerialComs::write(EDITOR_VERB_PULL_EACH_MODE_DONE);
     // switch back to the previous mode
@@ -295,39 +287,62 @@ void EditorConnection::handleState()
   //  Receive Modes from PC Safer
   case STATE_PUSH_EACH_MODE:
     // editor requested to push modes, find out how many
-    m_receiveBuffer.clear();
     // ack the command and wait for the amount of modes
     SerialComs::write(EDITOR_VERB_PUSH_EACH_MODE_ACK);
     m_state = STATE_PUSH_EACH_MODE_COUNT;
     break;
   case STATE_PUSH_EACH_MODE_COUNT:
-    if (receiveModeCount()) {
-      // clear modes and start receiving
-      Modes::clearModes();
-      // write out an ack
-      m_receiveBuffer.clear();
-      SerialComs::write(EDITOR_VERB_PUSH_EACH_MODE_ACK);
-      // ready to receive a mode
-      m_state = STATE_PUSH_EACH_MODE_RECEIVE;
+    if (receiveModeCount() == RV_WAIT) {
+      // just wait
+      break;
     }
+    // clear modes and start receiving
+    Modes::clearModes();
+    // write out an ack
+    SerialComs::write(EDITOR_VERB_PUSH_EACH_MODE_ACK);
+    // ready to receive a mode
+    m_state = STATE_PUSH_EACH_MODE_RECEIVE;
     break;
   case STATE_PUSH_EACH_MODE_RECEIVE:
     // receive the modes into the receive buffer
-    if (receiveMode()) {
-      m_receiveBuffer.clear();
-      SerialComs::write(EDITOR_VERB_PUSH_EACH_MODE_ACK);
-      if (m_numModesToReceive > 0) {
-        m_numModesToReceive--;
-      }
-      if (!m_numModesToReceive) {
-        // success modes were received send the done
-        m_state = STATE_PUSH_EACH_MODE_DONE;
-      }
+    if (receiveMode() == RV_WAIT) {
+      // just wait
+      break;
+    }
+    SerialComs::write(EDITOR_VERB_PUSH_EACH_MODE_ACK);
+    if (m_numModesToReceive > 0) {
+      m_numModesToReceive--;
+    }
+    if (!m_numModesToReceive) {
+      // success modes were received send the done
+      m_state = STATE_PUSH_EACH_MODE_DONE;
     }
     break;
   case STATE_PUSH_EACH_MODE_DONE:
     // did originally receive/send a DONE message here but it wasn't working
     // on lightshow.lol so just skip to IDLE
+    m_state = STATE_IDLE;
+    break;
+
+  // -------------------------------
+  //  Set Global Brightness
+  case STATE_SET_GLOBAL_BRIGHTNESS:
+    SerialComs::write(EDITOR_VERB_READY);
+    m_state = STATE_SET_GLOBAL_BRIGHTNESS_RECEIVE;
+    break;
+  case STATE_SET_GLOBAL_BRIGHTNESS_RECEIVE:
+    // set the brightness of the device
+    if (receiveBrightness() == RV_WAIT) {
+      // just keep waiting
+      break;
+    }
+    m_state = STATE_IDLE;
+    break;
+
+  // -------------------------------
+  //  Get Global Brightness
+  case STATE_GET_GLOBAL_BRIGHTNESS:
+    sendBrightness();
     m_state = STATE_IDLE;
     break;
   }
@@ -378,24 +393,45 @@ void EditorConnection::leaveMenu(bool doSave)
   Menu::leaveMenu(true);
 }
 
+void EditorConnection::clearDemo()
+{
+  Colorset set(RGB_WHITE0);
+  PatternArgs args(1, 0, 0);
+  m_previewMode.setPattern(PATTERN_STROBE, LED_ALL, &args, &set);
+  m_previewMode.init();
+}
+
+void EditorConnection::handleErrors()
+{
+  if (m_rv == RV_FAIL) {
+    // handle failure from before, reset rv
+    m_rv = RV_OK;
+    // clear the buffer I guess
+    m_receiveBuffer.clear();
+  }
+  // TODO: Custom error codes?
+}
+
 void EditorConnection::handleCommand()
 {
-  if (receiveMessage(EDITOR_VERB_PULL_MODES)) {
+  if (receiveMessage(EDITOR_VERB_PULL_MODES) == RV_OK) {
     m_state = STATE_PULL_MODES;
-  } else if (receiveMessage(EDITOR_VERB_PUSH_MODES)) {
+  } else if (receiveMessage(EDITOR_VERB_PUSH_MODES) == RV_OK) {
     m_state = STATE_PUSH_MODES;
-  } else if (receiveMessage(EDITOR_VERB_DEMO_MODE)) {
+  } else if (receiveMessage(EDITOR_VERB_DEMO_MODE) == RV_OK) {
     m_state = STATE_DEMO_MODE;
-  } else if (receiveMessage(EDITOR_VERB_CLEAR_DEMO)) {
+  } else if (receiveMessage(EDITOR_VERB_CLEAR_DEMO) == RV_OK) {
     m_state = STATE_CLEAR_DEMO;
-  } else if (receiveMessage(EDITOR_VERB_PULL_EACH_MODE)) {
+  } else if (receiveMessage(EDITOR_VERB_PULL_EACH_MODE) == RV_OK) {
     m_state = STATE_PULL_EACH_MODE;
-  } else if (receiveMessage(EDITOR_VERB_PUSH_EACH_MODE)) {
+  } else if (receiveMessage(EDITOR_VERB_PUSH_EACH_MODE) == RV_OK) {
     m_state = STATE_PUSH_EACH_MODE;
-  } else if (receiveMessage(EDITOR_VERB_TRANSMIT_VL)) {
+  } else if (receiveMessage(EDITOR_VERB_TRANSMIT_VL) == RV_OK) {
     sendCurModeVL();
-  } else if (receiveMessage(EDITOR_VERB_LISTEN_VL)) {
-    listenModeVL();
+  } else if (receiveMessage(EDITOR_VERB_SET_GLOBAL_BRIGHTNESS) == RV_OK) {
+    m_state = STATE_SET_GLOBAL_BRIGHTNESS;
+  } else if (receiveMessage(EDITOR_VERB_GET_GLOBAL_BRIGHTNESS) == RV_OK) {
+    m_state = STATE_GET_GLOBAL_BRIGHTNESS;
   }
 }
 
@@ -454,230 +490,133 @@ void EditorConnection::sendCurMode()
   SerialComs::write(modeBuffer);
 }
 
-bool EditorConnection::receiveBuffer(ByteStream &buffer)
+ReturnCode EditorConnection::sendBrightness()
+{
+  ByteStream brightnessBuf;
+  if (!brightnessBuf.serialize8(Leds::getBrightness())) {
+    return RV_FAIL;
+  }
+  SerialComs::write(brightnessBuf);
+  return RV_OK;
+}
+
+ReturnCode EditorConnection::receiveBuffer(ByteStream &buffer)
 {
   // need at least the buffer size first
   uint32_t size = 0;
   if (m_receiveBuffer.size() < sizeof(size)) {
     // wait, not enough data available yet
-    return false;
+    return RV_WAIT;
   }
   // grab the size out of the start
   m_receiveBuffer.resetUnserializer();
   size = m_receiveBuffer.peek32();
   if (m_receiveBuffer.size() < (size + sizeof(size))) {
     // don't unserialize yet, not ready
-    return false;
+    return RV_WAIT;
   }
   // okay unserialize now, first unserialize the size
-  if (!m_receiveBuffer.unserialize32(&size)) {
-    return false;
+  if (!m_receiveBuffer.consume32(&size)) {
+    // this shouldn't fail!
+    return RV_FAIL;
   }
   // create a new ByteStream that will hold the full buffer of data
-  buffer.init(m_receiveBuffer.rawSize());
+  if (!buffer.init(size)) {
+    return RV_FAIL;
+  }
   // then copy everything from the receive buffer into the rawdata
   // which is going to overwrite the crc/size/flags of the ByteStream
-  memcpy(buffer.rawData(), m_receiveBuffer.data() + sizeof(size),
-    m_receiveBuffer.size() - sizeof(size));
-  // clear the receive buffer
-  m_receiveBuffer.clear();
-  if (!buffer.checkCRC()) {
-    return false;
+  if (!m_receiveBuffer.consume(buffer.rawData(), size)) {
+    return RV_FAIL;
   }
-  return true;
+  buffer.sanity();
+  if (!buffer.checkCRC()) {
+    buffer.clear();
+    // return true otherwise we'll get locked in this state forever
+    return RV_FAIL;
+  }
+  return RV_OK;
 }
 
-bool EditorConnection::receiveFirmwareChunk(ByteStream &buffer)
-{
-  // need at least the buffer size first
-  uint32_t size = 0;
-  // read the 140 byte chunk
-  SerialComs::readAmount(144, m_receiveBuffer);
-  // create a new ByteStream that will hold the full buffer of data
-  buffer.init(m_receiveBuffer.rawSize());
-  // then copy everything from the receive buffer into the rawdata
-  // which is going to overwrite the crc/size/flags of the ByteStream
-  memcpy(buffer.rawData(), m_receiveBuffer.data() + sizeof(size),
-    m_receiveBuffer.size() - sizeof(size));
-  // clear the receive buffer
-  m_receiveBuffer.clear();
-  if (!buffer.checkCRC()) {
-    return false;
-  }
-  return true;
-}
-
-bool EditorConnection::receiveModes()
+ReturnCode EditorConnection::receiveModes()
 {
   // create a new ByteStream that will hold the full buffer of data
   ByteStream buf;
-  if (!receiveBuffer(buf)) {
-    return false;
+  m_rv = receiveBuffer(buf);
+  if (m_rv != RV_OK) {
+    return m_rv;
   }
-  Modes::loadFromBuffer(buf);
-  Modes::saveStorage();
-  return true;
+  if (!Modes::loadFromBuffer(buf) || !Modes::saveStorage()) {
+    return RV_FAIL;
+  }
+  return RV_OK;
 }
 
-bool EditorConnection::receiveModeCount()
+ReturnCode EditorConnection::receiveModeCount()
 {
-  // need at least the buffer size first
-  uint32_t size = 0;
-  if (m_receiveBuffer.size() < sizeof(size)) {
-    // wait, not enough data available yet
-    return false;
+  ByteStream buf;
+  m_rv = receiveBuffer(buf);
+  if (m_rv != RV_OK) {
+    return m_rv;
   }
-  // grab the size out of the start
-  m_receiveBuffer.resetUnserializer();
-  size = m_receiveBuffer.peek32();
-  if (m_receiveBuffer.size() < (size + sizeof(size))) {
-    // don't unserialize yet, not ready
-    return false;
-  }
-  // okay unserialize now, first unserialize the size
-  if (!m_receiveBuffer.unserialize32(&size)) {
-    return false;
-  }
-  // create a new ByteStream that will hold the full buffer of data
-  ByteStream buf(m_receiveBuffer.rawSize());
-  // then copy everything from the receive buffer into the rawdata
-  // which is going to overwrite the crc/size/flags of the ByteStream
-  memcpy(buf.rawData(), m_receiveBuffer.data() + sizeof(size),
-    m_receiveBuffer.size() - sizeof(size));
   // unserialize the mode count
-  if (!buf.unserialize8(&m_numModesToReceive)) {
-    return false;
+  if (!buf.consume8(&m_numModesToReceive)) {
+    return RV_FAIL;
   }
   if (m_numModesToReceive > MAX_MODES) {
-    return false;
+    return RV_FAIL;
   }
   // good mode count
-  return true;
+  return RV_OK;
 }
 
-bool EditorConnection::receiveMode()
+ReturnCode EditorConnection::receiveMode()
 {
-  // need at least the buffer size first
-  uint32_t size = 0;
-  if (m_receiveBuffer.size() < sizeof(size)) {
-    // wait, not enough data available yet
-    return false;
+  ByteStream buf;
+  m_rv = receiveBuffer(buf);
+  if (m_rv != RV_OK) {
+    return m_rv;
   }
-  // grab the size out of the start
-  m_receiveBuffer.resetUnserializer();
-  size = m_receiveBuffer.peek32();
-  if (m_receiveBuffer.size() < (size + sizeof(size))) {
-    // don't unserialize yet, not ready
-    return false;
-  }
-  // okay unserialize now, first unserialize the size
-  if (!m_receiveBuffer.unserialize32(&size)) {
-    return false;
-  }
-  // create a new ByteStream that will hold the full buffer of data
-  ByteStream buf(m_receiveBuffer.rawSize());
-  // then copy everything from the receive buffer into the rawdata
-  // which is going to overwrite the crc/size/flags of the ByteStream
-  memcpy(buf.rawData(), m_receiveBuffer.data() + sizeof(size),
-    m_receiveBuffer.size() - sizeof(size));
-  // clear the receive buffer
-  m_receiveBuffer.clear();
   // unserialize the mode into the demo mode
   if (!Modes::addModeFromBuffer(buf)) {
-    // error
+    return RV_FAIL;
   }
-  return true;
+  return RV_OK;
 }
 
-bool EditorConnection::receiveDemoMode()
+ReturnCode EditorConnection::receiveDemoMode()
 {
   // create a new ByteStream that will hold the full buffer of data
   ByteStream buf;
-  if (!receiveBuffer(buf)) {
-    return false;
+  m_rv = receiveBuffer(buf);
+  if (m_rv != RV_OK) {
+    return m_rv;
   }
   // unserialize the mode into the demo mode
   if (!m_previewMode.loadFromBuffer(buf)) {
     // failure
+    return RV_FAIL;
   }
-  return true;
+  return RV_OK;
 }
 
-void EditorConnection::clearDemo()
+ReturnCode EditorConnection::receiveBrightness()
 {
-  Colorset set(RGB_WHITE0);
-  PatternArgs args(1, 0, 0);
-  m_previewMode.setPattern(PATTERN_STROBE, LED_ALL, &args, &set);
-  m_previewMode.init();
-}
-
-void EditorConnection::receiveModeVL()
-{
-  // if reveiving new data set our last data time
-  if (VLReceiver::onNewData()) {
-    m_timeOutStartTime = Time::getCurtime();
-    // if our last data was more than time out duration reset the recveiver
-  } else if (m_timeOutStartTime > 0 && (m_timeOutStartTime + MAX_TIMEOUT_DURATION) < Time::getCurtime()) {
-    VLReceiver::resetVLState();
-    m_timeOutStartTime = 0;
-    return;
+  // create a new ByteStream that will hold the full buffer of data
+  ByteStream buf;
+  m_rv = receiveBuffer(buf);
+  if (m_rv != RV_OK) {
+    // RV_WAIT or RV_FAIL
+    return m_rv;
   }
-  // check if the VLReceiver has a full packet available
-  if (!VLReceiver::dataReady()) {
-    // nothing available yet
-    return;
+  if (!buf.size()) {
+    // failure
+    return RV_FAIL;
   }
-  DEBUG_LOG("Mode ready to receive! Receiving...");
-  // receive the VL mode into the current mode
-  if (!VLReceiver::receiveMode(&m_previewMode)) {
-    ERROR_LOG("Failed to receive mode");
-    return;
+  uint8_t brightness = buf.data()[0];
+  if (brightness > 0) {
+    Leds::setBrightness(brightness);
+    Modes::saveHeader();
   }
-  DEBUG_LOGF("Success receiving mode: %u", m_previewMode.getPatternID());
-  Modes::updateCurMode(&m_previewMode);
-  ByteStream modeBuffer;
-  m_previewMode.saveToBuffer(modeBuffer);
-  SerialComs::write(modeBuffer);
-  m_state = STATE_LISTEN_MODE_VL_DONE;
-}
-
-void EditorConnection::showReceiveModeVL()
-{
-  if (VLReceiver::isReceiving()) {
-    // using uint32_t to avoid overflow, the result should be within 10 to 255
-    //Leds::setAll(RGBColor(0, VLReceiver::percentReceived(), 0));
-    Leds::setRange(LED_0, (LedPos)(VLReceiver::percentReceived() / 10), RGB_GREEN6);
-  } else {
-    Leds::setAll(RGB_WHITE0);
-  }
-}
-
-bool EditorConnection::receiveModeIdx(uint8_t &idx)
-{
-  // need at least the buffer size first
-  if (m_receiveBuffer.size() < sizeof(idx)) {
-    // wait, not enough data available yet
-    return false;
-  }
-  m_receiveBuffer.resetUnserializer();
-  // okay unserialize now, first unserialize the size
-  if (!m_receiveBuffer.unserialize8(&idx)) {
-    return false;
-  }
-  return true;
-}
-
-bool EditorConnection::receiveFirmwareSize(uint32_t &size)
-{
-  // need at least the buffer size first
-  if (m_receiveBuffer.size() < sizeof(size)) {
-    // wait, not enough data available yet
-    return false;
-  }
-  m_receiveBuffer.resetUnserializer();
-  // okay unserialize now, first unserialize the size
-  if (!m_receiveBuffer.unserialize32(&size)) {
-    return false;
-  }
-  return true;
+  return RV_OK;
 }
