@@ -318,6 +318,13 @@ void EditorConnection::handleState()
     }
     m_state = STATE_IDLE;
     break;
+
+  // -------------------------------
+  //  Get Global Brightness
+  case STATE_GET_GLOBAL_BRIGHTNESS:
+    sendBrightness();
+    m_state = STATE_IDLE;
+    break;
   }
 }
 
@@ -393,6 +400,8 @@ void EditorConnection::handleCommand()
     sendCurModeVL();
   } else if (receiveMessage(EDITOR_VERB_SET_GLOBAL_BRIGHTNESS) == RV_OK) {
     m_state = STATE_SET_GLOBAL_BRIGHTNESS;
+  } else if (receiveMessage(EDITOR_VERB_GET_GLOBAL_BRIGHTNESS) == RV_OK) {
+    m_state = STATE_GET_GLOBAL_BRIGHTNESS;
   }
 }
 
@@ -452,6 +461,16 @@ void EditorConnection::sendCurMode()
     return;
   }
   SerialComs::write(modeBuffer);
+}
+
+ReturnCode EditorConnection::sendBrightness()
+{
+  ByteStream brightnessBuf;
+  if (!brightnessBuf.serialize8(Leds::getBrightness())) {
+    return RV_FAIL;
+  }
+  SerialComs::write(brightnessBuf);
+  return RV_OK;
 }
 
 ReturnCode EditorConnection::receiveBuffer(ByteStream &buffer)
@@ -570,6 +589,7 @@ ReturnCode EditorConnection::receiveBrightness()
   uint8_t brightness = buf.data()[0];
   if (brightness > 0) {
     Leds::setBrightness(brightness);
+    Modes::saveHeader();
   }
   return RV_OK;
 }
