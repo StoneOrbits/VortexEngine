@@ -535,14 +535,15 @@
 
 // flash firmware
 #define EDITOR_VERB_FLASH_FIRMWARE        "I"
-// ack for each step of flashing
+// the response to each one
 #define EDITOR_VERB_FLASH_FIRMWARE_ACK    "J"
 // done flashing firmware
 #define EDITOR_VERB_FLASH_FIRMWARE_DONE   "K"
 
 // set the global brightness of the device
 #define EDITOR_VERB_SET_GLOBAL_BRIGHTNESS "L"
-
+// get the global brightness of the device
+#define EDITOR_VERB_GET_GLOBAL_BRIGHTNESS "M"
 
 // ===================================================================
 //  Manually Configured Sizes
