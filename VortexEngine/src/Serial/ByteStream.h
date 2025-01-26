@@ -91,10 +91,18 @@ public:
   // check if the unserializer is at the end
   bool unserializerAtEnd() const;
 
-  // serialize a byte into the buffer
+  // unserialize data out of the buffer
   bool unserialize8(uint8_t *byte);
   bool unserialize16(uint16_t *bytes);
   bool unserialize32(uint32_t *bytes);
+
+  // unserialize data and erase it from the buffer
+  bool consume8(uint8_t *byte = nullptr);
+  bool consume16(uint16_t *bytes = nullptr);
+  bool consume32(uint32_t *bytes = nullptr);
+
+  // unserialize and consume a whole chunk
+  bool consume(uint32_t size, void *bytes = nullptr);
 
   uint8_t peek8() const;
   uint16_t peek16() const;
