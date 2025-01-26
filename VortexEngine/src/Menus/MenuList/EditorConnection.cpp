@@ -122,8 +122,14 @@ const EditorConnection::CommandState EditorConnection::commands[] = {
   { EDITOR_VERB_PULL_EACH_MODE, STATE_PULL_EACH_MODE },
   { EDITOR_VERB_PUSH_EACH_MODE, STATE_PUSH_EACH_MODE },
   { EDITOR_VERB_TRANSMIT_VL, STATE_TRANSMIT_MODE_VL },
+  { EDITOR_VERB_LISTEN_VL, STATE_LISTEN_MODE_VL },
   { EDITOR_VERB_SET_GLOBAL_BRIGHTNESS, STATE_SET_GLOBAL_BRIGHTNESS },
   { EDITOR_VERB_GET_GLOBAL_BRIGHTNESS, STATE_GET_GLOBAL_BRIGHTNESS },
+  { EDITOR_VERB_PULL_CHROMA_HDR, STATE_PULL_HEADER_CHROMALINK },
+  { EDITOR_VERB_PUSH_CHROMA_HDR, STATE_PUSH_HEADER_CHROMALINK },
+  { EDITOR_VERB_PULL_CHROMA_MODE, STATE_PULL_MODE_CHROMALINK },
+  { EDITOR_VERB_PUSH_CHROMA_MODE, STATE_PUSH_MODE_CHROMALINK },
+  { EDITOR_VERB_FLASH_FIRMWARE, STATE_CHROMALINK_FLASH_FIRMWARE },
 };
 #define NUM_COMMANDS (sizeof(commands) / sizeof(commands[0]))
 
@@ -296,8 +302,17 @@ void EditorConnection::handleState()
   // -------------------------------
   //  Receive Mode from Duo
   case STATE_LISTEN_MODE_VL:
+    // immediately load the mode and send it now
+    VLReceiver::beginReceiving();
+    m_state = STATE_LISTEN_MODE_VL_LISTEN;
+    break;
+  case STATE_LISTEN_MODE_VL_LISTEN:
+    // immediately load the mode and send it now
     showReceiveModeVL();
-    receiveModeVL();
+    if (receiveModeVL() == RV_WAIT) {
+      break;
+    }
+    m_state = STATE_LISTEN_MODE_VL_DONE;
     break;
   case STATE_LISTEN_MODE_VL_DONE:
     // done transmitting
@@ -623,6 +638,13 @@ void EditorConnection::sendCurModeVL()
 #endif
 }
 
+void EditorConnection::listenModeVL()
+{
+#if VL_ENABLE_SENDER == 1
+  m_state = STATE_LISTEN_MODE_VL;
+#endif
+}
+
 ReturnCode EditorConnection::sendBrightness()
 {
   ByteStream brightnessBuf;
@@ -800,11 +822,14 @@ ReturnCode EditorConnection::receiveModeVL()
     return RV_FAIL;
   }
   DEBUG_LOGF("Success receiving mode: %u", m_previewMode.getPatternID());
-  Modes::updateCurMode(&m_previewMode);
+  if (!Modes::updateCurMode(&m_previewMode)) {
+    return RV_FAIL;
+  }
   ByteStream modeBuffer;
-  m_previewMode.saveToBuffer(modeBuffer);
+  if (!m_previewMode.saveToBuffer(modeBuffer)) {
+    return RV_FAIL;
+  }
   SerialComs::write(modeBuffer);
-  m_state = STATE_LISTEN_MODE_VL_DONE;
   return RV_OK;
 }
 

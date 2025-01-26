@@ -40,6 +40,7 @@ private:
   void sendModeCount();
   void sendCurMode();
   void sendCurModeVL();
+  void listenModeVL();
   ReturnCode sendBrightness();
   ReturnCode receiveBuffer(ByteStream &buffer);
   ReturnCode receiveModes();
@@ -97,6 +98,7 @@ private:
 
     // receive a mode over VL
     STATE_LISTEN_MODE_VL,
+    STATE_LISTEN_MODE_VL_LISTEN,
     STATE_LISTEN_MODE_VL_DONE,
 
     // editor pulls the modes from device (safer version)
