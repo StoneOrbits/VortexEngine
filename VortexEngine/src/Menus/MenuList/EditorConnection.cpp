@@ -758,13 +758,12 @@ ReturnCode EditorConnection::receiveDemoMode()
 ReturnCode EditorConnection::receiveMessage(const char *message)
 {
   size_t len = strlen(message);
-  uint8_t byte = 0;
   // wait for the editor to ack the idle
   if (m_receiveBuffer.size() < len) {
     return RV_WAIT;
   }
   if (memcmp(m_receiveBuffer.data(), message, len) != 0) {
-    return RV_WAIT;
+    return RV_FAIL;
   }
   if (!m_receiveBuffer.consume(len)) {
     return RV_FAIL;
