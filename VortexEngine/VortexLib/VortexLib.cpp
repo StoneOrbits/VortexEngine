@@ -602,7 +602,11 @@ EMSCRIPTEN_BINDINGS(Vortex) {
     .function("parseJson", &Vortex::parseJson)
     .function("setLockEnabled", &Vortex::setLockEnabled)
     .function("lockEnabled", &Vortex::lockEnabled)
-    .function("engine", &Vortex::engine);
+    .function("engine", &Vortex::engine)
+    .function("getVersion", &Vortex::getVersion)
+    .function("getVersionMajor", &Vortex::getVersionMajor)
+    .function("getVersionMinor", &Vortex::getVersionMinor)
+    .function("getVersionBuild", &Vortex::getVersionBuild);
 
   function("getDataArray", &getDataArray);
   function("getRawDataArray", &getRawDataArray);
@@ -1991,6 +1995,24 @@ string Vortex::getStorageFilename()
   return m_engine.storage().getStorageFilename();
 }
 
+// get the engine version as a string
+std::string Vortex::getVersion() const {
+  return VORTEX_VERSION;
+}
+
+// get the version as separated integers
+uint8_t Vortex::getVersionMajor() const {
+  return VORTEX_VERSION_MAJOR;
+}
+
+uint8_t Vortex::getVersionMinor() const {
+  return VORTEX_VERSION_MINOR;
+}
+
+uint8_t Vortex::getVersionBuild() const {
+  return VORTEX_BUILD_NUMBER;
+}
+
 json Vortex::modeToJson(const Mode *mode)
 {
   if (!mode) {
@@ -2216,6 +2238,7 @@ json Vortex::saveToJson()
 
   saveJson["version_major"] = static_cast<uint8_t>(VORTEX_VERSION_MAJOR);
   saveJson["version_minor"] = static_cast<uint8_t>(VORTEX_VERSION_MINOR);
+  saveJson["version_build"] = static_cast<uint8_t>(VORTEX_BUILD_NUMBER);
   saveJson["global_flags"] = m_engine.modes().globalFlags();
   saveJson["brightness"] = static_cast<uint8_t>(m_engine.leds().getBrightness());
 

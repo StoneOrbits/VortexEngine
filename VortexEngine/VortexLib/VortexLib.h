@@ -282,6 +282,13 @@ public:
   void setLockEnabled(bool enable) { m_lockEnabled = enable; }
   bool lockEnabled() { return m_lockEnabled; }
 
+  // get the engine version as a string
+  std::string getVersion() const;
+  // get the version as separated integers
+  uint8_t getVersionMajor() const;
+  uint8_t getVersionMinor() const;
+  uint8_t getVersionBuild() const;
+
   // convert a mode to/from a json object
   json modeToJson(const Mode *mode);
   Mode *modeFromJson(const json &modeJson);
