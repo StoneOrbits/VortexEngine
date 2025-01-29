@@ -32,6 +32,8 @@ public:
   // receive the VL message into a target mode
   static bool receiveMode(Mode *pMode);
 
+  static bool receiveData(uint8_t &outData);
+
   // turn the receiver on/off
   static bool beginReceiving();
   static bool endReceiving();

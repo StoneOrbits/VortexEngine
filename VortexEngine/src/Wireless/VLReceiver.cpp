@@ -115,6 +115,18 @@ uint8_t VLReceiver::percentReceived()
   return (uint8_t)((uint16_t)((m_vlData.bytepos() * 100 + (total / 2)) / total));
 }
 
+bool VLReceiver::receiveData(uint8_t &outData)
+{
+  if (!m_vlData.bytepos()) {
+    DEBUG_LOG("Nothing to read, or read too much");
+    return false;
+  }
+  outData = m_vlData.data()[0];
+  // reset the VL state and receive buffer now
+  resetVLState();
+  return true;
+}
+
 bool VLReceiver::receiveMode(Mode *pMode)
 {
   ByteStream buf;
@@ -296,6 +308,7 @@ void VLReceiver::resetVLState()
   m_recvState = WAITING_HEADER_MARK;
   // zero out the receive buffer and reset bit receiver position
   m_vlData.reset();
+  Leds::holdAll(RGB_BLUE0);
 #ifdef VORTEX_EMBEDDED
   // reset the threshold to a high value so that it can be pulled down again
   threshold = THRESHOLD_BEGIN;

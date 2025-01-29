@@ -343,8 +343,18 @@ void VortexEngine::runMainLogic()
     Modes::nextMode();
   }
 
+  if (!VLReceiver::isReceiving()) {
+    VLReceiver::beginReceiving();
+  }
+  uint8_t timeCode = 0;
+  if (VLReceiver::receiveData(timeCode)) {
+    Leds::holdAll(HSVColor(HSV_HUE_GREEN, 255, timeCode));
+  } else {
+    Leds::setAll(RGB_RED0);
+  }
+
   // otherwise just play the modes
-  Modes::play();
+  //Modes::play();
 }
 
 bool VortexEngine::serializeVersion(ByteStream &stream)
