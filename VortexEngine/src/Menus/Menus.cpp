@@ -1,6 +1,7 @@
 #include "Menus.h"
 
 // menus
+#include "MenuList/TimecodeTransmitter.h"
 #include "MenuList/GlobalBrightness.h"
 #include "MenuList/EditorConnection.h"
 #include "MenuList/FactoryReset.h"
@@ -54,6 +55,7 @@ const MenuEntry menuList[] = {
   // =========================
   //  Default menu setup:
   ENTRY(Randomizer, RGB_MENU_RANDOMIZER),
+  ENTRY(TimecodeTransmitter, RGB_PINK),
   ENTRY(ModeSharing, RGB_MENU_MODE_SHARING),
 #if ENABLE_EDITOR_CONNECTION == 1
   ENTRY(EditorConnection, RGB_MENU_EDITOR_CONNECTION),

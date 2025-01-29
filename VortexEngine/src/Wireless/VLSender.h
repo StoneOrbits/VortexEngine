@@ -19,6 +19,7 @@ public:
   static void cleanup();
 
   // initialize the VL sender with a mode to send
+  static bool loadData(uint8_t data);
   static bool loadMode(const Mode *targetMode);
   static bool send();
 

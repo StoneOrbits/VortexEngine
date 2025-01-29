@@ -40,6 +40,24 @@ void VLSender::cleanup()
 {
 }
 
+bool VLSender::loadData(uint8_t value)
+{
+  // point the bitstream at the serial buffer
+  m_bitStream.init((uint8_t *)&value, sizeof(uint8_t));
+  // the size of the packet
+  m_size = sizeof(uint8_t);
+  // the number of blocks that will be sent (possibly just 1 with less than 32 bytes)
+  m_numBlocks = (m_size + (VL_DEFAULT_BLOCK_SIZE - 1)) / VL_DEFAULT_BLOCK_SIZE;
+  // the amount in the final block (possibly the only block)
+  m_remainder = m_size % (VL_DEFAULT_BLOCK_SIZE + 0);
+  DEBUG_LOGF("Num blocks: %u", m_numBlocks);
+  DEBUG_LOGF("Remainder: %u", m_remainder);
+  DEBUG_LOGF("Size: %u", m_size);
+  // reset write counter
+  m_writeCounter = 0;
+  return true;
+}
+
 bool VLSender::loadMode(const Mode *targetMode)
 {
   m_serialBuf.clear();
@@ -84,12 +102,12 @@ bool VLSender::send()
   if (!m_isSending) {
     beginSend();
   }
-  if (m_lastSendTime > 0 && m_lastSendTime + VL_DEFAULT_BLOCK_SPACING > Time::getCurtime()) {
-    // don't send yet
-    return m_isSending;
-  }
+  //if (m_lastSendTime > 0 && m_lastSendTime + VL_DEFAULT_BLOCK_SPACING > Time::getCurtime()) {
+  //  // don't send yet
+  //  return m_isSending;
+  //}
   // blocksize is default unless it's the last block, then it's the remainder
-  uint32_t blocksize = (m_numBlocks == 1) ? m_remainder : VL_DEFAULT_BLOCK_SIZE;
+  uint32_t blocksize = 1; //(m_numBlocks == 1) ? m_remainder : VL_DEFAULT_BLOCK_SIZE;
   DEBUG_LOGF("VLSender Sending block #%u", m_numBlocks);
   // pointer to the data at the correct location
   const uint8_t *buf_ptr = m_bitStream.data() + m_writeCounter;
@@ -117,18 +135,18 @@ void VLSender::beginSend()
   m_isSending = true;
   DEBUG_LOGF("[%zu] Beginning send size %u (blocks: %u remainder: %u blocksize: %u)",
     Time::microseconds(), m_size, m_numBlocks, m_remainder, m_blockSize);
-  // wakeup the other receiver with a very quick mark/space
-  sendMark(50);
-  sendSpace(100);
+  //// wakeup the other receiver with a very quick mark/space
+  //sendMark(50);
+  //sendSpace(100);
   // now send the header
   sendMark(VL_HEADER_MARK);
   sendSpace(VL_HEADER_SPACE);
   // reset writeCounter
   m_writeCounter = 0;
-  // write the number of blocks being sent, most likely just 1
-  sendByte(m_numBlocks);
-  // now write the number of bytes in the last block
-  sendByte(m_remainder);
+  //// write the number of blocks being sent, most likely just 1
+  //sendByte(m_numBlocks);
+  //// now write the number of bytes in the last block
+  //sendByte(m_remainder);
 }
 
 void VLSender::sendByte(uint8_t data)
