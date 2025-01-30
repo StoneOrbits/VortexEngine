@@ -258,9 +258,10 @@ void VortexEngine::runMainLogic()
       // the call to enterSleep() below thereby allowing the Duo to turn on
       Modes::resetFlags();
     } else {
-      // if esd happens then just gracefully go back to sleep to prevent the
-      // chip from turning on randomly in a plastic bag, and do not save on ESD
-      // re-sleep because modes haven't been loaded yet and it's a waste
+      // if a new firmware was not flashed then this was likely caused by ESD
+      // so just gracefully go back to sleep to prevent the chip from turning
+      // on randomly in a plastic bag, and do not save on ESD re-sleep because
+      // modes haven't been loaded yet (and it's a waste of power)
       enterSleep(false);
       return;
     }
