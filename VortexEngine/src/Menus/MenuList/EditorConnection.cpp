@@ -1003,20 +1003,21 @@ ReturnCode EditorConnection::restoreDuoModes()
   if (m_backupModeNum == 9) {
     // reset counter for the restore step later
     m_backupModeNum = 0;
-    // write out the header with globalflags set to 0xFF
+    // first read out the existing duo header so we can patch it
     ByteStream duoHeader;
-    if (!UPDI::readHeader(duoHeader)) {
+    if (!UPDI::readHeader(duoHeader) || duoHeader.size() < 2) {
       return RV_FAIL;
     }
-    uint8_t *buf = (uint8_t *)duoHeader.data();
-    // set the globalFlags to 0xFF which is
-    //   locked = 1
-    //   one click = 1
-    //   adv menus = 1
-    //   keychain = 1
-    //   Mode Index = 16
+    // modify the globalFlags to 0xFF which is 1111 1111 or:
+    //   1 = button lock enabled
+    //   1 = one click mode enabled
+    //   1 = advanced menus enabled
+    //   1 = keychain mode enabled
+    //   1111 = Startup Mode Index 15 (impossible)
     // this is very unlikely combo, also impossible since max modes is 9
-    buf[2] = 0xFF;
+    ((uint8_t *)duoHeader.data())[2] = 0xFF;
+    // recalculate the CRC after changing the global flags
+    duoHeader.recalcCRC();
     // write back the header with this new global flags
     if (!UPDI::writeHeader(duoHeader)) {
       return RV_FAIL;
