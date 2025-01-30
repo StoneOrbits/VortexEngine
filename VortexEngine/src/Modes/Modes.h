@@ -25,6 +25,20 @@ class Mode;
 // WARNING!! The upper 4 bits of the flags are taken by the startup mode id,
 //           you can only use 4 global flags!
 
+// This is a new special feature used by the Chromadeck when it flashes a new
+// firmware to the Duo it will set the global flags to all 1's like this:
+//
+//   1 = button lock enabled
+//   1 = one click mode enabled
+//   1 = advanced menus enabled
+//   1 = keychain mode enabled
+//   1111 = Startup Mode Index 15 (impossible)
+//
+// If this flag is present then the Duo needs to turn on and write out it's
+// save header because a new firmware has been flashed and the save header
+// will still have the old version number saved inside
+#define MODES_FLAG_NEW_FIRMWARE 0xFF
+
 class Modes
 {
   // private unimplemented constructor
@@ -119,13 +133,10 @@ public:
 
   // set or get flags
   static bool setFlag(uint8_t flag, bool enable, bool save = true);
-  static bool getFlag(uint8_t flag) { return ((m_globalFlags & flag) != 0); }
+  static bool getFlag(uint8_t flag) { return ((m_globalFlags & flag) == flag); }
 
   // reset flags to factory default (must save after)
   static void resetFlags() { m_globalFlags = 0; }
-
-  // all flags get set when the editor flashed a new firmware
-  static bool allFlagsSet() { return m_globalFlags == 0xFF; }
 
   // inline functions to toggle the various flags
   static bool setOneClickMode(bool enable, bool save = true) {

@@ -249,16 +249,18 @@ void VortexEngine::runMainLogic()
   // turned on via ESD and not via a normal click which cannot possibly be done
   // in less than 1 tick
   if (now < 2) {
-    if (Modes::allFlagsSet()) {
-      // The AllFlagsSet check is for whether we just flashed a new firmware or
-      // not, if a new firmware was flashed then we need to let the device turn
-      // on instantly, which is interpreted as ESD turn on but isn't. We need
-      // it to write out a new save header.
+    // This check is for whether a new firmware was just flashed, if a new
+    // firmware was flashed then the device needs to turn on right away,
+    // that is interpreted as ESD turn on and ends up here. It must turn on
+    // and write out a new save header with it's version number after flash
+    if (Modes::getFlag(MODES_FLAG_NEW_FIRMWARE)) {
+      // so we just rest the flags back to 0 like a factory reset and bypass
+      // the call to enterSleep() below thereby allowing the Duo to turn on
       Modes::resetFlags();
     } else {
       // if esd happens then just gracefully go back to sleep to prevent the
-      // chip from turning on randomly in a plastic bag do not save on ESD
-      // re-sleep
+      // chip from turning on randomly in a plastic bag, and do not save on ESD
+      // re-sleep because modes haven't been loaded yet and it's a waste
       enterSleep(false);
       return;
     }
