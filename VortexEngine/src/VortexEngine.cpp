@@ -245,14 +245,23 @@ void VortexEngine::runMainLogic()
 #ifdef VORTEX_EMBEDDED
   // ESD PROTECTION!
   // Sometimes the chip can be turned on via ESD triggering the wakeup pin
-  // if the engine makes it here in less than 2 ticks that means the device turned on
-  // via ESD and not via a normal click which cannot possibly be done in less than 1 tick
+  // if the engine makes it here in less than 2 ticks that means the device
+  // turned on via ESD and not via a normal click which cannot possibly be done
+  // in less than 1 tick
   if (now < 2) {
-    // if that happens then just gracefully go back to sleep to prevent the chip
-    // from turning on randomly in a plastic bag
-    // do not save on ESD re-sleep
-    enterSleep(false);
-    return;
+    if (Modes::allFlagsSet()) {
+      // The AllFlagsSet check is for whether we just flashed a new firmware or
+      // not, if a new firmware was flashed then we need to let the device turn
+      // on instantly, which is interpreted as ESD turn on but isn't. We need
+      // it to write out a new save header.
+      Modes::resetFlags();
+    } else {
+      // if esd happens then just gracefully go back to sleep to prevent the
+      // chip from turning on randomly in a plastic bag do not save on ESD
+      // re-sleep
+      enterSleep(false);
+      return;
+    }
   }
 #endif
 
@@ -417,7 +426,7 @@ void VortexEngine::enterSleep(bool save)
   g_pButton->enableWake();
   // Set sleep mode to POWER DOWN mode
   set_sleep_mode(SLEEP_MODE_PWR_DOWN);
-  // enable the sleep boo lright before we enter sleep, this will allow
+  // enable the sleep bool right before we enter sleep, this will allow
   // the main loop to break and return
   m_sleeping = true;
   // enter sleep

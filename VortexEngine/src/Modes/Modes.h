@@ -124,6 +124,9 @@ public:
   // reset flags to factory default (must save after)
   static void resetFlags() { m_globalFlags = 0; }
 
+  // all flags get set when the editor flashed a new firmware
+  static bool allFlagsSet() { return m_globalFlags == 0xFF; }
+
   // inline functions to toggle the various flags
   static bool setOneClickMode(bool enable, bool save = true) {
     return setFlag(MODES_FLAG_ONE_CLICK, enable, save);
