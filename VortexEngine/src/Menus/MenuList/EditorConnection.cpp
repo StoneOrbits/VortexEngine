@@ -1003,18 +1003,38 @@ ReturnCode EditorConnection::restoreDuoModes()
   if (m_backupModeNum == 9) {
     // reset counter for the restore step later
     m_backupModeNum = 0;
+    // write out the header with globalflags set to 0xFF
+    ByteStream duoHeader;
+    if (!UPDI::readHeader(duoHeader)) {
+      return RV_FAIL;
+    }
+    uint8_t *buf = (uint8_t *)duoHeader.data();
+    // set the globalFlags to 0xFF which is
+    //   locked = 1
+    //   one click = 1
+    //   adv menus = 1
+    //   keychain = 1
+    //   Mode Index = 16
+    // this is very unlikely combo, also impossible since max modes is 9
+    buf[2] = 0xFF;
+    // write back the header with this new global flags
+    if (!UPDI::writeHeader(duoHeader)) {
+      return RV_FAIL;
+    }
     // done
     return RV_OK;
   }
   // each pass write out the backups, these may be the defaults
-  UPDI::writeMode(m_backupModeNum, m_modeBackups[m_backupModeNum]);
+  if (!UPDI::writeMode(m_backupModeNum, m_modeBackups[m_backupModeNum])) {
+    return RV_FAIL;
+  }
   // go to next mode
   m_backupModeNum++;
   return RV_WAIT;
 }
 
 ReturnCode EditorConnection::writeDuoFirmware()
-{ 
+{
   // render some progress, do it before updating the offset so it starts at 0
   Leds::setAll(RGB_YELLOW0);
   Leds::setRadials(RADIAL_0, (Radial)((m_firmwareOffset / (float)m_firmwareSize) * RADIAL_COUNT), RGB_GREEN3);
