@@ -690,15 +690,15 @@ void Modes::clearModes()
 
 void Modes::setStartupMode(uint8_t index)
 {
-  // zero out the upper nibble to disable
+  // zero out the upper nibble to clear it
   m_globalFlags &= 0x0F;
-  // or in the index value shifted into the upper nibble
+  // OR in the index value shifted into the upper nibble
   m_globalFlags |= (index << 4) & 0xF0;
 }
 
 uint8_t Modes::startupMode()
 {
-  // zero out the upper nibble to disable
+  // return the upper nibble of the global flags
   return (m_globalFlags & 0xF0) >> 4;
 }
 

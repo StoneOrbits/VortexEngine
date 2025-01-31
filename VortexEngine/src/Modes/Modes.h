@@ -37,7 +37,7 @@ class Mode;
 // If this flag is present then the Duo needs to turn on and write out it's
 // save header because a new firmware has been flashed and the save header
 // will still have the old version number saved inside
-#define MODES_FLAG_NEW_FIRMWARE 0xFF
+#define MODES_FLAG_NEW_FIRMWARE 0xF0
 
 class Modes
 {

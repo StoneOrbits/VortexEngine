@@ -248,7 +248,7 @@ void VortexEngine::runMainLogic()
   // if the engine makes it here in less than 2 ticks that means the device
   // turned on via ESD and not via a normal click which cannot possibly be done
   // in less than 1 tick
-  if (now < 2) {
+  if (now < 1) {
     // This check is for whether a new firmware was just flashed, if a new
     // firmware was flashed then the device needs to turn on right away,
     // that is interpreted as ESD turn on and ends up here. It must turn on
