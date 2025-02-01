@@ -245,8 +245,9 @@ void VortexEngine::runMainLogic()
 #ifdef VORTEX_EMBEDDED
   // originally this check was believed to protect against ESD but not so sure
   // anymore, it's clear that it stops the chip from turning on when it initially
-  // receives power though -- this is also where initialization runs right after
-  // a fresh firmware flash. The first tick of the engine is 1 not 0 because oops.
+  // receives power but ESD tests fail now (put chip in sandwich bag and shake it).
+  // This is now where initialization runs right after a fresh firmware flash.
+  // The first tick of the engine is 1 not 0 because oops.
   if (now == 1) {
     // This check is for whether a new firmware was just flashed, if a new
     // firmware was flashed then write out a new save header
