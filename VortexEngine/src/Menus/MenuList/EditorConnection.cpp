@@ -18,8 +18,6 @@
 
 #include <string.h>
 
-#define FIRMWARE_TRANSFER_BLOCK_SIZE 512
-
 EditorConnection::EditorConnection(const RGBColor &col, bool advanced) :
   Menu(col, advanced),
   m_state(STATE_DISCONNECTED),
@@ -562,7 +560,9 @@ void EditorConnection::handleState()
     m_firmwareOffset = 0;
     m_backupModeNum = 0;
     m_curStep = 0;
-    // done with updi
+    // flag new firmware was written, so the duo turns on and writes it's save header
+    UPDI::setFlagNewFirmware();
+    // reset and disable updi because we are done
     UPDI::reset();
     UPDI::disable();
     // show green
@@ -877,13 +877,16 @@ ReturnCode EditorConnection::receiveFirmwareSize(uint32_t &size)
 ReturnCode EditorConnection::pullHeaderChromalink()
 {
   // first read the duo save header
-  ByteStream saveHeader;
+  ByteStream duoHeader;
   // doesn't matter if reading the header fails, we still need to send it
-  bool success = UPDI::readHeader(saveHeader);
+  bool success = UPDI::readHeader(duoHeader);
+  // TODO: should these be here?
   UPDI::reset();
   UPDI::disable();
+  // TODO: check version stuff? not really any need yet
+  //DuoHeader *pHeader = (DuoHeader *)duoHeader.data();
   // send whatever we read, might be empty buffer if it failed
-  SerialComs::write(saveHeader);
+  SerialComs::write(duoHeader);
   // return whether reading the header was successful
   return success ? RV_OK : RV_FAIL;
 }
@@ -967,11 +970,9 @@ ReturnCode EditorConnection::backupDuoModes()
     m_backupModes = true;
     // double check the version and valid header before backing up modes
     ByteStream duoHeader;
-    UPDI::readHeader(duoHeader);
-    if (duoHeader.size() >= 5) {
-      uint8_t major = duoHeader.data()[0];
-      uint8_t minor = duoHeader.data()[1];
-      if (major < 1 || minor < 3) {
+    if (UPDI::readHeader(duoHeader) && duoHeader.size() >= 5) {
+      DuoHeader &duoHeader = UPDI::lastSaveHeader();
+      if (duoHeader.vMajor < 1 || duoHeader.vMinor < 3) {
         // turn off mode backup the version isn't high enough
         m_backupModes = false;
       }
@@ -1007,14 +1008,16 @@ ReturnCode EditorConnection::restoreDuoModes()
     return RV_OK;
   }
   // each pass write out the backups, these may be the defaults
-  UPDI::writeMode(m_backupModeNum, m_modeBackups[m_backupModeNum]);
+  if (!UPDI::writeMode(m_backupModeNum, m_modeBackups[m_backupModeNum])) {
+    return RV_FAIL;
+  }
   // go to next mode
   m_backupModeNum++;
   return RV_WAIT;
 }
 
 ReturnCode EditorConnection::writeDuoFirmware()
-{ 
+{
   // render some progress, do it before updating the offset so it starts at 0
   Leds::setAll(RGB_YELLOW0);
   Leds::setRadials(RADIAL_0, (Radial)((m_firmwareOffset / (float)m_firmwareSize) * RADIAL_COUNT), RGB_GREEN3);
