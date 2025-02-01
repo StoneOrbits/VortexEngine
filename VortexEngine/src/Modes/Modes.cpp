@@ -36,8 +36,12 @@ bool Modes::init()
   return true;
 #endif
   ByteStream headerBuffer;
-  Storage::read(0, headerBuffer);
-  unserializeSaveHeader(headerBuffer);
+  if (!Storage::read(0, headerBuffer) || !unserializeSaveHeader(headerBuffer)) {
+    // cannot read or load header? corrupted header?
+    // just mark this as a new firmware and it will trigger a fresh header
+    // write later in the main loop when modes get loaded
+    m_globalFlags |= MODES_FLAG_NEW_FIRMWARE;
+  }
   m_loaded = false;
 #ifdef VORTEX_LIB
   // enable the adv menus by default in vortex lib
@@ -690,15 +694,15 @@ void Modes::clearModes()
 
 void Modes::setStartupMode(uint8_t index)
 {
-  // zero out the upper nibble to disable
+  // zero out the upper nibble to clear it
   m_globalFlags &= 0x0F;
-  // or in the index value shifted into the upper nibble
+  // OR in the index value shifted into the upper nibble
   m_globalFlags |= (index << 4) & 0xF0;
 }
 
 uint8_t Modes::startupMode()
 {
-  // zero out the upper nibble to disable
+  // return the upper nibble of the global flags
   return (m_globalFlags & 0xF0) >> 4;
 }
 
