@@ -16,10 +16,10 @@ The Votex Engine is a open-source project designed to drive LEDs with microcontr
     <h1 style="margin: 0;">Spark Orbit</h1>
     <p>The Spark Orbit is a versatile 6-LED, rechargeable orbit. It is designed to pair seamlessly with Spark Handles and is compatible with all other Vortex devices.</p>
     <ul>
-      <li><a href="Spark_Orbit_guide.html">Spark Orbit Guide</a></li>
+      <li><a href="spark_orbit_guide.html">Spark Orbit Guide</a></li>
     </ul>
   </div>
-  <img style="width: 15%; height: auto;" src="assets/images/spark-orbit-render.png" alt="Spark Orbit Image">
+  <img style="width: 15%; height: auto;" src="assets/images/spark-logo-square-512.png" alt="Spark Orbit Image">
 </div>
 
 <hr>
@@ -29,10 +29,10 @@ The Votex Engine is a open-source project designed to drive LEDs with microcontr
     <h1 style="margin: 0;">Spark Handle</h1>
     <p>The Spark Orbit is a versatile 6-LED, rechargeable handle. It is designed to pair with the Spark Orbit and is compatible with all other Vortex devices.</p>
     <ul>
-      <li><a href="Spark_Handle_guide.html">Spark Handle Guide</a></li>
+      <li><a href="spark_handle_guide.html">Spark Handle Guide</a></li>
     </ul>
   </div>
-  <img style="width: 15%; height: auto;" src="assets/images/spark-handle-render.png" alt="Spark Handle Image">
+  <img style="width: 15%; height: auto;" src="assets/images/sparkhandle-logo-square-512.png" alt="Spark Handle Image">
 </div>
 
 <hr>
@@ -42,10 +42,10 @@ The Votex Engine is a open-source project designed to drive LEDs with microcontr
     <h1 style="margin: 0;">Chromadeck</h1>
     <p>The Chromadeck is a customizable LED deck for storing dozens of modes from any Vortex Engine device. When combined with the Chromalink accessory, it adds computer compatibility and the ability to update Duos.</p>
     <ul>
-      <li><a href="Chromadeck_guide.html">Chromadeck Guide</a></li>
+      <li><a href="chromadeck_guide.html">Chromadeck Guide</a></li>
     </ul>
   </div>
-  <img style="width: 15%; height: auto;" src="assets/images/Chromadeck-Render.png" alt="Chromadeck Image">
+  <img style="width: 15%; height: auto;" src="assets/images/chromadeck-logo-square-512.png" alt="Chromadeck Image">
 </div>
 
 <hr>
@@ -58,7 +58,7 @@ The Votex Engine is a open-source project designed to drive LEDs with microcontr
       <li><a href="duo_guide.html">Duo Guide</a></li>
     </ul>
   </div>
-  <img style="width: 15%; height: auto;" src="assets/images/duo-logo-button-square-512.png" alt="Duo Image">
+  <img style="width: 15%; height: auto;" src="assets/images/duo-logo-square-512.png" alt="Duo Image">
 </div>
 
 <hr>
@@ -71,7 +71,7 @@ The Votex Engine is a open-source project designed to drive LEDs with microcontr
       <li><a href="orbit_guide.html">Vortex Orbit Guide</a></li>
     </ul>
   </div>
-  <img style="width: 15%; height: auto;" src="assets/images/device-orbit.png" alt="Vortex Orbit Image">
+  <img style="width: 15%; height: auto;" src="assets/images/orbit-logo-square-512.png" alt="Vortex Orbit Image">
 </div>
 
 <hr>
@@ -84,7 +84,7 @@ The Votex Engine is a open-source project designed to drive LEDs with microcontr
       <li><a href="handles_guide.html">Omega Handle Guide</a></li>
     </ul>
   </div>
-  <img style="width: 15%; height: auto;" src="assets/images/device-handle.png" alt="Omega Handle Image">
+  <img style="width: 15%; height: auto;" src="assets/images/handle-logo-square-512.png" alt="Omega Handle Image">
 </div>
 
 <hr>
@@ -97,5 +97,5 @@ The Votex Engine is a open-source project designed to drive LEDs with microcontr
       <li><a href="gloves_guide.html">Vortex Glove Guide</a></li>
     </ul>
   </div>
-  <img style="width: 15%; height: auto;" src="assets/images/device-gloves.png" alt="Vortex Glove Image">
+  <img style="width: 15%; height: auto;" src="assets/images/gloves-logo-square-512.png" alt="Vortex Glove Image">
 </div>
