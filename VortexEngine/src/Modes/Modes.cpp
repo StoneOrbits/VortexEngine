@@ -40,6 +40,7 @@ bool Modes::init()
     // cannot read or load header? corrupted header?
     // TODO: write default header?
     m_globalFlags |= MODES_FLAG_NEW_FIRMWARE;
+    saveHeader();
   }
   m_loaded = false;
 #ifdef VORTEX_LIB

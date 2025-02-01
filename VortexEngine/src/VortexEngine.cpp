@@ -257,6 +257,7 @@ void VortexEngine::runMainLogic()
       // so we just rest the flags back to 0 like a factory reset and bypass
       // the call to enterSleep() below thereby allowing the Duo to turn on
       Modes::resetFlags();
+      Modes::saveHeader();
     } else {
       // if a new firmware was not flashed then this was likely caused by ESD
       // so just gracefully go back to sleep to prevent the chip from turning
