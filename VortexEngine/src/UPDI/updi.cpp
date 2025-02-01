@@ -747,7 +747,8 @@ bool UPDI::setFlagNewFirmware()
     return true;
   }
   // modify the global flags of the saveheader to indicate a new firmware
-  ((uint8_t *)duoHeader.data())[2] = DUO_MODES_FLAG_NEW_FIRMWARE;
+  DuoHeader *pHeader = (DuoHeader *)duoHeader.data();
+  pHeader->globalFlags = DUO_MODES_FLAG_NEW_FIRMWARE;
   // force recalculate the CRC after changing the global flags
   duoHeader.recalcCRC(true);
   // write back the header with this new global flags
