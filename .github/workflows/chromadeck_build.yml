@@ -149,7 +149,7 @@ jobs:
           echo "Listing contents of docs/chromadeck:"
           ls -R docs/chromadeck || echo "No files found in docs/chromadeck"
       - name: Upload Doxygen Documentation as Artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: doxygen-docs-chromadeck
           path: docs/chromadeck
