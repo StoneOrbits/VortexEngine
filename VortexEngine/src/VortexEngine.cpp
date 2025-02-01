@@ -243,29 +243,27 @@ void VortexEngine::runMainLogic()
   }
 
 #ifdef VORTEX_EMBEDDED
-  // ESD PROTECTION!
-  // Sometimes the chip can be turned on via ESD triggering the wakeup pin
-  // if the engine makes it here in less than 2 ticks that means the device
-  // turned on via ESD and not via a normal click which cannot possibly be done
-  // in less than 1 tick
-  if (now < 2) {
+  // originally this check was believed to protect against ESD but not so sure
+  // anymore, it's clear that it stops the chip from turning on when it initially
+  // receives power though -- this is also where initialization runs right after
+  // a fresh firmware flash. The first tick of the engine is 1 not 0 because oops.
+  if (now == 1) {
     // This check is for whether a new firmware was just flashed, if a new
-    // firmware was flashed then the device needs to turn on right away,
-    // that is interpreted as ESD turn on and ends up here. It must turn on
-    // and write out a new save header with it's version number after flash
+    // firmware was flashed then write out a new save header
     if (Modes::getFlag(MODES_FLAG_NEW_FIRMWARE)) {
-      // so we just rest the flags back to 0 like a factory reset and bypass
-      // the call to enterSleep() below thereby allowing the Duo to turn on
+      // reset the flags back to normal
       Modes::resetFlags();
+      // try to load the modes and hope it works, need the num modes to write a
+      // new save header and they may have backed up and restored a custom number
+      // of modes
+      Modes::load();
+      // then save the new header with current version and num modes etc
       Modes::saveHeader();
-    } else {
-      // if a new firmware was not flashed then this was likely caused by ESD
-      // so just gracefully go back to sleep to prevent the chip from turning
-      // on randomly in a plastic bag, and do not save on ESD re-sleep because
-      // modes haven't been loaded yet (and it's a waste of power)
-      enterSleep(false);
-      return;
     }
+    // then just gracefully go back to sleep to prevent the chip from turning
+    // on randomly when it receives power
+    enterSleep(false);
+    return;
   }
 #endif
 

@@ -38,9 +38,9 @@ bool Modes::init()
   ByteStream headerBuffer;
   if (!Storage::read(0, headerBuffer) || !unserializeSaveHeader(headerBuffer)) {
     // cannot read or load header? corrupted header?
-    // TODO: write default header?
+    // just mark this as a new firmware and it will trigger a fresh header
+    // write later in the main loop when modes get loaded
     m_globalFlags |= MODES_FLAG_NEW_FIRMWARE;
-    saveHeader();
   }
   m_loaded = false;
 #ifdef VORTEX_LIB
