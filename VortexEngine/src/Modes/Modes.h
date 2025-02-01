@@ -26,12 +26,12 @@ class Mode;
 //           you can only use 4 global flags!
 
 // This is a new special feature used by the Chromadeck when it flashes a new
-// firmware to the Duo it will set the global flags to all 1's like this:
+// firmware to the Duo it will set the global flags to 0xF0 like this:
 //
-//   1 = button lock enabled
-//   1 = one click mode enabled
-//   1 = advanced menus enabled
-//   1 = keychain mode enabled
+//   0 = button lock enabled
+//   0 = one click mode enabled
+//   0 = advanced menus enabled
+//   0 = keychain mode enabled
 //   1111 = Startup Mode Index 15 (impossible)
 //
 // If this flag is present then the Duo needs to turn on and write out it's
