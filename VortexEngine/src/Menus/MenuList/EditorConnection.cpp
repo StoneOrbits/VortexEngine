@@ -18,7 +18,17 @@
 
 #include <string.h>
 
-#define FIRMWARE_TRANSFER_BLOCK_SIZE 512
+// The DUO has a special Modes flag (all of upper bits) which means a new
+// firmware was flashed and it should turn on and write out a new save header
+// This is setting the global flags to represent:
+//   0 = button lock enabled
+//   0 = one click mode enabled
+//   0 = advanced menus enabled
+//   0 = keychain mode enabled
+//   1111 = Startup Mode Index 15 (impossible)
+//
+// When the Duo turns on and see this it will rewrite it's own save header
+#define DUO_MODES_FLAG_NEW_FIRMWARE  0xF0
 
 EditorConnection::EditorConnection(const RGBColor &col, bool advanced) :
   Menu(col, advanced),
@@ -1008,19 +1018,16 @@ ReturnCode EditorConnection::restoreDuoModes()
     if (!UPDI::readHeader(duoHeader) || duoHeader.size() < 2) {
       return RV_FAIL;
     }
-    // modify the globalFlags to 0xFF which is 1111 1111 or:
-    //   1 = button lock enabled
-    //   1 = one click mode enabled
-    //   1 = advanced menus enabled
-    //   1 = keychain mode enabled
-    //   1111 = Startup Mode Index 15 (impossible)
-    // this is very unlikely combo, also impossible since max modes is 9
-    ((uint8_t *)duoHeader.data())[2] = 0xFF;
-    // recalculate the CRC after changing the global flags
-    duoHeader.recalcCRC();
-    // write back the header with this new global flags
-    if (!UPDI::writeHeader(duoHeader)) {
-      return RV_FAIL;
+    // only use the header trick if it's a modern duo
+    if (UPDI::duoStorageType() == UPDI::DUO_MODERN_STORAGE) {
+      // modify the global flags of the saveheader to indicate a new firmware
+      ((uint8_t *)duoHeader.data())[2] = DUO_MODES_FLAG_NEW_FIRMWARE;
+      // force recalculate the CRC after changing the global flags
+      duoHeader.recalcCRC(true);
+      // write back the header with this new global flags
+      if (!UPDI::writeHeader(duoHeader)) {
+        return RV_FAIL;
+      }
     }
     // done
     return RV_OK;

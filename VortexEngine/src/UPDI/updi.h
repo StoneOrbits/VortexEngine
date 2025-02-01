@@ -31,6 +31,19 @@ public:
   // end the updi connection and reset the chip
   static bool disable();
 
+  enum StorageType
+  {
+    // modern duos like 1.4.0+
+    DUO_MODERN_STORAGE,
+    // duos like 1.2.0 to 1.3.0
+    DUO_LEGACY_STORAGE_1,
+    // old duos like 1.0.0 to 1.2.0
+    DUO_LEGACY_STORAGE_2,
+  };
+
+  // get the duo storage type
+  static StorageType duoStorageType() { return m_storageType; }
+
 private:
 
 #ifdef VORTEX_EMBEDDED
@@ -148,20 +161,10 @@ private:
   static void sendEraseKey() { sendKey("NVMErase"); }
   static void sendProgKey() { sendKey("NVMProg "); }
   static void sendUserrowKey() { sendKey("NVMUs&te"); }
-
-  enum StorageType
-  {
-    // modern duos like 1.4.0+
-    MODERN_STORAGE,
-    // duos like 1.2.0. to 1.3..0
-    LEGACY_STORAGE_1,
-    // old duos like 1.0.0 to 1.2.0
-    LEGACY_STORAGE_2,
-  };
+#endif
 
   // whether connected to a legacy duo
   static StorageType m_storageType;
-#endif
 };
 
 #endif // UPDI_H
