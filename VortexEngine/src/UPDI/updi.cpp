@@ -70,14 +70,15 @@
 // so we have to load the whole modes
 #define LEGACY_DUO_HEADER_SIZE_1 5
 #define LEGACY_DUO_HEADER_SIZE_2 255
-#endif
 
-UPDI::StorageType UPDI::m_storageType = DUO_MODERN_STORAGE;
+
+UPDI::StorageType UPDI::m_storageType = MODERN_STORAGE;
+#endif
 
 bool UPDI::init()
 {
 #ifdef VORTEX_EMBEDDED
-  m_storageType = DUO_MODERN_STORAGE;
+  m_storageType = MODERN_STORAGE;
 #endif
   return true;
 }
@@ -141,7 +142,7 @@ bool UPDI::readHeader(ByteStream &header)
   // build was only added to this storage space later on
   uint8_t build = (header.size() > 5) ? header.data()[5] : 0;
   // Modern Duo with segmented header and build number in header
-  m_storageType = DUO_MODERN_STORAGE;
+  m_storageType = MODERN_STORAGE;
 #endif
   return true;
 }
@@ -178,7 +179,7 @@ bool UPDI::readHeaderLegacy1(ByteStream &header)
   uint8_t major = header.data()[0];
   uint8_t minor = header.data()[1];
   // LEGACY DUO! Old Storage format with segmented header and no build number
-  m_storageType = DUO_LEGACY_STORAGE_1;
+  m_storageType = LEGACY_STORAGE_1;
   return true;
 }
 
@@ -215,7 +216,7 @@ bool UPDI::readHeaderLegacy2(ByteStream &header)
   // build was only added to this storage space later on
   uint8_t build = 0;
   // LEGACY DUO! Old Storage format with combined header and no build number
-  m_storageType = DUO_LEGACY_STORAGE_2;
+  m_storageType = LEGACY_STORAGE_2;
   return true;
 }
 
@@ -224,7 +225,7 @@ bool UPDI::readHeaderLegacy2(ByteStream &header)
 bool UPDI::readMode(uint8_t idx, ByteStream &modeBuffer)
 {
 #ifdef VORTEX_EMBEDDED
-  if (m_storageType == DUO_LEGACY_STORAGE_2) {
+  if (m_storageType == LEGACY_STORAGE_2) {
     // nope I'm not going to write code to read the old duos they can
     // just send the mode c2c to the deck if they want to save it then
     // they can update their duo and push the mode back to it
@@ -251,7 +252,7 @@ bool UPDI::readMode(uint8_t idx, ByteStream &modeBuffer)
     base = DUO_EEPROM_BASE + (DUO_HEADER_FULL_SIZE) + (idx * DUO_MODE_SIZE);
     // legacy storage 1 the header is a bit smaller so the first mode is a bit
     // sooner in the eeprom but that's the only difference
-    if (m_storageType == DUO_LEGACY_STORAGE_1) {
+    if (m_storageType == LEGACY_STORAGE_1) {
       base -= 10;
     }
   } else {
@@ -276,7 +277,7 @@ bool UPDI::readMode(uint8_t idx, ByteStream &modeBuffer)
 bool UPDI::writeHeader(ByteStream &headerBuffer)
 {
 #ifdef VORTEX_EMBEDDED
-  if (m_storageType != DUO_MODERN_STORAGE) {
+  if (m_storageType != MODERN_STORAGE) {
     // nope!
     return false;
   }
@@ -316,7 +317,7 @@ bool UPDI::writeHeader(ByteStream &headerBuffer)
 bool UPDI::writeMode(uint8_t idx, ByteStream &modeBuffer)
 {
 #ifdef VORTEX_EMBEDDED
-  if (m_storageType != DUO_MODERN_STORAGE) {
+  if (m_storageType != MODERN_STORAGE) {
     // nope!
     return false;
   }

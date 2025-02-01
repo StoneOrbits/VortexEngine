@@ -1013,22 +1013,6 @@ ReturnCode EditorConnection::restoreDuoModes()
   if (m_backupModeNum == 9) {
     // reset counter for the restore step later
     m_backupModeNum = 0;
-    // first read out the existing duo header so we can patch it
-    ByteStream duoHeader;
-    if (!UPDI::readHeader(duoHeader) || duoHeader.size() < 2) {
-      return RV_FAIL;
-    }
-    // only use the header trick if it's a modern duo
-    if (UPDI::duoStorageType() == UPDI::DUO_MODERN_STORAGE) {
-      // modify the global flags of the saveheader to indicate a new firmware
-      ((uint8_t *)duoHeader.data())[2] = DUO_MODES_FLAG_NEW_FIRMWARE;
-      // force recalculate the CRC after changing the global flags
-      duoHeader.recalcCRC(true);
-      // write back the header with this new global flags
-      if (!UPDI::writeHeader(duoHeader)) {
-        return RV_FAIL;
-      }
-    }
     // done
     return RV_OK;
   }
