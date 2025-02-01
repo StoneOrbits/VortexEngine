@@ -152,7 +152,7 @@ jobs:
           echo "Listing contents of docs/duo:"
           ls -R docs/duo || echo "No files found in docs/duo"
       - name: Upload Doxygen Documentation as Artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: doxygen-docs-duo
           path: docs/duo
