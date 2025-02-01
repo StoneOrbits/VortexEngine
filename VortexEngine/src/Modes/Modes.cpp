@@ -36,8 +36,11 @@ bool Modes::init()
   return true;
 #endif
   ByteStream headerBuffer;
-  Storage::read(0, headerBuffer);
-  unserializeSaveHeader(headerBuffer);
+  if (!Storage::read(0, headerBuffer) || !unserializeSaveHeader(headerBuffer)) {
+    // cannot read or load header? corrupted header?
+    // TODO: write default header?
+    m_globalFlags |= MODES_FLAG_NEW_FIRMWARE;
+  }
   m_loaded = false;
 #ifdef VORTEX_LIB
   // enable the adv menus by default in vortex lib
