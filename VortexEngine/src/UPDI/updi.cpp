@@ -1,7 +1,5 @@
 #include "updi.h"
 
-#ifdef VORTEX_EMBEDDED
-
 #include "../VortexConfig.h"
 #include "../Time/TimeControl.h"
 #include "../Log/Log.h"
@@ -9,6 +7,8 @@
 #include "../Serial/ByteStream.h"
 #include "../Patterns/Pattern.h"
 #include "../Modes/Mode.h"
+
+#ifdef VORTEX_EMBEDDED
 
 #include "driver/uart.h"
 #include "freertos/FreeRTOS.h"
@@ -50,6 +50,7 @@
 // Configure GPIO for input
 // the key here is setting the gpio as GPIO_FLOATING to prevent contention
 #define GPIO_SET_INPUT(gpio_num) (GPIO.enable_w1tc.val = (1U << gpio_num)); gpio_set_pull_mode((gpio_num_t)gpio_num, GPIO_FLOATING);
+#endif
 
 // the max size of a single mode
 #define DUO_MODE_SIZE 76
@@ -71,14 +72,33 @@
 #define LEGACY_DUO_HEADER_SIZE_1 5
 #define LEGACY_DUO_HEADER_SIZE_2 255
 
+// The Duo has a special Modes flag (all of upper bits) which means a new
+// firmware was flashed and it should turn on and write out a new save header
+// This is setting the global flags to represent:
+//
+//   0 = button lock enabled
+//   0 = one click mode enabled
+//   0 = advanced menus enabled
+//   0 = keychain mode enabled
+//   1111 = Startup Mode Index 15 (impossible)
+//
+// When the Duo turns on and see this it will rewrite it's own save header
+#define DUO_MODES_FLAG_NEW_FIRMWARE  0xF0
 
+// the storage type of the duo, detected by reading the save header size
+// older versions of duo use legacy storage types, must account for them
 UPDI::StorageType UPDI::m_storageType = MODERN_STORAGE;
-#endif
+
+DuoHeader UPDI::m_lastSaveHeader;
+
+// Compile-time check on the size of the DuoHeader against definition
+static_assert(DUO_HEADER_SIZE == sizeof(DuoHeader), "Incorrect DuoHeader size");
 
 bool UPDI::init()
 {
 #ifdef VORTEX_EMBEDDED
   m_storageType = MODERN_STORAGE;
+  memset(&m_lastSaveHeader, 0, sizeof(m_lastSaveHeader));
 #endif
   return true;
 }
@@ -136,11 +156,8 @@ bool UPDI::readHeader(ByteStream &header)
     ERROR_LOG("ERROR Header CRC Invalid!");
     return false;
   }
-  // major.minor are the first two bytes of the buffer
-  uint8_t major = header.data()[0];
-  uint8_t minor = header.data()[1];
-  // build was only added to this storage space later on
-  uint8_t build = (header.size() > 5) ? header.data()[5] : 0;
+  // copy into the last save header
+  copyLastSaveHeader(header);
   // Modern Duo with segmented header and build number in header
   m_storageType = MODERN_STORAGE;
 #endif
@@ -175,12 +192,24 @@ bool UPDI::readHeaderLegacy1(ByteStream &header)
     reset();
     return false;
   }
-  // major.minor are the first two bytes of the buffer
-  uint8_t major = header.data()[0];
-  uint8_t minor = header.data()[1];
+  // copy into the last save header
+  copyLastSaveHeader(header);
   // LEGACY DUO! Old Storage format with segmented header and no build number
   m_storageType = LEGACY_STORAGE_1;
   return true;
+}
+
+void UPDI::copyLastSaveHeader(const ByteStream &srcData)
+{
+  // copy into the last save header
+  memset(&m_lastSaveHeader, 0, sizeof(m_lastSaveHeader));
+  // the amount to copy into the last save header
+  uint32_t copysize = sizeof(m_lastSaveHeader);
+  if (srcData.size() < sizeof(m_lastSaveHeader)) {
+    copysize = srcData.size();
+  }
+  // copy in the data
+  memcpy(&m_lastSaveHeader, srcData.data(), copysize);
 }
 
 // really old duos like 1.0.0
@@ -210,11 +239,8 @@ bool UPDI::readHeaderLegacy2(ByteStream &header)
     reset();
     return false;
   }
-  // major.minor are the first two bytes of the buffer
-  uint8_t major = header.data()[0];
-  uint8_t minor = header.data()[1];
-  // build was only added to this storage space later on
-  uint8_t build = 0;
+  // copy into the last save header
+  copyLastSaveHeader(header);
   // LEGACY DUO! Old Storage format with combined header and no build number
   m_storageType = LEGACY_STORAGE_2;
   return true;
@@ -700,6 +726,38 @@ bool UPDI::writeFirmware(uint32_t position, ByteStream &firmwareBuffer)
 #endif
   return true;
 }
+
+// This is a modern feature for Duos right after flashing firmware which will
+// tell the duo to turn on and write out it's new save header which contains
+// the new version number, this allows the chromalink firmware update process
+// to be immediately reconnected without user interaction. Normally the Duo
+// save header would still contain the old save data, the firmware update
+// cannot write a new save header the duo must do that itself
+bool UPDI::setFlagNewFirmware()
+{
+#ifdef VORTEX_EMBEDDED
+  // first read out the existing duo header so we can patch it
+  ByteStream duoHeader;
+  if (!readHeader(duoHeader) || duoHeader.size() < 2) {
+    return false;
+  }
+  // only use the header trick if it's a modern duo
+  if (m_storageType != MODERN_STORAGE) {
+    // can't do it
+    return true;
+  }
+  // modify the global flags of the saveheader to indicate a new firmware
+  ((uint8_t *)duoHeader.data())[2] = DUO_MODES_FLAG_NEW_FIRMWARE;
+  // force recalculate the CRC after changing the global flags
+  duoHeader.recalcCRC(true);
+  // write back the header with this new global flags
+  if (!writeHeader(duoHeader)) {
+    return false;
+  }
+#endif
+  return true;
+}
+
 
 bool UPDI::eraseMemory()
 {

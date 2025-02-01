@@ -18,18 +18,6 @@
 
 #include <string.h>
 
-// The DUO has a special Modes flag (all of upper bits) which means a new
-// firmware was flashed and it should turn on and write out a new save header
-// This is setting the global flags to represent:
-//   0 = button lock enabled
-//   0 = one click mode enabled
-//   0 = advanced menus enabled
-//   0 = keychain mode enabled
-//   1111 = Startup Mode Index 15 (impossible)
-//
-// When the Duo turns on and see this it will rewrite it's own save header
-#define DUO_MODES_FLAG_NEW_FIRMWARE  0xF0
-
 EditorConnection::EditorConnection(const RGBColor &col, bool advanced) :
   Menu(col, advanced),
   m_state(STATE_DISCONNECTED),
@@ -572,7 +560,9 @@ void EditorConnection::handleState()
     m_firmwareOffset = 0;
     m_backupModeNum = 0;
     m_curStep = 0;
-    // done with updi
+    // flag new firmware was written, so the duo turns on and writes it's save header
+    UPDI::setFlagNewFirmware();
+    // reset and disable updi because we are done
     UPDI::reset();
     UPDI::disable();
     // show green
@@ -887,13 +877,16 @@ ReturnCode EditorConnection::receiveFirmwareSize(uint32_t &size)
 ReturnCode EditorConnection::pullHeaderChromalink()
 {
   // first read the duo save header
-  ByteStream saveHeader;
+  ByteStream duoHeader;
   // doesn't matter if reading the header fails, we still need to send it
-  bool success = UPDI::readHeader(saveHeader);
+  bool success = UPDI::readHeader(duoHeader);
+  // TODO: should these be here?
   UPDI::reset();
   UPDI::disable();
+  // TODO: check version stuff? not really any need yet
+  //DuoHeader *pHeader = (DuoHeader *)duoHeader.data();
   // send whatever we read, might be empty buffer if it failed
-  SerialComs::write(saveHeader);
+  SerialComs::write(duoHeader);
   // return whether reading the header was successful
   return success ? RV_OK : RV_FAIL;
 }
@@ -977,11 +970,9 @@ ReturnCode EditorConnection::backupDuoModes()
     m_backupModes = true;
     // double check the version and valid header before backing up modes
     ByteStream duoHeader;
-    UPDI::readHeader(duoHeader);
-    if (duoHeader.size() >= 5) {
-      uint8_t major = duoHeader.data()[0];
-      uint8_t minor = duoHeader.data()[1];
-      if (major < 1 || minor < 3) {
+    if (UPDI::readHeader(duoHeader) && duoHeader.size() >= 5) {
+      DuoHeader &duoHeader = UPDI::lastSaveHeader();
+      if (duoHeader.vMajor < 1 || duoHeader.vMinor < 3) {
         // turn off mode backup the version isn't high enough
         m_backupModes = false;
       }

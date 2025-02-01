@@ -5,6 +5,19 @@
 
 #include "../VortexConfig.h"
 
+// this is a replication of what the Duo save header looks like
+// at the time of writing this, it may grow and contain more info
+// but it should still be backwards compatible because of max size
+struct DuoHeader {
+  uint8_t vMajor;
+  uint8_t vMinor;
+  uint8_t globalFlags;
+  uint8_t numModes;
+  uint8_t idk;
+  uint8_t vBuild;
+  // 15 bytes total
+  uint8_t unused[9];
+};
 
 class ByteStream;
 
@@ -24,12 +37,16 @@ public:
   static bool writeMode(uint8_t idx, ByteStream &modeBuffer);
 
   static bool writeFirmware(uint32_t offset, ByteStream &firmwareBuffer);
+  static bool setFlagNewFirmware();
 
   static bool eraseMemory();
   static bool reset();
 
   // end the updi connection and reset the chip
   static bool disable();
+
+  // the data from the last duo header that was loaded
+  static DuoHeader &lastSaveHeader() { return m_lastSaveHeader; }
 
 private:
 
@@ -148,6 +165,12 @@ private:
   static void sendEraseKey() { sendKey("NVMErase"); }
   static void sendProgKey() { sendKey("NVMProg "); }
   static void sendUserrowKey() { sendKey("NVMUs&te"); }
+#endif
+
+  static void copyLastSaveHeader(const ByteStream &srcData);
+
+  // a copy of the last save header
+  static DuoHeader m_lastSaveHeader;
 
   enum StorageType
   {
@@ -161,7 +184,6 @@ private:
 
   // whether connected to a legacy duo
   static StorageType m_storageType;
-#endif
 };
 
 #endif // UPDI_H
