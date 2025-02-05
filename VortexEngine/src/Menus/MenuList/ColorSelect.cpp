@@ -50,10 +50,11 @@ bool ColorSelect::init()
     // cannot work with an empty mode
     return false;
   }
+#if VORTEX_SLIM == 0
   if (cur->isMultiLed()) {
-    m_targetLeds = MAP_LED(LED_MULTI);
-    m_ledSelected = true;
+    bypassLedSelection(MAP_LED(LED_MULTI));
   }
+#endif
   m_state = STATE_INIT;
   DEBUG_LOG("Entered color select");
   return true;
