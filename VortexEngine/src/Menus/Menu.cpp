@@ -157,6 +157,13 @@ void Menu::nextBulbSelection()
   }
 }
 
+void Menu::bypassLedSelection(LedMap map)
+{
+  m_ledSelected = true;
+  m_targetLeds = map;
+  onLedSelected();
+}
+
 void Menu::onLedSelected()
 {
 }
