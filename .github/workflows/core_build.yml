@@ -115,7 +115,7 @@ jobs:
         echo "Listing contents of docs/core:"
         ls -R docs/core || echo "No files found in docs/core"
     - name: Upload Doxygen Documentation as Artifact
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: doxygen-docs-core
         path: docs/core
