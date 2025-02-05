@@ -151,7 +151,7 @@ jobs:
           echo "Listing contents of docs/gloves:"
           ls -R docs/gloves || echo "No files found in docs/gloves"
       - name: Upload Doxygen Documentation as Artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: doxygen-docs-gloves
           path: docs/gloves
