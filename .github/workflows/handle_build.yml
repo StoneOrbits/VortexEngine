@@ -151,7 +151,7 @@ jobs:
           echo "Listing contents of docs/handle:"
           ls -R docs/handle || echo "No files found in docs/handle"
       - name: Upload Doxygen Documentation as Artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: doxygen-docs-handle
           path: docs/handle
