@@ -37,7 +37,7 @@
 #define MAP_IS_ONE_LED(map) (map && !(map & (map-1)))
 
 // foreach led macro (only iterates singles)
-#define MAP_FOREACH_LED(map) for (LedPos pos = m_engine.leds().ledmapGetFirstLed(map); pos < LED_COUNT; pos = m_engine.leds().ledmapGetNextLed(map, pos))
+#define MAP_FOREACH_LED(map) for (LedPos pos = m_engine.leds().ledmapGetFirstLed(map); pos != LED_COUNT; pos = m_engine.leds().ledmapGetNextLed(map, pos))
 
 // bitmap of all pairs (basically LED_COUNT bits)
 #define MAP_LED_ALL (LedMap)((2 << (LED_COUNT - 1)) - 1)
