@@ -132,7 +132,7 @@ jobs:
           echo "Listing contents of docs/desktop:"
           ls -R docs/desktop || echo "No files found in docs/desktop"
       - name: Upload Doxygen Documentation as Artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: doxygen-docs-desktop
           path: docs/desktop
