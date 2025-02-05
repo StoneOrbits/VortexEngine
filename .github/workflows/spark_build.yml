@@ -149,7 +149,7 @@ jobs:
           echo "Listing contents of docs/spark:"
           ls -R docs/spark || echo "No files found in docs/spark"
       - name: Upload Doxygen Documentation as Artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: doxygen-docs-spark
           path: docs/spark
