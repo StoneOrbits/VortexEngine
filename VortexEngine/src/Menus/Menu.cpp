@@ -188,6 +188,13 @@ void Menu::showExit()
   Leds::blinkQuadrant(QUADRANT_5, 250, 500, RGB_RED0);
 }
 
+void Menu::bypassLedSelection(LedMap map)
+{
+  m_ledSelected = true;
+  m_targetLeds = map;
+  onLedSelected();
+}
+
 void Menu::onLedSelected()
 {
 }
