@@ -62,7 +62,6 @@ Menu::MenuAction Menu::run()
   // if the led has already been selected continue as normal
   // and allow derived menu logic to perform work
   if (m_ledSelected) {
-    onLedSelected();
     return MENU_CONTINUE;
   }
 
