@@ -13,7 +13,7 @@ The primary differences between the core and each device are the hardcoded numbe
 
 Each device and its specific changes are maintained in branches named after the devices. These branches are permanent and continuously receive reintegration updates whenever the core is modified.
 
-At the time of writing, the existing branches include:
+The following sections discuss the various branches and their purpose.
 
 ### The Core Branch
 The core is stored in the **master** branch, the default main branch of the repository. The core is configured as a 1-LED device with agnostic menus, while each device branch adjusts LED enumeration and potentially modifies menus to match its specific LED count or layout.
@@ -63,3 +63,4 @@ Follow these steps:
    `name/orbit/reintegrate-new-fix -> orbit`
 3. When merging the pull request, **DO NOT SQUASH OR REBASE**.  
    A regular merge commit must be used to retain history.
+y
