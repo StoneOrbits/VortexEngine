@@ -160,7 +160,7 @@ typedef uint64_t LedMap;
 #define MAP_IS_ONE_LED(map) (map && !(map & (map-1)))
 
 // foreach led macro (only iterates singles)
-#define MAP_FOREACH_LED(map) for (LedPos pos = ledmapGetFirstLed(map); pos < LED_COUNT; pos = ledmapGetNextLed(map, pos))
+#define MAP_FOREACH_LED(map) for (LedPos pos = ledmapGetFirstLed(map); pos != LED_COUNT; pos = ledmapGetNextLed(map, pos))
 
 // convert a map to the first Led position in the map
 inline LedPos ledmapGetFirstLed(LedMap map)
