@@ -185,13 +185,6 @@ void Menu::bypassLedSelection(LedMap map)
   onLedSelected();
 }
 
-void Menu::bypassLedSelection(LedMap map)
-{
-  m_ledSelected = true;
-  m_targetLeds = map;
-  onLedSelected();
-}
-
 void Menu::onLedSelected()
 {
 }
