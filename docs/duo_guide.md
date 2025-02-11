@@ -123,7 +123,7 @@ Learn how to use the Duo with this interactive tutorial:
 <div style="text-align: center; margin: 20px 0;">
   <iframe 
     src="https://opensourcelightshows.github.io/DuoTutorial/" 
-    width="50%" 
+    width="90%" 
     height="600" 
     style="border: 5px solid #444; border-radius: 8px;"
     title="Duo Tutorial"
