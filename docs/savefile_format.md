@@ -5,37 +5,31 @@ nav_order: 30
 parent: Vortex Engine
 ---
 
-# Savefile Format
+# Vortex Savefiles
 
-The Vortex Engine uses a specific format to save and transfer modes on your Vortex Devices. Understanding this format can help you better understand how devices share modes and translate each others modes.
+Vortex Engine uses a custom format to save and transfer modes, the savefile for a mode can be acquired various different ways and it can be represented in different formats. 
 
-## Overview
+The important thing to understand is the savefiles can be transferred across devices and adjusted to fit any device with any number of leds.
 
-The savefile format is a binary format that stores the state of your Vortex Device. This includes the current mode list and any other settings that your device may have.
+## Savefile Contents
 
-The savefile can be produced by connecting the device to the editor and pulling all modes from the device into the editor then navigating to File > Export to save the entire mode list as a .vortex file.
+The general idea of a savefile is to store the data that represents the blinking patterns and colorsets that make up a mode.  Since a device can have many leds a mode must contain a pattern and colorset for each led on the device.
 
-There are technically two kinds of savefiles, a .vortex file is a full vortex savefile which contains the engine version, all global device settings, and all modes on the device.
+## Acquring and Sharing Savefiles
 
-There is another kind of savefile, a .vtxmode savefile contains just the contents of a single mode along with the engine version. When transferring modes accross devices with the modesharing menu only a vtxmode is transferred.
+Depending on the device being used, the savefile for modes can usually be acquired through https://lightshow.lol
 
-It is up to you to decide which save to use for whatever circumstances you may face. If you want to just share a single mode with a friend then you might send them a link to the vtxmode file, where as if you wanted to share your entire set you might save a .vortex savefile.
+Simply connecting the device and then loading the modes from the device will give access to the mode savefiles directly on lightshow.lol. These modes can be then shared on [Vortex Community](https://vortex.community)
 
 ## Mode Stretching and Chopping
 
-When a mode is transferred from one device to another there is a step which must occur on the receiving device. After the mode has been received and while it is being loaded, the receiving device must make a decision based on the number of leds present in the mode savefile, and the number of leds the device currently exposes.
+When a mode is transferred from one device to another a step occurs on the receiving device. 
 
-If the led count is different between an incoming savefile and the actual device led count, then "stretching" or "chopping" rules are applied.
+The receiving device will look at the number of leds in the mode, and compare that to the number of leds on the receiving device.
 
-The "stretching" rule will apply to a receiver which has more leds than then mode it received, it will repeat the smaller mode across the larger set of leds however many times necessary to fill the leds. For example an orbit receiving a duo mode would repeat that 2 led mode 14 times across it's leds.
+If the led count is different between an incoming savefile and the actual device led count, then *stretching* or *chopping* rules are applied.
 
-The "chopping" rule will apply when a receiver has less leds than the mode it has received, this will simply chop off the remaining leds and only use the ones which fit on the device.  For example an orbit mode (28 leds) sent to a wired gloveset (10 leds) would chop the remaining 18 leds off and only use the first 10.
+The *stretching* rule will repeat a smaller mode across a larger number of leds.
 
-## Compatibility
-
-The savefile format is designed to be forward and backward compatible. This means that savefiles created by older versions of the Vortex Engine can be read by newer versions, and vice versa. However, some features may not be available if you load a savefile created by a newer version of the Vortex Engine on an older version.
-
-## Conclusion
-
-Understanding the savefile format can help you better understand how your Vortex Device works. However, you don't need to worry about the details of the format unless you're interested in the inner workings of the Vortex Engine. The engine handles all the details for you, so you can focus on creating amazing light shows.
+The *chopping* rule will trim a larger mode to fit on a smaller number of leds.
 
