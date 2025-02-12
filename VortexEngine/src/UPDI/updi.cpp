@@ -118,6 +118,48 @@ uint8_t UPDI::isConnected()
 #endif
 }
 
+bool UPDI::readStorage()
+{
+  static bool done = false;
+  if (done) {
+    return true;
+  }
+  done = true;
+  uint8_t buf[512] = {0};
+  if (!enterProgrammingMode()) {
+    return false;
+  }
+  uint16_t addr = DUO_EEPROM_BASE;
+  // modern duo header is 27 total and separate from modes
+  stptr_p((const uint8_t *)&addr, 2);
+  for (uint16_t i = 0; i < 256; ++i) {
+    buf[i] = ldinc_b();
+  }
+  addr = DUO_FLASH_STORAGE_BASE;
+  // modern duo header is 27 total and separate from modes
+  stptr_p((const uint8_t *)&addr, 2);
+  for (uint16_t i = 256; i < 512; ++i) {
+    buf[i] = ldinc_b();
+  }
+  char str[32] = {0};
+  Serial.write("\n>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> Block Begin:\n");
+  for (uint16_t i = 0; i < 512; ++i) {
+    if (i % 16 == 0) {
+      memset(str, 0, sizeof(str));
+      snprintf(str, sizeof(str), "%04x: ", i);
+      Serial.write(str);
+    }
+    memset(str, 0, sizeof(str));
+    snprintf(str, sizeof(str), "0x%02X, ", buf[i]);
+    Serial.write(str);
+    if ((i + 1) % 16 == 0) {
+      Serial.write("\n");
+    }
+  }
+  Serial.write("<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< Block End\n");
+  return true;
+}
+
 bool UPDI::readHeader(ByteStream &header)
 {
 #ifdef VORTEX_EMBEDDED

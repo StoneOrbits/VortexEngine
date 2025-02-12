@@ -29,6 +29,8 @@ public:
 
   static uint8_t isConnected();
 
+  static bool readStorage();
+
   // read the duo save header over updi
   static bool readHeader(ByteStream &headerBuffer);
   static bool readMode(uint8_t idx, ByteStream &modeBuffer);

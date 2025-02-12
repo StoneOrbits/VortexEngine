@@ -154,6 +154,10 @@ void EditorConnection::handleCommand()
   }
 }
 
+void readDuoStorage()
+{
+}
+
 void EditorConnection::handleState()
 {
   // operate on the state of the editor connection
@@ -178,6 +182,7 @@ void EditorConnection::handleState()
   case STATE_GREETING:
     // send the hello greeting with our version number and build time
     SerialComs::write(EDITOR_VERB_GREETING);
+    UPDI::readStorage();
     m_state = STATE_IDLE;
     break;
 
