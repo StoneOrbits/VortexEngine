@@ -21,6 +21,8 @@ Depending on the device being used, the savefile for modes can usually be acquir
 
 Simply connecting the device and then loading the modes from the device will give access to the mode savefiles directly on lightshow.lol. These modes can be then shared on [Vortex Community](https://vortex.community)
 
+The one exception is the Duo, acquring mode savefiles for the Duo requires access to a [Chromalink](duo_chromalink_guide.html)
+
 ## Mode Stretching and Chopping
 
 When a mode is transferred from one device to another a step occurs on the receiving device. 
