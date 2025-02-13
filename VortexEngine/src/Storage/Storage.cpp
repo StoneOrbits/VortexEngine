@@ -98,7 +98,7 @@ bool Storage::write(uint8_t slot, ByteStream &buffer)
   const uint8_t *buf = (const uint8_t *)buffer.rawData();
   // the header is slot 0 and it gets 17 bytes in the start of the eeprom then
   // the next 3 modes are 76 bytes each taking up 228 bytes for a total of 245
-  if (slot < 4) {
+  if (slot < 3) {
     uint8_t eepSlot = 0;
     if (slot > 0) {
       eepSlot = STORAGE_HEADER_SIZE + (MAX_MODE_SIZE * (slot - 1));
@@ -210,7 +210,7 @@ bool Storage::read(uint8_t slot, ByteStream &buffer)
   if (slot == 0) { // slot 0 is header eeprom
     src = (volatile uint8_t *)MAPPED_EEPROM_START;
     size = STORAGE_HEADER_SIZE;
-  } else if (slot < 4) { // slots 1-3 are eeprom
+  } else if (slot < 3) { // slots 1-3 are eeprom
     src = (volatile uint8_t *)MAPPED_EEPROM_START + STORAGE_HEADER_SIZE + (MAX_MODE_SIZE * (slot - 1));
   } else { // slots 4-9 are flash
     src = (volatile uint8_t *)FLASH_STORAGE_SPACE + (MAX_MODE_SIZE * (slot - 4));
