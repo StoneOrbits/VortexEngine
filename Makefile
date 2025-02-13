@@ -61,10 +61,10 @@ SYSCFG1 = 0x07
 APPEND = 0x00
 # fuse8 = BOOTEND
 #  This controls the amount of storage for modes at the end of the flash memory,
-#  it is the boundary for the segment that can be rewritten by the program, 0x7e
-#  means 0x7e00/0x8000 bytes are program and 0x200 bytes are reserved for flash
+#  it is the boundary for the segment that can be rewritten by the program, 0x7d
+#  means 0x7d00/0x8000 bytes are program and 0x200 bytes are reserved for flash
 #  storage of modes, this does not include the eeprom.
-BOOTEND = 0x7e
+BOOTEND = 0x7d
 
 # The branch/tag suffix for this device
 BRANCH_SUFFIX=d
