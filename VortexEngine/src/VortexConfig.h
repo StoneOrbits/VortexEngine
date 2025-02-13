@@ -568,14 +568,14 @@
 //  These are the various storage space constants of the vortex device
 
 // maximum size of a mode here
-#define MAX_MODE_SIZE 76
+#define MAX_MODE_SIZE 81
 
 // the number of storage slots for modes, add 1 for the header
 #define NUM_MODE_SLOTS (MAX_MODES + 1)
 
 // the space available for storing modes, this is a bit inaccurate on the duo
 // because the eeprom is also used but that isn't reflected here
-#define STORAGE_SIZE 0x200
+#define STORAGE_SIZE 0x300
 
 // ===================================================================
 //  Test Framework configurations

@@ -43,14 +43,16 @@ std::string Storage::m_storageFilename;
 // The position of the flash storage is right before the end of the flash, as long
 // as the program leaves 256 bytes of space at the end of flash then this will fit
 #define FLASH_STORAGE_SPACE ((volatile uint8_t *)(0x10000 - FLASH_STORAGE_SIZE))
-// The header is max 15 bytes big, this is decided by the MAX_MODE_SIZE being
-// 76, since there's only 256 bytes in the eeprom that leaves exactly 27 bytes
-// leftover after packing 3x modes. Out of the 27 bytes 12 is the ByteStream
-// header leaving 15 for the max header size. Of the 15 only 7 bytes are really
+// The header is max 82 bytes big, this is decided by the MAX_MODE_SIZE being
+// 81, since there's only 256 bytes in the eeprom that leaves exactly 94 bytes
+// leftover after packing 2x modes. Out of the 94 bytes 12 is the ByteStream
+// header leaving 82 for the max header size. Of the 82 only 6 bytes are really
 // being used and the rest are extra bytes reserved for future use
-#define HEADER_SIZE 15
+#define HEADER_SIZE 82
 // The full header size includes the 12 bytes for the serialbuffer header
 #define STORAGE_HEADER_SIZE (HEADER_SIZE + 12)
+// the size of a single page of flash on the attiny3217
+#define FLASH_PAGE_SIZE 128
 
 uint32_t Storage::m_lastSaveSize = 0;
 
@@ -71,9 +73,6 @@ bool Storage::init()
 void Storage::cleanup()
 {
 }
-
-#define FLASH_PAGE_SIZE 128
-
 
 // store a serial buffer to storage
 bool Storage::write(uint8_t slot, ByteStream &buffer)
@@ -104,15 +103,15 @@ bool Storage::write(uint8_t slot, ByteStream &buffer)
     if (slot > 0) {
       eepSlot = STORAGE_HEADER_SIZE + (MAX_MODE_SIZE * (slot - 1));
     }
-    // header eeprom (12 bytes of 256)
-    // 3 modes eeprom (76 x 3 bytes of 244)
+    // header eeprom (94 bytes of 256)
+    // 3 modes eeprom (81 x 2 bytes of 162)
     uint8_t slotSize = (slot == 0) ? STORAGE_HEADER_SIZE : MAX_MODE_SIZE;
     for (uint8_t i = 0; i < slotSize; ++i) {
       uint8_t b = (i < size) ? buf[i] : 0x00;
       eepromWriteByte(eepSlot + i, b);
     }
   } else {
-    // Then flash storage is 0x200 or 512 bytes which allows for 6 x 76 byte modes
+    // Then flash storage is 0x300 or 768 bytes which allows for 9 x 81 byte modes
     // the base address of the slot we are writing
     uint16_t slotAddr = (uint16_t)FLASH_STORAGE_SPACE + (MAX_MODE_SIZE * (slot - 4));
     // The storage slot may lay across a page boundary which means potentially writing
