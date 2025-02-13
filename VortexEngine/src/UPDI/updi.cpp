@@ -348,9 +348,14 @@ bool UPDI::writeMode(uint8_t idx, ByteStream &modeBuffer)
     return false;
   }
   modeBuffer.sanity();
+  // TODO: idk if this is really necessary here anymore? I forget why it's here
   if (!modeBuffer.checkCRC()) {
     ERROR_LOG("ERROR Mode CRC Invalid!");
-    reset();
+    return false;
+  }
+  // check against the max mode size so we don't write beyond limits
+  if (modeBuffer.rawSize() > DUO_MODE_SIZE) {
+    ERROR_LOG("ERROR Mode CRC Invalid!");
     return false;
   }
   // there are 3 modes in the eeprom after the header
