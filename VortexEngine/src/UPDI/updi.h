@@ -15,8 +15,8 @@ struct DuoHeader {
   uint8_t numModes;
   uint8_t idk;
   uint8_t vBuild;
-  // 15 bytes total
-  uint8_t unused[9];
+  // 82 bytes total
+  uint8_t unused[76];
 };
 
 class ByteStream;

@@ -527,10 +527,10 @@ void EditorConnection::handleState()
     m_state = STATE_CHROMALINK_FLASH_FIRMWARE_BACKUP_MODES;
     break;
   case STATE_CHROMALINK_FLASH_FIRMWARE_BACKUP_MODES:
-    if (backupDuoModes() == RV_WAIT) {
-      // not done yet keep going
-      break;
-    }
+    //if (backupDuoModes() == RV_WAIT) {
+    //  // not done yet keep going
+    //  break;
+    //}
     m_state = STATE_CHROMALINK_FLASH_FIRMWARE_ERASE_MEMORY;
     break;
   case STATE_CHROMALINK_FLASH_FIRMWARE_ERASE_MEMORY:
@@ -549,11 +549,11 @@ void EditorConnection::handleState()
     m_state = STATE_CHROMALINK_FLASH_FIRMWARE_RESTORE_MODES;
     break;
   case STATE_CHROMALINK_FLASH_FIRMWARE_RESTORE_MODES:
-    // only once the entire firmware is written
-    if (restoreDuoModes() == RV_WAIT) {
-      // not done yet keep going
-      break;
-    }
+    //// only once the entire firmware is written
+    //if (restoreDuoModes() == RV_WAIT) {
+    //  // not done yet keep going
+    //  break;
+    //}
     m_state = STATE_CHROMALINK_FLASH_FIRMWARE_DONE;
     break;
   case STATE_CHROMALINK_FLASH_FIRMWARE_DONE:

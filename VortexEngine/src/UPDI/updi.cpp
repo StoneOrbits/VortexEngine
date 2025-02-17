@@ -53,17 +53,17 @@
 #endif
 
 // the max size of a single mode
-#define DUO_MODE_SIZE 76
+#define DUO_MODE_SIZE 81
 // the size of the actual storage header data
-#define DUO_HEADER_SIZE 15
+#define DUO_HEADER_SIZE 82
 // the full size of the storage header, data + metadata (first 27 bytes of eeprom)
 #define DUO_HEADER_FULL_SIZE (DUO_HEADER_SIZE + 12)
 // the base address of eeprom and where the save header starts
 // followed by 3 modes each 76 makes 255 bytes of eeprom
 #define DUO_EEPROM_BASE 0x1400
-// then the next 6 modes are stored in flash from 0xfe00 to 0x10000
-// which is 512 bytes of space that can be adjusted
-#define DUO_FLASH_STORAGE_BASE 0xFe00
+// then the next 6 modes are stored in flash from 0xfd00 to 0x10000
+// which is 768 bytes of space that can be adjusted
+#define DUO_FLASH_STORAGE_BASE 0xFD00
 // the actual firmware is 0x8000 to 0x10000
 #define DUO_FIRMWARE_BASE 0x8000
 
@@ -271,7 +271,7 @@ bool UPDI::readMode(uint8_t idx, ByteStream &modeBuffer)
   uint16_t numBytes = modeBuffer.rawSize();
   uint16_t base;
   // there are 3 modes in the eeprom after the header
-  if (idx < 3) {
+  if (idx < 2) {
     // DUO_EEPROM_BASE is eeprom base
     // DUO_HEADER_FULL_SIZE is size of duo header
     // DUO_MODE_SIZE is size of each duo mode
@@ -359,7 +359,7 @@ bool UPDI::writeMode(uint8_t idx, ByteStream &modeBuffer)
     return false;
   }
   // there are 3 modes in the eeprom after the header
-  if (idx < 3) {
+  if (idx < 2) {
     return writeModeEeprom(idx, modeBuffer);
   }
   return writeModeFlash(idx, modeBuffer);
