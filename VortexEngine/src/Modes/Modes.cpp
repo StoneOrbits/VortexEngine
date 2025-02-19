@@ -104,17 +104,7 @@ void Modes::play()
 // full save/load to/from buffer
 bool Modes::saveToBuffer(ByteStream &modesBuffer)
 {
-  if (!serializeSaveHeader(modesBuffer)) {
-    return false;
-  }
-  // serialize all modes data into the modesBuffer
-  if (!serialize(modesBuffer)) {
-    return false;
-  }
-  DEBUG_LOGF("Serialized all modes, uncompressed size: %u", modesBuffer.size());
-  if (!modesBuffer.compress()) {
-    return false;
-  }
+  // This API is removed for the DUO
   return true;
 }
 
@@ -145,20 +135,6 @@ bool Modes::saveHeader()
   if (!serializeSaveHeader(headerBuffer)) {
     return false;
   }
-  // the number of modes
-  if (!headerBuffer.serialize8(m_numModes)) {
-    return false;
-  }
-  // only on the duo just save some extra stuff to the header slot
-#ifdef VORTEX_EMBEDDED
-  // Duo also saves the build number to the save header so the chromalink can
-  // read it out, other devices just have the version hardcoded into their
-  // editor connection hello message. Don't do this in VortexLib because
-  // it will alter the savefile format and break compatibility
-  if (!headerBuffer.serialize8((uint8_t)VORTEX_BUILD_NUMBER)) {
-    return false;
-  }
-#endif
   if (!Storage::write(0, headerBuffer)) {
     return false;
   }
@@ -287,6 +263,20 @@ bool Modes::serializeSaveHeader(ByteStream &saveBuffer)
   if (!saveBuffer.serialize8((uint8_t)Leds::getBrightness())) {
     return false;
   }
+  // the number of modes
+  if (!saveBuffer.serialize8(m_numModes)) {
+    return false;
+  }
+  // only on the duo just save some extra stuff to the header slot
+#ifdef VORTEX_EMBEDDED
+  // Duo also saves the build number to the save header so the chromalink can
+  // read it out, other devices just have the version hardcoded into their
+  // editor connection hello message. Don't do this in VortexLib because
+  // it will alter the savefile format and break compatibility
+  if (!saveBuffer.serialize8((uint8_t)VORTEX_BUILD_NUMBER)) {
+    return false;
+  }
+#endif
   DEBUG_LOGF("Serialized all modes, uncompressed size: %u", saveBuffer.size());
   return true;
 }

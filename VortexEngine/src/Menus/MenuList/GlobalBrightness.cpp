@@ -113,12 +113,14 @@ void GlobalBrightness::showBrightnessSelection()
 
 // ==================== KEYCHAIN_MODE STUFF ====================
 
-// don't worry about this stuff
+// The general timer for keychain mode to remain active
 #define KEYCHAIN_MODE_TIMER_MS      2100
 #define KEYCHAIN_MODE_TIMER_TICKS   MS_TO_TICKS(KEYCHAIN_MODE_TIMER_MS)
+// the number of clicks needed to exit keychain mode
 #define KEYCHAIN_MODE_EXIT_CLICKS   8
-#define KEYCHAIN_MODE_SLEEP_S       10
-#define KEYCHAIN_MODE_SLEEP_TICKS   SEC_TO_TICKS(KEYCHAIN_MODE_SLEEP_S)
+// This is the duration of idle time on blank before it will auto-sleep
+// give a solid 300 seconds (5 minutes) before it goes to sleep
+#define KEYCHAIN_MODE_SLEEP_TICKS   SEC_TO_TICKS(300)
 
 // bonus simulate keychain_mode in this menu
 Menu::MenuAction GlobalBrightness::runKeychainMode()
