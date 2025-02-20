@@ -958,6 +958,8 @@ ReturnCode EditorConnection::pushModeChromalink()
 
 ReturnCode EditorConnection::backupDuoModes()
 {
+  // TODO: Proper modes backup
+#if 0
   if (m_backupModeNum == 9) {
     // reset counter for the restore step later
     m_backupModeNum = 0;
@@ -996,6 +998,12 @@ ReturnCode EditorConnection::backupDuoModes()
   // go to next mode
   m_backupModeNum++;
   return RV_WAIT;
+#endif
+  // for now we just use the defaults
+  for (uint32_t i = 0; i < 9; ++i) {
+    m_modeBackups[i].init(duo_default_sizes[i], duo_default_modes[i]);
+  }
+  return RV_OK;
 }
 
 ReturnCode EditorConnection::restoreDuoModes()
