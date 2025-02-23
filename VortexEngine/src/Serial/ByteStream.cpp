@@ -462,7 +462,7 @@ bool ByteStream::unserialize32(uint32_t *bytes)
 // unserialize data and erase it from the buffer
 bool ByteStream::consume8(uint8_t *bytes)
 {
-  if (!m_pData || m_position >= m_pData->size || (m_pData->size - m_position) < sizeof(uint8_t)) {
+  if (!m_pData || m_pData->size < sizeof(uint8_t)) {
     return false;
   }
   if (bytes) {
@@ -480,7 +480,7 @@ bool ByteStream::consume8(uint8_t *bytes)
 
 bool ByteStream::consume16(uint16_t *bytes)
 {
-  if (!m_pData || m_position >= m_pData->size || (m_pData->size - m_position) < sizeof(uint16_t)) {
+  if (!m_pData || m_pData->size < sizeof(uint16_t)) {
     return false;
   }
   if (bytes) {
@@ -498,7 +498,7 @@ bool ByteStream::consume16(uint16_t *bytes)
 
 bool ByteStream::consume32(uint32_t *bytes)
 {
-  if (!m_pData || m_position >= m_pData->size || (m_pData->size - m_position) < sizeof(uint32_t)) {
+  if (!m_pData || m_pData->size < sizeof(uint32_t)) {
     return false;
   }
   if (bytes) {
