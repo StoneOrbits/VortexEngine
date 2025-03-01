@@ -19,6 +19,8 @@
 #include "UPDI/updi.h"
 #include "Log/Log.h"
 
+#include "Wireless/Bluetooth.h"
+
 #ifdef VORTEX_LIB
 #include "VortexLib.h"
 #endif
@@ -92,6 +94,10 @@ bool VortexEngine::init()
     DEBUG_LOG("UPDI failed to initialize");
     return false;
   }
+  if (!Bluetooth::init()) {
+    DEBUG_LOG("Bluetooth failed to initialize");
+    return false;
+  }
 
 #if COMPRESSION_TEST == 1
   compressionTest();
@@ -114,6 +120,7 @@ void VortexEngine::cleanup()
   // NOTE: the embedded doesn't actually cleanup,
   //       but the test frameworks do
 #ifdef VORTEX_LIB
+  Bluetooth::cleanup();
   Modes::cleanup();
   Menus::cleanup();
   Buttons::cleanup();
@@ -175,7 +182,7 @@ void VortexEngine::runMainLogic()
 
   // check for serial first before main menus run, but as a result if we open
   // editor we have to call modes load inside here
-  if (SerialComs::checkSerial()) {
+  if (SerialComs::checkSerial() || Bluetooth::checkBluetooth()) {
     if (Menus::curMenuID() != MENU_EDITOR_CONNECTION) {
       // have to do this because we check for serial before main menu
       if (MainMenu::isOpen()) {

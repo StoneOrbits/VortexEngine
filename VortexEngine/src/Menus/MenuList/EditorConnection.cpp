@@ -16,6 +16,8 @@
 #include "../../UPDI/updi.h"
 #include "../../Log/Log.h"
 
+#include "../../Wireless/Bluetooth.h"
+
 #include <string.h>
 
 EditorConnection::EditorConnection(const RGBColor &col, bool advanced) :
@@ -598,9 +600,16 @@ void EditorConnection::receiveData()
   if (m_receiveBuffer.size() >= 512) {
     return;
   }
-  // read more data into the receive buffer
-  SerialComs::read(m_receiveBuffer);
+
+  if (Bluetooth::isConnected()) {
+    // Read from Bluetooth if connected
+    Bluetooth::read(m_receiveBuffer);
+  } else {
+    // Otherwise, read from Serial
+    SerialComs::read(m_receiveBuffer);
+  }
 }
+
 
 void EditorConnection::sendModes()
 {
