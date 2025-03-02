@@ -1064,6 +1064,8 @@ bool EditorConnection::detectConnection()
   } else if (SerialComs::isConnected() || SerialComs::checkSerial()) {
     // detected serial
     m_isBluetooth = false;
+    // shut bluetooth down so updi works
+    Bluetooth::cleanup();
   } else {
     // didn't detect either
     return false;
