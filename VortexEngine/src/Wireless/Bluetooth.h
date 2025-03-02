@@ -24,7 +24,6 @@ public:
 
     static bool dataReady();
 
-private:
     static BLEServer* pServer;
     static BLECharacteristic* writeChar;
     static BLECharacteristic* notifyChar;

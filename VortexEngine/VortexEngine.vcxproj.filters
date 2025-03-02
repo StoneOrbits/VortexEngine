@@ -342,6 +342,9 @@
     <ClCompile Include="src\Modes\DuoDefaultModes.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\Wireless\Bluetooth.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\VortexConfig.h">
@@ -573,6 +576,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\Modes\DuoDefaultModes.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Wireless\Bluetooth.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

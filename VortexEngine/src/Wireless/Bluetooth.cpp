@@ -3,6 +3,8 @@
 #include <BLE2902.h>
 #include <stdarg.h>
 
+#include "../Time/TimeControl.h"
+
 #define SERVICE_UUID       "12345678-1234-1234-1234-123456789abc"
 #define WRITE_CHAR_UUID    "12345678-1234-1234-1234-123456789abd"
 #define NOTIFY_CHAR_UUID   "12345678-1234-1234-1234-123456789abe"
@@ -19,10 +21,12 @@ class MyServerCallbacks : public BLEServerCallbacks {
         //Serial.println("Bluetooth Device Connected.");
     }
 
-    void onDisconnect(BLEServer* pServer) override {
-        Bluetooth::m_bleConnected = false;
-        //Serial.println("Bluetooth Device Disconnected.");
+    void onDisconnect(BLEServer *pServer) override {
+      Bluetooth::m_bleConnected = false;
+      Serial.println("Bluetooth Device Disconnected. Restarting advertising...");
+      BLEDevice::startAdvertising(); // Restart BLE advertising
     }
+
 };
 
 class WriteCallback : public BLECharacteristicCallbacks {
@@ -41,6 +45,7 @@ class WriteCallback : public BLECharacteristicCallbacks {
 bool Bluetooth::init() {
     //Serial.println("Initializing BLE...");
     BLEDevice::init("ESP32-C3 BLE");
+    BLEDevice::setMTU(512);
     
     pServer = BLEDevice::createServer();
     pServer->setCallbacks(new MyServerCallbacks());
@@ -57,7 +62,12 @@ bool Bluetooth::init() {
         NOTIFY_CHAR_UUID,
         BLECharacteristic::PROPERTY_NOTIFY
     );
-    notifyChar->addDescriptor(new BLE2902());
+
+    BLE2902 *desc = new BLE2902();
+    desc->setNotifications(true);
+    desc->setIndications(true);
+    desc->setValue("10"); // Send notifications **every 10ms**
+    notifyChar->addDescriptor(desc);
 
     pService->start();
     
@@ -67,6 +77,8 @@ bool Bluetooth::init() {
     pSecurity->setInitEncryptionKey(ESP_BLE_ENC_KEY_MASK | ESP_BLE_ID_KEY_MASK);
 
     BLEAdvertising* pAdvertising = BLEDevice::getAdvertising();
+    // for stable connection
+    pAdvertising->setMinPreferred(0x06);
     pAdvertising->addServiceUUID(SERVICE_UUID);
     pAdvertising->start();
 
@@ -95,13 +107,20 @@ void Bluetooth::write(const char* msg, ...) {
     char buffer[512];
     va_list args;
     va_start(args, msg);
-    vsnprintf(buffer, sizeof(buffer), msg, args);
+    int len = vsnprintf(buffer, sizeof(buffer), msg, args);
     va_end(args);
 
     //Serial.print("Sending via BLE: ");
     //Serial.println(buffer);
+    // Ensure message is within bounds
+    if (len < 0 || len >= sizeof(buffer)) {
+      // abort?
+      return;
+    }
+
 
     notifyChar->setValue(buffer);
+    Time::delayMilliseconds(100);
     notifyChar->notify();
 }
 
@@ -110,6 +129,7 @@ void Bluetooth::write(ByteStream& byteStream) {
 
     uint32_t size = byteStream.rawSize();
     notifyChar->setValue((uint8_t*)byteStream.rawData(), size);
+    Time::delayMilliseconds(100);
     notifyChar->notify();
 }
 
@@ -117,7 +137,7 @@ void Bluetooth::read(ByteStream& byteStream) {
     if (receivedData.size() == 0) return;
 
     uint8_t byte;
-    while (receivedData.unserialize8(&byte)) {
+    while (receivedData.consume8(&byte)) {
         byteStream.serialize8(byte);
     }
 }
@@ -127,7 +147,9 @@ void Bluetooth::readAmount(uint32_t amount, ByteStream& byteStream) {
 
     for (uint32_t i = 0; i < amount; i++) {
         uint8_t byte;
-        if (!receivedData.consume8(&byte)) break;
+        if (!receivedData.consume8(&byte)) {
+          break;
+        }
         byteStream.serialize8(byte);
     }
 }

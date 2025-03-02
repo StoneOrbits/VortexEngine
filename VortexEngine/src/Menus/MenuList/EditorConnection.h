@@ -188,6 +188,16 @@ private:
   ByteStream m_modeBackups[9];
   // counter for reading/writing modes during firmware flash
   uint8_t m_backupModeNum;
+
+  bool m_isBluetooth;
+
+  bool detectConnection();
+  void read(ByteStream &buffer);
+  void write(ByteStream &buffer);
+  void write(const char *message);
+  bool isConnected();
+  bool isConnectedReal();
+
 };
 
 #endif
