@@ -33,7 +33,8 @@ EditorConnection::EditorConnection(const RGBColor &col, bool advanced) :
   m_firmwareSize(0),
   m_firmwareOffset(0),
   m_backupModes(true),
-  m_backupModeNum(0)
+  m_backupModeNum(0),
+  m_isBluetooth(false)
 {
 }
 
@@ -91,7 +92,7 @@ void EditorConnection::onLongClickM()
 
 void EditorConnection::leaveMenu(bool doSave)
 {
-  write(EDITOR_VERB_GOODBYE);
+  writeData(EDITOR_VERB_GOODBYE);
   Menu::leaveMenu(true);
 }
 
@@ -165,10 +166,11 @@ void EditorConnection::handleState()
   case STATE_DISCONNECTED:
   default:
     // not connected yet so check for connections
-    if (isConnected() || detectConnection()) {
-      // a connection was found, say hello
-      m_state = STATE_GREETING;
+    if (!detectConnection()) {
+      break;
     }
+    // a connection was found, say hello
+    m_state = STATE_GREETING;
     break;
 
   // -------------------------------
@@ -179,7 +181,7 @@ void EditorConnection::handleState()
       Time::delayMilliseconds(2000);
     }
     // send the hello greeting with our version number and build time
-    write(EDITOR_VERB_GREETING);
+    writeData(EDITOR_VERB_GREETING);
     m_state = STATE_IDLE;
     break;
 
@@ -214,7 +216,7 @@ void EditorConnection::handleState()
     break;
   case STATE_PULL_MODES_DONE:
     // send our acknowledgement that the modes were sent
-    write(EDITOR_VERB_PULL_MODES_ACK);
+    writeData(EDITOR_VERB_PULL_MODES_ACK);
     // go idle
     m_state = STATE_IDLE;
     break;
@@ -223,7 +225,7 @@ void EditorConnection::handleState()
   //  Receive Modes from PC
   case STATE_PUSH_MODES:
     // now say we are ready
-    write(EDITOR_VERB_READY);
+    writeData(EDITOR_VERB_READY);
     // move to receiving
     m_state = STATE_PUSH_MODES_RECEIVE;
     break;
@@ -237,7 +239,7 @@ void EditorConnection::handleState()
     m_state = STATE_PUSH_MODES_DONE;
     break;
   case STATE_PUSH_MODES_DONE:
-    write(EDITOR_VERB_PUSH_MODES_ACK);
+    writeData(EDITOR_VERB_PUSH_MODES_ACK);
     m_state = STATE_IDLE;
     break;
 
@@ -245,7 +247,7 @@ void EditorConnection::handleState()
   //  Demo Mode from PC
   case STATE_DEMO_MODE:
     // now say we are ready
-    write(EDITOR_VERB_READY);
+    writeData(EDITOR_VERB_READY);
     // move to receiving
     m_state = STATE_DEMO_MODE_RECEIVE;
     break;
@@ -260,7 +262,7 @@ void EditorConnection::handleState()
     break;
   case STATE_DEMO_MODE_DONE:
     // say we are done
-    write(EDITOR_VERB_DEMO_MODE_ACK);
+    writeData(EDITOR_VERB_DEMO_MODE_ACK);
     m_state = STATE_IDLE;
     break;
 
@@ -268,7 +270,7 @@ void EditorConnection::handleState()
   //  Reset Demo to Nothing
   case STATE_CLEAR_DEMO:
     clearDemo();
-    write(EDITOR_VERB_CLEAR_DEMO_ACK);
+    writeData(EDITOR_VERB_CLEAR_DEMO_ACK);
     m_state = STATE_IDLE;
     break;
 
@@ -295,7 +297,7 @@ void EditorConnection::handleState()
     break;
   case STATE_TRANSMIT_MODE_VL_DONE:
     // done transmitting
-    write(EDITOR_VERB_TRANSMIT_VL_ACK);
+    writeData(EDITOR_VERB_TRANSMIT_VL_ACK);
     m_state = STATE_IDLE;
     break;
 
@@ -316,7 +318,7 @@ void EditorConnection::handleState()
     break;
   case STATE_LISTEN_MODE_VL_DONE:
     // done transmitting
-    write(EDITOR_VERB_LISTEN_VL_ACK);
+    writeData(EDITOR_VERB_LISTEN_VL_ACK);
     m_state = STATE_IDLE;
     break;
 
@@ -363,7 +365,7 @@ void EditorConnection::handleState()
     break;
   case STATE_PULL_EACH_MODE_DONE:
     // send our acknowledgement that the modes were sent
-    write(EDITOR_VERB_PULL_EACH_MODE_DONE);
+    writeData(EDITOR_VERB_PULL_EACH_MODE_DONE);
     // switch back to the previous mode
     Modes::setCurMode(m_previousModeIndex);
     // go idle
@@ -375,7 +377,7 @@ void EditorConnection::handleState()
   case STATE_PUSH_EACH_MODE:
     // editor requested to push modes, find out how many
     // ack the command and wait for the amount of modes
-    write(EDITOR_VERB_PUSH_EACH_MODE_ACK);
+    writeData(EDITOR_VERB_PUSH_EACH_MODE_ACK);
     m_state = STATE_PUSH_EACH_MODE_COUNT;
     break;
   case STATE_PUSH_EACH_MODE_COUNT:
@@ -386,7 +388,7 @@ void EditorConnection::handleState()
     // clear modes and start receiving
     Modes::clearModes();
     // write out an ack
-    write(EDITOR_VERB_PUSH_EACH_MODE_ACK);
+    writeData(EDITOR_VERB_PUSH_EACH_MODE_ACK);
     // ready to receive a mode
     m_state = STATE_PUSH_EACH_MODE_RECEIVE;
     break;
@@ -396,7 +398,7 @@ void EditorConnection::handleState()
       // just wait
       break;
     }
-    write(EDITOR_VERB_PUSH_EACH_MODE_ACK);
+    writeData(EDITOR_VERB_PUSH_EACH_MODE_ACK);
     if (m_numModesToReceive > 0) {
       m_numModesToReceive--;
     }
@@ -414,7 +416,7 @@ void EditorConnection::handleState()
   // -------------------------------
   //  Set Global Brightness
   case STATE_SET_GLOBAL_BRIGHTNESS:
-    write(EDITOR_VERB_READY);
+    writeData(EDITOR_VERB_READY);
     m_state = STATE_SET_GLOBAL_BRIGHTNESS_RECEIVE;
     break;
   case STATE_SET_GLOBAL_BRIGHTNESS_RECEIVE:
@@ -447,7 +449,7 @@ void EditorConnection::handleState()
   //  Get Chromalinked Duo Mode
   case STATE_PULL_MODE_CHROMALINK:
     // now say we are ready
-    write(EDITOR_VERB_READY);
+    writeData(EDITOR_VERB_READY);
     m_state = STATE_PULL_MODE_CHROMALINK_SEND;
     break;
   case STATE_PULL_MODE_CHROMALINK_SEND:
@@ -465,7 +467,7 @@ void EditorConnection::handleState()
   //  Set Chromalinked Duo Header
   case STATE_PUSH_HEADER_CHROMALINK:
     // now say we are ready
-    write(EDITOR_VERB_READY);
+    writeData(EDITOR_VERB_READY);
     // move to receiving
     m_state = STATE_PUSH_HEADER_CHROMALINK_RECEIVE;
     break;
@@ -478,7 +480,7 @@ void EditorConnection::handleState()
     UPDI::reset();
     UPDI::disable();
     // success modes were received send the done
-    write(EDITOR_VERB_PUSH_CHROMA_HDR_ACK);
+    writeData(EDITOR_VERB_PUSH_CHROMA_HDR_ACK);
     m_state = STATE_IDLE;
     break;
 
@@ -486,7 +488,7 @@ void EditorConnection::handleState()
   //  Set Chromalinked Duo Mode
   case STATE_PUSH_MODE_CHROMALINK:
     // now say we are ready
-    write(EDITOR_VERB_READY);
+    writeData(EDITOR_VERB_READY);
     // move to receiving
     m_state = STATE_PUSH_MODE_CHROMALINK_RECEIVE_IDX;
     break;
@@ -495,7 +497,7 @@ void EditorConnection::handleState()
       // just wait
       break;
     }
-    write(EDITOR_VERB_READY);
+    writeData(EDITOR_VERB_READY);
     m_state = STATE_PUSH_MODE_CHROMALINK_RECEIVE;
     break;
   case STATE_PUSH_MODE_CHROMALINK_RECEIVE:
@@ -503,7 +505,7 @@ void EditorConnection::handleState()
       // not done keep going
       break;
     }
-    write(EDITOR_VERB_PUSH_CHROMA_MODE_ACK);
+    writeData(EDITOR_VERB_PUSH_CHROMA_MODE_ACK);
     // done
     m_state = STATE_IDLE;
     break;
@@ -513,7 +515,7 @@ void EditorConnection::handleState()
   case STATE_CHROMALINK_FLASH_FIRMWARE:
     // editor requested to push modes, clear first and reset first
     // now say we are ready
-    write(EDITOR_VERB_READY);
+    writeData(EDITOR_VERB_READY);
     // move to receiving
     m_state = STATE_CHROMALINK_FLASH_FIRMWARE_RECEIVE_SIZE;
     break;
@@ -538,7 +540,7 @@ void EditorConnection::handleState()
   case STATE_CHROMALINK_FLASH_FIRMWARE_ERASE_MEMORY:
     Leds::setAll(RGB_CYAN0);
     UPDI::eraseMemory();
-    write(EDITOR_VERB_READY);
+    writeData(EDITOR_VERB_READY);
     m_state = STATE_CHROMALINK_FLASH_FIRMWARE_FLASH_CHUNKS;
     break;
   case STATE_CHROMALINK_FLASH_FIRMWARE_FLASH_CHUNKS:
@@ -569,7 +571,7 @@ void EditorConnection::handleState()
     UPDI::disable();
     // show green
     Leds::setAll(RGB_GREEN);
-    write(EDITOR_VERB_FLASH_FIRMWARE_DONE);
+    writeData(EDITOR_VERB_FLASH_FIRMWARE_DONE);
     m_state = STATE_IDLE;
     break;
   }
@@ -600,14 +602,8 @@ void EditorConnection::receiveData()
   if (m_receiveBuffer.size() >= 512) {
     return;
   }
-
-  if (Bluetooth::isConnected()) {
-    // Read from Bluetooth if connected
-    Bluetooth::read(m_receiveBuffer);
-  } else {
-    // Otherwise, read from Serial
-    read(m_receiveBuffer);
-  }
+  // Otherwise, read from Serial
+  readData(m_receiveBuffer);
 }
 
 
@@ -615,14 +611,14 @@ void EditorConnection::sendModes()
 {
   ByteStream modesBuffer;
   Modes::saveToBuffer(modesBuffer);
-  write(modesBuffer);
+  writeData(modesBuffer);
 }
 
 void EditorConnection::sendModeCount()
 {
   ByteStream buffer;
   buffer.serialize8(Modes::numModes());
-  write(buffer);
+  writeData(buffer);
 }
 
 void EditorConnection::sendCurMode()
@@ -637,7 +633,7 @@ void EditorConnection::sendCurMode()
     // ??
     return;
   }
-  write(modeBuffer);
+  writeData(modeBuffer);
 }
 
 void EditorConnection::sendCurModeVL()
@@ -660,7 +656,7 @@ ReturnCode EditorConnection::sendBrightness()
   if (!brightnessBuf.serialize8(Leds::getBrightness())) {
     return RV_FAIL;
   }
-  write(brightnessBuf);
+  writeData(brightnessBuf);
   return RV_OK;
 }
 
@@ -837,7 +833,7 @@ ReturnCode EditorConnection::receiveModeVL()
   if (!m_previewMode.saveToBuffer(modeBuffer)) {
     return RV_FAIL;
   }
-  write(modeBuffer);
+  writeData(modeBuffer);
   return RV_OK;
 }
 
@@ -895,7 +891,7 @@ ReturnCode EditorConnection::pullHeaderChromalink()
   // TODO: check version stuff? not really any need yet
   //DuoHeader *pHeader = (DuoHeader *)duoHeader.data();
   // send whatever we read, might be empty buffer if it failed
-  write(duoHeader);
+  writeData(duoHeader);
   // return whether reading the header was successful
   return success ? RV_OK : RV_FAIL;
 }
@@ -942,7 +938,7 @@ ReturnCode EditorConnection::pullModeChromalink()
     modeBuffer.serialize8(0);
   }
   // send the mode, could be empty buffer if reading failed
-  write(modeBuffer);
+  writeData(modeBuffer);
   return success ? RV_OK : RV_FAIL;
 }
 
@@ -1055,7 +1051,7 @@ ReturnCode EditorConnection::writeDuoFirmware()
     return RV_FAIL;
   }
   m_firmwareOffset += buf.size();
-  write(EDITOR_VERB_FLASH_FIRMWARE_ACK);
+  writeData(EDITOR_VERB_FLASH_FIRMWARE_ACK);
   // not done  yet
   return RV_WAIT;
 }
@@ -1085,7 +1081,7 @@ bool EditorConnection::isConnectedReal()
   return m_isBluetooth ? true : SerialComs::isConnectedReal();
 }
 
-void EditorConnection::read(ByteStream &buffer)
+void EditorConnection::readData(ByteStream &buffer)
 {
   if (m_isBluetooth) {
     Bluetooth::read(buffer);
@@ -1094,7 +1090,7 @@ void EditorConnection::read(ByteStream &buffer)
   }
 }
 
-void EditorConnection::write(ByteStream &buffer)
+void EditorConnection::writeData(ByteStream &buffer)
 {
   if (m_isBluetooth) {
     Bluetooth::write(buffer);
@@ -1103,7 +1099,7 @@ void EditorConnection::write(ByteStream &buffer)
   }
 }
 
-void EditorConnection::write(const char *message)
+void EditorConnection::writeData(const char *message)
 {
   if (m_isBluetooth) {
     Bluetooth::write(message);

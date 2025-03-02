@@ -192,9 +192,9 @@ private:
   bool m_isBluetooth;
 
   bool detectConnection();
-  void read(ByteStream &buffer);
-  void write(ByteStream &buffer);
-  void write(const char *message);
+  void readData(ByteStream &buffer);
+  void writeData(ByteStream &buffer);
+  void writeData(const char *message);
   bool isConnected();
   bool isConnectedReal();
 
