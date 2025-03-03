@@ -811,9 +811,9 @@ bool UPDI::enterProgrammingMode()
     stcs(Control_A, 0x6);
     mode = cpu_mode<0xEF>();
     if (mode != 0x82 && mode != 0x21 && mode != 0xA2 && mode != 0x08) {
-      ERROR_LOGF("Bad CPU Mode 0x%02x... error: 0x%02x", mode, status);
       sendBreak();
       uint8_t status = ldcs(Status_B);
+      ERROR_LOGF("Bad CPU Mode 0x%02x... error: 0x%02x", mode, status);
       continue;
     }
     if (mode != 0x08) {

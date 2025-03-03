@@ -1,10 +1,14 @@
 #ifndef BLUETOOTH_H
 #define BLUETOOTH_H
 
+#include "../VortexConfig.h"
+
+#if VORTEX_EMBEDDED == 1
 #include <Arduino.h>
 #include <BLEDevice.h>
 #include <BLEServer.h>
 #include <BLE2902.h>
+#endif
 
 #include "../Serial/ByteStream.h"
 
@@ -24,9 +28,11 @@ public:
 
     static bool dataReady();
 
+#if VORTEX_EMBEDDED == 1
     static BLEServer* pServer;
     static BLECharacteristic* writeChar;
     static BLECharacteristic* notifyChar;
+#endif
     static bool m_bleConnected;
     static ByteStream receivedData;
 };
