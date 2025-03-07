@@ -178,7 +178,7 @@ void EditorConnection::handleState()
   case STATE_GREETING:
     if (Bluetooth::isConnected()) {
       // must give bluetooth a second befoore sending the hello
-      Time::delayMilliseconds(2000);
+      Time::delayMilliseconds(1000);
     }
     // send the hello greeting with our version number and build time
     writeData(EDITOR_VERB_GREETING);
