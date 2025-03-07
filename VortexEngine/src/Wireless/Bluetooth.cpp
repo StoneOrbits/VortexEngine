@@ -3,11 +3,6 @@
 
 #include "../Time/TimeControl.h"
 
-#if VORTEX_EMBEDDED == 1
-#include <BLEUtils.h>
-#include <BLE2902.h>
-#endif
-
 #define SERVICE_UUID       "12345678-1234-1234-1234-123456789abc"
 #define WRITE_CHAR_UUID    "12345678-1234-1234-1234-123456789abd"
 #define NOTIFY_CHAR_UUID   "12345678-1234-1234-1234-123456789abe"
@@ -18,7 +13,7 @@ ByteStream Bluetooth::receivedData;
 
 // We'll track whether an indication is currently in progress:
 #if VORTEX_EMBEDDED == 1
-static bool m_isIndicationInProgress = false;
+static volatile bool m_isIndicationInProgress = false;
 
 // Forward-declare the BLE objects
 BLEServer *Bluetooth::pServer = nullptr;

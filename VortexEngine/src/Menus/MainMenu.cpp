@@ -56,12 +56,12 @@ void MainMenu::show()
   uint8_t hue = 0;
   uint32_t now = Time::getCurtime();
   MAP_FOREACH_LED(MAP_OUTER_RING) {
-    Leds::breatheIndex(pos, hue, (now / 2), 8, 255, 180);
+    Leds::breatheIndex(pos, hue, (now / 2), 8, 255, 50);
     hue += (255 / (LED_COUNT / 2));
   }
   hue = 0;
   MAP_FOREACH_LED(MAP_INNER_RING) {
-    Leds::breatheIndex(pos, hue, (now / 2), 8, 255, 180);
+    Leds::breatheIndex(pos, hue, (now / 2), 8, 255, 50);
     hue += (255 / (LED_COUNT / 2));
   }
   Leds::blinkIndex((LedPos)m_curSelection);
