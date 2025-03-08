@@ -21,9 +21,9 @@ While it’s not necessary to connect a device to Lightshow.lol to start designi
 2. Use it to connect your device to your computer.
 
 <div style="display: flex; justify-content: center; align-items: center; gap: 15px; flex-wrap: wrap; margin-top: 20px;">
-  <img height="130" src="assets/images/vortex-device.png" alt="Vortex Device">
-  <img height="20" style="align-self: center;" src="assets/images/USB-Cable.png" alt="USB Cable">
-  <img height="120" src="assets/images/computer-icon.png" alt="Computer">
+  <img style="width: 15%" src="assets/images/vortex-device.png" alt="Vortex Device">
+  <img style="width: 25%" style="align-self: center;" src="assets/images/USB-Cable.png" alt="USB Cable">
+  <img style="width: 12%" src="assets/images/computer-icon.png" alt="Computer">
 </div>
 
 ## **Opening the Device Control Panel**
