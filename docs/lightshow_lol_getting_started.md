@@ -42,7 +42,7 @@ While it’s not necessary to connect a device to Lightshow.lol to start designi
 
 <div class="image-container">
     <img src="assets/images/vortex-device.png" alt="Vortex Device">
-    <img src="assets/images/USB-Cable.png" alt="USB Cable">
+    <img style="max-width:30%" src="assets/images/USB-Cable.png" alt="USB Cable">
     <img src="assets/images/computer-icon.png" alt="Computer">
 </div>
 
