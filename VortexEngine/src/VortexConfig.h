@@ -320,6 +320,11 @@
 // The serial connection baud rate for the editor and anything else serial
 #define SERIAL_BAUD_RATE            115200
 
+// Bluetooth Broadcast Time
+//
+// The number of seconds after startup the Bluetooth module will broadcast
+#define BLUETOOTH_BROADCAST_SECONDS 10
+
 // ===================================================================
 //  Boolean Configurations (0 or 1)
 

@@ -152,6 +152,7 @@
     <ClCompile Include="src\Menus\MainMenu.cpp" />
     <ClCompile Include="src\Modes\DuoDefaultModes.cpp" />
     <ClCompile Include="src\UPDI\updi.cpp" />
+    <ClCompile Include="src\Wireless\Bluetooth.cpp" />
     <ClCompile Include="src\Wireless\IRReceiver.cpp" />
     <ClCompile Include="src\Wireless\IRSender.cpp" />
     <ClCompile Include="src\Leds\Leds.cpp" />
@@ -224,6 +225,7 @@
     <ClInclude Include="src\Menus\MainMenu.h" />
     <ClInclude Include="src\Modes\DuoDefaultModes.h" />
     <ClInclude Include="src\UPDI\updi.h" />
+    <ClInclude Include="src\Wireless\Bluetooth.h" />
     <ClInclude Include="src\Wireless\IRConfig.h" />
     <ClInclude Include="src\Wireless\IRReceiver.h" />
     <ClInclude Include="src\Wireless\IRSender.h" />
