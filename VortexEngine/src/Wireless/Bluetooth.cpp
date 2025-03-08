@@ -163,10 +163,8 @@ void Bluetooth::write(const char *msg, ...)
     return;
   }
 
-  // Wait until the client acknowledges this indication
   while (m_isIndicationInProgress) {
     Time::delayMilliseconds(1);
-    // yield() or other tasks if needed
   }
   // Mark an indication as in progress
   m_isIndicationInProgress = true;
@@ -193,10 +191,8 @@ void Bluetooth::write(ByteStream &byteStream)
   memcpy(buf, &size, sizeof(size));
   memcpy(buf + sizeof(size), byteStream.rawData(), size);
 
-  // Wait until the client acknowledges this indication
   while (m_isIndicationInProgress) {
     Time::delayMilliseconds(1);
-    // yield() or other tasks if needed
   }
   // Mark an indication as in progress
   m_isIndicationInProgress = true;
