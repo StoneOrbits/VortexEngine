@@ -17,6 +17,8 @@ public:
     static bool init();
     static void cleanup();
 
+    static bool isInitialized();
+
     static bool isConnected();
     static bool checkBluetooth();
 

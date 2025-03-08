@@ -194,6 +194,11 @@ void VortexEngine::runMainLogic()
     }
   }
 
+  // stop broadcasting bluetooth after the given threshold
+  if (Bluetooth::isInitialized() && Time::getCurtime() > BLUETOOTH_BROADCAST_TICKS) {
+    Bluetooth::cleanup();
+  }
+
   // if the main menu is open just run it and return
   if (MainMenu::run()) {
     return;

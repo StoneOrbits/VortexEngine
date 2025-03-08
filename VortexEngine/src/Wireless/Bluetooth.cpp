@@ -20,9 +20,7 @@ BLEServer *Bluetooth::pServer = nullptr;
 BLECharacteristic *Bluetooth::writeChar = nullptr;
 BLECharacteristic *Bluetooth::notifyChar = nullptr;
 
-/**
- * Custom callbacks for the BLE server connection/disconnection.
- */
+// Custom callbacks for the BLE server connection/disconnection.
 class BluetoothCallbacks : public BLEServerCallbacks
 {
   void onConnect(BLEServer *pServer) override
@@ -36,10 +34,8 @@ class BluetoothCallbacks : public BLEServerCallbacks
   }
 };
 
-/**
- * onWrite callback for the Write characteristic: 
- * store incoming bytes (including nulls) into ByteStream.
- */
+// onWrite callback for the Write characteristic:
+// store incoming bytes (including nulls) into ByteStream.
 class WriteCallback : public BLECharacteristicCallbacks
 {
   void onWrite(BLECharacteristic *characteristic) override
@@ -53,11 +49,9 @@ class WriteCallback : public BLECharacteristicCallbacks
   }
 };
 
-/**
- * onStatus callback to detect when an indication is confirmed
- * by the client. Once we see SUCCESS_INDICATE, we know the
- * client has received the data.
- */
+// onStatus callback to detect when an indication is confirmed
+// by the client. Once we see SUCCESS_INDICATE, we know the
+// client has received the data.
 class IndicationConfirmCallbacks : public BLECharacteristicCallbacks
 {
   void onStatus(BLECharacteristic* pCharacteristic, Status s, uint32_t code) override
@@ -122,10 +116,24 @@ bool Bluetooth::init()
 void Bluetooth::cleanup()
 {
 #if VORTEX_EMBEDDED == 1
-  if (pServer) {
+  if (pServer != nullptr) {
     BLEDevice::deinit(true);
+    pServer = nullptr;
+    writeChar = nullptr;
+    notifyChar = nullptr;
+    m_bleConnected = false;
   }
 #endif
+}
+
+bool Bluetooth::isInitialized()
+{
+#if VORTEX_EMBEDDED == 1
+  if (pServer != nullptr) {
+    return true;
+  }
+#endif
+  return false;
 }
 
 bool Bluetooth::isConnected()
@@ -138,9 +146,7 @@ bool Bluetooth::checkBluetooth()
   return isConnected();
 }
 
-/**
- * Write a formatted string with Indicate, waiting for confirmation.
- */
+// Write a formatted string with Indicate, waiting for confirmation.
 void Bluetooth::write(const char *msg, ...)
 {
 #if VORTEX_EMBEDDED == 1
@@ -157,24 +163,20 @@ void Bluetooth::write(const char *msg, ...)
     return;
   }
 
+  // Wait until the client acknowledges this indication
+  while (m_isIndicationInProgress) {
+    Time::delayMilliseconds(1);
+    // yield() or other tasks if needed
+  }
   // Mark an indication as in progress
   m_isIndicationInProgress = true;
-
   // Set the characteristic's value and indicate
   notifyChar->setValue((uint8_t*)buffer, len);
   notifyChar->indicate();
-
-  // Wait until the client acknowledges this indication
-  while (m_isIndicationInProgress) {
-    delay(1); 
-    // yield() or other tasks if needed
-  }
 #endif
 }
 
-/**
- * Write a ByteStream with Indicate, waiting for confirmation.
- */
+// Write a ByteStream with Indicate, waiting for confirmation.
 void Bluetooth::write(ByteStream &byteStream)
 {
 #if VORTEX_EMBEDDED == 1
@@ -191,26 +193,21 @@ void Bluetooth::write(ByteStream &byteStream)
   memcpy(buf, &size, sizeof(size));
   memcpy(buf + sizeof(size), byteStream.rawData(), size);
 
+  // Wait until the client acknowledges this indication
+  while (m_isIndicationInProgress) {
+    Time::delayMilliseconds(1);
+    // yield() or other tasks if needed
+  }
   // Mark an indication as in progress
   m_isIndicationInProgress = true;
-
   // Set the characteristic's value and indicate
   notifyChar->setValue(buf, size + sizeof(size));
   notifyChar->indicate();
-
-  // Wait until the client acknowledges this indication
-  while (m_isIndicationInProgress) {
-    delay(1);
-    // yield() or other tasks if needed
-  }
-
   delete[] buf;
 #endif
 }
 
-/**
- * Read any received bytes and place them into 'byteStream'.
- */
+// Read any received bytes and place them into 'byteStream'.
 void Bluetooth::read(ByteStream &byteStream)
 {
   if (receivedData.size() == 0) return;
@@ -221,9 +218,7 @@ void Bluetooth::read(ByteStream &byteStream)
   }
 }
 
-/**
- * Read a specific 'amount' of bytes into 'byteStream' if available.
- */
+// Read a specific 'amount' of bytes into 'byteStream' if available.
 void Bluetooth::readAmount(uint32_t amount, ByteStream &byteStream)
 {
   if (receivedData.size() == 0) return;
@@ -237,9 +232,7 @@ void Bluetooth::readAmount(uint32_t amount, ByteStream &byteStream)
   }
 }
 
-/**
- * Check if we have data ready to be consumed.
- */
+// Check if we have data ready to be consumed.
 bool Bluetooth::dataReady()
 {
   return receivedData.size() > 0;
