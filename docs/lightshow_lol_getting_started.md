@@ -8,7 +8,7 @@ has_children: true
 
 # First Time Using Lightshow.lol
 
-Welcome to Lightshow.lol, our powerful Vortex Engine mode designing tool! If you’re new, you might be wondering:
+Welcome to Lightshow.lol, our powerful Vortex Engine mode designing tool. If you’re new, you might be wondering:
 - *How does this work?*
 - *How do I get started?*
 
