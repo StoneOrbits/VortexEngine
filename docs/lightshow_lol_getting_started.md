@@ -6,6 +6,26 @@ parent: Lightshow.lol Examples
 has_children: true
 ---
 
+<style>
+.image-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
+  margin: 0 auto;
+  padding: 0 15px;
+  margin-top: 20px;
+}
+
+.image-container img {
+  /* Adjust max-width as needed for your layout */
+  max-width: 20%;
+  height: auto;
+  display: block;
+}
+</style>
+
+
 # First Time Using Lightshow.lol
 
 Welcome to Lightshow.lol, our powerful Vortex Engine mode designing tool. If you’re new, you might be wondering:
@@ -20,10 +40,10 @@ While it’s not necessary to connect a device to Lightshow.lol to start designi
 1. Find a **data-capable USB cable**.
 2. Use it to connect your device to your computer.
 
-<div style="display: flex; justify-content: center; align-items: center; gap: 15px; flex-wrap: wrap; margin-top: 20px;">
-  <img style="width: 15%" src="assets/images/vortex-device.png" alt="Vortex Device">
-  <img style="width: 25%" style="align-self: center;" src="assets/images/USB-Cable.png" alt="USB Cable">
-  <img style="width: 12%" src="assets/images/computer-icon.png" alt="Computer">
+<div class="image-container">
+    <img src="assets/images/vortex-device.png" alt="Vortex Device">
+    <img src="assets/images/USB-Cable.png" alt="USB Cable">
+    <img src="assets/images/computer-icon.png" alt="Computer">
 </div>
 
 ## **Opening the Device Control Panel**
