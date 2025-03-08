@@ -8,7 +8,7 @@ has_children: true
 
 # First Time Using Lightshow.lol
 
-Welcome to Lightshow.lol, our powerful **Vortex Engine mode designing tool!** If you’re new, you might be wondering:
+Welcome to Lightshow.lol, our powerful Vortex Engine mode designing tool! If you’re new, you might be wondering:
 - *How does this work?*
 - *How do I get started?*
 
@@ -22,7 +22,7 @@ While it’s not necessary to connect a device to Lightshow.lol to start designi
 
 <div style="display: flex; justify-content: center; align-items: center; gap: 15px; flex-wrap: wrap; margin-top: 20px;">
   <img height="130" src="assets/images/vortex-device.png" alt="Vortex Device">
-  <img height="20" style="align-self: center;" src="assets/images/usb-cable.png" alt="USB Cable">
+  <img height="20" style="align-self: center;" src="assets/images/USB-Cable.png" alt="USB Cable">
   <img height="120" src="assets/images/computer-icon.png" alt="Computer">
 </div>
 
@@ -62,7 +62,7 @@ If everything is set up correctly, you should see a **successful connection noti
 
 <div style="text-align: center; max-width: 700px; margin: 20px auto;">
   <div style="display: flex; flex-direction: column; align-items: center; gap: 15px;">
-    <img height="50" src="assets/images/successfully-connected.png" alt="Successful Connection">
+    <img height="50" src="assets/images/Successfully-connected.png" alt="Successful Connection">
     <img height="300" src="assets/images/spark-firmware-update.png" alt="Firmware Update Panel">
   </div>
 </div>
