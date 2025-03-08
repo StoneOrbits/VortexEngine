@@ -68,7 +68,7 @@ class IndicationConfirmCallbacks : public BLECharacteristicCallbacks
 bool Bluetooth::init()
 {
 #if VORTEX_EMBEDDED == 1
-  BLEDevice::init("ESP32-C3 BLE");
+  BLEDevice::init("Vortex " VORTEX_NAME);
   // Request a higher MTU, but actual negotiation may differ
   BLEDevice::setMTU(1024);
 
