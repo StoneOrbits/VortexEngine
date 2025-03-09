@@ -112,10 +112,8 @@ public:
 #endif
 
 private:
-  // this reference to engine is never really used, just commenting it out to
-  // avoid warning but leaving it here for sake of reference that it should be here
-  // because all classes have a reference to engine
-  //VortexEngine &m_engine;
+  // unused for now
+  VortexEngine &m_engine __attribute__((unused));
 
 #if !defined(_WIN32) || defined(WASM)
   uint64_t start = 0;
