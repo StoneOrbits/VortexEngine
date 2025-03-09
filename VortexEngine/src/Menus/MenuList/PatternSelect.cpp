@@ -70,7 +70,7 @@ void PatternSelect::nextPatternID()
     endList = PATTERN_MULTI_LAST;
   }
   // if targeted multi then start at multis and only iterate multis
-  if ((m_targetLeds == MAP_LED(LED_MULTI))) {
+  if (m_targetLeds == MAP_LED(LED_MULTI)) {
     beginList = PATTERN_MULTI_FIRST;
   }
 #endif

@@ -20,7 +20,6 @@ IRSender::IRSender(VortexEngine &engine) :
   m_size(0),
   m_numBlocks(0),
   m_remainder(0),
-  m_blockSize(0),
   m_writeCounter(0)
 {
 }
@@ -108,8 +107,8 @@ bool IRSender::send()
 void IRSender::beginSend()
 {
   m_isSending = true;
-  DEBUG_LOGF("[%zu] Beginning send size %u (blocks: %u remainder: %u blocksize: %u)",
-    m_engine.time().microseconds(), m_size, m_numBlocks, m_remainder, m_blockSize);
+  DEBUG_LOGF("[%zu] Beginning send size %u (blocks: %u remainder: %u)",
+    m_engine.time().microseconds(), m_size, m_numBlocks, m_remainder);
   // wakeup the other receiver with a very quick mark/space
   sendMark(50);
   sendSpace(100);

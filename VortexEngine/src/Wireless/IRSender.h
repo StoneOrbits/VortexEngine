@@ -54,9 +54,6 @@ private:
   // the amount in the final block
   uint8_t m_remainder;
 
-  // configuration options for the sender
-  uint32_t m_blockSize;
-
   // write total
   uint32_t m_writeCounter;
 };

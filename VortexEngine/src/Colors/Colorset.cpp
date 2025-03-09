@@ -448,13 +448,13 @@ void Colorset::shift(uint8_t idx, uint8_t dest)
   // shift the block of colors next to it
   if (idx < dest) {
     // Forward shift: Move the block from idx + 1 to dest
-    memmove(m_palette + idx,
-            m_palette + idx + 1,
+    memmove((void *)(m_palette + idx),
+            (void *)(m_palette + idx + 1),
             (dest - idx) * sizeof(RGBColor));
   } else {
     // Backward shift: Move the block from dest to idx - 1
-    memmove(m_palette + dest + 1,
-            m_palette + dest,
+    memmove((void *)(m_palette + dest + 1),
+            (void *)(m_palette + dest),
             (idx - dest) * sizeof(RGBColor));
   }
   // Place the saved element at the destination
