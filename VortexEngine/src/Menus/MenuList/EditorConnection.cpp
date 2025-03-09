@@ -369,7 +369,7 @@ void EditorConnection::handleState()
     break;
   case STATE_PUSH_EACH_MODE_DONE:
     // save the new modes
-    Modes::saveStorage();
+    m_engine.modes().saveStorage();
     // did originally receive/send a DONE message here but it wasn't working
     // on lightshow.lol so just skip to IDLE
     m_state = STATE_IDLE;
