@@ -112,8 +112,7 @@ public:
 #endif
 
 private:
-  // unused for now
-  VortexEngine &m_engine __attribute__((unused));
+  VortexEngine &m_engine;
 
 #if !defined(_WIN32) || defined(WASM)
   uint64_t start = 0;

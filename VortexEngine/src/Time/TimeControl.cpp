@@ -45,6 +45,7 @@ Time::Time(VortexEngine &engine) :
   m_instantTimestep(false)
 #endif
 {
+  (void)m_engine; // avoid unused warning
 }
 
 Time::~Time()
