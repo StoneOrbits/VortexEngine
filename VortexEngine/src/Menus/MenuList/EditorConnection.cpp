@@ -1080,7 +1080,7 @@ bool EditorConnection::isConnected()
 
 bool EditorConnection::isConnectedReal()
 {
-  return m_isBluetooth ? true : SerialComs::isConnectedReal();
+  return m_isBluetooth ? Bluetooth::isConnected() : SerialComs::isConnectedReal();
 }
 
 void EditorConnection::readData(ByteStream &buffer)
