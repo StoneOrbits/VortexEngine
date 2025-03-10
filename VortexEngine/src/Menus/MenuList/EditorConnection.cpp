@@ -6,6 +6,7 @@
 #include "../../Storage/Storage.h"
 #include "../../Wireless/VLSender.h"
 #include "../../Wireless/VLReceiver.h"
+#include "../../Wireless/Bluetooth.h"
 #include "../../Time/TimeControl.h"
 #include "../../Time/Timings.h"
 #include "../../Colors/Colorset.h"
@@ -13,10 +14,6 @@
 #include "../../Modes/Mode.h"
 #include "../../Leds/Leds.h"
 #include "../../Log/Log.h"
-
-#include "../../Wireless/Bluetooth.h"
-
-#include <string.h>
 
 EditorConnection::EditorConnection(const RGBColor &col, bool advanced) :
   Menu(col, advanced),
