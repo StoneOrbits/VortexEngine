@@ -3,10 +3,10 @@
 #include "Wireless/IRReceiver.h"
 #include "Wireless/IRSender.h"
 #include "Wireless/VLReceiver.h"
-#include "Wireless/Bluetooth.h"
 #include "Wireless/VLSender.h"
 #include "Wireless/IRConfig.h"
 #include "Wireless/VLConfig.h"
+#include "Wireless/Bluetooth.h"
 #include "Storage/Storage.h"
 #include "Buttons/Buttons.h"
 #include "Time/TimeControl.h"
@@ -193,13 +193,6 @@ void VortexEngine::runMainLogic()
   if (!Modes::load()) {
     // don't do anything if modes couldn't load
     return;
-  }
-
-  // check for serial first before anything runs, but as a result if we open
-  // editor we have to call modes load inside here
-  if ((Menus::curMenuID() != MENU_EDITOR_CONNECTION) && SerialComs::checkSerial()) {
-    // directly open the editor connection menu because we are connected to USB serial
-    Menus::openMenu(MENU_EDITOR_CONNECTION);
   }
 
   // if the menus are open and running then just return
