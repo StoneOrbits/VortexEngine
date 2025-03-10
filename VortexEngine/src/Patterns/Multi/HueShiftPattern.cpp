@@ -76,9 +76,9 @@ void HueShiftPattern::play()
   }
   HSVColor showColor = HSVColor(m_cur.hue, 255, 255);
 
-  // variable amount to shift, more LEDs should have smaller shifts 
+  // variable amount to shift, more LEDs should have smaller shifts
   uint8_t shiftAmount = 108 / LED_COUNT;
-    // if you increment color with each led index there's a sharp contrast between the first and last led 
+    // if you increment color with each led index there's a sharp contrast between the first and last led
     // instead this creates a perfectly looped gradient between the first and last led which is better
     for (LedPos pos = LED_FIRST; pos < (LED_COUNT / 2) + 1; ++pos) {
     if (((LED_COUNT / 2) + pos) != LED_COUNT) {
@@ -86,6 +86,6 @@ void HueShiftPattern::play()
       Leds::setIndex((LedPos)((LED_COUNT / 2) + pos), hsv_to_rgb_generic(showColor));
     }
     Leds::setIndex((LedPos)((LED_COUNT / 2) - pos), hsv_to_rgb_generic(showColor));
-    showColor.hue = (showColor.hue + shiftAmount) % 256;    
+    showColor.hue = (showColor.hue + shiftAmount) % 256;
   }
 }

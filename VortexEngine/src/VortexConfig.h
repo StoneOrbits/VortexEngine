@@ -52,10 +52,6 @@
 // uses too much stack space to run on smaller devices
 #define VORTEX_SLIM           0
 
-// Turn on this flag to change from Spark Orbit pins to Spark Handle pins 
-// TODO: remove this once the spark orbit and handle have matching hardware
-#define SPARK_HANDLE          0
-
 // ===================================================================
 //  Numeric Configurations
 
@@ -319,6 +315,16 @@
 //
 // The serial connection baud rate for the editor and anything else serial
 #define SERIAL_BAUD_RATE            115200
+
+// Bluetooth Broadcast Time
+//
+// The number of seconds after startup the Bluetooth module will broadcast
+#define BLUETOOTH_BROADCAST_SECONDS 10
+
+// Bluetooth Broadcast Name
+//
+// The name of the device broadcast over Bluetooth for connection
+#define BLUETOOTH_BROADCAST_NAME    "Vortex " VORTEX_NAME
 
 // ===================================================================
 //  Boolean Configurations (0 or 1)
