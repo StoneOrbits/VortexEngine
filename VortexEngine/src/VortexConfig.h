@@ -325,6 +325,11 @@
 // The number of seconds after startup the Bluetooth module will broadcast
 #define BLUETOOTH_BROADCAST_SECONDS 10
 
+// Bluetooth Broadcast Name
+//
+// The name of the device broadcast over Bluetooth for connection
+#define BLUETOOTH_BROADCAST_NAME    "Vortex " VORTEX_NAME
+
 // ===================================================================
 //  Boolean Configurations (0 or 1)
 
