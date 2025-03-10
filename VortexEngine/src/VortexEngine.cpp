@@ -6,6 +6,7 @@
 #include "Wireless/VLSender.h"
 #include "Wireless/IRConfig.h"
 #include "Wireless/VLConfig.h"
+#include "Wireless/Bluetooth.h"
 #include "Storage/Storage.h"
 #include "Buttons/Buttons.h"
 #include "Time/TimeControl.h"
@@ -18,8 +19,6 @@
 #include "Leds/Leds.h"
 #include "UPDI/updi.h"
 #include "Log/Log.h"
-
-#include "Wireless/Bluetooth.h"
 
 #ifdef VORTEX_LIB
 #include "VortexLib.h"
