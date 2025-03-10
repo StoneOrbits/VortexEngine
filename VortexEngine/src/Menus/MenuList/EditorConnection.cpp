@@ -15,7 +15,6 @@
 #include "../../Leds/Leds.h"
 #include "../../Log/Log.h"
 
-// for strlen and memcmp
 #include <string.h>
 
 EditorConnection::EditorConnection(const RGBColor &col, bool advanced) :
