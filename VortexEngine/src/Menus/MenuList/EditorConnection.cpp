@@ -17,6 +17,8 @@
 #include "../../UPDI/updi.h"
 #include "../../Log/Log.h"
 
+#include <string.h>
+
 EditorConnection::EditorConnection(const RGBColor &col, bool advanced) :
   Menu(col, advanced),
   m_state(STATE_DISCONNECTED),
