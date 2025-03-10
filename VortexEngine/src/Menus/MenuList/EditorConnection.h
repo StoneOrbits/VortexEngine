@@ -46,11 +46,22 @@ private:
   ReturnCode receiveModes();
   ReturnCode receiveModeCount();
   ReturnCode receiveMode();
-  ReturnCode receiveModeVL();
-  void showReceiveModeVL();
   ReturnCode receiveDemoMode();
   ReturnCode receiveMessage(const char *message);
   ReturnCode receiveBrightness();
+  ReturnCode receiveModeVL();
+  void showReceiveModeVL();
+  ReturnCode receiveModeIdx(uint8_t &idx);
+  ReturnCode receiveFirmwareSize(uint32_t &idx);
+  // pull/push through the chromalink
+  ReturnCode pullHeaderChromalink();
+  ReturnCode pushHeaderChromalink();
+  ReturnCode pullModeChromalink();
+  ReturnCode pushModeChromalink();
+  // backup and restore duo modes
+  ReturnCode writeDuoFirmware();
+  ReturnCode backupDuoModes();
+  ReturnCode restoreDuoModes();
 
   enum EditorConnectionState {
     // the editor is not connected
@@ -87,6 +98,7 @@ private:
 
     // receive a mode over VL
     STATE_LISTEN_MODE_VL,
+    STATE_LISTEN_MODE_VL_LISTEN,
     STATE_LISTEN_MODE_VL_DONE,
 
     // editor pulls the modes from device (safer version)
@@ -109,6 +121,7 @@ private:
 
     // get global brightness
     STATE_GET_GLOBAL_BRIGHTNESS,
+
   };
 
   struct CommandState
@@ -134,6 +147,16 @@ private:
   uint8_t m_numModesToReceive;
   // internal return value tracker
   ReturnCode m_rv;
+
+  bool m_isBluetooth;
+
+  bool detectConnection();
+  void readData(ByteStream &buffer);
+  void writeData(ByteStream &buffer);
+  void writeData(const char *message);
+  bool isConnected();
+  bool isConnectedReal();
+
 };
 
 #endif
