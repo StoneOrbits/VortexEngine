@@ -149,6 +149,7 @@
     <ClCompile Include="src\Buttons\Buttons.cpp" />
     <ClCompile Include="src\Colors\Colorset.cpp" />
     <ClCompile Include="src\Colors\ColorTypes.cpp" />
+    <ClCompile Include="src\Wireless\Bluetooth.cpp" />
     <ClCompile Include="src\Wireless\IRReceiver.cpp" />
     <ClCompile Include="src\Wireless\IRSender.cpp" />
     <ClCompile Include="src\Leds\Leds.cpp" />
@@ -218,6 +219,7 @@
     <ClInclude Include="src\Colors\ColorConstants.h" />
     <ClInclude Include="src\Colors\Colorset.h" />
     <ClInclude Include="src\Colors\ColorTypes.h" />
+    <ClInclude Include="src\Wireless\Bluetooth.h" />
     <ClInclude Include="src\Wireless\IRConfig.h" />
     <ClInclude Include="src\Wireless\IRReceiver.h" />
     <ClInclude Include="src\Wireless\IRSender.h" />
