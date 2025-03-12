@@ -319,7 +319,7 @@
 // Enable Bluetooth
 //
 // Turn this on to enable Bluetooth functionality
-#define BLUETOOTH_ENABLE == 0
+#define BLUETOOTH_ENABLE = 0
 
 // Bluetooth Broadcast Time
 //
