@@ -12,7 +12,7 @@ bool Bluetooth::m_bleConnected = false;
 ByteStream Bluetooth::receivedData;
 
 // We'll track whether an indication is currently in progress:
-#if VORTEX_EMBEDDED == 1
+#if BLUETOOTH_ENABLE == 1
 static volatile bool m_isIndicationInProgress = false;
 
 // Forward-declare the BLE objects
@@ -67,7 +67,7 @@ class IndicationConfirmCallbacks : public BLECharacteristicCallbacks
 
 bool Bluetooth::init()
 {
-#if VORTEX_EMBEDDED == 1
+#if BLUETOOTH_ENABLE == 1
   BLEDevice::init(BLUETOOTH_BROADCAST_NAME);
   // Request a higher MTU, but actual negotiation may differ
   BLEDevice::setMTU(1024);
@@ -115,7 +115,7 @@ bool Bluetooth::init()
 
 void Bluetooth::cleanup()
 {
-#if VORTEX_EMBEDDED == 1
+#if BLUETOOTH_ENABLE == 1
   if (pServer != nullptr) {
     BLEDevice::deinit(true);
     pServer = nullptr;
@@ -128,7 +128,7 @@ void Bluetooth::cleanup()
 
 bool Bluetooth::isInitialized()
 {
-#if VORTEX_EMBEDDED == 1
+#if BLUETOOTH_ENABLE == 1
   if (pServer != nullptr) {
     return true;
   }
@@ -149,7 +149,7 @@ bool Bluetooth::checkBluetooth()
 // Write a formatted string with Indicate, waiting for confirmation.
 void Bluetooth::write(const char *msg, ...)
 {
-#if VORTEX_EMBEDDED == 1
+#if BLUETOOTH_ENABLE == 1
   if (!isConnected()) return;
 
   char buffer[512];
@@ -177,7 +177,7 @@ void Bluetooth::write(const char *msg, ...)
 // Write a ByteStream with Indicate, waiting for confirmation.
 void Bluetooth::write(ByteStream &byteStream)
 {
-#if VORTEX_EMBEDDED == 1
+#if BLUETOOTH_ENABLE == 1
   if (!isConnected()) return;
 
   byteStream.recalcCRC();
