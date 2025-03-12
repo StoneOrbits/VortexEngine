@@ -598,7 +598,7 @@
 
 // This only allows Bluetooth to be enabled on embedded platforms
 #ifndef VORTEX_EMBEDDED
-#undef BLUETOOTH_ENABLED
+#undef BLUETOOTH_ENABLE
 #endif
 
 // The test framework needs brighter menu colors can't really see them on the screen
