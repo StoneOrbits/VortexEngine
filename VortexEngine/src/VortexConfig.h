@@ -316,6 +316,11 @@
 // The serial connection baud rate for the editor and anything else serial
 #define SERIAL_BAUD_RATE            115200
 
+// Enable Bluetooth
+//
+// Turn this on to enable Bluetooth functionality
+#define BLUETOOTH_ENABLE == 0
+
 // Bluetooth Broadcast Time
 //
 // The number of seconds after startup the Bluetooth module will broadcast
@@ -590,6 +595,12 @@
 #ifdef VORTEX_LIB
 #undef VORTEX_SLIM
 #define VORTEX_SLIM 0
+
+// This only allows Bluetooth to be enabled on embedded platforms
+#ifndef VORTEX_EMBEDDED
+#undef BLUETOOTH_ENABLED
+#endif
+
 
 // The test framework needs brighter menu colors can't really see them on the screen
 #undef RGB_MENU_RANDOMIZER

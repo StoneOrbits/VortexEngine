@@ -12,7 +12,7 @@ bool Bluetooth::m_bleConnected = false;
 ByteStream Bluetooth::receivedData;
 
 // We'll track whether an indication is currently in progress:
-#if VORTEX_EMBEDDED == 1
+#if BLUETOOTH_ENABLED == 1
 static volatile bool m_isIndicationInProgress = false;
 
 // Forward-declare the BLE objects

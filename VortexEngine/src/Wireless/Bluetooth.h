@@ -3,7 +3,7 @@
 
 #include "../VortexConfig.h"
 
-#if VORTEX_EMBEDDED == 1
+#if BLUETOOTH_ENABLED == 1
 #include <Arduino.h>
 #include <BLEDevice.h>
 #include <BLEServer.h>
