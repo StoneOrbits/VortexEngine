@@ -30,7 +30,7 @@ public:
 
     static bool dataReady();
 
-#if VORTEX_EMBEDDED == 1
+#if BLUETOOTH_ENABLE == 1
     static BLEServer* pServer;
     static BLECharacteristic* writeChar;
     static BLECharacteristic* notifyChar;
