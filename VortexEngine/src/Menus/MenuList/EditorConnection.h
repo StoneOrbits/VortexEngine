@@ -40,6 +40,7 @@ private:
   void sendModeCount();
   void sendCurMode();
   void sendCurModeVL();
+  void listenModeVL();
   ReturnCode sendBrightness();
   ReturnCode receiveBuffer(ByteStream &buffer);
   ReturnCode receiveModes();
@@ -48,6 +49,19 @@ private:
   ReturnCode receiveDemoMode();
   ReturnCode receiveMessage(const char *message);
   ReturnCode receiveBrightness();
+  ReturnCode receiveModeVL();
+  void showReceiveModeVL();
+  ReturnCode receiveModeIdx(uint8_t &idx);
+  ReturnCode receiveFirmwareSize(uint32_t &idx);
+  // pull/push through the chromalink
+  ReturnCode pullHeaderChromalink();
+  ReturnCode pushHeaderChromalink();
+  ReturnCode pullModeChromalink();
+  ReturnCode pushModeChromalink();
+  // backup and restore duo modes
+  ReturnCode writeDuoFirmware();
+  ReturnCode backupDuoModes();
+  ReturnCode restoreDuoModes();
 
   enum EditorConnectionState {
     // the editor is not connected
@@ -82,6 +96,11 @@ private:
     STATE_TRANSMIT_MODE_VL_TRANSMIT,
     STATE_TRANSMIT_MODE_VL_DONE,
 
+    // receive a mode over VL
+    STATE_LISTEN_MODE_VL,
+    STATE_LISTEN_MODE_VL_LISTEN,
+    STATE_LISTEN_MODE_VL_DONE,
+
     // editor pulls the modes from device (safer version)
     STATE_PULL_EACH_MODE,
     STATE_PULL_EACH_MODE_COUNT,
@@ -102,6 +121,7 @@ private:
 
     // get global brightness
     STATE_GET_GLOBAL_BRIGHTNESS,
+
   };
 
   struct CommandState
@@ -115,6 +135,10 @@ private:
   EditorConnectionState m_state;
   // the data that is received
   ByteStream m_receiveBuffer;
+  // receiver timeout
+  uint32_t m_timeOutStartTime;
+  // target chroma mode index for read/write
+  uint8_t m_chromaModeIdx;
   // Whether at least one command has been received yet
   bool m_allowReset;
   // the mode index to return to after iterating the modes to send them
@@ -123,6 +147,16 @@ private:
   uint8_t m_numModesToReceive;
   // internal return value tracker
   ReturnCode m_rv;
+
+  bool m_isBluetooth;
+
+  bool detectConnection();
+  void readData(ByteStream &buffer);
+  void writeData(ByteStream &buffer);
+  void writeData(const char *message);
+  bool isConnected();
+  bool isConnectedReal();
+
 };
 
 #endif

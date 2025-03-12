@@ -327,6 +327,9 @@
     <ClCompile Include="src\Wireless\VLSender.cpp">
       <Filter>Source Files\Wireless</Filter>
     </ClCompile>
+    <ClCompile Include="src\Wireless\Bluetooth.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\VortexConfig.h">
@@ -550,6 +553,9 @@
     </ClInclude>
     <ClInclude Include="src\Wireless\VLSender.h">
       <Filter>Header Files\Wireless</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Wireless\Bluetooth.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

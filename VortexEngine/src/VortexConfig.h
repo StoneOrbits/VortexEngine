@@ -38,7 +38,7 @@
 
 // the engine flavour, this should change for each device/flavour
 // of the engine that branches off from the main indefinitely
-#define VORTEX_NAME "Core"
+#define VORTEX_NAME "Spark"
 
 // the full name of this build for ex:
 //    Vortex Engine v1.0 'Igneous' (built Tue Jan 31 19:03:55 2023)
@@ -158,7 +158,7 @@
 //
 // The starting default global brightness if there is no savefile
 // present The maximum value is 255
-#define DEFAULT_BRIGHTNESS    185
+#define DEFAULT_BRIGHTNESS    255
 
 // Max Modes
 //
@@ -176,7 +176,7 @@
 // This should not be set to 0, it should be a specific maximum for
 // each separate device
 //
-#define MAX_MODES             13
+#define MAX_MODES             16
 
 // Default Tickrate in Ticks Per Second (TPS)
 //
@@ -314,7 +314,22 @@
 // Serial Baud Rate
 //
 // The serial connection baud rate for the editor and anything else serial
-#define SERIAL_BAUD_RATE            9600
+#define SERIAL_BAUD_RATE            115200
+
+// Enable Bluetooth
+//
+// Turn this on to enable Bluetooth functionality
+#define BLUETOOTH_ENABLE 0
+
+// Bluetooth Broadcast Time
+//
+// The number of seconds after startup the Bluetooth module will broadcast
+#define BLUETOOTH_BROADCAST_SECONDS 10
+
+// Bluetooth Broadcast Name
+//
+// The name of the device broadcast over Bluetooth for connection
+#define BLUETOOTH_BROADCAST_NAME    "Vortex " VORTEX_NAME
 
 // ===================================================================
 //  Boolean Configurations (0 or 1)
@@ -580,6 +595,11 @@
 #ifdef VORTEX_LIB
 #undef VORTEX_SLIM
 #define VORTEX_SLIM 0
+
+// This only allows Bluetooth to be enabled on embedded platforms
+#ifndef VORTEX_EMBEDDED
+#undef BLUETOOTH_ENABLE
+#endif
 
 // The test framework needs brighter menu colors can't really see them on the screen
 #undef RGB_MENU_RANDOMIZER
