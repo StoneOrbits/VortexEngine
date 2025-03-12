@@ -601,7 +601,6 @@
 #undef BLUETOOTH_ENABLED
 #endif
 
-
 // The test framework needs brighter menu colors can't really see them on the screen
 #undef RGB_MENU_RANDOMIZER
 #undef RGB_MENU_MODE_SHARING
