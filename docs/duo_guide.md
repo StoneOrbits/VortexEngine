@@ -169,7 +169,7 @@ Learn how to use the Duo with this interactive tutorial:
 <div class="next-steps">
   <ul>
     <li><a href="basic_usage.html">Explore Vortex Engine</a>: Learn key terms, concepts, and how to use on-device menus.</li>
-    <li><a href="duo_connecting_or_upgrading_guide.html">Upgrade Your Device</a>: Ensure your device has the latest firmware for optimal performance.</li>
+    <li><a href="duo_chromalink_guide.html">Connect a Chromalink</a>: Connect your Duo to the PC with a Chromadeck to get the latest firmware.</li>
   </ul>
 </div>
 
