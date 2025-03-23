@@ -654,7 +654,18 @@ void EditorConnection::listenModeVL()
 ReturnCode EditorConnection::sendBrightness()
 {
   ByteStream brightnessBuf;
-  if (!brightnessBuf.serialize8(Leds::getBrightness())) {
+  // default to the brightness of the chromadeck itself
+  uint8_t brightness = Leds::getBrightness();
+  // check for connection to duo
+  ByteStream duoHeaderBuf;
+  if (UPDI::readHeader(duoHeaderBuf) && duoHeaderBuf.size() >= 5) {
+    DuoHeader *duoHeader = (DuoHeader *)duoHeaderBuf.data();
+    brightness = duoHeader->brightness;
+  }
+  UPDI::reset();
+  UPDI::disable();
+  // send over the brightness
+  if (!brightnessBuf.serialize8(brightness)) {
     return RV_FAIL;
   }
   writeData(brightnessBuf);
@@ -798,8 +809,24 @@ ReturnCode EditorConnection::receiveBrightness()
     return RV_FAIL;
   }
   if (brightness > 0) {
-    Leds::setBrightness(brightness);
-    Modes::saveHeader();
+    // TODO: if duo then update the duo
+    // try to read a duo header to see if we're connected to UPDI
+    ByteStream duoHeaderBuf;
+    if (UPDI::readHeader(duoHeaderBuf) && duoHeaderBuf.size() >= 5) {
+      DuoHeader *duoHeader = (DuoHeader *)duoHeaderBuf.data();
+      duoHeader->brightness = brightness;
+      duoHeaderBuf.recalcCRC(true);
+      if (!UPDI::writeHeader(duoHeaderBuf)) {
+        return RV_FAIL;
+      }
+      UPDI::setFlagNewFirmware();
+      UPDI::reset();
+      UPDI::disable();
+    } else {
+      // otherwise no duo just update brightness of the chromadeck
+      Leds::setBrightness(brightness);
+      Modes::saveHeader();
+    }
   }
   return RV_OK;
 }

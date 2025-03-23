@@ -12,8 +12,8 @@ struct DuoHeader {
   uint8_t vMajor;
   uint8_t vMinor;
   uint8_t globalFlags;
+  uint8_t brightness;
   uint8_t numModes;
-  uint8_t idk;
   uint8_t vBuild;
   // 15 bytes total
   uint8_t unused[9];
