@@ -33,7 +33,8 @@ EditorConnection::EditorConnection(const RGBColor &col, bool advanced) :
   m_firmwareOffset(0),
   m_backupModes(true),
   m_backupModeNum(0),
-  m_isBluetooth(false)
+  m_isBluetooth(false),
+  m_updiConnected(false)
 {
 }
 
@@ -656,14 +657,17 @@ ReturnCode EditorConnection::sendBrightness()
   ByteStream brightnessBuf;
   // default to the brightness of the chromadeck itself
   uint8_t brightness = Leds::getBrightness();
-  // check for connection to duo
-  ByteStream duoHeaderBuf;
-  if (UPDI::readHeader(duoHeaderBuf) && duoHeaderBuf.size() >= 5) {
-    DuoHeader *duoHeader = (DuoHeader *)duoHeaderBuf.data();
-    brightness = duoHeader->brightness;
+  // only if duo has been connected pull its brightness
+  if (m_updiConnected) {
+    // check for connection to duo
+    ByteStream duoHeaderBuf;
+    if (UPDI::readHeader(duoHeaderBuf) && duoHeaderBuf.size() >= 5) {
+      DuoHeader *duoHeader = (DuoHeader *)duoHeaderBuf.data();
+      brightness = duoHeader->brightness;
+    }
+    UPDI::reset();
+    UPDI::disable();
   }
-  UPDI::reset();
-  UPDI::disable();
   // send over the brightness
   if (!brightnessBuf.serialize8(brightness)) {
     return RV_FAIL;
@@ -930,13 +934,16 @@ ReturnCode EditorConnection::pushHeaderChromalink()
   ByteStream buf;
   m_rv = receiveBuffer(buf);
   if (m_rv != RV_OK) {
+    m_updiConnected = false;
     return m_rv;
   }
   if (!UPDI::writeHeader(buf)) {
+    m_updiConnected = false;
     return RV_FAIL;
   }
   UPDI::reset();
   UPDI::disable();
+  m_updiConnected = true;
   return RV_OK;
 }
 

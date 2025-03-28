@@ -191,6 +191,10 @@ private:
 
   bool m_isBluetooth;
 
+  // this gets set only if the user hits 'connect duo' and tries to connect
+  // the chromalink and it succeeds, it does not get set automatically
+  bool m_updiConnected;
+
   bool detectConnection();
   void readData(ByteStream &buffer);
   void writeData(ByteStream &buffer);
