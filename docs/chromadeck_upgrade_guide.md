@@ -53,3 +53,17 @@ If you encounter any other issues, try refreshing to page and unplugging and rec
 
 **It still doesn't work!**  
 Join our [discord](https://discord.gg/4R9at8S8Sn) and ask for help!
+
+## Force update
+If the Chromadeck begins to connect but gets stuck, or the Chromadeck is corrupted and unable to update for some reason then a Force Update may solve the problem.
+
+{: .note }
+  To Force Update you must *not* connect with the USB Icon!  
+
+To perform a Force Update Follow these steps:  
+  
+ 1. unplug, restart deck, plug in  
+ 2. open new lightshow.lol tab  
+ 3. Use the 'Select Device' dropdown to pick the Chromadeck device  
+ 4. Press 'Insert' on your keyboard to get an update window  
+ 5. Click update to forcefully update the Chromadeck, bypassing connection steps  
