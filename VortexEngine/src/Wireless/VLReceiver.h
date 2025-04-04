@@ -73,6 +73,12 @@ private:
   // used to compare if received data has changed since last checking
   static uint32_t m_previousBytes;
 
+  // the determined time based on sync
+  static uint32_t m_vlTiming;
+
+  // count of the sync bits (similar length starter bits)
+  static uint8_t m_syncCount;
+
 #ifdef VORTEX_LIB
   friend class Vortex;
 #endif

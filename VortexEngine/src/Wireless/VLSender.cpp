@@ -117,12 +117,29 @@ void VLSender::beginSend()
   m_isSending = true;
   DEBUG_LOGF("[%zu] Beginning send size %u (blocks: %u remainder: %u blocksize: %u)",
     Time::microseconds(), m_size, m_numBlocks, m_remainder, m_blockSize);
-  // wakeup the other receiver with a very quick mark/space
-  sendMark(50);
-  sendSpace(100);
+  // send some sync bytes to let the receiver determine baudrate
+  for (int b = 0; b < 8; b++) {
+    // send 3x timing size for 1s and 1x timing for 0
+    sendMark(VL_TIMING * 2);
+    // send 1x timing size for space
+    sendSpace(VL_TIMING * 2);
+  }
   // now send the header
-  sendMark(VL_HEADER_MARK);
-  sendSpace(VL_HEADER_SPACE);
+  //sendMark(VL_HEADER_MARK);
+  //sendSpace(VL_HEADER_SPACE);
+#ifdef VORTEX_LIB
+  // send mark timing over socket
+  Vortex::vcallbacks()->infraredWrite(true, VL_HEADER_MARK);
+  // send space timing over socket
+  Vortex::vcallbacks()->infraredWrite(false, VL_HEADER_SPACE);
+#else
+  // custom sendmark/space because these might be really long times
+  startPWM();
+  Time::delayMicroseconds(VL_HEADER_MARK);
+  stopPWM();
+  Time::delayMicroseconds(VL_HEADER_SPACE);
+#endif
+
   // reset writeCounter
   m_writeCounter = 0;
   // write the number of blocks being sent, most likely just 1

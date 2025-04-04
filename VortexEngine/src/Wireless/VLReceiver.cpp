@@ -20,6 +20,10 @@ VLReceiver::RecvState VLReceiver::m_recvState = WAITING_HEADER_MARK;
 uint32_t VLReceiver::m_prevTime = 0;
 uint8_t VLReceiver::m_pinState = 0;
 uint32_t VLReceiver::m_previousBytes = 0;
+// the determined time based on sync
+uint32_t VLReceiver::m_vlTiming = 0;
+// count of the sync bits (similar length starter bits)
+uint8_t VLReceiver::m_syncCount = 0;
 
 #ifdef VORTEX_EMBEDDED
 #define MIN_THRESHOLD   200
@@ -66,6 +70,7 @@ bool VLReceiver::init()
   PORTB.PIN1CTRL &= ~PORT_ISC_gm;
   PORTB.PIN1CTRL |= PORT_ISC_INPUT_DISABLE_gc;
 #endif
+  //m_vlTiming = VL_TIMING * 2;
   return m_vlData.init(VL_RECV_BUF_SIZE);
 }
 
@@ -262,8 +267,15 @@ void VLReceiver::handleVLTiming(uint32_t diff)
   case WAITING_HEADER_MARK: // initial state
     if (diff >= VL_HEADER_SPACE_MIN && diff <= VL_HEADER_MARK_MAX) {
       m_recvState = WAITING_HEADER_SPACE;
+      if (m_syncCount) {
+        m_vlTiming /= m_syncCount;
+        m_syncCount = 0;
+      }
     } else {
       DEBUG_LOGF("Bad header mark %u, resetting...", diff);
+      m_vlTiming += diff;
+      m_syncCount++;
+      Leds::setAll(RGB_PURPLE);
       resetVLState();
     }
     break;
@@ -277,7 +289,7 @@ void VLReceiver::handleVLTiming(uint32_t diff)
     break;
   case READING_DATA_MARK:
     // classify mark/space based on the timing and write into buffer
-    m_vlData.write1Bit((diff > (VL_TIMING * 2)) ? 1 : 0);
+    m_vlData.write1Bit(diff > m_vlTiming);
     m_recvState = READING_DATA_SPACE;
     break;
   case READING_DATA_SPACE:

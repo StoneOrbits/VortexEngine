@@ -24,7 +24,7 @@ public:
 
   // read/write a single bit in LSB
   uint8_t read1Bit();
-  void write1Bit(uint8_t bit);
+  void write1Bit(bool bit);
   // read/write multiple bits from left to right at LSB
   uint8_t readBits(uint32_t numBits);
   void writeBits(uint32_t numBits, uint32_t val);
