@@ -25,9 +25,9 @@ parent: Lightshow.lol
 </style>
 
 # Getting Started (Android)
-This guide covers the basics of using lightshow.lol with an **Android Device**, to use lightshow.lol with a **Computer** see the [Getting Started Guide](lightshow_lol_getting_started.html)
+This guide covers the basics of using lightshow.lol with an **Android Device**, to use lightshow.lol with a **Computer** see [Getting Started on PC](lightshow_lol_getting_started.html).
 
-Unfortunately **iOS is not supported** due to limitations preventing webpages from accessing Bluetooth
+Unfortunately **iOS is not supported** due to limitations preventing webpages from accessing Bluetooth.
 
 ## Android Instructions
 To begin using lightshow.lol on a **Mobile Android Device** first note the compatible devices:
@@ -36,7 +36,7 @@ To begin using lightshow.lol on a **Mobile Android Device** first note the compa
  - Spark Orbit / Handles
 
 Only these two devices are capable of Bluetooth connectivity.
-If you're looking to **program a Duo with a Chromadeck** then continue reading.
+If you're looking to **program a Duo via a Chromadeck** then continue reading.
 
 {: .warning }
 Bluetooth cannot perform firmware updates, only USB to a PC can update the firmware of a device!
@@ -50,9 +50,9 @@ To begin start with these steps
 - Ensure the device is up-to-date (use a PC)
 - Switch the device off and unplug it from USB
 
-On lightshow.lol with an **Android Device**, go to the [Device Control Panel](lightshow_lol_device_controls.html) via the **hamburger menu**.
+On lightshow.lol with an **Android Device**, go to the [Device Panel](lightshow_lol_device_controls.html) via the **hamburger menu**.
 
- - No need to select a device first!  
+ - No need to *select* a device first
  - **Click the Bluetooth button** to open the Bluetooth Device list
  - **Now switch the device on** and it should appear in the list
 
@@ -61,7 +61,7 @@ Select the device from the list and it should connect.
 If everything is set up correctly, you should see a **success notification** and you should now be able to control the device the same as the PC.
 
 {: .warning }
-Mobile Bluetoothc control is still beta and bugs are common, please document and report any bugs on our Discord
+Mobile and Bluetooth are still beta, please report any bugs on our [Discord](support.html)
 
 ## What to do next
 
