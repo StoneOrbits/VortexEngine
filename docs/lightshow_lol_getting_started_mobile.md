@@ -41,8 +41,8 @@ If you're looking to **program a Duo via a Chromadeck** then continue reading.
 {: .warning }
 Bluetooth cannot perform firmware updates, only USB to a PC can update the firmware of a device!
 
-<div style="max-width: 50%; text-align: right; margin: 0px; float:right;">
-  <img src="assets/images/lightshow-lol-device-panel-connect.png" style="box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2); border-radius: 5px;">
+<div style="max-width: 30%; text-align: right; margin: 0px; float:right;">
+  <img src="assets/images/android-bluetooth.gif" style="box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2); border-radius: 5px;">
 </div>
 
 To begin start with these steps
@@ -58,7 +58,7 @@ On lightshow.lol with an **Android Device**, go to the [Device Panel](lightshow_
 
 Select the device from the list and it should connect.
 
-If everything is set up correctly, you should see a **success notification** and you should now be able to control the device the same as the PC.
+If everything is set up correctly, you should see a **success notification** and you should now be able to control the device similar to a PC.
 
 {: .warning }
 Mobile and Bluetooth are still beta, please report any bugs on our [Discord](support.html)
