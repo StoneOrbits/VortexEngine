@@ -29,6 +29,8 @@ This guide covers the basics of using lightshow.lol with an **Android Device**, 
 
 Unfortunately **iOS is not supported** due to limitations preventing webpages from accessing Bluetooth.
 
+Mobile and Bluetooth are still beta, please report any bugs on our [Discord](support.html).
+
 ## Android Instructions
 To begin using lightshow.lol on a **Mobile Android Device** first note the compatible devices:
 
@@ -41,7 +43,7 @@ If you're looking to **program a Duo via a Chromadeck** then continue reading.
 {: .warning }
 Bluetooth cannot perform firmware updates, only USB to a PC can update the firmware of a device!
 
-<div style="max-width: 30%; text-align: right; margin: 0px; float:right;">
+<div style="max-width: 30%; text-align: right; margin-left: 0.5em; float: right">
   <img src="assets/images/android-bluetooth.gif" style="box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2); border-radius: 5px;">
 </div>
 
@@ -59,9 +61,6 @@ On lightshow.lol with an **Android Device**, go to the [Device Panel](lightshow_
 Select the device from the list and it should connect.
 
 If everything is set up correctly, you should see a **success notification** and you should now be able to control the device similar to a PC.
-
-{: .warning }
-Mobile and Bluetooth are still beta, please report any bugs on our [Discord](support.html)
 
 ## What to do next
 
