@@ -61,7 +61,7 @@ has_children: true
 
 Here you can read about individual control panels to gain additional insight that may not come up in the other tutorials.
 
-Depending on whether lightshow.lol is used on **mobile** or **desktop** the layout will appear different, but will function of these panels will be nearly the same.
+Depending on whether lightshow.lol is used on **mobile** or **desktop** the layout will appear different, but the function of these panels will be nearly the same.
 
 Pick one of the panels below to learn more about it:
 
