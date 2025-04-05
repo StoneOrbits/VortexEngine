@@ -1,0 +1,76 @@
+---
+layout: default
+title: Getting Started
+nav_order: 5
+parent: Lightshow.lol
+---
+
+<style>
+.image-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
+  margin: 0 auto;
+  padding: 0 15px;
+  margin-top: 20px;
+}
+
+.image-container img {
+  /* Adjust max-width as needed for your layout */
+  max-width: 20%;
+  height: auto;
+  display: block;
+}
+</style>
+
+# Getting Started (Android)
+This guide covers the basics of using lightshow.lol with an **Android Device**, to use lightshow.lol with a **Computer** see the [Getting Started Guide](lightshow_lol_getting_started.html)
+
+## Android Instructions
+To begin using lightshow.lol on a **Mobile Android Device** first note the compatible devices:
+
+ - Chromadeck
+ - Spark Orbit / Handles
+
+{: .note }
+Spark is pending Bluetooth support but available if you reach out!
+
+Only these two devices are capable of Bluetooth connectivity.
+If you're looking to **program a Duo with a Chromadeck** then continue reading.
+
+{: .warning }
+Bluetooth cannot perform firmware updates, only USB to a PC can update the firmware of a device!
+
+<div style="max-width: 50%; text-align: right; margin: 0px; float:right;">
+  <img src="assets/images/lightshow-lol-device-panel-connect.png" style="box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2); border-radius: 5px;">
+</div>
+
+To begin start with these steps
+
+- Ensure the device is up-to-date (use a PC)
+- Switch the device off and unplug it from USB
+
+On lightshow.lol with an **Android Device**, go to the [Device Control Panel](lightshow_lol_device_controls.html) via the **hamburger menu**.
+
+ - No need to select a device first!  
+ - **Click the Bluetooth button** to open the Bluetooth Device list
+ - **Now switch the device on** and it should appear in the list
+
+Select the device from the list and it should connect.
+
+If everything is set up correctly, you should see a **success notification** and you should now be able to control the device the same as the PC.
+
+{: .warning }
+Mobile Bluetoothc control is still beta and bugs are common, please document and report any bugs on our Discord
+
+## What to do next
+
+Frome here, common next steps are:
+
+ - [Loading Savefiles](pulling_modes.html) to edit and share
+ - [Creating New Modes](creating_modes.html) to share and use
+ - [Community Modes](community.html) for inspiration and collaboration
+
+Try any combination of these options to create the ultimate device for you!
+

@@ -1,9 +1,8 @@
 ---
 layout: default
-title: Getting Started with Lightshow.lol 
+title: Getting Started
 nav_order: 0
 parent: Lightshow.lol
-has_children: true
 ---
 
 <style>
@@ -25,12 +24,15 @@ has_children: true
 }
 </style>
 
-# Connecting a Device
+# Getting Started
 If you're new to lightshow.lol or recently acquired a [Vortex Device](vortex_devices.html) then you might be wondering:
 - *How does this work?*
 - *How do I get started?*
 
-This guide will walk through the basics, to begin use a **Data-Capable USB Cable** to connect the device to the computer.
+This guide will cover the basics of using lightshow.lol on a **Computer**, to use lightshow.lol on an **Android Device** see the [Mobile Getting Started Guide](lightshow_lol_getting_started_mobile.html)
+
+## Desktop Instructions
+To begin using lightshow.lol on a **Desktop** first use a **Data-Capable USB Cable** to connect the device to the computer.
 
 <div class="image-container">
     <img src="assets/images/vortex-device.png" alt="Vortex Device">
