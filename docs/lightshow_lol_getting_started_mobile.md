@@ -62,13 +62,20 @@ Select the device from the list and it should connect.
 
 If everything is set up correctly, you should see a **success notification** and you should now be able to control the device similar to a PC.
 
+## Programming a Duo
+The **Duo Editor** centralizes the Led, Pattern and Colorset controls into one place to streamline the creation of modes for a Duo.
+
+To use the **Duo Editor** first connect a **Chromadeck** with the Bluetooth instructions above.
+
+After connecting, the **Duo Editor Panel** will appear in the **hamburger menu**.
+
 ## What to do next
 
 Frome here, common next steps are:
 
  - [Loading Savefiles](pulling_modes.html) to edit and share
  - [Creating New Modes](creating_modes.html) to share and use
- - [Community Modes](community.html) for inspiration and collaboration
+ - [Browsing The Community](community.html) for inspiration and collaboratiobn
 
 Try any combination of these options to create the ultimate device for you!
 
