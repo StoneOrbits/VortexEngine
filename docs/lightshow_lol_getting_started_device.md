@@ -2,7 +2,7 @@
 layout: default
 title: Getting Started with Lightshow.lol 
 nav_order: 0
-parent: Lightshow.lol Examples
+parent: Lightshow.lol
 has_children: true
 ---
 
@@ -26,13 +26,13 @@ has_children: true
 </style>
 
 
-# First Time Using Lightshow.lol
+# Using a Vortex Device with Lightshow.lol
 
-Welcome to Lightshow.lol, our powerful Vortex Engine mode designing tool. If you’re new, you might be wondering:
+Welcome to Lightshow.lol, our powerful Vortex Engine mode designing tool. If you’re new or recently acquired a vortex device then you might be wondering:
 - *How does this work?*
 - *How do I get started?*
 
-This guide will walk you through the basics and help you get familiar with the platform.
+This guide will walk you through the basics and help familiarize you with the platform.
 
 ## **Connecting Your Device**
 While it’s not necessary to connect a device to Lightshow.lol to start designing new modes, chances are you already own a **Vortex Device** and are eager to start customizing it! 

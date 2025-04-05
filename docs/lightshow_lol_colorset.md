@@ -1,8 +1,8 @@
 ---
 layout: default
 title: Colorset Controls
-nav_order: 5
-parent: Lightshow.lol
+nav_order: 30
+parent: Control Panels
 ---
 <style>
   .panel-grid {

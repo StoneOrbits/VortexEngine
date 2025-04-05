@@ -1,8 +1,8 @@
 ---
 layout: default
 title: Animation
-nav_order: 0
-parent: Lightshow.lol
+nav_order: 5
+parent: Control Panels
 ---
 
 <style>
@@ -75,21 +75,20 @@ parent: Lightshow.lol
   <img src="assets/images/lightshow-lol-animation.png" alt="Lightshow.lol Animation">
 </div>
 
-The **Preview** is the spinning circle of colors visible in the middle of the page.
-The **Animation Panel** specifically controls the appearance of this **Preview**.
+The **Animation Panel** specifically controls the appearance of this **preview** (the spinning circle of colors).
 
-Changing the settings on the **Animation Panel** will not affect how the mode looks on your device, only how it appears in the **Preview** on your screen.
+The settings on the **Animation Panel** do not affect how the mode appears on a device, these controls  only affect how the **preview** appears on your screen.
 
 The five animation shapes change the shape of the trail's path in the preview.
 
 The six slider options affect other qualities of the trails:
 
-- **Speed**: How fast the animation progresses.
-- **Trail**: How long the colors remain visible (the length of the trail).
-- **Size**: The size of each blink of color.
-- **Blur**: Softness/diffusion of the blink on screen.
-- **Radius**: The size of the animation pattern on screen.
-- **Spread**: With many LEDs, the distance between LEDs in the preview.
+- **Speed**: How fast the animation progresses
+- **Trail**: How long the colors remain visible (the length of the trail)
+- **Size**: The size of each blink of color in the trail
+- **Blur**: Softness/diffusion of each blink of color
+- **Radius**: The size of the animation pattern on screen
+- **Spread**: With many LEDs, the distance between each LED in the preview
 
 ## Other Panels
 

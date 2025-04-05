@@ -65,56 +65,14 @@ has_children: true
 </div>
 
 {: .note }
-The **preview** will never look exactly like **real LEDs**.  Although this is a real-time simulation, RGB programmable LEDs produce light and colors differently from computer monitors and screens.
+The **preview** will never look exactly like **real LEDs**.  Although this is a direct simulation, RGB programmable LEDs produce light and colors differently from computer monitors and screens.
 
 ## Getting Started
 
-To get started with lightshow.lol, check out these [common use-cases and examples](lightshow_lol_examples.html).
+To get started with lightshow.lol, check out these common use-cases, examples, and tutorials:
 
-If you want to learn more about the individual controls then continue reading.
+ - [Getting Started with a Vortex Device](lightshow_lol_getting_started_device.html)
+ - *More tutorials to come soon*
 
-## Control Panels
-
-Depending on whether lightshow.lol is used from **mobile** or **desktop** the layout will appear different, but functions nearly the same. 
-
-Pick one of the options below to learn more about it:
-
-<div class="panel-grid">
-  <a href="lightshow_lol_animation.html" class="panel-link">
-    <span class="panel-title">🔗 Animation Panel →</span>
-    <img src="assets/images/lightshow-lol-animation.png" class="panel-img">
-  </a>
-    <a href="lightshow_lol_pattern.html" class="panel-link">
-    <span class="panel-title">🔗 Pattern Panel →</span>
-    <img src="assets/images/lightshow-lol-pattern.png" class="panel-img">
-  </a>
-    <a href="lightshow_lol_colorset.html" class="panel-link">
-    <span class="panel-title">🔗 Colorset Panel →</span>
-    <img src="assets/images/lightshow-lol-colorset.png" class="panel-img">
-  </a>
-    <a href="lightshow_lol_color_picker.html" class="panel-link">
-    <span class="panel-title">🔗 Color Picker →</span>
-    <img src="assets/images/lightshow-lol-color-picker.png" class="panel-img">
-  </a>
-  <a href="lightshow_lol_device_controls.html" class="panel-link">
-    <span class="panel-title">🔗 Device Control →</span>
-    <img src="assets/images/lightshow-lol-device.png" class="panel-img">
-  </a>
-  <a href="lightshow_lol_modes.html" class="panel-link">
-    <span class="panel-title">🔗 Modes Panel →</span>
-    <img src="assets/images/lightshow-lol-modes.png" class="panel-img">
-  </a>
-  <a href="lightshow_lol_led_selection.html" class="panel-link">
-    <span class="panel-title">🔗 Led Selection →</span>
-    <img src="assets/images/lightshow-lol-led-select.png" class="panel-img">
-  </a>
-  <a href="lightshow_lol_update_panel.html" class="panel-link">
-    <span class="panel-title">🔗 Update Panel →</span>
-    <img src="assets/images/lightshow-lol-device-update.png" class="panel-img">
-  </a>
-  <a href="lightshow_lol_chromalink_duo.html" class="panel-link">
-    <span class="panel-title">🔗 Chromalink Panel →</span>
-    <img src="assets/images/lightshow-lol-chromalink-duo-basic.png" class="panel-img">
-  </a>
-</div>
+After finishing the tutorials take a look at the [Control Panel Documentation](lightshow_lol_control_panels.html) to get a deeper mastery of lightshow.lol
 

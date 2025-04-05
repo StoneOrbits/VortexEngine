@@ -1,8 +1,8 @@
 ---
 layout: default
 title: Modes List
-nav_order: 2
-parent: Lightshow.lol
+nav_order: 15
+parent: Control Panels
 ---
 <style>
   .panel-grid {

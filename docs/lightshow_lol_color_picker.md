@@ -1,8 +1,8 @@
 ---
 layout: default
 title: Color Picker
-nav_order: 6
-parent: Lightshow.lol
+nav_order: 35
+parent: Control Panels
 ---
 <style>
   .panel-grid {

@@ -1,8 +1,8 @@
 ---
 layout: default
 title: Chromalink Duo
-nav_order: 8
-parent: Lightshow.lol
+nav_order: 45
+parent: Control Panels
 ---
 <style>
   .panel-grid {

@@ -1,8 +1,8 @@
 ---
 layout: default
 title: Pattern Controls
-nav_order: 4
-parent: Lightshow.lol
+nav_order: 25
+parent: Control Panels
 ---
 <style>
   .panel-grid {

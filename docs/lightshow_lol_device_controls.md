@@ -1,8 +1,8 @@
 ---
 layout: default
 title: Device Controls
-nav_order: 1
-parent: Lightshow.lol
+nav_order: 10
+parent: Control Panels
 ---
 <style>
   .panel-grid {

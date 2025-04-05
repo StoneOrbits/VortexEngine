@@ -1,8 +1,8 @@
 ---
 layout: default
 title: Led Selection
-nav_order: 3
-parent: Lightshow.lol
+nav_order: 20
+parent: Control Panels
 ---
 <style>
   .panel-grid {

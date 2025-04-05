@@ -1,8 +1,8 @@
 ---
 layout: default
 title: Device Updates
-nav_order: 7
-parent: Lightshow.lol
+nav_order: 40
+parent: Control Panels
 ---
 <style>
   .panel-grid {
