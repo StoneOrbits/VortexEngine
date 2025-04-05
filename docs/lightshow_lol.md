@@ -58,24 +58,26 @@ has_children: true
 
 # Lightshow.lol
 
-[Lightshow.lol](https://lightshow.lol) is an online Vortex Editor and Simulator capable of connecting with any **Vortex Device** to edit and preview modes in real-time.
+[Lightshow.lol](https://lightshow.lol) is an online Vortex Editor and Simulator capable of connecting with any [Vortex Device](vortex_devices.html) to preview and edit modes in real-time.
+
+<div style="border-radius: 5px; border: 3px solid gray; text-align: center; margin: 20px">
+  <img src="assets/images/lightshow-lol-preview.gif" style="box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2); border-radius: 5px;">
+</div>
 
 {: .note }
-**The preview will never look exactly the same as real LEDs**, although the preview is a real-time simulation, real LEDs will always appear different.
+The **preview** will never look exactly like **real LEDs**.  Although this is a real-time simulation, RGB programmable LEDs produce light and colors differently from computer monitors and screens.
 
-## How to Guides
+## Getting Started
 
-To get started with lightshow.lol, checkout these [helpful examples and common usecases](lightshow_lol_examples.html).
+To get started with lightshow.lol, check out these [common use-cases and examples](lightshow_lol_examples.html).
 
-## Lightshow.lol
+If you want to learn more about the individual controls then continue reading.
 
-The user interface of lightshow.lol consists of two components: the **preview** and the **control panels**.
+## Control Panels
 
-Depending on whether you use lightshow.lol from **mobile** or **desktop** the layout will appear differently but functionally the same.
+Depending on whether lightshow.lol is used from **mobile** or **desktop** the layout will appear different, but functions nearly the same. 
 
-The **preview** is the circle of colorful dots immediately visible upon opening the website.
-
-The **Control Panels** allow manipulation of the pattern, colorset, modes, and other aspects.
+Pick one of the options below to learn more about it:
 
 <div class="panel-grid">
   <a href="lightshow_lol_animation.html" class="panel-link">
