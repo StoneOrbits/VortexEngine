@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Getting Started
+title: Getting Started on Android
 nav_order: 5
 parent: Lightshow.lol
 ---

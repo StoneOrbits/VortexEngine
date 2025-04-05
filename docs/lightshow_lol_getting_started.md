@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Getting Started
+title: Getting Started on PC
 nav_order: 0
 parent: Lightshow.lol
 ---

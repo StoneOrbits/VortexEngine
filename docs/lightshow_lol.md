@@ -71,7 +71,8 @@ The **preview** will never look exactly like **real LEDs**.  Although this is a 
 
 To get started with lightshow.lol, check out these common use-cases, examples, and tutorials:
 
- - [Getting Started with a Vortex Device](lightshow_lol_getting_started_device.html)
+ - [Getting Started on Computer](lightshow_lol_getting_started.html)
+ - [Getting Started on Android](lightshow_lol_getting_started_mobile.html)
  - *More tutorials to come soon*
 
 After finishing the tutorials take a look at the [Control Panel Documentation](lightshow_lol_control_panels.html) to get a deeper mastery of lightshow.lol
