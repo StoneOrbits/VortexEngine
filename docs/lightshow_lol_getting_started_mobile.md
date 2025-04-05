@@ -27,14 +27,13 @@ parent: Lightshow.lol
 # Getting Started (Android)
 This guide covers the basics of using lightshow.lol with an **Android Device**, to use lightshow.lol with a **Computer** see the [Getting Started Guide](lightshow_lol_getting_started.html)
 
+Unfortunately **iOS is not supported** due to limitations preventing webpages from accessing Bluetooth
+
 ## Android Instructions
 To begin using lightshow.lol on a **Mobile Android Device** first note the compatible devices:
 
  - Chromadeck
  - Spark Orbit / Handles
-
-{: .note }
-Spark is pending Bluetooth support but available if you reach out!
 
 Only these two devices are capable of Bluetooth connectivity.
 If you're looking to **program a Duo with a Chromadeck** then continue reading.
