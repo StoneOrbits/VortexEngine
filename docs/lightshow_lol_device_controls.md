@@ -52,6 +52,16 @@ The **Device Controls Panel** is very simple, offering only two purposes: to **s
 
 In both cases, whether **Selecting** or **Connecting** a device, the **LED Selection Panel** will appear.
 
+## Mobile Device Panel
+
+On mobile (Android) the device panel is different, instead of a USB icon there will be a Bluetooth icon.
+
+<div style="max-width:40%;margin:10px;">
+<img style="border:2px solid #222; border-radius: 5px;" src="assets/images/lightshow-lol-device-panel-mobile.png">
+</div>
+
+To see instructions for connecting devices via Bluetooth on Android see [Getting Started on Android](lightshow_lol_getting_started_mobile.html)
+
 ## Other Panels
 
 <div class="panel-grid">
