@@ -56,33 +56,26 @@ has_children: true
   }
 </style>
 
-
-<!-- <div style="text-align: center; margin: 20px">
-  <h1 style="color:orange;">⚠ <b style="color:yellow;">This page is under construction</b> ⚠<br></h1>
-</div> -->
-
 # Lightshow.lol
 
-This page details how to use the web-based Vortex Editor [lightshow.lol](https://lightshow.lol). 
-
-## Basics
-
-Lightshow.lol is an online editor designed to both dispaly previews of the **Patterns**, **Colorsets**, and **Modes** of a **Vortex Device**, and edit them in real-time. It can also export [modes](modes.html) to any Vortex devices or upload them directly to [Vortex.Community](vortex_community.html) for sharing. 
+[Lightshow.lol](https://lightshow.lol) is an online Vortex Editor and Simulator capable of connecting with any **Vortex Device** to edit and preview modes in real-time.
 
 {: .note }
-Although the preview is an exact simulation of a real device, due to the difference in the way color is produced by LEDs and displays **the preview will never look exactly the same as real LEDs**
+**The preview will never look exactly the same as real LEDs**, although the preview is a real-time simulation, real LEDs will always appear different.
 
 ## How to Guides
 
-Ligthshow.lol is intuitive, feature-packed, and incredibly powerful once you understand it's panels. To get started, checkout these [helpful examples](lightshow_lol_examples.html) that show how to use different features. 
+To get started with lightshow.lol, checkout these [helpful examples and common usecases](lightshow_lol_examples.html).
 
-## Lightshow.lol 
+## Lightshow.lol
 
-In the middle of the screen there is an animated trail of colorful dots. These dots serve as your preview of the mode you're currently building. 
+The user interface of lightshow.lol consists of two components: the **preview** and the **control panels**.
 
-Each of the surrounding panels can be used to modify the mode being displayed.
+Depending on whether you use lightshow.lol from **mobile** or **desktop** the layout will appear differently but functionally the same.
 
-Select one of the Panels below to learn more about it:
+The **preview** is the circle of colorful dots immediately visible upon opening the website.
+
+The **Control Panels** allow manipulation of the pattern, colorset, modes, and other aspects.
 
 <div class="panel-grid">
   <a href="lightshow_lol_animation.html" class="panel-link">
