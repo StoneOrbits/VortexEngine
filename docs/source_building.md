@@ -28,7 +28,7 @@ Then switch to the desired device branch:
 cd VortexEngine
 git switch duo
 ```
-See all branches [here](https://github.com/StoneOrbits/VortexEngine/branches/active)
+Read moure about the branches [here](source_branches.html)
 
 ## Linux Build Steps
 The following steps should work on Linux (Ubuntu/debian)
