@@ -4,6 +4,7 @@ title: Device Controls
 nav_order: 10
 parent: Control Panels
 ---
+
 <style>
   .panel-grid {
     display: grid;
