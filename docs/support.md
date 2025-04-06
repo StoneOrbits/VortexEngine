@@ -9,7 +9,7 @@ nav_order: 10
 If you're experiencing issues or if you need further assistance that requires expert help, please reachout to either StoneOrbits or the Vortex Community Discord.
 
 <div id="reveal-section">
-  <button onclick="revealLink()">Click to Reveal Discord Link</button>
+  <button id="reveal-button" onclick="revealLink()">Click to Reveal Discord Link</button>
 </div>
 
 <div id="discord-link" style="display:none; margin-top: 20px;"></div>
