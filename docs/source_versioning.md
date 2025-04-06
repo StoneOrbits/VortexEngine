@@ -16,19 +16,19 @@ Where x is the Major release version, y is the minor release version, and z is t
 
 ## Major Version
 
-A Major version difference happens when a product isn't compatible anymore after a large change.
+A Major version difference indicates a product isn't compatible anymore after a large change.
 
 ## Minor Version
 
-A Minor version difference happens when there is a significant update, new feature or fix.
+A Minor version difference indicates a significant update, new feature or fix.
 
 ## Build Number
 
-And finally, a build version happens every time a change is made to the code. Build numbers are counted as the number of commits since the last minor version tag.
+A build version indicates a change made to the source code. Build numbers are derived by counting the number of commits since the last version tag.
 
 # Version Tags
 
-The way versions are recorded is by tagging major.minor versions on the core source code and each device separately.
+Source code *versions* are recorded as *tags* on the source code. The tags look like **major.minor** then the true device version is derived by counting the number of commits since that tag to produce **major.minor.build**
 
 ## Device Version Tags
 
