@@ -61,13 +61,15 @@ Global variables use 167/2048 or 0xa7/0x800 bytes of SRAM (8.15%)
 
 This should produce several files, the important one is **vortex.bin**
 
-From here, with a **Chromadeck** and **Chromalink** the **Flash Custom Firmware** option on [lightshow.lol](https://lightshow.lol) can be used to flash a Duo with this file **vortex.bin**
+From here, with a **Chromadeck** and **Chromalink**, use the **Flash Custom Firmware** option on [lightshow.lol](https://lightshow.lol) to flash a Duo with **vortex.bin**
+
+Congratulations the Duo is now running a custom firmware
+
+## Building Other Devices
 
 Other devices are slightly more complicated, reachout on [discord](support.html)
 
 ## Windows Build Steps
-Honestly this is a bit of a pain and not really worth documenting.
-
-It would be easier for me to just automate this with a similar process to Linux but it's not worth my time.
+This is quite a pain and not really worth documenting, it would be easier to automate this with similar commands to Linux than to document the current process.
 
 If you really need to build on Windows just join the [discord](support.html) and ask, I'll be happy to help.
