@@ -150,6 +150,7 @@ void ModeSharing::receiveMode()
   DEBUG_LOG("Mode ready to receive! Receiving...");
   // receive the VL mode into the current mode
   if (!VLReceiver::receiveMode(&m_previewMode)) {
+    Leds::holdAll(RGB_RED3);
     ERROR_LOG("Failed to receive mode");
     return;
   }

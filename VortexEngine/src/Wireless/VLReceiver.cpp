@@ -19,9 +19,9 @@ BitStream VLReceiver::m_vlData;
 VLReceiver::RecvState VLReceiver::m_recvState = WAITING_HEADER_MARK;
 uint32_t VLReceiver::m_prevTime = 0;
 uint8_t VLReceiver::m_pinState = 0;
-uint32_t VLReceiver::m_previousBytes = 0;
+uint16_t VLReceiver::m_previousBytes = 0;
 // the determined time based on sync
-uint32_t VLReceiver::m_vlTiming = 0;
+uint16_t VLReceiver::m_vlTiming = 0;
 // count of the sync bits (similar length starter bits)
 uint8_t VLReceiver::m_syncCount = 0;
 
@@ -239,17 +239,20 @@ void VLReceiver::recvPCIHandler()
   m_pinState = (uint8_t)!m_pinState;
   // grab current time
   uint32_t now = Time::microseconds();
-  // check previous time for validity
-  if (!m_prevTime || m_prevTime > now) {
-    m_prevTime = now;
-    DEBUG_LOG("Bad first time diff, resetting...");
-    resetVLState();
-    return;
-  }
+  //// check previous time for validity
+  //if (!m_prevTime || m_prevTime > now) {
+  //  m_prevTime = now;
+  //  DEBUG_LOG("Bad first time diff, resetting...");
+  //  resetVLState();
+  //  return;
+  //}
   // calc time difference between previous change and now
   uint32_t diff = (uint32_t)(now - m_prevTime);
-  // and update the previous changetime for next loop
   m_prevTime = now;
+  //if (diff >= UINT16_MAX) {
+  //  resetVLState();
+  //  return;
+  //}
   // handle the bliank duration and process it
   handleVLTiming(diff);
 }
@@ -257,34 +260,28 @@ void VLReceiver::recvPCIHandler()
 // state machine that can be fed VL timings to parse them and interpret the intervals
 void VLReceiver::handleVLTiming(uint32_t diff)
 {
-  // if the diff is too long or too short then it's not useful
-  if ((diff > VL_HEADER_MARK_MAX && m_recvState < READING_DATA_MARK) || diff < VL_TIMING_MIN) {
-    DEBUG_LOGF("bad delay: %u, resetting...", diff);
-    resetVLState();
-    return;
-  }
+  //// if the diff is too long or too short then it's not useful
+  //if ((diff > VL_HEADER_MARK_MAX && m_recvState < READING_DATA_MARK) || diff < VL_TIMING_MIN) {
+  //  DEBUG_LOGF("bad delay: %u, resetting...", diff);
+  //  resetVLState();
+  //  return;
+  //}
   switch (m_recvState) {
   case WAITING_HEADER_MARK: // initial state
     if (diff >= VL_HEADER_SPACE_MIN && diff <= VL_HEADER_MARK_MAX) {
+      // success go to header space
       m_recvState = WAITING_HEADER_SPACE;
-      if (m_syncCount) {
-        m_vlTiming /= m_syncCount;
-        m_syncCount = 0;
-      }
-    } else {
-      DEBUG_LOGF("Bad header mark %u, resetting...", diff);
-      m_vlTiming += diff;
-      m_syncCount++;
-      Leds::setAll(RGB_PURPLE);
-      resetVLState();
-    }
+      break;
+    } 
+    // otherwise step m_vlTiming closer to diff
+    m_vlTiming = diff;
     break;
   case WAITING_HEADER_SPACE:
     if (diff >= VL_HEADER_SPACE_MIN && diff <= VL_HEADER_MARK_MAX) {
       m_recvState = READING_DATA_MARK;
     } else {
       DEBUG_LOGF("Bad header space %u, resetting...", diff);
-      resetVLState();
+      //resetVLState();
     }
     break;
   case READING_DATA_MARK:
@@ -304,6 +301,8 @@ void VLReceiver::handleVLTiming(uint32_t diff)
 
 void VLReceiver::resetVLState()
 {
+  m_syncCount = 0;
+  m_vlTiming = 0;
   m_previousBytes = 0;
   m_recvState = WAITING_HEADER_MARK;
   // zero out the receive buffer and reset bit receiver position

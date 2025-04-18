@@ -112,33 +112,36 @@ bool VLSender::send()
   return m_isSending;
 }
 
+//#define VL_TIMING_SLOW (uint32_t)(3230)
+#define VL_TIMING_SLOW (uint16_t)(8520)
+
 void VLSender::beginSend()
 {
   m_isSending = true;
   DEBUG_LOGF("[%zu] Beginning send size %u (blocks: %u remainder: %u blocksize: %u)",
     Time::microseconds(), m_size, m_numBlocks, m_remainder, m_blockSize);
   // send some sync bytes to let the receiver determine baudrate
-  for (int b = 0; b < 8; b++) {
+  for (uint8_t b = 0; b < 8; b++) {
     // send 3x timing size for 1s and 1x timing for 0
-    sendMark(VL_TIMING * 2);
+    sendMark(VL_TIMING_SLOW * 2);
     // send 1x timing size for space
-    sendSpace(VL_TIMING * 2);
+    sendSpace(VL_TIMING_SLOW * 2);
   }
   // now send the header
-  //sendMark(VL_HEADER_MARK);
-  //sendSpace(VL_HEADER_SPACE);
-#ifdef VORTEX_LIB
-  // send mark timing over socket
-  Vortex::vcallbacks()->infraredWrite(true, VL_HEADER_MARK);
-  // send space timing over socket
-  Vortex::vcallbacks()->infraredWrite(false, VL_HEADER_SPACE);
-#else
-  // custom sendmark/space because these might be really long times
-  startPWM();
-  Time::delayMicroseconds(VL_HEADER_MARK);
-  stopPWM();
-  Time::delayMicroseconds(VL_HEADER_SPACE);
-#endif
+  sendMark(VL_HEADER_MARK);
+  sendSpace(VL_HEADER_SPACE);
+//#ifdef VORTEX_LIB
+//  // send mark timing over socket
+//  Vortex::vcallbacks()->infraredWrite(true, VL_HEADER_MARK);
+//  // send space timing over socket
+//  Vortex::vcallbacks()->infraredWrite(false, VL_HEADER_SPACE);
+//#else
+//  // custom sendmark/space because these might be really long times
+//  startPWM();
+//  Time::delayMicroseconds(VL_HEADER_MARK);
+//  stopPWM();
+//  Time::delayMicroseconds(VL_HEADER_SPACE);
+//#endif
 
   // reset writeCounter
   m_writeCounter = 0;
@@ -151,13 +154,13 @@ void VLSender::beginSend()
 void VLSender::sendByte(uint8_t data)
 {
   // Sends from left to right, MSB first
-  for (int b = 0; b < 8; b++) {
+  for (uint8_t b = 0; b < 8; b++) {
     // grab the bit of data at the indexspace
-    uint32_t bit = (data >> (7 - b)) & 1;
+    uint8_t bit = (data >> (7 - b)) & 1;
     // send 3x timing size for 1s and 1x timing for 0
-    sendMark(VL_TIMING + (VL_TIMING * (2 * bit)));
+    sendMark(bit ? (VL_TIMING_SLOW * 3) : VL_TIMING_SLOW);
     // send 1x timing size for space
-    sendSpace(VL_TIMING);
+    sendSpace(VL_TIMING_SLOW);
   }
   DEBUG_LOGF("Sent byte[%u]: 0x%x", m_writeCounter, data);
  }
