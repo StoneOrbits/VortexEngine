@@ -138,6 +138,7 @@ void ModeSharing::receiveMode()
     m_timeOutStartTime = Time::getCurtime();
     // if our last data was more than time out duration reset the recveiver
   } else if (m_timeOutStartTime > 0 && (m_timeOutStartTime + MAX_TIMEOUT_DURATION) < Time::getCurtime()) {
+    Leds::setAll(RGB_RED1);
     VLReceiver::resetVLState();
     m_timeOutStartTime = 0;
     return;
@@ -150,7 +151,6 @@ void ModeSharing::receiveMode()
   DEBUG_LOG("Mode ready to receive! Receiving...");
   // receive the VL mode into the current mode
   if (!VLReceiver::receiveMode(&m_previewMode)) {
-    Leds::holdAll(RGB_RED3);
     ERROR_LOG("Failed to receive mode");
     return;
   }

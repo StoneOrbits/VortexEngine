@@ -32,10 +32,7 @@ private:
   // send a full 8 bits in a tight loop
   static void sendByte(uint8_t data);
   // send a mark/space by turning PWM on/off
-  static void sendMark(uint16_t time);
-  static void sendSpace(uint16_t time);
-  // Pulse-Width Modulator (VL Transmitter)
-  static void initPWM();
+  static void sendMarkSpace(uint16_t markTime, uint16_t spaceTime);
   // turn the VL transmitter on/off in realtime
   static void startPWM();
   static void stopPWM();

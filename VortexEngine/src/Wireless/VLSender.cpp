@@ -113,7 +113,10 @@ bool VLSender::send()
 }
 
 //#define VL_TIMING_SLOW (uint32_t)(3230)
-#define VL_TIMING_SLOW (uint16_t)(1900)
+#define VL_TIMING_SLOW (uint16_t)(3700)
+#define VL_TIMING_SLOW_MARK_ONE (uint16_t)(VL_TIMING_SLOW * 3)
+#define VL_TIMING_SLOW_MARK_ZERO (uint16_t)(VL_TIMING_SLOW)
+#define VL_TIMING_SLOW_SPACE VL_TIMING_SLOW
 
 void VLSender::beginSend()
 {
@@ -121,28 +124,11 @@ void VLSender::beginSend()
   DEBUG_LOGF("[%zu] Beginning send size %u (blocks: %u remainder: %u blocksize: %u)",
     Time::microseconds(), m_size, m_numBlocks, m_remainder, m_blockSize);
   // now send the header
-  sendMark(VL_HEADER_MARK);
-  sendSpace(VL_HEADER_SPACE);
+  sendMarkSpace(VL_HEADER_MARK, VL_HEADER_SPACE);
   // send some sync bytes to let the receiver determine baudrate
   for (uint8_t b = 0; b < 4; b++) {
-    // send 3x timing size for 1s and 1x timing for 0
-    sendMark(VL_TIMING_SLOW * 2);
-    // send 1x timing size for space
-    sendSpace(VL_TIMING_SLOW * 2);
+    sendMarkSpace(VL_TIMING_SLOW * 2, VL_TIMING_SLOW * 2);
   }
-//#ifdef VORTEX_LIB
-//  // send mark timing over socket
-//  Vortex::vcallbacks()->infraredWrite(true, VL_HEADER_MARK);
-//  // send space timing over socket
-//  Vortex::vcallbacks()->infraredWrite(false, VL_HEADER_SPACE);
-//#else
-//  // custom sendmark/space because these might be really long times
-//  startPWM();
-//  Time::delayMicroseconds(VL_HEADER_MARK);
-//  stopPWM();
-//  Time::delayMicroseconds(VL_HEADER_SPACE);
-//#endif
-
   // reset writeCounter
   m_writeCounter = 0;
   // write the number of blocks being sent, most likely just 1
@@ -158,32 +144,24 @@ void VLSender::sendByte(uint8_t data)
     // grab the bit of data at the indexspace
     uint8_t bit = (data >> (7 - b)) & 1;
     // send 3x timing size for 1s and 1x timing for 0
-    sendMark(bit ? (VL_TIMING_SLOW * 3) : VL_TIMING_SLOW);
     // send 1x timing size for space
-    sendSpace(VL_TIMING_SLOW);
+    sendMarkSpace(bit ? VL_TIMING_SLOW_MARK_ONE : VL_TIMING_SLOW_MARK_ZERO, VL_TIMING_SLOW_SPACE);
   }
   DEBUG_LOGF("Sent byte[%u]: 0x%x", m_writeCounter, data);
  }
 
-void VLSender::sendMark(uint16_t time)
+void VLSender::sendMarkSpace(uint16_t markTime, uint16_t spaceTime)
 {
 #ifdef VORTEX_LIB
   // send mark timing over socket
-  Vortex::vcallbacks()->infraredWrite(true, time);
+  Vortex::vcallbacks()->infraredWrite(true, markTime);
+  // send space timing over socket
+  Vortex::vcallbacks()->infraredWrite(false, spaceTime);
 #else
   startPWM();
-  Time::delayMicroseconds(time);
-#endif
-}
-
-void VLSender::sendSpace(uint16_t time)
-{
-#ifdef VORTEX_LIB
-  // send space timing over socket
-  Vortex::vcallbacks()->infraredWrite(false, time);
-#else
+  Time::delayMicroseconds(markTime);
   stopPWM();
-  Time::delayMicroseconds(time);
+  Time::delayMicroseconds(spaceTime);
 #endif
 }
 
