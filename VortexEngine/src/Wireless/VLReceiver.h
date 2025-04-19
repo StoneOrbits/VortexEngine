@@ -77,6 +77,8 @@ private:
   // used to compare if received data has changed since last checking
   static uint32_t m_previousBytes;
 
+  static uint8_t m_parityBit;
+
 #ifdef VORTEX_EMBEDDED
   static void adcCheckTimerCallback(void *arg);
 #endif

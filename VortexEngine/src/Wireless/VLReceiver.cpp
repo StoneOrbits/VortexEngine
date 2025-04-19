@@ -15,6 +15,7 @@ VLReceiver::RecvState VLReceiver::m_recvState = WAITING_HEADER_MARK;
 uint32_t VLReceiver::m_prevTime = 0;
 uint8_t VLReceiver::m_pinState = 0;
 uint32_t VLReceiver::m_previousBytes = 0;
+uint8_t VLReceiver::m_parityBit = 0;
 
 #ifdef VORTEX_EMBEDDED
 #include "freertos/FreeRTOS.h"
@@ -245,6 +246,7 @@ void VLReceiver::handleVLTiming(uint32_t diff)
   case WAITING_HEADER_SPACE:
     if (diff >= VL_HEADER_SPACE_MIN && diff <= VL_HEADER_MARK_MAX) {
       m_recvState = READING_DATA_MARK;
+      m_parityBit = 0;
     } else {
       //DEBUG_LOGF("Bad header space %u, resetting...", diff);
       resetVLState();
@@ -252,8 +254,19 @@ void VLReceiver::handleVLTiming(uint32_t diff)
     break;
   case READING_DATA_MARK:
     // classify mark/space based on the timing and write into buffer
-    m_vlData.write1Bit((diff > (VL_TIMING * 2)) ? 1 : 0);
-    m_recvState = READING_DATA_SPACE;
+    {
+      uint8_t bit = (diff > (VL_TIMING * 2)) ? 1 : 0;
+      if ((m_vlData.bitpos() % 8) == 0) {
+        if (m_parityBit != bit) {
+          resetVLState();
+          break;
+        }
+      } else {
+        m_vlData.write1Bit(bit);
+        m_parityBit ^= bit;
+      }
+      m_recvState = READING_DATA_SPACE;
+    }
     break;
   case READING_DATA_SPACE:
     // the space could be just a regular space, or a gap in between blocks
