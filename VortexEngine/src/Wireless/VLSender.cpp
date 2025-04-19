@@ -113,23 +113,23 @@ bool VLSender::send()
 }
 
 //#define VL_TIMING_SLOW (uint32_t)(3230)
-#define VL_TIMING_SLOW (uint16_t)(8520)
+#define VL_TIMING_SLOW (uint16_t)(1900)
 
 void VLSender::beginSend()
 {
   m_isSending = true;
   DEBUG_LOGF("[%zu] Beginning send size %u (blocks: %u remainder: %u blocksize: %u)",
     Time::microseconds(), m_size, m_numBlocks, m_remainder, m_blockSize);
+  // now send the header
+  sendMark(VL_HEADER_MARK);
+  sendSpace(VL_HEADER_SPACE);
   // send some sync bytes to let the receiver determine baudrate
-  for (uint8_t b = 0; b < 8; b++) {
+  for (uint8_t b = 0; b < 4; b++) {
     // send 3x timing size for 1s and 1x timing for 0
     sendMark(VL_TIMING_SLOW * 2);
     // send 1x timing size for space
     sendSpace(VL_TIMING_SLOW * 2);
   }
-  // now send the header
-  sendMark(VL_HEADER_MARK);
-  sendSpace(VL_HEADER_SPACE);
 //#ifdef VORTEX_LIB
 //  // send mark timing over socket
 //  Vortex::vcallbacks()->infraredWrite(true, VL_HEADER_MARK);

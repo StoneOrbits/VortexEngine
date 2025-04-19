@@ -21,7 +21,7 @@ uint32_t VLReceiver::m_prevTime = 0;
 uint8_t VLReceiver::m_pinState = 0;
 uint16_t VLReceiver::m_previousBytes = 0;
 // the determined time based on sync
-uint16_t VLReceiver::m_vlTiming = 0;
+uint32_t VLReceiver::m_vlTiming = 0;
 // count of the sync bits (similar length starter bits)
 uint8_t VLReceiver::m_syncCount = 0;
 
@@ -70,7 +70,7 @@ bool VLReceiver::init()
   PORTB.PIN1CTRL &= ~PORT_ISC_gm;
   PORTB.PIN1CTRL |= PORT_ISC_INPUT_DISABLE_gc;
 #endif
-  //m_vlTiming = VL_TIMING * 2;
+  //m_vlTiming = 0;
   return m_vlData.init(VL_RECV_BUF_SIZE);
 }
 
@@ -148,11 +148,7 @@ bool VLReceiver::beginReceiving()
   //  0x5 DIV64 CLK_PER divided by 64 > doesn't work
   //  0x6 DIV128 CLK_PER divided by 128 > doesn't work
   //  0x7 DIV256 CLK_PER divided by 256 > doesn't work
-#if (F_CPU == 20000000)
   ADC0.CTRLC = ADC_SAMPCAP_bm | ADC_REFSEL_VDDREF_gc | ADC_PRESC_DIV2_gc;
-#else
-  ADC0.CTRLC = ADC_SAMPCAP_bm | ADC_REFSEL_VDDREF_gc | ADC_PRESC_DIV2_gc;
-#endif
   // no sampling delay and no delay variation
   ADC0.CTRLD = 0;
   // sample length
@@ -249,10 +245,6 @@ void VLReceiver::recvPCIHandler()
   // calc time difference between previous change and now
   uint32_t diff = (uint32_t)(now - m_prevTime);
   m_prevTime = now;
-  //if (diff >= UINT16_MAX) {
-  //  resetVLState();
-  //  return;
-  //}
   // handle the bliank duration and process it
   handleVLTiming(diff);
 }
@@ -273,15 +265,23 @@ void VLReceiver::handleVLTiming(uint32_t diff)
       m_recvState = WAITING_HEADER_SPACE;
       break;
     } 
-    // otherwise step m_vlTiming closer to diff
-    m_vlTiming = diff;
     break;
   case WAITING_HEADER_SPACE:
     if (diff >= VL_HEADER_SPACE_MIN && diff <= VL_HEADER_MARK_MAX) {
-      m_recvState = READING_DATA_MARK;
+      m_recvState = READING_BAUD;
     } else {
       DEBUG_LOGF("Bad header space %u, resetting...", diff);
       //resetVLState();
+    }
+    break;
+  case READING_BAUD:
+    m_syncCount++;
+    // otherwise step m_vlTiming closer to diff
+    m_vlTiming += diff;
+    if (m_syncCount == 8) {
+      m_syncCount = 0;
+      m_vlTiming /= 8;
+      m_recvState = READING_DATA_MARK;
     }
     break;
   case READING_DATA_MARK:

@@ -60,6 +60,7 @@ private:
   {
     WAITING_HEADER_MARK,
     WAITING_HEADER_SPACE,
+    READING_BAUD,
     READING_DATA_MARK,
     READING_DATA_SPACE
   };
@@ -74,7 +75,7 @@ private:
   static uint16_t m_previousBytes;
 
   // the determined time based on sync
-  static uint16_t m_vlTiming;
+  static uint32_t m_vlTiming;
 
   // count of the sync bits (similar length starter bits)
   static uint8_t m_syncCount;
