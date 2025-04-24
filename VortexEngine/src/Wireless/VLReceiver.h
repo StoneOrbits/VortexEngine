@@ -47,7 +47,7 @@ private:
   // reading functions
   // PCI handler for when VL receiver pin changes states
   static bool read(ByteStream &data);
-  static void handleVLTiming(uint32_t diff);
+  static void handleVLTiming(uint16_t diff);
 
   // ===================
   //  private data:
@@ -76,9 +76,9 @@ private:
   static uint16_t m_previousBytes;
 
   // the determined time based on sync
-  static uint32_t m_vlTiming;
+  static uint16_t m_vlTiming;
   // the determined time based on sync
-  static uint32_t m_vlTiming2;
+  static uint16_t m_vlTiming2;
 
   // count of the sync bits (similar length starter bits)
   static uint8_t m_syncCount;

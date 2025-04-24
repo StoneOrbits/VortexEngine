@@ -21,8 +21,8 @@ uint32_t VLReceiver::m_prevTime = 0;
 uint8_t VLReceiver::m_pinState = 0;
 uint16_t VLReceiver::m_previousBytes = 0;
 // the determined time based on sync
-uint32_t VLReceiver::m_vlTiming = 0;
-uint32_t VLReceiver::m_vlTiming2 = 0;
+uint16_t VLReceiver::m_vlTiming = 0;
+uint16_t VLReceiver::m_vlTiming2 = 0;
 // count of the sync bits (similar length starter bits)
 uint8_t VLReceiver::m_syncCount = 0;
 
@@ -179,7 +179,7 @@ bool VLReceiver::beginReceiving()
   // start the first conversion
   ADC0.COMMAND = ADC_STCONV_bm;
   // initialize the threshold
-  threshold = THRESHOLD_BEGIN;
+  //threshold = THRESHOLD_BEGIN;
 #endif
   resetVLState();
   return true;
@@ -192,7 +192,6 @@ bool VLReceiver::endReceiving()
   ADC0.CTRLA &= ~(ADC_ENABLE_bm | ADC_FREERUN_bm);
   ADC0.INTCTRL = 0;
 #endif
-  resetVLState();
   return true;
 }
 
@@ -248,12 +247,15 @@ void VLReceiver::recvPCIHandler()
   // calc time difference between previous change and now
   uint32_t diff = (uint32_t)(now - m_prevTime);
   m_prevTime = now;
+  if (diff > UINT16_MAX) {
+    return;
+  }
   // handle the bliank duration and process it
-  handleVLTiming(diff);
+  handleVLTiming((uint16_t)diff);
 }
 
 // state machine that can be fed VL timings to parse them and interpret the intervals
-void VLReceiver::handleVLTiming(uint32_t diff)
+void VLReceiver::handleVLTiming(uint16_t diff)
 {
   //// if the diff is too long or too short then it's not useful
   //if ((diff > VL_HEADER_MARK_MAX && m_recvState < READING_DATA_MARK) || diff < VL_TIMING_MIN) {
@@ -264,8 +266,6 @@ void VLReceiver::handleVLTiming(uint32_t diff)
   switch (m_recvState) {
   case WAITING_HEADER_MARK: // initial state
     if (diff >= VL_HEADER_SPACE_MIN && diff <= VL_HEADER_MARK_MAX) {
-      // begin by resetting the state
-      //resetVLState();
       // success go to header space
       m_recvState = WAITING_HEADER_SPACE;
       break;
@@ -289,7 +289,6 @@ void VLReceiver::handleVLTiming(uint32_t diff)
     // otherwise step m_vlTiming closer to diff
     m_vlTiming2 += diff;
     if (m_syncCount == 4) {
-      m_syncCount = 0;
       m_vlTiming /= 4;
       m_vlTiming2 /= 4;
       m_recvState = READING_DATA_MARK;
@@ -317,13 +316,14 @@ void VLReceiver::resetVLState()
 {
   m_syncCount = 0;
   m_vlTiming = 0;
+  m_vlTiming2 = 0;
   m_previousBytes = 0;
   m_recvState = WAITING_HEADER_MARK;
   // zero out the receive buffer and reset bit receiver position
   m_vlData.reset();
 #ifdef VORTEX_EMBEDDED
   // reset the threshold to a high value so that it can be pulled down again
-  //threshold = THRESHOLD_BEGIN;
+  threshold = THRESHOLD_BEGIN;
 #endif
   DEBUG_LOG("VL State Reset");
 }

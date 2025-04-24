@@ -37,6 +37,8 @@ private:
 
   // the start time when checking for timing out
   uint32_t m_timeOutStartTime;
+
+  uint32_t m_lastSendTime;
 };
 
 #endif

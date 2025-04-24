@@ -32,7 +32,7 @@ uint32_t VLSender::m_blockSize = 0;
 uint32_t VLSender::m_writeCounter = 0;
 
 
-#define VL_TIMING_SLOW (uint32_t)(3230)
+#define VL_TIMING_SLOW (uint32_t)(2230)
 //#define VL_TIMING_SLOW (uint16_t)(1900)
 #define VL_TIMING_SLOW_MARK_ONE (uint16_t)(VL_TIMING_SLOW * 3)
 #define VL_TIMING_SLOW_MARK_ZERO (uint16_t)(VL_TIMING_SLOW)
@@ -129,8 +129,9 @@ void VLSender::beginSend()
   // now send the header
   sendMarkSpace(VL_HEADER_MARK, VL_HEADER_SPACE);
   // send some sync bytes to let the receiver determine baudrate
-  for (uint8_t b = 0; b < 4; b++) {
-    sendMarkSpace(VL_TIMING_SLOW * 2, VL_TIMING_SLOW * 2);
+  for (uint8_t b = 0; b < 2; b++) {
+    sendMarkSpace(VL_TIMING_SLOW, VL_TIMING_SLOW);
+    sendMarkSpace(VL_TIMING_SLOW * 3, VL_TIMING_SLOW * 3);
   }
   // reset writeCounter
   m_writeCounter = 0;

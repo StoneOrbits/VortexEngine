@@ -16,7 +16,8 @@
 ModeSharing::ModeSharing(const RGBColor &col, bool advanced) :
   Menu(col, advanced),
   m_sharingMode(ModeShareState::SHARE_RECEIVE),
-  m_timeOutStartTime(0)
+  m_timeOutStartTime(0),
+  m_lastSendTime(0)
 {
 }
 
@@ -108,10 +109,13 @@ void ModeSharing::beginSending()
   VLSender::loadMode(&m_previewMode);
   // send the first chunk of data, leave if we're done
   if (!VLSender::send()) {
+    m_lastSendTime = Time::getCurtime();
     // when send has completed, stores time that last action was completed to calculate interval between sends
     //beginReceiving();
   }
 }
+
+#define SEND_DELAY 500
 
 void ModeSharing::continueSending()
 {
@@ -119,15 +123,19 @@ void ModeSharing::continueSending()
   if (!VLSender::isSending()) {
     if (!g_pButton->isPressed()) {
       beginReceiving();
-      return;
     }
-    beginSending();
+    uint32_t now = Time::getCurtime();
+    if ((m_lastSendTime + SEND_DELAY) < now) {
+      beginSending();
+    }
+    return;
   }
-  if (!VLSender::send()) {
-    // when send has completed, stores time that last action was completed to calculate interval between sends
-    //beginReceiving();
-    //beginSending();
-  }
+  //if (!VLSender::send()) {
+  //  //m_lastSendTime = Time::getCurtime();
+  //  // when send has completed, stores time that last action was completed to calculate interval between sends
+  //  //beginReceiving();
+  //  //beginSending();
+  //}
 }
 
 void ModeSharing::beginReceiving()
