@@ -109,7 +109,7 @@ void ModeSharing::beginSending()
   // send the first chunk of data, leave if we're done
   if (!VLSender::send()) {
     // when send has completed, stores time that last action was completed to calculate interval between sends
-    beginReceiving();
+    //beginReceiving();
   }
 }
 
@@ -117,11 +117,16 @@ void ModeSharing::continueSending()
 {
   // if the sender isn't sending then nothing to do
   if (!VLSender::isSending()) {
-    return;
+    if (!g_pButton->isPressed()) {
+      beginReceiving();
+      return;
+    }
+    beginSending();
   }
   if (!VLSender::send()) {
     // when send has completed, stores time that last action was completed to calculate interval between sends
-    beginReceiving();
+    //beginReceiving();
+    //beginSending();
   }
 }
 

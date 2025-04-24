@@ -60,7 +60,8 @@ private:
   {
     WAITING_HEADER_MARK,
     WAITING_HEADER_SPACE,
-    READING_BAUD,
+    READING_BAUD_MARK,
+    READING_BAUD_SPACE,
     READING_DATA_MARK,
     READING_DATA_SPACE
   };
@@ -76,6 +77,8 @@ private:
 
   // the determined time based on sync
   static uint32_t m_vlTiming;
+  // the determined time based on sync
+  static uint32_t m_vlTiming2;
 
   // count of the sync bits (similar length starter bits)
   static uint8_t m_syncCount;
