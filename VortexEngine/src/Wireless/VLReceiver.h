@@ -51,7 +51,7 @@ private:
   // reading functions
   // PCI handler for when VL receiver pin changes states
   static bool read(ByteStream &data);
-  static void handleVLTiming(uint32_t diff);
+  static void handleVLTiming(uint16_t diff);
 
   // ===================
   //  private data:
@@ -64,6 +64,8 @@ private:
   {
     WAITING_HEADER_MARK,
     WAITING_HEADER_SPACE,
+    READING_BAUD_MARK,
+    READING_BAUD_SPACE,
     READING_DATA_MARK,
     READING_DATA_SPACE
   };
@@ -75,9 +77,12 @@ private:
   static uint8_t m_pinState;
 
   // used to compare if received data has changed since last checking
-  static uint32_t m_previousBytes;
+  static uint16_t m_previousBytes;
 
-  static uint8_t m_parityBit;
+  static uint16_t m_vlTiming;
+  static uint16_t m_vlTiming2;
+
+  static uint8_t m_syncCount;
 
 #ifdef VORTEX_EMBEDDED
   static void adcCheckTimerCallback(void *arg);

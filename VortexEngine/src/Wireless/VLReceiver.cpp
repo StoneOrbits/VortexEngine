@@ -14,8 +14,10 @@ BitStream VLReceiver::m_vlData;
 VLReceiver::RecvState VLReceiver::m_recvState = WAITING_HEADER_MARK;
 uint32_t VLReceiver::m_prevTime = 0;
 uint8_t VLReceiver::m_pinState = 0;
-uint32_t VLReceiver::m_previousBytes = 0;
-uint8_t VLReceiver::m_parityBit = 0;
+uint16_t VLReceiver::m_previousBytes = 0;
+uint16_t VLReceiver::m_vlTiming = 0;
+uint16_t VLReceiver::m_vlTiming2 = 0;
+uint8_t VLReceiver::m_syncCount = 0;
 
 #ifdef VORTEX_EMBEDDED
 #include "freertos/FreeRTOS.h"
@@ -209,82 +211,95 @@ void VLReceiver::recvPCIHandler()
   m_pinState = (uint8_t)!m_pinState;
   // grab current time
   uint32_t now = Time::microseconds();
-  // check previous time for validity
-  if (!m_prevTime || m_prevTime > now) {
-    m_prevTime = now;
-    //DEBUG_LOG("Bad first time diff, resetting...");
-    resetVLState();
-    return;
-  }
-  //DEBUG_LOGF("Received: %u", m_pinState);
+  //// check previous time for validity
+  //if (!m_prevTime || m_prevTime > now) {
+  //  m_prevTime = now;
+  //  DEBUG_LOG("Bad first time diff, resetting...");
+  //  resetVLState();
+  //  return;
+  //}
   // calc time difference between previous change and now
   uint32_t diff = (uint32_t)(now - m_prevTime);
-  // and update the previous changetime for next loop
   m_prevTime = now;
+  if (diff > UINT16_MAX) {
+    return;
+  }
   // handle the bliank duration and process it
-  handleVLTiming(diff);
+  handleVLTiming((uint16_t)diff);
 }
 
 // state machine that can be fed VL timings to parse them and interpret the intervals
-void VLReceiver::handleVLTiming(uint32_t diff)
+void VLReceiver::handleVLTiming(uint16_t diff)
 {
-  // if the diff is too long or too short then it's not useful
-  if ((diff > VL_HEADER_MARK_MAX && m_recvState < READING_DATA_MARK) || diff < VL_TIMING_MIN) {
-    //DEBUG_LOGF("bad delay: %u, resetting...", diff);
-    resetVLState();
-    return;
-  }
+  //// if the diff is too long or too short then it's not useful
+  //if ((diff > VL_HEADER_MARK_MAX && m_recvState < READING_DATA_MARK) || diff < VL_TIMING_MIN) {
+  //  DEBUG_LOGF("bad delay: %u, resetting...", diff);
+  //  resetVLState();
+  //  return;
+  //}
   switch (m_recvState) {
   case WAITING_HEADER_MARK: // initial state
     if (diff >= VL_HEADER_SPACE_MIN && diff <= VL_HEADER_MARK_MAX) {
+      // success go to header space
       m_recvState = WAITING_HEADER_SPACE;
-    } else {
-      //DEBUG_LOGF("Bad header mark %u, resetting...", diff);
-      resetVLState();
-    }
+      break;
+    } 
     break;
   case WAITING_HEADER_SPACE:
     if (diff >= VL_HEADER_SPACE_MIN && diff <= VL_HEADER_MARK_MAX) {
-      m_recvState = READING_DATA_MARK;
-      m_parityBit = 0;
+      m_recvState = READING_BAUD_MARK;
     } else {
-      //DEBUG_LOGF("Bad header space %u, resetting...", diff);
-      resetVLState();
+      DEBUG_LOGF("Bad header space %u, resetting...", diff);
+      //resetVLState();
+    }
+    break;
+  case READING_BAUD_MARK:
+    // otherwise step m_vlTiming closer to diff
+    m_vlTiming += diff;
+    m_recvState = READING_BAUD_SPACE;
+    break;
+  case READING_BAUD_SPACE:
+    m_syncCount++;
+    // otherwise step m_vlTiming closer to diff
+    m_vlTiming2 += diff;
+    if (m_syncCount == 4) {
+      m_vlTiming /= 4;
+      m_vlTiming2 /= 4;
+      m_recvState = READING_DATA_MARK;
+    } else {
+      m_recvState = READING_BAUD_MARK;
     }
     break;
   case READING_DATA_MARK:
-    // classify mark/space based on the timing and write into buffer
-    {
-      uint8_t bit = (diff > (VL_TIMING * 2)) ? 1 : 0;
-      if ((m_vlData.bitpos() % 8) == 0) {
-        if (m_parityBit != bit) {
-          resetVLState();
-          break;
-        }
-      } else {
-        m_vlData.write1Bit(bit);
-        m_parityBit ^= bit;
-      }
-      m_recvState = READING_DATA_SPACE;
-    }
+    // classify as 1 or 0 based on mark threshold and write into buffer
+    m_vlData.write1Bit(diff > m_vlTiming);
+    m_recvState = READING_DATA_SPACE;
     break;
   case READING_DATA_SPACE:
-    // the space could be just a regular space, or a gap in between blocks
+    // classify as 1 or 0 based on space threshold and write into buffer
+    m_vlData.write1Bit(diff > m_vlTiming2);
     m_recvState = READING_DATA_MARK;
     break;
   default: // ??
-    //DEBUG_LOGF("Bad receive state: %u", m_recvState);
+    DEBUG_LOGF("Bad receive state: %u", m_recvState);
     break;
   }
 }
 
 void VLReceiver::resetVLState()
 {
+  m_syncCount = 0;
+  m_vlTiming = 0;
+  m_vlTiming2 = 0;
   m_previousBytes = 0;
   m_recvState = WAITING_HEADER_MARK;
   // zero out the receive buffer and reset bit receiver position
   m_vlData.reset();
-  //DEBUG_LOG("VL State Reset");
+#ifdef VORTEX_EMBEDDED
+  // reset the threshold to a high value so that it can be pulled down again
+  threshold = THRESHOLD_BEGIN;
+#endif
+  DEBUG_LOG("VL State Reset");
 }
 
 #endif

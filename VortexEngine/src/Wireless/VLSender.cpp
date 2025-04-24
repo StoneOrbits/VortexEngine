@@ -31,6 +31,14 @@ uint32_t VLSender::m_blockSize = 0;
 // write total
 uint32_t VLSender::m_writeCounter = 0;
 
+
+#define VL_TIMING_SLOW (uint32_t)(2230)
+//#define VL_TIMING_SLOW (uint16_t)(1900)
+#define VL_TIMING_SLOW_MARK_ONE (uint16_t)(VL_TIMING_SLOW * 3)
+#define VL_TIMING_SLOW_MARK_ZERO (uint16_t)(VL_TIMING_SLOW)
+#define VL_TIMING_SLOW_SPACE VL_TIMING_SLOW
+
+
 bool VLSender::init()
 {
   return true;
@@ -102,6 +110,7 @@ bool VLSender::send()
     // record the written byte
     m_writeCounter++;
   }
+  sendMarkSpace(VL_TIMING_SLOW, VL_TIMING_SLOW);
   // wrote one block
   m_numBlocks--;
   // still sending if we have more blocks
@@ -112,12 +121,6 @@ bool VLSender::send()
   return m_isSending;
 }
 
-//#define VL_TIMING_SLOW (uint32_t)(3230)
-#define VL_TIMING_SLOW (uint16_t)(3700)
-#define VL_TIMING_SLOW_MARK_ONE (uint16_t)(VL_TIMING_SLOW * 3)
-#define VL_TIMING_SLOW_MARK_ZERO (uint16_t)(VL_TIMING_SLOW)
-#define VL_TIMING_SLOW_SPACE VL_TIMING_SLOW
-
 void VLSender::beginSend()
 {
   m_isSending = true;
@@ -126,8 +129,9 @@ void VLSender::beginSend()
   // now send the header
   sendMarkSpace(VL_HEADER_MARK, VL_HEADER_SPACE);
   // send some sync bytes to let the receiver determine baudrate
-  for (uint8_t b = 0; b < 4; b++) {
-    sendMarkSpace(VL_TIMING_SLOW * 2, VL_TIMING_SLOW * 2);
+  for (uint8_t b = 0; b < 2; b++) {
+    sendMarkSpace(VL_TIMING_SLOW, VL_TIMING_SLOW);
+    sendMarkSpace(VL_TIMING_SLOW * 3, VL_TIMING_SLOW * 3);
   }
   // reset writeCounter
   m_writeCounter = 0;
@@ -139,17 +143,17 @@ void VLSender::beginSend()
 
 void VLSender::sendByte(uint8_t data)
 {
-  uint8_t parity = 0;
   // Sends from left to right, MSB first
   for (uint8_t b = 0; b < 8; b++) {
     // grab the bit of data at the indexspace
     uint8_t bit = (data >> (7 - b)) & 1;
-    parity ^= bit;
+    b++;
+    uint8_t bit2 = (data >> (7 - b)) & 1;
     // send 3x timing size for 1s and 1x timing for 0
     // send 1x timing size for space
-    sendMarkSpace(bit ? VL_TIMING_SLOW_MARK_ONE : VL_TIMING_SLOW_MARK_ZERO, VL_TIMING_SLOW_SPACE);
+    sendMarkSpace(bit ? VL_TIMING_SLOW_MARK_ONE : VL_TIMING_SLOW_MARK_ZERO, 
+                  bit2 ? VL_TIMING_SLOW_MARK_ONE : VL_TIMING_SLOW_MARK_ZERO);
   }
-  sendMarkSpace(parity ? VL_TIMING_SLOW_MARK_ONE : VL_TIMING_SLOW_MARK_ZERO, VL_TIMING_SLOW_SPACE);
   DEBUG_LOGF("Sent byte[%u]: 0x%x", m_writeCounter, data);
  }
 
