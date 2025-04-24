@@ -20,12 +20,9 @@ public:
   void onLongClick() override;
 
 private:
-  void beginSending();
-  void continueSending();
   void beginReceiving();
   void receiveMode();
 
-  void showSendMode();
   void showReceiveMode();
 
   enum class ModeShareState {
@@ -37,8 +34,6 @@ private:
 
   // the start time when checking for timing out
   uint32_t m_timeOutStartTime;
-
-  uint32_t m_lastSendTime;
 };
 
 #endif

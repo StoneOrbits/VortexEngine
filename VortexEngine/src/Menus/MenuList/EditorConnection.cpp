@@ -258,18 +258,17 @@ void EditorConnection::handleState()
   case STATE_TRANSMIT_MODE_VL:
 #if VL_ENABLE_SENDER == 1
     // immediately load the mode and send it now
-    VLSender::loadMode(&m_previewMode);
-    VLSender::send();
+    VLSender::send(&m_previewMode);
 #endif
     m_state = STATE_TRANSMIT_MODE_VL_TRANSMIT;
     break;
   case STATE_TRANSMIT_MODE_VL_TRANSMIT:
 #if VL_ENABLE_SENDER == 1
-    // if still sending and the send command indicated more data
-    if (VLSender::isSending() && VLSender::send()) {
-      // then continue sending
-      break;
-    }
+    //// if still sending and the send command indicated more data
+    //if (VLSender::isSending() && VLSender::send()) {
+    //  // then continue sending
+    //  break;
+    //}
 #endif
     // othewrise, done, switch to the transmit done state
     m_state = STATE_TRANSMIT_MODE_VL_DONE;

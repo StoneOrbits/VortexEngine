@@ -16,8 +16,7 @@
 ModeSharing::ModeSharing(const RGBColor &col, bool advanced) :
   Menu(col, advanced),
   m_sharingMode(ModeShareState::SHARE_RECEIVE),
-  m_timeOutStartTime(0),
-  m_lastSendTime(0)
+  m_timeOutStartTime(0)
 {
 }
 
@@ -49,17 +48,13 @@ Menu::MenuAction ModeSharing::run()
     return result;
   }
   switch (m_sharingMode) {
-  case ModeShareState::SHARE_SEND:
-    // render the 'send mode' lights
-    showSendMode();
-    // continue sending any data as long as there is more to send
-    continueSending();
-    break;
   case ModeShareState::SHARE_RECEIVE:
     // render the 'receive mode' lights
     showReceiveMode();
     // load any modes that are received
     receiveMode();
+    break;
+  default:
     break;
   }
   return MENU_CONTINUE;
@@ -81,9 +76,10 @@ void ModeSharing::onShortClick()
 {
   switch (m_sharingMode) {
   case ModeShareState::SHARE_RECEIVE:
-    // click while on receive -> end receive, start sending
+    // stop receiving, send the mode, go back to receiving
     VLReceiver::endReceiving();
-    beginSending();
+    VLSender::send(&m_previewMode);
+    beginReceiving();
     DEBUG_LOG("Switched to send mode");
     break;
   default:
@@ -95,47 +91,6 @@ void ModeSharing::onShortClick()
 void ModeSharing::onLongClick()
 {
   leaveMenu();
-}
-
-void ModeSharing::beginSending()
-{
-  // if the sender is sending then cannot start again
-  if (VLSender::isSending()) {
-    ERROR_LOG("Cannot begin sending, sender is busy");
-    return;
-  }
-  m_sharingMode = ModeShareState::SHARE_SEND;
-  // initialize it with the current mode data
-  VLSender::loadMode(&m_previewMode);
-  // send the first chunk of data, leave if we're done
-  if (!VLSender::send()) {
-    m_lastSendTime = Time::getCurtime();
-    // when send has completed, stores time that last action was completed to calculate interval between sends
-    //beginReceiving();
-  }
-}
-
-#define SEND_DELAY 500
-
-void ModeSharing::continueSending()
-{
-  // if the sender isn't sending then nothing to do
-  if (!VLSender::isSending()) {
-    if (!g_pButton->isPressed()) {
-      beginReceiving();
-    }
-    uint32_t now = Time::getCurtime();
-    if ((m_lastSendTime + SEND_DELAY) < now) {
-      beginSending();
-    }
-    return;
-  }
-  //if (!VLSender::send()) {
-  //  //m_lastSendTime = Time::getCurtime();
-  //  // when send has completed, stores time that last action was completed to calculate interval between sends
-  //  //beginReceiving();
-  //  //beginSending();
-  //}
 }
 
 void ModeSharing::beginReceiving()
@@ -182,14 +137,6 @@ void ModeSharing::receiveMode()
   Modes::updateCurMode(&m_previewMode);
   // leave menu and save settings, even if the mode was the same whatever
   leaveMenu(true);
-}
-
-void ModeSharing::showSendMode()
-{
-  // show a dim color when not sending
-  if (!VLSender::isSending()) {
-    Leds::setAll(RGBColor(0, 20, 20));
-  }
 }
 
 void ModeSharing::showReceiveMode()

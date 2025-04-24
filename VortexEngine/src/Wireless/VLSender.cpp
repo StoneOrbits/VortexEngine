@@ -16,28 +16,8 @@
 ByteStream VLSender::m_serialBuf;
 // a bit walker for the serial data
 BitStream VLSender::m_bitStream;
-// whether actively sending
-bool VLSender::m_isSending = false;
-// the time of the last sent chunk
-uint32_t VLSender::m_lastSendTime = 0;
 // some runtime meta info
-uint32_t VLSender::m_size = 0;
-// the number of blocks that will be sent
-uint8_t VLSender::m_numBlocks = 0;
-// the amount in the final block
-uint8_t VLSender::m_remainder = 0;
-// configuration options for the sender
-uint32_t VLSender::m_blockSize = 0;
-// write total
-uint32_t VLSender::m_writeCounter = 0;
-
-
-#define VL_TIMING_SLOW (uint32_t)(2230)
-//#define VL_TIMING_SLOW (uint16_t)(1900)
-#define VL_TIMING_SLOW_MARK_ONE (uint16_t)(VL_TIMING_SLOW * 3)
-#define VL_TIMING_SLOW_MARK_ZERO (uint16_t)(VL_TIMING_SLOW)
-#define VL_TIMING_SLOW_SPACE VL_TIMING_SLOW
-
+uint8_t VLSender::m_size = 0;
 
 bool VLSender::init()
 {
@@ -68,93 +48,45 @@ bool VLSender::loadMode(const Mode *targetMode)
   }
   // point the bitstream at the serial buffer
   m_bitStream.init((uint8_t *)m_serialBuf.rawData(), m_serialBuf.rawSize());
-  // the size of the packet
-  m_size = m_serialBuf.rawSize();
-  // the number of blocks that will be sent (possibly just 1 with less than 32 bytes)
-  m_numBlocks = (m_size + (VL_DEFAULT_BLOCK_SIZE - 1)) / VL_DEFAULT_BLOCK_SIZE;
-  // the amount in the final block (possibly the only block)
-  m_remainder = m_size % (VL_DEFAULT_BLOCK_SIZE + 0);
-  DEBUG_LOGF("Num blocks: %u", m_numBlocks);
-  DEBUG_LOGF("Remainder: %u", m_remainder);
+  // the size of the buf should never really exceed 256
+  m_size = (uint8_t)m_serialBuf.rawSize();
   DEBUG_LOGF("Size: %u", m_size);
-  // reset write counter
-  m_writeCounter = 0;
   return true;
 }
 
-bool VLSender::send()
+void VLSender::send(const Mode *targetMode)
 {
-  // must have at least one block to send
-  if (m_numBlocks < 1) {
-    m_isSending = false;
-    return m_isSending;
-  }
-  if (!m_isSending) {
-    beginSend();
-  }
-  if (m_lastSendTime > 0 && m_lastSendTime + VL_DEFAULT_BLOCK_SPACING > Time::getCurtime()) {
-    // don't send yet
-    return m_isSending;
-  }
-  // blocksize is default unless it's the last block, then it's the remainder
-  uint32_t blocksize = (m_numBlocks == 1) ? m_remainder : VL_DEFAULT_BLOCK_SIZE;
-  DEBUG_LOGF("VLSender Sending block #%u", m_numBlocks);
-  // pointer to the data at the correct location
-  const uint8_t *buf_ptr = m_bitStream.data() + m_writeCounter;
-  // iterate each byte in the block and write it
-  for (uint32_t i = 0; i < blocksize; ++i) {
-    // write the byte
-    sendByte(*buf_ptr);
-    // increment to next byte in buffer
-    buf_ptr++;
-    // record the written byte
-    m_writeCounter++;
-  }
-  sendMarkSpace(VL_TIMING_SLOW, VL_TIMING_SLOW);
-  // wrote one block
-  m_numBlocks--;
-  // still sending if we have more blocks
-  m_isSending = (m_numBlocks > 0);
-  // the curtime
-  m_lastSendTime = Time::getCurtime();
-  // return whether still sending
-  return m_isSending;
-}
-
-void VLSender::beginSend()
-{
-  m_isSending = true;
-  DEBUG_LOGF("[%zu] Beginning send size %u (blocks: %u remainder: %u blocksize: %u)",
-    Time::microseconds(), m_size, m_numBlocks, m_remainder, m_blockSize);
+  loadMode(targetMode);
   // now send the header
   sendMarkSpace(VL_HEADER_MARK, VL_HEADER_SPACE);
-  // send some sync bytes to let the receiver determine baudrate
+  // send some sync bytes to let the receiver determine baudrate, this will
+  // send: (zero mark - zero space - one mark - one space) x 2
+  // then the receiver will add up all the marks and all the spaces and divide
+  // each by 4 to get the middle point between the one/zero for both marks and spaces
   for (uint8_t b = 0; b < 2; b++) {
-    sendMarkSpace(VL_TIMING_SLOW, VL_TIMING_SLOW);
-    sendMarkSpace(VL_TIMING_SLOW * 3, VL_TIMING_SLOW * 3);
+    sendMarkSpace(VL_TIMING_BIT_ZERO, VL_TIMING_BIT_ZERO);
+    sendMarkSpace(VL_TIMING_BIT_ONE, VL_TIMING_BIT_ONE);
   }
-  // reset writeCounter
-  m_writeCounter = 0;
-  // write the number of blocks being sent, most likely just 1
-  sendByte(m_numBlocks);
-  // now write the number of bytes in the last block
-  sendByte(m_remainder);
+  // send the size of the data first
+  sendByte(m_size);
+  // iterate each byte in the block and write it
+  for (uint8_t i = 0; i < m_size; ++i) {
+    // write the byte
+    sendByte(m_bitStream.peekData(i));
+  }
+  // send one last blink because the previous data could end on a space
+  // so the receiver needs a last blink to determine it's length
+  sendMarkSpace(VL_TIMING_BIT_ZERO, VL_TIMING_BIT_ZERO);
 }
 
 void VLSender::sendByte(uint8_t data)
 {
   // Sends from left to right, MSB first
-  for (uint8_t b = 0; b < 8; b++) {
-    // grab the bit of data at the indexspace
-    uint8_t bit = (data >> (7 - b)) & 1;
-    b++;
-    uint8_t bit2 = (data >> (7 - b)) & 1;
-    // send 3x timing size for 1s and 1x timing for 0
-    // send 1x timing size for space
-    sendMarkSpace(bit ? VL_TIMING_SLOW_MARK_ONE : VL_TIMING_SLOW_MARK_ZERO, 
-                  bit2 ? VL_TIMING_SLOW_MARK_ONE : VL_TIMING_SLOW_MARK_ZERO);
+  for (uint8_t i = 0; i < 8; i += 2) {
+    uint8_t mark = (data >> (7 - i)) & 1;
+    uint8_t space = (data >> (6 - i)) & 1;
+    sendMarkSpace(VL_TIMING_BIT(mark), VL_TIMING_BIT(space));
   }
-  DEBUG_LOGF("Sent byte[%u]: 0x%x", m_writeCounter, data);
  }
 
 void VLSender::sendMarkSpace(uint16_t markTime, uint16_t spaceTime)
@@ -179,7 +111,6 @@ void VLSender::startPWM()
   uint8_t oldBrightness = Leds::getBrightness();
   // ensure max brightness
   Leds::setBrightness(255);
-  Leds::clearAll();
   Leds::setIndex(LED_0, RGB_WHITE);
   Leds::update();
   // restore brightness

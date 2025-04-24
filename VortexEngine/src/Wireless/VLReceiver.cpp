@@ -85,17 +85,9 @@ bool VLReceiver::dataReady()
   if (!isReceiving()) {
     return false;
   }
-  uint8_t blocks = m_vlData.data()[0];
-  uint8_t remainder = m_vlData.data()[1];
-  uint32_t total = ((blocks - 1) * 32) + remainder;
-  if (!total || total > VL_MAX_DATA_TRANSFER) {
-    DEBUG_LOGF("Bad VL Data size: %u", total);
-    return false;
-  }
-  // if there are size + 2 bytes in the VLData receiver
-  // then a full message is ready, the + 2 is from the
-  // two bytes for blocks + remainder that are sent first
-  return (m_vlData.bytepos() >= (uint32_t)(total + 2));
+  uint8_t size = m_vlData.peekData(0);
+  // check if there are size + 1 bytes in the VLData receiver
+  return (m_vlData.bytepos() >= ((uint32_t)size + 1));
 }
 
 // whether actively receiving
@@ -105,7 +97,7 @@ bool VLReceiver::isReceiving()
   // the receiver is receiving a packet. If there is less
   // than 2 bytes then we're still waiting for the 'blocks'
   // and 'remainder' bytes which prefix a packet
-  return (m_vlData.bytepos() > 2);
+  return (m_vlData.bytepos() > 1);
 }
 
 // the percent of data received
@@ -114,11 +106,9 @@ uint8_t VLReceiver::percentReceived()
   if (!isReceiving()) {
     return 0;
   }
-  uint8_t blocks = m_vlData.data()[0];
-  uint8_t remainder = m_vlData.data()[1];
-  uint16_t total = ((blocks - 1) * 32) + remainder;
+  uint8_t size = m_vlData.peekData(0);
   // round by adding half of the total to the numerator
-  return (uint8_t)((uint16_t)((m_vlData.bytepos() * 100 + (total / 2)) / total));
+  return (uint8_t)((uint16_t)((m_vlData.bytepos() * 100 + (size / 2)) / size));
 }
 
 bool VLReceiver::receiveMode(Mode *pMode)
@@ -210,17 +200,8 @@ bool VLReceiver::read(ByteStream &data)
     DEBUG_LOG("Nothing to read, or read too much");
     return false;
   }
-  // read the size out (blocks + remainder)
-  uint8_t blocks = m_vlData.data()[0];
-  uint8_t remainder = m_vlData.data()[1];
-  // calculate size from blocks + remainder
-  uint32_t size = ((blocks - 1) * 32) + remainder;
-  if (!size || size > VL_MAX_DATA_TRANSFER) {
-    DEBUG_LOGF("Bad VL Data size: %u", size);
-    return false;
-  }
-  // the actual data starts 2 bytes later because of the size byte
-  const uint8_t *actualData = m_vlData.data() + 2;
+  uint8_t size = m_vlData.peekData(0);
+  const uint8_t *actualData = m_vlData.data() + 1;
   if (!data.rawInit(actualData, size)) {
     DEBUG_LOG("Failed to init buffer for VL read");
     return false;
@@ -237,13 +218,6 @@ void VLReceiver::recvPCIHandler()
   m_pinState = (uint8_t)!m_pinState;
   // grab current time
   uint32_t now = Time::microseconds();
-  //// check previous time for validity
-  //if (!m_prevTime || m_prevTime > now) {
-  //  m_prevTime = now;
-  //  DEBUG_LOG("Bad first time diff, resetting...");
-  //  resetVLState();
-  //  return;
-  //}
   // calc time difference between previous change and now
   uint32_t diff = (uint32_t)(now - m_prevTime);
   m_prevTime = now;
@@ -257,12 +231,6 @@ void VLReceiver::recvPCIHandler()
 // state machine that can be fed VL timings to parse them and interpret the intervals
 void VLReceiver::handleVLTiming(uint16_t diff)
 {
-  //// if the diff is too long or too short then it's not useful
-  //if ((diff > VL_HEADER_MARK_MAX && m_recvState < READING_DATA_MARK) || diff < VL_TIMING_MIN) {
-  //  DEBUG_LOGF("bad delay: %u, resetting...", diff);
-  //  resetVLState();
-  //  return;
-  //}
   switch (m_recvState) {
   case WAITING_HEADER_MARK: // initial state
     if (diff >= VL_HEADER_SPACE_MIN && diff <= VL_HEADER_MARK_MAX) {
