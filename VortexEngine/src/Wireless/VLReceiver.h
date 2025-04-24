@@ -76,9 +76,9 @@ private:
   static uint16_t m_previousBytes;
 
   // the determined time based on sync
-  static uint16_t m_vlTiming;
+  static uint16_t m_vlMarkThreshold;
   // the determined time based on sync
-  static uint16_t m_vlTiming2;
+  static uint16_t m_vlSpaceThreshold;
 
   // count of the sync bits (similar length starter bits)
   static uint8_t m_syncCount;

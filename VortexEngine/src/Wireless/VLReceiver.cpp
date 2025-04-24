@@ -232,19 +232,12 @@ void VLReceiver::recvPCIHandler()
 void VLReceiver::handleVLTiming(uint16_t diff)
 {
   switch (m_recvState) {
-  case WAITING_HEADER_MARK: // initial state
-    if (diff >= VL_HEADER_SPACE_MIN && diff <= VL_HEADER_MARK_MAX) {
-      // success go to header space
-      m_recvState = WAITING_HEADER_SPACE;
-      break;
-    } 
-    break;
+  case WAITING_HEADER_MARK:
   case WAITING_HEADER_SPACE:
+    // both cases are basically the same, just look for a big timing
     if (diff >= VL_HEADER_SPACE_MIN && diff <= VL_HEADER_MARK_MAX) {
-      m_recvState = READING_BAUD_MARK;
-    } else {
-      DEBUG_LOGF("Bad header space %u, resetting...", diff);
-      //resetVLState();
+      // iterate through first two states
+      m_recvState = (RecvState)(m_recvState + 1);
     }
     break;
   case READING_BAUD_MARK:
