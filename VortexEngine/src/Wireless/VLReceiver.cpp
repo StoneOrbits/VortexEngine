@@ -21,8 +21,8 @@ uint32_t VLReceiver::m_prevTime = 0;
 uint8_t VLReceiver::m_pinState = 0;
 uint16_t VLReceiver::m_previousBytes = 0;
 // the determined time based on sync
-uint16_t VLReceiver::m_vlTiming = 0;
-uint16_t VLReceiver::m_vlTiming2 = 0;
+uint16_t VLReceiver::m_vlMarkThreshold = 0;
+uint16_t VLReceiver::m_vlSpaceThreshold = 0;
 // count of the sync bits (similar length starter bits)
 uint8_t VLReceiver::m_syncCount = 0;
 
@@ -249,16 +249,16 @@ void VLReceiver::handleVLTiming(uint16_t diff)
     break;
   case READING_BAUD_MARK:
     // otherwise step m_vlTiming closer to diff
-    m_vlTiming += diff;
+    m_vlMarkThreshold += diff;
     m_recvState = READING_BAUD_SPACE;
     break;
   case READING_BAUD_SPACE:
     m_syncCount++;
     // otherwise step m_vlTiming closer to diff
-    m_vlTiming2 += diff;
+    m_vlSpaceThreshold += diff;
     if (m_syncCount == 4) {
-      m_vlTiming /= 4;
-      m_vlTiming2 /= 4;
+      m_vlMarkThreshold /= 4;
+      m_vlSpaceThreshold /= 4;
       m_recvState = READING_DATA_MARK;
     } else {
       m_recvState = READING_BAUD_MARK;
@@ -266,12 +266,12 @@ void VLReceiver::handleVLTiming(uint16_t diff)
     break;
   case READING_DATA_MARK:
     // classify as 1 or 0 based on mark threshold and write into buffer
-    m_vlData.write1Bit(diff > m_vlTiming);
+    m_vlData.write1Bit(diff > m_vlMarkThreshold);
     m_recvState = READING_DATA_SPACE;
     break;
   case READING_DATA_SPACE:
     // classify as 1 or 0 based on space threshold and write into buffer
-    m_vlData.write1Bit(diff > m_vlTiming2);
+    m_vlData.write1Bit(diff > m_vlSpaceThreshold);
     m_recvState = READING_DATA_MARK;
     break;
   default: // ??
@@ -283,8 +283,8 @@ void VLReceiver::handleVLTiming(uint16_t diff)
 void VLReceiver::resetVLState()
 {
   m_syncCount = 0;
-  m_vlTiming = 0;
-  m_vlTiming2 = 0;
+  m_vlMarkThreshold = 0;
+  m_vlSpaceThreshold = 0;
   m_previousBytes = 0;
   m_recvState = WAITING_HEADER_MARK;
   // zero out the receive buffer and reset bit receiver position
