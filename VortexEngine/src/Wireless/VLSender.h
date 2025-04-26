@@ -20,11 +20,9 @@ public:
 
   // send a mode
   static void send(const Mode *targetMode);
-
-  static void setLegacySender(bool legacy) { m_legacy = legacy; }
+  static void sendLegacy(const Mode *targetMode);
 
 private:
-  static void sendLegacy();
   static void sendByteLegacy(uint8_t data);
 
   static bool loadMode(const Mode *targetMode);
@@ -43,9 +41,6 @@ private:
 
   // some runtime meta info
   static uint8_t m_size;
-
-  // legacy mode
-  static bool m_legacy;
 };
 
 #endif

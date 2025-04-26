@@ -19,7 +19,6 @@ BitStream VLSender::m_bitStream;
 // some runtime meta info
 uint8_t VLSender::m_size = 0;
 // legacy mode
-bool VLSender::m_legacy = false;
 
 bool VLSender::init()
 {
@@ -56,8 +55,9 @@ bool VLSender::loadMode(const Mode *targetMode)
   return true;
 }
 
-void VLSender::sendLegacy()
+void VLSender::sendLegacy(const Mode *targetMode)
 {
+  loadMode(targetMode);
   // wakeup receiver
   sendMarkSpace(50, 50);
   // now send the header
@@ -73,14 +73,9 @@ void VLSender::sendLegacy()
   }
 }
 
-
 void VLSender::send(const Mode *targetMode)
 {
   loadMode(targetMode);
-  if (m_legacy) {
-    sendLegacy();
-    return;
-  }
   // now send the header
   sendMarkSpace(VL_HEADER_MARK, VL_HEADER_SPACE);
   // send some sync bytes to let the receiver determine baudrate, this will
@@ -91,7 +86,12 @@ void VLSender::send(const Mode *targetMode)
     sendMarkSpace(VL_TIMING_BIT_ZERO, VL_TIMING_BIT_ZERO);
     sendMarkSpace(VL_TIMING_BIT_ONE, VL_TIMING_BIT_ONE);
   }
-  // send the size of the data first
+  // it ends up being way cheaper just to send this legacy byte than to
+  // implement logic in the receiver to account for this byte being missing in
+  // the new protocol, so we send it, originally it was the block count but
+  // that always ended up being 1 anyway for the Duo because blocksize was 255
+  sendByte(1);
+  // send the size of the data first (this was the blocksize)
   sendByte(m_size);
   // iterate each byte in the block and write it
   for (uint8_t i = 0; i < m_size; ++i) {

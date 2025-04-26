@@ -36,7 +36,10 @@ bool ModeSharing::init()
     return false;
   }
   // skip led selection
-  m_ledSelected = true;
+  if (!m_advanced) {
+    // skip led selection
+    m_ledSelected = true;
+  }
   // start on receive because it's the more responsive of the two
   // the odds of opening receive and then accidentally receiving
   // a mode that is being broadcast nearby is completely unlikely
@@ -57,19 +60,32 @@ Menu::MenuAction ModeSharing::run()
     showExit();
     return MENU_CONTINUE;
   }
+  bool shouldSend = (g_pButton->isPressed() && g_pButton->holdDuration() >= CLICK_THRESHOLD);
+  // load any modes that are received
+  if (shouldSend) {
+    if (m_sharingMode == ModeShareState::SHARE_SEND_RECEIVE) {
+      // send or send legacy
+      VLSender::send(&m_previewMode);
+    } else {
+      // send or send legacy
+      VLSender::sendLegacy(&m_previewMode);
+    }
+  }
   // render the 'receive mode' lights whether legacy or not
   showReceiveMode();
-  // load any modes that are received
   receiveMode();
-  if (g_pButton->isPressed() && g_pButton->holdDuration() >= CLICK_THRESHOLD) {
-    // send or send legacy
-    VLSender::send(&m_previewMode);
-  }
   return MENU_CONTINUE;
 }
 
 void ModeSharing::onLedSelected()
 {
+  // if we selected leds that implies advanced mode
+  if (m_targetLeds == MAP_LED(LED_1)) {
+    // if we selected the top led then simply swap the two patterns
+    // so that the top led is sent first -- if the receiver is receiving
+    // into one slot then it will only use the first pattern to do so
+    m_previewMode.swapPatterns(LED_0, LED_1);
+  }
 }
 
 // handlers for clicks
@@ -82,12 +98,10 @@ void ModeSharing::onShortClick()
   case ModeShareState::SHARE_SEND_RECEIVE:
     // stop receiving, send the mode, go back to receiving
     VLReceiver::setLegacyReceiver(true);
-    VLSender::setLegacySender(true);
     m_sharingMode = ModeShareState::SHARE_SEND_RECEIVE_LEGACY;
     break;
   case ModeShareState::SHARE_SEND_RECEIVE_LEGACY:
     VLReceiver::setLegacyReceiver(false);
-    VLSender::setLegacySender(false);
     m_sharingMode = ModeShareState::SHARE_EXIT;
     break;
   case ModeShareState::SHARE_EXIT:
@@ -135,6 +149,17 @@ void ModeSharing::receiveMode()
     return;
   }
   DEBUG_LOGF("Success receiving mode: %u", m_previewMode.getPatternID());
+  if (m_advanced && m_targetLeds != MAP_LED_ALL) {
+    LedPos target = ledmapGetFirstLed(m_targetLeds);
+    LedPos other = LED_1;
+    // if the user picked the top led to copy into then swap the patterns
+    // in the incoming mode so the 0th pattern is on the top led
+    if (target == LED_1) {
+      other = LED_0;
+      m_previewMode.swapPatterns(LED_0, LED_1);
+    }
+    m_previewMode.copyPatternFrom(Modes::curMode(), other, other);
+  }
   Modes::updateCurMode(&m_previewMode);
   // leave menu and save settings, even if the mode was the same whatever
   leaveMenu(true);

@@ -87,9 +87,9 @@ bool VLReceiver::dataReady()
   if (!isReceiving()) {
     return false;
   }
-  uint8_t size = m_vlData.peekData(m_legacy ? 1 : 0);
+  uint8_t size = m_vlData.peekData(1);
   // check if there are size + 1 bytes in the VLData receiver
-  return (m_vlData.bytepos() >= ((uint32_t)size + (m_legacy ? 2 : 1)));
+  return (m_vlData.bytepos() >= ((uint32_t)size + 2));
 }
 
 // whether actively receiving
@@ -99,7 +99,7 @@ bool VLReceiver::isReceiving()
   // the receiver is receiving a packet. If there is less
   // than 2 bytes then we're still waiting for the 'blocks'
   // and 'remainder' bytes which prefix a packet
-  return (m_vlData.bytepos() > (m_legacy ? 2 : 1));
+  return (m_vlData.bytepos() > 2);
 }
 
 // the percent of data received
@@ -108,7 +108,7 @@ uint8_t VLReceiver::percentReceived()
   if (!isReceiving()) {
     return 0;
   }
-  uint8_t size = m_vlData.peekData(m_legacy ? 1 : 0);
+  uint8_t size = m_vlData.peekData(1);
   // round by adding half of the total to the numerator
   return (uint8_t)((uint16_t)((m_vlData.bytepos() * 100 + (size / 2)) / size));
 }
@@ -200,8 +200,8 @@ bool VLReceiver::read(ByteStream &data)
     DEBUG_LOG("Nothing to read, or read too much");
     return false;
   }
-  uint8_t size = m_vlData.peekData(m_legacy ? 1 : 0);
-  const uint8_t *actualData = m_vlData.data() + (m_legacy ? 2 : 1);
+  uint8_t size = m_vlData.peekData(1);
+  const uint8_t *actualData = m_vlData.data() + 2;
   if (!data.rawInit(actualData, size)) {
     DEBUG_LOG("Failed to init buffer for VL read");
     return false;
