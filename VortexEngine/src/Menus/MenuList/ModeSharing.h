@@ -21,7 +21,6 @@ public:
 
 private:
   void receiveMode();
-
   void showReceiveMode();
 
   enum class ModeShareState {

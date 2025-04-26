@@ -75,6 +75,9 @@ void ModeSharing::onLedSelected()
 // handlers for clicks
 void ModeSharing::onShortClick()
 {
+  if (g_pButton->holdDuration() >= CLICK_THRESHOLD) {
+    return;
+  }
   switch (m_sharingMode) {
   case ModeShareState::SHARE_SEND_RECEIVE:
     // stop receiving, send the mode, go back to receiving
@@ -105,11 +108,12 @@ void ModeSharing::onLongClick()
 
 void ModeSharing::receiveMode()
 {
+  uint32_t now = Time::getCurtime();
   // if reveiving new data set our last data time
   if (VLReceiver::onNewData()) {
-    m_timeOutStartTime = Time::getCurtime();
+    m_timeOutStartTime = now;
     // if our last data was more than time out duration reset the recveiver
-  } else if (m_timeOutStartTime > 0 && (m_timeOutStartTime + MAX_TIMEOUT_DURATION) < Time::getCurtime()) {
+  } else if (m_timeOutStartTime > 0 && (m_timeOutStartTime + MAX_TIMEOUT_DURATION) < now) {
     VLReceiver::resetVLState();
     m_timeOutStartTime = 0;
     return;
@@ -119,7 +123,7 @@ void ModeSharing::receiveMode()
     uint8_t percent = VLReceiver::percentReceived();
     if (percent != m_lastPercent) {
       m_lastPercent = percent;
-      m_lastPercentChange = Time::getCurtime();
+      m_lastPercentChange = now;
     }
     // nothing available yet
     return;
