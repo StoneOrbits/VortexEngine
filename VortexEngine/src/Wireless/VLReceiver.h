@@ -40,12 +40,14 @@ public:
   // reset VL receiver buffer
   static void resetVLState();
 
-  static void recvPCIHandler();
-
+  // turn on/off the legacy receiver
   static void setLegacyReceiver(bool legacy) { m_legacy = legacy; }
 
+  // The handler called when the VL receiver flips between on/off
+  // this has to be public because it's called from a global ISR
+  // but technically it's an internal function for VLReceiver
+  static void recvPCIHandler();
 private:
-
   // reading functions
   // PCI handler for when VL receiver pin changes states
   static bool read(ByteStream &data);
@@ -86,7 +88,7 @@ private:
   static uint16_t m_vlSpaceThreshold;
 
   // count of the sync bits (similar length starter bits)
-  static uint8_t m_syncCount;
+  static uint8_t m_counter;
 
   static uint8_t m_parityBit;
 

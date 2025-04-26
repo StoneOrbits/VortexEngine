@@ -23,9 +23,11 @@ uint16_t VLReceiver::m_previousBytes = 0;
 // the determined time based on sync
 uint16_t VLReceiver::m_vlMarkThreshold = 0;
 uint16_t VLReceiver::m_vlSpaceThreshold = 0;
-// count of the sync bits (similar length starter bits)
-uint8_t VLReceiver::m_syncCount = 0;
+// counter is reused for two purposes
+uint8_t VLReceiver::m_counter = 0;
+// parity is for each byte of data received
 uint8_t VLReceiver::m_parityBit = 0;
+// legacy is for old receiving method (sucks)
 bool VLReceiver::m_legacy = false;
 
 #ifdef VORTEX_EMBEDDED
@@ -211,7 +213,10 @@ bool VLReceiver::read(ByteStream &data)
   return true;
 }
 
-// The recv PCI handler is called every time the pin state changes
+// The recv PCI handler is called every time the analog value passes the
+// 'threshold' which is dynamically established to be about half way between
+// 'light' and 'dark' in the current environment. So in other words, it is
+// called for every 'on' or 'off' blink
 void VLReceiver::recvPCIHandler()
 {
   // toggle the tracked pin state no matter what
@@ -248,6 +253,7 @@ void VLReceiver::handleVLTimingLegacy(uint16_t diff)
     if (diff >= VL_HEADER_SPACE_MIN_LEGACY && diff <= VL_HEADER_MARK_MAX_LEGACY) {
       // iterate through first two states
       m_recvState = READING_DATA_MARK;
+      // estimate the threshold based on the length of the space
       m_vlMarkThreshold = (diff / 4);
     }
     break;
@@ -268,7 +274,7 @@ void VLReceiver::handleVLTimingLegacy(uint16_t diff)
 // state machine that can be fed VL timings to parse them and interpret the intervals
 void VLReceiver::handleVLTiming(uint16_t diff)
 {
-  uint8_t bit = 0;
+  uint8_t bit;
   switch (m_recvState) {
   case WAITING_HEADER_MARK:
   case WAITING_HEADER_SPACE:
@@ -284,21 +290,21 @@ void VLReceiver::handleVLTiming(uint16_t diff)
     m_recvState = READING_BAUD_SPACE;
     break;
   case READING_BAUD_SPACE:
-    m_syncCount++;
+    m_counter++;
     // otherwise step m_vlTiming closer to diff
     m_vlSpaceThreshold += diff;
-    if (m_syncCount == 4) {
-      m_vlMarkThreshold /= 4;
-      m_vlSpaceThreshold /= 4;
-      m_syncCount = 0;
-      m_parityBit = 0;
-      m_recvState = READING_DATA_MARK;
-    } else {
+    if (m_counter < 4) {
       m_recvState = READING_BAUD_MARK;
+      break;
     }
+    m_vlMarkThreshold /= 4;
+    m_vlSpaceThreshold /= 4;
+    m_counter = 0;
+    m_parityBit = 0;
+    m_recvState = READING_DATA_MARK;
     break;
   case READING_DATA_MARK:
-    m_syncCount++;
+    m_counter++;
     bit = (diff > m_vlMarkThreshold) ? 1 : 0;
     // accumulate parity and write out bit
     m_parityBit = (m_parityBit ^ bit) & 1;
@@ -312,7 +318,7 @@ void VLReceiver::handleVLTiming(uint16_t diff)
     // classify as 1 or 0 based on space threshold and write into buffer
     m_vlData.write1Bit(bit);
     // when sync count is 8 go to parity
-    if (m_syncCount >= 4) {
+    if (m_counter >= 4) {
       m_recvState = READING_DATA_PARITY_MARK;
     } else {
       m_recvState = READING_DATA_MARK;
@@ -327,7 +333,7 @@ void VLReceiver::handleVLTiming(uint16_t diff)
     m_recvState = READING_DATA_PARITY_SPACE;
     break;
   case READING_DATA_PARITY_SPACE:
-    m_syncCount = 0;
+    m_counter = 0;
     m_parityBit = 0;
     // back to mark
     m_recvState = READING_DATA_MARK;
@@ -340,7 +346,7 @@ void VLReceiver::handleVLTiming(uint16_t diff)
 
 void VLReceiver::resetVLState()
 {
-  m_syncCount = 0;
+  m_counter = 0;
   m_vlMarkThreshold = 0;
   m_vlSpaceThreshold = 0;
   m_previousBytes = 0;
