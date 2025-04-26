@@ -42,12 +42,15 @@ public:
 
   static void recvPCIHandler();
 
+  static void setLegacyReceiver(bool legacy) { m_legacy = legacy; }
+
 private:
 
   // reading functions
   // PCI handler for when VL receiver pin changes states
   static bool read(ByteStream &data);
   static void handleVLTiming(uint16_t diff);
+  static void handleVLTimingLegacy(uint16_t diff);
 
   // ===================
   //  private data:
@@ -63,7 +66,9 @@ private:
     READING_BAUD_MARK,
     READING_BAUD_SPACE,
     READING_DATA_MARK,
-    READING_DATA_SPACE
+    READING_DATA_SPACE,
+    READING_DATA_PARITY_MARK,
+    READING_DATA_PARITY_SPACE
   };
 
   // state information used by the PCIHandler
@@ -82,6 +87,11 @@ private:
 
   // count of the sync bits (similar length starter bits)
   static uint8_t m_syncCount;
+
+  static uint8_t m_parityBit;
+
+  // legacy mode
+  static bool m_legacy;
 
 #ifdef VORTEX_LIB
   friend class Vortex;

@@ -18,6 +18,8 @@ ByteStream VLSender::m_serialBuf;
 BitStream VLSender::m_bitStream;
 // some runtime meta info
 uint8_t VLSender::m_size = 0;
+// legacy mode
+bool VLSender::m_legacy = false;
 
 bool VLSender::init()
 {
@@ -54,9 +56,31 @@ bool VLSender::loadMode(const Mode *targetMode)
   return true;
 }
 
+void VLSender::sendLegacy()
+{
+  // wakeup receiver
+  sendMarkSpace(50, 50);
+  // now send the header
+  sendMarkSpace(VL_HEADER_MARK_LEGACY, VL_HEADER_SPACE_LEGACY);
+  // the number of blocks is always 1
+  sendByteLegacy(1);
+  // size is the remainder after
+  sendByteLegacy(m_size);
+  // iterate each byte in the block and write it
+  for (uint8_t i = 0; i < m_size; ++i) {
+    // write the byte
+    sendByteLegacy(m_bitStream.peekData(i));
+  }
+}
+
+
 void VLSender::send(const Mode *targetMode)
 {
   loadMode(targetMode);
+  if (m_legacy) {
+    sendLegacy();
+    return;
+  }
   // now send the header
   sendMarkSpace(VL_HEADER_MARK, VL_HEADER_SPACE);
   // send some sync bytes to let the receiver determine baudrate, this will
@@ -81,13 +105,28 @@ void VLSender::send(const Mode *targetMode)
 
 void VLSender::sendByte(uint8_t data)
 {
+  uint8_t parity = 0;
   // Sends from left to right, MSB first
   for (uint8_t i = 0; i < 8; i += 2) {
     uint8_t mark = (data >> (7 - i)) & 1;
     uint8_t space = (data >> (6 - i)) & 1;
     sendMarkSpace(VL_TIMING_BIT(mark), VL_TIMING_BIT(space));
+    parity = (parity ^ mark) & 1;
+    parity = (parity ^ space) & 1;
   }
+  sendMarkSpace(VL_TIMING_BIT(parity), VL_TIMING_BIT(0));
  }
+
+void VLSender::sendByteLegacy(uint8_t data)
+{
+  // Sends from left to right, MSB first
+  for (uint8_t b = 0; b < 8; b++) {
+    // grab the bit of data at the indexspace
+    uint8_t bit = (data >> (7 - b)) & 1;
+    // send 3x timing size for 1s and 1x timing for 0
+    sendMarkSpace(VL_TIMING_BIT_LEGACY(bit), VL_TIMING);
+  }
+}
 
 void VLSender::sendMarkSpace(uint16_t markTime, uint16_t spaceTime)
 {
