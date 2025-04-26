@@ -326,6 +326,7 @@ void VLReceiver::handleVLTiming(uint16_t diff)
     break;
   case READING_DATA_PARITY_MARK:
     bit = (diff > m_vlMarkThreshold) ? 1 : 0;
+    // check the parity bit and reset if it doesn't match
     if ((m_parityBit & 1) != bit) {
       resetVLState();
       break;
@@ -333,9 +334,10 @@ void VLReceiver::handleVLTiming(uint16_t diff)
     m_recvState = READING_DATA_PARITY_SPACE;
     break;
   case READING_DATA_PARITY_SPACE:
+    // the parity space contains nothing it is just a space
     m_counter = 0;
     m_parityBit = 0;
-    // back to mark
+    // back to regular mark
     m_recvState = READING_DATA_MARK;
     break;
   default: // ??
