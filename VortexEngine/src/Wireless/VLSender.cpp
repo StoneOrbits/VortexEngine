@@ -67,7 +67,13 @@ void VLSender::send(const Mode *targetMode)
     sendMarkSpace(VL_TIMING_BIT_ZERO, VL_TIMING_BIT_ZERO);
     sendMarkSpace(VL_TIMING_BIT_ONE, VL_TIMING_BIT_ONE);
   }
-  // send the size of the data first
+  // it ends up being way cheaper just to send this legacy byte than to
+  // implement logic in the receiver to account for this byte being missing in
+  // the new protocol, so we send it, originally it was the block count but
+  // that always ended up being 1 anyway for the Duo because blocksize was 255
+  // and the duo mode size max was no more than ~76 bytes? (I forget right now)
+  sendByte(1);
+  // send the size of the data first (this was the blocksize)
   sendByte(m_size);
   // iterate each byte in the block and write it
   for (uint8_t i = 0; i < m_size; ++i) {
@@ -79,15 +85,59 @@ void VLSender::send(const Mode *targetMode)
   sendMarkSpace(VL_TIMING_BIT_ZERO, VL_TIMING_BIT_ZERO);
 }
 
+void VLSender::sendLegacy(const Mode *targetMode)
+{
+  loadMode(targetMode);
+  // wakeup receiver
+  sendMarkSpace(50, 50);
+  // now send the header
+  sendMarkSpace(VL_HEADER_MARK_LEGACY, VL_HEADER_SPACE_LEGACY);
+  // the number of blocks is always 1, previously block size would be for big
+  // transfers like IR but in reality that never happens on a duo so it is 1
+  sendByteLegacy(1);
+  // the next byte is the size or 'remainder' in the last block, so 1 block
+  // means the size in this byte is the size of that block. But again on duo
+  // this protocol ended up being impractical and only 1 block is ever needed.
+  // The purpose of separating blocks was to put a space between blocks for
+  // improved sender/receiver synchronization instead of one long stream
+  sendByteLegacy(m_size);
+  // iterate each byte in the block and write it
+  for (uint8_t i = 0; i < m_size; ++i) {
+    // write the byte
+    sendByteLegacy(m_bitStream.peekData(i));
+  }
+}
+
 void VLSender::sendByte(uint8_t data)
 {
-  // Sends from left to right, MSB first
+  uint8_t parity = 0;
+  // Loop through bits 7-0 two at a time
   for (uint8_t i = 0; i < 8; i += 2) {
-    uint8_t mark = (data >> (7 - i)) & 1;
-    uint8_t space = (data >> (6 - i)) & 1;
+    // Extract the next two bits as a 2-bit value
+    uint8_t pair = (data >> (6 - i)) & 0x3;
+    // First bit (mark) is the higher bit
+    uint8_t mark = (pair >> 1) & 1;
+    // Second bit (space) is the lower bit
+    uint8_t space = pair & 1;
+    // Send both bits as a mark-space pair
     sendMarkSpace(VL_TIMING_BIT(mark), VL_TIMING_BIT(space));
+    // Update parity by XOR'ing both bits
+    parity ^= mark ^ space;
   }
- }
+  // Send final parity bit as mark, followed by a 0 space
+  sendMarkSpace(VL_TIMING_BIT(parity & 1), VL_TIMING_BIT(0));
+}
+
+void VLSender::sendByteLegacy(uint8_t data)
+{
+  // Sends from left to right, MSB first
+  for (uint8_t b = 0; b < 8; b++) {
+    // grab the bit of data at the index
+    uint8_t bit = (data >> (7 - b)) & 1;
+    // send 3x timing size for 1s and 1x timing for 0
+    sendMarkSpace(VL_TIMING_BIT_LEGACY(bit), VL_TIMING);
+  }
+}
 
 void VLSender::sendMarkSpace(uint16_t markTime, uint16_t spaceTime)
 {
