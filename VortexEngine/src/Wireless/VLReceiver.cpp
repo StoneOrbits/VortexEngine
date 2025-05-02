@@ -75,7 +75,6 @@ bool VLReceiver::init()
   PORTB.PIN1CTRL &= ~PORT_ISC_gm;
   PORTB.PIN1CTRL |= PORT_ISC_INPUT_DISABLE_gc;
 #endif
-  //m_vlTiming = 0;
   return m_vlData.init(VL_RECV_BUF_SIZE);
 }
 
@@ -226,10 +225,11 @@ void VLReceiver::recvPCIHandler()
   // calc time difference between previous change and now
   uint32_t diff = (uint32_t)(now - m_prevTime);
   m_prevTime = now;
+  // filter out values much too large from being truncated
   if (diff > UINT16_MAX) {
     return;
   }
-  // handle the blink duration and process it
+  // handle the blink duration and process it into data
   if (m_legacy) {
     handleVLTimingLegacy((uint16_t)diff);
   } else {
@@ -242,27 +242,29 @@ void VLReceiver::handleVLTimingLegacy(uint16_t diff)
 {
   switch (m_recvState) {
   case WAITING_HEADER_MARK:
-    // both cases are basically the same, just look for a big timing
+    // just look for a big blink timing
     if (diff >= VL_HEADER_SPACE_MIN_LEGACY && diff <= VL_HEADER_MARK_MAX_LEGACY) {
-      // iterate through first two states
+      // go straight to the header space
       m_recvState = WAITING_HEADER_SPACE;
     }
     break;
   case WAITING_HEADER_SPACE:
-    // both cases are basically the same, just look for a big timing
+    // the header space is technically shorter but this check uses the same range
+    // because being restrictive here isn't really beneficial
     if (diff >= VL_HEADER_SPACE_MIN_LEGACY && diff <= VL_HEADER_MARK_MAX_LEGACY) {
-      // iterate through first two states
+      // iterate to first data mark
       m_recvState = READING_DATA_MARK;
-      // estimate the threshold based on the length of the space
+      // estimate the data threshold based on the length of the space
       m_vlMarkThreshold = (diff / 4);
     }
     break;
   case READING_DATA_MARK:
-    // classify as 1 or 0 based on mark threshold and write into buffer
+    // classify as 1 or 0 based on the mark threshold and write into buffer
     m_vlData.write1Bit(diff > m_vlMarkThreshold);
     m_recvState = READING_DATA_SPACE;
     break;
   case READING_DATA_SPACE:
+    // in the legacy transmission the spaces didn't carry data
     m_recvState = READING_DATA_MARK;
     break;
   default: // ??
@@ -285,59 +287,72 @@ void VLReceiver::handleVLTiming(uint16_t diff)
     }
     break;
   case READING_BAUD_MARK:
-    // otherwise step m_vlTiming closer to diff
+    // accumulate the diff in the mark threshold for averaging later
     m_vlMarkThreshold += diff;
     m_recvState = READING_BAUD_SPACE;
     break;
   case READING_BAUD_SPACE:
+    // couonter is used to count bauds till 4
     m_counter++;
-    // otherwise step m_vlTiming closer to diff
+    // accumulate the diff in the space threshold for averaging later
     m_vlSpaceThreshold += diff;
+    // if not at 4 bauds yet keep reading baud marks
     if (m_counter < 4) {
       m_recvState = READING_BAUD_MARK;
       break;
     }
+    // otherwise read all 4 bauds now proceed with processing them
+    // average out the mark and space from the bauds
     m_vlMarkThreshold /= 4;
     m_vlSpaceThreshold /= 4;
+    // reset counter and parity bit
     m_counter = 0;
     m_parityBit = 0;
+    // advanced state to first data mark
     m_recvState = READING_DATA_MARK;
     break;
   case READING_DATA_MARK:
+    // counter is now counting the marks for parity tracking
     m_counter++;
+    // extract the bit of data based on the calculated mark threshold
     bit = (diff > m_vlMarkThreshold) ? 1 : 0;
-    // accumulate parity and write out bit
+    // accumulate the parity and write out the bit into the vldata
     m_parityBit = (m_parityBit ^ bit) & 1;
-    // classify as 1 or 0 based on mark threshold and write into buffer
     m_vlData.write1Bit(bit);
     m_recvState = READING_DATA_SPACE;
     break;
   case READING_DATA_SPACE:
+    // the spaces also transmit data in their lengths
     bit = (diff > m_vlSpaceThreshold) ? 1 : 0;
+    // also accumulate this data into the parity
     m_parityBit = (m_parityBit ^ bit) & 1;
-    // classify as 1 or 0 based on space threshold and write into buffer
+    // and then write out the bit into the vldata
     m_vlData.write1Bit(bit);
-    // when sync count is 8 go to parity
-    if (m_counter >= 4) {
+    // when counter is a multiple of 4 (since it only counts marks)
+    if ((m_counter % 4) == 0) {
+      // then go to the parity processing for the previous 8 bits of data
       m_recvState = READING_DATA_PARITY_MARK;
     } else {
+      // otherwise continue reading out data bits
       m_recvState = READING_DATA_MARK;
     }
     break;
   case READING_DATA_PARITY_MARK:
+    // the parity is also a bit of data using a mark
     bit = (diff > m_vlMarkThreshold) ? 1 : 0;
-    // check the parity bit and reset if it doesn't match
+    // check the parity bit against the running accumulated parity
     if ((m_parityBit & 1) != bit) {
+      // immediately reset the receiver if the parity doesn't match
+      // could show a flash here but that would probably just make
+      // receiving worse by introducing a delay
       resetVLState();
       break;
     }
+    // the parity space is just an empty space after the parity bit
     m_recvState = READING_DATA_PARITY_SPACE;
     break;
   case READING_DATA_PARITY_SPACE:
-    // the parity space contains nothing it is just a space
-    m_counter = 0;
-    m_parityBit = 0;
-    // back to regular mark
+    // after the parity it's back to regular mark
     m_recvState = READING_DATA_MARK;
     break;
   default: // ??

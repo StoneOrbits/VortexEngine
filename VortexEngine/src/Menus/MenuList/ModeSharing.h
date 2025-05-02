@@ -36,6 +36,7 @@ private:
   // the start time when checking for timing out
   uint32_t m_timeOutStartTime;
 
+  // used to track when the receive percentage changes for timeout purposes
   uint32_t m_lastPercentChange;
   uint8_t m_lastPercent;
 };

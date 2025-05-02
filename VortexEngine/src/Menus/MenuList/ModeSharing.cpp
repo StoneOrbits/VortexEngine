@@ -60,14 +60,14 @@ Menu::MenuAction ModeSharing::run()
     showExit();
     return MENU_CONTINUE;
   }
-  bool shouldSend = (g_pButton->isPressed() && g_pButton->holdDuration() >= CLICK_THRESHOLD);
-  // load any modes that are received
-  if (shouldSend) {
+  // if the button is held for at least a long click, then continuously send
+  if (g_pButton->isPressed() && g_pButton->holdDuration() >= CLICK_THRESHOLD) {
+    // exit is handled above so the only two options are normal or legacy
     if (m_sharingMode == ModeShareState::SHARE_SEND_RECEIVE) {
-      // send or send legacy
+      // send normal
       VLSender::send(&m_previewMode);
     } else {
-      // send or send legacy
+      // send legacy
       VLSender::sendLegacy(&m_previewMode);
     }
   }
@@ -167,10 +167,12 @@ void ModeSharing::receiveMode()
 
 void ModeSharing::showReceiveMode()
 {
+  // if the receiver is actively receiving right now then
   if (VLReceiver::isReceiving()) {
-    // using uint32_t to avoid overflow, the result should be within 10 to 255
     uint32_t diff = (Time::getCurtime() - m_lastPercentChange);
-    if (diff > (IR_RECEIVER_TIMEOUT_DURATION - 400)) {
+    // this generates the red flash when the receiver hasn't received something for
+    // some amount of time, 100 is just arbitray idk if it could be a better value
+    if (diff > 100) {
       Leds::setIndex(LED_0, RGB_RED3);
     } else {
       Leds::setIndex(LED_0, RGBColor(0, VLReceiver::percentReceived(), 0));

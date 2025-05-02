@@ -25,6 +25,8 @@
 #define VL_THRES_UP   (1 + VL_THRESHOLD)
 #define VL_THRES_DOWN (1 - VL_THRESHOLD)
 
+// These are the modern constants for new sender/receiver in modesharing
+// new one is faster, more reliable, and better at error detection
 #define VL_TIMING (uint16_t)(2230)
 
 #define VL_HEADER_MARK (uint16_t)(VL_TIMING * 16)
@@ -40,7 +42,8 @@
 #define VL_TIMING_BIT_ZERO (uint16_t)(VL_TIMING)
 #define VL_TIMING_BIT(bit) (bit ? VL_TIMING_BIT_ONE : VL_TIMING_BIT_ZERO)
 
-
+// legacy constants for old sender/receiver in modesharing, this one is
+// less reliable and much slower
 #define VL_TIMING_LEGACY (uint16_t)(3230)
 
 #define VL_HEADER_MARK_LEGACY (uint16_t)(VL_TIMING_LEGACY * 16)
