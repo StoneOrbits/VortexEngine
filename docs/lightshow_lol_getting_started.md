@@ -74,9 +74,10 @@ If everything is set up correctly, you should see a **success notification**, an
 
 Frome here, common next steps are:
 
- - [Loading Savefiles](pulling_modes.html) to edit and share
- - [Creating New Modes](creating_modes.html) to share and use
- - [Community Modes](community.html) for inspiration and collaboration
+ - [Loading Modes](lightshow_lol_modes.html) - use the Modes Pannel to load the modes from your device.
+ - [Modifying Patterns](lightshow_lol_pattern.html) - Use the pattern controls to customize any pattern.
+ - [Picking Colors](lightshow_lol_colorset.html) - Use the Colorset controls to access the full spectrum of colors.
+ - [Community Modes](vortex_community.html) - Check out our community-made modes for inspiration and collaboration.
 
 Try any combination of these options to create the ultimate device for you!
 
