@@ -19,6 +19,8 @@ ModeSharing::ModeSharing(const RGBColor &col, bool advanced) :
   m_sharingMode(ModeShareState::SHARE_RECEIVE_VL),
   m_timeOutStartTime(0),
   m_lastSendTime(0),
+  m_lastPercentChange(0),
+  m_lastPercent(0),
   m_shouldEndSend(false)
 {
 }
@@ -79,10 +81,6 @@ Menu::MenuAction ModeSharing::run()
 void ModeSharing::onShortClickM()
 {
   switch (m_sharingMode) {
-  case ModeShareState::SHARE_SEND_VL:
-    m_sharingMode = ModeShareState::SHARE_RECEIVE_VL;
-    beginReceivingVL();
-    break;
   case ModeShareState::SHARE_RECEIVE_VL:
     // click while on receive -> end receive, start sending
     VLReceiver::endReceiving();
@@ -219,9 +217,17 @@ void ModeSharing::receiveModeIR()
 
 void ModeSharing::continueSendingVL()
 {
-  Leds::clearAll();
-  // send the first chunk of data, leave if we're done
-  VLSender::send(Modes::curMode());
+  // when the button is released go back to receiving
+  if (!g_pButtonM->isPressed()) {
+    beginReceivingVL();
+    return;
+  }
+  // as long as they hold the button, keep sending
+  if (g_pButtonM->holdDuration() >= CLICK_THRESHOLD) {
+    Leds::clearAll();
+    // send the first chunk of data, leave if we're done
+    VLSender::send(Modes::curMode());
+  }
 }
 
 void ModeSharing::beginReceivingVL()
@@ -233,17 +239,23 @@ void ModeSharing::beginReceivingVL()
 
 void ModeSharing::receiveModeVL()
 {
+  uint32_t now = Time::getCurtime();
   // if reveiving new data set our last data time
   if (VLReceiver::onNewData()) {
-    m_timeOutStartTime = Time::getCurtime();
+    m_timeOutStartTime = now;
     // if our last data was more than time out duration reset the recveiver
-  } else if (m_timeOutStartTime > 0 && (m_timeOutStartTime + MAX_TIMEOUT_DURATION) < Time::getCurtime()) {
+  } else if (m_timeOutStartTime > 0 && (m_timeOutStartTime + MAX_TIMEOUT_DURATION) < now) {
     VLReceiver::resetVLState();
     m_timeOutStartTime = 0;
     return;
   }
   // check if the VLReceiver has a full packet available
   if (!VLReceiver::dataReady()) {
+    uint8_t percent = VLReceiver::percentReceived();
+    if (percent != m_lastPercent) {
+      m_lastPercent = percent;
+      m_lastPercentChange = now;
+    }
     // nothing available yet
     return;
   }
@@ -270,15 +282,22 @@ void ModeSharing::showSendModeIR()
 
 void ModeSharing::showReceiveModeVL()
 {
+  // if the receiver is actively receiving right now then
   if (VLReceiver::isReceiving()) {
-    // using uint32_t to avoid overflow, the result should be within 10 to 255
+    uint32_t diff = (Time::getCurtime() - m_lastPercentChange);
     Leds::clearAll();
-    Leds::setRange(LED_FIRST, (LedPos)(VLReceiver::percentReceived() / 10), RGBColor(0, 1, 0));
+    // this generates the red flash when the receiver hasn't received something for
+    // some amount of time, 100 is just arbitray idk if it could be a better value
+    if (diff > 100) {
+      Leds::setAll(RGB_RED3);
+    } else {
+      Leds::setRange(LED_FIRST, (LedPos)(VLReceiver::percentReceived() / 10), RGBColor(0, 1, 0));
+    }
   } else {
     if (m_advanced) {
       m_previewMode.play();
     } else {
-      Leds::setAll(0x010101);
+      Leds::setAll(0x00F05);
     }
   }
 }

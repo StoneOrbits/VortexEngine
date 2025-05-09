@@ -163,7 +163,7 @@ void VLSender::startPWM()
   uint8_t oldBrightness = Leds::getBrightness();
   // ensure max brightness
   Leds::setBrightness(255);
-  Leds::setIndex(LED_0, RGB_WHITE);
+  Leds::setAll(RGB_WHITE);
   Leds::update();
   // restore brightness
   Leds::setBrightness(oldBrightness);

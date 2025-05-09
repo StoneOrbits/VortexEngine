@@ -47,6 +47,10 @@ private:
   uint32_t m_timeOutStartTime;
   uint32_t m_lastSendTime;
 
+  // used to track when the receive percentage changes for timeout purposes
+  uint32_t m_lastPercentChange;
+  uint8_t m_lastPercent;
+
   // whether to end the next send and go back to receive
   bool m_shouldEndSend;
 };

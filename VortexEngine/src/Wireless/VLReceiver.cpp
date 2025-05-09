@@ -1,5 +1,5 @@
 #include "VLReceiver.h"
-#include "IRConfig.h"
+#include "VLConfig.h"
 
 #if VL_ENABLE_RECEIVER == 1
 
@@ -209,11 +209,12 @@ void VLReceiver::recvPCIHandler()
     return;
   }
   // handle the blink duration and process it into data
-  if (m_legacy) {
-    handleVLTimingLegacy((uint16_t)diff);
-  } else {
-    handleVLTiming((uint16_t)diff);
-  }
+  // legacy would normally be handled here but it is no longer supported
+  //if (m_legacy) {
+  //  handleVLTimingLegacy((uint16_t)diff);
+  //  return;
+  //}
+  handleVLTiming((uint16_t)diff);
 }
 
 // state machine that can be fed VL timings to parse them and interpret the intervals
