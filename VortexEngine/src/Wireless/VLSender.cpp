@@ -18,6 +18,7 @@ ByteStream VLSender::m_serialBuf;
 BitStream VLSender::m_bitStream;
 // some runtime meta info
 uint8_t VLSender::m_size = 0;
+uint8_t VLSender::m_parity = 0;
 
 bool VLSender::init()
 {
@@ -50,6 +51,8 @@ bool VLSender::loadMode(const Mode *targetMode)
   m_bitStream.init((uint8_t *)m_serialBuf.rawData(), m_serialBuf.rawSize());
   // the size of the buf should never really exceed 256
   m_size = (uint8_t)m_serialBuf.rawSize();
+  // reset parity
+  m_parity = 0;
   DEBUG_LOGF("Size: %u", m_size);
   return true;
 }
@@ -110,7 +113,6 @@ void VLSender::sendLegacy(const Mode *targetMode)
 
 void VLSender::sendByte(uint8_t data)
 {
-  uint8_t parity = 0;
   // Loop through bits 7-0 two at a time
   for (uint8_t i = 0; i < 8; i += 2) {
     // Extract the next two bits as a 2-bit value
@@ -122,10 +124,10 @@ void VLSender::sendByte(uint8_t data)
     // Send both bits as a mark-space pair
     sendMarkSpace(VL_TIMING_BIT(mark), VL_TIMING_BIT(space));
     // Update parity by XOR'ing both bits
-    parity ^= mark ^ space;
+    m_parity ^= mark ^ space;
   }
   // Send final parity bit as mark, followed by a 0 space
-  sendMarkSpace(VL_TIMING_BIT(parity & 1), VL_TIMING_BIT(0));
+  sendMarkSpace(VL_TIMING_BIT(m_parity & 1), VL_TIMING_BIT(0));
 }
 
 void VLSender::sendByteLegacy(uint8_t data)
@@ -161,7 +163,7 @@ void VLSender::startPWM()
   uint8_t oldBrightness = Leds::getBrightness();
   // ensure max brightness
   Leds::setBrightness(255);
-  Leds::setAll(RGB_WHITE);
+  Leds::setIndex(LED_0, RGB_WHITE);
   Leds::update();
   // restore brightness
   Leds::setBrightness(oldBrightness);

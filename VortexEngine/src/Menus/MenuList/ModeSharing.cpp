@@ -56,10 +56,8 @@ Menu::MenuAction ModeSharing::run()
     receiveModeVL();
     break;
   case ModeShareState::SHARE_SEND_VL:
-    // render the 'send mode' lights
-    showSendModeVL();
     // continue sending any data as long as there is more to send
-    //continueSendingVL();
+    continueSendingVL();
     break;
   case ModeShareState::SHARE_RECEIVE_IR:
     // render the 'receive mode' lights
@@ -81,10 +79,14 @@ Menu::MenuAction ModeSharing::run()
 void ModeSharing::onShortClickM()
 {
   switch (m_sharingMode) {
+  case ModeShareState::SHARE_SEND_VL:
+    m_sharingMode = ModeShareState::SHARE_RECEIVE_VL;
+    beginReceivingVL();
+    break;
   case ModeShareState::SHARE_RECEIVE_VL:
     // click while on receive -> end receive, start sending
     VLReceiver::endReceiving();
-    beginSendingVL();
+    m_sharingMode = ModeShareState::SHARE_SEND_VL;
     DEBUG_LOG("Switched to send VL");
     break;
   case ModeShareState::SHARE_RECEIVE_IR:
@@ -215,24 +217,11 @@ void ModeSharing::receiveModeIR()
   }
 }
 
-void ModeSharing::beginSendingVL()
-{
-  // send the first chunk of data, leave if we're done
-  VLSender::send(Modes::curMode());
-  // when send has completed, stores time that last action was completed to calculate interval between sends
-  beginReceivingVL();
-}
-
 void ModeSharing::continueSendingVL()
 {
-  //// if the sender isn't sending then nothing to do
-  //if (!VLSender::isSending()) {
-  //  return;
-  //}
-  //if (!VLSender::send()) {
-  //  // when send has completed, stores time that last action was completed to calculate interval between sends
-  //  beginReceivingVL();
-  //}
+  Leds::clearAll();
+  // send the first chunk of data, leave if we're done
+  VLSender::send(Modes::curMode());
 }
 
 void ModeSharing::beginReceivingVL()
@@ -270,12 +259,6 @@ void ModeSharing::receiveModeVL()
     // leave menu and save settings, even if the mode was the same whatever
     leaveMenu(true);
   }
-}
-
-void ModeSharing::showSendModeVL()
-{
-  // show a dim color when not sending
-  Leds::clearAll();
 }
 
 void ModeSharing::showSendModeIR()

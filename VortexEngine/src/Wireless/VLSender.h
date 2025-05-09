@@ -41,6 +41,7 @@ private:
 
   // some runtime meta info
   static uint8_t m_size;
+  static uint8_t m_parity;
 };
 
 #endif
