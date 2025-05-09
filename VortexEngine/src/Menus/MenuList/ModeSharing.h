@@ -19,6 +19,7 @@ public:
   void onLongClickM() override;
 
 private:
+  void beginSendingVL();
   void continueSendingVL();
   void beginReceivingVL();
   void receiveModeVL();

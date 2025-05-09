@@ -75,6 +75,7 @@ public:
   // delay for some number of microseconds or milliseconds, these are bad
   static void delayMicroseconds(uint32_t us);
   static void delayMilliseconds(uint32_t ms);
+  static void delayMicrosecondsCancellable(uint32_t us);
 
 #ifdef VORTEX_LIB
   // Start a time simulation, while the simulation is active you can

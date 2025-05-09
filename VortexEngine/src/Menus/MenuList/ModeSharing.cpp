@@ -8,6 +8,7 @@
 #include "../../Wireless/VLSender.h"
 #include "../../Wireless/IRReceiver.h"
 #include "../../Wireless/IRSender.h"
+#include "../../Buttons/Buttons.h"
 #include "../../Buttons/Button.h"
 #include "../../Modes/Modes.h"
 #include "../../Modes/Mode.h"
@@ -83,8 +84,7 @@ void ModeSharing::onShortClickM()
   switch (m_sharingMode) {
   case ModeShareState::SHARE_RECEIVE_VL:
     // click while on receive -> end receive, start sending
-    VLReceiver::endReceiving();
-    m_sharingMode = ModeShareState::SHARE_SEND_VL;
+    beginSendingVL();
     DEBUG_LOG("Switched to send VL");
     break;
   case ModeShareState::SHARE_RECEIVE_IR:
@@ -215,19 +215,24 @@ void ModeSharing::receiveModeIR()
   }
 }
 
+void ModeSharing::beginSendingVL()
+{
+  VLReceiver::endReceiving();
+  m_sharingMode = ModeShareState::SHARE_SEND_VL;
+  Buttons::installCancelInterrupt(BUTTON_M_PIN);
+}
+
 void ModeSharing::continueSendingVL()
 {
-  // when the button is released go back to receiving
-  if (!g_pButtonM->isPressed()) {
-    beginReceivingVL();
+  if (Buttons::isCancelRequested()) {
+    // cancel sending and go back to receiving
+    m_sharingMode = ModeShareState::SHARE_RECEIVE_VL;
+    Buttons::removeCancelInterrupt();
     return;
   }
-  // as long as they hold the button, keep sending
-  if (g_pButtonM->holdDuration() >= CLICK_THRESHOLD) {
-    Leds::clearAll();
-    // send the first chunk of data, leave if we're done
-    VLSender::send(Modes::curMode());
-  }
+  Leds::clearAll();
+  // send the first chunk of data, leave if we're done
+  VLSender::send(Modes::curMode());
 }
 
 void ModeSharing::beginReceivingVL()
