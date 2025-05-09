@@ -3,10 +3,6 @@
 
 #include "Button.h"
 
-#ifdef VORTEX_EMBEDDED
-#include <Arduino.h>
-#endif
-
 // the number of buttons, this isn't in VortexConfig.h because
 // changing it won't really work without updating other things
 // like which pins the buttons are attached to. So this is more
@@ -41,12 +37,7 @@ public:
 private:
   // feel free to add more I guess
   static Button m_buttons[NUM_BUTTONS];
-
-#ifdef VORTEX_EMBEDDED
-  static void IRAM_ATTR cancelButtonISR();
-#endif
   static uint8_t m_cancelInterruptPin;
-  static volatile bool cancelButtonPressed;
 };
 
 // Button Left
