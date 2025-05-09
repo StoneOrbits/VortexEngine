@@ -10,9 +10,9 @@ grand_parent: Vortex Engine
 
 The Mode Sharing menu allows you to wirelessly send or receive a mode to either another Duo or to a [Chromadeck](chromadeck_guide.html).
 
-If you purchased a Duo before May 2025 and have no updated it with a Chromadeck then the Modesharing menu will appear white with a click-to-send functionality.
+For users who purchased a Duo before **May 2025** and have not updated, the Modesharing menu has been updated.
 
-After May 2025 all Duos have an enhanced Mode Sharing menu which offers:
+After May 2025 all Duos use an enhanced Mode Sharing menu which offers:
 
  - faster transfer speeds
  - improved transfer reliability and error detection
