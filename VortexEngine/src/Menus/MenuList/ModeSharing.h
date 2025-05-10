@@ -20,23 +20,25 @@ public:
   void onLongClick() override;
 
 private:
-  void beginSending();
-  void continueSending();
-  void beginReceiving();
   void receiveMode();
-
-  void showSendMode();
   void showReceiveMode();
 
   enum class ModeShareState {
-    SHARE_SEND,     // send mode
-    SHARE_RECEIVE,  // receive mode
+    // these three are the main options that can be iterated through
+    // and if the button is held it will send, otherwise receive
+    SHARE_SEND_RECEIVE,           // send/receive mode
+    SHARE_SEND_RECEIVE_LEGACY,    // send/receive mode legacy
+    SHARE_EXIT,                   // exit mode sharing
   };
 
   ModeShareState m_sharingMode;
 
   // the start time when checking for timing out
   uint32_t m_timeOutStartTime;
+
+  // used to track when the receive percentage changes for timeout purposes
+  uint32_t m_lastPercentChange;
+  uint8_t m_lastPercent;
 };
 
 #endif

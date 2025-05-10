@@ -79,7 +79,6 @@ private:
 
     // transmit the mode over visible light
     STATE_TRANSMIT_MODE_VL,
-    STATE_TRANSMIT_MODE_VL_TRANSMIT,
     STATE_TRANSMIT_MODE_VL_DONE,
 
     // editor pulls the modes from device (safer version)

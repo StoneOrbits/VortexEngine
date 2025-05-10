@@ -37,6 +37,8 @@ std::string Storage::m_storageFilename;
 #define STORAGE_FILENAME DEFAULT_STORAGE_FILENAME
 #endif
 
+// size of each page of flash
+#define FLASH_PAGE_SIZE 128
 // The first half of the data goes into the eeprom and then the rest goes into
 // flash, the EEPROM is 256 and storage size is 512 so the flash storage is 256
 #define FLASH_STORAGE_SIZE (STORAGE_SIZE)
@@ -71,9 +73,6 @@ bool Storage::init()
 void Storage::cleanup()
 {
 }
-
-#define FLASH_PAGE_SIZE 128
-
 
 // store a serial buffer to storage
 bool Storage::write(uint8_t slot, ByteStream &buffer)
