@@ -179,6 +179,6 @@ void ModeSharing::showReceiveMode()
     }
     Leds::clearIndex(LED_1);
   } else {
-    Leds::setAll((m_sharingMode == ModeShareState::SHARE_SEND_RECEIVE) ? RGB_CYAN0 : RGB_WHITE0);
+    Leds::setAll((m_sharingMode == ModeShareState::SHARE_SEND_RECEIVE) ? 0x000F05 : RGB_WHITE0);
   }
 }
