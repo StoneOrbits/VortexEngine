@@ -1,64 +1,106 @@
 ---
 layout: default
-title: Mode Sharing
+title: Sharing on Legacy Devices
 nav_order: 1
 parent: Mode Sharing
 grand_parent: Menus
 ---
 
-# Mode Sharing Menu
+<style>
+.device-grid {
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+  margin: 1rem 0;
+}
+.device-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  width: 100px;
+}
+.device-card img {
+  width: 80px;
+  height: 80px;
+  object-fit: contain;
+  margin-bottom: 0.5rem;
+}
+</style>
 
-The Mode Sharing menu allows you to wirelessly send or receive a mode to either another Duo or to a [Chromadeck](chromadeck_guide.html).
+# Mode Sharing on Legacy Devices
 
-In **May 2025** the Modesharing protocol was updated, Duos made before this time will use [Legacy Mode Sharing](mode_sharing_menu_legacy.md).
+<div class="device-grid">
+  <div class="device-card">
+    <img src="assets/images/orbit-logo-square-512.png" alt="Vortex Orbit">
+    <div>Orbit</div>
+  </div>
+  <div class="device-card">
+    <img src="assets/images/handle-logo-square-512.png" alt="Omega Handle">
+    <div>Handles</div>
+  </div>
+  <div class="device-card">
+    <img src="assets/images/gloves-logo-square-512.png" alt="Vortex Glove">
+    <div>Gloves</div>
+  </div>
+</div>
 
-Duos made after May 2025 use an enhanced Mode Sharing protocol which offers:
+Legacy devices like the **Orbit**, **Handle**, and **Wired Gloves** use **Infrared** (IR) for Mode Sharing. These devices **do not support receiving Visible Light**, but they **can send** Visible Light with their LEDs.
 
- - faster transfer speeds
- - improved transfer reliability and error detection
- - improved user interface (hold to continuously send)
+---
 
-The new Mode Sharing menu retains a Legacy Mode Sharing option to still allow transfers with old chips.
+## Sharing Capabilities
 
-## How It Works
+- **Infrared Only**  
+  These devices use IR for wireless mode transfers. 
 
-Mode Sharing is a wireless feature that uses rapid blinks of light to transfer a mode without any physical connection. The sender must align it's blinking LED with the receivers light detector in order for the receiver to decode the blinks of light.
+- **VL Sending via USB**  
+  When connected to [lightshow.lol](https://lightshow.lol), these devices can send **Visible Light transfers** to a Duo using the on-screen transmit button.
 
-The best 
+- **Cannot receive Visible Light**
+  These devices are not equipped with Visible Light sensors and so cannot receive mode transfers from [Duos](duo_guide.html)
 
-## Mode Sharing Options
+---
 
-When in the Mode Sharing menu, **short clicking** cycles between three options:
+## Mode Sharing Menu
 
-- **Send / Receive** (blue)
-- **Send / Receive Legacy** (white)
-- **Exit Mode Sharing** (red blinking)
+Enter the Mode Sharing menu by cycling to <span style="color: #00ffff;">cyan</span> and long clicking.
 
-After selecting the desired option, a long click will activate it.
+### Sending a Mode
 
-- In **Send / Receive**, you can hold the sender in place to continue broadcasting until a device receives it.
-- In **Legacy** mode, the previous sharing protocol is used for compatibility.
-- **Exit** will leave the Mode Sharing menu.
+1. **Pick a Mode**  
+   Navigate to the mode you want to share and hold the button until LEDs flash white.
 
-## Sending a Mode
+2. **Enter Mode Sharing**  
+   Cycle to <span style="color: #00ffff;">cyan</span> and long click.
 
-1. **Select a Mode**: Navigate to the mode you wish to share and hold the button until the LEDs flash white.
-2. **Enter Mode Sharing**: Cycle to <span style="color: #00ffff;">cyan</span> and long click.
-3. **Select "Send / Receive"**: Short click to highlight the send/receive option.
-4. **Start Sending**: Long click to begin broadcasting the mode.
-5. **Keep Holding to Continue Sending**: You can hold the button while aligning the sender with the receiver.
-6. **Stop Sending / Exit**: Select the "Exit Mode Sharing" option and long click to leave.
+3. **Switch to Send Mode**  
+   Short click once — the LED will blink cyan.
 
-## Receiving a Mode
+4. **Send the Mode**  
+   Align devices button-to-button and hold steady during transmission.
 
-1. **Pick a Slot to Overwrite**: Navigate to the mode you want to replace and hold the button until the LEDs flash white.
-2. **Enter Mode Sharing**: Cycle to <span style="color: #00ffff;">cyan</span> and long click.
-3. **Select "Send / Receive"**: Ensure you're on the correct mode sharing option.
-4. **Receive Automatically**: Hold the sender device close, with buttons facing each other. The receiver will automatically save the mode and exit once transfer is complete.
+5. **Exit**  
+   Long click to leave the menu when done.
 
-## Tips for Success
+### Receiving a Mode
 
-- **Alignment Matters**: Buttons of both devices should face each other during transfer.
-- **Close Range Required**: Ensure the devices are held close together.
-- **Hold to Send**: Holding the button during send keeps the transmission active for easier alignment.
-- **Legacy Compatibility**: Use the "Send / Receive Legacy" option for older devices if needed.
+1. **Pick a Slot to Overwrite**  
+   Navigate to the mode you want to replace and hold until LEDs flash white.
+
+2. **Enter Mode Sharing**  
+   Cycle to <span style="color: #00ffff;">cyan</span> and long click.
+
+3. **Wait in Receive Mode**  
+   The LED will be dim cyan by default. Hold the receiver button-to-button with the sender.
+
+4. **Auto-Save and Exit**  
+   Once received, the mode is saved and the menu exits automatically.
+
+---
+
+## Tips for Best Results
+
+- **Use Button-to-Button Alignment** — both the IR emitter and receiver are just beneath the button.
+- **Hold Steady and Close** — IR requires close, stable alignment with no gaps or shifts.
+

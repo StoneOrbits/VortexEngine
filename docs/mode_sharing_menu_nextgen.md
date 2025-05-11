@@ -1,64 +1,149 @@
 ---
 layout: default
-title: Mode Sharing
+title: Sharing on NextGen Devices
 nav_order: 1
 parent: Mode Sharing
 grand_parent: Menus
 ---
 
-# Mode Sharing Menu
+<style>
+.device-grid {
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+  margin: 1rem 0;
+}
+.device-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  width: 100px;
+}
+.device-card img {
+  width: 80px;
+  height: 80px;
+  object-fit: contain;
+  margin-bottom: 0.5rem;
+}
+</style>
 
-The Mode Sharing menu allows you to wirelessly send or receive a mode to either another Duo or to a [Chromadeck](chromadeck_guide.html).
+# Mode Sharing on NextGen Devices
 
-In **May 2025** the Modesharing protocol was updated, Duos made before this time will use [Legacy Mode Sharing](mode_sharing_menu_legacy.md).
+<div class="device-grid">
+  <div class="device-card">
+    <img src="assets/images/spark-logo-square-512.png" alt="Spark Orbit">
+    <div>Spark Orbit</div>
+  </div>
+  <div class="device-card">
+    <img src="assets/images/sparkhandle-logo-square-512.png" alt="Spark Handle">
+    <div>Spark Handle</div>
+  </div>
+  <div class="device-card">
+    <img src="assets/images/chromadeck-logo-square-512.png" alt="Chromadeck">
+    <div>Chromadeck</div>
+  </div>
+</div>
 
-Duos made after May 2025 use an enhanced Mode Sharing protocol which offers:
+NextGen devices — including the **Spark Orbit**, **Spark Handle**, and **Chromadeck** — support both **Visible Light** (VL) and **Infrared** (IR) Mode Sharing. These devices are compatible with Duos, IR devices, and each other.
 
- - faster transfer speeds
- - improved transfer reliability and error detection
- - improved user interface (hold to continuously send)
+## Sharing Capabilities
 
-The new Mode Sharing menu retains a Legacy Mode Sharing option to still allow transfers with old chips.
+- **Visible Light (VL)**  
+  Has both the faster 2025 Visible Light protocol, and the old Visible Light protocol.  Compatible with Duos and other NextGen devices.
 
-## How It Works
+- **Infrared (IR)**  
+  Compatible with Orbit, Handle, Gloves, and other NextGen devices.
 
-Mode Sharing is a wireless feature that uses rapid blinks of light to transfer a mode without any physical connection. The sender must align it's blinking LED with the receivers light detector in order for the receiver to decode the blinks of light.
+## Mode Sharing Menu
 
-The best 
+When you enter the Mode Sharing menu (cyan), use **short clicks** to cycle through:
 
-## Mode Sharing Options
+1. **Send / Receive VL**  
+   (LED color: <span style="color:rgb(0, 255, 155);">teal</span>) — new protocol
 
-When in the Mode Sharing menu, **short clicking** cycles between three options:
+2. **Send / Receive IR**  
+   (LED color: <span style="color:rgb(0, 255, 255);">cyan</span>) — for legacy IR devices
 
-- **Send / Receive** (blue)
-- **Send / Receive Legacy** (white)
-- **Exit Mode Sharing** (red blinking)
+3. **Exit**  
+   (LED color: <span style="color:rgb(255, 0, 0);">blinking red</span>) — leave the menu
 
-After selecting the desired option, a long click will activate it.
+Use a **long click** to activate the selected option.
 
-- In **Send / Receive**, you can hold the sender in place to continue broadcasting until a device receives it.
-- In **Legacy** mode, the previous sharing protocol is used for compatibility.
-- **Exit** will leave the Mode Sharing menu.
+----
 
-## Sending a Mode
+### Sending a Mode (<span style="color: #00ffff;">Infrared</span>)
 
-1. **Select a Mode**: Navigate to the mode you wish to share and hold the button until the LEDs flash white.
-2. **Enter Mode Sharing**: Cycle to <span style="color: #00ffff;">cyan</span> and long click.
-3. **Select "Send / Receive"**: Short click to highlight the send/receive option.
-4. **Start Sending**: Long click to begin broadcasting the mode.
-5. **Keep Holding to Continue Sending**: You can hold the button while aligning the sender with the receiver.
-6. **Stop Sending / Exit**: Select the "Exit Mode Sharing" option and long click to leave.
+1. **Choose a Mode**  
+   Navigate to the mode you want to send and hold the button until LEDs flash white.
 
-## Receiving a Mode
+2. **Enter Mode Sharing**  
+   Cycle to <span style="color: #00ffff;">cyan</span> and long click.
 
-1. **Pick a Slot to Overwrite**: Navigate to the mode you want to replace and hold the button until the LEDs flash white.
-2. **Enter Mode Sharing**: Cycle to <span style="color: #00ffff;">cyan</span> and long click.
-3. **Select "Send / Receive"**: Ensure you're on the correct mode sharing option.
-4. **Receive Automatically**: Hold the sender device close, with buttons facing each other. The receiver will automatically save the mode and exit once transfer is complete.
+3. **Select Protocol**  
+   Use Send / Receive Infrared (<span style="color:rgb(0, 255, 255);">Cyan</span>)  
 
-## Tips for Success
+4. **Start Sending**  
+   Short click to begin broadcasting.  
+   Align devices **button-to-button**
 
-- **Alignment Matters**: Buttons of both devices should face each other during transfer.
-- **Close Range Required**: Ensure the devices are held close together.
-- **Hold to Send**: Holding the button during send keeps the transmission active for easier alignment.
-- **Legacy Compatibility**: Use the "Send / Receive Legacy" option for older devices if needed.
+5. **Exit**  
+   Short click to select Exit, long click to leave the menu when done.
+
+### Receiving a Mode
+
+1. **Choose a Slot to Overwrite**  
+   Navigate to the slot to replace and hold the button until LEDs flash white.
+
+2. **Enter Mode Sharing**  
+   Cycle to cyan and long click.
+
+3. **Select Protocol**  
+   Use Send / Receive Infrared (<span style="color:rgb(0, 255, 255);">Cyan</span>)  
+
+4. **Wait for Sender**  
+   Hold the devices **button-to-button** and keep steady.  
+   The receiving device will save the mode and automatically exit the menu after a successful transfer.
+
+----
+
+### Sending a Mode (<span style="color:rgb(0, 255, 155);">Visible Light</span>)
+
+1. **Choose a Mode**  
+   Navigate to the mode you want to send and hold the button until LEDs flash white.
+
+2. **Enter Mode Sharing**  
+   Cycle to <span style="color: #00ffff;">cyan</span> and long click.
+
+3. **Select Protocol**  
+   Use Send / Receive VL (<span style="color:rgb(0, 255, 155);">teal</span>)  
+
+4. **Start Sending**  
+   Short click to begin broadcasting.  
+   Align devices **button-to-button**
+
+5. **Exit**  
+   Short click to select Exit, long click to leave the menu when done.
+
+### Receiving a Mode
+
+1. **Choose a Slot to Overwrite**  
+   Navigate to the slot to replace and hold the button until LEDs flash white.
+
+2. **Enter Mode Sharing**  
+   Cycle to cyan and long click.
+
+3. **Select Protocol**  
+   Use Send / Receive VL (<span style="color:rgb(0, 255, 155);">teal</span>)  
+
+4. **Wait for Sender**  
+   Hold the devices **button-to-button** and keep steady.  
+   The receiving device will save the mode and automatically exit the menu after a successful transfer.
+
+
+---
+
+## Tips for Best Results
+
+- **Use Button-to-Button Alignment** — sender LED and receiver sensor are located just under the button.
+- **Match Protocols** — both devices must be in the same mode (VL or IR).
