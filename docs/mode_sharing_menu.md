@@ -6,55 +6,106 @@ parent: Menus
 grand_parent: Vortex Engine
 ---
 
+<style>
+.device-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  justify-content: center;
+  margin-top: 0.5rem;
+}
+
+.device-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  width: 100px;
+  text-decoration: none;
+  color: inherit;
+  transition: transform 0.2s ease;
+}
+
+.device-card img {
+  width: 80px;
+  height: 80px;
+  object-fit: contain;
+  margin-bottom: 0.5rem;
+}
+
+.device-card:hover {
+  transform: scale(1.05);
+}
+
+.device-section {
+  margin-bottom: 1.5rem;
+  border: 1px solid #444;
+  border-radius: 8px;
+  padding: 1rem;
+  background: #1a1a1a;
+}
+</style>
+
+{: .warning }
+This page is under construction and may have some small mistakes, apologies and thank you for your patience while we work to update this section
+
 # Mode Sharing Menu
 
-The Mode Sharing menu allows you to wirelessly send or receive a mode to either another Duo or to a [Chromadeck](chromadeck_guide.html).
+The Mode Sharing menu allows wirelessly sending and receiving of modes from one Vortex Device to another. Depending on the device, there are slightly different capabilities of modesharing.
 
-For users who purchased a Duo before **May 2025** and have not updated, the Modesharing menu has been updated.
+Some Mode Sharing uses **Visible Light** and some uses **Infrared Light**, visible light is slower and more error prone but more suitable for small hardware.
 
-After May 2025 all Duos use an enhanced Mode Sharing menu which offers:
+## Device Specific Details
 
- - faster transfer speeds
- - improved transfer reliability and error detection
- - improved user interface (hold to continuously send)
+Read one of the guides below to learn about Mode Sharing on each device
 
-## How It Works
+<div class="device-section">
+  <h2>Duo</h2>
+  <p>The Duo only uses Visible Light mode sharing, optimized for its compact size.</p>
+  <div class="device-grid">
+    <a class="device-card" href="mode_sharing_menu_duo.html">
+      <img src="assets/images/duo-logo-square-512.png" alt="Duo">
+      <div>Duo</div>
+    </a>
+  </div>
+</div>
 
-Mode Sharing is a wireless feature that uses rapid blinks of light to transfer a mode without any physical connection. The sender must align it's blinking LED with the receivers light detector in order for the receiver to decode the blinks of light.
 
-## Mode Sharing Options
+<div class="device-section">
+  <h2>Next-Gen Devices</h2>
+  <p>These newer devices support both Visible Light and Infrared.</p>
+  <div class="device-grid">
+    <a class="device-card" href="mode_sharing_menu_nextgen.html">
+      <img src="assets/images/spark-logo-square-512.png" alt="Spark Orbit">
+      <div>Spark Orbit</div>
+    </a>
+    <a class="device-card" href="mode_sharing_menu_nextgen.html">
+      <img src="assets/images/sparkhandle-logo-square-512.png" alt="Spark Handle">
+      <div>Spark Handle</div>
+    </a>
+    <a class="device-card" href="mode_sharing_menu_nextgen.html">
+      <img src="assets/images/chromadeck-logo-square-512.png" alt="Chromadeck">
+      <div>Chromadeck</div>
+    </a>
+  </div>
+</div>
 
-When in the Mode Sharing menu, **short clicking** cycles between three options:
 
-- **Send / Receive** (blue)
-- **Send / Receive Legacy** (white)
-- **Exit Mode Sharing** (red blinking)
-
-After selecting the desired option, a long click will activate it.
-
-- In **Send / Receive**, you can hold the sender in place to continue broadcasting until a device receives it.
-- In **Legacy** mode, the previous sharing protocol is used for compatibility.
-- **Exit** will leave the Mode Sharing menu.
-
-## Sending a Mode
-
-1. **Select a Mode**: Navigate to the mode you wish to share and hold the button until the LEDs flash white.
-2. **Enter Mode Sharing**: Cycle to <span style="color: #00ffff;">cyan</span> and long click.
-3. **Select "Send / Receive"**: Short click to highlight the send/receive option.
-4. **Start Sending**: Long click to begin broadcasting the mode.
-5. **Keep Holding to Continue Sending**: You can hold the button while aligning the sender with the receiver.
-6. **Stop Sending / Exit**: Select the "Exit Mode Sharing" option and long click to leave.
-
-## Receiving a Mode
-
-1. **Pick a Slot to Overwrite**: Navigate to the mode you want to replace and hold the button until the LEDs flash white.
-2. **Enter Mode Sharing**: Cycle to <span style="color: #00ffff;">cyan</span> and long click.
-3. **Select "Send / Receive"**: Ensure you're on the correct mode sharing option.
-4. **Receive Automatically**: Hold the sender device close, with buttons facing each other. The receiver will automatically save the mode and exit once transfer is complete.
-
-## Tips for Success
-
-- **Alignment Matters**: Buttons of both devices should face each other during transfer.
-- **Close Range Required**: Ensure the devices are held close together.
-- **Hold to Send**: Holding the button during send keeps the transmission active for easier alignment.
-- **Legacy Compatibility**: Use the "Send / Receive Legacy" option for older devices if needed.
+<div class="device-section">
+  <h2>Legacy Infrared Devices</h2>
+  <p>These older devices support Infrared, but they lack visible light receivers. They can still send Visible Light transfers though.</p>
+  <div class="device-grid">
+    <a class="device-card" href="mode_sharing_menu_legacy.html">
+      <img src="assets/images/orbit-logo-square-512.png" alt="Vortex Orbit">
+      <div>Vortex Orbit</div>
+    </a>
+    <a class="device-card" href="mode_sharing_menu_legacy.html">
+      <img src="assets/images/handle-logo-square-512.png" alt="Omega Handle">
+      <div>Handles</div>
+    </a>
+    <a class="device-card" href="mode_sharing_menu_legacy.html">
+      <img src="assets/images/gloves-logo-square-512.png" alt="Vortex Glove">
+      <div>Gloves</div>
+    </a>
+  </div>
+</div>
