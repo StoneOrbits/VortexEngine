@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Sharing on NextGen Devices
+title: Sharing on NextGen
 nav_order: 1
 parent: Mode Sharing
 grand_parent: Menus
