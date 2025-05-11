@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Sharing on Legacy Devices
+title: Sharing on Legacy
 nav_order: 1
 parent: Mode Sharing
 grand_parent: Menus
@@ -101,6 +101,7 @@ Enter the Mode Sharing menu by cycling to <span style="color: #00ffff;">cyan</sp
 
 ## Tips for Best Results
 
-- **Use Button-to-Button Alignment** — both the IR emitter and receiver are just beneath the button.
-- **Hold Steady and Close** — IR requires close, stable alignment with no gaps or shifts.
+- **Use Button-to-Button Alignment** - both the IR emitter and receiver are just beneath the button.
+- **Hold Steady and Close** - IR requires close, stable alignment with no gaps or shifts.
+- **Ensure One is Sending** - One device (the sender) should be blinking the other (receiver) should be solid.
 
