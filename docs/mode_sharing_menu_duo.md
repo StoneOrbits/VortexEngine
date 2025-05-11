@@ -26,7 +26,7 @@ grand_parent: Menus
   <div class="device-card">
     <img src="assets/images/duo-logo-square-512.png" alt="Duo">
   </div>
-<div>
+</div>
 
 # Mode Sharing on Duos
 
