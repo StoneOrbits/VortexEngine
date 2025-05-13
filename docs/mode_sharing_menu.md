@@ -44,6 +44,10 @@ grand_parent: Vortex Engine
   padding: 1rem;
   background: #1a1a1a;
 }
+
+.device-section h2 {
+  margin-top: 0.25em;
+}
 </style>
 
 {: .warning }
@@ -70,10 +74,9 @@ Read one of the guides below to learn about Mode Sharing on each device
   </div>
 </div>
 
-
 <div class="device-section">
-  <h2>Next-Gen Devices</h2>
-  <p>These newer devices support both Visible Light and Infrared.</p>
+  <h2>Next-Gen Hybrid Devices</h2>
+  <p>These newer devices are a hybrid design that fully support both Visible Light and Infrared.</p>
   <div class="device-grid">
     <a class="device-card" href="mode_sharing_menu_nextgen.html">
       <img src="assets/images/spark-logo-square-512.png" alt="Spark Orbit">
@@ -90,10 +93,9 @@ Read one of the guides below to learn about Mode Sharing on each device
   </div>
 </div>
 
-
 <div class="device-section">
   <h2>Legacy Infrared Devices</h2>
-  <p>These older devices support Infrared, but they lack visible light receivers. They can still send Visible Light transfers though.</p>
+  <p>These older devices only support Infrared and Visible Light sending, they lack Visible Light receivers.</p>
   <div class="device-grid">
     <a class="device-card" href="mode_sharing_menu_legacy.html">
       <img src="assets/images/orbit-logo-square-512.png" alt="Vortex Orbit">
