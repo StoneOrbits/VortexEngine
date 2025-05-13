@@ -49,22 +49,17 @@ In **May 2025**, the visible light Mode Sharing protocol was upgraded. All Duos 
   - Click to send once (bad design)
   - Default for old Duos
 
-If your Duo **only shows a dim white LED** in the Mode Sharing menu, it is still using **legacy firmware**. Updating is recommended to access the new protocol.
+If your Duo **only shows a dim white LED** in the Mode Sharing menu, it is still using **legacy modesharing**. [Updating wth a Chromadeck](duo_chromalink_guide.html) is recommended to access the new protocol.
 
 ---
 
 ## Mode Sharing Menu
 
-Once in the Mode Sharing menu (<span style="color:rgb(0, 255, 255);">cyan</span>), use **short clicks** to cycle through options:
+The Mode Sharing menu (<span style="color:rgb(0, 255, 255);">cyan</span>) offers three options:
 
-1. **Send / Receive**  
-   New 2025 protocol (LED color: <span style="color:rgb(0, 255, 155);">teal</span>)
-
-2. **Send / Receive Legacy**  
-   Legacy compatibility mode (LED color: <span style="color:rgb(255, 255, 255);">white</span>)
-
-3. **Exit**  
-   Leave the menu (LED color: <span style="color:rgb(255, 0, 0);">blinking red</span>)
+1. **Send / Receive**:  Send/receive with new protocol (LED color: <span style="color:rgb(0, 255, 155);">teal</span>)
+2. **Send / Receive Legacy**: Send/receive legacy compatibility mode (LED color: <span style="color:rgb(255, 255, 255);">white</span>)
+3. **Exit**: Leave the menu (LED color: <span style="color:rgb(255, 0, 0);">blinking red</span>)
 
 Use a **long click** to activate the currently selected option.
 
