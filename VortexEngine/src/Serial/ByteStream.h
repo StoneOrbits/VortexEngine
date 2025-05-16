@@ -117,7 +117,7 @@ public:
   // return the members
   const uint8_t *data() const { return m_pData ? m_pData->buf : nullptr; }
   void *rawData() const { return m_pData; }
-  uint32_t rawSize() const { return m_pData ? m_pData->size + sizeof(RawBuffer) : 0; }
+  uint16_t rawSize() const { return m_pData ? (uint16_t)m_pData->size + sizeof(RawBuffer) : 0; }
   uint32_t size() const { return m_pData ? m_pData->size : 0; }
   uint32_t capacity() const { return m_capacity; }
   bool is_compressed() const;
@@ -183,9 +183,9 @@ private:
   // The raw buffer of data along with size and flags
   RawBuffer *m_pData;
   // the index in the raw buffer for unserialization
-  uint32_t m_position;
+  uint16_t m_position;
   // the actual size of the buffer raw buffer
-  uint32_t m_capacity;
+  uint16_t m_capacity;
 };
 
 #endif
