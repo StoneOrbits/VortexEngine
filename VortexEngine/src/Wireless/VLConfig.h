@@ -28,7 +28,12 @@
 // These are the modern constants for new sender/receiver in modesharing
 // new one is faster, more reliable, and better at error detection
 #define VL_TIMING (uint16_t)(2230)
+// NOTE! Only the chromadeck uses this 'fast' timing to send, because it's cpu
+// is running so much faster it can handle it in the sender code. The Duo
+// receiver has no issue with the faster speed but the Duo sender cannot do it
+#define VL_TIMING_FAST (uint16_t)(1230)
 
+// despite the faster VL_TIMING the header mark and space must remain the same
 #define VL_HEADER_MARK (uint16_t)(VL_TIMING * 16)
 #define VL_HEADER_SPACE (uint16_t)(VL_TIMING * 8)
 
@@ -38,8 +43,8 @@
 #define VL_HEADER_MARK_MAX ((uint16_t)(VL_HEADER_MARK * VL_THRES_UP))
 #define VL_HEADER_SPACE_MAX ((uint16_t)(VL_HEADER_SPACE * VL_THRES_UP))
 
-#define VL_TIMING_BIT_ONE (uint16_t)(VL_TIMING * 3)
-#define VL_TIMING_BIT_ZERO (uint16_t)(VL_TIMING)
+#define VL_TIMING_BIT_ONE (uint16_t)(VL_TIMING_FAST * 3)
+#define VL_TIMING_BIT_ZERO (uint16_t)(VL_TIMING_FAST)
 #define VL_TIMING_BIT(bit) (bit ? VL_TIMING_BIT_ONE : VL_TIMING_BIT_ZERO)
 
 // legacy constants for old sender/receiver in modesharing, this one is
