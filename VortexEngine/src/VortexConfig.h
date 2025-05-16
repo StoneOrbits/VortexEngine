@@ -197,7 +197,7 @@
 // This should not be set to 0, it should be a specific maximum for
 // each separate device
 //
-#define MAX_MODES             5
+#define MAX_MODES             9
 
 // Default Tickrate in Ticks Per Second (TPS)
 //
@@ -290,7 +290,7 @@
 // This is the amount of time in ms for the IR receiver to wait
 // before reseting itself in the case that communication gets
 // interrupted.
-#define IR_RECEIVER_TIMEOUT_DURATION 2000
+#define IR_RECEIVER_TIMEOUT_DURATION 500
 
 // IR Sender Wait Duration (ms)
 //
@@ -552,6 +552,17 @@
 // the done message from the device when it done the command
 #define EDITOR_VERB_PUSH_EACH_MODE_DONE   "H"
 
+// flash firmware
+#define EDITOR_VERB_FLASH_FIRMWARE        "I"
+// the response to each one
+#define EDITOR_VERB_FLASH_FIRMWARE_ACK    "J"
+// done flashing firmware
+#define EDITOR_VERB_FLASH_FIRMWARE_DONE   "K"
+
+// set the global brightness of the device
+#define EDITOR_VERB_SET_GLOBAL_BRIGHTNESS "L"
+// get the global brightness of the device
+#define EDITOR_VERB_GET_GLOBAL_BRIGHTNESS "M"
 
 // ===================================================================
 //  Manually Configured Sizes

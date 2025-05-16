@@ -52,6 +52,9 @@ protected:
   // iterate to next bulb selection
   void nextBulbSelection();
 
+  // skip led selection
+  void bypassLedSelection(LedMap map);
+
   // the mode copied from the current mode used to preview changes
   Mode m_previewMode;
   // the color of this menu

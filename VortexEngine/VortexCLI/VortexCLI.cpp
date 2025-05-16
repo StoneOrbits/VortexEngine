@@ -485,7 +485,7 @@ bool VortexCLI::init(int argc, char *argv[])
   }
 
   // do the vortex init/setup
-  Vortex::init<VortexCLICallbacks>();
+  Vortex::initEx<VortexCLICallbacks>();
 
   // configure the vortex engine as the parameters dictate
   Vortex::setInstantTimestep(m_noTimestep);
@@ -632,10 +632,10 @@ void VortexCLI::cleanup()
   }
   if (m_jsonMode & JSON_MODE_WRITE_STDOUT) {
     // dump the current save in json format
-    Vortex::dumpJson(nullptr, m_jsonPretty);
+    Vortex::printJson(m_jsonPretty);
   }
   if (m_jsonMode & JSON_MODE_WRITE_FILE) {
-    Vortex::dumpJson(m_jsonOutFile.c_str(), m_jsonPretty);
+    Vortex::printJsonToFile(m_jsonOutFile.c_str(), m_jsonPretty);
     printf("Wrote JSON to file [%s]\n", m_jsonOutFile.c_str());
   }
   if (m_writeSaveFile.length() > 0) {

@@ -338,6 +338,15 @@ bool ByteStream::isCRCDirty() const
   return (m_pData && (m_pData->flags & BUFFER_FLAG_DIRTY) != 0);
 }
 
+void ByteStream::setCRCDirty()
+{
+  if (!m_pData) {
+    return;
+  }
+  // set the dirty flag
+  m_pData->flags |= BUFFER_FLAG_DIRTY;
+}
+
 bool ByteStream::serialize8(uint8_t byte)
 {
   //DEBUG_LOGF("Serialize8(): %u", byte);
@@ -350,7 +359,7 @@ bool ByteStream::serialize8(uint8_t byte)
   // walk forward
   m_pData->size += sizeof(uint8_t);
   // dirty the crc
-  m_pData->flags |= BUFFER_FLAG_DIRTY;
+  setCRCDirty();
   return true;
 }
 
@@ -366,7 +375,7 @@ bool ByteStream::serialize16(uint16_t bytes)
   // walk forward
   m_pData->size += sizeof(uint16_t);
   // dirty the crc
-  m_pData->flags |= BUFFER_FLAG_DIRTY;
+  setCRCDirty();
   return true;
 }
 
@@ -382,7 +391,7 @@ bool ByteStream::serialize32(uint32_t bytes)
   // walk forward
   m_pData->size += sizeof(uint32_t);
   // dirty the crc
-  m_pData->flags |= BUFFER_FLAG_DIRTY;
+  setCRCDirty();
   return true;
 }
 
@@ -444,6 +453,79 @@ bool ByteStream::unserialize32(uint32_t *bytes)
   memcpy(bytes, m_pData->buf + m_position, sizeof(uint32_t));
   //DEBUG_LOGF("Unserialize32(): %u", *bytes);
   m_position += sizeof(uint32_t);
+  return true;
+}
+
+// unserialize data and erase it from the buffer
+bool ByteStream::consume8(uint8_t *bytes)
+{
+  if (!m_pData || m_pData->size < sizeof(uint8_t)) {
+    return false;
+  }
+  if (bytes) {
+    // copy out the data
+    memcpy(bytes, m_pData->buf, sizeof(uint8_t));
+  }
+  // adjust the size
+  m_pData->size -= sizeof(uint8_t);
+  // shift the data
+  memmove(m_pData->buf, m_pData->buf + sizeof(uint8_t), m_pData->size);
+  // dirty the crc
+  setCRCDirty();
+  return true;
+}
+
+bool ByteStream::consume16(uint16_t *bytes)
+{
+  if (!m_pData || m_pData->size < sizeof(uint16_t)) {
+    return false;
+  }
+  if (bytes) {
+    // copy out the data
+    memcpy(bytes, m_pData->buf, sizeof(uint16_t));
+  }
+  // adjust the size
+  m_pData->size -= sizeof(uint16_t);
+  // shift the data
+  memmove(m_pData->buf, m_pData->buf + sizeof(uint16_t), m_pData->size);
+  // dirty the crc
+  setCRCDirty();
+  return true;
+}
+
+bool ByteStream::consume32(uint32_t *bytes)
+{
+  if (!m_pData || m_pData->size < sizeof(uint32_t)) {
+    return false;
+  }
+  if (bytes) {
+    // copy out the data
+    memcpy(bytes, m_pData->buf, sizeof(uint32_t));
+  }
+  // adjust the size
+  m_pData->size -= sizeof(uint32_t);
+  // shift the data
+  memmove(m_pData->buf, m_pData->buf + sizeof(uint32_t), m_pData->size);
+  // dirty the crc
+  setCRCDirty();
+  return true;
+}
+
+bool ByteStream::consume(uint32_t size, void *bytes)
+{
+  if (!m_pData || m_position >= m_pData->size || (m_pData->size - m_position) < size) {
+    return false;
+  }
+  if (bytes) {
+    // copy out the data
+    memcpy(bytes, m_pData->buf, size);
+  }
+  // adjust the size
+  m_pData->size -= size;
+  // shift the data
+  memmove(m_pData->buf, m_pData->buf + size, m_pData->size);
+  // dirty the crc
+  setCRCDirty();
   return true;
 }
 

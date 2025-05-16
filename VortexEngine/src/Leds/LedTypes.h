@@ -70,6 +70,9 @@ enum Pair : uint8_t
   PAIR_LAST = (PAIR_COUNT - 1),
 };
 
+// Compile-time check on the number of pairs and leds
+static_assert(LED_COUNT == (PAIR_COUNT * 2), "Incorrect number of Pairs for Leds! Adjust the Led enum or Pair enum to match");
+
 // backwards compat with bigger patterns
 #define LED_2 LED_0
 #define LED_3 LED_1
@@ -110,7 +113,7 @@ typedef uint64_t LedMap;
 #define MAP_IS_ONE_LED(map) (map && !(map & (map-1)))
 
 // foreach led macro (only iterates singles)
-#define MAP_FOREACH_LED(map) for (LedPos pos = ledmapGetFirstLed(map); pos < LED_COUNT; pos = ledmapGetNextLed(map, pos))
+#define MAP_FOREACH_LED(map) for (LedPos pos = ledmapGetFirstLed(map); pos != LED_COUNT; pos = ledmapGetNextLed(map, pos))
 
 // convert a map to the first Led position in the map
 inline LedPos ledmapGetFirstLed(LedMap map)

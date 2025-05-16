@@ -1,3 +1,5 @@
+.PHONY: all clean install serial upload compute_version
+
 ifeq ($(OS),Windows_NT) # Windows
     BINDIR="C:/Program Files (x86)/Atmel/Studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/"
     AVRDUDEDIR="$(shell echo "$$LOCALAPPDATA")/Arduino15/packages/DxCore/tools/avrdude/6.3.0-arduino17or18/bin"
@@ -67,19 +69,6 @@ BOOTEND = 0x7e
 # The branch/tag suffix for this device
 BRANCH_SUFFIX=d
 
-# Fetch tags, determine version numbers based on the latest tag, and slice off the branch suffix
-VORTEX_VERSION_MAJOR ?= $(shell git fetch --depth=1 origin +refs/tags/*:refs/tags/* &> /dev/null && git tag --list "*$(BRANCH_SUFFIX)" | sort -V | tail -n1 | cut -d. -f1)
-VORTEX_VERSION_MINOR ?= $(shell git tag --list "*$(BRANCH_SUFFIX)" | sort -V | tail -n1 | sed 's/$(BRANCH_SUFFIX)$$//' | cut -d. -f2)
-VORTEX_BUILD_NUMBER ?= $(shell git rev-list --count HEAD)
-
-# If no tags are found, default to 0.1.0
-VORTEX_VERSION_MAJOR := $(if $(VORTEX_VERSION_MAJOR),$(VORTEX_VERSION_MAJOR),0)
-VORTEX_VERSION_MINOR := $(if $(VORTEX_VERSION_MINOR),$(VORTEX_VERSION_MINOR),1)
-VORTEX_BUILD_NUMBER := $(if $(VORTEX_BUILD_NUMBER),$(VORTEX_BUILD_NUMBER),0)
-
-# Combine into a full version number
-VORTEX_VERSION_NUMBER := $(VORTEX_VERSION_MAJOR).$(VORTEX_VERSION_MINOR).$(VORTEX_BUILD_NUMBER)
-
 # compiler defines
 DEFINES=\
 	-DVORTEX_VERSION_MAJOR=$(VORTEX_VERSION_MAJOR) \
@@ -147,7 +136,7 @@ DFILES = $(SRCS:.cpp=.d)
 # Target name
 TARGET = vortex
 
-all: $(TARGET).hex
+all: compute_version $(TARGET).hex
 	$(OBJDUMP) --disassemble --source --line-numbers --demangle --section=.text $(TARGET).elf > $(TARGET).lst
 	$(NM) --numeric-sort --line-numbers --demangle --print-size --format=s $(TARGET).elf > $(TARGET).map
 	chmod +x avrsize.sh
@@ -168,7 +157,7 @@ $(TARGET).elf: $(OBJS)
 %.o: %.cpp
 	$(CC) $(CFLAGS) -c $< -o $@
 
-upload: $(TARGET).hex
+upload: all
 	$(AVRDUDE) $(AVRDUDE_FLAGS) \
 		-Ufuse0:w:$(WDTCFG):m \
 		-Ufuse1:w:$(BODCFG):m \
@@ -181,9 +170,22 @@ upload: $(TARGET).hex
 		-Uflash:w:$(TARGET).hex:i
 
 # upload via SerialUPDI
-serial: $(TARGET).hex
+serial: all
 	$(PYTHON) -u $(PYPROG) -t uart -u $(SERIAL_PORT) -b 921600 -d $(AVRDUDE_CHIP) \
-		--fuses 0:$(WDTCFG) 1:$(BODCFG) 2:$(OSCCFG) 4:$(TCD0CFG) 5:$(SYSCFG0) 6:$(SYSCFG1) 7:$(APPEND) 8:$(BOOTEND) -f $< -a write -v
+		--fuses 0:$(WDTCFG) 1:$(BODCFG) 2:$(OSCCFG) 4:$(TCD0CFG) 5:$(SYSCFG0) 6:$(SYSCFG1) 7:$(APPEND) 8:$(BOOTEND) -f $(TARGET).hex -a write -v
+
+production:
+	@FILE_URL=$$(curl -s https://vortex.community/downloads/json/duo | sed -n 's/.*"fileUrl":"\([^"]*\)".*/\1/p'); \
+	FILENAME=$$(basename $$FILE_URL); \
+	if [ ! -f "$$FILENAME" ]; then \
+		echo "Downloading new firmware: $$FILENAME"; \
+		curl -L -O "$$FILE_URL"; \
+	fi; \
+	$(OBJCOPY) -I binary -O ihex $$FILENAME firmware.hex > /dev/null; \
+	echo "Uploading Duo Firmware: $$FILENAME"; \
+	$(PYTHON) -u $(PYPROG) -t uart -u $(SERIAL_PORT) -b 921600 -d $(AVRDUDE_CHIP) \
+		--fuses 0:$(WDTCFG) 1:$(BODCFG) 2:$(OSCCFG) 4:$(TCD0CFG) 5:$(SYSCFG0) 6:$(SYSCFG1) 7:$(APPEND) 8:$(BOOTEND) -f firmware.hex -a write -v
+	rm -f firmware.hex > /dev/null
 
 ifneq ($(OS),Windows_NT) # Linux
 build: all
@@ -206,7 +208,17 @@ install:
 endif
 
 clean:
-	rm -f $(OBJS) $(TARGET).elf $(TARGET).hex $(DFILES)
+	rm -f $(OBJS) $(TARGET).elf $(TARGET).hex $(TARGET).bin $(DFILES)
+
+compute_version:
+	$(eval LATEST_TAG ?= $(shell git fetch --depth=1 origin +refs/tags/*:refs/tags/* &> /dev/null && git tag --list "*$(BRANCH_SUFFIX)" | sort -V | tail -n1))
+	$(eval VORTEX_VERSION_MAJOR ?= $(shell echo $(LATEST_TAG) | cut -d. -f1))
+	$(eval VORTEX_VERSION_MINOR ?= $(shell echo $(LATEST_TAG) | sed 's/$(BRANCH_SUFFIX)$$//' | cut -d. -f2))
+	$(eval VORTEX_BUILD_NUMBER ?= $(shell git rev-list --count $(LATEST_TAG)..HEAD))
+	$(eval VORTEX_VERSION_MAJOR := $(if $(VORTEX_VERSION_MAJOR),$(VORTEX_VERSION_MAJOR),0))
+	$(eval VORTEX_VERSION_MINOR := $(if $(VORTEX_VERSION_MINOR),$(VORTEX_VERSION_MINOR),1))
+	$(eval VORTEX_BUILD_NUMBER := $(if $(VORTEX_BUILD_NUMBER),$(VORTEX_BUILD_NUMBER),0))
+	$(eval VORTEX_VERSION_NUMBER := $(VORTEX_VERSION_MAJOR).$(VORTEX_VERSION_MINOR).$(VORTEX_BUILD_NUMBER))
 
 # include dependency files to ensure partial rebuilds work correctly
 -include $(DFILES)

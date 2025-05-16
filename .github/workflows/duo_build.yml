@@ -37,6 +37,8 @@ jobs:
             VERSION_NUMBER=$(echo $LATEST_TAG | sed "s/${BRANCH_SUFFIX}//g")
             VERSION_MAJOR=$(echo $VERSION_NUMBER | cut -d. -f1)
             VERSION_MINOR=$(echo $VERSION_NUMBER | cut -d. -f2)
+            echo "Revisions:"
+            git rev-list $LATEST_TAG..HEAD
             BUILD_NUMBER=$(git rev-list --count $LATEST_TAG..HEAD)
           fi
           FULL_VERSION="$VERSION_MAJOR.$VERSION_MINOR.$BUILD_NUMBER"
@@ -150,7 +152,7 @@ jobs:
           echo "Listing contents of docs/duo:"
           ls -R docs/duo || echo "No files found in docs/duo"
       - name: Upload Doxygen Documentation as Artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: doxygen-docs-duo
           path: docs/duo

@@ -76,6 +76,8 @@ public:
   // check whether the data in the buffer has changed since the
   // crc has been re-calculated, if it is dirty, call recalcCRC
   bool isCRCDirty() const;
+  // mark the CRC as dirty (manually modified the buffer or something)
+  void setCRCDirty();
 
   // serialize a byte into the buffer
   bool serialize8(uint8_t byte);
@@ -89,10 +91,18 @@ public:
   // check if the unserializer is at the end
   bool unserializerAtEnd() const;
 
-  // serialize a byte into the buffer
+  // unserialize data out of the buffer
   bool unserialize8(uint8_t *byte);
   bool unserialize16(uint16_t *bytes);
   bool unserialize32(uint32_t *bytes);
+
+  // unserialize data and erase it from the buffer
+  bool consume8(uint8_t *byte = nullptr);
+  bool consume16(uint16_t *bytes = nullptr);
+  bool consume32(uint32_t *bytes = nullptr);
+
+  // unserialize and consume a whole chunk
+  bool consume(uint32_t size, void *bytes = nullptr);
 
   uint8_t peek8() const;
   uint16_t peek16() const;
@@ -107,7 +117,7 @@ public:
   // return the members
   const uint8_t *data() const { return m_pData ? m_pData->buf : nullptr; }
   void *rawData() const { return m_pData; }
-  uint32_t rawSize() const { return m_pData ? m_pData->size + sizeof(RawBuffer) : 0; }
+  uint16_t rawSize() const { return m_pData ? (uint16_t)m_pData->size + sizeof(RawBuffer) : 0; }
   uint32_t size() const { return m_pData ? m_pData->size : 0; }
   uint32_t capacity() const { return m_capacity; }
   bool is_compressed() const;

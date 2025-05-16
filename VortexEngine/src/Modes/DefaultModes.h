@@ -10,7 +10,7 @@ struct DefaultLedEntry
 {
   PatternID patternID;
   uint8_t numColors;
-  uint32_t cols[MAX_COLOR_SLOTS];
+  const uint32_t *cols;
 };
 
 struct DefaultModeEntry

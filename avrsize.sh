@@ -46,7 +46,7 @@ if [ ! -z "$2" ] && [ "$(printf '%d' $2)" -lt "$(printf '%d' $PROGRAM_STORAGE_US
 	echo "---------"
 	echo "Failure! Program space: 0x$(printf '%x' $PROGRAM_STORAGE_USED) larger than allowed: 0x$(printf '%x' $2)"
 	echo "Reduce program size within 0x$(printf '%x' $2), or reduce flash storage space then adjust BOOTEND in the Makefile"
-	#exit 1
+	exit 1
 fi
 
 # Display the results

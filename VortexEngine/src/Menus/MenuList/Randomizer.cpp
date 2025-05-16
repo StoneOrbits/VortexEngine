@@ -147,11 +147,14 @@ bool Randomizer::reRoll()
     if (!reRollMulti()) {
       return false;
     }
+  } else if (!reRollSingles()) {
+    return false;
   }
-#endif
+#else
   if (!reRollSingles()) {
     return false;
   }
+#endif
   // initialize the mode with the new pattern and colorset
   m_previewMode.init();
   return true;

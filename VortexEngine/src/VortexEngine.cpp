@@ -173,15 +173,6 @@ void VortexEngine::tick()
     return;
   }
 #endif
-  // handle any fatal errors that may have occurred
-  // but only if the error blinker is enabled
-#if VORTEX_ERROR_BLINK == 1
-  if (getError() != ERROR_NONE) {
-    // just blink the error and don't run anything
-    blinkError();
-    return;
-  }
-#endif
 
   // tick the current time counter forward
   Time::tickClock();
@@ -252,14 +243,26 @@ void VortexEngine::runMainLogic()
   }
 
 #ifdef VORTEX_EMBEDDED
-  // ESD PROTECTION!
-  // Sometimes the chip can be turned on via ESD triggering the wakeup pin
-  // if the engine makes it here in less than 2 ticks that means the device turned on
-  // via ESD and not via a normal click which cannot possibly be done in less than 1 tick
-  if (now < 2) {
-    // if that happens then just gracefully go back to sleep to prevent the chip
-    // from turning on randomly in a plastic bag
-    // do not save on ESD re-sleep
+  // originally this check was believed to protect against ESD but not so sure
+  // anymore, it's clear that it stops the chip from turning on when it initially
+  // receives power but ESD tests fail now (put chip in sandwich bag and shake it).
+  // This is now where initialization runs right after a fresh firmware flash.
+  // The first tick of the engine is 1 not 0 because oops.
+  if (now == 1) {
+    // This check is for whether a new firmware was just flashed, if a new
+    // firmware was flashed then write out a new save header
+    if (Modes::getFlag(MODES_FLAG_NEW_FIRMWARE)) {
+      // reset the flags back to normal
+      Modes::resetFlags();
+      // try to load the modes and hope it works, need the num modes to write a
+      // new save header and they may have backed up and restored a custom number
+      // of modes
+      Modes::load();
+      // then save the new header with current version and num modes etc
+      Modes::saveHeader();
+    }
+    // then just gracefully go back to sleep to prevent the chip from turning
+    // on randomly when it receives power
     enterSleep(false);
     return;
   }
@@ -426,7 +429,7 @@ void VortexEngine::enterSleep(bool save)
   g_pButton->enableWake();
   // Set sleep mode to POWER DOWN mode
   set_sleep_mode(SLEEP_MODE_PWR_DOWN);
-  // enable the sleep boo lright before we enter sleep, this will allow
+  // enable the sleep bool right before we enter sleep, this will allow
   // the main loop to break and return
   m_sleeping = true;
   // enter sleep

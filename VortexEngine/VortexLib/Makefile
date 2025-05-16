@@ -2,7 +2,7 @@
 .SUFFIXES:
 
 # List all make targets which are not filenames
-.PHONY: all tests clean wasm
+.PHONY: all tests clean wasm compute_version
 
 # compiler tool definitions
 ifdef WASM
@@ -24,17 +24,8 @@ ifndef WASM
 CFLAGS += -g
 endif
 
-# Determine the current version based on Git tags
-VORTEX_VERSION_MAJOR ?= $(shell git fetch --depth=1 origin +refs/tags/*:refs/tags/* &> /dev/null && git tag --list | grep -E "^[[:digit:]]+\.[[:digit:]]+\$$" | sort -V | tail -n1 | cut -d. -f1)
-VORTEX_VERSION_MINOR ?= $(shell git tag --list | grep -E "^[[:digit:]]+\.[[:digit:]]+\$$" | sort -V | tail -n1 | cut -d. -f2)
-VORTEX_BUILD_NUMBER ?= $(shell git rev-list --count HEAD)
-
-# If no tags are found, default to 0.1.0
-VORTEX_VERSION_MAJOR := $(if $(VORTEX_VERSION_MAJOR),$(VORTEX_VERSION_MAJOR),0)
-VORTEX_VERSION_MINOR := $(if $(VORTEX_VERSION_MINOR),$(VORTEX_VERSION_MINOR),1)
-VORTEX_BUILD_NUMBER := $(if $(VORTEX_BUILD_NUMBER),$(VORTEX_BUILD_NUMBER),0)
-
-VORTEX_VERSION_NUMBER ?= $(VORTEX_VERSION_MAJOR).$(VORTEX_VERSION_MINOR).$(VORTEX_BUILD_NUMBER)
+# The branch/tag suffix for this device
+BRANCH_SUFFIX=d
 
 # compiler defines
 DEFINES=\
@@ -132,11 +123,11 @@ wasm: FORCE
 	env WASM=1 $(MAKE)
 
 # target for vortex lib
-vortex.a: $(DEPS)
-	$(AR) $@ $^
+vortex.a: compute_version $(DEPS)
+	$(AR) $@ $(DEPS)
 
-VortexLib.js: $(DEPS)
-	$(CC) $(LDFLAGS) $^ -o $@ $(LLIBS)
+VortexLib.js: compute_version $(DEPS)
+	$(CC) $(LDFLAGS) $(DEPS) -o $@ $(LLIBS)
 
 # catch-all make target to generate .o and .d files
 %.o: %.cpp
@@ -155,6 +146,17 @@ FORCE:
 # generic clean target
 clean:
 	@$(RM) $(DFILES) $(OBJS) $(TARGETS) $(TESTS) VortexLib.js vortex.wasm
+
+# calculate the version number of the build
+compute_version:
+	$(eval LATEST_TAG ?= $(shell git fetch --depth=1 origin +refs/tags/*:refs/tags/* &> /dev/null && git tag --list "*$(BRANCH_SUFFIX)" | sort -V | tail -n1))
+	$(eval VORTEX_VERSION_MAJOR ?= $(shell echo $(LATEST_TAG) | cut -d. -f1))
+	$(eval VORTEX_VERSION_MINOR ?= $(shell echo $(LATEST_TAG) | sed 's/$(BRANCH_SUFFIX)$$//' | cut -d. -f2))
+	$(eval VORTEX_BUILD_NUMBER ?= $(shell git rev-list --count $(LATEST_TAG)..HEAD))
+	$(eval VORTEX_VERSION_MAJOR := $(if $(VORTEX_VERSION_MAJOR),$(VORTEX_VERSION_MAJOR),0))
+	$(eval VORTEX_VERSION_MINOR := $(if $(VORTEX_VERSION_MINOR),$(VORTEX_VERSION_MINOR),1))
+	$(eval VORTEX_BUILD_NUMBER := $(if $(VORTEX_BUILD_NUMBER),$(VORTEX_BUILD_NUMBER),0))
+	$(eval VORTEX_VERSION_NUMBER := $(VORTEX_VERSION_MAJOR).$(VORTEX_VERSION_MINOR).$(VORTEX_BUILD_NUMBER))
 
 # Now include our target dependency files
 # the hyphen means ignore non-existent files
