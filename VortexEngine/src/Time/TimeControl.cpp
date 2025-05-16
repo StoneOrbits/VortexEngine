@@ -4,6 +4,7 @@
 
 #include "../VortexConfig.h"
 
+#include "../Buttons/Buttons.h"
 #include "../Memory/Memory.h"
 #include "../Log/Log.h"
 
@@ -215,6 +216,14 @@ void Time::delayMilliseconds(uint32_t ms)
 #else
   usleep(ms * 1000);
 #endif
+}
+
+void Time::delayMicrosecondsCancellable(uint32_t us)
+{
+  uint32_t newtime = microseconds() + us;
+  while (microseconds() < newtime && !Buttons::isCancelRequested()) {
+    // busy loop
+  }
 }
 
 #ifdef VORTEX_LIB
