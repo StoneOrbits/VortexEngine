@@ -25,21 +25,40 @@
 #define VL_THRES_UP   (1 + VL_THRESHOLD)
 #define VL_THRES_DOWN (1 - VL_THRESHOLD)
 
-#define VL_TIMING (uint32_t)3230
-#define VL_TIMING_MIN ((uint32_t)(VL_TIMING * VL_THRES_DOWN))
+// These are the modern constants for new sender/receiver in modesharing
+// new one is faster, more reliable, and better at error detection
+#define VL_TIMING (uint16_t)(2230)
 
-#define VL_HEADER_MARK (uint32_t)(VL_TIMING * 16)
-#define VL_HEADER_SPACE (uint32_t)(VL_TIMING * 8)
+#define VL_HEADER_MARK (uint16_t)(VL_TIMING * 16)
+#define VL_HEADER_SPACE (uint16_t)(VL_TIMING * 8)
 
-#define VL_HEADER_MARK_MIN ((uint32_t)(VL_HEADER_MARK * VL_THRES_DOWN))
-#define VL_HEADER_SPACE_MIN ((uint32_t)(VL_HEADER_SPACE * VL_THRES_DOWN))
+#define VL_HEADER_MARK_MIN ((uint16_t)(VL_HEADER_MARK * VL_THRES_DOWN))
+#define VL_HEADER_SPACE_MIN ((uint16_t)(VL_HEADER_SPACE * VL_THRES_DOWN))
 
-#define VL_HEADER_MARK_MAX ((uint32_t)(VL_HEADER_MARK * VL_THRES_UP))
-#define VL_HEADER_SPACE_MAX ((uint32_t)(VL_HEADER_SPACE * VL_THRES_UP))
+#define VL_HEADER_MARK_MAX ((uint16_t)(VL_HEADER_MARK * VL_THRES_UP))
+#define VL_HEADER_SPACE_MAX ((uint16_t)(VL_HEADER_SPACE * VL_THRES_UP))
 
-#define VL_DIVIDER_SPACE VL_HEADER_MARK
-#define VL_DIVIDER_SPACE_MIN VL_HEADER_MARK_MIN
-#define VL_DIVIDER_SPACE_MAX VL_HEADER_MARK_MAX
+#define VL_TIMING_BIT_ONE (uint16_t)(VL_TIMING * 3)
+#define VL_TIMING_BIT_ZERO (uint16_t)(VL_TIMING)
+#define VL_TIMING_BIT(bit) (bit ? VL_TIMING_BIT_ONE : VL_TIMING_BIT_ZERO)
+
+// legacy constants for old sender/receiver in modesharing, this one is
+// less reliable and much slower
+#define VL_TIMING_LEGACY (uint16_t)(3230)
+
+#define VL_HEADER_MARK_LEGACY (uint16_t)(VL_TIMING_LEGACY * 16)
+#define VL_HEADER_SPACE_LEGACY (uint16_t)(VL_TIMING_LEGACY * 8)
+
+#define VL_HEADER_MARK_MIN_LEGACY ((uint16_t)(VL_HEADER_MARK_LEGACY * VL_THRES_DOWN))
+#define VL_HEADER_SPACE_MIN_LEGACY ((uint16_t)(VL_HEADER_SPACE_LEGACY * VL_THRES_DOWN))
+
+#define VL_HEADER_MARK_MAX_LEGACY ((uint16_t)(VL_HEADER_MARK_LEGACY * VL_THRES_UP))
+#define VL_HEADER_SPACE_MAX_LEGACY ((uint16_t)(VL_HEADER_SPACE_LEGACY * VL_THRES_UP))
+
+#define VL_TIMING_BIT_ONE_LEGACY (uint16_t)(VL_TIMING_LEGACY * 3)
+#define VL_TIMING_BIT_ZERO_LEGACY (uint16_t)(VL_TIMING_LEGACY)
+#define VL_TIMING_BIT_LEGACY(bit) (bit ? VL_TIMING_BIT_ONE_LEGACY : VL_TIMING_BIT_ZERO_LEGACY)
+
 
 #define VL_SEND_PWM_PIN 0
 #define VL_RECEIVER_PIN 0

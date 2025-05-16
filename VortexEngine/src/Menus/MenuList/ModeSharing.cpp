@@ -1,5 +1,6 @@
 #include "ModeSharing.h"
 
+#include "../../VortexEngine.h"
 #include "../../Serial/ByteStream.h"
 #include "../../Serial/Serial.h"
 #include "../../Time/TimeControl.h"
@@ -15,13 +16,18 @@
 
 ModeSharing::ModeSharing(const RGBColor &col, bool advanced) :
   Menu(col, advanced),
-  m_sharingMode(ModeShareState::SHARE_RECEIVE),
-  m_timeOutStartTime(0)
+  m_sharingMode(ModeShareState::SHARE_SEND_RECEIVE),
+  m_timeOutStartTime(0),
+  m_lastPercentChange(0),
+  m_lastPercent(0)
+
 {
 }
 
 ModeSharing::~ModeSharing()
 {
+  VLReceiver::endReceiving();
+  VortexEngine::toggleForceSleep(true);
 }
 
 bool ModeSharing::init()
@@ -29,6 +35,7 @@ bool ModeSharing::init()
   if (!Menu::init()) {
     return false;
   }
+  // skip led selection
   if (!m_advanced) {
     // skip led selection
     m_ledSelected = true;
@@ -36,7 +43,9 @@ bool ModeSharing::init()
   // start on receive because it's the more responsive of the two
   // the odds of opening receive and then accidentally receiving
   // a mode that is being broadcast nearby is completely unlikely
-  beginReceiving();
+  VLReceiver::beginReceiving();
+  // turn off force sleep while using modesharing
+  VortexEngine::toggleForceSleep(false);
   DEBUG_LOG("Entering Mode Sharing");
   return true;
 }
@@ -47,20 +56,24 @@ Menu::MenuAction ModeSharing::run()
   if (result != MENU_CONTINUE) {
     return result;
   }
-  switch (m_sharingMode) {
-  case ModeShareState::SHARE_SEND:
-    // render the 'send mode' lights
-    showSendMode();
-    // continue sending any data as long as there is more to send
-    continueSending();
-    break;
-  case ModeShareState::SHARE_RECEIVE:
-    // render the 'receive mode' lights
-    showReceiveMode();
-    // load any modes that are received
-    receiveMode();
-    break;
+  if (m_sharingMode == ModeShareState::SHARE_EXIT) {
+    showExit();
+    return MENU_CONTINUE;
   }
+  // if the button is held for at least a long click, then continuously send
+  if (g_pButton->isPressed() && g_pButton->holdDuration() >= CLICK_THRESHOLD) {
+    // exit is handled above so the only two options are normal or legacy
+    if (m_sharingMode == ModeShareState::SHARE_SEND_RECEIVE) {
+      // send normal
+      VLSender::send(&m_previewMode);
+    } else {
+      // send legacy
+      VLSender::sendLegacy(&m_previewMode);
+    }
+  }
+  // render the 'receive mode' lights whether legacy or not
+  showReceiveMode();
+  receiveMode();
   return MENU_CONTINUE;
 }
 
@@ -78,12 +91,21 @@ void ModeSharing::onLedSelected()
 // handlers for clicks
 void ModeSharing::onShortClick()
 {
+  if (g_pButton->holdDuration() >= CLICK_THRESHOLD) {
+    return;
+  }
   switch (m_sharingMode) {
-  case ModeShareState::SHARE_RECEIVE:
-    // click while on receive -> end receive, start sending
-    VLReceiver::endReceiving();
-    beginSending();
-    DEBUG_LOG("Switched to send mode");
+  case ModeShareState::SHARE_SEND_RECEIVE:
+    // stop receiving, send the mode, go back to receiving
+    VLReceiver::setLegacyReceiver(true);
+    m_sharingMode = ModeShareState::SHARE_SEND_RECEIVE_LEGACY;
+    break;
+  case ModeShareState::SHARE_SEND_RECEIVE_LEGACY:
+    VLReceiver::setLegacyReceiver(false);
+    m_sharingMode = ModeShareState::SHARE_EXIT;
+    break;
+  case ModeShareState::SHARE_EXIT:
+    m_sharingMode = ModeShareState::SHARE_SEND_RECEIVE;
     break;
   default:
     break;
@@ -93,57 +115,30 @@ void ModeSharing::onShortClick()
 
 void ModeSharing::onLongClick()
 {
-  leaveMenu();
-}
-
-void ModeSharing::beginSending()
-{
-  // if the sender is sending then cannot start again
-  if (VLSender::isSending()) {
-    ERROR_LOG("Cannot begin sending, sender is busy");
-    return;
+  if (m_sharingMode == ModeShareState::SHARE_EXIT) {
+    leaveMenu();
   }
-  m_sharingMode = ModeShareState::SHARE_SEND;
-  // initialize it with the current mode data
-  VLSender::loadMode(&m_previewMode);
-  // send the first chunk of data, leave if we're done
-  if (!VLSender::send()) {
-    // when send has completed, stores time that last action was completed to calculate interval between sends
-    beginReceiving();
-  }
-}
-
-void ModeSharing::continueSending()
-{
-  // if the sender isn't sending then nothing to do
-  if (!VLSender::isSending()) {
-    return;
-  }
-  if (!VLSender::send()) {
-    // when send has completed, stores time that last action was completed to calculate interval between sends
-    beginReceiving();
-  }
-}
-
-void ModeSharing::beginReceiving()
-{
-  m_sharingMode = ModeShareState::SHARE_RECEIVE;
-  VLReceiver::beginReceiving();
 }
 
 void ModeSharing::receiveMode()
 {
+  uint32_t now = Time::getCurtime();
   // if reveiving new data set our last data time
   if (VLReceiver::onNewData()) {
-    m_timeOutStartTime = Time::getCurtime();
+    m_timeOutStartTime = now;
     // if our last data was more than time out duration reset the recveiver
-  } else if (m_timeOutStartTime > 0 && (m_timeOutStartTime + MAX_TIMEOUT_DURATION) < Time::getCurtime()) {
+  } else if (m_timeOutStartTime > 0 && (m_timeOutStartTime + MAX_TIMEOUT_DURATION) < now) {
     VLReceiver::resetVLState();
     m_timeOutStartTime = 0;
     return;
   }
   // check if the VLReceiver has a full packet available
   if (!VLReceiver::dataReady()) {
+    uint8_t percent = VLReceiver::percentReceived();
+    if (percent != m_lastPercent) {
+      m_lastPercent = percent;
+      m_lastPercentChange = now;
+    }
     // nothing available yet
     return;
   }
@@ -170,21 +165,20 @@ void ModeSharing::receiveMode()
   leaveMenu(true);
 }
 
-void ModeSharing::showSendMode()
-{
-  // show a dim color when not sending
-  if (!VLSender::isSending()) {
-    Leds::setAll(RGBColor(0, 20, 20));
-  }
-}
-
 void ModeSharing::showReceiveMode()
 {
+  // if the receiver is actively receiving right now then
   if (VLReceiver::isReceiving()) {
-    // using uint32_t to avoid overflow, the result should be within 10 to 255
-    Leds::setIndex(LED_0, RGBColor(0, VLReceiver::percentReceived(), 0));
+    uint32_t diff = (Time::getCurtime() - m_lastPercentChange);
+    // this generates the red flash when the receiver hasn't received something for
+    // some amount of time, 100 is just arbitray idk if it could be a better value
+    if (diff > 100) {
+      Leds::setIndex(LED_0, RGB_RED3);
+    } else {
+      Leds::setIndex(LED_0, RGBColor(0, VLReceiver::percentReceived(), 0));
+    }
     Leds::clearIndex(LED_1);
   } else {
-    Leds::setAll(RGB_WHITE0);
+    Leds::setAll((m_sharingMode == ModeShareState::SHARE_SEND_RECEIVE) ? 0x000F05 : RGB_WHITE0);
   }
 }
