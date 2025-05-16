@@ -97,9 +97,9 @@ Menu::MenuAction Menu::run()
 void Menu::showBulbSelection()
 {
   Leds::clearAll();
-  Leds::blinkMap(m_targetLeds, BULB_SELECT_OFF_MS, BULB_SELECT_ON_MS, RGB_MAGENTA1);
+  Leds::blinkMap(m_targetLeds, BULB_SELECT_OFF_MS, BULB_SELECT_ON_MS, RGB_MENU_BULB_SELECT);
   // blink when selecting
-  Menus::showSelection(RGB_MAGENTA1);
+  Menus::showSelection(RGB_MENU_BULB_SELECT);
 }
 
 void Menu::showExit()

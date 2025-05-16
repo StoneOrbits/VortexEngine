@@ -37,6 +37,14 @@ public:
   // close the current menu
   virtual void leaveMenu(bool doSave = false);
 
+  // exposed getters for wasm and duo tutorial primarily
+  Mode getPreviewMode() { return m_previewMode; }
+  RGBColor getMenuColor() { return m_menuColor; }
+  LedMap getTargetLeds() { return m_targetLeds; }
+  uint8_t getCurSelection() { return m_curSelection; }
+  bool isLedSelected() { return m_ledSelected; }
+  bool isAdvanced() { return m_advanced; }
+
 protected:
   void showBulbSelection();
   void showExit();

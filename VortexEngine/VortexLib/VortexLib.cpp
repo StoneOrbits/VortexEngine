@@ -464,7 +464,14 @@ EMSCRIPTEN_BINDINGS(Vortex) {
     .function("onLedSelected", &Menu::onLedSelected)
     .function("onShortClick", &Menu::onShortClick)
     .function("onLongClick", &Menu::onLongClick)
-    .function("leaveMenu", &Menu::leaveMenu);
+    .function("leaveMenu", &Menu::leaveMenu)
+    .function("getPreviewMode", &Menu::getPreviewMode)
+    .function("getMenuColor", &Menu::getMenuColor)
+    .function("getTargetLeds", &Menu::getTargetLeds)
+    .function("getCurSelection", &Menu::getCurSelection)
+    .function("isLedSelected", &Menu::isLedSelected)
+    .function("isAdvanced", &Menu::isAdvanced);
+
     //.function("setTargetLeds", &Menu::setTargetLeds);
 
   class_<Modes>("Modes")
@@ -514,6 +521,7 @@ EMSCRIPTEN_BINDINGS(Vortex) {
     .class_function("menuEnterClick", &Vortex::menuEnterClick)
     .class_function("advMenuEnterClick", &Vortex::advMenuEnterClick)
     .class_function("deleteColClick", &Vortex::deleteColClick)
+    .class_function("factoryResetClick", &Vortex::factoryResetClick)
     .class_function("sleepClick", &Vortex::sleepClick)
     .class_function("forceSleepClick", &Vortex::forceSleepClick)
     .class_function("pressButton", &Vortex::pressButton)
@@ -580,6 +588,7 @@ EMSCRIPTEN_BINDINGS(Vortex) {
     .class_function("sleepEnabled", &Vortex::sleepEnabled)
     .class_function("enterSleep", &Vortex::enterSleep)
     .class_function("isSleeping", &Vortex::isSleeping)
+    .class_function("wakeup", &Vortex::wakeup)
     .class_function("enableCommandLog", &Vortex::enableCommandLog)
     .class_function("getCommandLog", &Vortex::getCommandLog)
     .class_function("clearCommandLog", &Vortex::clearCommandLog)
@@ -921,6 +930,11 @@ bool Vortex::isSleeping()
   return VortexEngine::isSleeping();
 }
 
+void Vortex::wakeup()
+{
+  VortexEngine::wakeup();
+}
+
 bool Vortex::tick()
 {
   if (!m_initialized) {
@@ -1005,6 +1019,14 @@ void Vortex::deleteColClick(uint8_t buttonIndex)
     buttonIndex = m_selectedButton;
   }
   m_buttonEventQueue.push_back(VortexButtonEvent(buttonIndex, EVENT_DELETE_COL));
+}
+
+void Vortex::factoryResetClick(uint8_t buttonIndex)
+{
+  if (!buttonIndex) {
+    buttonIndex = m_selectedButton;
+  }
+  m_buttonEventQueue.push_back(VortexButtonEvent(buttonIndex, EVENT_FACTORY_RESET_CLICK));
 }
 
 void Vortex::sleepClick(uint8_t buttonIndex)
@@ -1789,6 +1811,17 @@ void Vortex::handleInputQueue(Button *buttons, uint32_t numButtons)
     pButton->m_longClick = true;
     pButton->m_newRelease = true;
     DEBUG_LOG("Injecting delete color click");
+    break;
+  case EVENT_FACTORY_RESET_CLICK:
+    // to do this we simply press the button and set the press time
+    // to something more than the menu trigger threshold that will make
+    // us immediately enter the menus. But we need to unset the pressed
+    // button right after so we push a reset click event to reset the button
+    pButton->m_pressTime = Time::getCurtime();
+    pButton->m_holdDuration = FACTORY_RESET_THRESHOLD_TICKS + MS_TO_TICKS(11);
+    pButton->m_longClick = true;
+    pButton->m_newRelease = true;
+    DEBUG_LOG("Injecting factory reset click");
     break;
   case EVENT_SLEEP_CLICK:
     // to do this we simply press the button and set the press time

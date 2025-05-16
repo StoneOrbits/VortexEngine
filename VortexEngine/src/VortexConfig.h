@@ -423,26 +423,28 @@
 #include "Colors/ColorConstants.h"
 
 // Randomizer Menu Color
-#define RGB_MENU_RANDOMIZER         RGB_WHITE1
+#define RGB_MENU_RANDOMIZER         RGB_WHITE4
 
 // Mode Sharing Menu Color
-#define RGB_MENU_MODE_SHARING       RGB_CYAN1
+#define RGB_MENU_MODE_SHARING       RGB_CYAN4
 
 // Editor Connection Menu Color
-#define RGB_MENU_EDITOR_CONNECTION  RGB_MAGENTA1
+#define RGB_MENU_EDITOR_CONNECTION  RGB_MAGENTA4
 
 // Color Select Menu Color
-#define RGB_MENU_COLOR_SELECT       RGB_GREEN1
+#define RGB_MENU_COLOR_SELECT       RGB_GREEN4
 
 // Pattern Select Menu Color
-#define RGB_MENU_PATTERN_SELECT     RGB_BLUE1
+#define RGB_MENU_PATTERN_SELECT     RGB_BLUE4
 
 // Global Brightness Menu Color
-#define RGB_MENU_BRIGHTNESS_SELECT  RGB_YELLOW1
+#define RGB_MENU_BRIGHTNESS_SELECT  RGB_YELLOW4
 
 // Factory Reset Menu Color
-#define RGB_MENU_FACTORY_RESET      RGB_RED1
+#define RGB_MENU_FACTORY_RESET      RGB_RED4
 
+// Bulb Selection Color
+#define RGB_MENU_BULB_SELECT        RGB_MAGENTA4
 
 // ===================================================================
 //  Editor Verbs
@@ -610,6 +612,7 @@
 #undef RGB_MENU_PATTERN_SELECT
 #undef RGB_MENU_BRIGHTNESS_SELECT
 #undef RGB_MENU_FACTORY_RESET
+#undef RGB_MENU_BULB_SELECT
 #define RGB_MENU_RANDOMIZER         RGB_WHITE4
 #define RGB_MENU_MODE_SHARING       RGB_CYAN4
 #define RGB_MENU_EDITOR_CONNECTION  RGB_MAGENTA4
@@ -617,6 +620,7 @@
 #define RGB_MENU_PATTERN_SELECT     RGB_BLUE4
 #define RGB_MENU_BRIGHTNESS_SELECT  RGB_YELLOW4
 #define RGB_MENU_FACTORY_RESET      RGB_RED4
+#define RGB_MENU_BULB_SELECT        RGB_MAGENTA4
 
 #endif // ifdef VORTEX_LIB
 
