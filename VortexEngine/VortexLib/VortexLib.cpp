@@ -542,6 +542,7 @@ EMSCRIPTEN_BINDINGS(Vortex) {
     .function("addMenuTargetLeds", &Vortex::addMenuTargetLeds)
     .function("getModes", &Vortex::getModes)
     .function("setModes", &Vortex::setModes)
+    .function("getLedCount", &Vortex::getLedCount)
     .function("getCurMode", &Vortex::getCurMode)
     .function("getCurModeRaw", &Vortex::getCurModeRaw)
     .function("matchLedCount", &Vortex::matchLedCount)
