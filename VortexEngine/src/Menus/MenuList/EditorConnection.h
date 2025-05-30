@@ -48,7 +48,7 @@ private:
   ReturnCode receiveMode();
   ReturnCode receiveDemoMode();
   ReturnCode receiveMessage(const char *message);
-  ReturnCode receiveBrightness();
+  ReturnCode receiveBrightness(bool chromalink);
   ReturnCode receiveModeVL();
   void showReceiveModeVL();
   ReturnCode receiveModeIdx(uint8_t &idx);
@@ -121,6 +121,11 @@ private:
 
     // get global brightness
     STATE_GET_GLOBAL_BRIGHTNESS,
+
+    // set duo global brightness
+    STATE_SET_CHROMA_BRIGHTNESS,
+    STATE_SET_CHROMA_BRIGHTNESS_RECEIVE,
+    STATE_SET_CHROMA_BRIGHTNESS_DONE,
 
     // pull the header from the chromalinked duo
     STATE_PULL_HEADER_CHROMALINK,
