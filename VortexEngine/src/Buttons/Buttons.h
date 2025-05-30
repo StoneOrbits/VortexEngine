@@ -7,7 +7,11 @@
 // changing it won't really work without updating other things
 // like which pins the buttons are attached to. So this is more
 // of a hardcoded constant than a configuration setting
-#define NUM_BUTTONS 1
+#define NUM_BUTTONS 3
+
+#define BUTTON_L_PIN 5
+#define BUTTON_M_PIN 6
+#define BUTTON_R_PIN 7
 
 class Buttons
 {
@@ -24,12 +28,23 @@ public:
 
   static uint8_t numButtons() { return NUM_BUTTONS; }
 
+  // This is a special feature mainly for cancelling the VLSender by installing
+  // an interrupt on the button pin in order to detect the press in realtime
+  static void installCancelInterrupt(uint8_t pin);
+  static void removeCancelInterrupt();
+  static bool isCancelRequested();
+
 private:
   // feel free to add more I guess
   static Button m_buttons[NUM_BUTTONS];
+  static uint8_t m_cancelInterruptPin;
 };
 
-// best way I think
-extern Button *g_pButton;
+// Button Left
+extern Button *g_pButtonL;
+// Button Mid
+extern Button *g_pButtonM;
+// Button Right
+extern Button *g_pButtonR;
 
 #endif

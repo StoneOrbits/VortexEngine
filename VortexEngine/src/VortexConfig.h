@@ -38,7 +38,7 @@
 
 // the engine flavour, this should change for each device/flavour
 // of the engine that branches off from the main indefinitely
-#define VORTEX_NAME "Core"
+#define VORTEX_NAME "Chromadeck"
 
 // the full name of this build for ex:
 //    Vortex Engine v1.0 'Igneous' (built Tue Jan 31 19:03:55 2023)
@@ -158,7 +158,7 @@
 //
 // The starting default global brightness if there is no savefile
 // present The maximum value is 255
-#define DEFAULT_BRIGHTNESS    185
+#define DEFAULT_BRIGHTNESS    15
 
 // Max Modes
 //
@@ -176,7 +176,7 @@
 // This should not be set to 0, it should be a specific maximum for
 // each separate device
 //
-#define MAX_MODES             13
+#define MAX_MODES             16
 
 // Default Tickrate in Ticks Per Second (TPS)
 //
@@ -288,10 +288,14 @@
 //
 // These are the four options available in the global brightness menu
 // There is only four options, be careful not to go too low
-#define BRIGHTNESS_OPTION_1         40
-#define BRIGHTNESS_OPTION_2         120
-#define BRIGHTNESS_OPTION_3         185
-#define BRIGHTNESS_OPTION_4         255
+#define BRIGHTNESS_OPTION_1         5
+#define BRIGHTNESS_OPTION_2         30
+#define BRIGHTNESS_OPTION_3         60
+#define BRIGHTNESS_OPTION_4         90
+#define BRIGHTNESS_OPTION_5         120
+#define BRIGHTNESS_OPTION_6         160
+#define BRIGHTNESS_OPTION_7         200
+#define BRIGHTNESS_OPTION_8         255
 
 // Saturation Options
 //
@@ -314,7 +318,17 @@
 // Serial Baud Rate
 //
 // The serial connection baud rate for the editor and anything else serial
-#define SERIAL_BAUD_RATE            9600
+#define SERIAL_BAUD_RATE            115200
+
+// Bluetooth Broadcast Time
+//
+// The number of seconds after startup the Bluetooth module will broadcast
+#define BLUETOOTH_BROADCAST_SECONDS 10
+
+// Bluetooth Broadcast Name
+//
+// The name of the device broadcast over Bluetooth for connection
+#define BLUETOOTH_BROADCAST_NAME    "Vortex " VORTEX_NAME
 
 // ===================================================================
 //  Boolean Configurations (0 or 1)
@@ -540,6 +554,9 @@
 #define EDITOR_VERB_SET_GLOBAL_BRIGHTNESS "L"
 // get the global brightness of the device
 #define EDITOR_VERB_GET_GLOBAL_BRIGHTNESS "M"
+
+// set the global brightness of the chromalinked  duo
+#define EDITOR_VERB_SET_CHROMA_BRIGHTNESS "N"
 
 // ===================================================================
 //  Manually Configured Sizes
