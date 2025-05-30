@@ -126,6 +126,7 @@ const EditorConnection::CommandState EditorConnection::commands[] = {
   { EDITOR_VERB_LISTEN_VL, STATE_LISTEN_MODE_VL },
   { EDITOR_VERB_SET_GLOBAL_BRIGHTNESS, STATE_SET_GLOBAL_BRIGHTNESS },
   { EDITOR_VERB_GET_GLOBAL_BRIGHTNESS, STATE_GET_GLOBAL_BRIGHTNESS },
+  { EDITOR_VERB_SET_CHROMA_BRIGHTNESS, STATE_SET_CHROMA_BRIGHTNESS },
   { EDITOR_VERB_PULL_CHROMA_HDR, STATE_PULL_HEADER_CHROMALINK },
   { EDITOR_VERB_PUSH_CHROMA_HDR, STATE_PUSH_HEADER_CHROMALINK },
   { EDITOR_VERB_PULL_CHROMA_MODE, STATE_PULL_MODE_CHROMALINK },
@@ -415,7 +416,7 @@ void EditorConnection::handleState()
     break;
   case STATE_SET_GLOBAL_BRIGHTNESS_RECEIVE:
     // set the brightness of the device
-    if (receiveBrightness() == RV_WAIT) {
+    if (receiveBrightness(false) == RV_WAIT) {
       // just keep waiting
       break;
     }
@@ -426,6 +427,28 @@ void EditorConnection::handleState()
   //  Get Global Brightness
   case STATE_GET_GLOBAL_BRIGHTNESS:
     sendBrightness();
+    m_state = STATE_IDLE;
+    break;
+
+  // -------------------------------
+  //  Set Chromalink Duo Brightness
+  case STATE_SET_CHROMA_BRIGHTNESS:
+    writeData(EDITOR_VERB_READY);
+    m_state = STATE_SET_CHROMA_BRIGHTNESS_RECEIVE;
+    break;
+  case STATE_SET_CHROMA_BRIGHTNESS_RECEIVE:
+    // set the brightness of the chromalinked duo
+    if (receiveBrightness(true) == RV_WAIT) {
+      // just keep waiting
+      break;
+    }
+    m_state = STATE_SET_CHROMA_BRIGHTNESS_DONE;
+    break;
+  case STATE_SET_CHROMA_BRIGHTNESS_DONE:
+    // send another READY after setting the brightness the reason the regular
+    // brightness doesn't have this is because updating duo brightness over
+    // UPDI takes some time and the regular one does not
+    writeData(EDITOR_VERB_READY);
     m_state = STATE_IDLE;
     break;
 
@@ -786,7 +809,7 @@ ReturnCode EditorConnection::receiveMessage(const char *message)
   return RV_OK;
 }
 
-ReturnCode EditorConnection::receiveBrightness()
+ReturnCode EditorConnection::receiveBrightness(bool chromalink)
 {
   // create a new ByteStream that will hold the full buffer of data
   ByteStream buf;
@@ -804,27 +827,30 @@ ReturnCode EditorConnection::receiveBrightness()
     // they should never send 0 brightness
     return RV_FAIL;
   }
-  if (brightness > 0) {
-    // TODO: if duo then update the duo
-    // try to read a duo header to see if we're connected to UPDI
-    ByteStream duoHeaderBuf;
-    if (UPDI::readHeader(duoHeaderBuf) && duoHeaderBuf.size() >= 5) {
-      DuoHeader *duoHeader = (DuoHeader *)duoHeaderBuf.data();
-      duoHeader->brightness = brightness;
-      duoHeaderBuf.recalcCRC(true);
-      if (!UPDI::writeHeader(duoHeaderBuf)) {
-        return RV_FAIL;
-      }
+  // if no chromalink then just update this device's brightness
+  if (!chromalink) {
+    // otherwise no duo just update brightness of the chromadeck
+    Leds::setBrightness(brightness);
+    Modes::saveHeader();
+    return RV_OK;
+  }
+  // Otherwise chromalink is connected try to update the duo brightness
+  // try to read a duo header to see if we're connected to UPDI
+  ByteStream duoHeaderBuf;
+  m_rv = RV_FAIL;
+  if (UPDI::readHeader(duoHeaderBuf) && duoHeaderBuf.size() >= 5) {
+    DuoHeader *duoHeader = (DuoHeader *)duoHeaderBuf.data();
+    duoHeader->brightness = brightness;
+    duoHeaderBuf.recalcCRC(true);
+    if (UPDI::writeHeader(duoHeaderBuf)) {
+      // success
       UPDI::setFlagNewFirmware();
-      UPDI::reset();
-      UPDI::disable();
-    } else {
-      // otherwise no duo just update brightness of the chromadeck
-      Leds::setBrightness(brightness);
-      Modes::saveHeader();
+      m_rv = RV_OK;
     }
   }
-  return RV_OK;
+  UPDI::reset();
+  UPDI::disable();
+  return m_rv;
 }
 
 ReturnCode EditorConnection::receiveModeVL()
