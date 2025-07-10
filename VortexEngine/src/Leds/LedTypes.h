@@ -36,6 +36,19 @@ enum LedPos : uint8_t
   LED_18,
   LED_19,
 
+  LED_20,
+  LED_21,
+  LED_22,
+  LED_23,
+  LED_24,
+  LED_25,
+  LED_26,
+  LED_27,
+  LED_28,
+  LED_29,
+  LED_30,
+  LED_31,
+
   // the number of entries above
   LED_COUNT,
 
@@ -91,6 +104,13 @@ enum Pair : uint8_t
   PAIR_7,
   PAIR_8,
   PAIR_9,
+
+  PAIR_10,
+  PAIR_11,
+  PAIR_12,
+  PAIR_13,
+  PAIR_14,
+  PAIR_15,
 
   PAIR_COUNT,
   PAIR_LAST = (PAIR_COUNT - 1),
@@ -159,8 +179,7 @@ inline LedPos ledmapGetNextLed(LedMap map, LedPos pos)
 }
 
 // bitmap of all pairs (basically LED_COUNT bits)
-#define MAP_LED_ALL ((2 << (LED_COUNT - 1)) - 1)
-
+#define MAP_LED_ALL 0x11111111111111111111111111111111 
 // blank map
 #define MAP_LED_NONE 0
 
