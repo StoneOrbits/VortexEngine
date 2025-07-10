@@ -134,6 +134,13 @@ enum Radial : uint8_t
   RADIAL_8,
   RADIAL_9,
 
+  RADIAL_10,
+  RADIAL_11,
+  RADIAL_12,
+  RADIAL_13,
+  RADIAL_14,
+  RADIAL_15,
+
   RADIAL_COUNT,
   RADIAL_LAST = (RADIAL_COUNT - 1),
 };
