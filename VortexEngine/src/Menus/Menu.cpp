@@ -178,6 +178,13 @@ void Menu::showExit()
   Leds::blinkAll(EXIT_MENU_OFF_MS, EXIT_MENU_ON_MS, RGB_RED0);
 }
 
+void Menu::bypassLedSelection(LedMap map)
+{
+  m_ledSelected = true;
+  m_targetLeds = map;
+  onLedSelected();
+}
+
 void Menu::onLedSelected()
 {
 }

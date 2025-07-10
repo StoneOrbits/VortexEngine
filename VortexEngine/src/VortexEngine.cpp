@@ -6,6 +6,7 @@
 #include "Wireless/VLSender.h"
 #include "Wireless/IRConfig.h"
 #include "Wireless/VLConfig.h"
+#include "Wireless/Bluetooth.h"
 #include "Storage/Storage.h"
 #include "Buttons/Buttons.h"
 #include "Time/TimeControl.h"
@@ -92,6 +93,10 @@ bool VortexEngine::init()
     DEBUG_LOG("UPDI failed to initialize");
     return false;
   }
+  if (!Bluetooth::init()) {
+    DEBUG_LOG("Bluetooth failed to initialize");
+    return false;
+  }
 
 #if COMPRESSION_TEST == 1
   compressionTest();
@@ -114,6 +119,7 @@ void VortexEngine::cleanup()
   // NOTE: the embedded doesn't actually cleanup,
   //       but the test frameworks do
 #ifdef VORTEX_LIB
+  Bluetooth::cleanup();
   Modes::cleanup();
   Menus::cleanup();
   Buttons::cleanup();
@@ -154,15 +160,6 @@ void VortexEngine::tick()
     return;
   }
 #endif
-  // handle any fatal errors that may have occurred
-  // but only if the error blinker is enabled
-#if VORTEX_ERROR_BLINK == 1
-  if (getError() != ERROR_NONE) {
-    // just blink the error and don't run anything
-    blinkError();
-    return;
-  }
-#endif
 
   // tick the current time counter forward
   Time::tickClock();
@@ -184,7 +181,7 @@ void VortexEngine::runMainLogic()
 
   // check for serial first before main menus run, but as a result if we open
   // editor we have to call modes load inside here
-  if (SerialComs::checkSerial()) {
+  if (SerialComs::checkSerial() || Bluetooth::checkBluetooth()) {
     if (Menus::curMenuID() != MENU_EDITOR_CONNECTION) {
       // have to do this because we check for serial before main menu
       if (MainMenu::isOpen()) {
@@ -193,6 +190,15 @@ void VortexEngine::runMainLogic()
       }
       // directly open the editor connection menu because we are connected to USB serial
       Menus::openMenu(MENU_EDITOR_CONNECTION);
+    }
+  }
+
+  // if the bluetooth is still initialized
+  if (Bluetooth::isInitialized()) {
+    // but it's not connected yet, so it's broadcasting
+    if (!Bluetooth::isConnected() && Time::getCurtime() > BLUETOOTH_BROADCAST_TICKS) {
+      // then stop broadcasting after the given threshold
+      Bluetooth::cleanup();
     }
   }
 

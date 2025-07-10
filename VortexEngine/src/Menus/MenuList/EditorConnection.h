@@ -6,6 +6,14 @@
 #include "../../Serial/ByteStream.h"
 #include "../../Modes/Mode.h"
 
+// various return codes that internal functions use
+enum ReturnCode
+{
+  RV_FAIL = 0,
+  RV_OK,
+  RV_WAIT,
+};
+
 class EditorConnection : public Menu
 {
 public:
@@ -15,44 +23,45 @@ public:
   bool init() override;
   MenuAction run() override;
 
-  // broadcast the current preview mode over VL
-  void sendCurModeVL();
-  void listenModeVL();
-
-  // pull/push through the chromalink
-  bool pullHeaderChromalink();
-  bool pushHeaderChromalink();
-  bool pullModeChromalink();
-  bool pushModeChromalink();
-  bool writeDuoFirmware();
-
   // handlers for clicks
   void onShortClickM() override;
   void onLongClickM() override;
 
-  // menu conn
   void leaveMenu(bool doSave = false) override;
 
 private:
+  void clearDemo();
+  void handleErrors();
   void handleCommand();
+  void handleState();
   void showEditor();
   void receiveData();
-  void handleState();
   void sendModes();
   void sendModeCount();
   void sendCurMode();
-  bool receiveBuffer(ByteStream &buffer);
-  bool receiveFirmwareChunk(ByteStream &buffer);
-  bool receiveModes();
-  bool receiveModeCount();
-  bool receiveMode();
-  bool receiveDemoMode();
-  bool receiveMessage(const char *message);
-  void clearDemo();
-  void receiveModeVL();
+  void sendCurModeVL();
+  void listenModeVL();
+  ReturnCode sendBrightness();
+  ReturnCode receiveBuffer(ByteStream &buffer);
+  ReturnCode receiveModes();
+  ReturnCode receiveModeCount();
+  ReturnCode receiveMode();
+  ReturnCode receiveDemoMode();
+  ReturnCode receiveMessage(const char *message);
+  ReturnCode receiveBrightness(bool chromalink);
+  ReturnCode receiveModeVL();
   void showReceiveModeVL();
-  bool receiveModeIdx(uint8_t &idx);
-  bool receiveFirmwareSize(uint32_t &idx);
+  ReturnCode receiveModeIdx(uint8_t &idx);
+  ReturnCode receiveFirmwareSize(uint32_t &idx);
+  // pull/push through the chromalink
+  ReturnCode pullHeaderChromalink();
+  ReturnCode pushHeaderChromalink();
+  ReturnCode pullModeChromalink();
+  ReturnCode pushModeChromalink();
+  // backup and restore duo modes
+  ReturnCode writeDuoFirmware();
+  ReturnCode backupDuoModes();
+  ReturnCode restoreDuoModes();
 
   enum EditorConnectionState {
     // the editor is not connected
@@ -84,10 +93,12 @@ private:
 
     // transmit the mode over visible light
     STATE_TRANSMIT_MODE_VL,
+    STATE_TRANSMIT_MODE_VL_TRANSMIT,
     STATE_TRANSMIT_MODE_VL_DONE,
 
     // receive a mode over VL
     STATE_LISTEN_MODE_VL,
+    STATE_LISTEN_MODE_VL_LISTEN,
     STATE_LISTEN_MODE_VL_DONE,
 
     // editor pulls the modes from device (safer version)
@@ -103,6 +114,18 @@ private:
     STATE_PUSH_EACH_MODE_RECEIVE,
     STATE_PUSH_EACH_MODE_WAIT,
     STATE_PUSH_EACH_MODE_DONE,
+
+    // set global brightness
+    STATE_SET_GLOBAL_BRIGHTNESS,
+    STATE_SET_GLOBAL_BRIGHTNESS_RECEIVE,
+
+    // get global brightness
+    STATE_GET_GLOBAL_BRIGHTNESS,
+
+    // set duo global brightness
+    STATE_SET_CHROMA_BRIGHTNESS,
+    STATE_SET_CHROMA_BRIGHTNESS_RECEIVE,
+    STATE_SET_CHROMA_BRIGHTNESS_DONE,
 
     // pull the header from the chromalinked duo
     STATE_PULL_HEADER_CHROMALINK,
@@ -123,8 +146,22 @@ private:
     // flash the firmware of the chromalinked duo
     STATE_CHROMALINK_FLASH_FIRMWARE,
     STATE_CHROMALINK_FLASH_FIRMWARE_RECEIVE_SIZE,
-    STATE_CHROMALINK_FLASH_FIRMWARE_RECEIVE,
+    STATE_CHROMALINK_FLASH_FIRMWARE_BACKUP_MODES,
+    STATE_CHROMALINK_FLASH_FIRMWARE_ERASE_MEMORY,
+    STATE_CHROMALINK_FLASH_FIRMWARE_FLASH_CHUNKS,
+    STATE_CHROMALINK_FLASH_FIRMWARE_RESTORE_MODES,
+    STATE_CHROMALINK_FLASH_FIRMWARE_DONE,
+
+    // toggle whether flashing firmware will backup modes
+    STATE_CHROMALINK_FLASH_FIRMWARE_TOGGLE_BACKUP,
   };
+
+  struct CommandState
+  {
+    const char *cmd;
+    EditorConnection::EditorConnectionState cmdState;
+  };
+  static const CommandState commands[];
 
   // state of the editor
   EditorConnectionState m_state;
@@ -140,6 +177,8 @@ private:
   uint8_t m_previousModeIndex;
   // the number of modes that should be received
   uint8_t m_numModesToReceive;
+  // internal return value tracker
+  ReturnCode m_rv;
 
   // current step of transfer
   uint32_t m_curStep;
@@ -147,6 +186,27 @@ private:
   uint32_t m_firmwareSize;
   // how much firmware written so far
   uint32_t m_firmwareOffset;
+
+  // whether to backup duo modes on firmware update
+  bool m_backupModes;
+  // backups of duo modes when flashing firmware
+  ByteStream m_modeBackups[9];
+  // counter for reading/writing modes during firmware flash
+  uint8_t m_backupModeNum;
+
+  bool m_isBluetooth;
+
+  // this gets set only if the user hits 'connect duo' and tries to connect
+  // the chromalink and it succeeds, it does not get set automatically
+  bool m_updiConnected;
+
+  bool detectConnection();
+  void readData(ByteStream &buffer);
+  void writeData(ByteStream &buffer);
+  void writeData(const char *message);
+  bool isConnected();
+  bool isConnectedReal();
+
 };
 
 #endif

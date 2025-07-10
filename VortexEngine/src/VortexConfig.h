@@ -320,6 +320,16 @@
 // The serial connection baud rate for the editor and anything else serial
 #define SERIAL_BAUD_RATE            115200
 
+// Bluetooth Broadcast Time
+//
+// The number of seconds after startup the Bluetooth module will broadcast
+#define BLUETOOTH_BROADCAST_SECONDS 10
+
+// Bluetooth Broadcast Name
+//
+// The name of the device broadcast over Bluetooth for connection
+#define BLUETOOTH_BROADCAST_NAME    "Vortex " VORTEX_NAME
+
 // ===================================================================
 //  Boolean Configurations (0 or 1)
 
@@ -535,10 +545,18 @@
 
 // flash firmware
 #define EDITOR_VERB_FLASH_FIRMWARE        "I"
-// ack for each step of flashing
+// the response to each one
 #define EDITOR_VERB_FLASH_FIRMWARE_ACK    "J"
 // done flashing firmware
 #define EDITOR_VERB_FLASH_FIRMWARE_DONE   "K"
+
+// set the global brightness of the device
+#define EDITOR_VERB_SET_GLOBAL_BRIGHTNESS "L"
+// get the global brightness of the device
+#define EDITOR_VERB_GET_GLOBAL_BRIGHTNESS "M"
+
+// set the global brightness of the chromalinked  duo
+#define EDITOR_VERB_SET_CHROMA_BRIGHTNESS "N"
 
 // ===================================================================
 //  Manually Configured Sizes

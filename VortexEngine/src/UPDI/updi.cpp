@@ -1,7 +1,5 @@
 #include "updi.h"
 
-#ifdef VORTEX_EMBEDDED
-
 #include "../VortexConfig.h"
 #include "../Time/TimeControl.h"
 #include "../Log/Log.h"
@@ -9,6 +7,8 @@
 #include "../Serial/ByteStream.h"
 #include "../Patterns/Pattern.h"
 #include "../Modes/Mode.h"
+
+#ifdef VORTEX_EMBEDDED
 
 #include "driver/uart.h"
 #include "freertos/FreeRTOS.h"
@@ -50,6 +50,7 @@
 // Configure GPIO for input
 // the key here is setting the gpio as GPIO_FLOATING to prevent contention
 #define GPIO_SET_INPUT(gpio_num) (GPIO.enable_w1tc.val = (1U << gpio_num)); gpio_set_pull_mode((gpio_num_t)gpio_num, GPIO_FLOATING);
+#endif
 
 // the max size of a single mode
 #define DUO_MODE_SIZE 76
@@ -71,14 +72,33 @@
 #define LEGACY_DUO_HEADER_SIZE_1 5
 #define LEGACY_DUO_HEADER_SIZE_2 255
 
+// The Duo has a special Modes flag (all of upper bits) which means a new
+// firmware was flashed and it should turn on and write out a new save header
+// This is setting the global flags to represent:
+//
+//   0 = button lock enabled
+//   0 = one click mode enabled
+//   0 = advanced menus enabled
+//   0 = keychain mode enabled
+//   1111 = Startup Mode Index 15 (impossible)
+//
+// When the Duo turns on and see this it will rewrite it's own save header
+#define DUO_MODES_FLAG_NEW_FIRMWARE  0xF0
 
+// the storage type of the duo, detected by reading the save header size
+// older versions of duo use legacy storage types, must account for them
 UPDI::StorageType UPDI::m_storageType = MODERN_STORAGE;
-#endif
+
+DuoHeader UPDI::m_lastSaveHeader;
+
+// Compile-time check on the size of the DuoHeader against definition
+static_assert(DUO_HEADER_SIZE == sizeof(DuoHeader), "Incorrect DuoHeader size");
 
 bool UPDI::init()
 {
 #ifdef VORTEX_EMBEDDED
   m_storageType = MODERN_STORAGE;
+  memset(&m_lastSaveHeader, 0, sizeof(m_lastSaveHeader));
 #endif
   return true;
 }
@@ -104,7 +124,9 @@ bool UPDI::readHeader(ByteStream &header)
   if (!header.init(DUO_HEADER_SIZE)) {
     return false;
   }
-  enterProgrammingMode();
+  if (!enterProgrammingMode()) {
+    return false;
+  }
   uint8_t *ptr = (uint8_t *)header.rawData();
   uint16_t addr = DUO_EEPROM_BASE;
   stptr_p((const uint8_t *)&addr, 2);
@@ -132,14 +154,10 @@ bool UPDI::readHeader(ByteStream &header)
   if (!header.checkCRC()) {
     header.clear();
     ERROR_LOG("ERROR Header CRC Invalid!");
-    reset();
     return false;
   }
-  // major.minor are the first two bytes of the buffer
-  uint8_t major = header.data()[0];
-  uint8_t minor = header.data()[1];
-  // build was only added to this storage space later on
-  uint8_t build = (header.size() > 5) ? header.data()[5] : 0;
+  // copy into the last save header
+  copyLastSaveHeader(header);
   // Modern Duo with segmented header and build number in header
   m_storageType = MODERN_STORAGE;
 #endif
@@ -158,7 +176,9 @@ bool UPDI::readHeaderLegacy1(ByteStream &header)
   if (!header.init(LEGACY_DUO_HEADER_SIZE_1)) {
     return false;
   }
-  enterProgrammingMode();
+  if (!enterProgrammingMode()) {
+    return false;
+  }
   uint8_t *ptr = (uint8_t *)header.rawData();
   uint16_t addr = DUO_EEPROM_BASE;
   stptr_p((const uint8_t *)&addr, 2);
@@ -172,12 +192,24 @@ bool UPDI::readHeaderLegacy1(ByteStream &header)
     reset();
     return false;
   }
-  // major.minor are the first two bytes of the buffer
-  uint8_t major = header.data()[0];
-  uint8_t minor = header.data()[1];
+  // copy into the last save header
+  copyLastSaveHeader(header);
   // LEGACY DUO! Old Storage format with segmented header and no build number
   m_storageType = LEGACY_STORAGE_1;
   return true;
+}
+
+void UPDI::copyLastSaveHeader(const ByteStream &srcData)
+{
+  // copy into the last save header
+  memset(&m_lastSaveHeader, 0, sizeof(m_lastSaveHeader));
+  // the amount to copy into the last save header
+  uint32_t copysize = sizeof(m_lastSaveHeader);
+  if (srcData.size() < sizeof(m_lastSaveHeader)) {
+    copysize = srcData.size();
+  }
+  // copy in the data
+  memcpy(&m_lastSaveHeader, srcData.data(), copysize);
 }
 
 // really old duos like 1.0.0
@@ -191,7 +223,9 @@ bool UPDI::readHeaderLegacy2(ByteStream &header)
   if (!header.init(LEGACY_DUO_HEADER_SIZE_2)) {
     return false;
   }
-  //enterProgrammingMode();
+  //if (!enterProgrammingMode()) {
+  //  return false;
+  //}
   uint8_t *ptr = (uint8_t *)header.rawData();
   uint16_t addr = DUO_EEPROM_BASE;
   stptr_p((const uint8_t *)&addr, 2);
@@ -205,11 +239,8 @@ bool UPDI::readHeaderLegacy2(ByteStream &header)
     reset();
     return false;
   }
-  // major.minor are the first two bytes of the buffer
-  uint8_t major = header.data()[0];
-  uint8_t minor = header.data()[1];
-  // build was only added to this storage space later on
-  uint8_t build = 0;
+  // copy into the last save header
+  copyLastSaveHeader(header);
   // LEGACY DUO! Old Storage format with combined header and no build number
   m_storageType = LEGACY_STORAGE_2;
   return true;
@@ -228,9 +259,13 @@ bool UPDI::readMode(uint8_t idx, ByteStream &modeBuffer)
   }
   // initialize mode buffer
   if (!modeBuffer.init(DUO_MODE_SIZE)) {
+    modeBuffer.clear();
     return false;
   }
-  enterProgrammingMode();
+  if (!enterProgrammingMode()) {
+    modeBuffer.clear();
+    return false;
+  }
   // DUO_MODE_SIZE is the max duo mode size (the slot size)
   uint8_t *ptr = (uint8_t *)modeBuffer.rawData();
   uint16_t numBytes = modeBuffer.rawSize();
@@ -259,7 +294,6 @@ bool UPDI::readMode(uint8_t idx, ByteStream &modeBuffer)
   if (!modeBuffer.checkCRC()) {
     modeBuffer.clear();
     ERROR_LOG("ERROR Header CRC Invalid!");
-    reset();
     return false;
   }
 #endif
@@ -273,7 +307,9 @@ bool UPDI::writeHeader(ByteStream &headerBuffer)
     // nope!
     return false;
   }
-  enterProgrammingMode();
+  if (!enterProgrammingMode()) {
+    return false;
+  }
   // DUO_EEPROM_BASE is eeprom base
   // DUO_HEADER_FULL_SIZE is size of duo header
   // DUO_MODE_SIZE is size of each duo mode
@@ -312,9 +348,14 @@ bool UPDI::writeMode(uint8_t idx, ByteStream &modeBuffer)
     return false;
   }
   modeBuffer.sanity();
+  // TODO: idk if this is really necessary here anymore? I forget why it's here
   if (!modeBuffer.checkCRC()) {
     ERROR_LOG("ERROR Mode CRC Invalid!");
-    reset();
+    return false;
+  }
+  // check against the max mode size so we don't write beyond limits
+  if (modeBuffer.rawSize() > DUO_MODE_SIZE) {
+    ERROR_LOG("ERROR Mode CRC Invalid!");
     return false;
   }
   // there are 3 modes in the eeprom after the header
@@ -330,7 +371,9 @@ bool UPDI::writeMode(uint8_t idx, ByteStream &modeBuffer)
 #ifdef VORTEX_EMBEDDED
 bool UPDI::writeModeEeprom(uint8_t idx, ByteStream &modeBuffer)
 {
-  enterProgrammingMode();
+  if (!enterProgrammingMode()) {
+    return false;
+  }
   // DUO_EEPROM_BASE is eeprom base
   // DUO_HEADER_FULL_SIZE is size of duo header
   // DUO_MODE_SIZE is size of each duo mode
@@ -448,7 +491,9 @@ bool UPDI::writeModeEeprom(uint8_t idx, ByteStream &modeBuffer)
 
 bool UPDI::writeModeFlash(uint8_t idx, ByteStream &modeBuffer)
 {
-  enterProgrammingMode();
+  if (!enterProgrammingMode()) {
+    return false;
+  }
   // there are 3 modes in the eeprom after the header
   // DUO_FLASH_STORAGE_BASE is the end of flash, 0x200 before
   uint16_t base = DUO_FLASH_STORAGE_BASE + ((idx - 3) * DUO_MODE_SIZE);
@@ -652,7 +697,9 @@ bool UPDI::writeFirmware(uint32_t position, ByteStream &firmwareBuffer)
     reset();
     return false;
   }
-  enterProgrammingMode();
+  if (!enterProgrammingMode()) {
+    return false;
+  }
   // DUO_MODE_SIZE is the max duo mode size (the slot size)
   uint8_t *ptr = (uint8_t *)firmwareBuffer.data();
   // there are 3 modes in the eeprom after the header
@@ -684,6 +731,39 @@ bool UPDI::writeFirmware(uint32_t position, ByteStream &firmwareBuffer)
 #endif
   return true;
 }
+
+// This is a modern feature for Duos right after flashing firmware which will
+// tell the duo to turn on and write out it's new save header which contains
+// the new version number, this allows the chromalink firmware update process
+// to be immediately reconnected without user interaction. Normally the Duo
+// save header would still contain the old save data, the firmware update
+// cannot write a new save header the duo must do that itself
+bool UPDI::setFlagNewFirmware()
+{
+#ifdef VORTEX_EMBEDDED
+  // first read out the existing duo header so we can patch it
+  ByteStream duoHeader;
+  if (!readHeader(duoHeader) || duoHeader.size() < 2) {
+    return false;
+  }
+  // only use the header trick if it's a modern duo
+  if (m_storageType != MODERN_STORAGE) {
+    // can't do it
+    return true;
+  }
+  // modify the global flags of the saveheader to indicate a new firmware
+  DuoHeader *pHeader = (DuoHeader *)duoHeader.data();
+  pHeader->globalFlags = DUO_MODES_FLAG_NEW_FIRMWARE;
+  // force recalculate the CRC after changing the global flags
+  duoHeader.recalcCRC(true);
+  // write back the header with this new global flags
+  if (!writeHeader(duoHeader)) {
+    return false;
+  }
+#endif
+  return true;
+}
+
 
 bool UPDI::eraseMemory()
 {
@@ -720,20 +800,20 @@ bool UPDI::disable()
 }
 
 #ifdef VORTEX_EMBEDDED
+#define MAX_TRIES 1000
 
-void UPDI::enterProgrammingMode()
+bool UPDI::enterProgrammingMode()
 {
   uint8_t mode;
-  while (1) {
+  uint32_t tries = 0;
+  while (tries++ < MAX_TRIES) {
     sendDoubleBreak();
     stcs(Control_A, 0x6);
     mode = cpu_mode<0xEF>();
     if (mode != 0x82 && mode != 0x21 && mode != 0xA2 && mode != 0x08) {
-      //sendDoubleBreak();
       sendBreak();
       uint8_t status = ldcs(Status_B);
       ERROR_LOGF("Bad CPU Mode 0x%02x... error: 0x%02x", mode, status);
-      //reset();
       continue;
     }
     if (mode != 0x08) {
@@ -742,17 +822,23 @@ void UPDI::enterProgrammingMode()
       if (status != 0x10) {
         ERROR_LOGF("Bad prog key status: 0x%02x", status);
         reset();
+        //sendBreak();
+        //uint8_t status = ldcs(Status_B);
         continue;
       }
       reset();
     }
-    // break the while (1)
     break;
+  }
+  if (tries >= MAX_TRIES) {
+    Leds::holdAll(RGB_RED);
+    return false;
   }
   mode = cpu_mode();
   while (mode != 0x8) {
     mode = cpu_mode();
   }
+  return true;
 }
 
 void UPDI::resetOn()
