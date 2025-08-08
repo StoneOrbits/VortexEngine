@@ -6,30 +6,26 @@ parent: Vortex Engine
 ---
 
 # Basic Usage
+When a Vortex device is first turned on it will always start on the first [Mode](modes.html). 
 
-The Vortex Engine is a powerful and versatile platform that can be loaded onto many devices to drive their LEDs. To learn how to use the Vortex Engine for any Vortex device, familiarize yourself with these terms and concepts.
+You can think of a _mode_ as the colorful blinking pattern that is playing on the leds.
 
-If you'd like to get hands on with a specific device, learn how to use [specific vortex devices](vortex_devices.html).
+Some devices have more _modes_ than others, but each device is able to access all the modes and enter menus using the _navigation buttons_.
 
-# Key Terminology
+Menus allow you to program your device, such as changing the colors, blinking patterns, brightness, or even transferring modes to other devices.
 
-## Mode
+## Navigating 
+There are three ways to use the _navigation buttons_ on your device: **short clicks**, **long clicks**, and **holds**
 
-You can think of a [_Mode_](modes.html) as the colorful blinking pattern that is playing on the leds.
+  1. A **short click** is like saying '_next please_', to cycle through options  
+  2. A **long click** is like saying '_this one please_', to select an option
+  3. And finally, **holds** are primarily used to open the menus 
 
-## Menu
+Some devices have 2 buttons. A **long click** on the second button is like saying '_nevermind_', or '_back_', and returns to displaying modes.  
 
-[_Menus_](menus.html) allow you to program your device, such as changing the colors, blinking patterns, brightness, or even transferring modes to other devices.
+Almost everything can be achieved with only **short** and **long** clicks.
 
-## Pattern
+Those are the basics of controlling a Vortex Device.
 
-A [_Pattern_]() is one of the two main components of a mode. The pattern determines the way in which a mode will blink. This can affect the frequency and duration of strobes as well as the order in which colors are displayed.
-
-## Colorset
-
-A [_Colorset_](colorsets.html) is the other main component of a mode. This is a set of up to 8 colors which a pattern will use. A single colorset and pattern together are the simplest version of a mode.
-
-## LEDs
-
-All Vortex devices are comprised of at least 2 LEDs and some have over 20. In any mode, every LED on the device can have its own Colorset and Pattern. The simplest modes will have the same pattern and colorset on each LED, while the most complex will have a unique pattern and colorset on every LED.
+Next, try opening the menus by **holding** the navigation button till the leds blink white, then continue reading more over at [The Menus](menus.html)
 
