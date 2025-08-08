@@ -21,7 +21,7 @@ published: true
 .yellow { background-color: rgba(255, 255, 0); }
 .red { background-color: rgba(255, 0, 0); }
 
-.rounded-box { 
+.rounded-box {
    display: inline-block;
    width: 16px;
    height: 16px;
@@ -122,8 +122,8 @@ Learn how to use the Duo with this interactive tutorial:
 
 <div style="text-align: center; margin: 20px 0;">
   <iframe 
-    src="https://opensourcelightshows.github.io/DuoTutorial/" 
-    width="90%" 
+    src="https://opensourcelightshows.github.io/DuoTutorial/"
+    width="90%"
     height="600" 
     style="border: 5px solid #444; border-radius: 8px;"
     title="Duo Tutorial"
@@ -162,6 +162,26 @@ Learn how to use the Duo with this interactive tutorial:
 </a>
 </div>
 {% endraw %}
+
+---
+
+## Vortex Duo Infographic
+
+This one-page infographic summarizes the main features and operation of the **Vortex Duo**.  
+It's designed to be **printable** or saved on your phone for quick reference during programming, shows, or troubleshooting.
+
+### Download
+
+- [📥 Download PDF](assets/infographics/vortex_duo/infographic.pdf)
+
+### What's Inside
+
+- Button Controls and Menus
+- Mode & Pattern Structure
+- Colorset Behavior
+- Mode Sharing Summary
+- Pattern Classes & IDs
+- LED Map (if applicable)
 
 ---
 

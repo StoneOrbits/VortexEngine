@@ -8,6 +8,7 @@
 \usepackage{titlesec}
 \usepackage{enumitem}
 \usepackage{helvet}
+\usetikzlibrary{shadings}
 \usepackage[colorlinks=true,linkcolor=white,urlcolor=white]{hyperref}
 \renewcommand{\familydefault}{\sfdefault}
 \pagestyle{empty}
@@ -18,7 +19,7 @@
 \graphicspath{{../../images/}}
 
 % Colors
-\definecolor{bg}{RGB}{35,35,35}
+\definecolor{bg}{RGB}{40,40,40}
 \definecolor{twhite}{RGB}{245,245,245}
 \definecolor{tgray}{RGB}{180,180,180}
 \definecolor{purple}{RGB}{160,100,255}
@@ -40,7 +41,6 @@
 \newcommand{\msection}[3]{\vspace{6pt}\noindent\textbf{\color{#1}\large \href{#2}{#3}}\vspace{2pt}}
 \newcommand{\tsection}[1]{\vspace{6pt}\noindent\textbf{\color{twhite}\large #1}\vspace{2pt}}
 \newcommand{\desc}[1]{\textcolor{tgray}{#1}}
-\newcommand{\selectledtip}{\desc{\led{purple} \textbf{Select LED:} click = cycle, hold = pick.}\\[1pt]}
 
 \begin{document}
 % --- Title Block ---
@@ -105,6 +105,7 @@
 	\item \led{yellow} Global Brightness
 	\item \led{red} Factory Reset
     \end{itemize}
+    \item Quick exit: go in random then exit
 \end{itemize}
 \vspace{8pt}
 
@@ -134,9 +135,9 @@
 \desc{Roll new modes}
 \begin{itemize}
     \item \led{purple}\led{gray} Select LED first
-    \item Click: randomize new mode
-    \item Hold: save \& exit
-    \item Click 3x: Enable auto random
+    \item \textbf{SHORT}: randomize new mode
+    \item \textbf{LONG}: save \& exit
+    \item \textbf{SHORT} 3x: Enable auto random
 \end{itemize}
 \vspace{8pt}
 
@@ -154,9 +155,12 @@
 \end{tikzpicture}
 \desc{Wirelessly share}
 \begin{itemize}
-    \item \led{teal} Modern: hold=send, receive=auto
-    \item \led{dimwhite} Legacy: click=send, receive=auto
-    \item \led{red} Exit: hold to leave
+    \item \textbf{SHORT} to cycle options
+    \begin{itemize}
+	\item \led{teal} Modern: \textbf{HOLD} to send
+	\item \led{dimwhite} Legacy: \textbf{LONG} to send
+	\item \led{red} Exit: \textbf{LONG} to leave
+    \end{itemize}
 \end{itemize}
 \vspace{10pt}
 
@@ -175,49 +179,75 @@
     \item \led{purple}\led{gray} Select LED first
     \item Pick slot:
     \begin{itemize}
-        \item Existing = edit, empty = add, exit = leave (blinks red)
-        \item Hold on slot: delete
+        \item Existing = edit, empty = add
+        \item exit = shows colors + red on top
+        \item HOLD on slot: delete
     \end{itemize}
     \item For slot:
     \begin{itemize}
         \item \textbf{Pick hue quadrant:}
-        \begin{tikzpicture}[scale=0.35,baseline=0ex]
-          \foreach \i/\col in {0/red,1/green,2/blue,3/yellow}
-            \fill[fill=\col,opacity=0.82] (0,0) -- ({90*\i}:0.29) arc ({90*\i}:{90*(\i+1)}:0.29) -- cycle;
-          \draw[thick,white] (0,0) circle (0.29);
-        \end{tikzpicture}
+	\begin{tikzpicture}[scale=0.64,baseline]
+	  \shade[left color=red,right color=yellow]    (0*0.41,0) rectangle ++(0.36,0.28);
+	  \shade[left color=yellow,right color=green]  (1*0.41,0) rectangle ++(0.36,0.28);
+	  \shade[left color=green,right color=blue]    (2*0.41,0) rectangle ++(0.36,0.28);
+	  \shade[left color=blue,right color=red]      (3*0.41,0) rectangle ++(0.36,0.28);
+	\end{tikzpicture}
         \item \textbf{Pick fine hue:}
-        \begin{tikzpicture}[scale=0.34,baseline=0ex]
-          \foreach \i/\col in {0/red,1/green,2/blue,3/yellow}
-            \fill[fill=\col] (\i*0.22,0) rectangle ++(0.19,0.18);
-        \end{tikzpicture}
+	\begin{tikzpicture}[scale=0.64,baseline]
+	  \fill[fill=blue!80!cyan]    (0*0.41,0) rectangle ++(0.36,0.28);
+	  \fill[fill=blue]            (1*0.41,0) rectangle ++(0.36,0.28);
+	  \fill[fill=blue!60!purple]  (2*0.41,0) rectangle ++(0.36,0.28);
+	  \fill[fill=purple]          (3*0.41,0) rectangle ++(0.36,0.28);
+	\end{tikzpicture}
         \item \textbf{Adjust saturation:}
-        \begin{tikzpicture}[scale=0.29,baseline=0ex]
-          \foreach \i in {0,...,3}
-            \fill[fill=blue!\the\numexpr30+23*\i\relax!white] (\i*0.23,0) rectangle ++(0.19,0.18);
-        \end{tikzpicture}
+	\begin{tikzpicture}[scale=0.59,baseline]
+	  \foreach \i in {0,...,3}
+	    \fill[fill=blue!\the\numexpr30+23*\i\relax!white] (\i*0.38,0) rectangle ++(0.33,0.28);
+	\end{tikzpicture}
         \item \textbf{Adjust brightness:}
-        \begin{tikzpicture}[scale=0.29,baseline=0ex]
-          \foreach \i in {0,...,3}
-            \fill[fill=yellow!\the\numexpr40+18*\i\relax!black] (\i*0.23,0) rectangle ++(0.19,0.18);
-        \end{tikzpicture}
-        \item Repeat or exit (returns to slot select)
+	\begin{tikzpicture}[scale=0.59,baseline]
+	  \foreach \i in {0,...,3}
+	    \fill[fill=blue!\the\numexpr40+18*\i\relax!black] (\i*0.38,0) rectangle ++(0.33,0.28);
+	\end{tikzpicture}
+        \item Returns to slot select
+        \item Repeat or exit
     \end{itemize}
 \end{itemize}
 \vspace{9pt}
 
 % --- PATTERN SELECT ---
 \msection{blue}{https://stoneorbits.github.io/VortexEngine/pattern_select_menu.html}{Pattern Select}
-\tikz[baseline=-0.3ex]{
-  \draw[white,thick] (0,0.1)--(0.21,0.1); % solid
-  \draw[white,thick,dashed] (0.22,0.1)--(0.43,0.1); % dash
-  \draw[white,thick] (0.44,0.1)--(0.66,0.1); % solid
-}
+\begin{tikzpicture}[scale=1.35,baseline]
+  % Dot
+  \draw[white,thick] (0,0.14) -- (0.05,0.14);
+  \draw[white,thick] (0,0.12) -- (0.05,0.12);
+  \draw[white,thick] (0,0.10) -- (0.05,0.10);
+  \draw[white,thick] (0,0.08) -- (0.05,0.08);
+  \draw[white,thick] (0,0.06) -- (0.05,0.06);
+  % Dash
+  \draw[white,thick] (0.10,0.14) -- (0.25,0.14);
+  \draw[white,thick] (0.10,0.12) -- (0.25,0.12);
+  \draw[white,thick] (0.10,0.10) -- (0.25,0.10);
+  \draw[white,thick] (0.10,0.08) -- (0.25,0.08);
+  \draw[white,thick] (0.10,0.06) -- (0.25,0.06);
+  % Dot
+  \draw[white,thick] (0.30,0.14) -- (0.35,0.14);
+  \draw[white,thick] (0.30,0.12) -- (0.35,0.12);
+  \draw[white,thick] (0.30,0.10) -- (0.35,0.10);
+  \draw[white,thick] (0.30,0.08) -- (0.35,0.08);
+  \draw[white,thick] (0.30,0.06) -- (0.35,0.06);
+  % Dash
+  \draw[white,thick] (0.40,0.14) -- (0.55,0.14);
+  \draw[white,thick] (0.40,0.12) -- (0.55,0.12);
+  \draw[white,thick] (0.40,0.10) -- (0.55,0.10);
+  \draw[white,thick] (0.40,0.08) -- (0.55,0.08);
+  \draw[white,thick] (0.40,0.06) -- (0.55,0.06);
+\end{tikzpicture}
 \desc{Edit mode pattern}
 \begin{itemize}
     \item \led{purple}\led{gray} Select LED first
-    \item Click: next pattern
-    \item Hold: confirm/exit
+    \item \textbf{SHORT}: next pattern
+    \item \textbf{LONG}: confirm/exit
 \end{itemize}
 \vspace{8pt}
 
@@ -229,8 +259,8 @@
 \end{tikzpicture}
 \desc{Adjust brightness}
 \begin{itemize}
-    \item Click: adjust level
-    \item Hold: exit
+    \item \textbf{SHORT}: Pick Brightness
+    \item \textbf{LONG}: Save \& exit
 \end{itemize}
 \vspace{9pt}
 
@@ -242,23 +272,23 @@
 \end{tikzpicture}
 \desc{Reset device}
 \begin{itemize}
-    \item Pick: confirm/exit
-    \item Confirm: hold until solid white
+    \item \textbf{SHORT}: Pick cancel or reset
+    \begin{itemize}
+	\item Cancel: Exit factory reset
+	\item Reset: HOLD until solid white
+    \end{itemize}
 \end{itemize}
 \vspace{8pt}
 
 % --- Web Tools ---
 \tsection{Web Tools}
+\desc{Explore and share online}
 \begin{itemize}
-    \item \texttt{Click the titles in this document!}
-    \item \texttt{lightshow.lol} - build modes and connect to devices
-    \item \texttt{vortex.community} - share modes with others and browse modes
+    \item Click \textbf{titles} in this document for Wiki!
+    \item \href{https://lightshow.lol}{\texttt{lightshow.lol}} -- Build Modes
+    \item \href{https://vortex.community}{\texttt{vortex.community}} -- Share Modes
+    \item Find our discord on the \href{https://stoneorbits.github.io/VortexEngine/support.html}{\texttt{Wiki!}}
 \end{itemize}
-
-\vfill
-\begin{flushright}
-  \textcolor{tgray}{v2025.08}
-\end{flushright}
 
 \end{multicols*}
 \end{document}

@@ -29,12 +29,11 @@ Welcome to the Vortex Engine Wiki! Here you can find documentation and guides co
 
 ## Getting Started
 
-
 Are you a new Vortex Device owner looking to get started? Follow the [Getting Started Guide](getting_started.html) for the first steps.
 
 ## Upgrade Guide
 
-Do you already own a Vortex Device and want to upgrade it? Follow the [Vortex Engine Upgrade Guide](upgrade_guide.html)
+Do you already own a Vortex Device and want to upgrade it? Find your device in the [Device List](vortex_devices.html) and start there.
 
 ## How Vortex Works
 

@@ -6,26 +6,30 @@ parent: Vortex Engine
 ---
 
 # Basic Usage
-When a Vortex device is first turned on it will always start on the first [Mode](modes.html). 
+Vortex Engine is the core software that powers the various lightshow devices, providing the menus and driving the LEDs.
 
-You can think of a _mode_ as the colorful blinking pattern that is playing on the leds.
-
-Some devices have more _modes_ than others, but each device is able to access all the modes and enter menus using the _navigation buttons_.
-
-Menus allow you to program your device, such as changing the colors, blinking patterns, brightness, or even transferring modes to other devices.
+A Vortex Device is anything running Vortex Engine, such as the Duos, Vortex Orbit, or Spark Orbit.
 
 ## Navigating 
-There are three ways to use the _navigation buttons_ on your device: **short clicks**, **long clicks**, and **holds**
+Mainly _three_ ways to navigate on a device: **short** and **long** clicks, and **holds**
 
-  1. A **short click** is like saying '_next please_', to cycle through options  
-  2. A **long click** is like saying '_this one please_', to select an option
-  3. And finally, **holds** are primarily used to open the menus 
+  1. **Short click** is usually for cycling through options  
+  2. **Long click** is usually for selecting an option
+  3. **Holds** are rare, primarily for opening the menus 
 
-Some devices have 2 buttons. A **long click** on the second button is like saying '_nevermind_', or '_back_', and returns to displaying modes.  
+Some devices have 2 buttons. A **long click** on the second button often: _back_.
 
 Almost everything can be achieved with only **short** and **long** clicks.
 
-Those are the basics of controlling a Vortex Device.
+## Key Terminology
 
-Next, try opening the menus by **holding** the navigation button till the leds blink white, then continue reading more over at [The Menus](menus.html)
+A [_Mode_](modes.html) is the colorful blinking that plays on the leds. You can think of a _mode_ as a [_Pattern_](patterns.html) (blinking speed) with a [colorset](colorsets.html) 
+
+[_Menus_](menus.html) allow the device to be programmed, such as changing the _colorset_, blinking _patterns_, _brightness_, or even transferring _modes_ to other devices.
+
+A [_Savefile_](savefile_format.html) is how Vortex Devices share modes and settings, _savefiles_ are universal across devices.
+
+## Next Steps
+
+To get hands on with a specific device, see the list of [vortex devices](vortex_devices.html).
 
