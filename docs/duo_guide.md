@@ -106,7 +106,7 @@ Welcome to the Duo LED Guide, this page aims to get you up and running as fast a
 
 **Special Functions**
 
-- The Duo has some unique <a href="duo_special_functions_guide.html">Special Functions</a>. Check out the basic menus before diving into these options.
+- The Duo has some unique <a href="duo_special_functions.html">Special Functions</a>. Check out the basic menus before diving into these options.
 
 **Using The Button**
 
