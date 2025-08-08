@@ -69,7 +69,7 @@ Use a **long click** to activate the currently selected option.
    Navigate to the mode and hold the button until LEDs flash white.
 
 2. **Enter Mode Sharing Menu**  
-   Cycle to cyan and long click.
+   Cycle to <span style="color:rgb(0, 255, 255);">cyan</span> and long click.
 
 3. **Select Protocol**  
    Short click to select either "Send / Receive" (new) or "Send / Receive Legacy" (for older Duos).
