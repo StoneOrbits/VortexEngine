@@ -165,23 +165,20 @@ Learn how to use the Duo with this interactive tutorial:
 
 ---
 
-## Vortex Duo Infographic
+## Duo Quick Feature Reference
 
-This one-page infographic summarizes the main features and operation of the **Vortex Duo**.  
-It's designed to be **printable** or saved on your phone for quick reference during programming, shows, or troubleshooting.
+This one-page [📥 PDF](assets/infographics/vortex_duo/infographic.pdf) summarizes the main features and operation of the **Vortex Duo**.  
 
-### Download
-
-- [📥 Download PDF](assets/infographics/vortex_duo/infographic.pdf)
-
-### What's Inside
-
-- Button Controls and Menus
-- Mode & Pattern Structure
-- Colorset Behavior
-- Mode Sharing Summary
-- Pattern Classes & IDs
-- LED Map (if applicable)
+<div style="text-align: center; margin: 20px 0;">
+  <iframe
+    src="assets/infographics/vortex_duo/infographic.pdf"
+    width="90%"
+    height="700"
+    style="border: 3px solid #666; border-radius: 10px;"
+    title="Vortex Duo Infographic"
+    allowfullscreen>
+  </iframe>
+</div>
 
 ---
 

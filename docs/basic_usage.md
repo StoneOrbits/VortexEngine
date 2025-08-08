@@ -11,7 +11,7 @@ Vortex Engine is the core software that powers the various lightshow devices, pr
 A Vortex Device is anything running Vortex Engine, such as the Duos, Vortex Orbit, or Spark Orbit.
 
 ## Navigating 
-Mainly _three_ ways to navigate on a device: **short** and **long** clicks, and **holds**
+There is mainly _three_ ways to navigate on a device: **short** click, **long** clicks, and **holds**
 
   1. **Short click** is usually for cycling through options  
   2. **Long click** is usually for selecting an option
