@@ -15,7 +15,7 @@
 #ifdef VORTEX_EMBEDDED
 #pragma GCC diagnostic ignored "-Wclass-memaccess"
 #include <FastLED.h>
-#define LED_PIN     0
+#define LED_PIN     10
 #endif
 
 // global brightness

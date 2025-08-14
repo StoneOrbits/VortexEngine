@@ -10,7 +10,7 @@
 #define NUM_BUTTONS 3
 
 #define BUTTON_L_PIN 5
-#define BUTTON_M_PIN 6
+#define BUTTON_M_PIN 9
 #define BUTTON_R_PIN 7
 
 class Buttons
