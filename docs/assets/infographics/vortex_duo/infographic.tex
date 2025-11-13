@@ -32,15 +32,18 @@
 \definecolor{yellow}{RGB}{255,255,0}
 \definecolor{red}{RGB}{255,60,60}
 \definecolor{grayslot}{RGB}{120,120,120}
+\definecolor{sectionline}{RGB}{100,100,100}
 
 \pagecolor{bg}
 \color{twhite}
 
 % LED
 \newcommand{\led}[1]{\tikz[baseline=-0.5ex]\draw[fill=#1,draw=white,thick] (0,0) circle (0.105cm);}
-\newcommand{\msection}[3]{\vspace{6pt}\noindent\textbf{\color{#1}\large \href{#2}{#3}}\vspace{2pt}}
-\newcommand{\tsection}[1]{\vspace{6pt}\noindent\textbf{\color{twhite}\large #1}\vspace{2pt}}
+\newcommand{\msection}[3]{\noindent\textbf{\color{#1}\large \href{#2}{#3}}\vspace{2pt}}
+\newcommand{\tsection}[1]{\noindent\textbf{\color{twhite}\large #1}\vspace{2pt}}
 \newcommand{\desc}[1]{\textcolor{tgray}{#1}}
+\newcommand{\sectiondivider}{\vspace{2mm}\noindent\textcolor{sectionline}{\rule{\linewidth}{0.5pt}}\vspace{0mm}}
+\newcommand{\sectiontitle}[1]{\vspace{1mm}\noindent\textbf{\color{purple}\large #1}\vspace{0.5mm}}
 
 \begin{document}
 % --- Title Block ---
@@ -58,40 +61,54 @@
 
 \vspace{1mm}
 \hrule
+\vspace{1mm}
 
-\vspace{2.5mm}
-\begin{multicols*}{2}
+\begin{multicols}{2}
 
+% ========== SECTION 4: WEB TOOLS ==========
+\sectiontitle{WEB TOOLS \& RESOURCES}
 
-% --- INTERFACE ---
-\tsection{Interface}
 \begin{itemize}
-    \item Mostly \textbf{SHORT} or \textbf{LONG} clicks
-    \item A \textbf{SHORT} click is fast
-    \item A \textbf{LONG} click requires 250ms
+    \item Click \textbf{titles} in this document for Wiki!
+    \item \href{https://lightshow.lol}{\texttt{lightshow.lol}} -- Build Modes
+    \item \href{https://vortex.community}{\texttt{vortex.community}} -- Share Modes
+    \item Find our discord on the \href{https://stoneorbits.github.io/VortexEngine/support.html}{\texttt{Wiki!}}
+\end{itemize}
+
+\sectiondivider
+
+% ========== SECTION 1: BASICS ==========
+\sectiontitle{BASIC OPERATION}
+
+\tsection{Interface}
+\desc{How to interact with the Duo}
+\begin{itemize}
+    \item All \textbf{SHORT} or \textbf{LONG} (250ms) clicks
     \item Rare to \textbf{HOLD} the button
     \item Designed to reduce waiting around
 \end{itemize}
-\vspace{6pt}
+\vspace{3pt}
 
-% --- POWER FEATURES ---
 \tsection{Primary Control}
+\desc{Main Features}
 \begin{itemize}
-    \item \textbf{SHORT} click from OFF: Turn ON
-    \item \textbf{LONG} click from OFF: Toggle Conjure
-    \item \textbf{LONG} click from ON: Turn OFF
-    \item \textbf{HOLD} from ON (past OFF): Menus
-    \item 5x \textbf{SHORT} from OFF: Light Lock
-    \item \textbf{HOLD} 10s: Force Sleep / Panic Exit
+  \item \textbf{Turn ON}: \textbf{SHORT} click from OFF
+  \item \textbf{Turn OFF}: \textbf{LONG} click from ON
+  \item \textbf{Access Menus}: \textbf{HOLD} till white
+  \item \textbf{Conjure Mode}: \textbf{LONG} click from OFF
+  \item \textbf{Light Lock}: 5x \textbf{SHORT} from OFF
+  \item \textbf{Force Sleep / Panic Exit}: \textbf{HOLD} 10s
 \end{itemize}
-\vspace{6pt}
 
-% --- MENUS & ENTRY ---
+\sectiondivider
+
+% ========== SECTION 2: SELECTING FEATURES ==========
+\sectiontitle{SELECTING MENUS \& LEDS}
+
 \msection{white}{https://stoneorbits.github.io/VortexEngine/menus.html}{Menus}
 \desc{Edit mode or device settings}
 \vspace{-1mm}
 \begin{itemize}
-    \item Same on all Vortex Devices
     \item In order of usefulness!
     \item Affect current mode:
     \begin{itemize}
@@ -107,25 +124,25 @@
     \end{itemize}
     \item Quick exit: go in random then exit
 \end{itemize}
-\vspace{8pt}
+\vspace{3pt}
 
-% --- LED SELECTION ---
 \msection{purple}{https://stoneorbits.github.io/VortexEngine/led_selection.html}{LED Selection}
 \begin{tikzpicture}[scale=0.6,baseline=0ex]
-  % Example: two LEDs, one selected (highlighted), one not
   \draw[fill=purple,draw=white,thick] (0,0.25) circle (0.23);
   \draw[fill=grayslot,draw=white,thick] (0.52,0.25) circle (0.23);
 \end{tikzpicture}
 \desc{Pick target LED}
 \begin{itemize}
   \item Some menus require LED selection
-  \item Choose the affeced LED(s)
+  \item Choose the affected LED(s)
   \item \textbf{SHORT}: Cycle: tip, top, or both
   \item \textbf{LONG}: Confirm selection
 \end{itemize}
-\vspace{7pt}
 
-% --- RANDOMIZER ---
+
+% ========== SECTION 3: MENU OPTIONS ==========
+\sectiontitle{MENU OPTIONS}
+
 \msection{whiteled}{https://stoneorbits.github.io/VortexEngine/randomizer_menu.html}{Randomizer}
 \begin{tikzpicture}[scale=0.6, baseline=0ex]
   \filldraw[white,thick] (0,0) rectangle (0.5,0.5);
@@ -139,18 +156,13 @@
     \item \textbf{LONG}: save \& exit
     \item \textbf{SHORT} 3x: Enable auto random
 \end{itemize}
-\vspace{8pt}
+\vspace{3pt}
 
-% --- MODE SHARING ---
 \msection{cyan}{https://stoneorbits.github.io/VortexEngine/mode_sharing_menu.html}{Mode Sharing}
 \begin{tikzpicture}[scale=0.33,baseline=-0.7ex]
-  % Outer arc
   \draw[thick,cyan] (0.54,0.48) arc[start angle=50,end angle=-50,radius=0.8];
-  % Middle arc
   \draw[thick,cyan] (0.36,0.3) arc[start angle=50,end angle=-50,radius=0.5];
-  % Inner arc
   \draw[thick,cyan] (0.18,0.14) arc[start angle=50,end angle=-50,radius=0.22];
-  % Dot (center)
   \fill[cyan] (0.02,-0.02) circle (0.07);
 \end{tikzpicture}
 \desc{Wirelessly share}
@@ -162,16 +174,13 @@
 	\item \led{red} Exit: \textbf{LONG} to leave
     \end{itemize}
 \end{itemize}
-\vspace{10pt}
+\vspace{3pt}
 
-% --- COLOR SELECT ---
 \msection{green}{https://stoneorbits.github.io/VortexEngine/color_select_menu.html}{Color Select}
 \begin{tikzpicture}[scale=0.8, baseline={([yshift=-.6ex]current bounding box.center)}]
-  % Five colored circles representing a colorset
   \foreach \x/\c in {0/red, 1/green, 2/blue, 3/yellow, 4/purple} {
     \draw[fill=\c,draw=white,thick] (\x*0.25,0) circle (0.10);
   }
-  % Optional: Add one "empty" slot (gray)
   \draw[fill=grayslot,draw=white,thick] (5*0.25,0) circle (0.10);
 \end{tikzpicture}
 \desc{Edit mode colors}
@@ -213,30 +222,25 @@
         \item Repeat or exit
     \end{itemize}
 \end{itemize}
-\vspace{9pt}
+\vspace{3pt}
 
-% --- PATTERN SELECT ---
 \msection{blue}{https://stoneorbits.github.io/VortexEngine/pattern_select_menu.html}{Pattern Select}
 \begin{tikzpicture}[scale=1.35,baseline]
-  % Dot
   \draw[white,thick] (0,0.14) -- (0.05,0.14);
   \draw[white,thick] (0,0.12) -- (0.05,0.12);
   \draw[white,thick] (0,0.10) -- (0.05,0.10);
   \draw[white,thick] (0,0.08) -- (0.05,0.08);
   \draw[white,thick] (0,0.06) -- (0.05,0.06);
-  % Dash
   \draw[white,thick] (0.10,0.14) -- (0.25,0.14);
   \draw[white,thick] (0.10,0.12) -- (0.25,0.12);
   \draw[white,thick] (0.10,0.10) -- (0.25,0.10);
   \draw[white,thick] (0.10,0.08) -- (0.25,0.08);
   \draw[white,thick] (0.10,0.06) -- (0.25,0.06);
-  % Dot
   \draw[white,thick] (0.30,0.14) -- (0.35,0.14);
   \draw[white,thick] (0.30,0.12) -- (0.35,0.12);
   \draw[white,thick] (0.30,0.10) -- (0.35,0.10);
   \draw[white,thick] (0.30,0.08) -- (0.35,0.08);
   \draw[white,thick] (0.30,0.06) -- (0.35,0.06);
-  % Dash
   \draw[white,thick] (0.40,0.14) -- (0.55,0.14);
   \draw[white,thick] (0.40,0.12) -- (0.55,0.12);
   \draw[white,thick] (0.40,0.10) -- (0.55,0.10);
@@ -249,9 +253,8 @@
     \item \textbf{SHORT}: next pattern
     \item \textbf{LONG}: confirm/exit
 \end{itemize}
-\vspace{8pt}
+\vspace{3pt}
 
-% --- BRIGHTNESS ---
 \msection{yellow}{https://stoneorbits.github.io/VortexEngine/global_brightness_menu.html}{Brightness}
 \begin{tikzpicture}[scale=0.43,baseline=-0.2ex]
   \foreach \i in {1,2,3,4,5}
@@ -262,9 +265,8 @@
     \item \textbf{SHORT}: Pick Brightness
     \item \textbf{LONG}: Save \& exit
 \end{itemize}
-\vspace{9pt}
+\vspace{3pt}
 
-% --- RESET ---
 \msection{red}{https://stoneorbits.github.io/VortexEngine/factory_reset_menu.html}{Factory Reset}
 \begin{tikzpicture}[scale=0.62,baseline=0ex]
   \draw[fill=red] (0,0) -- (0.3,0.52) -- (-0.3,0.52) -- cycle;
@@ -278,18 +280,6 @@
 	\item Reset: HOLD until solid white
     \end{itemize}
 \end{itemize}
-\vspace{8pt}
 
-% --- Web Tools ---
-\tsection{Web Tools}
-\desc{Explore and share online}
-\begin{itemize}
-    \item Click \textbf{titles} in this document for Wiki!
-    \item \href{https://lightshow.lol}{\texttt{lightshow.lol}} -- Build Modes
-    \item \href{https://vortex.community}{\texttt{vortex.community}} -- Share Modes
-    \item Find our discord on the \href{https://stoneorbits.github.io/VortexEngine/support.html}{\texttt{Wiki!}}
-\end{itemize}
-
-\end{multicols*}
+\end{multicols}
 \end{document}
-
