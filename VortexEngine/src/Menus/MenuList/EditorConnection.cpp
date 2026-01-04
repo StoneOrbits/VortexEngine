@@ -311,7 +311,6 @@ void EditorConnection::handleState()
     break;
   case STATE_LISTEN_MODE_VL_DONE:
     // done transmitting
-    writeData(EDITOR_VERB_LISTEN_VL_ACK);
     m_state = STATE_IDLE;
     break;
 
@@ -662,7 +661,7 @@ void EditorConnection::sendCurModeVL()
 
 void EditorConnection::listenModeVL()
 {
-#if VL_ENABLE_SENDER == 1
+#if VL_ENABLE_RECEIVER == 1
   m_state = STATE_LISTEN_MODE_VL;
 #endif
 }
@@ -895,7 +894,7 @@ void EditorConnection::showReceiveModeVL()
     Leds::setRange(LED_0, (LedPos)(VLReceiver::percentReceived() / 10), RGB_GREEN6);
     Leds::setRange(LED_10, (LedPos)(LED_10 + (VLReceiver::percentReceived() / 10)), RGB_GREEN6);
   } else {
-    Leds::setAll(RGB_WHITE0);
+    Leds::setAll(RGB_CYAN0);
   }
 }
 
