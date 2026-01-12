@@ -83,7 +83,8 @@ bool VortexEngine::init()
     DEBUG_LOG("Settings failed to initialize");
     return false;
   }
-  if (!Bluetooth::init()) {
+  // have to hold the button at startup to enable bluetooth
+  if (g_pButton->check() && !Bluetooth::init()) {
     DEBUG_LOG("Bluetooth failed to initialize");
     return false;
   }
