@@ -31,7 +31,7 @@ void WarpWormPattern::init()
 
 void WarpWormPattern::blinkOn()
 {
-  int wormSize = 6;
+  int wormSize = (LED_COUNT > 2) ? LED_COUNT / 3 : 1;
   m_engine.leds().setAll(m_colorset.get(0));
   for (int body = 0; body < wormSize; ++body) {
     if (body + m_progress < LED_COUNT) {
