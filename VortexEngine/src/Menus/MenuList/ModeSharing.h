@@ -16,7 +16,6 @@ public:
   void onShortClick() override;
   void onLongClick() override;
 
-  // close the current menu
   virtual void leaveMenu(bool doSave = false) override;
 
 private:
@@ -30,7 +29,6 @@ private:
   void beginReceivingIR();
   void receiveModeIR();
 
-  void showSendModeVL();
   void showSendModeIR();
   void showReceiveModeVL();
   void showReceiveModeIR();
@@ -49,6 +47,10 @@ private:
   // the start time when checking for timing out
   uint32_t m_timeOutStartTime;
   uint32_t m_lastSendTime;
+
+  // used to track when the receive percentage changes for timeout purposes
+  uint32_t m_lastPercentChange;
+  uint8_t m_lastPercent;
 
   // whether to end the next send and go back to receive
   bool m_shouldEndSend;

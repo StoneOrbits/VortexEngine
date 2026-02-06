@@ -8,6 +8,7 @@
 #include "../../Wireless/VLSender.h"
 #include "../../Wireless/IRReceiver.h"
 #include "../../Wireless/IRSender.h"
+#include "../../Buttons/Buttons.h"
 #include "../../Buttons/Button.h"
 #include "../../Modes/Modes.h"
 #include "../../Modes/Mode.h"
@@ -19,6 +20,8 @@ ModeSharing::ModeSharing(const RGBColor &col, bool advanced) :
   m_sharingMode(ModeShareState::SHARE_RECEIVE_IR),
   m_timeOutStartTime(0),
   m_lastSendTime(0),
+  m_lastPercentChange(0),
+  m_lastPercent(0),
   m_shouldEndSend(false)
 {
 }
@@ -60,8 +63,6 @@ Menu::MenuAction ModeSharing::run()
     receiveModeVL();
     break;
   case ModeShareState::SHARE_SEND_VL:
-    // render the 'send mode' lights
-    showSendModeVL();
     // continue sending any data as long as there is more to send
     continueSendingVL();
     break;
@@ -87,7 +88,6 @@ void ModeSharing::onShortClick()
   switch (m_sharingMode) {
   case ModeShareState::SHARE_RECEIVE_VL:
     // click while on receive -> end receive, start sending
-    VLReceiver::endReceiving();
     beginSendingVL();
     DEBUG_LOG("Switched to send VL");
     break;
@@ -110,10 +110,10 @@ void ModeSharing::onShortClick()
 
 void ModeSharing::onLongClick()
 {
-  leaveMenu();
+  Modes::updateCurMode(&m_previewMode);
+  leaveMenu(true);
 }
 
-// override for leaving the mode sharing menu
 void ModeSharing::leaveMenu(bool doSave)
 {
   // make sure to stop sending/receiving before leaving
@@ -122,9 +122,6 @@ void ModeSharing::leaveMenu(bool doSave)
   }
   if (IRReceiver::isReceiving()) {
     IRReceiver::endReceiving();
-  }
-  if (VLSender::isSending()) {
-    VLSender::stopSending();
   }
   if (VLReceiver::isReceiving()) {
     VLReceiver::endReceiving();
@@ -226,32 +223,22 @@ void ModeSharing::receiveModeIR()
 
 void ModeSharing::beginSendingVL()
 {
-  // if the sender is sending then cannot start again
-  if (VLSender::isSending()) {
-    ERROR_LOG("Cannot begin sending, sender is busy");
-    return;
-  }
+  VLReceiver::endReceiving();
   m_sharingMode = ModeShareState::SHARE_SEND_VL;
-  // initialize it with the current mode data
-  VLSender::loadMode(Modes::curMode());
-  // send the first chunk of data, leave if we're done
-  if (!VLSender::send()) {
-    // when send has completed, stores time that last action was completed to calculate interval between sends
-    beginReceivingVL();
-  }
-  DEBUG_LOG("Switched to sending VL");
+  Buttons::installCancelInterrupt(BUTTON_PIN);
 }
 
 void ModeSharing::continueSendingVL()
 {
-  // if the sender isn't sending then nothing to do
-  if (!VLSender::isSending()) {
+  if (Buttons::isCancelRequested()) {
+    // cancel sending and go back to receiving
+    m_sharingMode = ModeShareState::SHARE_RECEIVE_VL;
+    Buttons::removeCancelInterrupt();
     return;
   }
-  if (!VLSender::send()) {
-    // when send has completed, stores time that last action was completed to calculate interval between sends
-    beginReceivingVL();
-  }
+  Leds::clearAll();
+  // send the first chunk of data, leave if we're done
+  VLSender::send(Modes::curMode());
 }
 
 void ModeSharing::beginReceivingVL()
@@ -263,17 +250,23 @@ void ModeSharing::beginReceivingVL()
 
 void ModeSharing::receiveModeVL()
 {
+  uint32_t now = Time::getCurtime();
   // if reveiving new data set our last data time
   if (VLReceiver::onNewData()) {
-    m_timeOutStartTime = Time::getCurtime();
+    m_timeOutStartTime = now;
     // if our last data was more than time out duration reset the recveiver
-  } else if (m_timeOutStartTime > 0 && (m_timeOutStartTime + MAX_TIMEOUT_DURATION) < Time::getCurtime()) {
+  } else if (m_timeOutStartTime > 0 && (m_timeOutStartTime + MAX_TIMEOUT_DURATION) < now) {
     VLReceiver::resetVLState();
     m_timeOutStartTime = 0;
     return;
   }
   // check if the VLReceiver has a full packet available
   if (!VLReceiver::dataReady()) {
+    uint8_t percent = VLReceiver::percentReceived();
+    if (percent != m_lastPercent) {
+      m_lastPercent = percent;
+      m_lastPercentChange = now;
+    }
     // nothing available yet
     return;
   }
@@ -284,15 +277,11 @@ void ModeSharing::receiveModeVL()
     return;
   }
   DEBUG_LOGF("Success receiving mode: %u", m_previewMode.getPatternID());
-  Modes::updateCurMode(&m_previewMode);
-  // leave menu and save settings, even if the mode was the same whatever
-  leaveMenu(true);
-}
-
-void ModeSharing::showSendModeVL()
-{
-  // show a dim color when not sending
-  Leds::clearAll();
+  if (!m_advanced) {
+    Modes::updateCurMode(&m_previewMode);
+    // leave menu and save settings, even if the mode was the same whatever
+    leaveMenu(true);
+  }
 }
 
 void ModeSharing::showSendModeIR()
@@ -304,12 +293,23 @@ void ModeSharing::showSendModeIR()
 
 void ModeSharing::showReceiveModeVL()
 {
+  // if the receiver is actively receiving right now then
   if (VLReceiver::isReceiving()) {
-    // using uint32_t to avoid overflow, the result should be within 10 to 255
+    uint32_t diff = (Time::getCurtime() - m_lastPercentChange);
     Leds::clearAll();
-    Leds::setRange(LED_FIRST, (LedPos)(VLReceiver::percentReceived() / 16), RGBColor(0, 1, 0));
+    // this generates the red flash when the receiver hasn't received something for
+    // some amount of time, 100 is just arbitray idk if it could be a better value
+    if (diff > 100) {
+      Leds::setAll(RGB_RED3);
+    } else {
+      Leds::setRange(LED_FIRST, (LedPos)(VLReceiver::percentReceived() / 10), RGBColor(0, 1, 0));
+    }
   } else {
-    Leds::setAll(0x010101);
+    if (m_advanced) {
+      m_previewMode.play();
+    } else {
+      Leds::setAll(0x00F05);
+    }
   }
 }
 
@@ -318,8 +318,12 @@ void ModeSharing::showReceiveModeIR()
   if (VLReceiver::isReceiving()) {
     // using uint32_t to avoid overflow, the result should be within 10 to 255
     Leds::clearAll();
-    Leds::setRange(LED_FIRST, (LedPos)(IRReceiver::percentReceived() / 16), RGBColor(0, 255, 0));
+    Leds::setRange(LED_FIRST, (LedPos)(VLReceiver::percentReceived() / 10), RGBColor(0, 1, 0));
   } else {
-    Leds::setAll(RGB_WHITE0);
+    if (m_advanced) {
+      m_previewMode.play();
+    } else {
+      Leds::setAll(RGB_CYAN0);
+    }
   }
 }
