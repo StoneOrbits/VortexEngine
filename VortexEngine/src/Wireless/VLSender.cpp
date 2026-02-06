@@ -26,8 +26,6 @@ uint32_t VLSender::m_size = 0;
 uint8_t VLSender::m_numBlocks = 0;
 // the amount in the final block
 uint8_t VLSender::m_remainder = 0;
-// configuration options for the sender
-uint32_t VLSender::m_blockSize = 0;
 // write total
 uint32_t VLSender::m_writeCounter = 0;
 
@@ -115,8 +113,8 @@ bool VLSender::send()
 void VLSender::beginSend()
 {
   m_isSending = true;
-  DEBUG_LOGF("[%zu] Beginning send size %u (blocks: %u remainder: %u blocksize: %u)",
-    Time::microseconds(), m_size, m_numBlocks, m_remainder, m_blockSize);
+  DEBUG_LOGF("[%zu] Beginning send size %u (blocks: %u remainder: %u)",
+    Time::microseconds(), m_size, m_numBlocks, m_remainder);
   // wakeup the other receiver with a very quick mark/space
   sendMark(50);
   sendSpace(100);
