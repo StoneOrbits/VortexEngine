@@ -281,6 +281,11 @@ void ModeSharing::receiveModeVL()
   leaveMenu(true);
 }
 
+void ModeSharing::showSendModeVL()
+{
+  Leds::clearAll();
+}
+
 void ModeSharing::showSendModeIR()
 {
   // show a dim color when not sending

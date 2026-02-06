@@ -29,6 +29,7 @@ private:
   void beginReceivingIR();
   void receiveModeIR();
 
+  void showSendModeVL();
   void showSendModeIR();
   void showReceiveModeVL();
   void showReceiveModeIR();
