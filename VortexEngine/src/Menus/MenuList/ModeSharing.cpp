@@ -113,6 +113,21 @@ void ModeSharing::onLongClick()
   leaveMenu();
 }
 
+void ModeSharing::leaveMenu(bool doSave)
+{
+  // make sure to stop sending/receiving before leaving
+  if (IRSender::isSending()) {
+    IRSender::stopSending();
+  }
+  if (IRReceiver::isReceiving()) {
+    IRReceiver::endReceiving();
+  }
+  if (VLReceiver::isReceiving()) {
+    VLReceiver::endReceiving();
+  }
+  Menu::leaveMenu(doSave);
+}
+
 void ModeSharing::switchVLIR()
 {
   switch (m_sharingMode) {

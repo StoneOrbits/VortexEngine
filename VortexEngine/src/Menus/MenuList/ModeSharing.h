@@ -16,6 +16,8 @@ public:
   void onShortClick() override;
   void onLongClick() override;
 
+  virtual void leaveMenu(bool doSave = false) override;
+
 private:
   void beginSendingVL();
   void continueSendingVL();
