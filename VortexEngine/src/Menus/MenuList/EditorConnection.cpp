@@ -315,7 +315,10 @@ void EditorConnection::handleState()
     if (Modes::numModes() == 0) {
       m_state = STATE_PULL_EACH_MODE_DONE;
     } else {
+      // backup the old mode index so we can return to it
       m_previousModeIndex = Modes::curModeIndex();
+      // switch to mode 0 to ensure we start at the beginning
+      Modes::setCurMode(0);
       m_state = STATE_PULL_EACH_MODE_SEND;
     }
     break;
