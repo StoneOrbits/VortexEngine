@@ -34,6 +34,7 @@ public:
   bool allocated() const { return m_allocated; }
   uint16_t size() const { return m_buf_size; }
   const uint8_t *data() const { return m_buf; }
+  uint8_t peekData(uint32_t index) const { return m_buf[index]; }
   const uint32_t *dwData() const { return (uint32_t *)m_buf; }
   uint16_t dwordpos() const { return m_bit_pos / 32; }
   uint16_t bytepos() const { return m_bit_pos / 8; }

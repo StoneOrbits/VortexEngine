@@ -6,17 +6,17 @@
 #include "../../Log/Log.h"
 
 const LedPos VortexWipePattern::ledStepPositions[] = {
-  LED_9,
-  LED_7,
-  LED_5,
-  LED_3,
+//  LED_9,
+//  LED_7,
+//  LED_5,
+//  LED_3,
   LED_1,
 
   LED_0,
-  LED_2,
-  LED_4,
-  LED_6,
-  LED_8
+//  LED_2,
+//  LED_4,
+//  LED_6,
+//  LED_8
 };
 
 VortexWipePattern::VortexWipePattern(const PatternArgs &args) :
