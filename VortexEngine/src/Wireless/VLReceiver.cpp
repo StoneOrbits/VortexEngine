@@ -36,7 +36,7 @@ bool VLReceiver::m_legacy = false;
 #include "../Serial/Serial.h"
 
 // ADC and timer configuration
-#define ADC_CHANNEL ADC1_CHANNEL_1 // Update this based on the actual ADC channel used
+#define ADC_CHANNEL ADC1_CHANNEL_4
 #define ADC_ATTEN ADC_ATTEN_DB_0
 #define ADC_WIDTH ADC_WIDTH_BIT_12
 #define TIMER_INTERVAL_MICRO_SEC 1000 // Check every 10ms, adjust as needed for your application

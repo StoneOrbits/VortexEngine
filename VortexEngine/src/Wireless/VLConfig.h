@@ -66,6 +66,6 @@
 
 
 #define VL_SEND_PWM_PIN 0
-#define VL_RECEIVER_PIN 0
+#define VL_RECEIVER_PIN 4
 
 #endif

@@ -9,7 +9,48 @@
 #endif
 
 #ifdef VORTEX_EMBEDDED
+#include "../VortexEngine.h"
 #include <Arduino.h>
+#include <esp_sleep.h>
+
+void IRAM_ATTR buttonISR()
+{
+  VortexEngine::wakeup(false);
+}
+
+void Button::enableWake()
+{
+  //uint64_t mask = 1ULL << m_pinNum;
+  //esp_deep_sleep_enable_gpio_wakeup(mask, ESP_GPIO_WAKEUP_GPIO_LOW);
+
+  //====
+  // Enable GPIO wake
+  gpio_wakeup_enable((gpio_num_t)m_pinNum, GPIO_INTR_LOW_LEVEL);
+  esp_sleep_enable_gpio_wakeup();
+  // Attach normal interrupt too if you want immediate reaction
+  //attachInterrupt(m_pinNum, buttonISR, FALLING);
+}
+
+void Button::disableWake()
+{
+  // remove the wake interrupt
+  //detachInterrupt(m_pinNum);
+  // Disable light sleep GPIO wake
+  gpio_wakeup_disable((gpio_num_t)m_pinNum);
+  // Restore normal input behavior
+  pinMode(m_pinNum, INPUT_PULLUP);
+  // hack: clear the button pin right after wake to prevent cycling to mode 2
+  m_buttonState = false;
+  m_releaseCount = 0;
+  m_isPressed = false;
+
+  // just reset everything lol
+  m_pressTime = 0;
+  m_releaseTime = 0;
+  m_holdDuration = 0;
+  m_releaseDuration = 0;
+  m_consecutivePresses = 0;
+}
 #endif
 
 Button::Button() :
@@ -35,19 +76,19 @@ Button::~Button()
 
 bool Button::init(uint8_t pin)
 {
-  m_pinNum = 0;
   m_pressTime = 0;
   m_releaseTime = 0;
   m_holdDuration = 0;
   m_releaseDuration = 0;
   m_consecutivePresses = 0;
-  m_releaseCount = 0;
-  m_buttonState = false;
   m_newPress = false;
   m_newRelease = false;
-  m_isPressed = m_buttonState;
   m_shortClick = false;
   m_longClick = false;
+
+  m_buttonState = check();
+  m_releaseCount = !m_buttonState;
+  m_isPressed = m_buttonState;
 
   m_pinNum = pin;
 #ifdef VORTEX_EMBEDDED
@@ -87,9 +128,16 @@ void Button::update()
       m_pressTime = Time::getCurtime();
       m_newPress = true;
     } else {
-      // the button was just released
-      m_releaseTime = Time::getCurtime();
-      m_newRelease = true;
+      // simply ignore the first release, always. Because they just turned the device
+      // on and we don't want them to cycle to the next mode or something
+      if (m_releaseCount > 0) {
+        // the button was just released
+        m_releaseTime = Time::getCurtime();
+        m_newRelease = true;
+      }
+      // count releases even inside the ignore window so that
+      // we can tell if the button was released to stop ignoring
+      m_releaseCount++;
     }
   }
 

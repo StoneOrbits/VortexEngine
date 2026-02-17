@@ -22,8 +22,15 @@
 #include "VortexLib.h"
 #endif
 
+#ifdef VORTEX_EMBEDDED
+#include <esp_system.h>
+#include <esp_sleep.h>
+#endif
+
 // bool in vortexlib to simulate sleeping
 volatile bool VortexEngine::m_sleeping = false;
+// whether the 'force sleep' option is available (hold down for long time)
+bool VortexEngine::m_forceSleepEnabled = true;
 
 // auto cycling
 bool VortexEngine::m_autoCycle = false;
@@ -87,7 +94,7 @@ bool VortexEngine::init()
     DEBUG_LOG("Bluetooth failed to initialize");
     return false;
   }
- 
+
 #if COMPRESSION_TEST == 1
   compressionTest();
 #endif
@@ -98,6 +105,10 @@ bool VortexEngine::init()
 
 #if TIMER_TEST == 1
   timerTest();
+#endif
+
+#ifdef VORTEX_EMBEDDED
+  enableMOSFET(!Modes::locked());
 #endif
 
   return true;
@@ -134,7 +145,6 @@ void VortexEngine::cleanup()
 
 void VortexEngine::tick()
 {
-#ifdef VORTEX_LIB
   if (m_sleeping) {
     // update the buttons to check for wake
     Buttons::update();
@@ -144,12 +154,16 @@ void VortexEngine::tick()
       Modes::setLocked(false);
     }
     // check for any kind of press to wakeup
-    if (g_pButton->check() || g_pButton->onRelease() || !Vortex::sleepEnabled()) {
+    if (g_pButton->check() || g_pButton->onRelease()) {
       wakeup();
     }
+#ifdef VORTEX_LIB
+    if (!Vortex::sleepEnabled()) {
+      wakeup();
+    }
+#endif
     return;
   }
-#endif
 
   // tick the current time counter forward
   Time::tickClock();
@@ -168,6 +182,55 @@ void VortexEngine::runMainLogic()
 {
   // the current tick
   uint32_t now = Time::getCurtime();
+
+  // if the device is locked then that takes priority over all, while locked the
+  // device will only listen for clicks to wakeup momentarily then go back to sleep
+  if (Modes::locked()) {
+    // several fast clicks will unlock the device
+    if (g_pButton->onConsecutivePresses(DEVICE_LOCK_CLICKS - 1)) {
+      // turn off the lock flag and save it to disk
+      Modes::setLocked(false);
+#ifdef VORTEX_EMBEDDED
+      // then enable the mosfet
+      enableMOSFET(true);
+#endif
+    } else if (now > (CONSECUTIVE_WINDOW_TICKS * DEVICE_LOCK_CLICKS)) {
+      // go back to sleep if they don't unlock in time, don't save
+      enterSleep(false);
+    }
+    // OPTIONAL: render a dim led during unlock window waiting for clicks?
+    //Leds::setIndex(LED_1, RGB_RED4);
+    Leds::clearAll();
+    // don't do anything else while locked, just return
+    return;
+  }
+
+  // the device is not locked, proceed with regular logic
+
+  // if the button hasn't been released since turning on then there is custom logic
+  if (g_pButton->releaseCount() == 0) {
+    if (!Modes::load()) {
+      return;
+    }
+    // if the button is held for 2 seconds from off, switch to one click mode on
+    // the last mode shown before sleep
+    if (!Modes::keychainModeEnabled() && now == ONE_CLICK_THRESHOLD_TICKS && g_pButton->isPressed()) {
+      // whether oneclick mode is now enabled
+      bool isEnabledNow = !Modes::oneClickModeEnabled();
+      // toggle one click mode
+      Modes::setOneClickMode(isEnabledNow);
+      // if we turned it on then switch to that mode
+      if (isEnabledNow) {
+        Modes::switchToStartupMode();
+      } else {
+        Modes::setCurMode(0);
+      }
+      // flash either low white or dim white2 to indicate
+      // whether one-click mode has been turned on or off
+      Leds::holdAll(isEnabledNow ? RGB_WHITE0 : RGB_WHITE5);
+    }
+    return;
+  }
 
   // check for serial first before main menus run, but as a result if we open
   // editor we have to call modes load inside here
@@ -195,15 +258,73 @@ void VortexEngine::runMainLogic()
     return;
   }
 
+  // finally the user has released the button after initially turning it on,
+  // just run the regular main logic of the system
+
+  // re-enter keychain mode if it was never disabled
+  if (Modes::keychainModeEnabled() && !Menus::checkInMenu()) {
+    // switch to the last mode we were on
+    Modes::switchToStartupMode();
+    // enter keychain mode menu
+    Menus::openMenu(MENU_GLOBAL_BRIGHTNESS, true);
+  }
+
+  // first look for the force-sleep and instant on/off toggle
+  const uint32_t holdTime = g_pButton->holdDuration();
+  // force-sleep check takes precedence above all, but it does not run when keychain mode is enabled
+  if (m_forceSleepEnabled && holdTime >= FORCE_SLEEP_THRESHOLD_TICKS) {
+    // as long as they hold down past this threshold just turn off
+    if (g_pButton->isPressed()) {
+      Leds::clearAll();
+      return;
+    }
+    // but as soon as they actually release put the device to sleep
+    if (g_pButton->onRelease()) {
+      // do not save on force sleep
+      enterSleep(false);
+    }
+    return;
+  }
+
   // if the menus are open and running then just return
   if (Menus::run()) {
     return;
   }
 
-  // check if we should enter the menu
-  if (g_pButton->isPressed() && g_pButton->holdDuration() > MENU_TRIGGER_THRESHOLD_TICKS) {
-    DEBUG_LOG("Entering Menu Selection...");
-    Menus::openMenuSelection();
+  // if the user releases the button after the sleep threshold and
+  // we're still in menu state not open, then we can go to sleep
+  if (g_pButton->onRelease() && holdTime >= SLEEP_ENTER_THRESHOLD_TICKS) {
+    // enter sleep mode
+    enterSleep();
+    return;
+  }
+
+  // if the button is just held beyond the sleep threshold then
+  if (g_pButton->isPressed() && holdTime >= SLEEP_ENTER_THRESHOLD_TICKS) {
+    // clear all the leds for a short moment
+    Leds::clearAll();
+    // then oncethe user holds past the sleep window threshold open up the menus
+    if (holdTime >= (SLEEP_ENTER_THRESHOLD_TICKS + SLEEP_WINDOW_THRESHOLD_TICKS)) {
+      // open the menu selection area
+      DEBUG_LOG("Entering ring fill...");
+      Menus::openMenuSelection();
+    }
+    // don't play the modes because the user is going into menus
+    return;
+  }
+
+  // lastly check if we are locking the device, which can only happen if they click the
+  // button 5 times quickly when the device was off, so 4 times in the first x ticks because
+  // the first click was used to wake the device and isn't counted in the consecutive clicks
+  if (now < (CONSECUTIVE_WINDOW_TICKS * DEVICE_LOCK_CLICKS) && g_pButton->onConsecutivePresses(DEVICE_LOCK_CLICKS - 1)) {
+#ifdef VORTEX_LIB
+    if (!Vortex::lockEnabled()) {
+      return;
+    }
+#endif
+    // lock and just go to sleep, don't need to reset consecutive press counter here
+    Modes::setLocked(true);
+    enterSleep();
     return;
   }
 
@@ -278,20 +399,41 @@ void VortexEngine::enterSleep(bool save)
   // clear all the leds
   Leds::clearAll();
   Leds::update();
+#ifdef VORTEX_EMBEDDED
+  // Enable wake on interrupt for the button
+  g_pButton->enableWake();
+  m_sleeping = true;
+  // TODO: enable sleep
+  //esp_deep_sleep_start();
+  esp_light_sleep_start();
+#else
   // enable the sleep bool
   m_sleeping = true;
+#endif
 }
 
 void VortexEngine::wakeup(bool reset)
 {
   DEBUG_LOG("Waking up");
   m_sleeping = false;
+#ifdef VORTEX_EMBEDDED
+  g_pButton->disableWake();
   // need to fake the reset in vortexlib, lol this works I guess
   if (reset) {
-    cleanup();
-    init();
+    esp_restart();
   }
+#endif
 }
+
+#ifdef VORTEX_EMBEDDED
+// pin 4 is the mosfet to turn off leds
+#define MOSFET_PIN GPIO_NUM_4
+void VortexEngine::enableMOSFET(bool enabled)
+{
+  pinMode(MOSFET_PIN, OUTPUT);
+  digitalWrite(MOSFET_PIN, enabled ? HIGH : LOW);
+}
+#endif
 
 #if COMPRESSION_TEST == 1
 #include <string.h>
