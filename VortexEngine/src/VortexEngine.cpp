@@ -427,7 +427,7 @@ void VortexEngine::wakeup(bool reset)
 
 #ifdef VORTEX_EMBEDDED
 // pin 4 is the mosfet to turn off leds
-#define MOSFET_PIN GPIO_NUM_4
+#define MOSFET_PIN GPIO_NUM_5
 void VortexEngine::enableMOSFET(bool enabled)
 {
   pinMode(MOSFET_PIN, OUTPUT);
