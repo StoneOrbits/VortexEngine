@@ -1,5 +1,6 @@
 #include "VortexEngine.h"
 
+#include "Sensor/Accelerometer.h"
 #include "Wireless/IRReceiver.h"
 #include "Wireless/IRSender.h"
 #include "Wireless/VLReceiver.h"
@@ -87,6 +88,10 @@ bool VortexEngine::init()
     return false;
   }
   if (!Modes::init()) {
+    DEBUG_LOG("Settings failed to initialize");
+    return false;
+  }
+  if (!Accelerometer::init()) {
     DEBUG_LOG("Settings failed to initialize");
     return false;
   }
