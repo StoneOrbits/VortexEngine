@@ -4,7 +4,7 @@ FILE_PATH="$HOME/.arduino15/packages/adafruit/hardware/samd/1.7.16/cores/arduino
 
 # Check if the file exists
 if [ ! -f "$FILE_PATH" ]; then
-    echo "Error: File does not exist."
+    echo "Error: Cannot patch trinket source, file does not exist: $FILE_PATH"
     exit 1
 fi
 # Read the specific line and check its content
@@ -27,7 +27,7 @@ fi
 FILE_PATH2="$HOME/.arduino15/packages/adafruit/hardware/samd/1.7.16/cores/arduino/USB/USBAPI.h"
 # Check if the file exists
 if [ ! -f "$FILE_PATH2" ]; then
-    echo "Error: File does not exist."
+    echo "Error: Cannot patch trinket source, file does not exist: $FILE_PATH2"
     exit 1
 fi
 # Read the specific line and check its content
