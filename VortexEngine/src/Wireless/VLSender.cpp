@@ -149,9 +149,9 @@ void VLSender::sendMarkSpace(uint16_t markTime, uint16_t spaceTime)
   Vortex::vcallbacks()->infraredWrite(false, spaceTime);
 #else
   startPWM();
-  Time::delayMicrosecondsCancellable(markTime);
+  Time::delayMicroseconds(markTime);
   stopPWM();
-  Time::delayMicrosecondsCancellable(spaceTime);
+  Time::delayMicroseconds(spaceTime);
 #endif
 }
 
