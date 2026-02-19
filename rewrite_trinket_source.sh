@@ -1,7 +1,6 @@
 #!/bin/bash
 
-# wildcard version folder like 1.7.16 or 1.7.17
-FILE_PATH="$HOME/.arduino15/packages/adafruit/hardware/samd/"*/cores/arduino/USB/CDC.cpp
+FILE_PATH="$HOME/.arduino15/packages/adafruit/hardware/samd/1.7.16/cores/arduino/USB/CDC.cpp"
 
 # Check if the file exists
 if [ ! -f "$FILE_PATH" ]; then
@@ -25,8 +24,7 @@ fi
 
 # =============================================================================================
 
-# wildcard version folder like 1.7.16 or 1.7.17
-FILE_PATH2="$HOME/.arduino15/packages/adafruit/hardware/samd/"*/cores/arduino/USB/USBAPI.h
+FILE_PATH2="$HOME/.arduino15/packages/adafruit/hardware/samd/1.7.16/cores/arduino/USB/USBAPI.h"
 # Check if the file exists
 if [ ! -f "$FILE_PATH2" ]; then
     echo "Error: Cannot patch trinket source, file does not exist: $FILE_PATH2"
