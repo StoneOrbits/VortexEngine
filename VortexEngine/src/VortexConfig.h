@@ -68,6 +68,27 @@
 // it will be registered as a 'long click'
 #define CLICK_THRESHOLD       250
 
+// Sleep Enter Threshold (in milliseconds)
+//
+// How long the button has to be held at the main mode area to enter
+// sleep mode
+#define SLEEP_TRIGGER_TIME    500
+
+// Sleep Window Time (in milliseconds)
+//
+// How long the user has to release the button to enter sleep
+#define SLEEP_WINDOW_TIME     750
+
+// Force Sleep Time (in milliseconds)
+//
+// How long the user has to hold the button anywhere to force sleep
+#define FORCE_SLEEP_TIME      6000
+
+// One-click mode threshold
+//
+// How long the user has to hold the button to trigger one-click mode
+#define ONE_CLICK_MODE_TRHESHOLD 500
+
 // Device Lock Clicks
 //
 // How many rapid clicks the user must perform to lock/unlock the device.
