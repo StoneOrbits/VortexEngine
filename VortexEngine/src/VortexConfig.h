@@ -340,6 +340,20 @@
 // ===================================================================
 //  Boolean Configurations (0 or 1)
 
+// Infrared Enable
+//
+// Whether to enable the Infrared system as a whole. This is for mode
+// transferring with IR peripherals
+#define IR_ENABLE_SENDER      1
+#define IR_ENABLE_RECEIVER    1
+
+// Visible Light Enable
+//
+// Whether to enable the Visible Light system as a whole. This is for mode
+// transferring with the Leds and a light sensor
+#define VL_ENABLE_SENDER      1
+#define VL_ENABLE_RECEIVER    0
+
 // Debug Allocations
 //
 // Tracks all memory allocations and logs them, useful for finding leaks
