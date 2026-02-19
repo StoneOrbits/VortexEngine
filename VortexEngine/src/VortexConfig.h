@@ -344,8 +344,8 @@
 //
 // Whether to enable the Infrared system as a whole. This is for mode
 // transferring with IR peripherals
-#define IR_ENABLE_SENDER      1
-#define IR_ENABLE_RECEIVER    1
+#define IR_ENABLE_SENDER      0
+#define IR_ENABLE_RECEIVER    0
 
 // Visible Light Enable
 //
