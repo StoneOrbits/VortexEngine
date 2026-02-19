@@ -5,6 +5,7 @@
 #include "../Patterns/Single/SingleLedPattern.h"
 #include "../Patterns/Multi/MultiLedPattern.h"
 #include "../Patterns/PatternBuilder.h"
+#include "../Sensor/Accelerometer.h"
 #include "../Patterns/Pattern.h"
 #include "../Serial/ByteStream.h"
 #include "../Time/TimeControl.h"
@@ -161,6 +162,10 @@ void Mode::play()
 #endif
       continue;
     }
+#if ACCELEROMETER_ENABLE == 1
+    // apply accelerometer modifications to this pattern
+    entry->applyAccelerometer();
+#endif
     // play the current pattern with current color set on the current finger
     entry->play();
   }
@@ -695,6 +700,16 @@ void Mode::clearColorsetMap(LedMap map)
     clearColorset(pos);
   }
 }
+
+#if ACCELEROMETER_ENABLE == 1
+// apply accelerometer samples to the current mode
+void Mode::applyAccelerometer()
+{
+  for (LedPos led = LED_FIRST; led < LED_COUNT; ++led) {
+    m_singlePats[led]->applyAccelerometer();
+  }
+}
+#endif
 
 void Mode::setArg(uint8_t param, uint8_t value, LedMap map)
 {

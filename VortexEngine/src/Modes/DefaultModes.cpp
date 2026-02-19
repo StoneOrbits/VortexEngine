@@ -6,12 +6,24 @@
 // the gloveset upon factory reset
 const default_mode_entry default_modes[MAX_MODES] = {
   {
-    PATTERN_DOPS, 5, {
+    PATTERN_COMPLEMENTARY_BLEND, 3, {
       RGB_RED,
+      RGB_GREEN,
+      RGB_BLUE,
+    }
+  },
+  {
+    PATTERN_DOPS, 5, {
+      //RGB_RED,
       RGB_GREEN,
       RGB_BLUE,
       0xABAA00,
       0x5500AB
+    }
+  },
+  {
+    PATTERN_COMPLEMENTARY_BLEND, 1, {
+      RGB_RED,
     }
   },
   {
@@ -127,3 +139,7 @@ const default_mode_entry default_modes[MAX_MODES] = {
 
 // exposed size of the default modes array
 const uint8_t num_default_modes = (sizeof(default_modes) / sizeof(default_modes[0]));
+
+// compile time assert for max modes count check
+static_assert(MAX_MODES == (sizeof(default_modes) / sizeof(default_modes[0])),
+  "Incorrect number of default modes! Ensure default_modes array has " EXPAND_AND_QUOTE(MAX_MODES) " enties");

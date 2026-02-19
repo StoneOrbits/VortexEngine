@@ -340,7 +340,7 @@
 // Enable Bluetooth
 //
 // Turn this on to enable Bluetooth functionality
-#define BLUETOOTH_ENABLE 1
+#define BLUETOOTH_ENABLE            1
 
 // Bluetooth Broadcast Time
 //
@@ -351,6 +351,11 @@
 //
 // The name of the device broadcast over Bluetooth for connection
 #define BLUETOOTH_BROADCAST_NAME    "Vortex " VORTEX_NAME
+
+// Enable Accelerometer
+//
+// Controls whether the acclerometer logic is enabled and included
+#define ACCELEROMETER_ENABLE        1
 
 // ===================================================================
 //  Boolean Configurations (0 or 1)

@@ -91,14 +91,18 @@ bool VortexEngine::init()
     DEBUG_LOG("Settings failed to initialize");
     return false;
   }
+#if ACCELEROMETER_ENABLE == 1
   if (!Accelerometer::init()) {
     DEBUG_LOG("Settings failed to initialize");
     return false;
   }
+#endif
+#if BLUETOOTH_ENABLE == 1
   if (!Bluetooth::init()) {
     DEBUG_LOG("Bluetooth failed to initialize");
     return false;
   }
+#endif
 
 #if COMPRESSION_TEST == 1
   compressionTest();
@@ -125,7 +129,12 @@ void VortexEngine::cleanup()
   // NOTE: the embedded doesn't actually cleanup,
   //       but the test frameworks do
 #ifdef VORTEX_LIB
+#if BLUETOOTH_ENABLE == 1
   Bluetooth::cleanup();
+#endif
+#if ACCELEROMETER_ENABLE == 1
+  Accelerometer::cleanup();
+#endif
   Modes::cleanup();
   Menus::cleanup();
   Buttons::cleanup();
@@ -175,6 +184,11 @@ void VortexEngine::tick()
 
   // poll the button(s) and update the button object states
   Buttons::update();
+
+#if ACCELEROMETER_ENABLE == 1
+  // sample and update the accelerometer
+  Accelerometer::update();
+#endif
 
   // run the main logic for the engine
   runMainLogic();
@@ -237,17 +251,27 @@ void VortexEngine::runMainLogic()
     return;
   }
 
-  // check for serial first before main menus run, but as a result if we open
-  // editor we have to call modes load inside here
-  if (SerialComs::checkSerial() || Bluetooth::checkBluetooth()) {
+  // check for serial first before anything
+  bool shouldOpenEditor = SerialComs::checkSerial();
+
+#if BLUETOOTH_ENABLE == 1
+  // also check for bluetooth to open the editor connection menu
+  if (Bluetooth::checkBluetooth()) {
+    shouldOpenEditor = true;
+  }
+#endif
+
+  if (shouldOpenEditor) {
     if (Menus::curMenuID() != MENU_EDITOR_CONNECTION) {
-      // possible modes haven't been loaded yet
+      // but if we open editor menu we have to ensure the modes get loaded because
+      // this might be first tick and modes might not be loaded yet
       Modes::load();
       // directly open the editor connection menu because we are connected to USB serial
       Menus::openMenu(MENU_EDITOR_CONNECTION);
     }
   }
 
+#if BLUETOOTH_ENABLE == 1
   // if the bluetooth is still initialized
   if (Bluetooth::isInitialized()) {
     // but it's not connected yet, so it's broadcasting
@@ -256,6 +280,7 @@ void VortexEngine::runMainLogic()
       Bluetooth::cleanup();
     }
   }
+#endif
 
   // load modes if necessary
   if (!Modes::load()) {
