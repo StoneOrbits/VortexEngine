@@ -25,6 +25,7 @@ public:
   bool send();
 
   bool isSending() { return m_isSending; }
+  void stopSending() { m_isSending = false; }
 
   uint32_t percentDone() { return (uint32_t)(((float)m_writeCounter / (float)m_size) * 100.0); }
 
