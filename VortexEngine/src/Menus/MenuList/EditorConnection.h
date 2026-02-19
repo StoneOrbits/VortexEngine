@@ -51,17 +51,12 @@ private:
   ReturnCode receiveBrightness();
   ReturnCode receiveModeVL();
   void showReceiveModeVL();
-  ReturnCode receiveModeIdx(uint8_t &idx);
-  ReturnCode receiveFirmwareSize(uint32_t &idx);
-  // pull/push through the chromalink
-  ReturnCode pullHeaderChromalink();
-  ReturnCode pushHeaderChromalink();
-  ReturnCode pullModeChromalink();
-  ReturnCode pushModeChromalink();
-  // backup and restore duo modes
-  ReturnCode writeDuoFirmware();
-  ReturnCode backupDuoModes();
-  ReturnCode restoreDuoModes();
+  bool detectConnection();
+  void readData(ByteStream &buffer);
+  void writeData(ByteStream &buffer);
+  void writeData(const char *message);
+  bool isConnected();
+  bool isConnectedReal();
 
   enum EditorConnectionState {
     // the editor is not connected
@@ -93,7 +88,6 @@ private:
 
     // transmit the mode over visible light
     STATE_TRANSMIT_MODE_VL,
-    STATE_TRANSMIT_MODE_VL_TRANSMIT,
     STATE_TRANSMIT_MODE_VL_DONE,
 
     // receive a mode over VL
@@ -137,8 +131,6 @@ private:
   ByteStream m_receiveBuffer;
   // receiver timeout
   uint32_t m_timeOutStartTime;
-  // target chroma mode index for read/write
-  uint8_t m_chromaModeIdx;
   // Whether at least one command has been received yet
   bool m_allowReset;
   // the mode index to return to after iterating the modes to send them
@@ -149,14 +141,6 @@ private:
   ReturnCode m_rv;
 
   bool m_isBluetooth;
-
-  bool detectConnection();
-  void readData(ByteStream &buffer);
-  void writeData(ByteStream &buffer);
-  void writeData(const char *message);
-  bool isConnected();
-  bool isConnectedReal();
-
 };
 
 #endif
