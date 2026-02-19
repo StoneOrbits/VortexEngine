@@ -62,6 +62,12 @@ private:
   ReturnCode writeDuoFirmware();
   ReturnCode backupDuoModes();
   ReturnCode restoreDuoModes();
+  void showReceiveModeVL();
+  bool detectConnection();
+  void readData(ByteStream &buffer);
+  void writeData(ByteStream &buffer);
+  void writeData(const char *message);
+  bool isConnected();
 
   enum EditorConnectionState {
     // the editor is not connected
@@ -93,7 +99,6 @@ private:
 
     // transmit the mode over visible light
     STATE_TRANSMIT_MODE_VL,
-    STATE_TRANSMIT_MODE_VL_TRANSMIT,
     STATE_TRANSMIT_MODE_VL_DONE,
 
     // receive a mode over VL

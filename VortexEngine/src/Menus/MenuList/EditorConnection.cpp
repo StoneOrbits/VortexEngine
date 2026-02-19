@@ -282,10 +282,6 @@ void EditorConnection::handleState()
     // immediately load the mode and send it now
     VLSender::send(&m_previewMode);
 #endif
-    m_state = STATE_TRANSMIT_MODE_VL_TRANSMIT;
-    break;
-  case STATE_TRANSMIT_MODE_VL_TRANSMIT:
-    // othewrise, done, switch to the transmit done state
     m_state = STATE_TRANSMIT_MODE_VL_DONE;
     break;
   case STATE_TRANSMIT_MODE_VL_DONE:
@@ -297,8 +293,10 @@ void EditorConnection::handleState()
   // -------------------------------
   //  Receive Mode from Duo
   case STATE_LISTEN_MODE_VL:
+#if VL_ENABLE_RECEIVER == 1
     // immediately load the mode and send it now
     VLReceiver::beginReceiving();
+#endif
     m_state = STATE_LISTEN_MODE_VL_LISTEN;
     break;
   case STATE_LISTEN_MODE_VL_LISTEN:
@@ -621,7 +619,7 @@ void EditorConnection::receiveData()
   if (m_receiveBuffer.size() >= 512) {
     return;
   }
-  // Otherwise, read from Serial
+  // Otherwise, read more from Serial
   readData(m_receiveBuffer);
 }
 
@@ -803,7 +801,7 @@ ReturnCode EditorConnection::receiveMessage(const char *message)
   if (memcmp(m_receiveBuffer.data(), message, len) != 0) {
     return RV_FAIL;
   }
-  if (!m_receiveBuffer.consume(len)) {
+  if (!m_receiveBuffer.consume((uint32_t)len)) {
     return RV_FAIL;
   }
   // we have now received at least one command, do not allow resetting
@@ -857,6 +855,7 @@ ReturnCode EditorConnection::receiveBrightness(bool chromalink)
 
 ReturnCode EditorConnection::receiveModeVL()
 {
+#if VL_ENABLE_RECEIVER == 1
   // if reveiving new data set our last data time
   if (VLReceiver::onNewData()) {
     m_timeOutStartTime = Time::getCurtime();
@@ -881,6 +880,7 @@ ReturnCode EditorConnection::receiveModeVL()
   if (!Modes::updateCurMode(&m_previewMode)) {
     return RV_FAIL;
   }
+#endif
   ByteStream modeBuffer;
   if (!m_previewMode.saveToBuffer(modeBuffer)) {
     return RV_FAIL;
@@ -891,15 +891,15 @@ ReturnCode EditorConnection::receiveModeVL()
 
 void EditorConnection::showReceiveModeVL()
 {
+#if VL_ENABLE_RECEIVER == 1
   if (VLReceiver::isReceiving()) {
     // using uint32_t to avoid overflow, the result should be within 10 to 255
     //Leds::setAll(RGBColor(0, VLReceiver::percentReceived(), 0));
-    Leds::setRange(LED_0, (LedPos)(VLReceiver::percentReceived() / 10), RGB_GREEN6);
-    Leds::setRange(LED_10, (LedPos)(LED_10 + (VLReceiver::percentReceived() / 10)), RGB_GREEN6);
+    Leds::setRange(LED_0, (LedPos)(((uint32_t)VLReceiver::percentReceived() * LED_COUNT) / 100), RGB_GREEN6);
   } else {
-    Leds::setAll(RGB_CYAN0);
+    Leds::setAll(RGB_WHITE0);
   }
-}
+#endif
 
 ReturnCode EditorConnection::receiveModeIdx(uint8_t &idx)
 {
@@ -1116,16 +1116,16 @@ bool EditorConnection::detectConnection()
   if (Bluetooth::isConnected() || Bluetooth::checkBluetooth()) {
     // detected bluetooth
     m_isBluetooth = true;
-  } else if (SerialComs::isConnected() || SerialComs::checkSerial()) {
+    return true;
+  }
+  if (SerialComs::isConnected() || SerialComs::checkSerial()) {
     // detected serial
     m_isBluetooth = false;
     // shut bluetooth down so updi works
     Bluetooth::cleanup();
-  } else {
-    // didn't detect either
-    return false;
+    return true;
   }
-  return true;
+  return false;
 }
 
 bool EditorConnection::isConnected()
@@ -1164,4 +1164,3 @@ void EditorConnection::writeData(const char *message)
     SerialComs::write(message);
   }
 }
-
