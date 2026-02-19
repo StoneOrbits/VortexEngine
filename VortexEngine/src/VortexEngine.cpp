@@ -32,12 +32,12 @@ VortexEngine::~VortexEngine()
 bool VortexEngine::init()
 {
   // all of the global controllers
-  if (!m_serial.init()) {
-    DEBUG_LOG("Serial failed to initialize");
+  if (!m_time.init()) {
+    // time must init first but can't log failures till serialcomms inits
     return false;
   }
-  if (!m_time.init()) {
-    DEBUG_LOG("Time failed to initialize");
+  if (!m_serial.init()) {
+    DEBUG_LOG("Serial failed to initialize");
     return false;
   }
   if (!m_storage.init()) {
