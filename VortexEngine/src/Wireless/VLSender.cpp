@@ -1,5 +1,4 @@
 #include "VLSender.h"
-#include "IRConfig.h"
 
 #if VL_ENABLE_SENDER == 1
 

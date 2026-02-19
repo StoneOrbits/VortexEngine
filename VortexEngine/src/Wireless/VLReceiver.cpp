@@ -1,5 +1,5 @@
 #include "VLReceiver.h"
-#include "IRConfig.h"
+#include "VLConfig.h"
 
 #if VL_ENABLE_RECEIVER == 1
 
