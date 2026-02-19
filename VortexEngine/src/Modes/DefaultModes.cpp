@@ -68,6 +68,6 @@ const DefaultModeEntry defaultModes[] = {
 };
 
 // compile time assert for max modes count check
-static_assert(MAX_MODES == (sizeof(default_modes) / sizeof(default_modes[0])),
+static_assert(MAX_MODES == (sizeof(defaultModes) / sizeof(defaultModes[0])),
   "Incorrect number of default modes! Ensure default_modes array has "
   EXPAND_AND_QUOTE(MAX_MODES) " enties");
