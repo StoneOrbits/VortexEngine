@@ -607,7 +607,6 @@ void Mode::copyPatternFrom(const Mode *other, LedPos to, LedPos from)
   m_singlePats[to] = PatternBuilder::dupe(other->m_singlePats[from]);
 }
 
-
 void Mode::swapPatterns(LedPos a, LedPos b)
 {
   if (a >= LED_COUNT || b >= LED_COUNT) {
