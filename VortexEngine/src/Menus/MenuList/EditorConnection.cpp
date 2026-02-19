@@ -698,15 +698,15 @@ bool EditorConnection::isConnected()
 
 void EditorConnection::readData(ByteStream &buffer)
 {
-  readData(buffer);
+  SerialComs::read(buffer);
 }
 
 void EditorConnection::writeData(ByteStream &buffer)
 {
-  writeData(buffer);
+  SerialComs::write(buffer);
 }
 
 void EditorConnection::writeData(const char *message)
 {
-  writeData(message);
+  SerialComs::write(message);
 }
