@@ -50,7 +50,6 @@ private:
   ReturnCode receiveMessage(const char *message);
   ReturnCode receiveBrightness(bool chromalink);
   ReturnCode receiveModeVL();
-  void showReceiveModeVL();
   ReturnCode receiveModeIdx(uint8_t &idx);
   ReturnCode receiveFirmwareSize(uint32_t &idx);
   // pull/push through the chromalink
@@ -68,6 +67,7 @@ private:
   void writeData(ByteStream &buffer);
   void writeData(const char *message);
   bool isConnected();
+  bool isConnectedReal();
 
   enum EditorConnectionState {
     // the editor is not connected
@@ -204,14 +204,6 @@ private:
   // this gets set only if the user hits 'connect duo' and tries to connect
   // the chromalink and it succeeds, it does not get set automatically
   bool m_updiConnected;
-
-  bool detectConnection();
-  void readData(ByteStream &buffer);
-  void writeData(ByteStream &buffer);
-  void writeData(const char *message);
-  bool isConnected();
-  bool isConnectedReal();
-
 };
 
 #endif

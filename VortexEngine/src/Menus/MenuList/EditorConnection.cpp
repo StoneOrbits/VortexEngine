@@ -900,6 +900,7 @@ void EditorConnection::showReceiveModeVL()
     Leds::setAll(RGB_WHITE0);
   }
 #endif
+}
 
 ReturnCode EditorConnection::receiveModeIdx(uint8_t &idx)
 {
