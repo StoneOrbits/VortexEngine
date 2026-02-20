@@ -55,7 +55,7 @@ private:
   void readData(ByteStream &buffer);
   void writeData(ByteStream &buffer);
   void writeData(const char *message);
-  bool isConnected();
+  bool isConnectedReal();
 
   // override showExit so it isn't displayed on thumb
   virtual void showExit() override;
