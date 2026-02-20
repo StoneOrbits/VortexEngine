@@ -57,7 +57,7 @@ private:
   void readData(ByteStream &buffer);
   void writeData(ByteStream &buffer);
   void writeData(const char *message);
-  bool isConnected();
+  bool isConnectedReal();
 
   enum EditorConnectionState {
     // the editor is not connected
