@@ -1,4 +1,4 @@
-#ifndef EDITOR_CONNECTION_H
+Real#ifndef EDITOR_CONNECTION_H
 #define EDITOR_CONNECTION_H
 
 #include "../Menu.h"
@@ -55,7 +55,7 @@ private:
   void readData(ByteStream &buffer);
   void writeData(ByteStream &buffer);
   void writeData(const char *message);
-  bool isConnected();
+  bool isConnectedReal();
 
   enum EditorConnectionState {
     // the editor is not connected
