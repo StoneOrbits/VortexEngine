@@ -691,7 +691,7 @@ bool EditorConnection::detectConnection()
   return false;
 }
 
-bool EditorConnection::iRealsConnectedReal()
+bool EditorConnection::isConnectedReal()
 {
   return SerialComs::isConnectedReal();
 }
