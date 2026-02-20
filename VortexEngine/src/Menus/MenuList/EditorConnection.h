@@ -1,4 +1,4 @@
-Real#ifndef EDITOR_CONNECTION_H
+#ifndef EDITOR_CONNECTION_H
 #define EDITOR_CONNECTION_H
 
 #include "../Menu.h"
