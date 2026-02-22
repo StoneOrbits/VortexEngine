@@ -584,6 +584,9 @@
 // get the global brightness of the device
 #define EDITOR_VERB_GET_GLOBAL_BRIGHTNESS "M"
 
+// set the global brightness of the chromalinked duo
+#define EDITOR_VERB_SET_CHROMA_BRIGHTNESS "N"
+
 // ===================================================================
 //  Manually Configured Sizes
 //
