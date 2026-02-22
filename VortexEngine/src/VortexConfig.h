@@ -380,6 +380,14 @@
 // it will allocate space permanently for the new brush and never free it
 #define DEBUG_ALLOCATIONS     0
 
+// CPP Memory Operators
+//
+// Uses custom/drop-in replacements for new/delete to support C++ memory
+// operators in embedded environments where they aren't normally available.
+// Turn this off if the framework/hardware being targetted offers new/delete
+// and enable it if new/delete are unavailable.
+#define CPP_MEMORY_OPERATORS  0
+
 // Variable Tickrate
 //
 // This controls whether the setTickrate function is available and
@@ -651,6 +659,10 @@
 #define RGB_MENU_PATTERN_SELECT     RGB_BLUE4
 #define RGB_MENU_BRIGHTNESS_SELECT  RGB_YELLOW4
 #define RGB_MENU_FACTORY_RESET      RGB_RED4
+
+// vortex lib doesn't need custom memory operators for cpp
+#undef CPP_MEMORY_OPERATORS
+#define CPP_MEMORY_OPERATORS  0
 
 #endif // ifdef VORTEX_LIB
 
