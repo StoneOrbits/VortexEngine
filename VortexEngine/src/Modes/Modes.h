@@ -119,7 +119,7 @@ public:
 
   // set or get flags
   static bool setFlag(uint8_t flag, bool enable, bool save = true);
-  static bool getFlag(uint8_t flag) { return ((m_globalFlags & flag) != 0); }
+  static bool getFlag(uint8_t flag) { return ((m_globalFlags & flag) == flag); }
 
   // reset flags to factory default (must save after)
   static void resetFlags() { m_globalFlags = 0; }
