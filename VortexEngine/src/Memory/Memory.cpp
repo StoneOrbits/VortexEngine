@@ -117,7 +117,7 @@ uint32_t cur_memory_usage_total()
 
 #endif // DEBUG_ALLOCATIONS == 1
 
-#ifndef VORTEX_LIB
+#if CPP_MEMORY_OPERATORS == 1
 
 // for C++11 need the following:
 void *operator new  (size_t size) { return vmalloc(size); }
