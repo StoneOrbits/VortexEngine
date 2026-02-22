@@ -41,12 +41,12 @@ bool VortexEngine::init()
 #endif
 
   // all of the global controllers
-  if (!SerialComs::init()) {
-    DEBUG_LOG("Serial failed to initialize");
+  if (!Time::init()) {
+    // time must init first but can't log failures till serialcomms inits
     return false;
   }
-  if (!Time::init()) {
-    DEBUG_LOG("Time failed to initialize");
+  if (!SerialComs::init()) {
+    DEBUG_LOG("Serial failed to initialize");
     return false;
   }
   if (!Storage::init()) {

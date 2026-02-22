@@ -19,7 +19,7 @@ const uint32_t pat9Cols[] = { 0xFFF600, 0x000880 };
 
 // Here is the array of 'default modes' that are assigned to
 // the gloveset upon factory reset
-const DefaultModeEntry defaultModes[MAX_MODES] = {
+const DefaultModeEntry defaultModes[] = {
   // mode 1
   {{
     { PATTERN_STROBEGAP, 3, rgbCols }, // tip
@@ -66,3 +66,8 @@ const DefaultModeEntry defaultModes[MAX_MODES] = {
     { PATTERN_HYPERSTROBE, 2, pat9Cols }
   }},
 };
+
+// compile time assert for max modes count check
+static_assert(MAX_MODES == (sizeof(defaultModes) / sizeof(defaultModes[0])),
+  "Incorrect number of default modes! Ensure default_modes array has "
+  EXPAND_AND_QUOTE(MAX_MODES) " enties");
