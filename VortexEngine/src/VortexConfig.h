@@ -371,7 +371,7 @@
 // operators in embedded environments where they aren't normally available.
 // Turn this off if the framework/hardware being targetted offers new/delete
 // and enable it if new/delete are unavailable.
-#define CPP_MEMORY_OPERATORS  1
+#define CPP_MEMORY_OPERATORS  0
 
 // Variable Tickrate
 //
