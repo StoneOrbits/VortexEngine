@@ -226,7 +226,7 @@ void Menu::leaveMenu(bool doSave)
 // this adds the currently targeted ledPermutation to the selected leds
 void Menu::addSelectionMask() {
   // if selecting any of the individual leds then toggle
-  uint32_t mask = ledPermutations[m_ledSelection];
+  uint32_t mask = (uint32_t)ledPermutations[m_ledSelection];
   // checks if only 1 b it is set in the target mask
   if ((mask & (mask - 1)) == 0) {
     // if there's only one bit set then toggle that location
