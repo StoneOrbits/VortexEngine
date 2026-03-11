@@ -336,7 +336,7 @@ void VLReceiver::handleVLTiming(uint16_t diff)
     m_recvState = READING_DATA_MARK;
     break;
   default: // ??
-    DEBUG_LOGF("Bad receive state: %u", m_recvState);
+    //DEBUG_LOGF("Bad receive state: %u", m_recvState);
     break;
   }
 }
