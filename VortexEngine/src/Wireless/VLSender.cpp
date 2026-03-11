@@ -11,13 +11,18 @@
 #include "VortexLib.h"
 #endif
 
-// the serial buffer for the data
-ByteStream VLSender::m_serialBuf;
-// a bit walker for the serial data
-BitStream VLSender::m_bitStream;
-// some runtime meta info
-uint8_t VLSender::m_size = 0;
-uint8_t VLSender::m_parity = 0;
+VLSender::VLSender(VortexEngine &engine) :
+  m_engine(engine),
+  m_serialBuf(),
+  m_bitStream(),
+  m_size(0),
+  m_parity(0)
+{
+}
+
+VLSender::~VLSender()
+{
+}
 
 bool VLSender::init()
 {
@@ -144,14 +149,14 @@ void VLSender::sendMarkSpace(uint16_t markTime, uint16_t spaceTime)
 {
 #ifdef VORTEX_LIB
   // send mark timing over socket
-  Vortex::vcallbacks()->infraredWrite(true, markTime);
+  m_engine.vortexLib().vcallbacks()->infraredWrite(true, markTime);
   // send space timing over socket
-  Vortex::vcallbacks()->infraredWrite(false, spaceTime);
+  m_engine.vortexLib().vcallbacks()->infraredWrite(false, spaceTime);
 #else
   startPWM();
-  Time::delayMicroseconds(markTime);
+  m_engine.time().delayMicroseconds(markTime);
   stopPWM();
-  Time::delayMicroseconds(spaceTime);
+  m_engine.time().delayMicroseconds(spaceTime);
 #endif
 }
 

@@ -1,12 +1,14 @@
 #include "WarpWormPattern.h"
 
+#include "../../VortexEngine.h"
+
 #include "../../Serial/ByteStream.h"
 #include "../../Time/TimeControl.h"
 #include "../../Leds/Leds.h"
 #include "../../Log/Log.h"
 
-WarpWormPattern::WarpWormPattern(const PatternArgs &args) :
-  BlinkStepPattern(args),
+WarpWormPattern::WarpWormPattern(VortexEngine &engine, const PatternArgs &args) :
+  BlinkStepPattern(engine, args),
   m_progress(0)
 {
   m_patternID = PATTERN_WARPWORM;
@@ -29,17 +31,17 @@ void WarpWormPattern::init()
 
 void WarpWormPattern::blinkOn()
 {
-  int wormSize = 6;
-  Leds::setAll(m_colorset.get(0));
+  int wormSize = (LED_COUNT > 2) ? LED_COUNT / 3 : 1;
+  m_engine.leds().setAll(m_colorset.get(0));
   for (int body = 0; body < wormSize; ++body) {
     if (body + m_progress < LED_COUNT) {
-      Leds::setIndex((LedPos)(body + m_progress), m_colorset.cur());
+      m_engine.leds().setIndex((LedPos)(body + m_progress), m_colorset.cur());
     } else {
       RGBColor col = m_colorset.peekNext();
       if (m_colorset.curIndex() == m_colorset.numColors() - 1) {
         col = m_colorset.peek(2);
       }
-      Leds::setIndex((LedPos)((body + m_progress) % LED_COUNT), col);
+      m_engine.leds().setIndex((LedPos)((body + m_progress) % LED_COUNT), col);
     }
   }
 }
