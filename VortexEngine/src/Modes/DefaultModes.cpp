@@ -13,6 +13,13 @@ const default_mode_entry default_modes[] = {
     }
   },
   {
+    PATTERN_STROBEGAP, 3, {
+      RGB_RED,
+      RGB_GREEN,
+      RGB_BLUE,
+    }
+  },
+  {
     PATTERN_DOPS, 5, {
       //RGB_RED,
       RGB_GREEN,
