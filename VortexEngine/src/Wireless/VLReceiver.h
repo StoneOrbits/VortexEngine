@@ -42,14 +42,19 @@ public:
   // reset VL receiver buffer
   void resetVLState();
 
+  // turn on/off the legacy receiver
+  void setLegacyReceiver(bool legacy) { m_legacy = legacy; }
+
+  // The handler called when the VL receiver flips between on/off
+  // this has to be public because it's called from a global ISR
+  // but technically it's an internal function for VLReceiver
   void recvPCIHandler();
-
 private:
-
   // reading functions
   // PCI handler for when VL receiver pin changes states
   bool read(ByteStream &data);
-  void handleVLTiming(uint32_t diff);
+  void handleVLTiming(uint16_t diff);
+  void handleVLTimingLegacy(uint16_t diff);
 
   // ===================
   //  private data:
@@ -65,8 +70,12 @@ private:
   {
     WAITING_HEADER_MARK,
     WAITING_HEADER_SPACE,
+    READING_BAUD_MARK,
+    READING_BAUD_SPACE,
     READING_DATA_MARK,
-    READING_DATA_SPACE
+    READING_DATA_SPACE,
+    READING_DATA_PARITY_MARK,
+    READING_DATA_PARITY_SPACE
   };
 
   // state information used by the PCIHandler
@@ -77,6 +86,19 @@ private:
 
   // used to compare if received data has changed since last checking
   uint32_t m_previousBytes;
+
+  // the determined time based on sync
+  uint16_t m_vlMarkThreshold;
+  // the determined time based on sync
+  uint16_t m_vlSpaceThreshold;
+
+  // count of the sync bits (similar length starter bits)
+  uint8_t m_counter;
+
+  uint8_t m_parityBit;
+
+  // legacy mode
+  bool m_legacy;
 
 #ifdef VORTEX_LIB
   friend class Vortex;
