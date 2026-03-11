@@ -68,6 +68,27 @@
 // it will be registered as a 'long click'
 #define CLICK_THRESHOLD       250
 
+// Sleep Enter Threshold (in milliseconds)
+//
+// How long the button has to be held at the main mode area to enter
+// sleep mode
+#define SLEEP_TRIGGER_TIME    500
+
+// Sleep Window Time (in milliseconds)
+//
+// How long the user has to release the button to enter sleep
+#define SLEEP_WINDOW_TIME     750
+
+// Force Sleep Time (in milliseconds)
+//
+// How long the user has to hold the button anywhere to force sleep
+#define FORCE_SLEEP_TIME      6000
+
+// One-click mode threshold
+//
+// How long the user has to hold the button to trigger one-click mode
+#define ONE_CLICK_MODE_TRHESHOLD 500
+
 // Device Lock Clicks
 //
 // How many rapid clicks the user must perform to lock/unlock the device.
@@ -319,6 +340,20 @@
 // ===================================================================
 //  Boolean Configurations (0 or 1)
 
+// Infrared Enable
+//
+// Whether to enable the Infrared system as a whole. This is for mode
+// transferring with IR peripherals
+#define IR_ENABLE_SENDER      1
+#define IR_ENABLE_RECEIVER    1
+
+// Visible Light Enable
+//
+// Whether to enable the Visible Light system as a whole. This is for mode
+// transferring with the Leds and a light sensor
+#define VL_ENABLE_SENDER      1
+#define VL_ENABLE_RECEIVER    0
+
 // Debug Allocations
 //
 // Tracks all memory allocations and logs them, useful for finding leaks
@@ -329,6 +364,14 @@
 // When the test framework does things like display a color for the first time
 // it will allocate space permanently for the new brush and never free it
 #define DEBUG_ALLOCATIONS     0
+
+// CPP Memory Operators
+//
+// Uses custom/drop-in replacements for new/delete to support C++ memory
+// operators in embedded environments where they aren't normally available.
+// Turn this off if the framework/hardware being targetted offers new/delete
+// and enable it if new/delete are unavailable.
+#define CPP_MEMORY_OPERATORS  1
 
 // Variable Tickrate
 //
@@ -541,6 +584,9 @@
 // get the global brightness of the device
 #define EDITOR_VERB_GET_GLOBAL_BRIGHTNESS "M"
 
+// set the global brightness of the chromalinked duo
+#define EDITOR_VERB_SET_CHROMA_BRIGHTNESS "N"
+
 // ===================================================================
 //  Manually Configured Sizes
 //
@@ -596,6 +642,10 @@
 #define RGB_MENU_PATTERN_SELECT     RGB_BLUE4
 #define RGB_MENU_BRIGHTNESS_SELECT  RGB_YELLOW4
 #define RGB_MENU_FACTORY_RESET      RGB_RED4
+
+// vortex lib doesn't need custom memory operators for cpp
+#undef CPP_MEMORY_OPERATORS
+#define CPP_MEMORY_OPERATORS  0
 
 #endif // ifdef VORTEX_LIB
 
