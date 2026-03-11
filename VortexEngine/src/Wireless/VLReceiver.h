@@ -9,6 +9,10 @@
 
 #if VL_ENABLE_RECEIVER == 1
 
+#ifdef VORTEX_EMBEDDED
+#include <Arduino.h>
+#endif
+
 class ByteStream;
 class Mode;
 
@@ -94,6 +98,10 @@ private:
 
   // legacy mode
   static bool m_legacy;
+
+#ifdef VORTEX_EMBEDDED
+  static void adcCheckTimerCallback(void *arg);
+#endif
 
 #ifdef VORTEX_LIB
   friend class Vortex;

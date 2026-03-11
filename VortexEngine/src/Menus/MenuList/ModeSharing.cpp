@@ -4,9 +4,11 @@
 #include "../../Serial/Serial.h"
 #include "../../Time/TimeControl.h"
 #include "../../Time/Timings.h"
-#include "../../Wireless/IRReceiver.h"
+#include "../../Wireless/VLReceiver.h"
 #include "../../Wireless/VLSender.h"
+#include "../../Wireless/IRReceiver.h"
 #include "../../Wireless/IRSender.h"
+#include "../../Buttons/Buttons.h"
 #include "../../Buttons/Button.h"
 #include "../../Modes/Modes.h"
 #include "../../Modes/Mode.h"
@@ -15,8 +17,12 @@
 
 ModeSharing::ModeSharing(const RGBColor &col, bool advanced) :
   Menu(col, advanced),
-  m_sharingMode(ModeShareState::SHARE_RECEIVE),
-  m_timeOutStartTime(0)
+  m_sharingMode(ModeShareState::SHARE_RECEIVE_IR),
+  m_timeOutStartTime(0),
+  m_lastSendTime(0),
+  m_lastPercentChange(0),
+  m_lastPercent(0),
+  m_shouldEndSend(false)
 {
 }
 
@@ -31,10 +37,14 @@ bool ModeSharing::init()
   }
   // skip led selection
   m_ledSelected = true;
-  // start on receive because it's the more responsive of the two
-  // the odds of opening receive and then accidentally receiving
-  // a mode that is being broadcast nearby is completely unlikely
-  beginReceivingIR();
+  if (m_advanced) {
+    // start on receive because it's the more responsive of the two
+    // the odds of opening receive and then accidentally receiving
+    // a mode that is being broadcast nearby is completely unlikely
+    beginReceivingVL();
+  } else {
+    beginReceivingIR();
+  }
   DEBUG_LOG("Entering Mode Sharing");
   return true;
 }
@@ -46,23 +56,27 @@ Menu::MenuAction ModeSharing::run()
     return result;
   }
   switch (m_sharingMode) {
+  case ModeShareState::SHARE_RECEIVE_VL:
+    // render the 'receive mode' lights
+    showReceiveModeVL();
+    // load any modes that are received
+    receiveModeVL();
+    break;
+  case ModeShareState::SHARE_SEND_VL:
+    // continue sending any data as long as there is more to send
+    continueSendingVL();
+    break;
+  case ModeShareState::SHARE_RECEIVE_IR:
+    // render the 'receive mode' lights
+    showReceiveModeIR();
+    // load any modes that are received
+    receiveModeIR();
+    break;
   case ModeShareState::SHARE_SEND_IR:
     // render the 'send mode' lights
     showSendModeIR();
     // continue sending any data as long as there is more to send
     continueSendingIR();
-    break;
-  case ModeShareState::SHARE_SEND_VL:
-    // render the 'send mode' lights
-    showSendModeVL();
-    // continue sending any data as long as there is more to send
-    continueSendingVL();
-    break;
-  case ModeShareState::SHARE_RECEIVE:
-    // render the 'receive mode' lights
-    showReceiveMode();
-    // load any modes that are received
-    receiveModeIR();
     break;
   }
   return MENU_CONTINUE;
@@ -72,11 +86,21 @@ Menu::MenuAction ModeSharing::run()
 void ModeSharing::onShortClick()
 {
   switch (m_sharingMode) {
-  case ModeShareState::SHARE_RECEIVE:
+  case ModeShareState::SHARE_RECEIVE_VL:
     // click while on receive -> end receive, start sending
-    IRReceiver::endReceiving();
-    beginSendingIR();
-    DEBUG_LOG("Switched to send mode");
+    beginSendingVL();
+    DEBUG_LOG("Switched to send VL");
+    break;
+  case ModeShareState::SHARE_RECEIVE_IR:
+    if (!IRSender::isSending()) {
+      beginSendingIR();
+      DEBUG_LOG("Switched to send IR");
+    } else {
+      m_shouldEndSend = true;
+    }
+    break;
+  case ModeShareState::SHARE_SEND_IR:
+    m_shouldEndSend = true;
     break;
   default:
     break;
@@ -86,14 +110,39 @@ void ModeSharing::onShortClick()
 
 void ModeSharing::onLongClick()
 {
-  Modes::updateCurMode(&m_previewMode);
-  leaveMenu(true);
+  leaveMenu();
 }
 
-void ModeSharing::beginSendingVL()
+void ModeSharing::leaveMenu(bool doSave)
 {
-  VLSender::send(Modes::curMode());
-  beginReceivingIR();
+  // make sure to stop sending/receiving before leaving
+  if (IRSender::isSending()) {
+    IRSender::stopSending();
+  }
+  if (IRReceiver::isReceiving()) {
+    IRReceiver::endReceiving();
+  }
+  if (VLReceiver::isReceiving()) {
+    VLReceiver::endReceiving();
+  }
+  Menu::leaveMenu(doSave);
+}
+
+void ModeSharing::switchVLIR()
+{
+  switch (m_sharingMode) {
+  case ModeShareState::SHARE_RECEIVE_VL:
+    VLReceiver::endReceiving();
+    beginReceivingIR();
+    break;
+  case ModeShareState::SHARE_RECEIVE_IR:
+    IRReceiver::endReceiving();
+    beginReceivingVL();
+    break;
+  default:
+    break;
+  }
+  Leds::clearAll();
 }
 
 void ModeSharing::beginSendingIR()
@@ -104,43 +153,47 @@ void ModeSharing::beginSendingIR()
     return;
   }
   m_sharingMode = ModeShareState::SHARE_SEND_IR;
+  Leds::clearAll();
+  Leds::update();
   // initialize it with the current mode data
   IRSender::loadMode(Modes::curMode());
   // send the first chunk of data, leave if we're done
   if (!IRSender::send()) {
-    // when send has completed, stores time that last action was completed to calculate interval between sends
-    beginReceivingIR();
+    // just set the last time and wait
+    m_lastSendTime = Time::getCurtime();
   }
-}
-
-void ModeSharing::continueSendingVL()
-{
-  // if the sender isn't sending then nothing to do
-  VLSender::send(Modes::curMode());
-  // when send has completed, stores time that last action was completed to calculate interval between sends
-  beginReceivingIR();
+  DEBUG_LOG("Switched to sending IR");
 }
 
 void ModeSharing::continueSendingIR()
 {
   // if the sender isn't sending then nothing to do
   if (!IRSender::isSending()) {
+    if (m_lastSendTime && m_lastSendTime < (Time::getCurtime() + MS_TO_TICKS(350))) {
+      if (m_shouldEndSend) {
+        beginReceivingIR();
+        m_shouldEndSend = false;
+      } else {
+        beginSendingIR();
+      }
+    }
     return;
   }
   if (!IRSender::send()) {
-    // when send has completed, stores time that last action was completed to calculate interval between sends
-    beginReceivingIR();
+    // just set the last time and wait
+    m_lastSendTime = Time::getCurtime();
   }
 }
 
 void ModeSharing::beginReceivingIR()
 {
-  m_sharingMode = ModeShareState::SHARE_RECEIVE;
+  m_sharingMode = ModeShareState::SHARE_RECEIVE_IR;
   IRReceiver::beginReceiving();
+  DEBUG_LOG("Switched to receiving IR");
 }
 
 void ModeSharing::receiveModeIR()
-{
+ {
   // if reveiving new data set our last data time
   if (IRReceiver::onNewData()) {
     m_timeOutStartTime = Time::getCurtime();
@@ -162,35 +215,102 @@ void ModeSharing::receiveModeIR()
     return;
   }
   DEBUG_LOGF("Success receiving mode: %u", m_previewMode.getPatternID());
-  if (!m_advanced) {
-    Modes::updateCurMode(&m_previewMode);
-    // leave menu and save settings, even if the mode was the same whatever
-    leaveMenu(true);
+  Modes::updateCurMode(&m_previewMode);
+  // leave menu and save settings, even if the mode was the same whatever
+  leaveMenu(true);
+}
+
+void ModeSharing::beginSendingVL()
+{
+  VLReceiver::endReceiving();
+  m_sharingMode = ModeShareState::SHARE_SEND_VL;
+  Buttons::installCancelInterrupt(BUTTON_PIN);
+}
+
+void ModeSharing::continueSendingVL()
+{
+  if (Buttons::isCancelRequested()) {
+    // cancel sending and go back to receiving
+    m_sharingMode = ModeShareState::SHARE_RECEIVE_VL;
+    Buttons::removeCancelInterrupt();
+    return;
   }
+  Leds::clearAll();
+  // send the first chunk of data, leave if we're done
+  VLSender::send(Modes::curMode());
+}
+
+void ModeSharing::beginReceivingVL()
+{
+  m_sharingMode = ModeShareState::SHARE_RECEIVE_VL;
+  VLReceiver::beginReceiving();
+  DEBUG_LOG("Switched to receiving VL");
+}
+
+void ModeSharing::receiveModeVL()
+{
+  uint32_t now = Time::getCurtime();
+  // if reveiving new data set our last data time
+  if (VLReceiver::onNewData()) {
+    m_timeOutStartTime = now;
+    // if our last data was more than time out duration reset the recveiver
+  } else if (m_timeOutStartTime > 0 && (m_timeOutStartTime + MAX_TIMEOUT_DURATION) < now) {
+    VLReceiver::resetVLState();
+    m_timeOutStartTime = 0;
+    return;
+  }
+  // check if the VLReceiver has a full packet available
+  if (!VLReceiver::dataReady()) {
+    uint8_t percent = VLReceiver::percentReceived();
+    if (percent != m_lastPercent) {
+      m_lastPercent = percent;
+      m_lastPercentChange = now;
+    }
+    // nothing available yet
+    return;
+  }
+  DEBUG_LOG("Mode ready to receive! Receiving...");
+  // receive the VL mode into the current mode
+  if (!VLReceiver::receiveMode(&m_previewMode)) {
+    ERROR_LOG("Failed to receive mode");
+    return;
+  }
+  DEBUG_LOGF("Success receiving mode: %u", m_previewMode.getPatternID());
+  Modes::updateCurMode(&m_previewMode);
+  // leave menu and save settings, even if the mode was the same whatever
+  leaveMenu(true);
 }
 
 void ModeSharing::showSendModeVL()
 {
-  // show a dim color when not sending
   Leds::clearAll();
 }
 
 void ModeSharing::showSendModeIR()
 {
   // show a dim color when not sending
-  Leds::clearAll();
+  Leds::setAll(RGB_CYAN5);
+  Leds::setAllEvens(RGB_CYAN0);
 }
 
-void ModeSharing::showReceiveMode()
+void ModeSharing::showReceiveModeVL()
 {
-  if (IRReceiver::isReceiving()) {
+  if (VLReceiver::isReceiving()) {
     // using uint32_t to avoid overflow, the result should be within 10 to 255
-    Leds::setAll(RGBColor(0, IRReceiver::percentReceived(), 0));
+    Leds::clearAll();
+    Leds::setRange(LED_FIRST, (LedPos)(VLReceiver::percentReceived() / 16), RGBColor(0, 1, 0));
   } else {
-    if (m_advanced) {
-      m_previewMode.play();
-    } else {
-      Leds::setAll(RGB_WHITE0);
-    }
+    Leds::setAll(0x010101);
+  }
+}
+
+void ModeSharing::showReceiveModeIR()
+{
+  if (VLReceiver::isReceiving()) {
+    // using uint32_t to avoid overflow, the result should be within 10 to 255
+    Leds::clearAll();
+    Leds::setRange(LED_FIRST, (LedPos)(IRReceiver::percentReceived() / 16), RGBColor(0, 255, 0));
+  } else {
+    Leds::setAll(RGB_WHITE0);
   }
 }

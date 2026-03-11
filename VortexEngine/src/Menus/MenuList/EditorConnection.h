@@ -56,6 +56,7 @@ private:
   void writeData(ByteStream &buffer);
   void writeData(const char *message);
   bool isConnected();
+  bool isConnectedReal();
 
   enum EditorConnectionState {
     // the editor is not connected
@@ -114,6 +115,7 @@ private:
 
     // get global brightness
     STATE_GET_GLOBAL_BRIGHTNESS,
+
   };
 
   struct CommandState
@@ -137,6 +139,8 @@ private:
   uint8_t m_numModesToReceive;
   // internal return value tracker
   ReturnCode m_rv;
+
+  bool m_isBluetooth;
 };
 
 #endif

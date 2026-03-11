@@ -6,6 +6,7 @@
 #include "../../Storage/Storage.h"
 #include "../../Wireless/VLSender.h"
 #include "../../Wireless/VLReceiver.h"
+#include "../../Wireless/Bluetooth.h"
 #include "../../Time/TimeControl.h"
 #include "../../Time/Timings.h"
 #include "../../Colors/Colorset.h"
@@ -23,7 +24,8 @@ EditorConnection::EditorConnection(const RGBColor &col, bool advanced) :
   m_allowReset(true),
   m_previousModeIndex(0),
   m_numModesToReceive(0),
-  m_rv(RV_OK)
+  m_rv(RV_OK),
+  m_isBluetooth(false)
 {
 }
 
@@ -160,6 +162,10 @@ void EditorConnection::handleState()
   // -------------------------------
   //  Send Greeting
   case STATE_GREETING:
+    if (Bluetooth::isConnected()) {
+      // must give bluetooth a second befoore sending the hello
+      Time::delayMilliseconds(2000);
+    }
     // send the hello greeting with our version number and build time
     writeData(EDITOR_VERB_GREETING);
     m_state = STATE_IDLE;
@@ -173,7 +179,7 @@ void EditorConnection::handleState()
     // parse the receive buffer for any commands from the editor
     handleCommand();
     // watch for disconnects
-    if (!isConnected()) {
+    if (!isConnectedReal()) {
       Leds::holdAll(RGB_RED);
       leaveMenu(true);
     }
@@ -438,6 +444,7 @@ void EditorConnection::receiveData()
   readData(m_receiveBuffer);
 }
 
+
 void EditorConnection::sendModes()
 {
   ByteStream modesBuffer;
@@ -685,7 +692,16 @@ void EditorConnection::showReceiveModeVL()
 
 bool EditorConnection::detectConnection()
 {
+  if (Bluetooth::isConnected() || Bluetooth::checkBluetooth()) {
+    // detected bluetooth
+    m_isBluetooth = true;
+    return true;
+  }
   if (SerialComs::isConnected() || SerialComs::checkSerial()) {
+    // detected serial
+    m_isBluetooth = false;
+    // shut bluetooth down
+    Bluetooth::cleanup();
     return true;
   }
   return false;
@@ -693,20 +709,37 @@ bool EditorConnection::detectConnection()
 
 bool EditorConnection::isConnected()
 {
-  return SerialComs::isConnected();
+  return m_isBluetooth ? Bluetooth::isConnected() : SerialComs::isConnected();
+}
+
+bool EditorConnection::isConnectedReal()
+{
+  return m_isBluetooth ? Bluetooth::isConnected() : SerialComs::isConnectedReal();
 }
 
 void EditorConnection::readData(ByteStream &buffer)
 {
-  SerialComs::read(buffer);
+  if (m_isBluetooth) {
+    Bluetooth::read(buffer);
+  } else {
+    SerialComs::read(buffer);
+  }
 }
 
 void EditorConnection::writeData(ByteStream &buffer)
 {
-  SerialComs::write(buffer);
+  if (m_isBluetooth) {
+    Bluetooth::write(buffer);
+  } else {
+    SerialComs::write(buffer);
+  }
 }
 
 void EditorConnection::writeData(const char *message)
 {
-  SerialComs::write(message);
+  if (m_isBluetooth) {
+    Bluetooth::write(message);
+  } else {
+    SerialComs::write(message);
+  }
 }

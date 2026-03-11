@@ -6,6 +6,7 @@
 #include "Wireless/VLSender.h"
 #include "Wireless/IRConfig.h"
 #include "Wireless/VLConfig.h"
+#include "Wireless/Bluetooth.h"
 #include "Storage/Storage.h"
 #include "Buttons/Buttons.h"
 #include "Time/TimeControl.h"
@@ -82,6 +83,11 @@ bool VortexEngine::init()
     DEBUG_LOG("Settings failed to initialize");
     return false;
   }
+  // have to hold the button at startup to enable bluetooth
+  if (g_pButton->check() && !Bluetooth::init()) {
+    DEBUG_LOG("Bluetooth failed to initialize");
+    return false;
+  }
 
 #if COMPRESSION_TEST == 1
   compressionTest();
@@ -104,6 +110,7 @@ void VortexEngine::cleanup()
   // NOTE: the embedded doesn't actually cleanup,
   //       but the test frameworks do
 #ifdef VORTEX_LIB
+  Bluetooth::cleanup();
   Modes::cleanup();
   Menus::cleanup();
   Buttons::cleanup();
@@ -162,6 +169,26 @@ void VortexEngine::runMainLogic()
 {
   // the current tick
   uint32_t now = Time::getCurtime();
+
+  // check for serial first before main menus run, but as a result if we open
+  // editor we have to call modes load inside here
+  if (SerialComs::checkSerial() || Bluetooth::checkBluetooth()) {
+    if (Menus::curMenuID() != MENU_EDITOR_CONNECTION) {
+      // possible modes haven't been loaded yet
+      Modes::load();
+      // directly open the editor connection menu because we are connected to USB serial
+      Menus::openMenu(MENU_EDITOR_CONNECTION);
+    }
+  }
+
+  // if the bluetooth is still initialized
+  if (Bluetooth::isInitialized()) {
+    // but it's not connected yet, so it's broadcasting
+    if (!Bluetooth::isConnected() && Time::getCurtime() > BLUETOOTH_BROADCAST_TICKS) {
+      // then stop broadcasting after the given threshold
+      Bluetooth::cleanup();
+    }
+  }
 
   // load modes if necessary
   if (!Modes::load()) {
