@@ -38,7 +38,7 @@
 
 // the engine flavour, this should change for each device/flavour
 // of the engine that branches off from the main indefinitely
-#define VORTEX_NAME "Core"
+#define VORTEX_NAME "Gloves"
 
 // the full name of this build for ex:
 //    Vortex Engine v1.0 'Igneous' (built Tue Jan 31 19:03:55 2023)
@@ -197,7 +197,7 @@
 // This should not be set to 0, it should be a specific maximum for
 // each separate device
 //
-#define MAX_MODES             13
+#define MAX_MODES             15
 
 // Default Tickrate in Ticks Per Second (TPS)
 //
@@ -352,7 +352,7 @@
 // Whether to enable the Visible Light system as a whole. This is for mode
 // transferring with the Leds and a light sensor
 #define VL_ENABLE_SENDER      1
-#define VL_ENABLE_RECEIVER    1
+#define VL_ENABLE_RECEIVER    0
 
 // Debug Allocations
 //

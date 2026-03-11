@@ -173,7 +173,7 @@ void EditorConnection::handleState()
     // parse the receive buffer for any commands from the editor
     handleCommand();
     // watch for disconnects
-    if (!isConnected()) {
+    if (!isConnectedReal()) {
       Leds::holdAll(RGB_RED);
       leaveMenu(true);
     }
@@ -427,6 +427,11 @@ void EditorConnection::showEditor()
     // it may make the color selection choppy
     break;
   }
+}
+
+// override showExit so it isn't displayed on thumb
+void EditorConnection::showExit()
+{
 }
 
 void EditorConnection::receiveData()
@@ -691,9 +696,9 @@ bool EditorConnection::detectConnection()
   return false;
 }
 
-bool EditorConnection::isConnected()
+bool EditorConnection::isConnectedReal()
 {
-  return SerialComs::isConnected();
+  return SerialComs::isConnectedReal();
 }
 
 void EditorConnection::readData(ByteStream &buffer)
