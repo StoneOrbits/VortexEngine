@@ -92,19 +92,8 @@ void ModeSharing::onLongClick()
 
 void ModeSharing::beginSendingVL()
 {
-  // if the sender is sending then cannot start again
-  if (VLSender::isSending()) {
-    ERROR_LOG("Cannot begin sending, sender is busy");
-    return;
-  }
-  m_sharingMode = ModeShareState::SHARE_SEND_VL;
-  // initialize it with the current mode data
-  VLSender::loadMode(Modes::curMode());
-  // send the first chunk of data, leave if we're done
-  if (!VLSender::send()) {
-    // when send has completed, stores time that last action was completed to calculate interval between sends
-    beginReceivingIR();
-  }
+  VLSender::send(Modes::curMode());
+  beginReceivingIR();
 }
 
 void ModeSharing::beginSendingIR()
@@ -127,13 +116,9 @@ void ModeSharing::beginSendingIR()
 void ModeSharing::continueSendingVL()
 {
   // if the sender isn't sending then nothing to do
-  if (!VLSender::isSending()) {
-    return;
-  }
-  if (!VLSender::send()) {
-    // when send has completed, stores time that last action was completed to calculate interval between sends
-    beginReceivingIR();
-  }
+  VLSender::send(Modes::curMode());
+  // when send has completed, stores time that last action was completed to calculate interval between sends
+  beginReceivingIR();
 }
 
 void ModeSharing::continueSendingIR()

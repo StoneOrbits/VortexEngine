@@ -23,6 +23,7 @@ public:
   static bool send();
 
   static bool isSending() { return m_isSending; }
+  static void stopSending() { m_isSending = false; }
 
   static uint32_t percentDone() { return (uint32_t)(((float)m_writeCounter / (float)m_size) * 100.0); }
 
@@ -48,9 +49,6 @@ private:
   static uint8_t m_numBlocks;
   // the amount in the final block
   static uint8_t m_remainder;
-
-  // configuration options for the sender
-  static uint32_t m_blockSize;
 
   // write total
   static uint32_t m_writeCounter;

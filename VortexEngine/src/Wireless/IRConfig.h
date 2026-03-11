@@ -1,12 +1,7 @@
 #ifndef IR_CONFIG_H
 #define IR_CONFIG_H
 
-// Infrared Enable
-//
-// Whether to enable the Infrared system as a whole
-//
-#define IR_ENABLE_SENDER          1
-#define IR_ENABLE_RECEIVER        1
+#include "../VortexConfig.h"
 
 // the size of IR blocks in bits
 #define IR_DEFAULT_BLOCK_SIZE 32
