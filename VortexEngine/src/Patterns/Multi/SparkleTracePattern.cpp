@@ -24,7 +24,7 @@ void SparkleTracePattern::blinkOn()
 void SparkleTracePattern::blinkOff()
 {
   //this empty overriden function must be here to prevent the base
-  //blinkOff function from causing the ribbon in the blinkOn function
+  //blinkOff function from causing the ribbon in the blinkOn function 
   //to strobe instead
 }
 
