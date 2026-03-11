@@ -86,7 +86,7 @@ uint8_t BitStream::read1Bit()
   return rv;
 }
 
-void BitStream::write1Bit(uint8_t bit)
+void BitStream::write1Bit(bool bit)
 {
   if (m_buf_eof) {
     return;
@@ -95,7 +95,8 @@ void BitStream::write1Bit(uint8_t bit)
     m_buf_eof = true;
     return;
   }
-  m_buf[m_bit_pos / 8] |= (bit & 1) << (7 - (m_bit_pos % 8));
+  uint8_t bitVal = (uint8_t)bit & 1;
+  m_buf[m_bit_pos / 8] |= bitVal << (7 - (m_bit_pos % 8));
   m_bit_pos++;
   if (m_bit_pos >= (m_buf_size * 8)) {
     m_buf_eof = true;
