@@ -38,7 +38,7 @@
 
 // the engine flavour, this should change for each device/flavour
 // of the engine that branches off from the main indefinitely
-#define VORTEX_NAME "Core"
+#define VORTEX_NAME "Orbit"
 
 // the full name of this build for ex:
 //    Vortex Engine v1.0 'Igneous' (built Tue Jan 31 19:03:55 2023)
@@ -179,7 +179,7 @@
 //
 // The starting default global brightness if there is no savefile
 // present The maximum value is 255
-#define DEFAULT_BRIGHTNESS    185
+#define DEFAULT_BRIGHTNESS    20
 
 // Max Modes
 //
@@ -197,7 +197,7 @@
 // This should not be set to 0, it should be a specific maximum for
 // each separate device
 //
-#define MAX_MODES             13
+#define MAX_MODES             14
 
 // Default Tickrate in Ticks Per Second (TPS)
 //
@@ -309,9 +309,9 @@
 //
 // These are the four options available in the global brightness menu
 // There is only four options, be careful not to go too low
-#define BRIGHTNESS_OPTION_1         40
-#define BRIGHTNESS_OPTION_2         120
-#define BRIGHTNESS_OPTION_3         185
+#define BRIGHTNESS_OPTION_1         20
+#define BRIGHTNESS_OPTION_2         80
+#define BRIGHTNESS_OPTION_3         160
 #define BRIGHTNESS_OPTION_4         255
 
 // Saturation Options
@@ -352,7 +352,7 @@
 // Whether to enable the Visible Light system as a whole. This is for mode
 // transferring with the Leds and a light sensor
 #define VL_ENABLE_SENDER      1
-#define VL_ENABLE_RECEIVER    1
+#define VL_ENABLE_RECEIVER    0
 
 // Debug Allocations
 //
@@ -593,7 +593,7 @@
 //  These are the various storage space constants of the vortex device
 
 // maximum size of a mode here
-#define MAX_MODE_SIZE 512
+#define MAX_MODE_SIZE 1024
 
 // the number of storage slots for modes, add 1 for the header
 #define NUM_MODE_SLOTS (MAX_MODES + 1)

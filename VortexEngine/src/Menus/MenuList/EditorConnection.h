@@ -25,7 +25,9 @@ public:
 
   // handlers for clicks
   void onShortClick() override;
+  void onShortClick2() override;
   void onLongClick() override;
+  void onLongClick2() override;
 
   void leaveMenu(bool doSave = false) override;
 
@@ -55,7 +57,7 @@ private:
   void readData(ByteStream &buffer);
   void writeData(ByteStream &buffer);
   void writeData(const char *message);
-  bool isConnected();
+  bool isConnectedReal();
 
   enum EditorConnectionState {
     // the editor is not connected
