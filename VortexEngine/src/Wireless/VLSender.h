@@ -18,24 +18,18 @@ public:
   static bool init();
   static void cleanup();
 
-  // initialize the VL sender with a mode to send
-  static bool loadMode(const Mode *targetMode);
-  static bool send();
-
-  static bool isSending() { return m_isSending; }
-
-  static uint32_t percentDone() { return (uint32_t)(((float)m_writeCounter / (float)m_size) * 100.0); }
+  // send a mode
+  static void send(const Mode *targetMode);
+  static void sendLegacy(const Mode *targetMode);
 
 private:
-  // sender functions
-  static void beginSend();
+  static bool loadMode(const Mode *targetMode);
   // send a full 8 bits in a tight loop
   static void sendByte(uint8_t data);
+  // send full 8 bits legacy protocol
+  static void sendByteLegacy(uint8_t data);
   // send a mark/space by turning PWM on/off
-  static void sendMark(uint16_t time);
-  static void sendSpace(uint16_t time);
-  // Pulse-Width Modulator (VL Transmitter)
-  static void initPWM();
+  static void sendMarkSpace(uint16_t markTime, uint16_t spaceTime);
   // turn the VL transmitter on/off in realtime
   static void startPWM();
   static void stopPWM();
@@ -44,21 +38,10 @@ private:
   static ByteStream m_serialBuf;
   // a bit walker for the serial data
   static BitStream m_bitStream;
-  static bool m_isSending;
-  static uint32_t m_lastSendTime;
 
   // some runtime meta info
-  static uint32_t m_size;
-  // the number of blocks that will be sent
-  static uint8_t m_numBlocks;
-  // the amount in the final block
-  static uint8_t m_remainder;
-
-  // configuration options for the sender
-  static uint32_t m_blockSize;
-
-  // write total
-  static uint32_t m_writeCounter;
+  static uint8_t m_size;
+  static uint8_t m_parity;
 };
 
 #endif
