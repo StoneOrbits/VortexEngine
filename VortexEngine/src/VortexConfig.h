@@ -357,6 +357,13 @@
 // Controls whether the acclerometer logic is enabled and included
 #define ACCELEROMETER_ENABLE        1
 
+// Behaviour System Control
+//
+// Some configurations for behaviour system, the max number of nodes and the
+// max number of inputs per node
+#define MAX_BEHAVIOUR_NODES         32
+#define MAX_BEHAVIOUR_INPUTS        4
+
 // ===================================================================
 //  Boolean Configurations (0 or 1)
 
@@ -606,6 +613,9 @@
 
 // set the global brightness of the chromalinked duo
 #define EDITOR_VERB_SET_CHROMA_BRIGHTNESS "N"
+
+// set behaviours
+#define EDITOR_VERB_SET_BEHAVIOUR         "O"
 
 // ===================================================================
 //  Manually Configured Sizes

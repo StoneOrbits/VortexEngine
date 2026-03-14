@@ -1,5 +1,6 @@
 #include "VortexEngine.h"
 
+#include "Behaviours/Behaviours.h"
 #include "Sensor/Accelerometer.h"
 #include "Wireless/IRReceiver.h"
 #include "Wireless/IRSender.h"
@@ -93,7 +94,11 @@ bool VortexEngine::init()
   }
 #if ACCELEROMETER_ENABLE == 1
   if (!Accelerometer::init()) {
-    DEBUG_LOG("Settings failed to initialize");
+    DEBUG_LOG("Accelerometer failed to initialize");
+    return false;
+  }
+  if (!Behaviours::init()) {
+    DEBUG_LOG("Behaviours failed to initialize");
     return false;
   }
 #endif
@@ -372,6 +377,11 @@ void VortexEngine::runMainLogic()
 
   // otherwise just play the modes
   Modes::play();
+
+#if ACCELEROMETER_ENABLE == 1
+  // apply behaviours right after playing mode
+  Behaviours::update();
+#endif
 }
 
 bool VortexEngine::serializeVersion(ByteStream &stream)

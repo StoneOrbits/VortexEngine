@@ -59,9 +59,6 @@ float Accelerometer::m_tilt = 0.0f;
 
 uint32_t Accelerometer::m_lastSampleTime = 0;
 
-// Lifecycle
-Accelerometer::Accelerometer() {}
-
 bool Accelerometer::init()
 {
 #ifdef VORTEX_EMBEDDED
@@ -77,13 +74,9 @@ bool Accelerometer::init()
   if (!configure()) {
     return false;
   }
-
+#endif
   m_initialized = true;
   return true;
-#else
-  m_initialized = false;
-  return false;
-#endif
 }
 
 bool Accelerometer::available()
@@ -107,12 +100,13 @@ bool Accelerometer::setRange(uint8_t g)
   uint8_t ctrl4 = 0;
   if (!readReg(REG_CTRL4, ctrl4)) {
     return false;
+  }
 
-    // clear FS bits and set new range
-    ctrl4 &= ~(0x3 << 4);
-    ctrl4 |= (fsBits << 4);
+  // clear FS bits and set new range
+  ctrl4 &= ~(0x3 << 4);
+  ctrl4 |= (fsBits << 4);
 
-    return writeReg(REG_CTRL4, ctrl4);
+  return writeReg(REG_CTRL4, ctrl4);
 #else
   (void)g;
   return false;

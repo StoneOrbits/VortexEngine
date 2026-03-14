@@ -49,6 +49,7 @@ private:
   ReturnCode receiveDemoMode();
   ReturnCode receiveMessage(const char *message);
   ReturnCode receiveBrightness();
+  ReturnCode receiveBehaviour();
   ReturnCode receiveModeVL();
   void showReceiveModeVL();
   bool detectConnection();
@@ -114,6 +115,10 @@ private:
 
     // get global brightness
     STATE_GET_GLOBAL_BRIGHTNESS,
+
+    // set behaviour
+    STATE_SET_BEHAVIOUR,
+    STATE_SET_BEHAVIOUR_RECEIVE,
   };
 
   struct CommandState

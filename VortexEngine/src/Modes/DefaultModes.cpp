@@ -6,26 +6,20 @@
 // the gloveset upon factory reset
 const default_mode_entry default_modes[] = {
   {
-    PATTERN_COMPLEMENTARY_BLEND, 3, {
+    PATTERN_STROBE, 2, {
       RGB_RED,
-      RGB_GREEN,
-      RGB_BLUE,
+      RGB_OFF
     }
   },
   {
-    PATTERN_STROBEGAP, 3, {
-      RGB_RED,
-      RGB_GREEN,
+    PATTERN_STROBE, 2, {
       RGB_BLUE,
+      RGB_OFF
     }
   },
   {
-    PATTERN_DOPS, 5, {
-      //RGB_RED,
+    PATTERN_STROBE, 1, {
       RGB_GREEN,
-      RGB_BLUE,
-      0xABAA00,
-      0x5500AB
     }
   },
   {

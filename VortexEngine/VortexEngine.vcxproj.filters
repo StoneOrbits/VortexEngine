@@ -339,6 +339,12 @@
     <ClCompile Include="src\Sensor\Accelerometer.cpp">
       <Filter>Source Files\Sensor</Filter>
     </ClCompile>
+    <ClCompile Include="src\Behaviours\Behaviours.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Behaviours\BehaviourNode.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\VortexConfig.h">
@@ -568,6 +574,12 @@
     </ClInclude>
     <ClInclude Include="src\Sensor\Accelerometer.h">
       <Filter>Header Files\Sensor</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Behaviours\Behaviours.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Behaviours\BehaviourNode.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

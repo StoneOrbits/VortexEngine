@@ -9,8 +9,6 @@
 
 class Accelerometer
 {
-  Accelerometer();
-
 public:
 
   struct Sample

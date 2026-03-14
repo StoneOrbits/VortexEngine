@@ -105,6 +105,7 @@
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)\src;$(ProjectDir)\VortexLib;$(ProjectDir)\VortexLib\EngineDependencies;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <Optimization>Disabled</Optimization>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -136,6 +137,7 @@
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)\src;$(ProjectDir)\VortexLib;$(ProjectDir)\VortexLib\EngineDependencies;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <Optimization>Disabled</Optimization>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -145,6 +147,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\Behaviours\BehaviourNode.cpp" />
+    <ClCompile Include="src\Behaviours\Behaviours.cpp" />
     <ClCompile Include="src\Buttons\Button.cpp" />
     <ClCompile Include="src\Buttons\Buttons.cpp" />
     <ClCompile Include="src\Colors\Colorset.cpp" />
@@ -215,6 +219,8 @@
     <ClCompile Include="VortexLib\VortexLib.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Behaviours\BehaviourNode.h" />
+    <ClInclude Include="src\Behaviours\Behaviours.h" />
     <ClInclude Include="src\Buttons\Button.h" />
     <ClInclude Include="src\Buttons\Buttons.h" />
     <ClInclude Include="src\Colors\ColorConstants.h" />
