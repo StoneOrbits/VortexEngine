@@ -127,32 +127,14 @@ void Menu::nextBulbSelection()
   // modulo by LED_COUNT + 1 to include LED_COUNT (all) as a target
   switch (m_targetLeds) {
   case MAP_LED_ALL:
-    if (cur->isMultiLed()) {
-      // do not allow multi led to select anything else
-      //break;
-    }
     m_targetLeds = MAP_LED(LED_FIRST);
     break;
+  case MAP_LED(LED_FIRST):
+    m_targetLeds = MAP_LED(LED_LAST);
+    break;
+  default:
   case MAP_LED(LED_LAST):
-    m_targetLeds = MAP_PAIR_EVENS;
-    break;
-  case MAP_PAIR_EVENS:
-    m_targetLeds = MAP_PAIR_ODDS;
-    break;
-  case MAP_PAIR_ODDS:
-    m_targetLeds = MAP_LED(LED_MULTI);
-    break;
-  case MAP_LED(LED_MULTI):
     m_targetLeds = MAP_LED_ALL;
-    break;
-  default: // LED_FIRST through LED_LAST
-    // do not allow multi led to select anything else
-    if (cur->isMultiLed()) {
-      //m_targetLeds = MAP_LED_ALL;
-      //break;
-    }
-    // iterate as normal
-    m_targetLeds = MAP_LED(((ledmapGetFirstLed(m_targetLeds) + 1) % (LED_COUNT + 1)));
     break;
   }
 }

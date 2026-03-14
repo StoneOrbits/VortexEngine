@@ -1,6 +1,7 @@
 #include "Pattern.h"
 
 #include "../Patterns/PatternBuilder.h"
+#include "../Sensor/Accelerometer.h"
 #include "../Serial/ByteStream.h"
 #include "../Time/TimeControl.h"
 #include "../Colors/Colorset.h"
@@ -170,6 +171,12 @@ void Pattern::clearColorset()
 {
   m_colorset.clear();
 }
+
+#if ACCELEROMETER_ENABLE == 1
+void Pattern::applyAccelerometer()
+{
+}
+#endif
 
 #ifdef VORTEX_LIB
 void Pattern::registerArg(const char *name, arg_offset_t argOffset)

@@ -3,6 +3,7 @@
 #include "LedStash.h"
 #include "Leds.h"
 
+#include "../Sensor/Accelerometer.h"
 #include "../Time/TimeControl.h"
 #include "../Modes/Modes.h"
 
@@ -12,6 +13,12 @@
 #include "../../VortexLib/VortexLib.h"
 #endif
 
+#ifdef VORTEX_EMBEDDED
+#pragma GCC diagnostic ignored "-Wclass-memaccess"
+#include <FastLED.h>
+#define LED_PIN     10
+#endif
+
 // global brightness
 uint8_t Leds::m_brightness = DEFAULT_BRIGHTNESS;
 // array of led color values
@@ -19,6 +26,10 @@ RGBColor Leds::m_ledColors[LED_COUNT] = { RGB_OFF };
 
 bool Leds::init()
 {
+#ifdef VORTEX_EMBEDDED
+  FastLED.addLeds<WS2812B, LED_PIN, RGB>((CRGB *)m_ledColors, LED_COUNT);
+  FastLED.setMaxRefreshRate(0);
+#endif
 #ifdef VORTEX_LIB
   Vortex::vcallbacks()->ledsInit(m_ledColors, LED_COUNT);
 #endif
@@ -260,7 +271,41 @@ void Leds::holdAll(RGBColor col)
 
 void Leds::update()
 {
+#ifdef VORTEX_EMBEDDED
+  // swap red and green for LED 1
+  uint8_t t = m_ledColors[LED_1].red;
+  m_ledColors[LED_1].red = m_ledColors[LED_1].green;
+  m_ledColors[LED_1].green = t;
+#endif
+
+#if ACCELEROMETER_ENABLE == 1
+  RGBColor backupLedColors[LED_COUNT];
+  memcpy(backupLedColors, m_ledColors, sizeof(m_ledColors));
+
+  // apply the accelerometer effects to the leds
+  applyAccelerometer();
+#endif
+
+  // show the leds
+#ifdef VORTEX_EMBEDDED
+  FastLED.show(m_brightness);
+#endif
 #ifdef VORTEX_LIB
   Vortex::vcallbacks()->ledsShow();
 #endif
+
+#if ACCELEROMETER_ENABLE == 1
+  // restore colors after accel override
+  memcpy(m_ledColors, backupLedColors, sizeof(m_ledColors));
+#endif
+#ifdef VORTEX_EMBEDDED
+  // restore green and red for LED 1
+  m_ledColors[LED_1].green = m_ledColors[LED_1].red;
+  m_ledColors[LED_1].red = t;
+#endif
+}
+
+// apply accelerometer modifications to the leds
+void Leds::applyAccelerometer()
+{
 }

@@ -127,6 +127,12 @@
     <Filter Include="Source Files\Wireless">
       <UniqueIdentifier>{53027bd8-836b-491d-9b40-25ea0061bce9}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Sensor">
+      <UniqueIdentifier>{cc0fad07-6f97-4f8a-b0f5-06d7dd332529}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Sensor">
+      <UniqueIdentifier>{0569d79b-6803-4af5-a367-b3ea191dddfd}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\VortexEngine.cpp">
@@ -326,6 +332,18 @@
     </ClCompile>
     <ClCompile Include="src\Wireless\VLSender.cpp">
       <Filter>Source Files\Wireless</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Wireless\Bluetooth.cpp">
+      <Filter>Source Files\Wireless</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Sensor\Accelerometer.cpp">
+      <Filter>Source Files\Sensor</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Behaviours\Behaviours.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Behaviours\BehaviourNode.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -550,6 +568,18 @@
     </ClInclude>
     <ClInclude Include="src\Wireless\VLSender.h">
       <Filter>Header Files\Wireless</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Wireless\Bluetooth.h">
+      <Filter>Header Files\Wireless</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Sensor\Accelerometer.h">
+      <Filter>Header Files\Sensor</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Behaviours\Behaviours.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Behaviours\BehaviourNode.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

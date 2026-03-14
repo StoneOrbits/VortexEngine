@@ -1,5 +1,6 @@
 #include "EditorConnection.h"
 
+#include "../../Behaviours/Behaviours.h"
 #include "../../Patterns/PatternArgs.h"
 #include "../../Serial/ByteStream.h"
 #include "../../Serial/Serial.h"
@@ -115,6 +116,7 @@ const EditorConnection::CommandState EditorConnection::commands[] = {
   { EDITOR_VERB_LISTEN_VL, STATE_LISTEN_MODE_VL },
   { EDITOR_VERB_SET_GLOBAL_BRIGHTNESS, STATE_SET_GLOBAL_BRIGHTNESS },
   { EDITOR_VERB_GET_GLOBAL_BRIGHTNESS, STATE_GET_GLOBAL_BRIGHTNESS },
+  { EDITOR_VERB_SET_BEHAVIOUR, STATE_SET_BEHAVIOUR },
 };
 #define NUM_COMMANDS (sizeof(commands) / sizeof(commands[0]))
 
@@ -408,6 +410,21 @@ void EditorConnection::handleState()
     sendBrightness();
     m_state = STATE_IDLE;
     break;
+
+  // -------------------------------
+  //  Set Behaviour
+  case STATE_SET_BEHAVIOUR:
+    writeData(EDITOR_VERB_READY);
+    m_state = STATE_SET_BEHAVIOUR_RECEIVE;
+    break;
+  case STATE_SET_BEHAVIOUR_RECEIVE:
+    // set the brightness of the device
+    if (receiveBrightness() == RV_WAIT) {
+      // just keep waiting
+      break;
+    }
+    m_state = STATE_IDLE;
+    break;
   }
 }
 
@@ -631,6 +648,24 @@ ReturnCode EditorConnection::receiveBrightness()
     Leds::setBrightness(brightness);
     Modes::saveHeader();
   }
+  return RV_OK;
+}
+
+ReturnCode EditorConnection::receiveBehaviour()
+{
+  // create a new ByteStream that will hold the full buffer of data
+  ByteStream buf;
+  m_rv = receiveBuffer(buf);
+  if (m_rv != RV_OK) {
+    // RV_WAIT or RV_FAIL
+    return m_rv;
+  }
+  if (!buf.size()) {
+    // failure
+    return RV_FAIL;
+  }
+  // load the behaviours
+  Behaviours::unserialize(buf);
   return RV_OK;
 }
 

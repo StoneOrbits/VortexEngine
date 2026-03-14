@@ -110,6 +110,11 @@ public:
   // actually update the LEDs and show the changes
   static void update();
 
+#if ACCELEROMETER_ENABLE == 1
+  // apply accelerometer modifications to the leds
+  static void applyAccelerometer();
+#endif
+
 private:
   // accessor for led colors, use this for all access to allow for mapping
   static inline RGBColor &led(LedPos pos)
