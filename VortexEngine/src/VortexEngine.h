@@ -5,6 +5,8 @@
 #include "VortexConfig.h"
 
 #include "Patterns/PatternBuilder.h"
+#include "Behaviours/Behaviours.h"
+#include "Sensor/Accelerometer.h"
 #include "Wireless/IRReceiver.h"
 #include "Wireless/IRSender.h"
 #include "Wireless/VLReceiver.h"
@@ -81,6 +83,8 @@ public:
   Menus &menus() { return m_menus; }
   Modes &modes() { return m_modes; }
   PatternBuilder &patternBuilder() { return m_patternBuilder; }
+  Accelerometer &accelerometer() { return m_accelerometer; }
+  Behaviours &behaviours() { return m_behaviours; }
 
 private:
   // reference to the parent vortexlib that created this instance
@@ -102,6 +106,8 @@ private:
   Menus m_menus;
   Modes m_modes;
   PatternBuilder m_patternBuilder;
+  Accelerometer m_accelerometer;
+  Behaviours m_behaviours;
 
   // bool in vortexlib to simulate sleeping
   volatile bool m_sleeping;

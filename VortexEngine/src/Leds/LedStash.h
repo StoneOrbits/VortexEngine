@@ -17,8 +17,13 @@ public:
 
   void clear();
 
+  // TODO: make these members and avoid passing first param
+  static void blendStashes(VortexEngine &engine, LedStash &dst, const LedStash &cur, const LedStash &other, float t);
+  static void addStashes(VortexEngine &engine, LedStash &dst, const LedStash &cur, const LedStash &other);
+
   // index operator to access color index
   RGBColor &operator[](int index);
+  const RGBColor &operator[](int index) const;
 
 private:
   // reference to engine

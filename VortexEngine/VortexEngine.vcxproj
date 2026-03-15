@@ -145,10 +145,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\Behaviours\BehaviourNode.cpp" />
+    <ClCompile Include="src\Behaviours\Behaviours.cpp" />
     <ClCompile Include="src\Buttons\Button.cpp" />
     <ClCompile Include="src\Buttons\Buttons.cpp" />
     <ClCompile Include="src\Colors\Colorset.cpp" />
     <ClCompile Include="src\Colors\ColorTypes.cpp" />
+    <ClCompile Include="src\Sensor\Accelerometer.cpp" />
     <ClCompile Include="src\Wireless\IRReceiver.cpp" />
     <ClCompile Include="src\Wireless\IRSender.cpp" />
     <ClCompile Include="src\Leds\Leds.cpp" />
@@ -213,11 +216,14 @@
     <ClCompile Include="VortexLib\VortexLib.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Behaviours\BehaviourNode.h" />
+    <ClInclude Include="src\Behaviours\Behaviours.h" />
     <ClInclude Include="src\Buttons\Button.h" />
     <ClInclude Include="src\Buttons\Buttons.h" />
     <ClInclude Include="src\Colors\ColorConstants.h" />
     <ClInclude Include="src\Colors\Colorset.h" />
     <ClInclude Include="src\Colors\ColorTypes.h" />
+    <ClInclude Include="src\Sensor\Accelerometer.h" />
     <ClInclude Include="src\Wireless\IRConfig.h" />
     <ClInclude Include="src\Wireless\IRReceiver.h" />
     <ClInclude Include="src\Wireless\IRSender.h" />

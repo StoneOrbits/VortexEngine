@@ -337,6 +337,18 @@
 // The serial connection baud rate for the editor and anything else serial
 #define SERIAL_BAUD_RATE            9600
 
+// Enable Accelerometer
+//
+// Controls whether the acclerometer logic is enabled and included
+#define ACCELEROMETER_ENABLE        1
+
+// Behaviour System Control
+//
+// Some configurations for behaviour system, the max number of nodes and the
+// max number of inputs per node
+#define MAX_BEHAVIOUR_NODES         32
+#define MAX_BEHAVIOUR_INPUTS        4
+
 // ===================================================================
 //  Boolean Configurations (0 or 1)
 

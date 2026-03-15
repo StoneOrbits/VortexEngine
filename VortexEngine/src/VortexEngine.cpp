@@ -20,6 +20,8 @@ VortexEngine::VortexEngine(Vortex &vortexLib) :
   m_menus(m_engine),
   m_modes(m_engine),
   m_patternBuilder(m_engine),
+  m_accelerometer(m_engine),
+  m_behaviours(m_engine),
   m_sleeping(false),
   m_autoCycle(false)
 {
