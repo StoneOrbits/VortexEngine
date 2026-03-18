@@ -233,6 +233,9 @@ float NodeModeBlend::evaluate()
   LedStash currentLeds;
   Leds::stashAll(currentLeds);
 
+  // clear before playing other mode
+  Leds::clearAll();
+
   /* ---------------------------------------------------------------------
      Render the alternate mode and capture its LED state
      ------------------------------------------------------------------ */
@@ -255,6 +258,230 @@ float NodeModeBlend::evaluate()
      ------------------------------------------------------------------ */
 
   Leds::restoreAll(blended);
+
+  return 1.0f;
+}
+
+/*
+    NodeModeAdd
+    ---------------------------------------------------------------------------
+
+    Behaviour graph node that adds the output of the "other mode" on top of the
+    currently rendered mode.
+
+    Unlike NodeModeBlend, the original mode is never reduced. Instead, the
+    second mode is faded in and combined with the existing LED result.
+
+    Result:
+        0.0  -> only the current mode
+        1.0  -> current mode + full intensity of the other mode
+
+    Inputs
+    ------
+    input(0) : float
+        Primary fade control signal.
+
+    input(1) : float (optional)
+        External multiplier/modulator for the final intensity.
+
+    Parameters
+    ----------
+    param1 : float
+        Offset applied to the primary input.
+
+    param2 : float
+        Scale applied after offset.
+
+        normalized = (input0 - param1) * param2
+
+    Processing Steps
+    ----------------
+    1. Evaluate the primary input.
+    2. Apply offset and scaling.
+    3. Clamp to [0,1].
+    4. Apply optional multiplier.
+    5. Capture current LED buffer.
+    6. Render the "other mode".
+    7. Scale the other mode by the computed value.
+    8. Add the scaled result onto the current LEDs.
+*/
+
+class NodeModeAdd : public BehaviourNode
+{
+public:
+
+    NodeModeAdd();
+    virtual float evaluate();
+};
+
+NodeModeAdd::NodeModeAdd() :
+  BehaviourNode(Behaviours::NODE_MODE_ADD)
+{
+}
+
+float NodeModeAdd::evaluate()
+{
+  if (inputCount() == 0) {
+    return 0.0f;
+  }
+
+  float addInput = input(0)->evaluate();
+  float multiplier = 1.0f;
+
+  if (inputCount() > 1) {
+    multiplier = input(1)->evaluate();
+  }
+
+  float normalized = (addInput - param1) * param2;
+
+  if (normalized < 0.0f) normalized = 0.0f;
+  if (normalized > 1.0f) normalized = 1.0f;
+
+  float finalAmount = normalized * multiplier;
+
+  if (finalAmount < 0.0f) finalAmount = 0.0f;
+  if (finalAmount > 1.0f) finalAmount = 1.0f;
+
+  // copy of current leds
+  LedStash currentLeds;
+  Leds::stashAll(currentLeds);
+
+  // clear before playing other mode
+  Leds::clearAll();
+
+  // play the other mode
+  Mode &other = Behaviours::otherMode();
+  other.play();
+
+  // copy of the other mode result
+  LedStash otherLeds;
+  Leds::stashAll(otherLeds);
+
+  // fade the others down
+  uint8_t fade = (uint8_t)((1.0f - finalAmount) * 255.0f);
+  for (int i = 0; i < LED_COUNT; ++i) {
+    otherLeds[i].adjustBrightness(fade);
+  }
+
+  // add it on top of the current
+  LedStash result;
+  LedStash::addStashes(result, currentLeds, otherLeds);
+
+  // apply the behaviour
+  Leds::restoreAll(result);
+
+  return 1.0f;
+}
+
+/*
+    NodeColorShift
+    ---------------------------------------------------------------------------
+
+    Behaviour graph node that shifts a specific color in the currently rendered
+    LED output toward another color.
+
+    The node scans the current LED buffer and replaces pixels that match a
+    target color, blending them toward a destination color based on a computed
+    shift amount.
+
+    No additional modes are rendered. This node only modifies the already
+    rendered LED result.
+
+    Inputs
+    ------
+    input(0) : float
+        Primary shift control signal.
+
+    input(1) : float (optional)
+        External multiplier/modulator.
+
+    Parameters
+    ----------
+    param1 : float
+        Threshold offset applied to the input signal.
+
+    param2 : float
+        Scale applied after offset.
+
+        normalized = (input0 - param1) * param2
+
+    Additional Color Parameters
+    ---------------------------
+    colorA : Color
+        Source color to detect.
+
+    colorB : Color
+        Destination color to shift toward.
+
+    Processing Steps
+    ----------------
+    1. Evaluate control input.
+    2. Normalize using param1/param2.
+    3. Clamp result to [0,1].
+    4. Capture current LED buffer.
+    5. For each LED:
+           If it matches colorA
+           Blend it toward colorB using the computed value.
+    6. Restore modified LEDs.
+*/
+
+class NodeColorShift : public BehaviourNode
+{
+public:
+
+    NodeColorShift();
+    virtual float evaluate();
+
+    RGBColor colorA;
+    RGBColor colorB;
+};
+
+NodeColorShift::NodeColorShift() :
+  BehaviourNode(Behaviours::NODE_COLOR_SHIFT)
+{
+}
+
+float NodeColorShift::evaluate()
+{
+  if (inputCount() == 0) {
+    return 0.0f;
+  }
+
+  float shiftInput = input(0)->evaluate();
+  float multiplier = 1.0f;
+
+  if (inputCount() > 1) {
+    multiplier = input(1)->evaluate();
+  }
+
+  float normalized = (shiftInput - param1) * param2;
+
+  if (normalized < 0.0f) normalized = 0.0f;
+  if (normalized > 1.0f) normalized = 1.0f;
+
+  float finalShift = normalized * multiplier;
+
+  if (finalShift < 0.0f) finalShift = 0.0f;
+  if (finalShift > 1.0f) finalShift = 1.0f;
+
+  LedStash leds;
+  Leds::stashAll(leds);
+
+  for (uint32_t i = 0; i < LED_COUNT; i++) {
+    RGBColor &c = leds[i];
+
+    if (c == colorA) {
+      RGBColor shifted;
+
+      shifted.red = c.red + (colorB.red - c.red) * finalShift;
+      shifted.green = c.green + (colorB.green - c.green) * finalShift;
+      shifted.blue = c.blue + (colorB.blue - c.blue) * finalShift;
+
+      c = shifted;
+    }
+  }
+
+  Leds::restoreAll(leds);
 
   return 1.0f;
 }

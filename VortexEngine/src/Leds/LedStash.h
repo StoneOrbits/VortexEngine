@@ -16,6 +16,7 @@ public:
   void clear();
 
   static void blendStashes(LedStash &dst, const LedStash &cur, const LedStash &other, float t);
+  static void addStashes(LedStash &dst, const LedStash &cur, const LedStash &other);
 
   // index operator to access color index
   RGBColor &operator[](int index);

@@ -419,7 +419,7 @@ void EditorConnection::handleState()
     break;
   case STATE_SET_BEHAVIOUR_RECEIVE:
     // set the brightness of the device
-    if (receiveBrightness() == RV_WAIT) {
+    if (receiveBehaviour() == RV_WAIT) {
       // just keep waiting
       break;
     }
@@ -437,6 +437,7 @@ void EditorConnection::showEditor()
     break;
   case STATE_IDLE:
     m_previewMode.play();
+    Behaviours::update();
     break;
   default:
     // do nothing!
@@ -665,7 +666,9 @@ ReturnCode EditorConnection::receiveBehaviour()
     return RV_FAIL;
   }
   // load the behaviours
-  Behaviours::unserialize(buf);
+  if (!Behaviours::unserialize(buf)) {
+    return RV_FAIL;
+  }
   return RV_OK;
 }
 

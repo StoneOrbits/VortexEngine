@@ -15,13 +15,17 @@ bool Behaviours::init()
 {
   memset(m_nodes, 0, sizeof(m_nodes));
 
-  // create some default behaviour
-  uint8_t blendNode = create(NODE_MODE_BLEND,
-    0.0f,   // threshold
-    0.25f   // ramp
-  );
-  uint8_t filteredNode = create(NODE_ACCEL_FILTERED);
-  connect(filteredNode, blendNode);
+  //// create some default behaviour
+  //uint8_t blendNode = create(NODE_MODE_BLEND,
+  //  0.0f,   // threshold
+  //  0.25f   // ramp
+  //);
+  //uint8_t filteredNode = create(NODE_ACCEL_FILTERED);
+  //connect(filteredNode, blendNode);
+
+  //ByteStream test;
+  //serialize(test);
+  //unserialize(test);
 
   return true;
 }
