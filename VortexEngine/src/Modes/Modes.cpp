@@ -5,6 +5,7 @@
 
 #include "../Patterns/Pattern.h"
 
+#include "../Behaviours/Behaviours.h"
 #include "../Serial/ByteStream.h"
 #include "../Time/TimeControl.h"
 #include "../Colors/Colorset.h"
@@ -66,6 +67,7 @@ bool Modes::load()
     }
   }
   m_loaded = true;
+  Behaviours::copyNextMode();
   return true;
 }
 

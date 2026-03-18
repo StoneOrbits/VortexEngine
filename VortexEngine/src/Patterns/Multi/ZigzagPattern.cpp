@@ -9,15 +9,15 @@
 // Index this array with m_step in order to get correct LedPos
 const LedPos ZigzagPattern::ledStepPositions[] = {
   LED_1,
-  LED_3,
-  LED_5,
-  LED_7,
-  LED_9,
+  //LED_3,
+  //LED_5,
+  //LED_7,
+  //LED_9,
 
-  LED_8,
-  LED_6,
-  LED_4,
-  LED_2,
+  //LED_8,
+  //LED_6,
+  //LED_4,
+  //LED_2,
   LED_0,
 };
 

@@ -26,6 +26,62 @@ RGBColor &LedStash::operator[](int index)
   return m_ledColorsStash[index];
 }
 
+// index operator to access color index
+const RGBColor &LedStash::operator[](int index) const
+{
+  return m_ledColorsStash[index];
+}
+
 LedStash::~LedStash()
 {
+}
+
+void LedStash::blendStashes(LedStash &dst, const LedStash &cur, const LedStash &other, float t)
+{
+  if (t <= 0.0f) {
+    for (int i = 0; i < LED_COUNT; ++i)
+      dst[i] = cur[i];
+    return;
+  }
+
+  if (t >= 1.0f) {
+    for (int i = 0; i < LED_COUNT; ++i)
+      dst[i] = other[i];
+    return;
+  }
+
+  float inv = 1.0f - t;
+
+  for (int i = 0; i < LED_COUNT; ++i) {
+    const RGBColor &a = cur.m_ledColorsStash[i];
+    const RGBColor &b = other.m_ledColorsStash[i];
+
+    RGBColor &d = dst.m_ledColorsStash[i];
+
+    d.red = (uint8_t)((a.red * inv) + (b.red * t));
+    d.green = (uint8_t)((a.green * inv) + (b.green * t));
+    d.blue = (uint8_t)((a.blue * inv) + (b.blue * t));
+  }
+}
+
+void LedStash::addStashes(LedStash &dst, const LedStash &cur, const LedStash &other)
+{
+  for (int i = 0; i < LED_COUNT; ++i) {
+    const RGBColor &a = cur.m_ledColorsStash[i];
+    const RGBColor &b = other.m_ledColorsStash[i];
+
+    RGBColor &d = dst.m_ledColorsStash[i];
+
+    int r = a.red + b.red;
+    int g = a.green + b.green;
+    int b2 = a.blue + b.blue;
+
+    if (r > 255) r = 255;
+    if (g > 255) g = 255;
+    if (b2 > 255) b2 = 255;
+
+    d.red = (uint8_t)r;
+    d.green = (uint8_t)g;
+    d.blue = (uint8_t)b2;
+  }
 }

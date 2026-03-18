@@ -9,6 +9,8 @@
 // of a hardcoded constant than a configuration setting
 #define NUM_BUTTONS 1
 
+#define BUTTON_PIN 9
+
 class Buttons
 {
   // private unimplemented constructor
@@ -24,9 +26,16 @@ public:
 
   static uint8_t numButtons() { return NUM_BUTTONS; }
 
+  // This is a special feature mainly for cancelling the VLSender by installing
+  // an interrupt on the button pin in order to detect the press in realtime
+  static void installCancelInterrupt(uint8_t pin);
+  static void removeCancelInterrupt();
+  static bool isCancelRequested();
+
 private:
   // feel free to add more I guess
   static Button m_buttons[NUM_BUTTONS];
+  static uint8_t m_cancelInterruptPin;
 };
 
 // best way I think

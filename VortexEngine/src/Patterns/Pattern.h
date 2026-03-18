@@ -109,6 +109,11 @@ public:
   void setColorset(const Colorset &set);
   void clearColorset();
 
+#if ACCELEROMETER_ENABLE == 1
+  // apply accelerometer modifications to pattern
+  void applyAccelerometer();
+#endif
+
   // change the led position
   void setLedPos(LedPos pos) { m_ledPos = pos; }
 

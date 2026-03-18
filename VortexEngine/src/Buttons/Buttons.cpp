@@ -7,6 +7,10 @@
 #include "../Time/Timings.h"
 #endif
 
+#ifdef VORTEX_EMBEDDED
+#include <Arduino.h>
+#endif
+
 // Since there is only one button I am just going to expose a global pointer to
 // access it, instead of making the Button class static in case a second button
 // is added. This makes it easier to access the button from other places while
@@ -17,11 +21,14 @@ Button *g_pButton = nullptr;
 
 // static members
 Button Buttons::m_buttons[NUM_BUTTONS];
+// for cancelling the VL Sender
+uint8_t Buttons::m_cancelInterruptPin = 0;
+volatile bool cancelButtonPressed = false;
 
 bool Buttons::init()
 {
-  // initialize the button on pin 1
-  if (!m_buttons[0].init(1)) {
+  // initialize the button on pins 5/6/7
+  if (!m_buttons[0].init(BUTTON_PIN)) {
     return false;
   }
   g_pButton = &m_buttons[0];
@@ -44,3 +51,28 @@ void Buttons::update()
   Vortex::handleInputQueue(m_buttons, NUM_BUTTONS);
 #endif
 }
+
+#ifdef VORTEX_EMBEDDED
+void IRAM_ATTR cancelButtonISR() {
+  cancelButtonPressed = true;
+}
+#endif
+
+void Buttons::installCancelInterrupt(uint8_t pin) {
+  cancelButtonPressed = false;
+  m_cancelInterruptPin = pin;
+#ifdef VORTEX_EMBEDDED
+  attachInterrupt(digitalPinToInterrupt(pin), cancelButtonISR, RISING);
+#endif
+}
+
+void Buttons::removeCancelInterrupt() {
+#ifdef VORTEX_EMBEDDED
+  detachInterrupt(digitalPinToInterrupt(m_cancelInterruptPin));
+#endif
+}
+
+bool Buttons::isCancelRequested() {
+  return cancelButtonPressed;
+}
+
