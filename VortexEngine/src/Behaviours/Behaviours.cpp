@@ -20,7 +20,7 @@ bool Behaviours::init()
   //  0.0f,   // threshold
   //  0.25f   // ramp
   //);
-  //uint8_t filteredNode = create(NODE_ACCEL_FILTERED);
+  //uint8_t filteredNode = create(NODE_INPUT_ACCEL_FILTERED);
   //connect(filteredNode, blendNode);
 
   //ByteStream test;
@@ -224,25 +224,57 @@ bool Behaviours::connect(uint8_t from, uint8_t to)
 BehaviourNode *Behaviours::createNodeByType(NodeType type)
 {
   switch (type) {
-  case NODE_ACCEL_MOTION: return new NodeAccelMotion();
-  case NODE_ACCEL_NORMALIZED: return new NodeAccelNormalized();
-  case NODE_ACCEL_CURVED: return new NodeAccelCurved();
-  case NODE_ACCEL_FILTERED: return new NodeAccelFiltered();
-  case NODE_ACCEL_DIR_X: return new NodeAccelDirX();
-  case NODE_ACCEL_DIR_Y: return new NodeAccelDirY();
-  case NODE_ACCEL_DIR_Z: return new NodeAccelDirZ();
-  case NODE_ACCEL_PITCH: return new NodeAccelPitch();
-  case NODE_ACCEL_ROLL: return new NodeAccelRoll();
-  case NODE_ACCEL_TILT: return new NodeAccelTilt();
 
-  case NODE_ABS: return new NodeAbs();
-  case NODE_ADD: return new NodeAdd();
-  case NODE_MULTIPLY: return new NodeMultiply();
-  case NODE_CLAMP: return new NodeClamp();
-  case NODE_CURVE: return new NodeCurve();
-  case NODE_THRESHOLD: return new NodeThreshold();
+    // ===== INPUT =====
+  case NODE_INPUT_TIME: return new NodeTime();
+  case NODE_INPUT_DELTA_TIME: return new NodeDeltaTime();
+  case NODE_INPUT_RANDOM: return new NodeRandom();
+  case NODE_INPUT_CONSTANT: return new NodeConstant();
 
-  case NODE_MODE_BLEND: return new NodeModeBlend();
+  case NODE_INPUT_ACCEL_MOTION: return new NodeAccelMotion();
+  case NODE_INPUT_ACCEL_NORMALIZED: return new NodeAccelNormalized();
+  case NODE_INPUT_ACCEL_CURVED: return new NodeAccelCurved();
+  case NODE_INPUT_ACCEL_FILTERED: return new NodeAccelFiltered();
+  case NODE_INPUT_ACCEL_DIR_X: return new NodeAccelDirX();
+  case NODE_INPUT_ACCEL_DIR_Y: return new NodeAccelDirY();
+  case NODE_INPUT_ACCEL_DIR_Z: return new NodeAccelDirZ();
+  case NODE_INPUT_ACCEL_PITCH: return new NodeAccelPitch();
+  case NODE_INPUT_ACCEL_ROLL: return new NodeAccelRoll();
+  case NODE_INPUT_ACCEL_TILT: return new NodeAccelTilt();
+
+    // ===== MODIFIER =====
+  case NODE_MODIFIER_ABS: return new NodeAbs();
+  case NODE_MODIFIER_ADD: return new NodeAdd();
+  case NODE_MODIFIER_SUBTRACT: return new NodeSubtract();
+  case NODE_MODIFIER_MULTIPLY: return new NodeMultiply();
+  case NODE_MODIFIER_DIVIDE: return new NodeDivide();
+
+  case NODE_MODIFIER_MIN: return new NodeMin();
+  case NODE_MODIFIER_MAX: return new NodeMax();
+
+  case NODE_MODIFIER_CLAMP: return new NodeClamp();
+  case NODE_MODIFIER_REMAP: return new NodeRemap();
+
+  case NODE_MODIFIER_CURVE: return new NodeCurve();
+  case NODE_MODIFIER_SMOOTHSTEP: return new NodeSmoothstep();
+
+  case NODE_MODIFIER_SIN: return new NodeSin();
+  case NODE_MODIFIER_COS: return new NodeCos();
+
+  case NODE_MODIFIER_THRESHOLD: return new NodeThreshold();
+  case NODE_MODIFIER_GREATER: return new NodeGreater();
+  case NODE_MODIFIER_LESS: return new NodeLess();
+
+  case NODE_MODIFIER_LERP: return new NodeLerp();
+  case NODE_MODIFIER_SELECT: return new NodeSelect();
+
+    // ===== FUNCTIONAL =====
+  case NODE_FUNCTIONAL_MODE_BLEND: return new NodeModeBlend();
+  case NODE_FUNCTIONAL_MODE_ADD: return new NodeModeAdd();
+
+  case NODE_FUNCTIONAL_BRIGHTNESS_SHIFT: return new NodeBrightnessShift();
+  case NODE_FUNCTIONAL_COLOR_SHIFT: return new NodeColorShift();
+  case NODE_FUNCTIONAL_PATTERN_SHIFT: return new NodePatternShift();
 
   default: return nullptr;
   }
