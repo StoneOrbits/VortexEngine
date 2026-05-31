@@ -66,9 +66,6 @@ Wireless programming uses the Duo's built-in Mode Sharing feature.
 There are two ways to send a mode wirelessly:
 
 1. Send a mode already on your Chromadeck with the built-in modesharing menu on the Chromadeck
-
-or
-
 2. Use Lightshow.lol with a connected Chromadeck and transmit directly from the website.
 
 To use the Chromadeck's built-in mode-sharing menu just enter it's menu in the exact same way you would the Duo.
