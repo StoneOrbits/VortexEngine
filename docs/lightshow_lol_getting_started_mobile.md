@@ -43,6 +43,10 @@ If you're looking to **program a Duo via a Chromadeck** then continue reading.
 {: .warning }
 Bluetooth cannot perform firmware updates, only USB to a PC can update the firmware of a device!
 
+<div style="max-width: 30%; text-align: right; margin-left: 0.5em; float: right">
+  <img src="assets/images/lightshow-lol-mobile-new.gif" style="box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2); border-radius: 5px;">
+</div>
+
 To begin start with these steps
 
 - Ensure the device is up-to-date (use a PC)
