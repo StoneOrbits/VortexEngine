@@ -39,15 +39,15 @@ Wireless programming is the only option if you are using an Android device with 
 
 ### Chromalink Programming
 
-Chromalink programming allows Lightshow.lol to directly read and write the Duo's memory through a Chromalink cable connected to a Chromadeck.
+Chromalink programming enables Lightshow.lol to directly access and modify the Duo’s memory via a Chromalink cable connected to a Chromadeck.
 
-This method is ideal when replacing all nine modes on a Duo. This is also the only way to adjust the total number of modes on the Duo (1 to 9).
+This method is primarily used when replacing all nine modes on a Duo. It is also the only supported way to change the total number of modes on the device (1–9).
 
-Because the Duo must be removed from its sleeve and disconnected from its battery before being inserted into the Chromalink holder, this process carries some risk and takes more preparation than wireless programming. The battery connector can be somewhat delicate, so unnecessary disassembly is not recommended.
+Because the Duo must be removed from its sleeve and disconnected from its battery before being placed into the Chromalink holder, this process carries some risk and requires more preparation than wireless programming. The battery connector is relatively delicate, so unnecessary disassembly should be avoided.
 
-Chromalink programming is unavailable when connecting to the Chromadeck via Bluetooth on your Android device.
+Chromalink programming is not available when connecting to the Chromadeck over Bluetooth on Android devices.
 
-Therefore the only time Chromalink programming is recommended is when you are replacing all 9 modes on the device, performing firmware updates, or adjusting the total number of modes.
+As a result, Chromalink programming is recommended only when replacing all nine modes, performing firmware updates, or adjusting the total number of modes on the device.
 
 **Recommended when:**
 
