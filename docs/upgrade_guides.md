@@ -18,7 +18,7 @@ The three classic devices: Orbit, Handles, and Wired Gloves have very similar up
 
 The Duo has a rather unique upgrade guide, requiring a Chromadeck and Chromalink to perform the upgrade:
 
- - [Duo Upgrade Guide](duo_upgrade_guide.html)
+ - [Duo Upgrade Guide](duo_chromalink_upgrade_guide.html)
 
 And finally the Chromadeck and the Spark run on similar technology and have similar upgrade guides:
 

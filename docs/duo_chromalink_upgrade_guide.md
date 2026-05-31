@@ -48,7 +48,7 @@ It is **unnecessary** to press 'Connect Duo' when updating the Firmware! That is
 
 <div style="text-align: center; margin-top: 30px;">
   <p><h3 style="color: white;">Congratulations</h3>The Duo firmware is now updated!</p>
-  <p>Next try <a href="duo_programming_guide.html">programming the Duo</a> or continue reading to reassemble the Duo</p>
+  <p>Next try <a href="duo_chromalink_programming_guide.html">programming the Duo</a> or continue reading to reassemble the Duo</p>
 </div>
 
 # Duo Reassembly

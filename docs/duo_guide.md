@@ -187,6 +187,7 @@ This one-page [📥 PDF](assets/infographics/vortex_duo/infographic.pdf) summari
   <ul>
     <li><a href="basic_usage.html">Explore Vortex Engine</a>: Learn key terms, concepts, and how to use on-device menus.</li>
     <li><a href="duo_chromalink_guide.html">Connect a Chromalink</a>: Connect your Duo to the PC with a Chromadeck to get the latest firmware.</li>
+    <li><a href="duo_programming_guide.html">Program a Duo</a>: Program your Duo from the PC or Android with a Chromadeck.</li>
   </ul>
 </div>
 

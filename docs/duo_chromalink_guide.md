@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Chromalink Guide
-nav_order: 2
+nav_order: 3
 parent: Duo
 ---
 <style>
@@ -90,6 +90,6 @@ and incorrect battery removal may permanently break the battery connector.
  - If it does not turn on, ensure the Chromadeck is turned on then review the previous steps.
 
 <div style="text-align: center; margin-top: 30px;">
-  <p><h3 style="color: white;">Congratulations</h3> The Duo is ready for <a href="duo_upgrade_guide.html">updates</a></p>
+  <p><h3 style="color: white;">Congratulations</h3> The Duo is ready for <a href="duo_chromalink_upgrade_guide.html">updates</a></p>
 </div>
 
