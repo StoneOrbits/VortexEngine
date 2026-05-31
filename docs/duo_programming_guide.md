@@ -61,37 +61,37 @@ As a result, Chromalink programming is recommended only when replacing all nine 
 
 # Wireless Programming
 
-Wireless programming uses the Duo's built-in Mode Sharing feature.
+Wireless programming uses the Duo’s built-in Mode Sharing feature.
 
-There are two ways to send a mode wirelessly:
+There are two methods for sending a mode wirelessly:
 
-1. Send a mode already on your Chromadeck with the built-in modesharing menu on the Chromadeck
-2. Use Lightshow.lol with a connected Chromadeck and transmit directly from the website.
+1. Transfer a mode already stored on your Chromadeck using its built-in Mode Sharing menu
+2. Use Lightshow.lol with a connected Chromadeck and transmit the mode directly from the website
 
-To use the Chromadeck's built-in mode-sharing menu just enter it's menu in the exact same way you would the Duo.
+To access the Chromadeck’s built-in Mode Sharing menu, open it in the same way you would on the Duo.
 
-To use lightshow.lol and wirelessly transfer, continue reading the next section.
+To use Lightshow.lol for wireless transfer, continue to the next section.
 
-In either case, only a single mode is transferred at a time.
+In both cases, only one mode can be transferred at a time.
 
 ## Lightshow.lol on PC
 
-Unfortunately only browsers which offer the "Web Serial" feature can connect to the Chromadeck, at this point in time only Google Chrome and a few other browsers are supported. See [browser compatibility here](https://developer.mozilla.org/en-US/docs/Web/API/Web_Serial_API#browser_compatibility)
+Only browsers that support the **Web Serial API** can connect to the Chromadeck. At present, this includes Google Chrome and a limited number of other browsers. See browser compatibility details [here](https://developer.mozilla.org/en-US/docs/Web/API/Web_Serial_API#browser_compatibility).
 
-If you have never connected your Chromadeck to lightshow.lol before, follow [this guide](https://stoneorbits.github.io/VortexEngine/chromadeck_upgrade_guide.html) to get started then return here.
+If you have not previously connected your Chromadeck to Lightshow.lol, follow [this guide](https://stoneorbits.github.io/VortexEngine/chromadeck_upgrade_guide.html) to get started, then return here.
 
-To program a new mode from lightshow.lol on PC follow these steps:
+To program a new mode from Lightshow.lol on PC, follow these steps:
 
-1. Connect your Chromadeck to Lightshow.lol.
-2. Select the mode you want to transfer in the mode list (import, edit, or create one).
-3. Open the Duo's Mode Sharing menu making sure it is ready to receive
-4. Point the Chromadecks leds toward the Duo receiver (button area)
-5. While pointing the Chromadeck at the Duo, press the **Transmit** button in the upper-right corner of the Modes Panel on Lightshow.lol.
-5. Wait for the transfer to complete or repeat from step 4 if it fails.
+1. Connect your Chromadeck to Lightshow.lol  
+2. Select the mode you want to transfer (import, edit, or create one)  
+3. Open the Duo’s Mode Sharing menu and ensure it is ready to receive  
+4. Point the Chromadeck LEDs toward the Duo receiver (button area)  
+5. While pointing the Chromadeck at the Duo, press **Transmit** in the upper-right corner of the Modes Panel on Lightshow.lol  
+6. Wait for the transfer to complete, or repeat from step 4 if it fails  
 
-The selected mode will be sent directly from lightshow.lol, through the Chromadeck, then wirelessly to the Duo.
+The selected mode is sent from Lightshow.lol, through the Chromadeck, and wirelessly to the Duo.
 
-This can be done with multiple Duos at the same time
+This process can be performed with multiple Duos at the same time.
 
 ## Lightshow.lol on Android
 
@@ -104,6 +104,8 @@ This allows you to:
 - Wirelessly transfer those modes to a Duo through Mode Sharing
 
 The process is similar to the PC approach outlined above, and the mobile layout of lightshow.lol is quite straight forward.
+
+To learn more about lightshow.lol on Android you can [read here](
 
 ---
 
