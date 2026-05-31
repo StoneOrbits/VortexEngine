@@ -63,7 +63,7 @@ Select the device from the list and it should connect.
 If everything is set up correctly, you should see a **success notification** and you should now be able to control the device similar to a PC.
 
 ## Programming a Duo
-The Mobile Layout centralizes the Led, Pattern and Colorset controls into one place to streamline the creation of modes.
+To program a duo with lightshow.lol follow the [Duo Programming Guide](duo_programming_guide.html)
 
 ## What to do next
 
