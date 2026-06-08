@@ -1,0 +1,77 @@
+---
+layout: default
+title: Device Controls
+nav_order: 10
+parent: Control Panels
+---
+
+<style>
+  .panel-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 16px;
+    margin: 0 auto;
+    max-width: 80%;
+    margin-top: 10px;
+  }
+
+  .panel-link {
+    background-color: #2e2e2e;
+    border-radius: 8px;
+    text-decoration: none;
+    color: #ffffff;
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: transform 0.2s;
+    border: 1px solid #080808;
+  }
+
+  .panel-link:hover {
+    transform: scale(1.02);
+  }
+
+  .panel-title {
+    margin-bottom: 8px;
+    font-weight: bold;
+    color: #ffcc00;
+  }
+
+  .panel-img {
+    max-width: 100%;
+  }
+</style>
+# Device Controls
+
+<img style="float:right;max-width:40%;margin:10px;" src="{{ '/assets/images/lightshow-lol-device.png' | relative_url }}">
+
+The **Device Controls Panel** is very simple, offering only two purposes: to **select** or **connect** a **device**.
+
+- **Select** a device when you want to make a mode for that type of device without needing to connect it.
+- **Connecting** a device will automatically select the correct type from the device list.
+
+In both cases, whether **Selecting** or **Connecting** a device, the **LED Selection Panel** will appear.
+
+## Mobile Device Panel
+
+On mobile (Android) the device panel is different, instead of a USB icon there will be a Bluetooth icon.
+
+<div style="max-width:40%;margin:10px;">
+<img style="border:2px solid #222; border-radius: 5px;" src="{{ '/assets/images/lightshow-lol-device-panel-mobile.png' | relative_url }}">
+</div>
+
+To see instructions for connecting devices via Bluetooth on Android see [Getting Started on Mobile]({% link lightshow-lol/getting-started-mobile.md %})
+
+## Other Panels
+
+<div class="panel-grid">
+  <a href="{% link lightshow-lol/control-panels/modes-list.md %}" class="panel-link">
+    <span class="panel-title">🔗 Modes Panel →</span>
+    <img src="{{ '/assets/images/lightshow-lol-modes.png' | relative_url }}" class="panel-img">
+  </a>
+    <a href="{% link lightshow-lol/control-panels/led-selection.md %}" class="panel-link">
+    <span class="panel-title">← LED Selection Panel 🔗</span>
+    <img src="{{ '/assets/images/lightshow-lol-led-select.png' | relative_url }}" class="panel-img">
+  </a>
+</div>

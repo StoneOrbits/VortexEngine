@@ -58,7 +58,7 @@ jobs:
 
       - name: Compile Vortex Duo Infographic
         run: |
-          cd docs/assets/infographics/vortex_duo
+          cd docs/assets/infographics/vortex-duo
           pdflatex infographic.tex
 
       - name: Build with Jekyll

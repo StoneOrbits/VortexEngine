@@ -1,6 +1,8 @@
 title: Vortex Engine
 description: Documentation for the Vortex Engine
-remote_theme: pmarsceill/just-the-docs
+remote_theme: just-the-docs/just-the-docs
+plugins:
+  - jekyll-remote-theme
 color_scheme: dark
 search_enabled: true
 heading_anchors: true

@@ -1,8 +1,8 @@
 ---
 layout: default
-title: Vortex Engine
-nav_order: 1
-has_children: true
+title: Home
+nav_order: 0
+has_children: false
 ---
 
 <style>
@@ -18,57 +18,36 @@ has_children: true
 }
 </style>
 <div style="display: flex; align-items: center;">
-  <img class="engine-icon" style="margin-right: 15px; width: 7.5%; height: auto;" src="assets/images/vedit22shadow.png" alt="Vortex Engine Icon">
-  <h1 style="margin: 0;">Vortex Engine</h1>
+  <img class="engine-icon" style="margin-right: 15px; width: 15%; height: auto;" src="{{ '/assets/images/vedit22shadow.png' | relative_url }}" alt="Vortex Engine Icon">
+  <h1 style="margin: 0;font-weight: 700">Vortex Engine</h1>
   <p><br><br><br></p>
 </div>
 
+# Wiki Home
 
-Welcome to the Vortex Engine Wiki! Here you can find documentation and guides covering all aspects of the Vortex Engine project.
+Welcome to the Vortex Engine Wiki!  Here you can find documentation and resources for all aspects of the Vortex Engine project.
 
+## What Is Vortex Engine
 
-## Getting Started
+Vortex Engine is an [open source Software Project on Github](https://github.com/StoneOrbits/VortexEngine) designed to power lightshow toys.  Continue reading in [Vortex Engine]({% link vortex-engine/index.md %}) to learn more about the project itself and how it works.
 
-Are you a new Vortex Device owner looking to get started? Follow the [Getting Started Guide](getting_started.html) for the first steps.
+## Vortex Devices
 
-## Upgrade Guide
+Do you already own a Vortex Device and want to update it or program it?  Find your device in the [Vortex Device List]({% link vortex-devices/index.md %}) and start there.
 
-Do you already own a Vortex Device and want to upgrade it? Find your device in the [Device List](vortex_devices.html) and start there.
+## Online Mode Editor
 
-## How Vortex Works
+Learn how to make the most of the online editor [Lightshow.lol]({% link lightshow-lol/index.md %}) to create and share custom patterns, colorsets and modes.
 
-Are you looking to learn how Vortex Engine works and how to get the most out of your Vortex Device?
+## The Vortex Community
 
- - [Basic Usage](basic_usage.html)
- - [Menus](menus.html)
- - [Modes](modes.html)
- - [Patterns](patterns.html)
- - [Colorsets](colorsets.html)
- - [Savefiles](savefile_format.html)
+All Vortex Devices can share their modes with other devices, learn about the [Official Community Hub]({% link vortex-community/index.md %}) where you can upload and share modes with friend and other lightshow artists.
 
- ## Online Mode Editor
+## Source Code
 
- One of the geatest features of the Vortex Engine is [Lightshow.lol](https://lightshow.lol). This online mode editor was built using the Vortex Engine and provides an intuitive UI and precise control over your modes.
+Learn about the [Source Code]({% link source-code/index.md %}) that powers Vortex Engine, or view other resources related to development.
 
-Learn more about its capabilities and features.
- [Lightshow.lol Guide](lightshow_lol.html)
+## Support
 
-## The Vortex Community and Ecosystem
+See the [Support]({% link support/index.md %}) section if you're having trouble with a Vortex Device and need some help.
 
-All Vortex Devices can wirelessly share their configurations. This allows users to transfer modes to other devices to create matching patterns and colorsets.
-
-Explore the official Vortex Community Hub where you can upload and share configurations and modes with friends and other lightshow artists.
-
-[Visit Vortex Community Hub](https://vortex.community)
-
-Join the Vortex Community Discord to share your experiences, enhance your use of the Vortex Engine, and discuss Vortex with other enthusiasts.
-
-[Join Vortex Community Discord](https://discord.gg/4R9at8S8Sn)
-
-
-<div style="text-align: center;">
-  <img width="220" height="220" class="device-icon" src="assets/images/spark-orbit-render.png" alt="Spark Orbit">
-  <img width="220" height="220" class="device-icon" src="assets/images/spark-handle-render.png" alt="Spark Handle">
-  <img width="220" height="220" class="device-icon" src="assets/images/Chromadeck-Render.png" alt="Chromadeck">
-  
-</div>
