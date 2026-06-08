@@ -59,11 +59,11 @@ The color picker is opened by selecting a color in the colorset, and it can be c
 ## Other Panels
 
 <div class="panel-grid">
-  <a href="{% link lightshow-lol/control-panels/colorset.md %}" class="panel-link">
+  <a href="{{ site.baseurl }}{% link lightshow-lol/control-panels/colorset.md %}" class="panel-link">
     <span class="panel-title">← Colorset Panel 🔗</span>
     <img src="{{ '/assets/images/lightshow-lol-colorset.png' | relative_url }}" class="panel-img">
   </a>
-  <a href="{% link lightshow-lol/control-panels/update-panel.md %}" class="panel-link">
+  <a href="{{ site.baseurl }}{% link lightshow-lol/control-panels/update-panel.md %}" class="panel-link">
     <span class="panel-title">🔗 Update Panel →</span>
     <img src="{{ '/assets/images/lightshow-lol-device-update.png' | relative_url }}" class="panel-img">
   </a>

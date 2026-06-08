@@ -63,11 +63,11 @@ It is possible to adjust the total number of modes on a Duo with the editor, sim
 ## Other Panels
 
 <div class="panel-grid">
-  <a href="{% link lightshow-lol/control-panels/update-panel.md %}" class="panel-link">
+  <a href="{{ site.baseurl }}{% link lightshow-lol/control-panels/update-panel.md %}" class="panel-link">
     <span class="panel-title">← Update Panel 🔗</span>
     <img src="{{ '/assets/images/lightshow-lol-device-update.png' | relative_url }}" class="panel-img">
   </a>
-  <a href="{% link lightshow-lol/control-panels/modes-list.md %}" class="panel-link">
+  <a href="{{ site.baseurl }}{% link lightshow-lol/control-panels/modes-list.md %}" class="panel-link">
     <span class="panel-title">🔗 Modes Panel →</span>
     <img src="{{ '/assets/images/lightshow-lol-modes.png' | relative_url }}" class="panel-img">
   </a>

@@ -60,11 +60,11 @@ Led selections can be added or removed by holding shift or ctrl respectively, an
 ## Other Panels
 
 <div class="panel-grid">
-  <a href="{% link lightshow-lol/control-panels/modes-list.md %}" class="panel-link">
+  <a href="{{ site.baseurl }}{% link lightshow-lol/control-panels/modes-list.md %}" class="panel-link">
     <span class="panel-title">← Modes Panel 🔗</span>
     <img src="{{ '/assets/images/lightshow-lol-modes.png' | relative_url }}" class="panel-img">
   </a>
-  <a href="{% link lightshow-lol/control-panels/pattern.md %}" class="panel-link">
+  <a href="{{ site.baseurl }}{% link lightshow-lol/control-panels/pattern.md %}" class="panel-link">
     <span class="panel-title">🔗 Pattern Panel →</span>
     <img src="{{ '/assets/images/lightshow-lol-pattern.png' | relative_url }}" class="panel-img">
   </a>

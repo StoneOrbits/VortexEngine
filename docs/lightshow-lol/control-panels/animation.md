@@ -93,11 +93,11 @@ The six slider options affect other qualities of the trails:
 ## Other Panels
 
 <div class="panel-grid">
-  <a href="{% link lightshow-lol/control-panels/chromalink-duo.md %}" class="panel-link">
+  <a href="{{ site.baseurl }}{% link lightshow-lol/control-panels/chromalink-duo.md %}" class="panel-link">
     <span class="panel-title">← Chromalink Panel 🔗</span>
     <img src="{{ '/assets/images/lightshow-lol-chromalink-duo-basic.png' | relative_url }}" class="panel-img">
   </a>
-  <a href="{% link lightshow-lol/control-panels/device-controls.md %}" class="panel-link">
+  <a href="{{ site.baseurl }}{% link lightshow-lol/control-panels/device-controls.md %}" class="panel-link">
     <span class="panel-title">🔗 Device Control →</span>
     <img src="{{ '/assets/images/lightshow-lol-device.png' | relative_url }}" class="panel-img" alt="Device Control">
   </a>

@@ -57,11 +57,11 @@ The various parameters control the appearance of the blinking of the LED, like t
 ## Other Panels
 
 <div class="panel-grid">
-  <a href="{% link lightshow-lol/control-panels/led-selection.md %}" class="panel-link">
+  <a href="{{ site.baseurl }}{% link lightshow-lol/control-panels/led-selection.md %}" class="panel-link">
     <span class="panel-title">← Led Selection 🔗</span>
     <img src="{{ '/assets/images/lightshow-lol-led-select.png' | relative_url }}" class="panel-img">
   </a>
-  <a href="{% link lightshow-lol/control-panels/colorset.md %}" class="panel-link">
+  <a href="{{ site.baseurl }}{% link lightshow-lol/control-panels/colorset.md %}" class="panel-link">
     <span class="panel-title">🔗 Colorset Panel →</span>
     <img src="{{ '/assets/images/lightshow-lol-colorset.png' | relative_url }}" class="panel-img">
   </a>

@@ -61,11 +61,11 @@ The **Colorset Panel** represents the list of up to 8 colors for the selected le
 ## Other Panels
 
 <div class="panel-grid">
-  <a href="{% link lightshow-lol/control-panels/pattern.md %}" class="panel-link">
+  <a href="{{ site.baseurl }}{% link lightshow-lol/control-panels/pattern.md %}" class="panel-link">
     <span class="panel-title">← Pattern Panel 🔗</span>
     <img src="{{ '/assets/images/lightshow-lol-pattern.png' | relative_url }}" class="panel-img">
   </a>
-  <a href="{% link lightshow-lol/control-panels/color-picker.md %}" class="panel-link">
+  <a href="{{ site.baseurl }}{% link lightshow-lol/control-panels/color-picker.md %}" class="panel-link">
     <span class="panel-title">🔗 Color Picker →</span>
     <img src="{{ '/assets/images/lightshow-lol-color-picker.png' | relative_url }}" class="panel-img">
   </a>

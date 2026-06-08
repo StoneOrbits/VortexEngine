@@ -66,39 +66,39 @@ Depending on whether lightshow.lol is used on **mobile** or **desktop** the layo
 Pick one of the panels below to learn more about it:
 
 <div class="panel-grid">
-  <a href="{% link lightshow-lol/control-panels/animation.md %}" class="panel-link">
+  <a href="{{ site.baseurl }}{% link lightshow-lol/control-panels/animation.md %}" class="panel-link">
     <span class="panel-title">🔗 Animation Panel →</span>
     <img src="{{ '/assets/images/lightshow-lol-animation.png' | relative_url }}" class="panel-img">
   </a>
-    <a href="{% link lightshow-lol/control-panels/pattern.md %}" class="panel-link">
+    <a href="{{ site.baseurl }}{% link lightshow-lol/control-panels/pattern.md %}" class="panel-link">
     <span class="panel-title">🔗 Pattern Panel →</span>
     <img src="{{ '/assets/images/lightshow-lol-pattern.png' | relative_url }}" class="panel-img">
   </a>
-    <a href="{% link lightshow-lol/control-panels/colorset.md %}" class="panel-link">
+    <a href="{{ site.baseurl }}{% link lightshow-lol/control-panels/colorset.md %}" class="panel-link">
     <span class="panel-title">🔗 Colorset Panel →</span>
     <img src="{{ '/assets/images/lightshow-lol-colorset.png' | relative_url }}" class="panel-img">
   </a>
-    <a href="{% link lightshow-lol/control-panels/color-picker.md %}" class="panel-link">
+    <a href="{{ site.baseurl }}{% link lightshow-lol/control-panels/color-picker.md %}" class="panel-link">
     <span class="panel-title">🔗 Color Picker →</span>
     <img src="{{ '/assets/images/lightshow-lol-color-picker.png' | relative_url }}" class="panel-img">
   </a>
-  <a href="{% link lightshow-lol/control-panels/device-controls.md %}" class="panel-link">
+  <a href="{{ site.baseurl }}{% link lightshow-lol/control-panels/device-controls.md %}" class="panel-link">
     <span class="panel-title">🔗 Device Control →</span>
     <img src="{{ '/assets/images/lightshow-lol-device.png' | relative_url }}" class="panel-img">
   </a>
-  <a href="{% link lightshow-lol/control-panels/modes-list.md %}" class="panel-link">
+  <a href="{{ site.baseurl }}{% link lightshow-lol/control-panels/modes-list.md %}" class="panel-link">
     <span class="panel-title">🔗 Modes Panel →</span>
     <img src="{{ '/assets/images/lightshow-lol-modes.png' | relative_url }}" class="panel-img">
   </a>
-  <a href="{% link lightshow-lol/control-panels/led-selection.md %}" class="panel-link">
+  <a href="{{ site.baseurl }}{% link lightshow-lol/control-panels/led-selection.md %}" class="panel-link">
     <span class="panel-title">🔗 Led Selection →</span>
     <img src="{{ '/assets/images/lightshow-lol-led-select.png' | relative_url }}" class="panel-img">
   </a>
-  <a href="{% link lightshow-lol/control-panels/update-panel.md %}" class="panel-link">
+  <a href="{{ site.baseurl }}{% link lightshow-lol/control-panels/update-panel.md %}" class="panel-link">
     <span class="panel-title">🔗 Update Panel →</span>
     <img src="{{ '/assets/images/lightshow-lol-device-update.png' | relative_url }}" class="panel-img">
   </a>
-  <a href="{% link lightshow-lol/control-panels/chromalink-duo.md %}" class="panel-link">
+  <a href="{{ site.baseurl }}{% link lightshow-lol/control-panels/chromalink-duo.md %}" class="panel-link">
     <span class="panel-title">🔗 Chromalink Panel →</span>
     <img src="{{ '/assets/images/lightshow-lol-chromalink-duo-basic.png' | relative_url }}" class="panel-img">
   </a>

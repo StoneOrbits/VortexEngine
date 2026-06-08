@@ -67,7 +67,7 @@ Read one of the guides below to learn about Mode Sharing on each device
   <h2>Duo</h2>
   <p>The Duo only uses Visible Light mode sharing, optimized for its compact size.</p>
   <div class="device-grid">
-    <a class="device-card" href="{% link vortex-engine/menus/mode-sharing/duo.md %}">
+    <a class="device-card" href="{{ site.baseurl }}{% link vortex-engine/menus/mode-sharing/duo.md %}">
       <img src="{{ '/assets/images/duo-logo-square-512.png' | relative_url }}" alt="Duo">
       <div>Duo</div>
     </a>
@@ -78,15 +78,15 @@ Read one of the guides below to learn about Mode Sharing on each device
   <h2>Next-Gen Hybrid Devices</h2>
   <p>These newer devices are a hybrid design that fully support both Visible Light and Infrared.</p>
   <div class="device-grid">
-    <a class="device-card" href="{% link vortex-engine/menus/mode-sharing/next-gen.md %}">
+    <a class="device-card" href="{{ site.baseurl }}{% link vortex-engine/menus/mode-sharing/next-gen.md %}">
       <img src="{{ '/assets/images/spark-logo-square-512.png' | relative_url }}" alt="Spark Orbit">
       <div>Spark Orbit</div>
     </a>
-    <a class="device-card" href="{% link vortex-engine/menus/mode-sharing/next-gen.md %}">
+    <a class="device-card" href="{{ site.baseurl }}{% link vortex-engine/menus/mode-sharing/next-gen.md %}">
       <img src="{{ '/assets/images/sparkhandle-logo-square-512.png' | relative_url }}" alt="Spark Handle">
       <div>Spark Handle</div>
     </a>
-    <a class="device-card" href="{% link vortex-engine/menus/mode-sharing/next-gen.md %}">
+    <a class="device-card" href="{{ site.baseurl }}{% link vortex-engine/menus/mode-sharing/next-gen.md %}">
       <img src="{{ '/assets/images/chromadeck-logo-square-512.png' | relative_url }}" alt="Chromadeck">
       <div>Chromadeck</div>
     </a>
@@ -97,15 +97,15 @@ Read one of the guides below to learn about Mode Sharing on each device
   <h2>Legacy Infrared Devices</h2>
   <p>These older devices only support Infrared and Visible Light sending, they lack Visible Light receivers.</p>
   <div class="device-grid">
-    <a class="device-card" href="{% link vortex-engine/menus/mode-sharing/legacy.md %}">
+    <a class="device-card" href="{{ site.baseurl }}{% link vortex-engine/menus/mode-sharing/legacy.md %}">
       <img src="{{ '/assets/images/orbit-logo-square-512.png' | relative_url }}" alt="Vortex Orbit">
       <div>Vortex Orbit</div>
     </a>
-    <a class="device-card" href="{% link vortex-engine/menus/mode-sharing/legacy.md %}">
+    <a class="device-card" href="{{ site.baseurl }}{% link vortex-engine/menus/mode-sharing/legacy.md %}">
       <img src="{{ '/assets/images/handle-logo-square-512.png' | relative_url }}" alt="Omega Handle">
       <div>Handles</div>
     </a>
-    <a class="device-card" href="{% link vortex-engine/menus/mode-sharing/legacy.md %}">
+    <a class="device-card" href="{{ site.baseurl }}{% link vortex-engine/menus/mode-sharing/legacy.md %}">
       <img src="{{ '/assets/images/gloves-logo-square-512.png' | relative_url }}" alt="Vortex Glove">
       <div>Gloves</div>
     </a>

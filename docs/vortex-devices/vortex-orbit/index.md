@@ -111,27 +111,27 @@ To edit a mode, navigate to it then hold the outer navigation button until the l
 Once the menus are open, use short clicks to cycle through the following menu options, long click the outer button to enter a menu.
 
 <div class="menu-wrapper">
-<a href="{% link vortex-engine/menus/randomizer.md %}">
+<a href="{{ site.baseurl }}{% link vortex-engine/menus/randomizer.md %}">
   <div class="color-list-entry"><span class="rounded-box white"></span>Randomizer</div>
 </a>
 
-<a href="{% link vortex-engine/menus/mode-sharing/index.md %}">
+<a href="{{ site.baseurl }}{% link vortex-engine/menus/mode-sharing/index.md %}">
   <div class="color-list-entry"><span class="rounded-box cyan"></span>Mode Sharing</div>
 </a>
 
-<a href="{% link vortex-engine/menus/color-select.md %}">
+<a href="{{ site.baseurl }}{% link vortex-engine/menus/color-select.md %}">
   <div class="color-list-entry"><span class="rounded-box green"></span>Color Select</div>
 </a>
 
-<a href="{% link vortex-engine/menus/pattern-select.md %}">
+<a href="{{ site.baseurl }}{% link vortex-engine/menus/pattern-select.md %}">
   <div class="color-list-entry"><span class="rounded-box blue"></span>Pattern Select</div>
 </a>
 
-<a href="{% link vortex-engine/menus/global-brightness.md %}">
+<a href="{{ site.baseurl }}{% link vortex-engine/menus/global-brightness.md %}">
   <div class="color-list-entry"><span class="rounded-box yellow"></span>Global Brightness</div>
 </a>
 
-<a href="{% link vortex-engine/menus/factory-reset.md %}">
+<a href="{{ site.baseurl }}{% link vortex-engine/menus/factory-reset.md %}">
   <div class="color-list-entry"><span class="rounded-box red"></span>Factory Reset</div>
 </a>
 </div>
@@ -141,8 +141,8 @@ Once the menus are open, use short clicks to cycle through the following menu op
 ## Next Steps
 <div class="next-steps">
   <ul>
-    <li><a href="{% link vortex-engine/basic-usage.md %}">Explore Vortex Engine</a>: Learn key terms, concepts, and how to use on-device menus.</li>
-    <li><a href="{% link vortex-devices/vortex-orbit/upgrade-guide.md %}">Upgrade Your Device</a>: Ensure your device has the latest firmware for optimal performance.</li>
+    <li><a href="{{ site.baseurl }}{% link vortex-engine/basic-usage.md %}">Explore Vortex Engine</a>: Learn key terms, concepts, and how to use on-device menus.</li>
+    <li><a href="{{ site.baseurl }}{% link vortex-devices/vortex-orbit/upgrade-guide.md %}">Upgrade Your Device</a>: Ensure your device has the latest firmware for optimal performance.</li>
   </ul>
 </div>
 

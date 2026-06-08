@@ -58,11 +58,11 @@ The other devices like Vortex Orbit, Handles and Wired Gloves are not supported 
 ## Other Panels
 
 <div class="panel-grid">
-  <a href="{% link lightshow-lol/control-panels/color-picker.md %}" class="panel-link">
+  <a href="{{ site.baseurl }}{% link lightshow-lol/control-panels/color-picker.md %}" class="panel-link">
     <span class="panel-title">← Color Picker 🔗</span>
     <img src="{{ '/assets/images/lightshow-lol-color-picker.png' | relative_url }}" class="panel-img" alt="Color Picker">
   </a>
-  <a href="{% link lightshow-lol/control-panels/chromalink-duo.md %}" class="panel-link">
+  <a href="{{ site.baseurl }}{% link lightshow-lol/control-panels/chromalink-duo.md %}" class="panel-link">
     <span class="panel-title">🔗 Chromalink Panel →</span>
     <img src="{{ '/assets/images/lightshow-lol-chromalink-duo-basic.png' | relative_url }}" class="panel-img">
   </a>

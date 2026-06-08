@@ -29,7 +29,7 @@ At the time of writing this **Chrome**, **Edge** and **Opera** are the only supp
   <img style="max-width:260px;max-height:190px;" src="{{ '/assets/images/lightshow-lol-chromalink-duo-basic.png' | relative_url }}">
 </div>
 
- - If you haven't <a href="{% link vortex-devices/chromadeck/upgrade-guide.md %}">updated the Chromadeck</a> yet, do it <b style="color:white;">now</b>!
+ - If you haven't <a href="{{ site.baseurl }}{% link vortex-devices/chromadeck/upgrade-guide.md %}">updated the Chromadeck</a> yet, do it <b style="color:white;">now</b>!
  
  - If the **Chromadeck** is up to date, then press the **Update Firmware** button in the **Chromalink Duo Panel**:
 

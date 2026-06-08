@@ -104,37 +104,37 @@ After selecting the menu, you decide which LEDs the menu will affect when making
 
 {% raw %}
 <div class="menu-wrapper">
-<a href="{% link vortex-engine/menus/randomizer.md %}">
+<a href="{{ site.baseurl }}{% link vortex-engine/menus/randomizer.md %}">
   <div class="color-list-entry"><span class="rounded-box white"></span>Randomizer</div>
   <div>The Randomizer menu allows you to randomize the settings of your current mode. This can be a fun way to discover new combinations of patterns and colorsets.</div>
 </a>
 
-<a href="{% link vortex-engine/menus/mode-sharing.md %}">
+<a href="{{ site.baseurl }}{% link vortex-engine/menus/mode-sharing.md %}">
   <div class="color-list-entry"><span class="rounded-box cyan"></span>Mode Sharing</div>
   <div>The Mode Sharing menu allows you to share your current mode with another Vortex Device. This is a great way to quickly and easily share your favorite modes with friends.</div>
 </a>
 
-<!-- <a href="{% link vortex-engine/menus/editor-connection.md %}"> -->
+<!-- <a href="{{ site.baseurl }}{% link vortex-engine/menus/editor-connection.md %}"> -->
 <!--   <div class="color-list-entry"><span class="rounded-box purple"></span>Editor Connection</div> -->
 <!--   <div>The Editor Connection menu is used to connect your Vortex Device to the desktop-based editors. This allows you to program your device using the editor's user-friendly interface.</div> -->
 <!-- </a> -->
 
-<a href="{% link vortex-engine/menus/color-select.md %}">
+<a href="{{ site.baseurl }}{% link vortex-engine/menus/color-select.md %}">
   <div class="color-list-entry"><span class="rounded-box green"></span>Color Select</div>
   <div>The Color Select menu allows you to change the colors of the current mode. This is a quick and easy way to customize the colorful appearance of your modes.</div>
 </a>
 
-<a href="{% link vortex-engine/menus/pattern-select.md %}">
+<a href="{{ site.baseurl }}{% link vortex-engine/menus/pattern-select.md %}">
   <div class="color-list-entry"><span class="rounded-box blue"></span>Pattern Select</div>
   <div>The Pattern Select menu allows you to change the pattern of the current mode. This allows you to customize the blinking speed or style of your modes.</div>
 </a>
 
-<a href="{% link vortex-engine/menus/global-brightness.md %}">
+<a href="{{ site.baseurl }}{% link vortex-engine/menus/global-brightness.md %}">
   <div class="color-list-entry"><span class="rounded-box yellow"></span>Global Brightness</div>
   <div>The Global Brightness menu allows you to adjust the overall brightness of all LEDs. This can be useful for saving battery life or adjusting the intensity of your light shows.</div>
 </a>
 
-<a href="{% link vortex-engine/menus/factory-reset.md %}">
+<a href="{{ site.baseurl }}{% link vortex-engine/menus/factory-reset.md %}">
   <div class="color-list-entry"><span class="rounded-box red"></span>Factory Reset</div>
   <div>The Factory Reset menu allows you to reset your Vortex Device to its factory settings. This allows you to start fresh with default modes and settings.</div>
 </a>

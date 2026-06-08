@@ -139,27 +139,27 @@ Coming Soon
 
 <!-- 
 <div class="menu-wrapper">
-<a href="{% link vortex-engine/menus/randomizer.md %}">
+<a href="{{ site.baseurl }}{% link vortex-engine/menus/randomizer.md %}">
   <div class="color-list-entry"><span class="rounded-box white"></span>Randomizer</div>
 </a>
 
-<a href="{% link vortex-engine/menus/mode-sharing/index.md %}">
+<a href="{{ site.baseurl }}{% link vortex-engine/menus/mode-sharing/index.md %}">
   <div class="color-list-entry"><span class="rounded-box cyan"></span>Mode Sharing</div>
 </a>
 
-<a href="{% link vortex-engine/menus/color-select.md %}">
+<a href="{{ site.baseurl }}{% link vortex-engine/menus/color-select.md %}">
   <div class="color-list-entry"><span class="rounded-box green"></span>Color Select</div>
 </a>
 
-<a href="{% link vortex-engine/menus/pattern-select.md %}">
+<a href="{{ site.baseurl }}{% link vortex-engine/menus/pattern-select.md %}">
   <div class="color-list-entry"><span class="rounded-box blue"></span>Pattern Select</div>
 </a>
 
-<a href="{% link vortex-engine/menus/global-brightness.md %}">
+<a href="{{ site.baseurl }}{% link vortex-engine/menus/global-brightness.md %}">
   <div class="color-list-entry"><span class="rounded-box yellow"></span>Global Brightness</div>
 </a>
 
-<a href="{% link vortex-engine/menus/factory-reset.md %}">
+<a href="{{ site.baseurl }}{% link vortex-engine/menus/factory-reset.md %}">
   <div class="color-list-entry"><span class="rounded-box red"></span>Factory Reset</div>
 </a>
 </div>

@@ -28,7 +28,7 @@ At the time of writing this **Chrome**, **Edge** and **Opera** are the only supp
 </div>
 
 
- - If you haven't <a href="{% link vortex-devices/chromadeck/upgrade-guide.md %}">updated the Chromadeck</a> yet, do it <b style="color:white;">now</b>!
+ - If you haven't <a href="{{ site.baseurl }}{% link vortex-devices/chromadeck/upgrade-guide.md %}">updated the Chromadeck</a> yet, do it <b style="color:white;">now</b>!
  
  - If the **Chromadeck** is up to date, then press the **Update Firmware** button in the **Chromalink Duo Panel**:
 
@@ -48,7 +48,7 @@ It is **unnecessary** to press 'Connect Duo' when updating the Firmware! That is
 
 <div style="text-align: center; margin-top: 30px;">
   <p><h3 style="color: white;">Congratulations</h3>The Duo firmware is now updated!</p>
-  <p>Next try <a href="{% link vortex-devices/duo/programming-guide/chromalink-guide/programming.md %}">programming the Duo</a> or continue reading to reassemble the Duo</p>
+  <p>Next try <a href="{{ site.baseurl }}{% link vortex-devices/duo/programming-guide/chromalink-guide/programming.md %}">programming the Duo</a> or continue reading to reassemble the Duo</p>
 </div>
 
 # Duo Reassembly

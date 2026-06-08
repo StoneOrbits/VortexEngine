@@ -106,7 +106,7 @@ Welcome to the Duo LED Guide, this page aims to get you up and running as fast a
 
 **Special Functions**
 
-- The Duo has some unique <a href="{% link vortex-devices/duo/special-functions.md %}">Special Functions</a>. Check out the basic menus before diving into these options.
+- The Duo has some unique <a href="{{ site.baseurl }}{% link vortex-devices/duo/special-functions.md %}">Special Functions</a>. Check out the basic menus before diving into these options.
 
 **Using The Button**
 
@@ -136,27 +136,27 @@ Learn how to use the Duo with this interactive tutorial:
 ## Menus
 
 <div class="menu-wrapper">
-<a href="{% link vortex-engine/menus/randomizer.md %}">
+<a href="{{ site.baseurl }}{% link vortex-engine/menus/randomizer.md %}">
   <div class="color-list-entry"><span class="rounded-box white"></span>Randomizer</div>
 </a>
 
-<a href="{% link vortex-engine/menus/mode-sharing/index.md %}">
+<a href="{{ site.baseurl }}{% link vortex-engine/menus/mode-sharing/index.md %}">
   <div class="color-list-entry"><span class="rounded-box cyan"></span>Mode Sharing</div>
 </a>
 
-<a href="{% link vortex-engine/menus/color-select.md %}">
+<a href="{{ site.baseurl }}{% link vortex-engine/menus/color-select.md %}">
   <div class="color-list-entry"><span class="rounded-box green"></span>Color Select</div>
 </a>
 
-<a href="{% link vortex-engine/menus/pattern-select.md %}">
+<a href="{{ site.baseurl }}{% link vortex-engine/menus/pattern-select.md %}">
   <div class="color-list-entry"><span class="rounded-box blue"></span>Pattern Select</div>
 </a>
 
-<a href="{% link vortex-engine/menus/global-brightness.md %}">
+<a href="{{ site.baseurl }}{% link vortex-engine/menus/global-brightness.md %}">
   <div class="color-list-entry"><span class="rounded-box yellow"></span>Global Brightness</div>
 </a>
 
-<a href="{% link vortex-engine/menus/factory-reset.md %}">
+<a href="{{ site.baseurl }}{% link vortex-engine/menus/factory-reset.md %}">
   <div class="color-list-entry"><span class="rounded-box red"></span>Factory Reset</div>
 </a>
 </div>
@@ -183,9 +183,9 @@ This one-page [📥 PDF](/assets/infographics/vortex-duo/infographic.pdf) summar
 ## Next Steps
 <div class="next-steps">
   <ul>
-    <li><a href="{% link vortex-engine/basic-usage.md %}">Explore Vortex Engine</a>: Learn key terms, concepts, and how to use on-device menus.</li>
-    <li><a href="{% link vortex-devices/duo/programming-guide/index.md %}">Program a Duo</a>: Program your Duo from the PC or Android with a Chromadeck.</li>
-    <li><a href="{% link vortex-devices/duo/programming-guide/chromalink-guide/index.md %}">Connect a Chromalink</a>: Connect your Duo to the PC with a Chromadeck to get the latest firmware.</li>
+    <li><a href="{{ site.baseurl }}{% link vortex-engine/basic-usage.md %}">Explore Vortex Engine</a>: Learn key terms, concepts, and how to use on-device menus.</li>
+    <li><a href="{{ site.baseurl }}{% link vortex-devices/duo/programming-guide/index.md %}">Program a Duo</a>: Program your Duo from the PC or Android with a Chromadeck.</li>
+    <li><a href="{{ site.baseurl }}{% link vortex-devices/duo/programming-guide/chromalink-guide/index.md %}">Connect a Chromalink</a>: Connect your Duo to the PC with a Chromadeck to get the latest firmware.</li>
   </ul>
 </div>
 

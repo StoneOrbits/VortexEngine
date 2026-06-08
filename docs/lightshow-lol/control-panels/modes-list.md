@@ -57,11 +57,11 @@ The **Modes Panel** organizes and manages your device's list of modes. A [mode](
 ## Other Panels
 
 <div class="panel-grid">
-  <a href="{% link lightshow-lol/control-panels/device-controls.md %}" class="panel-link">
+  <a href="{{ site.baseurl }}{% link lightshow-lol/control-panels/device-controls.md %}" class="panel-link">
     <span class="panel-title">← Device Control 🔗</span>
     <img src="{{ '/assets/images/lightshow-lol-device.png' | relative_url }}" class="panel-img">
   </a>
-  <a href="{% link lightshow-lol/control-panels/led-selection.md %}" class="panel-link">
+  <a href="{{ site.baseurl }}{% link lightshow-lol/control-panels/led-selection.md %}" class="panel-link">
     <span class="panel-title">🔗 Led Selection →</span>
     <img src="{{ '/assets/images/lightshow-lol-led-select.png' | relative_url }}" class="panel-img">
   </a>
