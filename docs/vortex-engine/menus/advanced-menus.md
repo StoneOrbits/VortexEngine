@@ -47,8 +47,8 @@ grand_parent: Vortex Engine
 Some devices have additional menu features that are disabled by default.
 
 For example:
-- <span class="rounded-box white"></span>[The Randomizer]({% link vortex-engine/menus/randomizer.md %}) can randomize just the colorset, just the pattern, or both.
-- <span class="rounded-box red"></span>[Factory Reset]({% link vortex-engine/menus/factory-reset.md %}) can restore just a specific mode or LED to factory default.
+- <span class="rounded-box white"></span>[The Randomizer]({{ site.baseurl }}{% link vortex-engine/menus/randomizer.md %}) can randomize just the colorset, just the pattern, or both.
+- <span class="rounded-box red"></span>[Factory Reset]({{ site.baseurl }}{% link vortex-engine/menus/factory-reset.md %}) can restore just a specific mode or LED to factory default.
 - The Duo has other advanced menus explained in its usage guide.
 
 To enable **advanced menu features**:

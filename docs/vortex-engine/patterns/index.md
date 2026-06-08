@@ -7,11 +7,11 @@ has_children: true
 ---
 
 # Patterns
-Patterns control the timing and appearance of blinks on an LED. When a pattern is used with a [colorset]({% link vortex-engine/colorsets/index.md %}), each blink of the pattern sequentially displays the next color in the colorset.
+Patterns control the timing and appearance of blinks on an LED. When a pattern is used with a [colorset]({{ site.baseurl }}{% link vortex-engine/colorsets/index.md %}), each blink of the pattern sequentially displays the next color in the colorset.
 
 ## Simple Pattern Usage
 
-The basic way to use a pattern is to simply choose one via the [Pattern Select Menu]({% link vortex-engine/menus/pattern-select.md %}). With this appraoch nothing else needs to be known about patterns.
+The basic way to use a pattern is to simply choose one via the [Pattern Select Menu]({{ site.baseurl }}{% link vortex-engine/menus/pattern-select.md %}). With this appraoch nothing else needs to be known about patterns.
 
 However, if you want to learn how patterns truly work or learn more about each pattern then continue reading.
 
@@ -33,10 +33,10 @@ Two completely different looking patterns in the **Pattern Select Menu** may act
 
 ## Multi Led Patterns
 
-To learn more about Multi-Led Patterns see the [Multi-LED Patterns]({% link vortex-engine/patterns/multi-led.md %}) page.
+To learn more about Multi-Led Patterns see the [Multi-LED Patterns]({{ site.baseurl }}{% link vortex-engine/patterns/multi-led.md %}) page.
 
 _Note: The Duo does not support Multi-LED patterns._
 
 ## Single Led Patterns
 
-To learn more about Single-Led Patterns see the [Single-LED Patterns]({% link vortex-engine/patterns/single-led.md %}) page.
+To learn more about Single-Led Patterns see the [Single-LED Patterns]({{ site.baseurl }}{% link vortex-engine/patterns/single-led.md %}) page.

@@ -100,12 +100,12 @@ On the notched left side of the Chromadeck is a <strong style="color: #ff4646;">
 
 ## The Chromalink
 
-The [Chromalink]({% link vortex-devices/chromadeck/chromalink.md %}) is the primary accessory of the Chromadeck that enables updating and programming the [Duo]({% link vortex-devices/duo/index.md %}) from a PC.
+The [Chromalink]({{ site.baseurl }}{% link vortex-devices/chromadeck/chromalink.md %}) is the primary accessory of the Chromadeck that enables updating and programming the [Duo]({{ site.baseurl }}{% link vortex-devices/duo/index.md %}) from a PC.
 
 {: .warning }
-Please follow the [Chomadeck Update Guide]({% link vortex-devices/chromadeck/upgrade-guide.md %}) before using the Chromalink!
+Please follow the [Chomadeck Update Guide]({{ site.baseurl }}{% link vortex-devices/chromadeck/upgrade-guide.md %}) before using the Chromalink!
 
-With an updated Chromadeck the [Duo Chromalink Guide]({% link vortex-devices/duo/programming-guide/chromalink-guide/index.md %}) will explain how to get started using the Chromalink with a Duo.
+With an updated Chromadeck the [Duo Chromalink Guide]({{ site.baseurl }}{% link vortex-devices/duo/programming-guide/chromalink-guide/index.md %}) will explain how to get started using the Chromalink with a Duo.
 
 Alternatively, continue reading to learn how to use the Chromadeck as a mode storage bank or mode transfer utility.
 
@@ -175,4 +175,4 @@ The Chromadeck also acts as a mode transfer utility, offering all forms of mode 
 
 ---
 
-If you have any questions or need further assistance, check out the [Support Page]({% link support/index.md %}).
+If you have any questions or need further assistance, check out the [Support Page]({{ site.baseurl }}{% link support/index.md %}).

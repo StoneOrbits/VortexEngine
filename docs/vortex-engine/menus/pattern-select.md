@@ -62,11 +62,11 @@ grand_parent: Vortex Engine
 
 # Pattern Select
 
-The Pattern Select menu lets you quickly change the blinking speed or style of your current mode, also known as the [Pattern]({% link vortex-engine/patterns/index.md %}).
+The Pattern Select menu lets you quickly change the blinking speed or style of your current mode, also known as the [Pattern]({{ site.baseurl }}{% link vortex-engine/patterns/index.md %}).
 
 ## LED Selection
 
-Upon entering the pattern select menu the LEDs will show magenta for [LED Selection]({% link vortex-engine/menus/led-selection.md %}).
+Upon entering the pattern select menu the LEDs will show magenta for [LED Selection]({{ site.baseurl }}{% link vortex-engine/menus/led-selection.md %}).
 
 - Selecting ALL LEDs will provide the full list of patterns both Single and MultiLED. Any pattern selected will be saved to all LEDs.
 

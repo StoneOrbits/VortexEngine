@@ -30,4 +30,4 @@ This allows both reading and writing the Duo modes from the PC, or loading custo
 
 # Next Step
 
-Learn how to [use the Chromalink]({% link vortex-devices/duo/programming-guide/chromalink-guide/index.md %})
+Learn how to [use the Chromalink]({{ site.baseurl }}{% link vortex-devices/duo/programming-guide/chromalink-guide/index.md %})

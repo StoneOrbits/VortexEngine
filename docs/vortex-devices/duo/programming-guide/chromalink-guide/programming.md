@@ -7,7 +7,7 @@ parent: Chromalink Guide
 
 # Programming the Duo
 
-It is important the Duo is up to date before programming from the PC. Make sure to [update the Duo]({% link vortex-devices/duo/programming-guide/chromalink-guide/upgrade-guide.md %}) before continuing with this guide.
+It is important the Duo is up to date before programming from the PC. Make sure to [update the Duo]({{ site.baseurl }}{% link vortex-devices/duo/programming-guide/chromalink-guide/upgrade-guide.md %}) before continuing with this guide.
 
  - Make sure the Duo is seated in the Chromalink, the link is connected to the Chromadeck, and the Chromadeck is plugged in and turned on
 
@@ -38,7 +38,7 @@ At the time of writing this **Chrome**, **Edge** and **Opera** are the only supp
 Hit the 'Connect Duo' button in the Chromalink window and it should load information about the Duo like the version and number of modes.
 
 
-Check out the [Lightshow.lol Guide]({% link lightshow-lol/index.md %}) to see all the awesome things you can do from here!
+Check out the [Lightshow.lol Guide]({{ site.baseurl }}{% link lightshow-lol/index.md %}) to see all the awesome things you can do from here!
 
 <div style="text-align: center; margin-top: 30px;">
   <p><b style="color: white;">Congratulations</b> on programming the Duo from the PC, continue reading to reassemble the Duo</p>
@@ -70,5 +70,5 @@ Join our [discord](https://discord.gg/4R9at8S8Sn) and ask for help!
 ---
 
 ## Reassembly
-Once you've finished editing your modes, make sure you [put everything back together]({% link vortex-devices/duo/programming-guide/chromalink-guide/upgrade-guide.md %}#duo-reassembly)
+Once you've finished editing your modes, make sure you [put everything back together]({{ site.baseurl }}{% link vortex-devices/duo/programming-guide/chromalink-guide/upgrade-guide.md %}#duo-reassembly)
 

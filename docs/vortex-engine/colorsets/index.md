@@ -27,5 +27,5 @@ It's up to the user to mix and match and decide which combination they prefer.
 
 ## How do I create a Colorset?
 
-Creating a Colorset involves selecting the colors you want to include in the order you want them to be displayed. In all Vortex Devices you can adjust the colorset by entering the [Color Selection Menu]({% link vortex-engine/menus/color-select.md %}).
+Creating a Colorset involves selecting the colors you want to include in the order you want them to be displayed. In all Vortex Devices you can adjust the colorset by entering the [Color Selection Menu]({{ site.baseurl }}{% link vortex-engine/menus/color-select.md %}).
 

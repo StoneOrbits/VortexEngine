@@ -22,13 +22,13 @@ has_children: true
 
 Each device is slightly different than the others. Look at your device's page to learn it's specifics.
 
-- [Spark Orbit]({% link vortex-devices/spark-orbit/index.md %})
-- [Spark Handle]({% link vortex-devices/spark-handle/index.md %})
-- [Spark Chromadeck]({% link vortex-devices/chromadeck/index.md %})
-- [Duo]({% link vortex-devices/duo/index.md %})
-- [Vortex Orbit]({% link vortex-devices/vortex-orbit/index.md %})
-- [Omega Handle]({% link vortex-devices/omega-handles/index.md %})
-- [Vortex Glove]({% link vortex-devices/vortex-gloves/index.md %})
+- [Spark Orbit]({{ site.baseurl }}{% link vortex-devices/spark-orbit/index.md %})
+- [Spark Handle]({{ site.baseurl }}{% link vortex-devices/spark-handle/index.md %})
+- [Spark Chromadeck]({{ site.baseurl }}{% link vortex-devices/chromadeck/index.md %})
+- [Duo]({{ site.baseurl }}{% link vortex-devices/duo/index.md %})
+- [Vortex Orbit]({{ site.baseurl }}{% link vortex-devices/vortex-orbit/index.md %})
+- [Omega Handle]({{ site.baseurl }}{% link vortex-devices/omega-handles/index.md %})
+- [Vortex Glove]({{ site.baseurl }}{% link vortex-devices/vortex-gloves/index.md %})
 
 # Inputs
 
@@ -52,11 +52,11 @@ Almost everything can be achieved with only **short** and **long** clicks.
 
 Those are the basics of controlling a Vortex Device.
 
-Next, try opening the menus by **holding** the navigation button till the leds blink white, then continue reading more over at [The Menus]({% link vortex-engine/menus/index.md %})
+Next, try opening the menus by **holding** the navigation button till the leds blink white, then continue reading more over at [The Menus]({{ site.baseurl }}{% link vortex-engine/menus/index.md %})
 
 ## Animated Guide
 
-This guide is a helpful but brief overview of Classic Vortex devices. Use the wiki's [Vortex Devices]({% link vortex-devices/index.md %}) page for more details and the latest devices:
+This guide is a helpful but brief overview of Classic Vortex devices. Use the wiki's [Vortex Devices]({{ site.baseurl }}{% link vortex-devices/index.md %}) page for more details and the latest devices:
 
 {% raw %}
 <iframe src="https://docs.google.com/presentation/d/e/1PACX-1vRLsq6i3h9JlYHX0wS3SG9eDZ1vzIsRIU8GAZ9C2QW80uRoexr6_MAmvv_RAu7yuKxZiHy0dH9s2c3q/embed?start=false&loop=false&delayms=3000" frameborder="0" width="100%" height="569" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true"></iframe>

@@ -148,4 +148,4 @@ Once the menus are open, use short clicks to cycle through the following menu op
 
 ---
 
-If you have any questions or need further assistance, check out the [Support Page]({% link support/index.md %}).
+If you have any questions or need further assistance, check out the [Support Page]({{ site.baseurl }}{% link support/index.md %}).

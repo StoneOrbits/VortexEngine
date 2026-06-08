@@ -23,6 +23,6 @@ Each device has _menus_ which allow the device to be programmed, or controlled.
 
 The _menus_ on all Vortex Devices work the same, the nagivation controls described above are used to interact with menus.
 
-Continue reading about menus [here]({% link vortex-engine/menus/index.md %}).
+Continue reading about menus [here]({{ site.baseurl }}{% link vortex-engine/menus/index.md %}).
 
 

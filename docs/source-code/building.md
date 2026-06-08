@@ -28,7 +28,7 @@ Then switch to the desired device branch:
 cd VortexEngine
 git switch duo
 ```
-Read moure about the branches [here]({% link source-code/branches.md %})
+Read moure about the branches [here]({{ site.baseurl }}{% link source-code/branches.md %})
 
 ## Linux Build Steps
 The following steps should work on Linux (Ubuntu/debian)
@@ -67,9 +67,9 @@ Congratulations the Duo is now running a custom firmware
 
 ## Building Other Devices
 
-Other devices are slightly more complicated, reachout on [discord]({% link support/index.md %})
+Other devices are slightly more complicated, reachout on [discord]({{ site.baseurl }}{% link support/index.md %})
 
 ## Windows Build Steps
 This is quite a pain and not really worth documenting, it would be easier to automate this with similar commands to Linux than to document the current process.
 
-If you really need to build on Windows just join the [discord]({% link support/index.md %}) and ask, I'll be happy to help.
+If you really need to build on Windows just join the [discord]({{ site.baseurl }}{% link support/index.md %}) and ask, I'll be happy to help.

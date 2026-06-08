@@ -18,7 +18,7 @@ If you're experiencing issues or if you need further assistance that requires ex
 
 If you havent yet, be sure to explore our comprehensive documentation to learn more about your Vortex Device:
 
-- [Getting Started]({% link vortex-devices/getting-started.md %})
+- [Getting Started]({{ site.baseurl }}{% link vortex-devices/getting-started.md %})
 
 <script>
   document.addEventListener("DOMContentLoaded", function () {

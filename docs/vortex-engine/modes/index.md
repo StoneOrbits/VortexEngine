@@ -6,7 +6,7 @@ parent: Vortex Engine
 ---
 
 # Modes
-Think of modes as containers that hold personalized color and pattern combinations. Each device has several independantly customizable modes, and each mode always contains at least one [Colorset]({% link vortex-engine/colorsets/index.md %}) and one [Pattern]({% link vortex-engine/patterns/index.md %}). The more LEDs the device has, the more complex a mode can become.
+Think of modes as containers that hold personalized color and pattern combinations. Each device has several independantly customizable modes, and each mode always contains at least one [Colorset]({{ site.baseurl }}{% link vortex-engine/colorsets/index.md %}) and one [Pattern]({{ site.baseurl }}{% link vortex-engine/patterns/index.md %}). The more LEDs the device has, the more complex a mode can become.
 
 ## Mode Slots
 A device will always begin displaying the first mode slot when it is powered on. Short clicking the navigation button will iterate to the next slot. Upon reaching the last slot, the next click will cycle back to the first mode slot.
@@ -18,7 +18,7 @@ Regardless of how many LEDs a mode contains, it is still compatible with any Vor
 
 ## Editing Modes
 
-To edit a mode slot, navigate to it and open the menus by holding the navigation button until the lights start flashing white. Aside from adjusting [Global Brightness]({% link vortex-engine/menus/global-brightness.md %}) or [Factory Resetting]({% link vortex-engine/menus/factory-reset.md %}), any changes you make in the menus will only affect the currently selected Mode.
+To edit a mode slot, navigate to it and open the menus by holding the navigation button until the lights start flashing white. Aside from adjusting [Global Brightness]({{ site.baseurl }}{% link vortex-engine/menus/global-brightness.md %}) or [Factory Resetting]({{ site.baseurl }}{% link vortex-engine/menus/factory-reset.md %}), any changes you make in the menus will only affect the currently selected Mode.
 
-To continue reading about the Menus, go [here]({% link vortex-engine/menus/index.md %}).
+To continue reading about the Menus, go [here]({{ site.baseurl }}{% link vortex-engine/menus/index.md %}).
 

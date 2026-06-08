@@ -49,7 +49,7 @@ In **May 2025**, the visible light Mode Sharing protocol was upgraded. All Duos 
   - Click to send once (bad design)
   - Default for old Duos
 
-If your Duo **only shows a dim white LED** in the Mode Sharing menu, it is still using **legacy modesharing**. [Updating wth a Chromadeck]({% link vortex-devices/duo/programming-guide/chromalink-guide/index.md %}) is recommended to access the new protocol.
+If your Duo **only shows a dim white LED** in the Mode Sharing menu, it is still using **legacy modesharing**. [Updating wth a Chromadeck]({{ site.baseurl }}{% link vortex-devices/duo/programming-guide/chromalink-guide/index.md %}) is recommended to access the new protocol.
 
 ---
 

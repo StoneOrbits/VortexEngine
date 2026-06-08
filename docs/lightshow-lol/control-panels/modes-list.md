@@ -45,7 +45,7 @@ parent: Control Panels
 
 <img style="float:right;max-width:40%;margin:10px;" src="{{ '/assets/images/lightshow-lol-modes.png' | relative_url }}">
 
-The **Modes Panel** organizes and manages your device's list of modes. A [mode]({% link vortex-engine/modes/index.md %}) is a collection of patterns and colorsets (one for each LED). You can retrieve a copy of your device's modes, add new ones, delete, or modify modes, and save the modes to your device.
+The **Modes Panel** organizes and manages your device's list of modes. A [mode]({{ site.baseurl }}{% link vortex-engine/modes/index.md %}) is a collection of patterns and colorsets (one for each LED). You can retrieve a copy of your device's modes, add new ones, delete, or modify modes, and save the modes to your device.
 
 ### Key Features
 

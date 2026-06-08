@@ -25,11 +25,11 @@ parent: Lightshow.lol
 </style>
 
 # Getting Started (Android)
-This guide covers the basics of using lightshow.lol with an **Android Device**, to use lightshow.lol with a **Computer** see [Getting Started on PC]({% link lightshow-lol/getting-started.md %}).
+This guide covers the basics of using lightshow.lol with an **Android Device**, to use lightshow.lol with a **Computer** see [Getting Started on PC]({{ site.baseurl }}{% link lightshow-lol/getting-started.md %}).
 
 Unfortunately **iOS is not supported** due to limitations preventing webpages from accessing Bluetooth.
 
-Mobile and Bluetooth are still beta, please report any bugs on our [Discord]({% link support/index.md %}).
+Mobile and Bluetooth are still beta, please report any bugs on our [Discord]({{ site.baseurl }}{% link support/index.md %}).
 
 ## Android Instructions
 To begin using lightshow.lol on a **Mobile Android Device** first note the compatible devices:
@@ -63,13 +63,13 @@ Select the device from the list and it should connect.
 If everything is set up correctly, you should see a **success notification** and you should now be able to control the device similar to a PC.
 
 ## Programming a Duo
-To program a duo with lightshow.lol follow the [Duo Programming Guide]({% link vortex-devices/duo/programming-guide/index.md %})
+To program a duo with lightshow.lol follow the [Duo Programming Guide]({{ site.baseurl }}{% link vortex-devices/duo/programming-guide/index.md %})
 
 ## What to do next
 
 Frome here, common next steps are:
 
- - [Browsing The Community]({% link vortex-community/index.md %}) for inspiration and collaboratiobn
+ - [Browsing The Community]({{ site.baseurl }}{% link vortex-community/index.md %}) for inspiration and collaboratiobn
 
 Try any combination of these options to create the ultimate device for you!
 

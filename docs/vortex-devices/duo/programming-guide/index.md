@@ -38,7 +38,7 @@ Wireless programming is the only option if you are using an Android device with 
 - You do not want to disassemble the Duo
 - No access to a PC
 
-See: [Wireless Programming]({% link vortex-devices/duo/programming-guide/wireless.md %})
+See: [Wireless Programming]({{ site.baseurl }}{% link vortex-devices/duo/programming-guide/wireless.md %})
 
 ### Chromalink Programming
 
@@ -60,9 +60,9 @@ As a result, Chromalink programming is recommended only when replacing all nine 
 - Performing firmware updates
 - Reducing total number of modes
 
-See: [Chromalink Programming]({% link vortex-devices/duo/programming-guide/chromalink-guide/index.md %})
+See: [Chromalink Programming]({{ site.baseurl }}{% link vortex-devices/duo/programming-guide/chromalink-guide/index.md %})
 
 ## Additional Reading
 
-- [Wireless Programming]({% link vortex-devices/duo/programming-guide/wireless.md %})
-- [Chromalink Programming]({% link vortex-devices/duo/programming-guide/chromalink-guide/index.md %})
+- [Wireless Programming]({{ site.baseurl }}{% link vortex-devices/duo/programming-guide/wireless.md %})
+- [Chromalink Programming]({{ site.baseurl }}{% link vortex-devices/duo/programming-guide/chromalink-guide/index.md %})

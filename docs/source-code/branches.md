@@ -45,7 +45,7 @@ The remaining branches are dedicated to specific devices with unique hardware co
 - spark
 - chromadeck
 
-More details on each device can be found in the [Vortex Devices Section]({% link vortex-devices/index.md %}).
+More details on each device can be found in the [Vortex Devices Section]({{ site.baseurl }}{% link vortex-devices/index.md %}).
 
 ## Reintegrating Changes
 

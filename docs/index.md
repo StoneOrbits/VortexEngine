@@ -29,25 +29,25 @@ Welcome to the Vortex Engine Wiki!  Here you can find documentation and resource
 
 ## What Is Vortex Engine
 
-Vortex Engine is an [open source Software Project on Github](https://github.com/StoneOrbits/VortexEngine) designed to power lightshow toys.  Continue reading in [Vortex Engine]({% link vortex-engine/index.md %}) to learn more about the project itself and how it works.
+Vortex Engine is an [open source Software Project on Github](https://github.com/StoneOrbits/VortexEngine) designed to power lightshow toys.  Continue reading in [Vortex Engine]({{ site.baseurl }}{% link vortex-engine/index.md %}) to learn more about the project itself and how it works.
 
 ## Vortex Devices
 
-Do you already own a Vortex Device and want to update it or program it?  Find your device in the [Vortex Device List]({% link vortex-devices/index.md %}) and start there.
+Do you already own a Vortex Device and want to update it or program it?  Find your device in the [Vortex Device List]({{ site.baseurl }}{% link vortex-devices/index.md %}) and start there.
 
 ## Online Mode Editor
 
-Learn how to make the most of the online editor [Lightshow.lol]({% link lightshow-lol/index.md %}) to create and share custom patterns, colorsets and modes.
+Learn how to make the most of the online editor [Lightshow.lol]({{ site.baseurl }}{% link lightshow-lol/index.md %}) to create and share custom patterns, colorsets and modes.
 
 ## The Vortex Community
 
-All Vortex Devices can share their modes with other devices, learn about the [Official Community Hub]({% link vortex-community/index.md %}) where you can upload and share modes with friend and other lightshow artists.
+All Vortex Devices can share their modes with other devices, learn about the [Official Community Hub]({{ site.baseurl }}{% link vortex-community/index.md %}) where you can upload and share modes with friend and other lightshow artists.
 
 ## Source Code
 
-Learn about the [Source Code]({% link source-code/index.md %}) that powers Vortex Engine, or view other resources related to development.
+Learn about the [Source Code]({{ site.baseurl }}{% link source-code/index.md %}) that powers Vortex Engine, or view other resources related to development.
 
 ## Support
 
-See the [Support]({% link support/index.md %}) section if you're having trouble with a Vortex Device and need some help.
+See the [Support]({{ site.baseurl }}{% link support/index.md %}) section if you're having trouble with a Vortex Device and need some help.
 

@@ -22,11 +22,11 @@ has_children: true
 
 This section of the wiki aims to cover basic usage of Vortex Engine and the common features that exist on every device.
 
-For more detailed device-specific instructions find your device in the [Vortex Devices]({% link vortex-devices/index.md %}) list.
+For more detailed device-specific instructions find your device in the [Vortex Devices]({{ site.baseurl }}{% link vortex-devices/index.md %}) list.
 
 ## How Vortex Works
 
-Looking to learn how Vortex Engine works and how to get the most out of your Vortex Device, start with [Basic Usage]({% link vortex-engine/basic-usage.md %}).
+Looking to learn how Vortex Engine works and how to get the most out of your Vortex Device, start with [Basic Usage]({{ site.baseurl }}{% link vortex-engine/basic-usage.md %}).
 
 <div style="text-align: center;">
   <img width="220" height="220" class="device-icon" src="{{ '/assets/images/spark-orbit-render.png' | relative_url }}" alt="Spark Orbit">

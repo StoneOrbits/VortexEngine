@@ -61,7 +61,7 @@ On mobile (Android) the device panel is different, instead of a USB icon there w
 <img style="border:2px solid #222; border-radius: 5px;" src="{{ '/assets/images/lightshow-lol-device-panel-mobile.png' | relative_url }}">
 </div>
 
-To see instructions for connecting devices via Bluetooth on Android see [Getting Started on Mobile]({% link lightshow-lol/getting-started-mobile.md %})
+To see instructions for connecting devices via Bluetooth on Android see [Getting Started on Mobile]({{ site.baseurl }}{% link lightshow-lol/getting-started-mobile.md %})
 
 ## Other Panels
 

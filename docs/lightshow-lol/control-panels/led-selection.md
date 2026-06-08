@@ -53,7 +53,7 @@ The **LED Selection Panel** allows you to select and modify individual LEDs sett
 - **Individual Customization:** Select individual LEDs to assign patterns and colors.
 - **Batch Selection:** Select multiple LEDs for simultaneous modifications.
 
-The LED Selection panel only appears after a device has been selected or connected from the [Device Control Panel]({% link lightshow-lol/control-panels/device-controls.md %}).
+The LED Selection panel only appears after a device has been selected or connected from the [Device Control Panel]({{ site.baseurl }}{% link lightshow-lol/control-panels/device-controls.md %}).
 
 Led selections can be added or removed by holding shift or ctrl respectively, and you can group select by clicking and dragging your cursor to draw selection box over the image.
 

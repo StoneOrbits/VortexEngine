@@ -25,11 +25,11 @@ parent: Lightshow.lol
 </style>
 
 # Getting Started
-If you're new to lightshow.lol or recently acquired a [Vortex Device]({% link vortex-devices/index.md %}) then you might be wondering:
+If you're new to lightshow.lol or recently acquired a [Vortex Device]({{ site.baseurl }}{% link vortex-devices/index.md %}) then you might be wondering:
 - *How does this work?*
 - *How do I get started?*
 
-This guide will cover the basics of using lightshow.lol on a **Computer**, to use lightshow.lol on an **Android Device** see the [Mobile Getting Started Guide]({% link lightshow-lol/getting-started-mobile.md %})
+This guide will cover the basics of using lightshow.lol on a **Computer**, to use lightshow.lol on an **Android Device** see the [Mobile Getting Started Guide]({{ site.baseurl }}{% link lightshow-lol/getting-started-mobile.md %})
 
 ## Desktop Instructions
 To begin using lightshow.lol on a **Desktop** first use a **Data-Capable USB Cable** to connect the device to the computer.
@@ -46,7 +46,7 @@ To begin using lightshow.lol on a **Desktop** first use a **Data-Capable USB Cab
   <img src="{{ '/assets/images/lightshow-lol-device-panel-connect.png' | relative_url }}" style="box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2); border-radius: 5px;">
 </div>
 
-On lightshow.lol, go to the [Device Control Panel]({% link lightshow-lol/control-panels/device-controls.md %}) in the **upper right corner**:
+On lightshow.lol, go to the [Device Control Panel]({{ site.baseurl }}{% link lightshow-lol/control-panels/device-controls.md %}) in the **upper right corner**:
 
  - No need to select a device first!
  - **Click the USB button** to open the Serial Port list
@@ -74,10 +74,10 @@ If everything is set up correctly, you should see a **success notification**, an
 
 Frome here, common next steps are:
 
- - [Loading Modes]({% link lightshow-lol/control-panels/modes-list.md %}) - use the Modes Pannel to load the modes from your device.
- - [Modifying Patterns]({% link lightshow-lol/control-panels/pattern.md %}) - Use the pattern controls to customize any pattern.
- - [Picking Colors]({% link lightshow-lol/control-panels/colorset.md %}) - Use the Colorset controls to access the full spectrum of colors.
- - [Community Modes]({% link vortex-community/index.md %}) - Check out our community-made modes for inspiration and collaboration.
+ - [Loading Modes]({{ site.baseurl }}{% link lightshow-lol/control-panels/modes-list.md %}) - use the Modes Pannel to load the modes from your device.
+ - [Modifying Patterns]({{ site.baseurl }}{% link lightshow-lol/control-panels/pattern.md %}) - Use the pattern controls to customize any pattern.
+ - [Picking Colors]({{ site.baseurl }}{% link lightshow-lol/control-panels/colorset.md %}) - Use the Colorset controls to access the full spectrum of colors.
+ - [Community Modes]({{ site.baseurl }}{% link vortex-community/index.md %}) - Check out our community-made modes for inspiration and collaboration.
 
 Try any combination of these options to create the ultimate device for you!
 

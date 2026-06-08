@@ -27,7 +27,7 @@ Upgrading Duos <i>can</i> be dangerous! Be patient and follow these steps carefu
 
 Both a **Chromadeck** and a **Chromalink** cable are necessary to connect to or update a Duo.
 
-Before connecting to or updating Duo firmware, always ensure the **Chromadeck** is [up to date]({% link vortex-devices/chromadeck/upgrade-guide.md %}) first.
+Before connecting to or updating Duo firmware, always ensure the **Chromadeck** is [up to date]({{ site.baseurl }}{% link vortex-devices/chromadeck/upgrade-guide.md %}) first.
 
 <div style="margin-left: 50px; margin-right: 50px; margin-bottom: 30px;" markdown="1">
 - **Use a data-capable USB cable, power-only cables won't work.**

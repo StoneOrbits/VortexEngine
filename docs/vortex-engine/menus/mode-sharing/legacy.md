@@ -58,7 +58,7 @@ Legacy devices like the **Orbit**, **Handle**, and **Wired Gloves** use **Infrar
   When connected to [lightshow.lol](https://lightshow.lol), these devices can send **Visible Light transfers** to a Duo using the on-screen transmit button.
 
 - **Cannot receive Visible Light**
-  These devices are not equipped with Visible Light sensors and so cannot receive mode transfers from [Duos]({% link vortex-devices/duo/index.md %})
+  These devices are not equipped with Visible Light sensors and so cannot receive mode transfers from [Duos]({{ site.baseurl }}{% link vortex-devices/duo/index.md %})
 
 ---
 

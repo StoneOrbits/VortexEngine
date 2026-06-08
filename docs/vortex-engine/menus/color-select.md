@@ -204,10 +204,10 @@ grand_parent: Vortex Engine
 
 # Color Select
 
-The Color Select menu allows customization of the colors in the current [Mode]({% link vortex-engine/modes/index.md %}). This collection of colors is commonly referred to as a [Colorset]({% link vortex-engine/colorsets/index.md %}).
+The Color Select menu allows customization of the colors in the current [Mode]({{ site.baseurl }}{% link vortex-engine/modes/index.md %}). This collection of colors is commonly referred to as a [Colorset]({{ site.baseurl }}{% link vortex-engine/colorsets/index.md %}).
 
 ## Selecting LEDs
-Upon entering color select, the LEDs will show magenta for [LED Selection]({% link vortex-engine/menus/led-selection.md %}).
+Upon entering color select, the LEDs will show magenta for [LED Selection]({{ site.baseurl }}{% link vortex-engine/menus/led-selection.md %}).
 
 - Selecting ALL LEDs will apply the changes made in color select to all LEDs regardless of their current pattern.
 

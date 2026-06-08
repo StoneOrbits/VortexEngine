@@ -28,7 +28,7 @@ See browser compatibility details here:
 
 https://developer.mozilla.org/en-US/docs/Web/API/Web_Serial_API#browser_compatibility
 
-If you have not previously connected your Chromadeck to Lightshow.lol, follow the [Chromadeck Upgrade Guide]({% link vortex-devices/chromadeck/upgrade-guide.md %}) 
+If you have not previously connected your Chromadeck to Lightshow.lol, follow the [Chromadeck Upgrade Guide]({{ site.baseurl }}{% link vortex-devices/chromadeck/upgrade-guide.md %}) 
 
 Then return here.
 

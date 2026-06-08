@@ -21,7 +21,7 @@ For those familiar, the randomizer seed is a checksum of the current mode.
 
 ## Selecting LEDs
 
-Upon entering the randomizer the LEDs will show magenta for [LED selection]({% link vortex-engine/menus/led-selection.md %}). 
+Upon entering the randomizer the LEDs will show magenta for [LED selection]({{ site.baseurl }}{% link vortex-engine/menus/led-selection.md %}). 
 
 - When seleting ALL LEDs, All LEDs will be randomized. Only the LEDs that matched before randomizatioin will get the same random results. If they did not match before randomization they will randomize differently from each other.
 
@@ -43,7 +43,7 @@ While cycling through random modes in the randomizer menu, perform three consecu
 
 ## Advanced Randomization
 
-See [Advanced Menus]({% link vortex-engine/menus/advanced-menus.md %}) to enable this feature.
+See [Advanced Menus]({{ site.baseurl }}{% link vortex-engine/menus/advanced-menus.md %}) to enable this feature.
 
 With the _advanced randomizer_, after selecting the led group to randomize, you may choose:
 
