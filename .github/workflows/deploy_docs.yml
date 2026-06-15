@@ -53,13 +53,23 @@ jobs:
             fi
           done
 
-      - name: Install LaTeX (TeX Live)
-        run: sudo apt-get update && sudo apt-get install -y texlive-latex-base texlive-latex-recommended texlive-fonts-recommended texlive-latex-extra
+      - name: Install LaTeX
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y \
+            latexmk \
+            texlive-latex-base \
+            texlive-latex-recommended \
+            texlive-latex-extra \
+            texlive-fonts-recommended \
+            texlive-pictures
 
-      - name: Compile Vortex Duo Infographic
+      - name: Build Vortex Duo Infographic
         run: |
           cd docs/assets/infographics/vortex-duo
-          pdflatex infographic.tex
+          latexmk -pdf -interaction=nonstopmode infographic.tex
+          test -f infographic.pdf
+          latexmk -c
 
       - name: Build with Jekyll
         uses: actions/jekyll-build-pages@v1

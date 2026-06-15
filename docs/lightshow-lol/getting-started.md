@@ -25,11 +25,7 @@ parent: Lightshow.lol
 </style>
 
 # Getting Started
-If you're new to lightshow.lol or recently acquired a [Vortex Device]({{ site.baseurl }}{% link vortex-devices/index.md %}) then you might be wondering:
-- *How does this work?*
-- *How do I get started?*
-
-This guide will cover the basics of using lightshow.lol on a **Computer**, to use lightshow.lol on an **Android Device** see the [Mobile Getting Started Guide]({{ site.baseurl }}{% link lightshow-lol/getting-started-mobile.md %})
+This guide will cover the basics of using lightshow.lol on a **Computer**, to use lightshow.lol on a **Mobile Device** see the [Mobile Getting Started Guide]({{ site.baseurl }}{% link lightshow-lol/getting-started-mobile.md %})
 
 ## Desktop Instructions
 To begin using lightshow.lol on a **Desktop** first use a **Data-Capable USB Cable** to connect the device to the computer.
