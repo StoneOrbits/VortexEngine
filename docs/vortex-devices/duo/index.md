@@ -165,11 +165,11 @@ Learn how to use the Duo with this interactive tutorial:
 
 ## Duo Quick Feature Reference
 
-This one-page [📥 PDF](/assets/infographics/vortex-duo/infographic.pdf) summarizes the main features and operation of the **Vortex Duo**.  
+This one-page [📥 PDF]({{ '/assets/infographics/vortex-duo/infographic.pdf' | relative_url }}) summarizes the main features and operation of the **Vortex Duo**.
 
 <div style="text-align: center; margin: 20px 0;">
   <iframe
-    src="/assets/infographics/vortex-duo/infographic.pdf"
+    src="{{ '/assets/infographics/vortex-duo/infographic.pdf' | relative_url }}"
     width="90%"
     height="700"
     style="border: 3px solid #666; border-radius: 10px;"
