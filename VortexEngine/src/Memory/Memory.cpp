@@ -17,15 +17,30 @@ struct memory_block
   uint8_t p[];
 };
 
+void error_reset()
+{
+   __asm__ __volatile__(
+        "ldi r16, 0xD8\n\t"
+        "sts 0x0034, r16\n\t"    // CCP
+        "ldi r16, 1\n\t"
+        "sts 0x0041, r16\n\t"    // RSTCTRL.SWRR
+        :
+        :
+        : "r16"
+        );
+}
+
 // Vortex allocation functions
 void *_vmalloc(uint32_t size)
 {
   if ((cur_memory_usage_total() + size) >= MAX_MEMORY) {
     DEBUG_LOG("OVERMEM");
+    error_reset();
     return nullptr;
   }
   memory_block *b = (memory_block *)malloc(size + sizeof(memory_block));
   if (!b) {
+    error_reset();
     return nullptr;
   }
   b->size = size;

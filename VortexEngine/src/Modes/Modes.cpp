@@ -205,6 +205,27 @@ bool Modes::saveStorage()
   return true;
 }
 
+bool Modes::saveHeaderAndMode()
+{
+  saveHeader();
+  ByteStream modeBuffer(MAX_MODE_SIZE);
+  // instantiate the mode temporarily
+  Mode *mode = m_pCurModeLink->instantiate();
+  if (!mode) {
+    ERROR_OUT_OF_MEMORY();
+    return false;
+  }
+  // serialize it into the target modes buffer
+  if (!mode->serialize(modeBuffer)) {
+    return false;
+  }
+  // now write this mode into a storage slot (skip first slot, that's header)
+  if (!Storage::write(m_curMode, modeBuffer)) {
+    return false;
+  }
+  return true;
+}
+
 bool Modes::loadStorage()
 {
   // NOTE: We could call loadHeader here but then we wouldn't have the headerBuffer

@@ -155,6 +155,6 @@ void Menu::leaveMenu(bool doSave)
 {
   m_shouldClose = true;
   if (doSave) {
-    Modes::saveStorage();
+    Modes::saveHeaderAndMode();
   }
 }

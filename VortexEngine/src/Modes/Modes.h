@@ -64,6 +64,8 @@ public:
   static bool saveHeader();
   static bool loadHeader();
 
+  static bool saveHeaderAndMode();
+
   // full save/load to/from storage
   static bool saveStorage();
   static bool loadStorage();

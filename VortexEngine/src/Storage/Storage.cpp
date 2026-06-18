@@ -6,6 +6,7 @@
 #include "../VortexConfig.h"
 #include "../Memory/Memory.h"
 #include "../Serial/ByteStream.h"
+#include "../Leds/Leds.h"
 #include "../Log/Log.h"
 
 #ifdef VORTEX_EMBEDDED
@@ -142,7 +143,15 @@ bool Storage::write(uint8_t slot, ByteStream &buffer)
 
       // Erase and write the flash page
       _PROTECTED_WRITE_SPM(NVMCTRL.CTRLA, NVMCTRL_CMD_PAGEERASEWRITE_gc);
-      while (NVMCTRL.STATUS & (NVMCTRL_FBUSY_bm | NVMCTRL_EEBUSY_bm));
+
+      // timeout to protect from infinite loop
+      uint32_t timeout = 100000;
+      while ((NVMCTRL.STATUS & (NVMCTRL_FBUSY_bm | NVMCTRL_EEBUSY_bm)) && timeout--);
+
+      if (timeout == 0) {
+        Leds::holdAll(RGB_RED);
+        return false;
+      }
 
       // continue to the next page
       slotAddr += writeSize;
