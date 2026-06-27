@@ -45,18 +45,33 @@ parent: Control Panels
 
 <img style="float:right;max-width:40%;margin:10px;" src="{{ '/assets/images/lightshow-lol-colorset.png' | relative_url }}">
 
-The **Colorset Panel** represents the list of up to 8 colors for the selected leds of the current mode.
+The **Colorset Panel** shows the list of up to 8 colors for the selected LEDs of the current mode.
 
 ### Key Features
 
-- **Drag and Drop** Drag to rearrange colors in your colorset.
-- **Dynamic Color Picker:** Click to modify the color with the Color Picker
+- **Color Swatches:** Each color in the colorset is shown as a swatch. Click a swatch to open the **Color Picker** and modify it. The first swatch is highlighted with a green border to indicate the **main selected LED**.
+- **Add Color:** The **+** button adds a new color to the colorset (up to 8), opening the Color Picker immediately.
+- **Empty Slots:** Dashed slots after the **+** button indicate remaining unused positions (up to 8 total).
+- **Delete Color:** Right-click a color swatch and select **Delete Color** to remove it from the set.
+- **Drag and Drop:** Drag a color swatch to reorder colors within the colorset.
+- **Copy / Paste:** Right-click a swatch to copy a single color, or right-click the canvas for broader copy/paste options.
+
+### Colorset Generator
+
+The generator (toggled via the chevron button below the swatches) lets you quickly create a new colorset:
+
+- **Color Count:** Use the slider or number input to set how many colors to generate (1–8).
+- **Style:** Choose from preset styles — **Rainbow**, **Random**, **Pastel**, **Dark**, **Grayscale**, **Vibrant**, **Warm**, or **Cool**.
+- **Brightness:** Adjust overall brightness of the generated colors (10–100%).
+- **Generate:** Click the orange **Generate** button to replace the current colorset.
 
 ### Tips
 
-- There is a maximum of 8 colors in a colorset. 
-- Black is considered 'off' which can be used to extend gaps in the pattern. Changing a color to black is not the same as deleting a color.
-- Hold the left mouse button on a color to delete it and remove it from the colorset.
+- There is a maximum of 8 colors in a colorset.
+- Black counts as 'off' — it can extend gaps in a pattern. Changing a color to black is not the same as deleting it.
+- Use the generator to quickly build a colorset, then fine-tune individual colors with the Color Picker.
+- Colorsets work together with [Patterns]({{ site.baseurl }}{% link vortex-engine/patterns/index.md %}) — try different color and pattern combinations for unique effects.
+- For a deeper overview of how colorsets fit into the Vortex Engine, see the [Colorsets]({{ site.baseurl }}{% link vortex-engine/colorsets/index.md %}) page.
 
 ## Other Panels
 

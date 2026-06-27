@@ -40,19 +40,29 @@ parent: Control Panels
   .panel-img {
     max-width: 100%;
   }
+
 </style>
 # Pattern Controls
 
 <img style="float:right;max-width:40%;margin:10px;" src="{{ '/assets/images/lightshow-lol-pattern.png' | relative_url }}">
 
-The **Pattern Panel** is where you choose and modify patterns for your LEDs. Patterns determine how LEDs blink or animate over time.
+The **Pattern Panel** controls how each LED blinks or animates over time. Every mode has a pattern assigned to each of its selected LEDs.
 
-### Key Features
+### Pattern Selection
 
-- **Pattern Library:** Choose from a library of predefined patterns (e.g., strobe, dops, blend).
-- **Custom Parameters:** Adjust parameters like blink size, gap size, blend speed, etc
+- **Dropdown:** Choose from **Strobe**, **Blend**, **Solid**, and **Multi-LED** patterns. Each category produces a different type of animation.
+- **Randomize:** Click the dice button to instantly apply a random pattern to the selected LED.
 
-The various parameters control the appearance of the blinking of the LED, like the timing and length of blinks and other sometimes abstract qualities. Try making changes to come up with unique effects!
+### Pattern Parameters
+
+Click the chevron to expand the parameter sliders. Each pattern exposes up to 7 adjustable controls (e.g. blink size, gap size, blend speed). Drag a slider or type a value to fine-tune the effect. Disabled sliders mean that pattern doesn't use that parameter.
+
+Every pattern in the dropdown can be recreated by adjusting these sliders — they are the raw controls that define each pattern's behavior.
+
+> For a complete reference of all available patterns and what each parameter does, see the [Patterns]({{ site.baseurl }}{% link vortex-engine/patterns/index.md %}) page.
+>
+> Patterns determine an LED's blink animation, but the actual colors used come from the **Colorset** assigned to that LED. See the [Colorsets]({{ site.baseurl }}{% link vortex-engine/colorsets/index.md %}) page for details on how colors and patterns work together.
+{: .note }
 
 ## Other Panels
 
