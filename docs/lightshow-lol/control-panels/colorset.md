@@ -49,7 +49,7 @@ The **Colorset Panel** shows the list of up to 8 colors for the selected LEDs of
 
 ### Key Features
 
-- **Color Swatches:** Each color in the colorset is shown as a swatch. Click a swatch to open the **Color Picker** and modify it. The first swatch is highlighted with a green border to indicate the **main selected LED**.
+- **Color Swatches:** Each color in the colorset is shown as a swatch. Click a swatch to open the **Color Picker** and modify it. The first swatch is highlighted with a white border to indicate the **main selected LED**.
 - **Add Color:** The **+** button adds a new color to the colorset (up to 8), opening the Color Picker immediately.
 - **Empty Slots:** Dashed slots after the **+** button indicate remaining unused positions (up to 8 total).
 - **Delete Color:** Right-click a color swatch and select **Delete Color** to remove it from the set.
