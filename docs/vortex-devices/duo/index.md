@@ -118,7 +118,7 @@ Welcome to the Duo LED Guide, this page aims to get you up and running as fast a
 
 # Duo Interactive Tutorial
 
-Learn how to use the Duo with this interactive tutorial:
+Learn how to use the Duo with this [interactive tutorial](https://opensourcelightshows.github.io/DuoTutorial/):
 
 <div style="text-align: center; margin: 20px 0;">
   <iframe 
