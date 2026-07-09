@@ -123,6 +123,7 @@ public:
   static uint32_t lastSwitchTime() { return m_lastSwitchTime; }
 
   // delete the current mode
+  // NOTE: THIS IS BROKEN ON THIS BRANCH
   static void deleteCurMode();
 
   // delete all modes in the list
@@ -185,30 +186,18 @@ public:
 private:
   // linked list of internal mode storage
   class ModeLink {
+    friend class Modes;
   public:
     // construct a link and optionally instantiate the link
-    ModeLink(const Mode *src = nullptr, bool inst = false);
-    ModeLink(const ByteStream &src, bool inst = false);
-    ~ModeLink();
+    ModeLink(const Mode *src = nullptr);
+    ModeLink(const ByteStream &src);
 
     // init the link and append another link
     bool init(const Mode *mode = nullptr);
-    bool append(const Mode *next);
-    bool append(const ByteStream &next);
-
-    // play the instantiated mode inside
-    void play();
-
-    // unlink self from the chain, returns link that takes position
-    ModeLink *unlinkSelf();
-
-    // link in a node before or after self
-    void linkAfter(ModeLink *link);
-    void linkBefore(ModeLink *link);
+    bool init(const ByteStream &src);
 
     // instantiate/destroy the mode
     Mode *instantiate();
-    void uninstantiate();
 
     // if the mode is instantiated and the instantiated version
     // has changed at all then save will re-save it to the buffer
@@ -216,18 +205,11 @@ private:
 
     // accessors
     ByteStream &buffer() { return m_storedMode; }
-    Mode *mode() { return m_pInstantiatedMode; }
-    ModeLink *next() { return m_next; }
-    ModeLink *prev() { return m_prev; }
 
     operator ByteStream &() { return m_storedMode; }
     operator ByteStream() { return m_storedMode; }
-    operator Mode *() { return m_pInstantiatedMode; }
   private:
-    Mode *m_pInstantiatedMode;
     ByteStream m_storedMode;
-    ModeLink *m_next;
-    ModeLink *m_prev;
   };
 
   // fetch a link from the chain by index
@@ -247,11 +229,14 @@ private:
   // the number of modes loaded
   static uint8_t m_numModes;
 
+  // pointer to the current instantiated mode
+  static Mode *m_pCurMode;
+
   // the current instantiated mode and it's respective link
   static ModeLink *m_pCurModeLink;
 
   // list of serialized version of bufers
-  static ModeLink *m_storedModes;
+  static ModeLink m_storedModes[MAX_MODES];
 
   // global flags for all modes
   static uint8_t m_globalFlags;
