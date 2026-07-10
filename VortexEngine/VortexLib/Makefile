@@ -86,11 +86,11 @@ else
     SRC = $(shell find ../src/ -type f -name '*.cpp') VortexLib.cpp
 endif
 
-# object files are source files with .c replaced with .o
+# object files are source files with .cpp replaced with .o
 OBJS=\
 	$(SRC:.cpp=.o) \
 
-# dependency files are source files with .c replaced with .d
+# dependency files are source files with .cpp replaced with .d
 DFILES=\
 	$(SRC:.cpp=.d) \
 
