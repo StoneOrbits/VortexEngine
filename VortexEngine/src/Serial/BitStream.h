@@ -2,38 +2,50 @@
 #define BITSTREAM_H
 
 #include <inttypes.h>
-#include <stdbool.h>
 
-typedef struct BitStream
+// A class to read/write a buffer of bits one bit at a time
+class BitStream
 {
-  uint8_t *buf;
-  uint16_t buf_size;
-  uint16_t bit_pos;
-  bool buf_eof;
-  bool allocated;
-} BitStream;
+public:
+  BitStream();
+  BitStream(uint32_t size);
+  BitStream(uint8_t *buf, uint32_t size);
+  ~BitStream();
 
-void BitStream_init(BitStream *self);
-void BitStream_initBuf(BitStream *self, uint8_t *buf, uint32_t size);
-bool BitStream_initAlloc(BitStream *self, uint32_t size);
-void BitStream_destroy(BitStream *self);
+  // init the stream with a buffer
+  bool init(uint8_t *buf, uint32_t size);
+  // init the stream and allocate a buffer
+  bool init(uint32_t size);
 
-void BitStream_reset(BitStream *self);
-void BitStream_resetPos(BitStream *self);
+  // clear the target buffer to 0 and reset position
+  void reset();
+  // reset the reader/writer position
+  void resetPos();
 
-uint8_t BitStream_read1Bit(BitStream *self);
-void BitStream_write1Bit(BitStream *self, bool bit);
-uint8_t BitStream_readBits(BitStream *self, uint32_t numBits);
-void BitStream_writeBits(BitStream *self, uint32_t numBits, uint32_t val);
+  // read/write a single bit in LSB
+  uint8_t read1Bit();
+  void write1Bit(bool bit);
+  // read/write multiple bits from left to right at LSB
+  uint8_t readBits(uint32_t numBits);
+  void writeBits(uint32_t numBits, uint32_t val);
 
-static inline bool BitStream_eof(const BitStream *self) { return self->buf_eof; }
-static inline bool BitStream_allocated(const BitStream *self) { return self->allocated; }
-static inline uint16_t BitStream_size(const BitStream *self) { return self->buf_size; }
-static inline const uint8_t *BitStream_data(const BitStream *self) { return self->buf; }
-static inline uint8_t BitStream_peekData(const BitStream *self, uint8_t pos) { return self->buf[pos]; }
-static inline const uint32_t *BitStream_dwData(const BitStream *self) { return (const uint32_t *)self->buf; }
-static inline uint16_t BitStream_dwordpos(const BitStream *self) { return self->bit_pos / 32; }
-static inline uint16_t BitStream_bytepos(const BitStream *self) { return self->bit_pos / 8; }
-static inline uint16_t BitStream_bitpos(const BitStream *self) { return self->bit_pos; }
+  // metainfo about the bit stream
+  bool eof() const { return m_buf_eof; }
+  bool allocated() const { return m_allocated; }
+  uint16_t size() const { return m_buf_size; }
+  const uint8_t *data() const { return m_buf; }
+  uint8_t peekData(uint8_t pos) const { return m_buf[pos]; }
+  const uint32_t *dwData() const { return (uint32_t *)m_buf; }
+  uint16_t dwordpos() const { return m_bit_pos / 32; }
+  uint16_t bytepos() const { return m_bit_pos / 8; }
+  uint16_t bitpos() const { return m_bit_pos; }
+
+private:
+  uint8_t *m_buf;
+  uint16_t m_buf_size;
+  uint16_t m_bit_pos;
+  bool m_buf_eof;
+  bool m_allocated;
+};
 
 #endif

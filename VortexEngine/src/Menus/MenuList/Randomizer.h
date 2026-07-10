@@ -6,35 +6,81 @@
 #include "../../Random/Random.h"
 #include "../../Modes/Mode.h"
 
-typedef struct Mode Mode;
+class Mode;
 
-typedef enum {
-  RANDOMIZE_NONE = 0,
-  RANDOMIZE_COLORSET = (1 << 0),
-  RANDOMIZE_PATTERN = (1 << 1),
-  RANDOMIZE_BOTH = (RANDOMIZE_COLORSET | RANDOMIZE_PATTERN)
-} RandomizeFlags;
+class Randomizer : public Menu
+{
+public:
+  Randomizer(const RGBColor &col, bool advanced);
+  ~Randomizer();
 
-typedef struct RandomizerMenu_s {
-  Menu base;
-  Random singlesRandCtx[LED_COUNT];
+  bool init() override;
+  MenuAction run() override;
+
+  // handlers for clicks
+  void onShortClick() override;
+  void onLongClick() override;
+
+  // re-roll a new randomization with a given context on an led
+  bool reRoll();
+
+private:
+  // random context for each single led
+  Random m_singlesRandCtx[LED_COUNT];
 #if VORTEX_SLIM == 0
-  Random multiRandCtx;
+  // random context for the multi led position
+  Random m_multiRandCtx;
 #endif
-  uint32_t lastRandomization;
-  uint8_t flags;
-  uint8_t displayHue;
-  bool needToSelect;
-  bool autoCycle;
-} RandomizerMenu;
 
-Menu *RandomizerMenu_Create(RGBColor col, bool advanced);
-void RandomizerMenu_destroy(Menu *self);
-bool RandomizerMenu_init(Menu *self);
-MenuAction RandomizerMenu_run(Menu *self);
-void RandomizerMenu_onShortClick(Menu *self);
-void RandomizerMenu_onLongClick(Menu *self);
+  // the time of the last randomization
+  uint32_t m_lastRandomization;
 
-extern const MenuVTable g_randomizerMenuVTable;
+  enum RandomizeFlags : uint8_t {
+    // this isn't a valid randomization state, if the flags are
+    // on this state then the user will be prompted to pick
+    RANDOMIZE_NONE = 0,
+
+    // the two main kinds of randomization
+    RANDOMIZE_COLORSET = (1 << 0),
+    RANDOMIZE_PATTERN = (1 << 1),
+
+    // compound flags both colorset and pattern randomization
+    RANDOMIZE_BOTH = (RANDOMIZE_COLORSET | RANDOMIZE_PATTERN)
+  };
+
+  // the randomization flags above
+  uint8_t m_flags;
+
+  // auxilliary variable to display cycling hue at menus
+  uint8_t m_displayHue;
+
+  // whether still need to select a randomization type
+  bool m_needToSelect;
+  // whether auto cycling
+  bool m_autoCycle;
+
+  // show the randomization type selection
+  void showRandomizationSelect();
+
+  // main reRoll functions
+#if VORTEX_SLIM == 0
+  bool reRollMulti();
+  PatternID rollMultiLedPatternID(Random &ctx);
+#endif
+  bool reRollSingles();
+  PatternID rollSingleLedPatternID(Random &ctx);
+
+  // generate a random colorset with a random context
+  Colorset rollColorset(Random &ctx);
+
+  // roll a custom pattern by generating random arguments
+  bool rollCustomPattern(Random &ctx, Mode *pMode, LedPos pos);
+
+  // more specific random pattern generators that just generate patternargs
+  void traditionalPattern(Random &ctx, PatternArgs &outArgs);
+  void gapPattern(Random &ctx, PatternArgs &outArgs);
+  void dashPattern(Random &ctx, PatternArgs &outArgs);
+  void crushPattern(Random &ctx, PatternArgs &outArgs);
+};
 
 #endif

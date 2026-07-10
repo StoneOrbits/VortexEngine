@@ -1,110 +1,146 @@
 #ifndef PATTERN_H
 #define PATTERN_H
 
-#include <inttypes.h>
-#include <stdbool.h>
-#include <stddef.h>
-
 #include "../Leds/LedTypes.h"
 #include "../Colors/Colorset.h"
+
 #include "Patterns.h"
 #include "PatternArgs.h"
 
 #define MAX_PATTERN_ARGS 8
 
+// The heirarchy of pattern currently looks like this:
 /*
- *                                Pattern
+ *                                pattern*
  *                              /        \
- *                SingleLedPattern        MultiLedPattern
- *                /           \
- *           BasicPattern
- *           /           \
- *      SolidPattern   BlendPattern
+ *                single led pat*           multi led pat*
+ *                /           \                /
+ *           basic pat       tracer pat       hybrid pat*
+ *           /                               /           \
+ *      Advanced pattern                 Rabbit Pattern   sequenced pattern
+ *
+ *     * = abstract class that cannot be instantiated
  */
 
 #define PATTERN_FLAGS_NONE  0
+
+// the pattern is a multi-pattern
 #define PATTERN_FLAG_MULTI  (1<<0)
 
+// and arg_offset_t is the distance from the base of the object
+// to the desired argument, in slim vortex we only need a single byte
+// but in multi-led patterns they can be a bit further in
 #if VORTEX_SLIM == 1
 typedef uint8_t arg_offset_t;
 #else
 typedef uint16_t arg_offset_t;
 #endif
 
+// macro to register args of a pattern
 #ifdef VORTEX_LIB
-#define REGISTER_ARG(self, arg) Pattern_registerArgName((Pattern *)(self), #arg, (arg_offset_t)((uintptr_t)&(arg) - (uintptr_t)(self)))
+#define REGISTER_ARG(arg) \
+  registerArg(#arg, (arg_offset_t)(((uintptr_t)&arg - (uintptr_t)this)));
 #else
-#define REGISTER_ARG(self, arg) Pattern_registerArg((Pattern *)(self), (arg_offset_t)((uintptr_t)&(arg) - (uintptr_t)(self)))
+#define REGISTER_ARG(arg) \
+  registerArg((arg_offset_t)(((uintptr_t)&arg - (uintptr_t)this)));
 #endif
 
-typedef struct ByteStream ByteStream;
-typedef struct Pattern Pattern;
+class ByteStream;
 
-typedef struct PatternVTable {
-  void (*destroy)(Pattern *self);
-  void (*play)(Pattern *self);
-  void (*init)(Pattern *self);
-  void (*bind)(Pattern *self, LedPos pos);
-  void (*onBlinkOn)(Pattern *self);
-  void (*onBlinkOff)(Pattern *self);
-  void (*beginGap)(Pattern *self);
-  void (*beginDash)(Pattern *self);
-} PatternVTable;
+class Pattern
+{
+  // PatternBuilder can access the Pattern internals
+  friend class PatternBuilder;
 
-struct Pattern {
-  const PatternVTable *vtable;
-  PatternID patternID;
-  uint8_t patternFlags;
-  Colorset colorset;
-  LedPos ledPos;
-  uint8_t numArgs;
-  arg_offset_t argList[MAX_PATTERN_ARGS];
+protected:
+  // Pattern is an abstract class
+  Pattern();
+
+  Pattern(const PatternArgs &args);
+
+public:
+  virtual ~Pattern();
+
+  // bind a colorset and position to the pattern
+  virtual void bind(LedPos pos);
+
+  // init the pattern to initial state
+  virtual void init();
+
+  // pure virtual must override the play function
+  virtual void play() = 0;
+
 #ifdef VORTEX_LIB
-  const char *argNameList[MAX_PATTERN_ARGS];
+  // skip the pattern ahead some ticks
+  void skip(uint32_t ticks);
+#endif
+
+  // serialize and unserialize a pattern to a bytestream
+  bool serialize(ByteStream &buffer) const;
+  bool unserialize(ByteStream &buffer);
+
+  // get or set a single arg
+  void setArg(uint8_t index, uint8_t value);
+  uint8_t getArg(uint8_t index) const;
+
+  uint8_t &argRef(uint8_t index);
+
+#ifdef VORTEX_LIB
+  // get the name of an arg
+  const char *getArgName(uint8_t index) const { return index >= m_numArgs ? "" : m_argNameList[index]; }
+#endif
+
+  // get or set the entire list of pattern args
+  void setArgs(const PatternArgs &args);
+  void getArgs(PatternArgs &args) const;
+
+  // number of args the pattern has
+  uint8_t getNumArgs() const { return m_numArgs; }
+
+  // comparison to other pattern
+  // NOTE: That may cause problems because the parameter is still a Pattern *
+  //       which means comparison would need to cast the other upwards first
+  // NOTE2: Removing virtual because this probably shouldn't be overridden
+  bool equals(const Pattern *other);
+
+  // change the colorset
+  const Colorset getColorset() const { return m_colorset; }
+  Colorset getColorset() { return m_colorset; }
+  void setColorset(const Colorset &set);
+  void clearColorset();
+
+  // change the led position
+  void setLedPos(LedPos pos) { m_ledPos = pos; }
+
+  // get/set the ID of the pattern (set by mode builder)
+  PatternID getPatternID() const { return m_patternID; }
+
+  // get a pointer to the colorset that is bound to the pattern
+  LedPos getLedPos() const { return m_ledPos; }
+
+  // get the pattern flags
+  uint32_t getFlags() const { return m_patternFlags; }
+  bool hasFlags(uint32_t flags) const { return (m_patternFlags & flags) != 0; }
+
+protected:
+  // the ID of this pattern (set by pattern builder)
+  PatternID m_patternID;
+  // any flags the pattern has
+  uint8_t m_patternFlags;
+  // a copy of the colorset that this pattern is initialized with
+  Colorset m_colorset;
+  // the Led the pattern is running on
+  LedPos m_ledPos;
+
+  uint8_t m_numArgs;
+  arg_offset_t m_argList[MAX_PATTERN_ARGS];
+
+#ifdef VORTEX_LIB
+  void registerArg(const char *name, arg_offset_t argOffset);
+  const char *m_argNameList[MAX_PATTERN_ARGS];
+#else
+  void registerArg(arg_offset_t argOffset);
 #endif
 };
-
-void Pattern_init(Pattern *self, const PatternArgs *args);
-void Pattern_initBase(Pattern *self);
-void Pattern_initVirtual(Pattern *self);
-void Pattern_destroy(Pattern *self);
-void Pattern_bind(Pattern *self, LedPos pos);
-void Pattern_bindBase(Pattern *self, LedPos pos);
-void Pattern_play(Pattern *self);
-
-#ifdef VORTEX_LIB
-void Pattern_skip(Pattern *self, uint32_t ticks);
-#endif
-
-bool Pattern_serialize(const Pattern *self, ByteStream *buffer);
-bool Pattern_unserialize(Pattern *self, ByteStream *buffer);
-
-void Pattern_setArg(Pattern *self, uint8_t index, uint8_t value);
-uint8_t Pattern_getArg(const Pattern *self, uint8_t index);
-uint8_t *Pattern_argRef(Pattern *self, uint8_t index);
-
-#ifdef VORTEX_LIB
-const char *Pattern_getArgName(const Pattern *self, uint8_t index);
-#endif
-
-void Pattern_setArgs(Pattern *self, const PatternArgs *args);
-void Pattern_getArgs(const Pattern *self, PatternArgs *args);
-uint8_t Pattern_getNumArgs(const Pattern *self);
-bool Pattern_equals(const Pattern *self, const Pattern *other);
-
-Colorset Pattern_getColorset(const Pattern *self);
-void Pattern_setColorset(Pattern *self, const Colorset *set);
-void Pattern_clearColorset(Pattern *self);
-void Pattern_setLedPos(Pattern *self, LedPos pos);
-PatternID Pattern_getPatternID(const Pattern *self);
-LedPos Pattern_getLedPos(const Pattern *self);
-uint32_t Pattern_getFlags(const Pattern *self);
-bool Pattern_hasFlags(const Pattern *self, uint32_t flags);
-
-#ifdef VORTEX_LIB
-void Pattern_registerArgName(Pattern *self, const char *name, arg_offset_t argOffset);
-#else
-void Pattern_registerArg(Pattern *self, arg_offset_t argOffset);
-#endif
 
 #endif

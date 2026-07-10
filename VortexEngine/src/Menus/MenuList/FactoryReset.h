@@ -3,17 +3,21 @@
 
 #include "../Menu.h"
 
-typedef struct FactoryResetMenu_s {
-  Menu base;
-} FactoryResetMenu;
+class FactoryReset : public Menu
+{
+public:
+  FactoryReset(const RGBColor &col, bool advanced);
+  ~FactoryReset();
 
-Menu *FactoryResetMenu_Create(RGBColor col, bool advanced);
-void FactoryResetMenu_destroy(Menu *self);
-bool FactoryResetMenu_init(Menu *self);
-MenuAction FactoryResetMenu_run(Menu *self);
-void FactoryResetMenu_onShortClick(Menu *self);
-void FactoryResetMenu_onLongClick(Menu *self);
+  bool init() override;
+  MenuAction run() override;
 
-extern const MenuVTable g_factoryResetMenuVTable;
+  // handlers for clicks
+  void onShortClick() override;
+  void onLongClick() override;
+
+private:
+  void showReset();
+};
 
 #endif

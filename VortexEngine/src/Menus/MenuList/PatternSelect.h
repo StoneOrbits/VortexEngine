@@ -6,20 +6,29 @@
 #include "../../Colors/Colorset.h"
 #include "../../Modes/Mode.h"
 
-typedef struct PatternSelectMenu_s {
-  Menu base;
-  LedPos srcLed;
-  bool started;
-} PatternSelectMenu;
+class PatternSelect : public Menu
+{
+public:
+  PatternSelect(const RGBColor &col, bool advanced);
+  ~PatternSelect();
 
-Menu *PatternSelectMenu_Create(RGBColor col, bool advanced);
-void PatternSelectMenu_destroy(Menu *self);
-bool PatternSelectMenu_init(Menu *self);
-MenuAction PatternSelectMenu_run(Menu *self);
-void PatternSelectMenu_onLedSelected(Menu *self);
-void PatternSelectMenu_onShortClick(Menu *self);
-void PatternSelectMenu_onLongClick(Menu *self);
+  bool init() override;
+  MenuAction run() override;
 
-extern const MenuVTable g_patternSelectMenuVTable;
+  // callback after the user selects the target led
+  void onLedSelected() override;
+
+  // handlers for clicks
+  void onShortClick() override;
+  void onLongClick() override;
+
+private:
+  // helpful member
+  LedPos m_srcLed;
+
+  // the pat select starts by showing the current pattern
+  // then the first click begin cycling the list of pats
+  bool m_started;
+};
 
 #endif

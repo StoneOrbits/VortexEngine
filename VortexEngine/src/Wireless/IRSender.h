@@ -1,9 +1,6 @@
 #ifndef IR_SENDER_H
 #define IR_SENDER_H
 
-#include <inttypes.h>
-#include <stdbool.h>
-
 #include "../Serial/ByteStream.h"
 #include "../Serial/BitStream.h"
 
@@ -11,43 +8,58 @@
 
 #if IR_ENABLE_SENDER == 1
 
-typedef struct Mode Mode;
+class Mode;
 
-typedef struct IRSenderCallbacks_s {
-  void (*infraredWrite)(bool mark, uint32_t amount);
-} IRSenderCallbacks;
+class IRSender
+{
+  IRSender();
 
-extern IRSenderCallbacks *g_irSenderCallbacks;
+public:
+  static bool init();
+  static void cleanup();
 
-extern ByteStream IRSender_serialBuf;
-extern BitStream IRSender_bitStream;
-extern bool IRSender_isSending;
-extern uint32_t IRSender_lastSendTime;
-extern uint32_t IRSender_size;
-extern uint8_t IRSender_numBlocks;
-extern uint8_t IRSender_remainder;
-extern uint32_t IRSender_blockSize;
-extern uint32_t IRSender_writeCounter;
+  // initialize the IR sender with a mode to send
+  static bool loadMode(const Mode *targetMode);
+  static bool send();
 
-bool IRSender_init();
-void IRSender_cleanup();
+  static bool isSending() { return m_isSending; }
 
-bool IRSender_loadMode(const Mode *targetMode);
-bool IRSender_send();
+  static uint32_t percentDone() { return (uint32_t)(((float)m_writeCounter / (float)m_size) * 100.0); }
 
-static inline bool IRSender_isSending_get() { return IRSender_isSending; }
+private:
+  // sender functions
+  static void beginSend();
+  // send a full 8 bits in a tight loop
+  static void sendByte(uint8_t data);
+  // send a mark/space by turning PWM on/off
+  static void sendMark(uint16_t time);
+  static void sendSpace(uint16_t time);
+  // Pulse-Width Modulator (IR Transmitter)
+  static void initPWM();
+  // turn the IR transmitter on/off in realtime
+  static void startPWM();
+  static void stopPWM();
 
-static inline uint32_t IRSender_percentDone() {
-  return (uint32_t)(((float)IRSender_writeCounter / (float)IRSender_size) * 100.0);
-}
+  // the serial buffer for the data
+  static ByteStream m_serialBuf;
+  // a bit walker for the serial data
+  static BitStream m_bitStream;
+  static bool m_isSending;
+  static uint32_t m_lastSendTime;
 
-void IRSender_beginSend();
-void IRSender_sendByte(uint8_t data);
-void IRSender_sendMark(uint16_t time);
-void IRSender_sendSpace(uint16_t time);
-void IRSender_initPWM();
-void IRSender_startPWM();
-void IRSender_stopPWM();
+  // some runtime meta info
+  static uint32_t m_size;
+  // the number of blocks that will be sent
+  static uint8_t m_numBlocks;
+  // the amount in the final block
+  static uint8_t m_remainder;
+
+  // configuration options for the sender
+  static uint32_t m_blockSize;
+
+  // write total
+  static uint32_t m_writeCounter;
+};
 
 #endif
 

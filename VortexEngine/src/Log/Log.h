@@ -8,6 +8,7 @@
 #if LOGGING_LEVEL > 0
 #define INFO_LOG(msg) InfoMsg(msg)
 #define INFO_LOGF(msg, ...) InfoMsg(msg, __VA_ARGS__)
+// infos are in final builds and they are meant to be standalone messages
 void InfoMsg(const char *msg, ...);
 #else
 #define INFO_LOG(msg)
@@ -15,8 +16,10 @@ void InfoMsg(const char *msg, ...);
 #endif
 
 #if LOGGING_LEVEL > 1
+// in test build errors are just debug messages
 #define ERROR_LOG(msg) ErrorMsg(__FUNCTION__, msg)
 #define ERROR_LOGF(msg, ...) ErrorMsg(__FUNCTION__, msg, __VA_ARGS__)
+// errors are in final builds so they only have the function name
 void ErrorMsg(const char *func, const char *msg, ...);
 #else
 #define ERROR_LOG(msg)
@@ -24,14 +27,17 @@ void ErrorMsg(const char *func, const char *msg, ...);
 #endif
 
 #if LOGGING_LEVEL > 2
+// some compilers won't allow for ellipsis macro that's passed no args...
 #define DEBUG_LOG(msg) DebugMsg(__FILE__, __FUNCTION__, __LINE__, msg)
 #define DEBUG_LOGF(msg, ...) DebugMsg(__FILE__, __FUNCTION__, __LINE__, msg, __VA_ARGS__)
+// debug messages are only in debug builds so they have full file + func + line info
 void DebugMsg(const char *file, const char *func, int line, const char *msg, ...);
 #else
 #define DEBUG_LOG(msg)
 #define DEBUG_LOGF(msg, ...)
 #endif
 
+// report OOM
 #define ERROR_OUT_OF_MEMORY() ERROR_LOG("Out of memory")
 
 #endif

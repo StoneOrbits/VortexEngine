@@ -3,10 +3,19 @@
 
 #include "../Pattern.h"
 
-typedef struct SingleLedPattern {
-  Pattern base;
-} SingleLedPattern;
+class SingleLedPattern : public Pattern
+{
+protected:
+  // SingleLedPattern is an abstract class
+  SingleLedPattern(const PatternArgs &args);
 
-void SingleLedPattern_init(SingleLedPattern *self, const PatternArgs *args);
+public:
+  virtual ~SingleLedPattern();
+
+  virtual void init() override;
+
+private:
+
+};
 
 #endif

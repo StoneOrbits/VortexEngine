@@ -3,14 +3,23 @@
 
 #include "../Pattern.h"
 
-typedef struct MultiLedPattern {
-  Pattern base;
-} MultiLedPattern;
+class MultiLedPattern : public Pattern
+{
+protected:
+  // MultiLedPattern is an abstract class
+  MultiLedPattern(const PatternArgs &args);
 
-extern const PatternVTable MultiLedPattern_vtable;
+public:
+  virtual ~MultiLedPattern();
 
-void MultiLedPattern_init(MultiLedPattern *self, const PatternArgs *args);
-void MultiLedPattern_bind(Pattern *self, LedPos pos);
-void MultiLedPattern_initVirtual(Pattern *self);
+  // multi-led and single-led have different bind functions
+  virtual void bind(LedPos pos) override;
+
+  // init the pattern to initial state
+  virtual void init() override;
+
+private:
+
+};
 
 #endif
