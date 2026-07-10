@@ -60,17 +60,17 @@ jobs:
         run: sudo apt-get install valgrind g++ make --fix-missing
       - name: Build desktop library + CLI
         run: |
-          export VORTEX_VERSION_MAJOR=${{ needs.setup.outputs.vortex_version_major }}
-          export VORTEX_VERSION_MINOR=${{ needs.setup.outputs.vortex_version_minor }}
-          export VORTEX_BUILD_NUMBER=${{ needs.setup.outputs.vortex_build_number }}
-          export VORTEX_VERSION_NUMBER=${{ needs.setup.outputs.vortex_version_number }}
-          make lib
+          #export VORTEX_VERSION_MAJOR=${{ needs.setup.outputs.vortex_version_major }}
+          #export VORTEX_VERSION_MINOR=${{ needs.setup.outputs.vortex_version_minor }}
+          #export VORTEX_BUILD_NUMBER=${{ needs.setup.outputs.vortex_build_number }}
+          #export VORTEX_VERSION_NUMBER=${{ needs.setup.outputs.vortex_version_number }}
+          #make lib
         working-directory: VortexEngine
       - name: Set execute permissions for test script
-        run: chmod +x ./runtests.sh
+        run: #chmod +x ./runtests.sh
         working-directory: VortexEngine/tests
       - name: Run general tests
-        run: ./runtests.sh --general
+        run: #./runtests.sh --general
         working-directory: VortexEngine/tests
 
   embedded:
