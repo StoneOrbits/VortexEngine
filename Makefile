@@ -13,8 +13,8 @@ else # linux
     INCLUDE_DIR=~/atmel_setup/include/
 endif
 
-CC = ${BINDIR}/avr-g++
-LD = ${BINDIR}/avr-g++
+CC = ${BINDIR}/avr-gcc
+LD = ${BINDIR}/avr-gcc
 OBJCOPY = ${BINDIR}/avr-objcopy -v
 AR = ${BINDIR}/avr-gcc-ar
 SIZE = ${BINDIR}/avr-size
@@ -77,6 +77,8 @@ DEFINES=\
 	-DVORTEX_VERSION_NUMBER=$(VORTEX_VERSION_NUMBER) \
 	-D__AVR_ATtiny3217__ \
 	-DF_CPU=$(CPU_SPEED) \
+	-DVORTEX_EMBEDDED \
+	-DVORTEX_SLIM=1 \
 
 CFLAGS = -g \
 	 -Os \
@@ -84,15 +86,13 @@ CFLAGS = -g \
 	 -Wall \
 	 -flto \
 	 -mrelax \
-	 -std=gnu++17 \
+	 -std=gnu11 \
 	 -fshort-enums \
 	 -fpack-struct \
-	 -fno-exceptions \
 	 -fdata-sections \
 	 -funsigned-char \
 	 -ffunction-sections\
 	 -funsigned-bitfields \
-	 -fno-threadsafe-statics \
 	 -mmcu=$(AVRDUDE_CHIP) \
 	 -B $(DEVICE_DIR)
 
@@ -118,20 +118,20 @@ ifneq ($(INCLUDES),)
     CFLAGS+=$(INCLUDES)
 endif
 
-# Source files
+# Source files (exclude multi-led patterns - VORTEX_SLIM=1)
 ifeq ($(OS),Windows_NT) # Windows
 SRCS = \
-       $(shell find ./VortexEngine/src/ -type f -name '\*.cpp') \
-       ./VortexEngine/appmain.cpp
+       $(shell find ./VortexEngine/src/ -type f -name '\*.c' ! -path '*/Multi/*') \
+       ./VortexEngine/appmain.c
 else # linux
 SRCS = \
-       $(shell find ./VortexEngine/src/ -type f -name \*.cpp) \
-       ./VortexEngine/appmain.cpp
+       $(shell find ./VortexEngine/src/ -type f -name \*.c ! -path '*/Multi/*') \
+       ./VortexEngine/appmain.c
 endif
 
-OBJS = $(SRCS:.cpp=.o)
+OBJS = $(SRCS:.c=.o)
 
-DFILES = $(SRCS:.cpp=.d)
+DFILES = $(SRCS:.c=.d)
 
 # Target name
 TARGET = vortex
@@ -154,7 +154,7 @@ $(TARGET).elf: $(OBJS)
 %.o: %.S
 	$(CC) $(ASMFLAGS) -c $< -o $@
 
-%.o: %.cpp
+%.o: %.c
 	$(CC) $(CFLAGS) -c $< -o $@
 
 upload: all

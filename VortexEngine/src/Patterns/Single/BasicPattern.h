@@ -4,66 +4,38 @@
 #include "SingleLedPattern.h"
 #include "../../Time/Timer.h"
 
-class BasicPattern : public SingleLedPattern
-{
-public:
-  BasicPattern(const PatternArgs &args);
-  virtual ~BasicPattern();
+#define STATE_DISABLED   0
+#define STATE_BLINK_ON   1
+#define STATE_ON         2
+#define STATE_BLINK_OFF  3
+#define STATE_OFF        4
+#define STATE_BEGIN_GAP  5
+#define STATE_IN_GAP     6
+#define STATE_BEGIN_DASH 7
+#define STATE_IN_DASH    8
+#define STATE_BEGIN_GAP2 9
+#define STATE_IN_GAP2    10
 
-  virtual void init() override;
-  virtual void play() override;
+typedef struct BasicPattern {
+  SingleLedPattern base;
+  uint8_t onDuration;
+  uint8_t offDuration;
+  uint8_t gapDuration;
+  uint8_t dashDuration;
+  uint8_t groupSize;
+  uint8_t groupCounter;
+  uint8_t state;
+  Timer blinkTimer;
+} BasicPattern;
 
-protected:
-  // when blinking off
-  virtual void onBlinkOn();
-  virtual void onBlinkOff();
-  virtual void beginGap();
-  virtual void beginDash();
+extern const PatternVTable BasicPattern_vtable;
 
-  // iterate to next state
-  void nextState(uint8_t timing);
-
-  // the parameters of the pattern
-  uint8_t m_onDuration;
-  uint8_t m_offDuration;
-  uint8_t m_gapDuration;
-  uint8_t m_dashDuration;
-  uint8_t m_groupSize;
-
-  uint8_t m_groupCounter;
-
-  // the various different blinking states the pattern can be in
-  enum PatternState : uint8_t
-  {
-    // the led is disabled (there is no on or dash)
-    STATE_DISABLED,
-
-    // the pattern is blinking on the next color in the set
-    STATE_BLINK_ON,
-    STATE_ON,
-
-    // the pattern is blinking off
-    STATE_BLINK_OFF,
-    STATE_OFF,
-
-    // the pattern is starting a gap after a colorset
-    STATE_BEGIN_GAP,
-    STATE_IN_GAP,
-
-    // the pattern is beginning a dash after a colorset or gap
-    STATE_BEGIN_DASH,
-    STATE_IN_DASH,
-
-    // the pattern is starting a gap after a dash
-    STATE_BEGIN_GAP2,
-    STATE_IN_GAP2,
-  };
-
-  // the state of the current pattern
-  PatternState m_state;
-
-  // the blink timer used to measure blink timings
-  Timer m_blinkTimer;
-};
+void BasicPattern_init(BasicPattern *self, const PatternArgs *args);
+void BasicPattern_play(Pattern *base);
+void BasicPattern_initVirtual(Pattern *base);
+void BasicPattern_onBlinkOn(Pattern *base);
+void BasicPattern_onBlinkOff(Pattern *base);
+void BasicPattern_beginGap(Pattern *base);
+void BasicPattern_beginDash(Pattern *base);
 
 #endif

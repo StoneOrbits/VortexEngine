@@ -2,26 +2,14 @@
 #define PATTERNS_H
 
 #include <inttypes.h>
+#include <stdbool.h>
 
-// List of patterns that can be built, both single and multi-led patterns are found in this list.
-// Within both single and multi LED pattern lists there are 'core' patterns which are associated
-// with a class, and there are 'shell' patterns which are simply wrapperns around another pattern
-// with different parameters passed to the constructor.  There is no way to know which patterns
-// are 'core' patterns, except by looking at PatternBuilder::generate to see which classes exist
-enum PatternID : int8_t
-{
-  // no pattern at all, use this sparingly and default to
-  // PATTERN_FIRST when possible
-  PATTERN_NONE = (PatternID)-1,
+typedef int8_t PatternID;
 
-  // first pattern of all
+enum {
+  PATTERN_NONE = -1,
   PATTERN_FIRST = 0,
-  // first 'single led' pattern
   PATTERN_SINGLE_FIRST = PATTERN_FIRST,
-  // =====================================
-
-  // all 'single led' patterns below
-
   PATTERN_STROBE = PATTERN_FIRST,
   PATTERN_HYPERSTROBE,
   PATTERN_PICOSTROBE,
@@ -54,20 +42,9 @@ enum PatternID : int8_t
   PATTERN_COMPLEMENTARY_BLENDSTROBE,
   PATTERN_COMPLEMENTARY_BLENDSTROBEGAP,
   PATTERN_SOLID,
-
-  // ADD NEW SINGLE LED PATTERNS HERE
-  // WARNING This will offset all multi-led patterns so sharing of patterns
-  //         will be misaligned, for ex. IR and save files.
-
-  // =====================================
-  //  Pattern Meta Constants:
   PATTERN_MULTI_FIRST,
   PATTERN_SINGLE_LAST = (PATTERN_MULTI_FIRST - 1),
   PATTERN_SINGLE_COUNT = (PATTERN_SINGLE_LAST - PATTERN_SINGLE_FIRST) + 1,
-  // =====================================
-
-  // all 'multi led' patterns below
-
   PATTERN_HUE_SCROLL = PATTERN_MULTI_FIRST,
   PATTERN_THEATER_CHASE,
   PATTERN_CHASER,
@@ -90,44 +67,22 @@ enum PatternID : int8_t
   PATTERN_SPLITSTROBIE,
   PATTERN_BACKSTROBE,
   PATTERN_VORTEX,
-
-  // ADD NEW MULTI LED PATTERNS HERE
-
-  // =====================================
-  INTERNAL_PATTERNS_END, // <<< DON'T USE OR TOUCH THIS ONE
+  INTERNAL_PATTERNS_END,
   PATTERN_MULTI_LAST = (INTERNAL_PATTERNS_END - 1),
   PATTERN_MULTI_COUNT = (PATTERN_MULTI_LAST - PATTERN_MULTI_FIRST) + 1,
   PATTERN_LAST = PATTERN_MULTI_LAST,
-  PATTERN_COUNT = (PATTERN_LAST - PATTERN_FIRST) + 1, // total number of patterns
+  PATTERN_COUNT = (PATTERN_LAST - PATTERN_FIRST) + 1,
 };
 
-// some helper functions to improve readability
-inline bool isMultiLedPatternID(PatternID id) {
+static inline bool isMultiLedPatternID(PatternID id) {
   return id >= PATTERN_MULTI_FIRST && id <= PATTERN_MULTI_LAST;
 }
-inline bool isSingleLedPatternID(PatternID id) {
+static inline bool isSingleLedPatternID(PatternID id) {
   return id < PATTERN_MULTI_FIRST;
 }
 
-// PatternID operators
-inline PatternID &operator++(PatternID &c)
-{
-  c = PatternID(((uint16_t)c) + 1);
-  return c;
-}
-inline PatternID operator++(PatternID &c, int)
-{
-  PatternID temp = c;
-  ++c;
-  return temp;
-}
-inline PatternID operator+(PatternID &c, int b)
-{
-  return (PatternID)((uint16_t)c + b);
-}
-inline PatternID operator-(PatternID &c, int b)
-{
-  return (PatternID)((uint16_t)c - b);
-}
+static inline PatternID patternIDIncr(PatternID c) { return (PatternID)((uint16_t)c + 1); }
+static inline PatternID patternIDAdd(PatternID c, int b) { return (PatternID)((uint16_t)c + (uint16_t)b); }
+static inline PatternID patternIDSub(PatternID c, int b) { return (PatternID)((uint16_t)c - (uint16_t)b); }
 
 #endif

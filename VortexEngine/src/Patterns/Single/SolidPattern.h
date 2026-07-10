@@ -2,19 +2,16 @@
 #define SOLID_PATTERN_H
 
 #include "BasicPattern.h"
-
 #include "../../Time/Timings.h"
 
-class SolidPattern : public BasicPattern
-{
-public:
-  SolidPattern(const PatternArgs &args);
+typedef struct SolidPattern {
+  BasicPattern base;
+  uint8_t colIndex;
+} SolidPattern;
 
-protected:
-  // callbacks for blinking on/off, can be overridden by derived classes
-  virtual void onBlinkOn() override;
+extern const PatternVTable SolidPattern_vtable;
 
-  uint8_t m_colIndex;
-};
+void SolidPattern_init(SolidPattern *self, const PatternArgs *args);
+void SolidPattern_onBlinkOn(Pattern *base);
 
 #endif

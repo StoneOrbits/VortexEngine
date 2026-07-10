@@ -1,42 +1,21 @@
 #ifndef PATTERN_BUILDER_H
 #define PATTERN_BUILDER_H
 
+#include <inttypes.h>
+#include <stdbool.h>
+
 #include "Patterns.h"
+#include "PatternArgs.h"
 
-class Pattern;
-class PatternArgs;
-class ByteStream;
-class MultiLedPattern;
-class SingleLedPattern;
+typedef struct ByteStream ByteStream;
+typedef struct Pattern Pattern;
 
-class PatternBuilder
-{
-public:
-  // generic make any pattern
-  static Pattern *make(PatternID id, const PatternArgs *args = nullptr);
-
-  // make a copy of an existing pattern
-  static Pattern *dupe(const Pattern *pat);
-
-  // generate a single LED pattern (nullptr if patternid is not single LED)
-  static SingleLedPattern *makeSingle(PatternID id, const PatternArgs *args = nullptr);
-
-  // generate a multi LED pattern (nullptr if patternid is not multi LED)
-  static MultiLedPattern *makeMulti(PatternID id, const PatternArgs *args = nullptr);
-
-  // unserialize a buffer into a pattern
-  static Pattern *unserialize(ByteStream &buffer);
-
-  // This is just the default arguments for any given pattern id
-  // it will *not* indicate the true amount of arguments a pattern has
-  static PatternArgs getDefaultArgs(PatternID id);
-  // this will give you actual amount of default args
-  static uint8_t numDefaultArgs(PatternID id);
-
-private:
-  // helper routines
-  static Pattern *makeInternal(PatternID id, const PatternArgs *args = nullptr);
-  static Pattern *generate(PatternID id, const PatternArgs *args = nullptr);
-};
+Pattern *PatternBuilder_make(PatternID id, const PatternArgs *args);
+Pattern *PatternBuilder_dupe(const Pattern *pat);
+Pattern *PatternBuilder_makeSingle(PatternID id, const PatternArgs *args);
+Pattern *PatternBuilder_makeMulti(PatternID id, const PatternArgs *args);
+Pattern *PatternBuilder_unserialize(ByteStream *buffer);
+PatternArgs PatternBuilder_getDefaultArgs(PatternID id);
+uint8_t PatternBuilder_numDefaultArgs(PatternID id);
 
 #endif

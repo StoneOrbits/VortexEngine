@@ -2,134 +2,62 @@
 #define LED_CONTROL_H
 
 #include <inttypes.h>
-
+#include <stdbool.h>
 #include "../Colors/ColorTypes.h"
 #include "LedTypes.h"
 
-class LedStash;
+typedef struct LedStash_s LedStash;
 
-class Leds
-{
-  // private unimplemented constructor
-  Leds();
+bool Leds_init(void);
+void Leds_cleanup(void);
+void Leds_setIndex(LedPos target, RGBColor col);
+void Leds_setRange(LedPos first, LedPos last, RGBColor col);
+void Leds_setAll(RGBColor col);
+void Leds_clearIndex(LedPos target);
+void Leds_clearRange(LedPos first, LedPos last);
+void Leds_clearAll(void);
+void Leds_setPair(Pair pair, RGBColor col);
+void Leds_setPairs(Pair first, Pair last, RGBColor col);
+void Leds_clearPair(Pair pair);
+void Leds_clearPairs(Pair first, Pair last);
+void Leds_setRangeEvens(Pair first, Pair last, RGBColor col);
+void Leds_setAllEvens(RGBColor col);
+void Leds_setRangeOdds(Pair first, Pair last, RGBColor col);
+void Leds_setAllOdds(RGBColor col);
+void Leds_clearRangeEvens(Pair first, Pair last);
+void Leds_clearAllEvens(void);
+void Leds_clearRangeOdds(Pair first, Pair last);
+void Leds_clearAllOdds(void);
+void Leds_setMap(LedMap map, RGBColor col);
+void Leds_clearMap(LedMap map);
+void Leds_stashAll(LedStash *stash);
+void Leds_restoreAll(const LedStash *stash);
+void Leds_adjustBrightnessIndex(LedPos target, uint8_t fadeBy);
+void Leds_adjustBrightnessRange(LedPos first, LedPos last, uint8_t fadeBy);
+void Leds_adjustBrightnessAll(uint8_t fadeBy);
+void Leds_blinkIndexOffset(LedPos target, uint32_t time, uint16_t offMs, uint16_t onMs, RGBColor col);
+void Leds_blinkRangeOffset(LedPos first, LedPos last, uint32_t time, uint16_t offMs, uint16_t onMs, RGBColor col);
+void Leds_blinkIndex(LedPos target, uint16_t offMs, uint16_t onMs, RGBColor col);
+void Leds_blinkRange(LedPos first, LedPos last, uint16_t offMs, uint16_t onMs, RGBColor col);
+void Leds_blinkMap(LedMap targets, uint16_t offMs, uint16_t onMs, RGBColor col);
+void Leds_blinkAll(uint16_t offMs, uint16_t onMs, RGBColor col);
+void Leds_blinkPair(Pair pair, uint16_t offMs, uint16_t onMs, RGBColor col);
+void Leds_blinkPairs(Pair first, Pair last, uint16_t offMs, uint16_t onMs, RGBColor col);
+void Leds_breatheIndex(LedPos target, uint8_t hue, uint32_t variance, uint32_t magnitude, uint8_t sat, uint8_t val);
+void Leds_breatheRange(LedPos first, LedPos last, uint8_t hue, uint32_t variance, uint32_t magnitude, uint8_t sat, uint8_t val);
+void Leds_breatheIndexSat(LedPos target, uint8_t hue, uint32_t variance, uint32_t magnitude, uint8_t sat, uint8_t val);
+void Leds_breatheIndexVal(LedPos target, uint8_t hue, uint32_t variance, uint32_t magnitude, uint8_t sat, uint8_t val);
+void Leds_holdAll(RGBColor col);
+RGBColor Leds_getLed(LedPos pos);
+uint8_t Leds_getBrightness(void);
+void Leds_setBrightness(uint8_t brightness);
+void Leds_update(void);
 
-public:
-  // opting for static class here because there should only ever be one
-  // Led control object and I don't like singletons
-  static bool init();
-  static void cleanup();
+extern uint8_t Leds_brightness;
+extern RGBColor Leds_ledColors[LED_COUNT];
+extern volatile uint8_t *Leds_port;
+extern uint8_t Leds_pinMask;
 
-  // control individual LED, these are appropriate to use in internal pattern logic
-  static void setIndex(LedPos target, RGBColor col);
-  static void setRange(LedPos first, LedPos last, RGBColor col);
-  static void setAll(RGBColor col);
-
-  // Turn off individual LEDs, these are appropriate to use in internal pattern logic
-  static void clearIndex(LedPos target) { setIndex(target, RGB_OFF); }
-  static void clearRange(LedPos first, LedPos last) { setRange(first, last, RGB_OFF); }
-  static void clearAll() { setAll(RGB_OFF); }
-
-  // control two LEDs on a pair, these are appropriate for use in internal pattern logic
-  static void setPair(Pair pair, RGBColor col);
-  static void setPairs(Pair first, Pair last, RGBColor col);
-
-  // Turn off both LEDs on a pair, these are appropriate for use in internal pattern logic
-  static void clearPair(Pair pair) { setPair(pair, RGB_OFF); }
-  static void clearPairs(Pair first, Pair last) { setPairs(first, last, RGB_OFF); }
-
-  // Controll pair evens
-  static void setRangeEvens(Pair first, Pair last, RGBColor);
-  static void setAllEvens(RGBColor col);
-  // Controll pair odds
-  static void setRangeOdds(Pair first, Pair last, RGBColor);
-  static void setAllOdds(RGBColor col);
-
-  // Turn off tips
-  static void clearRangeEvens(Pair first, Pair last);
-  static void clearAllEvens();
-  // Turn off tops
-  static void clearRangeOdds(Pair first, Pair last);
-  static void clearAllOdds();
-
-  // Turn on/off a mapping of leds with a color
-  static void setMap(LedMap map, RGBColor col);
-  static void clearMap(LedMap map);
-
-  // stores Led for later use
-  static void stashAll(LedStash &stash);
-
-  // restores Leds from stash
-  static void restoreAll(const LedStash &stash);
-
-  // Dim individual LEDs, these are appropriate to use in internal pattern logic
-  static void adjustBrightnessIndex(LedPos target, uint8_t fadeBy);
-  static void adjustBrightnessRange(LedPos first, LedPos last, uint8_t fadeBy);
-  static void adjustBrightnessAll(uint8_t fadeBy);
-
-  // Blink an led to blank or a color
-  //
-  // These APIs work by checking if the current time is within the
-  // 'on duration' then they apply the color to the target, otherwise they do
-  // nothing. The goal of this behaviour is to allow them to be used in any
-  // situation to 'blink' an led to either off or some color.
-  //
-  // However since these APIs modulate current time to check if within the 'on'
-  // threshold that makes them unsuitable for internal pattern usage because it
-  // is unpredictable whether they will blink on or off first
-  static void blinkIndexOffset(LedPos target, uint32_t time, uint16_t offMs = 250, uint16_t onMs = 500, RGBColor col = RGB_OFF);
-  static void blinkRangeOffset(LedPos first, LedPos last, uint32_t time, uint16_t offMs = 250, uint16_t onMs = 500, RGBColor col = RGB_OFF);
-  static void blinkIndex(LedPos target, uint16_t offMs = 250, uint16_t onMs = 500, RGBColor col = RGB_OFF);
-  static void blinkRange(LedPos first, LedPos last, uint16_t offMs = 250, uint16_t onMs = 500, RGBColor col = RGB_OFF);
-  static void blinkMap(LedMap targets, uint16_t offMs = 250, uint16_t onMs = 500, RGBColor col = RGB_OFF);
-  static void blinkAll(uint16_t offMs = 250, uint16_t onMs = 500, RGBColor col = RGB_OFF);
-  // Blink both LEDs on a pair
-  static void blinkPair(Pair pair, uint16_t offMs = 250, uint16_t onMs = 500, RGBColor col = RGB_OFF);
-  static void blinkPairs(Pair first, Pair last, uint16_t offMs = 250, uint16_t onMs = 500, RGBColor col = RGB_OFF);
-
-  // breath the hue on an index
-  // warning: these use hsv to rgb in realtime!
-  static void breatheIndex(LedPos target, uint8_t hue, uint32_t variance,
-    uint32_t magnitude = 15, uint8_t sat = 255, uint8_t val = 210);
-  static void breatheRange(LedPos first, LedPos last, uint8_t hue, uint32_t variance,
-    uint32_t magnitude = 15, uint8_t sat = 255, uint8_t val = 210);
-  static void breatheIndexSat(LedPos target, uint8_t hue, uint32_t variance,
-    uint32_t magnitude = 15, uint8_t sat = 255, uint8_t val = 210);
-  static void breatheIndexVal(LedPos target, uint8_t hue, uint32_t variance,
-    uint32_t magnitude = 15, uint8_t sat = 255, uint8_t val = 210);
-
-  // a very specialized api to hold all leds on a color for 250ms
-  static void holdAll(RGBColor col);
-
-  // get the RGBColor of an Led index
-  static RGBColor getLed(LedPos pos) { return led(pos); }
-
-  // global brightness
-  static uint8_t getBrightness() { return m_brightness; }
-  static void setBrightness(uint8_t brightness) { m_brightness = brightness; }
-
-  // actually update the LEDs and show the changes
-  static void update();
-
-private:
-  // accessor for led colors, use this for all access to allow for mapping
-  static inline RGBColor &led(LedPos pos)
-  {
-    if (pos > LED_LAST) {
-      pos = LED_LAST;
-    }
-    return m_ledColors[pos];
-  }
-
-  // the global brightness
-  static uint8_t m_brightness;
-
-  // array of led color values
-  static RGBColor m_ledColors[LED_COUNT];
-
-  // Output PORT register
-  static volatile uint8_t *m_port;
-  // Output PORT bitmask
-  static uint8_t m_pinMask;
-};
+RGBColor* Leds_led(LedPos pos);
 
 #endif

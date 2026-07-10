@@ -9,7 +9,11 @@ ifdef WASM
 CC=em++
 AR=emar cru
 else
+ifdef USE_C
+CC=gcc
+else
 CC=g++
+endif
 AR=ar cru
 endif
 
@@ -81,18 +85,18 @@ LIBS=\
 # source files
 # local source files first, other sources after
 ifeq ($(OS),Windows_NT)
-    SRC = $(shell find ../src/ -type f -name \\*.cpp) VortexLib.cpp
+    SRC = $(shell find ../src/ -type f -name \\*.c -o -type f -name \\*.cpp) VortexLib.cpp
 else
-    SRC = $(shell find ../src/ -type f -name '*.cpp') VortexLib.cpp
+    SRC = $(shell find ../src/ -type f -name '*.c' -o -type f -name '*.cpp') VortexLib.cpp
 endif
 
-# object files are source files with .c replaced with .o
+# object files are source files with .c or .cpp replaced with .o
 OBJS=\
-	$(SRC:.cpp=.o) \
+	$(patsubst %.c,%.o,$(patsubst %.cpp,%.o,$(SRC))) \
 
-# dependency files are source files with .c replaced with .d
+# dependency files are source files with .c or .cpp replaced with .d
 DFILES=\
-	$(SRC:.cpp=.d) \
+	$(patsubst %.c,%.d,$(patsubst %.cpp,%.d,$(SRC))) \
 
 # target dependencies
 # this includes any script generated c/h files,
@@ -130,6 +134,9 @@ VortexLib.js: compute_version $(DEPS)
 	$(CC) $(LDFLAGS) $(DEPS) -o $@ $(LLIBS)
 
 # catch-all make target to generate .o and .d files
+%.o: %.c
+	$(CC) $(CFLAGS) -MMD -c $< -o $@
+
 %.o: %.cpp
 	$(CC) $(CFLAGS) -MMD -c $< -o $@
 

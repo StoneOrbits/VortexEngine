@@ -3,56 +3,28 @@
 
 #include "../Menu.h"
 
-class GlobalBrightness : public Menu
-{
-public:
-  GlobalBrightness(const RGBColor &col, bool advanced);
-  ~GlobalBrightness();
+typedef enum {
+  KEYCHAIN_MODE_STATE_OFF = 0,
+  KEYCHAIN_MODE_STATE_SOLID,
+  KEYCHAIN_MODE_STATE_DOPS,
+  KEYCHAIN_MODE_STATE_SIGNAL,
+  KEYCHAIN_MODE_STATE_COUNT
+} KeychainModeState;
 
-  bool init() override;
-  MenuAction run() override;
+typedef struct GlobalBrightnessMenu_s {
+  Menu base;
+  KeychainModeState keychainModeState;
+  uint32_t lastStateChange;
+  uint8_t colorIndex;
+} GlobalBrightnessMenu;
 
-  // handlers for clicks
-  void onShortClick() override;
-  void onLongClick() override;
+Menu *GlobalBrightnessMenu_Create(RGBColor col, bool advanced);
+void GlobalBrightnessMenu_destroy(Menu *self);
+bool GlobalBrightnessMenu_init(Menu *self);
+MenuAction GlobalBrightnessMenu_run(Menu *self);
+void GlobalBrightnessMenu_onShortClick(Menu *self);
+void GlobalBrightnessMenu_onLongClick(Menu *self);
 
-private:
-  void showBrightnessSelection();
-
-  // the list of brightness options
-  const uint8_t m_brightnessOptions[4] = {
-    BRIGHTNESS_OPTION_1,
-    BRIGHTNESS_OPTION_2,
-    BRIGHTNESS_OPTION_3,
-    BRIGHTNESS_OPTION_4
-  };
-
-private:
-  // don't worry about this stuff
-  enum keychain_mode_state : uint8_t
-  {
-    // sleeping / fake off
-    KEYCHAIN_MODE_STATE_OFF = 0,
-
-    // solid/tracer
-    KEYCHAIN_MODE_STATE_SOLID,
-
-    // dops blink 4 / 16
-    KEYCHAIN_MODE_STATE_DOPS,
-
-    // signal blink 16 / 120
-    KEYCHAIN_MODE_STATE_SIGNAL,
-
-    // total states
-    KEYCHAIN_MODE_STATE_COUNT
-  };
-
-  keychain_mode_state m_keychain_modeState;
-  uint32_t m_lastStateChange;
-  uint8_t m_colorIndex;
-
-  void setKeychainModeState(keychain_mode_state newState);
-  Menu::MenuAction runKeychainMode();
-};
+extern const MenuVTable g_globalBrightnessMenuVTable;
 
 #endif

@@ -1,33 +1,19 @@
 #ifndef BUTTONS_H
 #define BUTTONS_H
 
+#include <inttypes.h>
+#include <stdbool.h>
 #include "Button.h"
+#include "../VortexConfig.h"
 
-// the number of buttons, this isn't in VortexConfig.h because
-// changing it won't really work without updating other things
-// like which pins the buttons are attached to. So this is more
-// of a hardcoded constant than a configuration setting
-#define NUM_BUTTONS 1
+#ifdef VORTEX_EMBEDDED
+#define REGISTER_BUTTON(pin) Buttons_init(pin)
+#else
+#define REGISTER_BUTTON(pin) Buttons_init()
+#endif
 
-class Buttons
-{
-  // private unimplemented constructor
-  Buttons();
-
-public:
-  // initialize all buttons
-  static bool init();
-  static void cleanup();
-
-  // poll the buttons
-  static void update();
-
-  static uint8_t numButtons() { return NUM_BUTTONS; }
-
-private:
-};
-
-// best way I think
-extern Button *g_pButton;
+bool Buttons_init(uint8_t pin);
+void Buttons_cleanup(void);
+void Buttons_update(void);
 
 #endif
