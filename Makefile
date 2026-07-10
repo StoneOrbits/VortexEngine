@@ -8,7 +8,7 @@ ifeq ($(OS),Windows_NT) # Windows
     DEVICE_DIR="C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATtiny_DFP/1.10.348/gcc/dev/attiny3217"
     INCLUDE_DIR="C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATtiny_DFP/1.10.348/include/"
 else # linux
-    BINDIR=~/atmel_setup/avr8-gnu-toolchain-linux_x86_64/bin/
+    BINDIR=~/atmel_setup/avr8-gnu-toolchain-linux_x86_64/bin
     DEVICE_DIR=~/atmel_setup/gcc/dev/attiny3217
     INCLUDE_DIR=~/atmel_setup/include/
 endif
