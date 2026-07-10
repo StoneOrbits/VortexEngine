@@ -78,6 +78,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
       - name: Install AVR toolchain
         run: sudo apt-get install gcc-avr avr-libc make --fix-missing
       - name: Build Embedded Firmware
