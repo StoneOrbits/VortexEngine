@@ -8,40 +8,45 @@
 
 #if VL_ENABLE_SENDER == 1
 
+class VortexEngine;
 class Mode;
 
 class VLSender
 {
-  VLSender();
-
 public:
-  static bool init();
-  static void cleanup();
+  VLSender(VortexEngine &engine);
+  ~VLSender();
+
+  bool init();
+  void cleanup();
 
   // send a mode
-  static void send(const Mode *targetMode);
-  static void sendLegacy(const Mode *targetMode);
+  void send(const Mode *targetMode);
+  void sendLegacy(const Mode *targetMode);
 
 private:
-  static bool loadMode(const Mode *targetMode);
+  bool loadMode(const Mode *targetMode);
   // send a full 8 bits in a tight loop
-  static void sendByte(uint8_t data);
+  void sendByte(uint8_t data);
   // send full 8 bits legacy protocol
-  static void sendByteLegacy(uint8_t data);
+  void sendByteLegacy(uint8_t data);
   // send a mark/space by turning PWM on/off
-  static void sendMarkSpace(uint16_t markTime, uint16_t spaceTime);
+  void sendMarkSpace(uint16_t markTime, uint16_t spaceTime);
   // turn the VL transmitter on/off in realtime
-  static void startPWM();
-  static void stopPWM();
+  void startPWM();
+  void stopPWM();
+
+  // reference to engine
+  VortexEngine &m_engine;
 
   // the serial buffer for the data
-  static ByteStream m_serialBuf;
+  ByteStream m_serialBuf;
   // a bit walker for the serial data
-  static BitStream m_bitStream;
+  BitStream m_bitStream;
 
   // some runtime meta info
-  static uint8_t m_size;
-  static uint8_t m_parity;
+  uint8_t m_size;
+  uint8_t m_parity;
 };
 
 #endif
