@@ -56,6 +56,18 @@ val RunTick(Vortex &vortex) {
   return ledArray;
 }
 
+// Zero-allocation version of RunTick: ticks the engine and returns
+// a raw pointer to the LED data in WASM linear memory. The JS side
+// reads RGB values directly from HEAPU8, avoiding val handle leaks.
+uint32_t TickGetLedPtr(Vortex &vortex) {
+  vortex.tick();
+  return reinterpret_cast<uint32_t>(vortex.engine().leds().ledData());
+}
+
+uint32_t GetLedCount(Vortex &vortex) {
+  return vortex.engine().leds().ledCount();
+}
+
 emscripten::val getDataArray(const ByteStream &byteStream)
 {
   const uint8_t *dataPtr = byteStream.data();
@@ -117,6 +129,8 @@ EMSCRIPTEN_BINDINGS(Vortex) {
 
   // basic control functions
   function("RunTick", &RunTick);
+  function("TickGetLedPtr", &TickGetLedPtr);
+  function("GetLedCount", &GetLedCount);
 
   // Bind the HSVColor class
   class_<HSVColor>("HSVColor")

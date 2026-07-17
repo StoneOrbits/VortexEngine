@@ -45,7 +45,7 @@ INCLUDES=\
 ifdef WASM
 DEFINES += -D WASM
 # this was used before but I think only the above is necessary
-LDFLAGS += --bind -s EXPORT_ES6=1 -s EXPORT_NAME='VortexLib'
+LDFLAGS += --bind -s EXPORT_ES6=1 -s EXPORT_NAME='VortexLib' -s ALLOW_MEMORY_GROWTH=1
 endif
 
 ifdef TESTFRAMEWORK
