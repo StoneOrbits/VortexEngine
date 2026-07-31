@@ -45,16 +45,17 @@ The selected mode is sent from Lightshow.lol, through the Chromadeck, and wirele
 
 This process can be performed with multiple Duos at the same time.
 
-## Lightshow.lol on Android
+## Lightshow.lol on Mobile
 
-Lightshow.lol can also connect to a Chromadeck over Bluetooth from supported Android devices.
+Lightshow.lol can also connect to a Chromadeck over Bluetooth from supported mobile devices.
+
+If you're using Android then any web browser will work, and if you're using iOS/Apple then you will need to download a Bluetooth enabled web-browser from the app-store like Bluefy.
 
 This allows you to:
 
-- Create and edit modes on your Android device
+- Create and edit modes on your mobile device
 - Send modes to the Chromadeck
 - Wirelessly transfer those modes to a Duo through Mode Sharing
 
 The process is similar to the PC approach outlined above, and the mobile layout of Lightshow.lol is quite straightforward.
 
-To learn more about Lightshow.lol on Android, see the Android documentation.
