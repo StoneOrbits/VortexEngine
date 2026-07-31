@@ -28,7 +28,7 @@ If your goal is to replace only a few modes on your Duo, wireless programming is
 
 With wireless programming, a mode is transmitted from a Chromadeck to a Duo using the built-in Mode Sharing system. This allows you to update individual modes without removing the Duo casing or its battery.
 
-Wireless programming is the only option if you are using an Android device with your Chromadeck.
+Wireless programming is the only option if you are using a mobile device with your Chromadeck.
 
 **Recommended when:**
 
@@ -48,7 +48,7 @@ This method is primarily used when replacing all nine modes on a Duo. It is also
 
 Because the Duo must be removed from its sleeve and disconnected from its battery before being placed into the Chromalink holder, this process carries some risk and requires more preparation than wireless programming. The battery connector is relatively delicate, so unnecessary disassembly should be avoided.
 
-Chromalink programming is not available when connecting to the Chromadeck over Bluetooth on Android devices.
+Chromalink programming is not available when connecting to the Chromadeck over Bluetooth on Mobile devices.
 
 As a result, Chromalink programming is recommended only when replacing all nine modes, performing firmware updates, or adjusting the total number of modes on the device.
 
