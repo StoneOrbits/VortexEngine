@@ -601,6 +601,9 @@
 // set the global brightness of the chromalinked duo
 #define EDITOR_VERB_SET_CHROMA_BRIGHTNESS "N"
 
+// switch the profile of the chromadeck (selects the storage page in the main menu)
+#define EDITOR_VERB_SWITCH_PROFILE        "O"
+
 // ===================================================================
 //  Manually Configured Sizes
 //

@@ -49,6 +49,7 @@ private:
   ReturnCode receiveDemoMode();
   ReturnCode receiveMessage(const char *message);
   ReturnCode receiveBrightness(bool chromalink);
+  ReturnCode receiveProfile();
   ReturnCode receiveModeVL();
   ReturnCode receiveModeIdx(uint8_t &idx);
   ReturnCode receiveFirmwareSize(uint32_t &idx);
@@ -131,6 +132,11 @@ private:
     STATE_SET_CHROMA_BRIGHTNESS,
     STATE_SET_CHROMA_BRIGHTNESS_RECEIVE,
     STATE_SET_CHROMA_BRIGHTNESS_DONE,
+
+    // switch the chromadeck profile
+    STATE_SWITCH_PROFILE,
+    STATE_SWITCH_PROFILE_RECEIVE,
+    STATE_SWITCH_PROFILE_DONE,
 
     // pull the header from the chromalinked duo
     STATE_PULL_HEADER_CHROMALINK,
