@@ -24,20 +24,21 @@ parent: Lightshow.lol
 }
 </style>
 
-# Getting Started (Android)
-This guide covers the basics of using lightshow.lol with an **Android Device**, to use lightshow.lol with a **Computer** see [Getting Started on PC]({{ site.baseurl }}{% link lightshow-lol/getting-started.md %}).
+# Getting Started
+This guide covers the basics of using lightshow.lol with a **Mobile Device**, to use lightshow.lol with a **Computer** see [Getting Started on PC]({{ site.baseurl }}{% link lightshow-lol/getting-started.md %}).
 
-Unfortunately **iOS is not supported** due to limitations preventing webpages from accessing Bluetooth.
+In order to use iOS or an Apple device, you must download a bluetooth enable web browser from the app store, for example: Bluefy.
 
 Mobile and Bluetooth are still beta, please report any bugs on our [Discord]({{ site.baseurl }}{% link support/index.md %}).
 
-## Android Instructions
-To begin using lightshow.lol on a **Mobile Android Device** first note the compatible devices:
+## Mobile Instructions
+To begin using lightshow.lol on a **Mobile Device** first note the compatible devices:
 
  - Chromadeck
  - Spark Orbit / Handles
 
 Only these two devices are capable of Bluetooth connectivity.
+
 If you're looking to **program a Duo via a Chromadeck** then continue reading.
 
 {: .warning }
@@ -52,7 +53,7 @@ To begin start with these steps
 - Ensure the device is up-to-date (use a PC)
 - Switch the device off and unplug it from USB
 
-On lightshow.lol with an **Android Device**:
+On lightshow.lol with a **Mobile Device**:
 
 1. Select the device you wish to program -- either a Chromadeck, Spark, or Duo.
 2. **Click the Connect button** to open the Bluetooth Device list
