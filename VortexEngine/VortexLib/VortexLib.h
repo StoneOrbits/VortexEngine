@@ -55,6 +55,10 @@ public:
   virtual size_t serialRead(char *buf, size_t amt) { return 0; }
   // called when engine writes to serial, use this to read data from the vortex engine
   virtual uint32_t serialWrite(const uint8_t *buf, size_t amt) { return 0; }
+  // called when engine checks whether the serial connection is still alive, this
+  // is used to detect disconnects so the editor connection can be re-established
+  // on plug back in. Return true if the connection is still active.
+  virtual bool serialConnectedReal() { return true; }
   // called when the LED strip is initialized
   virtual void ledsInit(void *cl, int count) { }
   // called when the brightness is changed

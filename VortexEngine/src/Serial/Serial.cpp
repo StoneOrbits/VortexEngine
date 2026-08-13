@@ -37,7 +37,11 @@ void SerialComs::cleanup()
 
 bool SerialComs::isConnected()
 {
-#ifdef VORTEX_EMBEDDED
+#if defined(VORTEX_EMBEDDED) || defined(VORTEX_LIB)
+  // if the real connection is lost then reset the cached connected state so
+  // that the connection can be detected again the next time it comes back.
+  // this is how the embedded builds behave and virtual serial devices rely on
+  // it so they can re-greet the editor when a new client plugs in.
   if (!isConnectedReal()) {
     m_serialConnected = false;
     return false;
@@ -54,7 +58,9 @@ bool SerialComs::isConnectedReal()
 #ifdef VORTEX_EMBEDDED
   bool currentState = HWCDCSerial.isConnected();
 #else
-  bool currentState = true;
+  // under VORTEX_LIB the 'real' connection state is provided by the callbacks
+  // so a virtual serial device can simulate a device being plugged/unplugged
+  bool currentState = Vortex::vcallbacks()->serialConnectedReal();
 #endif
 
   unsigned long currentTime = Time::getCurtime();
