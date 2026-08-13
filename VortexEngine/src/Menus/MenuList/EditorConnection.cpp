@@ -127,6 +127,7 @@ const EditorConnection::CommandState EditorConnection::commands[] = {
   { EDITOR_VERB_SET_GLOBAL_BRIGHTNESS, STATE_SET_GLOBAL_BRIGHTNESS },
   { EDITOR_VERB_GET_GLOBAL_BRIGHTNESS, STATE_GET_GLOBAL_BRIGHTNESS },
   { EDITOR_VERB_SET_CHROMA_BRIGHTNESS, STATE_SET_CHROMA_BRIGHTNESS },
+  { EDITOR_VERB_SWITCH_PROFILE, STATE_SWITCH_PROFILE },
   { EDITOR_VERB_PULL_CHROMA_HDR, STATE_PULL_HEADER_CHROMALINK },
   { EDITOR_VERB_PUSH_CHROMA_HDR, STATE_PUSH_HEADER_CHROMALINK },
   { EDITOR_VERB_PULL_CHROMA_MODE, STATE_PULL_MODE_CHROMALINK },
@@ -448,6 +449,26 @@ void EditorConnection::handleState()
     // send another READY after setting the brightness the reason the regular
     // brightness doesn't have this is because updating duo brightness over
     // UPDI takes some time and the regular one does not
+    writeData(EDITOR_VERB_READY);
+    m_state = STATE_IDLE;
+    break;
+
+  // -------------------------------
+  //  Switch Chromadeck Profile
+  case STATE_SWITCH_PROFILE:
+    // now say we are ready
+    writeData(EDITOR_VERB_READY);
+    m_state = STATE_SWITCH_PROFILE_RECEIVE;
+    break;
+  case STATE_SWITCH_PROFILE_RECEIVE:
+    // switch the profile of the chromadeck
+    if (receiveProfile() == RV_WAIT) {
+      // just keep waiting
+      break;
+    }
+    m_state = STATE_SWITCH_PROFILE_DONE;
+    break;
+  case STATE_SWITCH_PROFILE_DONE:
     writeData(EDITOR_VERB_READY);
     m_state = STATE_IDLE;
     break;
@@ -851,6 +872,38 @@ ReturnCode EditorConnection::receiveBrightness(bool chromalink)
   UPDI::reset();
   UPDI::disable();
   return m_rv;
+}
+
+ReturnCode EditorConnection::receiveProfile()
+{
+  // create a new ByteStream that will hold the full buffer of data
+  ByteStream buf;
+  m_rv = receiveBuffer(buf);
+  if (m_rv != RV_OK) {
+    // RV_WAIT or RV_FAIL
+    return m_rv;
+  }
+  if (!buf.size()) {
+    // failure
+    return RV_FAIL;
+  }
+  uint8_t profile = 0;
+  if (!buf.consume8(&profile)) {
+    // they should never send an empty profile
+    return RV_FAIL;
+  }
+  // the number of profiles matches the number of main menu selections
+  // which is half the number of leds on the chromadeck
+  if (profile >= (LED_COUNT / 2)) {
+    return RV_FAIL;
+  }
+  // select the profile just like the main menu does
+  Storage::setStoragePage(profile);
+  if (!Modes::loadStorage()) {
+    // no modes on that profile, reset to defaults
+    Modes::setDefaults();
+  }
+  return RV_OK;
 }
 
 ReturnCode EditorConnection::receiveModeVL()
