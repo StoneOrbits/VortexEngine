@@ -181,5 +181,5 @@ jobs:
             -F "version=${{ needs.setup.outputs.vortex_version_number }}" \
             -F "category=firmware" \
             -F "clientApiKey=${{ secrets.VORTEX_COMMUNITY_API_KEY }}" \
-            https://vortex.community/firmware/upload
+            https://lightshow.lol/community/firmware/upload
 
