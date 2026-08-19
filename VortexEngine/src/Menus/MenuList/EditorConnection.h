@@ -42,6 +42,7 @@ private:
   void sendCurModeVL();
   void listenModeVL();
   ReturnCode sendBrightness();
+  ReturnCode sendProfile();
   ReturnCode receiveBuffer(ByteStream &buffer);
   ReturnCode receiveModes();
   ReturnCode receiveModeCount();
@@ -137,6 +138,9 @@ private:
     STATE_SWITCH_PROFILE,
     STATE_SWITCH_PROFILE_RECEIVE,
     STATE_SWITCH_PROFILE_DONE,
+
+    // get the current chromadeck profile
+    STATE_GET_PROFILE,
 
     // pull the header from the chromalinked duo
     STATE_PULL_HEADER_CHROMALINK,

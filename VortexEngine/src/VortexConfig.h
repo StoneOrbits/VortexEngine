@@ -604,6 +604,9 @@
 // switch the profile of the chromadeck (selects the storage page in the main menu)
 #define EDITOR_VERB_SWITCH_PROFILE        "O"
 
+// get the current profile of the chromadeck
+#define EDITOR_VERB_GET_PROFILE           "P"
+
 // ===================================================================
 //  Manually Configured Sizes
 //
