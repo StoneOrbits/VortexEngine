@@ -128,6 +128,7 @@ const EditorConnection::CommandState EditorConnection::commands[] = {
   { EDITOR_VERB_GET_GLOBAL_BRIGHTNESS, STATE_GET_GLOBAL_BRIGHTNESS },
   { EDITOR_VERB_SET_CHROMA_BRIGHTNESS, STATE_SET_CHROMA_BRIGHTNESS },
   { EDITOR_VERB_SWITCH_PROFILE, STATE_SWITCH_PROFILE },
+  { EDITOR_VERB_GET_PROFILE, STATE_GET_PROFILE },
   { EDITOR_VERB_PULL_CHROMA_HDR, STATE_PULL_HEADER_CHROMALINK },
   { EDITOR_VERB_PUSH_CHROMA_HDR, STATE_PUSH_HEADER_CHROMALINK },
   { EDITOR_VERB_PULL_CHROMA_MODE, STATE_PULL_MODE_CHROMALINK },
@@ -474,6 +475,13 @@ void EditorConnection::handleState()
     break;
 
   // -------------------------------
+  //  Get Current Profile
+  case STATE_GET_PROFILE:
+    sendProfile();
+    m_state = STATE_IDLE;
+    break;
+
+  // -------------------------------
   //  Get Chromalinked Duo Header
   case STATE_PULL_HEADER_CHROMALINK:
     if (pullHeaderChromalink() == RV_FAIL) {
@@ -709,6 +717,17 @@ ReturnCode EditorConnection::sendBrightness()
     return RV_FAIL;
   }
   writeData(brightnessBuf);
+  return RV_OK;
+}
+
+ReturnCode EditorConnection::sendProfile()
+{
+  ByteStream profileBuf;
+  uint8_t profile = Storage::getStoragePage();
+  if (!profileBuf.serialize8(profile)) {
+    return RV_FAIL;
+  }
+  writeData(profileBuf);
   return RV_OK;
 }
 
