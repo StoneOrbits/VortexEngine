@@ -43,6 +43,7 @@ private:
   void listenModeVL();
   ReturnCode sendBrightness();
   ReturnCode sendProfile();
+  ReturnCode sendProfileColors();
   ReturnCode receiveBuffer(ByteStream &buffer);
   ReturnCode receiveModes();
   ReturnCode receiveModeCount();
@@ -51,6 +52,7 @@ private:
   ReturnCode receiveMessage(const char *message);
   ReturnCode receiveBrightness(bool chromalink);
   ReturnCode receiveProfile();
+  ReturnCode receiveProfileColor();
   ReturnCode receiveModeVL();
   ReturnCode receiveModeIdx(uint8_t &idx);
   ReturnCode receiveFirmwareSize(uint32_t &idx);
@@ -141,6 +143,13 @@ private:
 
     // get the current chromadeck profile
     STATE_GET_PROFILE,
+
+    // get all profile colors
+    STATE_GET_PROFILE_COLOR,
+
+    // set a profile color
+    STATE_SET_PROFILE_COLOR,
+    STATE_SET_PROFILE_COLOR_RECEIVE,
 
     // pull the header from the chromalinked duo
     STATE_PULL_HEADER_CHROMALINK,

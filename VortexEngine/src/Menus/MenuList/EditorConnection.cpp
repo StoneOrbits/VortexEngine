@@ -13,6 +13,7 @@
 #include "../../Modes/DuoDefaultModes.h"
 #include "../../Modes/Modes.h"
 #include "../../Modes/Mode.h"
+#include "../../Menus/MainMenu.h"
 #include "../../Leds/Leds.h"
 #include "../../UPDI/updi.h"
 #include "../../Log/Log.h"
@@ -129,6 +130,8 @@ const EditorConnection::CommandState EditorConnection::commands[] = {
   { EDITOR_VERB_SET_CHROMA_BRIGHTNESS, STATE_SET_CHROMA_BRIGHTNESS },
   { EDITOR_VERB_SWITCH_PROFILE, STATE_SWITCH_PROFILE },
   { EDITOR_VERB_GET_PROFILE, STATE_GET_PROFILE },
+  { EDITOR_VERB_GET_PROFILE_COLOR, STATE_GET_PROFILE_COLOR },
+  { EDITOR_VERB_SET_PROFILE_COLOR, STATE_SET_PROFILE_COLOR },
   { EDITOR_VERB_PULL_CHROMA_HDR, STATE_PULL_HEADER_CHROMALINK },
   { EDITOR_VERB_PUSH_CHROMA_HDR, STATE_PUSH_HEADER_CHROMALINK },
   { EDITOR_VERB_PULL_CHROMA_MODE, STATE_PULL_MODE_CHROMALINK },
@@ -482,6 +485,26 @@ void EditorConnection::handleState()
     break;
 
   // -------------------------------
+  //  Get All Profile Colors
+  case STATE_GET_PROFILE_COLOR:
+    sendProfileColors();
+    m_state = STATE_IDLE;
+    break;
+
+  // -------------------------------
+  //  Set Profile Color
+  case STATE_SET_PROFILE_COLOR:
+    writeData(EDITOR_VERB_READY);
+    m_state = STATE_SET_PROFILE_COLOR_RECEIVE;
+    break;
+  case STATE_SET_PROFILE_COLOR_RECEIVE:
+    if (receiveProfileColor() == RV_WAIT) {
+      break;
+    }
+    m_state = STATE_IDLE;
+    break;
+
+  // -------------------------------
   //  Get Chromalinked Duo Header
   case STATE_PULL_HEADER_CHROMALINK:
     if (pullHeaderChromalink() == RV_FAIL) {
@@ -731,6 +754,19 @@ ReturnCode EditorConnection::sendProfile()
   return RV_OK;
 }
 
+ReturnCode EditorConnection::sendProfileColors()
+{
+  ByteStream buf;
+  for (uint8_t i = 0; i < NUM_SELECTIONS; ++i) {
+    RGBColor col = MainMenu::getProfileColor(i);
+    if (!col.serialize(buf)) {
+      return RV_FAIL;
+    }
+  }
+  writeData(buf);
+  return RV_OK;
+}
+
 ReturnCode EditorConnection::receiveBuffer(ByteStream &buffer)
 {
   // need at least the buffer size first
@@ -922,6 +958,35 @@ ReturnCode EditorConnection::receiveProfile()
     // no modes on that profile, reset to defaults
     Modes::setDefaults();
   }
+  return RV_OK;
+}
+
+ReturnCode EditorConnection::receiveProfileColor()
+{
+  ByteStream buf;
+  m_rv = receiveBuffer(buf);
+  if (m_rv != RV_OK) {
+    return m_rv;
+  }
+  if (!buf.size()) {
+    return RV_FAIL;
+  }
+  uint8_t profile = 0;
+  if (!buf.consume8(&profile)) {
+    return RV_FAIL;
+  }
+  if (profile >= NUM_SELECTIONS) {
+    return RV_FAIL;
+  }
+  RGBColor col;
+  if (!col.unserialize(buf)) {
+    return RV_FAIL;
+  }
+  if (!MainMenu::setProfileColor(profile, col)) {
+    return RV_FAIL;
+  }
+  // save the updated header with the new profile color
+  Modes::saveHeader();
   return RV_OK;
 }
 

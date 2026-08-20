@@ -10,8 +10,7 @@
 
 bool MainMenu::m_isOpen = true;
 uint8_t MainMenu::m_curSelection = 0;
-
-#define NUM_SELECTIONS (LED_COUNT / 2)
+RGBColor MainMenu::m_profileColors[NUM_SELECTIONS] = {};
 
 bool MainMenu::init()
 {
@@ -52,17 +51,17 @@ bool MainMenu::run()
 void MainMenu::show()
 {
   Leds::clearAll();
-  // render the main menu
-  uint8_t hue = 0;
+  // render profile colors for each LED pair
   uint32_t now = Time::getCurtime();
   MAP_FOREACH_LED(MAP_OUTER_RING) {
-    Leds::breatheIndex(pos, hue, (now / 2), 8, 255, 50);
-    hue += (255 / (LED_COUNT / 2));
+    uint8_t profileIdx = (uint8_t)pos % NUM_SELECTIONS;
+    RGBColor col = getProfileColor(profileIdx);
+    Leds::breatheIndexRGB(pos, col, (now / 2), 8, 50);
   }
-  hue = 0;
   MAP_FOREACH_LED(MAP_INNER_RING) {
-    Leds::breatheIndex(pos, hue, (now / 2), 8, 255, 50);
-    hue += (255 / (LED_COUNT / 2));
+    uint8_t profileIdx = (uint8_t)pos % NUM_SELECTIONS;
+    RGBColor col = getProfileColor(profileIdx);
+    Leds::breatheIndexRGB(pos, col, (now / 2), 8, 50);
   }
   Leds::blinkIndex((LedPos)m_curSelection);
   Leds::blinkIndex((LedPos)(m_curSelection + 10));
@@ -105,4 +104,35 @@ void MainMenu::select()
     Modes::setDefaults();
   }
   DEBUG_LOGF("Selected storage page: %u", m_curSelection);
+}
+
+RGBColor MainMenu::getProfileColor(uint8_t index)
+{
+  if (index >= NUM_SELECTIONS) {
+    return RGB_OFF;
+  }
+  return m_profileColors[index];
+}
+
+bool MainMenu::setProfileColor(uint8_t index, RGBColor color)
+{
+  if (index >= NUM_SELECTIONS) {
+    return false;
+  }
+  m_profileColors[index] = color;
+  return true;
+}
+
+void MainMenu::setDefaultProfileColors()
+{
+  m_profileColors[0]  = RGB_RED;
+  m_profileColors[1]  = RGB_ORANGE;
+  m_profileColors[2]  = RGB_YELLOW;
+  m_profileColors[3]  = RGB_GREEN;
+  m_profileColors[4]  = RGB_CYAN;
+  m_profileColors[5]  = RGB_BLUE;
+  m_profileColors[6]  = RGB_PURPLE;
+  m_profileColors[7]  = RGB_MAGENTA;
+  m_profileColors[8]  = RGB_PINK;
+  m_profileColors[9]  = RGB_WHITE;
 }

@@ -100,6 +100,9 @@ public:
     uint32_t magnitude = 15, uint8_t sat = 255, uint8_t val = 210);
   static void breatheRange(LedPos first, LedPos last, uint8_t hue, uint32_t variance,
     uint32_t magnitude = 15, uint8_t sat = 255, uint8_t val = 210);
+  // breathe an RGB color on an index using its hue for modulation
+  static void breatheIndexRGB(LedPos target, RGBColor col, uint32_t variance,
+    uint32_t magnitude = 15, uint8_t val = 210);
   static void breatheIndexSat(LedPos target, uint8_t hue, uint32_t variance,
     uint32_t magnitude = 15, uint8_t sat = 255, uint8_t val = 210);
   static void breatheIndexVal(LedPos target, uint8_t hue, uint32_t variance,

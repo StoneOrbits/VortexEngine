@@ -259,6 +259,12 @@ void Leds::breatheIndex(LedPos target, uint8_t hue, uint32_t variance, uint32_t 
   setIndex(target, HSVColor((uint8_t)(hue + ((sin(variance * 0.0174533) + 1) * magnitude)), sat, val));
 }
 
+void Leds::breatheIndexRGB(LedPos target, RGBColor col, uint32_t variance, uint32_t magnitude, uint8_t val)
+{
+  HSVColor hsv(col);
+  setIndex(target, HSVColor((uint8_t)(hsv.hue + ((sin(variance * 0.0174533) + 1) * magnitude)), hsv.sat, val));
+}
+
 void Leds::breatheRange(LedPos first, LedPos last, uint8_t hue, uint32_t variance, uint32_t magnitude, uint8_t sat, uint8_t val)
 {
   setRange(first, last, HSVColor((uint8_t)(hue + ((sin(variance * 0.0174533) + 1) * magnitude)), sat, val));

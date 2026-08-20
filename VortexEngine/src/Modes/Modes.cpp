@@ -12,6 +12,7 @@
 #include "../Buttons/Buttons.h"
 #include "../Time/Timings.h"
 #include "../Menus/Menus.h"
+#include "../Menus/MainMenu.h"
 #include "../Modes/Mode.h"
 #include "../Leds/Leds.h"
 #include "../Log/Log.h"
@@ -278,6 +279,12 @@ bool Modes::serializeSaveHeader(ByteStream &saveBuffer)
   if (!saveBuffer.serialize8((uint8_t)Leds::getBrightness())) {
     return false;
   }
+  // serialize profile colors for main menu display
+  for (uint8_t i = 0; i < NUM_SELECTIONS; ++i) {
+    if (!MainMenu::getProfileColor(i).serialize(saveBuffer)) {
+      return false;
+    }
+  }
   DEBUG_LOGF("Serialized all modes, uncompressed size: %u", saveBuffer.size());
   return true;
 }
@@ -318,6 +325,19 @@ bool Modes::unserializeSaveHeader(ByteStream &saveHeader)
   }
   if (brightness) {
     Leds::setBrightness(brightness);
+  }
+  // unserialize profile colors for main menu display (added in v1.6)
+  if (minor >= 6) {
+    for (uint8_t i = 0; i < NUM_SELECTIONS; ++i) {
+      RGBColor col;
+      if (!col.unserialize(saveHeader)) {
+        MainMenu::setDefaultProfileColors();
+        return true;
+      }
+      MainMenu::setProfileColor(i, col);
+    }
+  } else {
+    MainMenu::setDefaultProfileColors();
   }
   return true;
 }
@@ -402,6 +422,7 @@ bool Modes::setDefaults()
     Colorset set(def.numColors, def.cols);
     addMode(def.patternID, nullptr, &set);
   }
+  MainMenu::setDefaultProfileColors();
   return true;
 }
 

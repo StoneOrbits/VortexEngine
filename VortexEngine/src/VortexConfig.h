@@ -17,7 +17,7 @@
 // and vice versa. But an engine on 2.0 cannot share savefiles with
 // either of the engines on version 1.1 or 1.2
 #ifndef VORTEX_VERSION_MINOR
-#define VORTEX_VERSION_MINOR  3
+#define VORTEX_VERSION_MINOR  6
 #endif
 
 // The build or patch number based on the major.minor version, this is
@@ -606,6 +606,12 @@
 
 // get the current profile of the chromadeck
 #define EDITOR_VERB_GET_PROFILE           "P"
+
+// set a profile color (index + RGB)
+#define EDITOR_VERB_SET_PROFILE_COLOR     "Q"
+
+// get all profile colors
+#define EDITOR_VERB_GET_PROFILE_COLOR     "R"
 
 // ===================================================================
 //  Manually Configured Sizes
