@@ -326,6 +326,7 @@ void set_terminal_nonblocking()
 }
 #else
 static struct termios orig_term_attr = {0};
+static int orig_stdin_flags = -1;
 static bool s_terminalNonblock = false;
 static void restore_terminal()
 {
@@ -335,6 +336,13 @@ static void restore_terminal()
     return;
   }
   tcsetattr(STDIN_FILENO, TCSANOW, &orig_term_attr);
+  // clear O_NONBLOCK as well, restoring the termios alone is not enough:
+  // a non-blocking stdin makes any sudo password prompt fail instantly
+  // because its read() returns EAGAIN instead of waiting for input
+  if (orig_stdin_flags >= 0) {
+    fcntl(STDIN_FILENO, F_SETFL, orig_stdin_flags);
+    orig_stdin_flags = -1;
+  }
   s_terminalNonblock = false;
 }
 
@@ -360,6 +368,7 @@ void set_terminal_nonblocking()
 
   // Set the terminal to non-blocking mode
   int flags = fcntl(STDIN_FILENO, F_GETFL, 0);
+  orig_stdin_flags = flags;
   fcntl(STDIN_FILENO, F_SETFL, flags | O_NONBLOCK);
 
   s_terminalNonblock = true;
@@ -1224,8 +1233,20 @@ static int runSudoSelf(const char *modeArg)
   }
   self[n] = '\0';
 
+  // sudo has to read the (possibly interactive) password from a sane,
+  // blocking terminal. our run-loop terminal is raw + O_NONBLOCK, which
+  // makes every password prompt fail no matter what is typed, so restore
+  // the terminal for the duration of the call and re-apply it after
+  bool wasNonblock = s_terminalNonblock;
+  if (wasNonblock) {
+    restore_terminal();
+  }
+
   pid_t pid = fork();
   if (pid < 0) {
+    if (wasNonblock) {
+      set_terminal_nonblocking();
+    }
     return -1;
   }
   if (pid == 0) {
@@ -1234,7 +1255,13 @@ static int runSudoSelf(const char *modeArg)
   }
   int status = 0;
   if (waitpid(pid, &status, 0) < 0) {
+    if (wasNonblock) {
+      set_terminal_nonblocking();
+    }
     return -1;
+  }
+  if (wasNonblock) {
+    set_terminal_nonblocking();
   }
   return WIFEXITED(status) ? WEXITSTATUS(status) : -1;
 }
