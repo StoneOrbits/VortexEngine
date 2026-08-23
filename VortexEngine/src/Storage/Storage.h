@@ -20,6 +20,8 @@ public:
 
   // set the global storage page, the chromadeck has 8 pages of 16 slots each
   static void setStoragePage(uint8_t page);
+  // get the current storage page
+  static uint8_t getStoragePage();
 
   // store a serial buffer to storage
   static bool write(uint16_t slot, ByteStream &buffer);

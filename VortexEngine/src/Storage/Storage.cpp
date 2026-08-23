@@ -58,6 +58,11 @@ void Storage::setStoragePage(uint8_t page)
   m_storagePage = page;
 }
 
+uint8_t Storage::getStoragePage()
+{
+  return m_storagePage;
+}
+
 // store a serial buffer to storage
 bool Storage::write(uint16_t slot, ByteStream &buffer)
 {
