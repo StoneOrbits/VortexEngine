@@ -79,6 +79,12 @@ private:
   bool startSocatBridge();
   // called every run loop tick while waiting for a device to be plugged in
   void pollBridge();
+  // samples the modem status lines of the bridged gadget device so we can
+  // tell whether Web Serial actually opened the host-side port (DTR)
+  void updateHostConnection();
+  // whether the editor is truly reachable end-to-end: pty client attached
+  // AND (for the synthesized gadget) the browser has the port open
+  bool isEditorConnected();
 
   // these are in no particular order
   RGBColor *m_ledList;
@@ -142,6 +148,12 @@ private:
   // if the gadget itself was created by an earlier run; makes teardown remove
   // it on exit instead of leaving the ttyACM* behind
   bool m_usingVirtualGadget;
+  // the device the socat bridge relays to (ex: /dev/ttyGS0)
+  std::string m_bridgeDevice;
+  // whether any process (i.e. Web Serial in the browser) actually has the
+  // bridged device open, detected by scanning /proc/*/fd
+  bool m_hostConnected;
+  uint32_t m_hostCheckTick;
   // to pipe stuff into the engine
   int m_pipe_fd[2];
   int m_saved_stdin;

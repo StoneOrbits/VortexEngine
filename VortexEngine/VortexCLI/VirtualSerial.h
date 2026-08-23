@@ -13,18 +13,15 @@
 //
 //   BACKEND_PTY     create a pty (/dev/pts/N) that any serial tool can open.
 //                   This is the default and works everywhere without root.
-//                   The engine treats it as connected whenever a client has
-//                   the slave side open. Web Serial cannot see the pty itself,
-//                   so the pty is bridged to a real serial port with socat
-//                   (a USB-TTL dongle the browser can enumerate).
+//                   The port is only 'connected' while a client actually has
+//                   the slave side open (the master reports POLLHUP whenever
+//                   nothing has it open). Web Serial cannot see the pty
+//                   itself, so the pty is bridged to a real serial port with
+//                   socat (a USB-TTL dongle or a synthesized USB gadget).
 //
-// Because the browser may connect to the virtual device at any time (long
-// after the engine has already sent its one-time greeting), the port re-sends
-// the greeting periodically until the client sends its first command. Once a
-// command is received the replay stops so it can never corrupt an active
-// editor session. The replay is also capped at a fixed window after the last
-// connect event to keep stale greetings from piling up in the browser's
-// buffer while the user idles.
+// Nothing is ever sent until a client is attached: the engine detects the
+// connection through the normal isConnected()/checkSerial() flow and sends
+// its greeting exactly once per connect, just like real firmware.
 class VirtualSerial
 {
 public:
@@ -60,6 +57,9 @@ public:
   // the display name of the port (ex: /dev/pts/3)
   const char *path() const { return m_path.c_str(); }
 
+  // echo all tx/rx serial traffic to the console for debugging
+  void setLogTraffic(bool log) { m_logTraffic = log; }
+
 private:
   bool initPty();
 
@@ -69,22 +69,19 @@ private:
   void flushTx();
   // read any available bytes from the port into the rx buffer
   void drainRx();
-  // capture and replay the greeting until the client sends a command
-  void handleGreeting();
-  // write raw bytes straight out to the port (bypasses the tx buffer)
-  void sendBytes(const uint8_t *data, size_t amt);
 
   Backend m_backend;
   int m_fd;         // master pty fd
   bool m_hasClient;
-  bool m_seenClientCommand;
-  bool m_sawPtyHup;
-  uint32_t m_lastGreet;
-  uint32_t m_replayStart;
+  bool m_logTraffic;
   uint32_t m_baud;
   std::string m_path;
 
   std::vector<uint8_t> m_rx;
   std::vector<uint8_t> m_tx;
-  std::vector<uint8_t> m_greeting;
+  // rolling window of recently transmitted bytes so anything that comes back
+  // byte-for-byte identical (pty/tty line discipline echo, gadget quirks)
+  // can be recognized and dropped instead of being fed to the engine as
+  // fake editor input
+  std::vector<uint8_t> m_recentTx;
 };

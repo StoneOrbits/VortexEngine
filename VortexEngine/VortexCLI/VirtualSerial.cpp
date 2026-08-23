@@ -14,19 +14,54 @@
 #include <time.h>
 #include <stdio.h>
 
-// how often to replay the greeting while waiting for the client's first command
-#define GREETING_REPLAY_INTERVAL_MS 500
 // hard cap on the rx/tx buffers so a stuck client can't grow them forever
 #define VIRTUAL_SERIAL_BUFFER_MAX (1 << 20)
+// how many recently transmitted bytes to keep for echo detection
+#define VIRTUAL_SERIAL_ECHO_WINDOW 8192
+
+// whether a received chunk is an echo of data we just sent: it must match the
+// tail of the recent tx window exactly, real editor commands are single
+// letters and can never collide with our own (much longer) messages
+static bool isEcho(const std::vector<uint8_t> &recentTx, const uint8_t *data, size_t amt)
+{
+  if (!amt || amt > recentTx.size()) {
+    return false;
+  }
+  return memcmp(&recentTx[recentTx.size() - amt], data, amt) == 0;
+}
+
+// echo one chunk of serial traffic to the console, printable bytes are shown
+// as-is and everything else is escaped so binary payloads stay readable
+static void logTraffic(const char *dir, const uint8_t *data, size_t amt)
+{
+  if (!amt) {
+    return;
+  }
+  printf("[%s] ", dir);
+  for (size_t i = 0; i < amt; ++i) {
+    uint8_t c = data[i];
+    switch (c) {
+    case '\n': printf("\\n"); break;
+    case '\r': printf("\\r"); break;
+    case '\t': printf("\\t"); break;
+    default:
+      if (c >= 0x20 && c < 0x7F) {
+        putchar(c);
+      } else {
+        printf("\\x%02X", c);
+      }
+      break;
+    }
+  }
+  printf("\n");
+  fflush(stdout);
+}
 
 VirtualSerial::VirtualSerial() :
   m_backend(BACKEND_PTY),
   m_fd(-1),
   m_hasClient(false),
-  m_seenClientCommand(false),
-  m_sawPtyHup(false),
-  m_lastGreet(0),
-  m_replayStart(0),
+  m_logTraffic(false),
   m_baud(115200)
 {
 }
@@ -36,18 +71,9 @@ VirtualSerial::~VirtualSerial()
   cleanup();
 }
 
-static uint32_t virtualSerialTicks()
-{
-  struct timespec ts;
-  clock_gettime(CLOCK_MONOTONIC, &ts);
-  return (uint32_t)((ts.tv_sec * 1000) + (ts.tv_nsec / 1000000));
-}
-
 bool VirtualSerial::init(Backend backend)
 {
   m_backend = backend;
-  m_lastGreet = virtualSerialTicks();
-  m_replayStart = m_lastGreet;
   switch (m_backend) {
   case BACKEND_PTY:
     return initPty();
@@ -62,12 +88,9 @@ void VirtualSerial::cleanup()
   }
   m_fd = -1;
   m_hasClient = false;
-  m_seenClientCommand = false;
-  m_sawPtyHup = false;
-  m_replayStart = 0;
   m_rx.clear();
   m_tx.clear();
-  m_greeting.clear();
+  m_recentTx.clear();
 }
 
 // ---------------------------------------------------------------------------
@@ -110,9 +133,9 @@ bool VirtualSerial::initPty()
   }
   m_fd = master;
   m_path = name;
-  // a pty master has no way to know if a slave is open before the first
-  // slave ever opens, so treat it as connected from the start
-  m_hasClient = true;
+  // the port starts disconnected: nothing is ever sent until a client has
+  // the slave side open, pumpPty() detects that through the master's HUP
+  m_hasClient = false;
   return true;
 #endif
 }
@@ -126,7 +149,6 @@ void VirtualSerial::poll()
   pumpPty();
   flushTx();
   drainRx();
-  handleGreeting();
 }
 
 void VirtualSerial::pumpPty()
@@ -141,18 +163,10 @@ void VirtualSerial::pumpPty()
   if (::poll(&pfd, 1, 0) < 0) {
     return;
   }
-  if (pfd.revents & POLLHUP) {
-    // every slave fd has closed, the client is gone
-    m_hasClient = false;
-    m_sawPtyHup = true;
-    m_seenClientCommand = false;
-  } else if (m_sawPtyHup) {
-    // a new slave opened up, treat it as a fresh connection
-    m_hasClient = true;
-    m_seenClientCommand = false;
-    // restart the greeting replay window for the new client
-    m_replayStart = virtualSerialTicks();
-  }
+  // a pty master reports HUP/ERR whenever nothing has the slave side open,
+  // including before the very first client connects, so this is an accurate
+  // live view of whether anyone is actually attached to the port
+  m_hasClient = !(pfd.revents & (POLLHUP | POLLERR));
 #endif
 }
 
@@ -195,7 +209,6 @@ void VirtualSerial::drainRx()
         close(m_fd);
         m_fd = -1;
         m_hasClient = false;
-        m_seenClientCommand = false;
       }
       return;
     }
@@ -216,8 +229,18 @@ void VirtualSerial::drainRx()
       size_t over = (m_rx.size() + (size_t)got) - VIRTUAL_SERIAL_BUFFER_MAX;
       m_rx.erase(m_rx.begin(), m_rx.begin() + over);
     }
+    // drop our own data bouncing back off the line before it can poison the
+    // engine's receive buffer or be mistaken for an editor command
+    if (isEcho(m_recentTx, buf, (size_t)got)) {
+      if (m_logTraffic) {
+        logTraffic("ECHO", buf, (size_t)got);
+      }
+      continue;
+    }
     m_rx.insert(m_rx.end(), buf, buf + got);
-    m_seenClientCommand = true;
+    if (m_logTraffic) {
+      logTraffic("RX", buf, (size_t)got);
+    }
   }
 #endif
 }
@@ -239,57 +262,17 @@ size_t VirtualSerial::read(char *buf, size_t amt)
 
 uint32_t VirtualSerial::write(const uint8_t *buf, size_t amt)
 {
-  // capture the one-time greeting so we can replay it for late connecting
-  // clients, only grab the first one that looks like the device greeting
-  if (m_greeting.empty() && amt >= 3 && buf[0] == '=' && buf[1] == '=' && buf[2] == ' ') {
-    m_greeting.assign(buf, buf + amt);
-    // re-send it immediately so a fresh client gets it right away
-    sendBytes(m_greeting.data(), m_greeting.size());
-    return (uint32_t)amt;
+  if (m_logTraffic) {
+    logTraffic("TX", buf, amt);
+  }
+  // remember what we sent so anything identical that comes back is detected
+  m_recentTx.insert(m_recentTx.end(), buf, buf + amt);
+  if (m_recentTx.size() > VIRTUAL_SERIAL_ECHO_WINDOW) {
+    m_recentTx.erase(m_recentTx.begin(), m_recentTx.end() - VIRTUAL_SERIAL_ECHO_WINDOW);
   }
   if (m_tx.size() + amt > VIRTUAL_SERIAL_BUFFER_MAX) {
     amt = VIRTUAL_SERIAL_BUFFER_MAX - m_tx.size();
   }
   m_tx.insert(m_tx.end(), buf, buf + amt);
   return (uint32_t)amt;
-}
-
-void VirtualSerial::sendBytes(const uint8_t *data, size_t amt)
-{
-#ifndef WASM
-  if (!m_hasClient) {
-    return;
-  }
-  while (amt > 0) {
-#ifdef _WIN32
-    ssize_t written = send(m_fd, data, amt, 0);
-#else
-    ssize_t written = ::write(m_fd, data, amt);
-#endif
-    if (written < 0) {
-      if (errno == EAGAIN || errno == EWOULDBLOCK || errno == EIO) {
-        return;
-      }
-      return;
-    }
-    data += written;
-    amt -= (size_t)written;
-  }
-#endif
-}
-
-void VirtualSerial::handleGreeting()
-{
-  // until the client sends its first command the engine has no way to know
-  // when the editor actually connected, so re-send the greeting on an interval
-  // so that the editor sees the device no matter when it opens the port. there
-  // is no time cap: the browser can connect at any time after the tool starts,
-  // and the replay only stops once the client sends a real command.
-  if (m_hasClient && !m_seenClientCommand) {
-    uint32_t now = virtualSerialTicks();
-    if (!m_greeting.empty() && (now - m_lastGreet) >= GREETING_REPLAY_INTERVAL_MS) {
-      m_lastGreet = now;
-      sendBytes(m_greeting.data(), m_greeting.size());
-    }
-  }
 }

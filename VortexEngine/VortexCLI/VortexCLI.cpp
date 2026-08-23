@@ -194,6 +194,9 @@ VortexCLI::VortexCLI() :
   m_bridgeScanTick(0),
   m_gadgetAttempted(false),
   m_gadgetReady(false),
+  m_bridgeDevice(),
+  m_hostConnected(false),
+  m_hostCheckTick(0),
   m_pipe_fd{-1, -1},
   m_saved_stdin(),
   m_inputBuffer()
@@ -290,8 +293,9 @@ static void print_usage(const char* program_name)
   fprintf(stderr, "                           editor can connect to it like a real USB device. Creates a pty and\n");
   fprintf(stderr, "                           auto-bridges it to a USB serial port with socat so the browser's\n");
   fprintf(stderr, "                           Web Serial can enumerate it as a real COM port. With no hardware\n");
-  fprintf(stderr, "                           present it synthesizes one in the kernel (needs sudo once per boot).\n");
-  fprintf(stderr, "                           When no output option is given this implies --silent.\n");
+    fprintf(stderr, "                           present it synthesizes one in the kernel (needs sudo once per boot).\n");
+    fprintf(stderr, "                           When no output option is given this implies --silent.\n");
+    fprintf(stderr, "                           All serial traffic is echoed to the console as [TX]/[RX].\n");
   fprintf(stderr, "\n");
   fprintf(stderr, "Other Options:\n");
   fprintf(stderr, "  -h, --help               Display this help message\n");
@@ -691,6 +695,9 @@ bool VortexCLI::init(int argc, char *argv[])
       exit(2);
     }
     m_virtualSerial = new VirtualSerial();
+    // echo all serial traffic to the console so the editor protocol can be
+    // observed live while the editor connection menu runs
+    m_virtualSerial->setLogTraffic(true);
     if (!m_virtualSerial->init(VirtualSerial::BACKEND_PTY)) {
       printf("Failed to create virtual serial port\n");
       exit(2);
@@ -736,6 +743,9 @@ void VortexCLI::run()
     // keep the socat bridge alive: retry if no device was present at startup
     // or restart it if the device was unplugged
     pollBridge();
+    // watch for Web Serial actually opening/closing the host-side port so
+    // the engine only ever sees a connected editor when one truly is
+    updateHostConnection();
   }
   if (!Vortex::tick() || m_quickExit) {
     cleanup();
@@ -812,6 +822,7 @@ void VortexCLI::cleanup()
     delete m_virtualSerial;
     m_virtualSerial = nullptr;
   }
+  m_hostConnected = false;
   // tear down the virtual USB gadget (ttyACM*) that was synthesized for the
   // editor bridge, so it doesn't linger after the tool exits
   teardownVirtualGadget();
@@ -926,7 +937,9 @@ void VortexCLI::VortexCLICallbacks::ledsShow()
 
 bool VortexCLI::VortexCLICallbacks::serialCheck()
 {
-  return g_pVortexCLI->m_virtualSerial && g_pVortexCLI->m_virtualSerial->hasClient();
+  // must respect the full end-to-end link state, not just whether socat has
+  // the pty open, otherwise the engine latches 'connected' before Web Serial
+  return g_pVortexCLI->isEditorConnected();
 }
 
 void VortexCLI::VortexCLICallbacks::serialBegin(uint32_t baud)
@@ -950,7 +963,7 @@ uint32_t VortexCLI::VortexCLICallbacks::serialWrite(const uint8_t *buf, size_t a
 
 bool VortexCLI::VortexCLICallbacks::serialConnectedReal()
 {
-  return g_pVortexCLI->m_virtualSerial && g_pVortexCLI->m_virtualSerial->hasClient();
+  return g_pVortexCLI->isEditorConnected();
 }
 
 // ---------------------------------------------------------------------------
@@ -1405,6 +1418,7 @@ bool VortexCLI::startSocatBridge()
   }
   m_socatPid = pid;
   m_bridgeStarted = true;
+  m_bridgeDevice = device;
   printf("Bridging %s to %s via socat\n", m_virtualSerial->path(), device.c_str());
   return true;
 #endif
@@ -1433,6 +1447,92 @@ void VortexCLI::pollBridge()
   m_bridgeScanTick = now;
   startSocatBridge();
 #endif
+}
+
+void VortexCLI::updateHostConnection()
+{
+#ifndef WASM
+  if (!m_bridgeStarted || m_bridgeDevice.empty()) {
+    // nothing is bridged yet, so nobody can possibly be attached
+    m_hostConnected = false;
+    return;
+  }
+  // don't rescan /proc on every tick
+  uint32_t now = Time::getCurtime();
+  if (m_hostCheckTick && (now - m_hostCheckTick) < 100) {
+    return;
+  }
+  m_hostCheckTick = now;
+  // the browser opens the HOST side of the gadget (/dev/ttyACM*) while socat
+  // holds the DEVICE side (/dev/ttyGS*), so every node that counts as
+  // 'someone is attached' has to be collected first: the bridged device plus
+  // (when bridging our own gadget) every real ttyACM it exposes to the host
+  std::vector<std::string> nodes;
+  nodes.push_back(m_bridgeDevice);
+  if (m_bridgeDevice.compare(0, 10, "/dev/ttyGS") == 0) {
+    for (int i = 0; i < 32; ++i) {
+      char acm[64];
+      snprintf(acm, sizeof(acm), "/dev/ttyACM%d", i);
+      if (access(acm, F_OK) == 0 && ttyUsbVendor(acm + 5) != "28de") {
+        nodes.push_back(acm);
+      }
+    }
+  }
+  // the only reliable way to know whether Web Serial actually opened the
+  // port: check whether any process holds the device node open. the gadget
+  // kernels don't expose the host's DTR through TIOCMGET, and the browser
+  // is just another local process anyway
+  bool opened = false;
+  if (DIR *proc = opendir("/proc")) {
+    while (struct dirent *e = readdir(proc)) {
+      if (e->d_name[0] < '0' || e->d_name[0] > '9') {
+        continue;
+      }
+      int pid = atoi(e->d_name);
+      // skip ourselves and our own socat bridge, socat obviously has the
+      // bridged device open but it isn't the editor
+      if (pid == m_socatPid || pid == (int)getpid()) {
+        continue;
+      }
+      std::string fddir = std::string("/proc/") + e->d_name + "/fd";
+      DIR *fds = opendir(fddir.c_str());
+      if (!fds) {
+        continue; // permission denied (other users' processes) etc
+      }
+      while (struct dirent *f = readdir(fds)) {
+        char target[256];
+        ssize_t len = readlink((fddir + "/" + f->d_name).c_str(), target, sizeof(target) - 1);
+        if (len <= 0) {
+          continue;
+        }
+        target[len] = '\0';
+        for (const std::string &node : nodes) {
+          if (node == target) {
+            opened = true;
+            break;
+          }
+        }
+        if (opened) {
+          break;
+        }
+      }
+      closedir(fds);
+      if (opened) {
+        break;
+      }
+    }
+    closedir(proc);
+  }
+  m_hostConnected = opened;
+#endif
+}
+
+bool VortexCLI::isEditorConnected()
+{
+  if (!m_virtualSerial || !m_virtualSerial->hasClient()) {
+    return false;
+  }
+  return m_hostConnected;
 }
 
 // main function to run the CLI
