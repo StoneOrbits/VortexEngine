@@ -1,0 +1,8 @@
+# Name,   Type, SubType, Offset,  Size
+# expanded nvs storage region for the global save header plus all profile
+# mode slots, the default arduino layout only gives nvs 20K which cannot
+# hold a fully loaded deck
+nvs,      data, nvs,     0x9000,  0x20000,
+otadata,  data, ota,     0x29000, 0x2000,
+app0,     app,  ota_0,   0x30000, 0x1CE000,
+spiffs,   data, spiffs,  0x1FE000,0x202000,

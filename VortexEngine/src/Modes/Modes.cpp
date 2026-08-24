@@ -37,11 +37,12 @@ bool Modes::init()
   test();
   return true;
 #endif
-  ByteStream headerBuffer;
   // the save header is stored in the global storage space because it
   // contains device-wide settings shared by all profiles
-  Storage::readGlobal(headerBuffer);
-  unserializeSaveHeader(headerBuffer);
+  if (!loadHeader()) {
+    // write a new save header
+    saveHeader();
+  }
   m_loaded = false;
 #ifdef VORTEX_LIB
   // enable the adv menus by default in vortex lib
@@ -756,8 +757,8 @@ bool Modes::setFlag(uint8_t flag, bool enable, bool save)
     uint8_t vMajor;
     uint8_t vMinor;
     uint8_t globalFlags;
-    uint8_t brightness;
-    uint8_t numModes;
+    // brightness comes after
+    // then the profile colors
   };
   // data cannot be NULL since size is non zero
   SaveHeader *pHeader = (SaveHeader *)headerBuffer.data();
