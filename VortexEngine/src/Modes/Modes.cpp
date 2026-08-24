@@ -38,7 +38,9 @@ bool Modes::init()
   return true;
 #endif
   ByteStream headerBuffer;
-  Storage::read(0, headerBuffer);
+  // the save header is stored in the global storage space because it
+  // contains device-wide settings shared by all profiles
+  Storage::readGlobal(headerBuffer);
   unserializeSaveHeader(headerBuffer);
   m_loaded = false;
 #ifdef VORTEX_LIB
@@ -145,11 +147,11 @@ bool Modes::saveHeader()
   if (!serializeSaveHeader(headerBuffer)) {
     return false;
   }
-  // serialize the number of modes
-  if (!headerBuffer.serialize8(m_numModes)) {
-    return false;
-  }
-  if (!Storage::write(0, headerBuffer)) {
+  // NOTE: the save header does not contain the number of modes anymore,
+  //       that is stored in the mode header of each storage page instead
+  // the save header is written to the global storage space so that it is
+  // shared by all profiles instead of being duplicated in each one
+  if (!Storage::writeGlobal(headerBuffer)) {
     return false;
   }
   return true;
@@ -159,20 +161,15 @@ bool Modes::loadHeader()
 {
   ByteStream headerBuffer;
   // only read storage if the modebuffer isn't filled
-  if (!Storage::read(0, headerBuffer) || !headerBuffer.size()) {
+  if (!Storage::readGlobal(headerBuffer) || !headerBuffer.size()) {
     DEBUG_LOG("Empty buffer read from storage");
     // this kinda sucks whatever they had loaded is gone
     return false;
   }
-  // this erases what is stored before we know whether there is data
-  // but it's the easiest way to just re-load new data from storage
-  clearModes();
-  // read the header and load the data
+  // read the header
   if (!unserializeSaveHeader(headerBuffer)) {
     return false;
   }
-  // NOTE: We do not bother loading the number of modes because
-  //       we can't really do anything with it anyway
   return true;
 }
 
@@ -182,6 +179,15 @@ bool Modes::saveStorage()
 {
   DEBUG_LOG("Saving modes...");
   saveHeader();
+  // save the mode header of this page which contains the number of modes
+  // stored here, the modes themselves are saved in slots 1 and up
+  ByteStream modeHeader(MAX_MODE_SIZE);
+  if (!modeHeader.serialize8(m_numModes)) {
+    return false;
+  }
+  if (!Storage::writeModeHeader(modeHeader)) {
+    return false;
+  }
   // make sure the current mode is saved in case it has changed somehow
   saveCurMode();
   // uninstantiate cur mode so we have stack space to serialize
@@ -221,13 +227,11 @@ bool Modes::saveStorage()
 
 bool Modes::loadStorage()
 {
-  // NOTE: We could call loadHeader here but then we wouldn't have the headerBuffer
-  //       and in turn wouldn't be able to unserialize the number of modes. The number
-  //       of modes is a weird case, it's technically part of the mode list not the
-  //       header but it is stored in the same storage slot as the header
-  ByteStream headerBuffer;
-  // only read storage if the modebuffer isn't filled
-  if (!Storage::read(0, headerBuffer) || !headerBuffer.size()) {
+  // NOTE: The save header is global and was already loaded in init(), the
+  //       mode header at slot 0 of this page holds the number of modes
+  //       stored in this profile
+  ByteStream modeHeader;
+  if (!Storage::readModeHeader(modeHeader) || !modeHeader.size()) {
     DEBUG_LOG("Empty buffer read from storage");
     // this kinda sucks whatever they had loaded is gone
     return false;
@@ -235,13 +239,9 @@ bool Modes::loadStorage()
   // this erases what is stored before we know whether there is data
   // but it's the easiest way to just re-load new data from storage
   clearModes();
-  // read the header and load the data
-  if (!unserializeSaveHeader(headerBuffer)) {
-    return false;
-  }
-  // unserialize the number of modes next
+  // unserialize the number of modes out of the mode header
   uint8_t numModes = 0;
-  if (!headerBuffer.unserialize8(&numModes)) {
+  if (!modeHeader.unserialize8(&numModes)) {
     return false;
   }
   if (!numModes) {
@@ -740,8 +740,8 @@ bool Modes::setFlag(uint8_t flag, bool enable, bool save)
   }
   // otherwise need to update the global flags field of the save header in storage
   ByteStream headerBuffer;
-  // read out the storage header so we can update the flag field
-  if (!Storage::read(0, headerBuffer) || !headerBuffer.size()) {
+  // read out the global storage header so we can update the flag field
+  if (!Storage::readGlobal(headerBuffer) || !headerBuffer.size()) {
     // if cannot read the save header then just save it normally
     return saveHeader();
   }
@@ -762,8 +762,8 @@ bool Modes::setFlag(uint8_t flag, bool enable, bool save)
   // need to force the crc to recalc since we modified the data, just mark the
   // CRC as dirty and Storage::write() will re-calculate the CRC if it's dirty
   headerBuffer.setCRCDirty();
-  // write the save header back to storage
-  return Storage::write(0, headerBuffer);
+  // write the save header back to the global storage space
+  return Storage::writeGlobal(headerBuffer);
 }
 
 #ifdef VORTEX_LIB
