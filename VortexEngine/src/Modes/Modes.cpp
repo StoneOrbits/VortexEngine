@@ -37,11 +37,12 @@ bool Modes::init()
   test();
   return true;
 #endif
-  ByteStream headerBuffer;
   // the save header is stored in the global storage space because it
   // contains device-wide settings shared by all profiles
-  Storage::readGlobal(headerBuffer);
-  unserializeSaveHeader(headerBuffer);
+  if (!loadHeader()) {
+    // write a new save header
+    saveHeader();
+  }
   m_loaded = false;
 #ifdef VORTEX_LIB
   // enable the adv menus by default in vortex lib
@@ -163,15 +164,11 @@ bool Modes::loadHeader()
   // only read storage if the modebuffer isn't filled
   if (!Storage::readGlobal(headerBuffer) || !headerBuffer.size()) {
     DEBUG_LOG("Empty buffer read from storage");
-    // write a new save header
-    saveHeader();
     // this kinda sucks whatever they had loaded is gone
     return false;
   }
   // read the header
   if (!unserializeSaveHeader(headerBuffer)) {
-    // write a new save header
-    saveHeader();
     return false;
   }
   return true;

@@ -10,7 +10,6 @@
 
 bool MainMenu::m_isOpen = true;
 uint8_t MainMenu::m_curSelection = 0;
-bool MainMenu::m_loaded = false;
 RGBColor MainMenu::m_profileColors[NUM_SELECTIONS] = {};
 
 bool MainMenu::init()
@@ -18,8 +17,6 @@ bool MainMenu::init()
   // main menus start open
   m_isOpen = true;
   m_curSelection = 0;
-  // whether menu colors have been loaded
-  m_loaded = false;
   // set default profile colors to begin
   setDefaultProfileColors();
   return true;
@@ -30,16 +27,6 @@ bool MainMenu::run()
   // if the main menus aren't open then nothing to do here
   if (!m_isOpen) {
     return false;
-  }
-
-  if (!m_loaded) {
-    // if the header is corrupted or empty then it will fail to load
-    if (Modes::loadHeader()) {
-      m_loaded = true;
-    }
-    // loading save header might fail on first attempt when the header is null
-    // or corrupted, loadHeader will in turn write out a new saveHeader and
-    // this will run again and attempt to load it the second time
   }
 
   // press <
