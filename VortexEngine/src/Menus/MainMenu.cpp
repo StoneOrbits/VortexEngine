@@ -17,6 +17,8 @@ bool MainMenu::init()
   // main menus start open
   m_isOpen = true;
   m_curSelection = 0;
+  // set default profile colors to begin
+  setDefaultProfileColors();
   return true;
 }
 

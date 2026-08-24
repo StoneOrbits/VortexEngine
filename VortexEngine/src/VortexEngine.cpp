@@ -81,12 +81,12 @@ bool VortexEngine::init()
     DEBUG_LOG("Menus failed to initialize");
     return false;
   }
-  if (!Modes::init()) {
-    DEBUG_LOG("Settings failed to initialize");
-    return false;
-  }
   if (!MainMenu::init()) {
     DEBUG_LOG("Main menu failed to initialize");
+    return false;
+  }
+  if (!Modes::init()) {
+    DEBUG_LOG("Settings failed to initialize");
     return false;
   }
   if (!UPDI::init()) {
