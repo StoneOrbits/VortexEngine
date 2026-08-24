@@ -163,11 +163,15 @@ bool Modes::loadHeader()
   // only read storage if the modebuffer isn't filled
   if (!Storage::readGlobal(headerBuffer) || !headerBuffer.size()) {
     DEBUG_LOG("Empty buffer read from storage");
+    // write a new save header
+    saveHeader();
     // this kinda sucks whatever they had loaded is gone
     return false;
   }
   // read the header
   if (!unserializeSaveHeader(headerBuffer)) {
+    // write a new save header
+    saveHeader();
     return false;
   }
   return true;
@@ -756,8 +760,8 @@ bool Modes::setFlag(uint8_t flag, bool enable, bool save)
     uint8_t vMajor;
     uint8_t vMinor;
     uint8_t globalFlags;
-    uint8_t brightness;
-    uint8_t numModes;
+    // brightness comes after
+    // then the profile colors
   };
   // data cannot be NULL since size is non zero
   SaveHeader *pHeader = (SaveHeader *)headerBuffer.data();

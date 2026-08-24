@@ -33,8 +33,13 @@ bool MainMenu::run()
   }
 
   if (!m_loaded) {
-    Modes::loadHeader();
-    m_loaded = true;
+    // if the header is corrupted or empty then it will fail to load
+    if (Modes::loadHeader()) {
+      m_loaded = true;
+    }
+    // loading save header might fail on first attempt when the header is null
+    // or corrupted, loadHeader will in turn write out a new saveHeader and
+    // this will run again and attempt to load it the second time
   }
 
   // press <
