@@ -227,9 +227,14 @@ bool Modes::saveStorage()
 
 bool Modes::loadStorage()
 {
-  // NOTE: The save header is global and was already loaded in init(), the
-  //       mode header at slot 0 of this page holds the number of modes
-  //       stored in this profile
+  // NOTE: The save header lives in the global storage space and none of the
+  //       modes below need anything from it, but loading the save header is
+  //       part of loading storage so the device-wide settings are refreshed
+  if (!loadHeader()) {
+    return false;
+  }
+  // the mode header at slot 0 of this page holds the number of modes
+  // stored in this profile
   ByteStream modeHeader;
   if (!Storage::readModeHeader(modeHeader) || !modeHeader.size()) {
     DEBUG_LOG("Empty buffer read from storage");
