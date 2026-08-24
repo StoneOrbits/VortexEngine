@@ -427,7 +427,6 @@ bool Modes::setDefaults()
     Colorset set(def.numColors, def.cols);
     addMode(def.patternID, nullptr, &set);
   }
-  MainMenu::setDefaultProfileColors();
   return true;
 }
 
