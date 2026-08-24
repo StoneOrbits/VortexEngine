@@ -31,6 +31,7 @@ public:
 private:
   static bool m_isOpen;
   static uint8_t m_curSelection;
+  static bool m_loaded;
 };
 
 #endif

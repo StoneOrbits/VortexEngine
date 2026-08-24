@@ -10,6 +10,7 @@
 
 bool MainMenu::m_isOpen = true;
 uint8_t MainMenu::m_curSelection = 0;
+bool MainMenu::m_loaded = false;
 RGBColor MainMenu::m_profileColors[NUM_SELECTIONS] = {};
 
 bool MainMenu::init()
@@ -17,6 +18,8 @@ bool MainMenu::init()
   // main menus start open
   m_isOpen = true;
   m_curSelection = 0;
+  // whether menu colors have been loaded
+  m_loaded = false;
   // set default profile colors to begin
   setDefaultProfileColors();
   return true;
@@ -27,6 +30,11 @@ bool MainMenu::run()
   // if the main menus aren't open then nothing to do here
   if (!m_isOpen) {
     return false;
+  }
+
+  if (!m_loaded) {
+    Modes::loadHeader();
+    m_loaded = true;
   }
 
   // press <
