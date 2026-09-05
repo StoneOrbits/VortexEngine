@@ -76,9 +76,9 @@ LIBS=\
 # source files
 # local source files first, other sources after
 ifeq ($(OS),Windows_NT)
-    SRC = VortexCLI.cpp
+    SRC = VortexCLI.cpp VirtualSerial.cpp
 else
-    SRC = VortexCLI.cpp
+    SRC = VortexCLI.cpp VirtualSerial.cpp
 endif
 
 # object files are source files with .c replaced with .o

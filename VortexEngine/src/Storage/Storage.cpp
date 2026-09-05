@@ -153,7 +153,13 @@ bool Storage::write(uint16_t slot, ByteStream &buffer)
   }
   CloseHandle(hFile);
 #else
-  FILE *f = fopen(STORAGE_FILENAME, "w");
+  // open without truncating: the file holds every profile's data and only a
+  // slot-sized region is rewritten, "w" would wipe all other profiles
+  FILE *f = fopen(STORAGE_FILENAME, "r+");
+  if (!f) {
+    // fresh file, nothing to preserve yet
+    f = fopen(STORAGE_FILENAME, "w+");
+  }
   if (!f) {
     return false;
   }

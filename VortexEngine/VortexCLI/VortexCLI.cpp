@@ -18,8 +18,13 @@
 #include <getopt.h>
 #include <stdlib.h>
 #include <string.h>
+#include <errno.h>
 #include <fcntl.h>
 #include <stdio.h>
+#include <signal.h>
+#include <sys/stat.h>
+#include <sys/wait.h>
+#include <dirent.h>
 
 #include "VortexCLI.h"
 
@@ -43,6 +48,22 @@
 #define RECORD_FILE "recorded_input.txt"
 
 VortexCLI *g_pVortexCLI = nullptr;
+
+// set when SIGINT/SIGTERM is caught so the main loop can wind down cleanly and
+// tear down the virtual USB gadget before the process exits
+static volatile sig_atomic_t s_signalExit = 0;
+
+static void handle_signal(int sig)
+{
+  if (s_signalExit) {
+    // the graceful wind-down is already under way; a second signal means the
+    // user is impatient, so restore the default action and let the OS kill us
+    signal(sig, SIG_DFL);
+    raise(sig);
+    return;
+  }
+  s_signalExit = 1;
+}
 
 using namespace std;
 
@@ -166,6 +187,16 @@ VortexCLI::VortexCLI() :
   m_patternIDStr(),
   m_colorsetStr(),
   m_argumentsStr(),
+  m_editorMode(false),
+  m_virtualSerial(nullptr),
+  m_bridgeStarted(false),
+  m_socatPid(-1),
+  m_bridgeScanTick(0),
+  m_gadgetAttempted(false),
+  m_gadgetReady(false),
+  m_bridgeDevice(),
+  m_hostConnected(false),
+  m_hostCheckTick(0),
   m_pipe_fd{-1, -1},
   m_saved_stdin(),
   m_inputBuffer()
@@ -197,6 +228,7 @@ static struct option long_options[] = {
   {"pattern", required_argument, nullptr, 'P'},
   {"colorset", required_argument, nullptr, 'C'},
   {"arguments", required_argument, nullptr, 'A'},
+  {"editor", no_argument, nullptr, 'e'},
   {"help", no_argument, nullptr, 'h'},
   {nullptr, 0, nullptr, 0}
 };
@@ -256,6 +288,15 @@ static void print_usage(const char* program_name)
   fprintf(stderr, "  -C, --colorset c1,c2...  Preset the colorset on the first mode (csv list of hex codes or color names)\n");
   fprintf(stderr, "  -A, --arguments a1,a2... Preset the arguments on the first mode (csv list of arguments)\n");
   fprintf(stderr, "\n");
+  fprintf(stderr, "Virtual Device (optional):\n");
+  fprintf(stderr, "  -e, --editor             Expose the engine as a virtual serial device so the lightshow.lol\n");
+  fprintf(stderr, "                           editor can connect to it like a real USB device. Creates a pty and\n");
+  fprintf(stderr, "                           auto-bridges it to a USB serial port with socat so the browser's\n");
+  fprintf(stderr, "                           Web Serial can enumerate it as a real COM port. With no hardware\n");
+    fprintf(stderr, "                           present it synthesizes one in the kernel (needs sudo once per boot).\n");
+    fprintf(stderr, "                           When no output option is given this implies --silent.\n");
+    fprintf(stderr, "                           All serial traffic is echoed to the console as [TX]/[RX].\n");
+  fprintf(stderr, "\n");
   fprintf(stderr, "Other Options:\n");
   fprintf(stderr, "  -h, --help               Display this help message\n");
   fprintf(stderr, "\n");
@@ -289,9 +330,24 @@ void set_terminal_nonblocking()
 }
 #else
 static struct termios orig_term_attr = {0};
+static int orig_stdin_flags = -1;
+static bool s_terminalNonblock = false;
 static void restore_terminal()
 {
+  // only restore if we actually put the terminal into non-blocking mode;
+  // otherwise orig_term_attr is all zeros and would clobber a sane terminal
+  if (!s_terminalNonblock) {
+    return;
+  }
   tcsetattr(STDIN_FILENO, TCSANOW, &orig_term_attr);
+  // clear O_NONBLOCK as well, restoring the termios alone is not enough:
+  // a non-blocking stdin makes any sudo password prompt fail instantly
+  // because its read() returns EAGAIN instead of waiting for input
+  if (orig_stdin_flags >= 0) {
+    fcntl(STDIN_FILENO, F_SETFL, orig_stdin_flags);
+    orig_stdin_flags = -1;
+  }
+  s_terminalNonblock = false;
 }
 
 void set_terminal_nonblocking()
@@ -316,7 +372,10 @@ void set_terminal_nonblocking()
 
   // Set the terminal to non-blocking mode
   int flags = fcntl(STDIN_FILENO, F_GETFL, 0);
+  orig_stdin_flags = flags;
   fcntl(STDIN_FILENO, F_SETFL, flags | O_NONBLOCK);
+
+  s_terminalNonblock = true;
 
   // Register the restore_terminal function to be called at exit
   atexit(restore_terminal);
@@ -351,6 +410,13 @@ bool VortexCLI::init(int argc, char *argv[])
   }
   g_pVortexCLI = this;
 
+  // catch ctrl-c / SIGTERM so cleanup() runs (and the virtual USB gadget is
+  // torn down) instead of the process just being killed
+#ifndef WASM
+  signal(SIGINT, handle_signal);
+  signal(SIGTERM, handle_signal);
+#endif
+
   if (argc == 1) {
     print_usage(argv[0]);
     exit(1);
@@ -358,7 +424,7 @@ bool VortexCLI::init(int argc, char *argv[])
 
   int opt = -1;
   int option_index = 0;
-  while ((opt = getopt_long(argc, argv, "xcstliranqS::W:M:L:I::O::HP:C:A:h", long_options, &option_index)) != -1) {
+  while ((opt = getopt_long(argc, argv, "xcstliranqS::W:M:L:I::O::HP:C:A:eh", long_options, &option_index)) != -1) {
     switch (opt) {
     case 'x':
       // if the user wants pretty colors or hex codes
@@ -459,7 +525,12 @@ bool VortexCLI::init(int argc, char *argv[])
       // preset the arguments on the first mode
       m_argumentsStr = optarg;
       break;
-    case 'h':
+    case 'e':
+      // expose the engine as a virtual serial device for the editor website,
+      // it emulates a plugged-in device (pty + socat bridge to a USB serial
+      // port) so no backend argument is needed
+      m_editorMode = true;
+      break;    case 'h':
       // print usage and exit
       print_usage(argv[0]);
       exit(EXIT_SUCCESS);
@@ -471,6 +542,11 @@ bool VortexCLI::init(int argc, char *argv[])
 
   switch (m_outputType) {
   case OUTPUT_TYPE_NONE:
+    if (m_editorMode) {
+      // the virtual device needs no terminal output, default to silent
+      m_outputType = OUTPUT_TYPE_SILENT;
+      break;
+    }
     print_usage(argv[0]);
     exit(EXIT_SUCCESS);
     break;
@@ -482,6 +558,14 @@ bool VortexCLI::init(int argc, char *argv[])
     break;
   case OUTPUT_TYPE_SILENT:
     break;
+  }
+
+  // the virtual device protocol depends on the engine running in real time,
+  // lockstep/in-place/no-timestep would break the serial handshake timing
+  if (m_editorMode) {
+    m_lockstep = false;
+    m_inPlace = false;
+    m_noTimestep = false;
   }
 
   // do the vortex init/setup
@@ -582,6 +666,47 @@ bool VortexCLI::init(int argc, char *argv[])
     // TODO: add arg for the led position
     Vortex::setPatternArgs(LED_ALL, args);
   }
+  if (m_editorMode) {
+#ifndef WASM
+    // the tool fully emulates a plugged-in device: create a pty and bridge it
+    // to a real USB serial device with socat so the browser's Web Serial can
+    // enumerate it. the pty itself is not visible to Web Serial, so the
+    // bridged device is what the browser opens.
+    bool socatFound = false;
+    const char *pathEnv = getenv("PATH");
+    if (pathEnv) {
+      std::string paths(pathEnv);
+      size_t start = 0;
+      while (start <= paths.size()) {
+        size_t end = paths.find(':', start);
+        std::string dir = (end == std::string::npos) ? paths.substr(start) : paths.substr(start, end - start);
+        if (dir.size() > 0 && access((dir + "/socat").c_str(), X_OK) == 0) {
+          socatFound = true;
+          break;
+        }
+        if (end == std::string::npos) break;
+        start = end + 1;
+      }
+    }
+    if (!socatFound) {
+      printf("The auto bridge requires 'socat' which is not installed.\n");
+      printf("  sudo pacman -S socat    (arch)\n");
+      printf("  sudo apt install socat  (debian/ubuntu)\n");
+      exit(2);
+    }
+    m_virtualSerial = new VirtualSerial();
+    // echo all serial traffic to the console so the editor protocol can be
+    // observed live while the editor connection menu runs
+    m_virtualSerial->setLogTraffic(true);
+    if (!m_virtualSerial->init(VirtualSerial::BACKEND_PTY)) {
+      printf("Failed to create virtual serial port\n");
+      exit(2);
+    }
+    printf("Virtual serial device: %s\n", m_virtualSerial->path());
+    startSocatBridge();
+  }
+#endif
+
   if (m_inPlace && !system("clear")) {
     printf("Failed to clear\n");
   }
@@ -605,6 +730,22 @@ void VortexCLI::run()
 {
   if (!stillRunning()) {
     return;
+  }
+  // a SIGINT/SIGTERM handler asked us to stop, wind down on this tick
+  if (s_signalExit) {
+    m_quickExit = true;
+  }
+  // pump any data between the virtual serial port and the engine
+  if (m_virtualSerial) {
+    m_virtualSerial->poll();
+  }
+  if (m_editorMode) {
+    // keep the socat bridge alive: retry if no device was present at startup
+    // or restart it if the device was unplugged
+    pollBridge();
+    // watch for Web Serial actually opening/closing the host-side port so
+    // the engine only ever sees a connected editor when one truly is
+    updateHostConnection();
   }
   if (!Vortex::tick() || m_quickExit) {
     cleanup();
@@ -671,6 +812,20 @@ void VortexCLI::cleanup()
   if (m_storage) {
     Vortex::doSave();
   }
+  if (m_socatPid > 0) {
+#ifndef WASM
+    kill(m_socatPid, SIGTERM);
+#endif
+    m_socatPid = -1;
+  }
+  if (m_virtualSerial) {
+    delete m_virtualSerial;
+    m_virtualSerial = nullptr;
+  }
+  m_hostConnected = false;
+  // tear down the virtual USB gadget (ttyACM*) that was synthesized for the
+  // editor bridge, so it doesn't linger after the tool exits
+  teardownVirtualGadget();
   Vortex::cleanup();
 #ifdef WASM
   emscripten_force_exit(0);
@@ -780,9 +935,627 @@ void VortexCLI::VortexCLICallbacks::ledsShow()
   g_pVortexCLI->show();
 }
 
+bool VortexCLI::VortexCLICallbacks::serialCheck()
+{
+  // must respect the full end-to-end link state, not just whether socat has
+  // the pty open, otherwise the engine latches 'connected' before Web Serial
+  return g_pVortexCLI->isEditorConnected();
+}
+
+void VortexCLI::VortexCLICallbacks::serialBegin(uint32_t baud)
+{
+}
+
+int32_t VortexCLI::VortexCLICallbacks::serialAvail()
+{
+  return g_pVortexCLI->m_virtualSerial ? g_pVortexCLI->m_virtualSerial->avail() : 0;
+}
+
+size_t VortexCLI::VortexCLICallbacks::serialRead(char *buf, size_t amt)
+{
+  return g_pVortexCLI->m_virtualSerial ? g_pVortexCLI->m_virtualSerial->read(buf, amt) : 0;
+}
+
+uint32_t VortexCLI::VortexCLICallbacks::serialWrite(const uint8_t *buf, size_t amt)
+{
+  return g_pVortexCLI->m_virtualSerial ? g_pVortexCLI->m_virtualSerial->write(buf, amt) : 0;
+}
+
+bool VortexCLI::VortexCLICallbacks::serialConnectedReal()
+{
+  return g_pVortexCLI->isEditorConnected();
+}
+
+// ---------------------------------------------------------------------------
+//  socat bridge
+// ---------------------------------------------------------------------------
+
+#ifndef WASM
+
+// resolve the USB vendor id of a tty device by walking its sysfs entry up to
+// the parent USB device (ex: returns "28de" for the Steam Controller Puck)
+static std::string ttyUsbVendor(const char *ttyName)
+{
+  std::string sysLink = std::string("/sys/class/tty/") + ttyName;
+  char resolved[4096];
+  ssize_t len = readlink(sysLink.c_str(), resolved, sizeof(resolved) - 1);
+  if (len <= 0) {
+    return "";
+  }
+  resolved[len] = '\0';
+  std::string dir = std::string("/sys/class/tty/") + resolved;
+  while (true) {
+    std::string vendor = dir + "/idVendor";
+    FILE *f = fopen(vendor.c_str(), "r");
+    if (f) {
+      char buf[16] = {0};
+      if (fgets(buf, sizeof(buf), f)) {
+        fclose(f);
+        std::string v = buf;
+        if (v.size() > 0 && v[v.size() - 1] == '\n') {
+          v.pop_back();
+        }
+        return v;
+      }
+      fclose(f);
+    }
+    size_t slash = dir.rfind('/');
+    if (slash == std::string::npos || slash == 0) {
+      break;
+    }
+    dir = dir.substr(0, slash);
+  }
+  return "";
+}
+
+// udev usually creates serial ports as root-owned mode 660 (group
+// dialout/uucp), which a normal user's browser cannot open. widen it to 666
+// so Web Serial can see it, this needs root or dialout/uucp membership. the
+// gadget setup script already does this, so only warn when it's still locked.
+static void chmodIfLocked(const char *path)
+{
+  struct stat st;
+  if (stat(path, &st) == 0 && (st.st_mode & 0666) == 0666) {
+    return; // already world-accessible (gadget script or udev rule)
+  }
+  if (chmod(path, 0666) != 0) {
+    printf("WARNING: could not chmod 666 %s (%s)\n", path, strerror(errno));
+    printf("  the browser can only open it if you are in the dialout/uucp group\n");
+    printf("  or a udev rule grants access, for example (get ids from lsusb):\n");
+    printf("  SUBSYSTEM==\"tty\", ATTRS{idVendor}==\"1a86\", ATTRS{idProduct}==\"7523\", MODE=\"0666\"\n");
+  }
+}
+
+std::string VortexCLI::findUsbSerialDevice()
+{
+  // the browser's Web Serial can only enumerate real serial devices, look for
+  // a USB-TTL adapter (or gadget endpoint) to bridge the pty to. ttyGS* is the
+  // device side of a synthesized USB gadget (see setupVirtualGadget): the
+  // engine talks to it and the browser opens the host-side /dev/ttyACMx.
+  for (const char *pattern : {"/dev/ttyGS", "/dev/ttyUSB", "/dev/ttyACM"}) {
+    for (int i = 0; i < 32; ++i) {
+      char path[128];
+      snprintf(path, sizeof(path), "%s%d", pattern, i);
+      struct stat st;
+      if (stat(path, &st) != 0 || !S_ISCHR(st.st_mode)) {
+        continue;
+      }
+      // skip known-unsuitable devices, like the Valve Steam Controller Puck
+      // (a bluetooth receiver whose ACM port is not a usable UART)
+      std::string vendor = ttyUsbVendor(path + 5);
+      if (vendor == "28de") {
+        continue;
+      }
+      return path;
+    }
+  }
+  return "";
+}
+
+#endif // !WASM
+
+// one-time root setup that synthesizes a USB serial device in the kernel with
+// no physical hardware: dummy_hcd provides a virtual USB host+gadget pair and
+// a composite ACM gadget becomes the port. the host side (/dev/ttyACMx) is what
+// the browser's Web Serial opens, the gadget side (/dev/ttyGS0) is what the
+// engine talks to. these run inside the tool itself (elevated via sudo) rather
+// than via an external shell script.
+#ifndef WASM
+static bool gadgetWrite(const std::string &path, const std::string &value)
+{
+  int fd = open(path.c_str(), O_WRONLY | O_CLOEXEC);
+  if (fd < 0) {
+    return false;
+  }
+  ssize_t n = write(fd, value.c_str(), value.size());
+  close(fd);
+  return n == (ssize_t)value.size();
+}
+
+static bool gadgetDirExists(const std::string &path)
+{
+  struct stat st;
+  return stat(path.c_str(), &st) == 0 && S_ISDIR(st.st_mode);
+}
+
+static std::string findUdc()
+{
+  DIR *d = opendir("/sys/class/udc");
+  if (!d) {
+    return "";
+  }
+  std::string name;
+  struct dirent *e = nullptr;
+  while ((e = readdir(d)) != nullptr) {
+    if (e->d_name[0] == '.') {
+      continue;
+    }
+    name = e->d_name;
+    break;
+  }
+  closedir(d);
+  return name;
+}
+
+// build the composite ACM gadget tree in configfs. idempotent: if the tree is
+// already present it only makes sure the ports are world-writable.
+static const char *kGadgetUdevRule = "/etc/udev/rules.d/99-vortex-gadget.rules";
+
+// install a udev rule granting world access to our gadget's tty nodes. without
+// it the default tty rule puts them in the uucp group at 0660 and udev re-applies
+// that on later events, silently undoing any chmod we do.
+static void installGadgetUdevRule()
+{
+  FILE *f = fopen(kGadgetUdevRule, "w");
+  if (!f) {
+    return;
+  }
+  fputs("# Vortex Engine virtual USB gadget: make the tty nodes world-writable\n", f);
+  // ttyGS* is the gadget/device side: it does not expose the usb idVendor/Product
+  // attributes (those live in the configfs gadget dir, not on the udev parent
+  // chain), so match it by name alone. ttyGS* only ever exists while a gadget
+  // function is bound, so this is safe.
+  fputs("SUBSYSTEM==\"tty\", KERNEL==\"ttyGS*\", MODE=\"0666\"\n", f);
+  fputs("SUBSYSTEM==\"tty\", KERNEL==\"ttyACM*\", ATTRS{idVendor}==\"1d6b\", "
+        "ATTRS{idProduct}==\"0104\", MODE=\"0666\"\n", f);
+  fclose(f);
+  // make udev pick it up and re-apply permissions to any matching nodes
+  system("udevadm control --reload-rules 2>/dev/null");
+  system("udevadm trigger --subsystem-match=tty 2>/dev/null");
+  system("udevadm settle 2>/dev/null");
+}
+
+static bool doGadgetSetup()
+{
+  const std::string G = "/sys/kernel/config/usb_gadget/vortex";
+
+  // load the kernel pieces (best-effort; they may already be built in)
+  system("modprobe dummy_hcd 2>/dev/null");
+  system("modprobe libcomposite 2>/dev/null");
+  system("modprobe usb_f_acm 2>/dev/null");
+
+  // get our udev rule in place before the nodes appear so 0666 sticks
+  installGadgetUdevRule();
+
+  if (!gadgetDirExists(G)) {
+    mkdir(G.c_str(), 0755);
+    mkdir((G + "/strings/0x409").c_str(), 0755);
+    mkdir((G + "/configs/c.1").c_str(), 0755);
+    mkdir((G + "/configs/c.1/strings/0x409").c_str(), 0755);
+    mkdir((G + "/functions/acm.usb0").c_str(), 0755);
+    gadgetWrite(G + "/idVendor", "0x1d6b");
+    gadgetWrite(G + "/idProduct", "0x0104");
+    gadgetWrite(G + "/strings/0x409/manufacturer", "lightshow.lol");
+    gadgetWrite(G + "/strings/0x409/product", "Vortex Engine");
+    gadgetWrite(G + "/configs/c.1/strings/0x409/configuration", "Virtual Serial");
+    symlink((G + "/functions/acm.usb0").c_str(), (G + "/configs/c.1/acm.usb0").c_str());
+  }
+
+  // bind the first available UDC if not already bound
+  bool bound = false;
+  {
+    FILE *udcFile = fopen((G + "/UDC").c_str(), "r");
+    if (udcFile) {
+      char buf[128] = {0};
+      if (fgets(buf, sizeof(buf), udcFile) && buf[0] != '\0' && buf[0] != '\n') {
+        bound = true;
+      }
+      fclose(udcFile);
+    }
+  }
+  if (!bound) {
+    std::string udc = findUdc();
+    if (udc.empty()) {
+      fprintf(stderr, "no UDC available, dummy_hcd did not load\n");
+      return false;
+    }
+    gadgetWrite(G + "/UDC", udc);
+  }
+
+  // wait for the ports to appear (host enumeration can lag) and make them
+  // world-writable as they come up, so the browser can open them. host-side
+  // enumeration on dummy_hcd can take several seconds, so give it a generous
+  // window rather than reporting right away.
+  for (int i = 0; i < 150; ++i) {
+    if (access("/dev/ttyGS0", F_OK) == 0) {
+      chmod("/dev/ttyGS0", 0666);
+    }
+    bool anyAcm = false;
+    for (int a = 0; a < 32; ++a) {
+      std::string acm = "/dev/ttyACM" + std::to_string(a);
+      if (access(acm.c_str(), F_OK) != 0) {
+        continue;
+      }
+      chmod(acm.c_str(), 0666);
+      anyAcm = true;
+    }
+    if (access("/dev/ttyGS0", F_OK) == 0 && anyAcm) {
+      break;
+    }
+    usleep(100000);
+  }
+
+  // final pass: anything that appeared right as the loop ended still needs the
+  // world-writable bit so the unprivileged socat/browser can open it (we are
+  // root here, so ignore failures on ports that do not exist yet)
+  chmod("/dev/ttyGS0", 0666);
+  for (int a = 0; a < 32; ++a) {
+    chmod(("/dev/ttyACM" + std::to_string(a)).c_str(), 0666);
+  }
+  return true;
+}
+
+// remove the composite ACM gadget so the ttyACM* it created goes away.
+static bool doGadgetTeardown()
+{
+  const std::string G = "/sys/kernel/config/usb_gadget/vortex";
+  if (gadgetDirExists(G)) {
+    // unbind the UDC first, otherwise the configs/functions below are busy
+    gadgetWrite(G + "/UDC", "\n");
+    usleep(500000); // give the driver a moment to release the endpoints
+    unlink((G + "/configs/c.1/acm.usb0").c_str());
+    rmdir((G + "/configs/c.1/strings/0x409").c_str());
+    rmdir((G + "/configs/c.1").c_str());
+    rmdir((G + "/functions/acm.usb0").c_str());
+    rmdir((G + "/strings/0x409").c_str());
+    rmdir(G.c_str());
+  }
+  // the utility gadgets are gone now, so drop the udev rule we installed and
+  // reload so it does not linger on the system after the tool stops
+  if (unlink(kGadgetUdevRule) == 0 || errno != ENOENT) {
+    system("udevadm control --reload-rules 2>/dev/null");
+    system("udevadm trigger --subsystem-match=tty 2>/dev/null");
+    system("udevadm settle 2>/dev/null");
+  }
+  return true;
+}
+
+// spawn `sudo <this binary> <modeArg>` and wait for it to finish, running the
+// configfs operations above as root.
+//
+// the binary path must be resolved to a real absolute path BEFORE handing it
+// to sudo: `/proc/self/exe` is a magic symlink resolved in the context of the
+// process that reads it, and after fork/exec that process is sudo itself, so
+// sudo would end up running itself with our flag as one of its own options.
+static int runSudoSelf(const char *modeArg)
+{
+  char self[4096];
+  ssize_t n = readlink("/proc/self/exe", self, sizeof(self) - 1);
+  if (n <= 0) {
+    return -1;
+  }
+  self[n] = '\0';
+
+  // sudo has to read the (possibly interactive) password from a sane,
+  // blocking terminal. our run-loop terminal is raw + O_NONBLOCK, which
+  // makes every password prompt fail no matter what is typed, so restore
+  // the terminal for the duration of the call and re-apply it after
+  bool wasNonblock = s_terminalNonblock;
+  if (wasNonblock) {
+    restore_terminal();
+  }
+
+  pid_t pid = fork();
+  if (pid < 0) {
+    if (wasNonblock) {
+      set_terminal_nonblocking();
+    }
+    return -1;
+  }
+  if (pid == 0) {
+    execlp("sudo", "sudo", self, modeArg, (char *)nullptr);
+    _exit(127);
+  }
+  int status = 0;
+  if (waitpid(pid, &status, 0) < 0) {
+    if (wasNonblock) {
+      set_terminal_nonblocking();
+    }
+    return -1;
+  }
+  if (wasNonblock) {
+    set_terminal_nonblocking();
+  }
+  return WIFEXITED(status) ? WEXITSTATUS(status) : -1;
+}
+#endif // !WASM
+
+bool VortexCLI::setupVirtualGadget()
+{
+  if (m_gadgetAttempted) {
+    return m_gadgetReady;
+  }
+  m_gadgetAttempted = true;
+#ifndef WASM
+  // perform the gadget setup inside the tool itself, elevated via sudo
+  int rc = runSudoSelf("--gadget-setup");
+  if (rc != 0) {
+    printf("Could not create a virtual USB serial device (the setup needs sudo).\n");
+    printf("  run the tool with sudo once to synthesize it, or plug in a USB-TTL dongle instead\n");
+    m_gadgetReady = false;
+    return false;
+  }
+  m_gadgetReady = true;
+  // host-side enumeration can lag a moment after the gadget comes up, so retry
+  // before reporting instead of alarming the user that the port is missing
+  // when it is about to show up
+  std::string hostStr;
+  for (int attempt = 0; attempt < 25 && hostStr.empty(); ++attempt) {
+    for (int i = 0; i < 32; ++i) {
+      char acm[64];
+      snprintf(acm, sizeof(acm), "/dev/ttyACM%d", i);
+      if (access(acm, F_OK) == 0 && ttyUsbVendor(acm + 5) != "28de") {
+        hostStr = acm;
+        break;
+      }
+    }
+    if (hostStr.empty()) {
+      usleep(200000);
+    }
+  }
+  if (hostStr.empty() && access("/dev/ttyGS0", F_OK) != 0) {
+    printf("WARNING: gadget created but /dev/ttyGS0 is missing\n");
+  } else {
+    // report the state so the user knows which port the browser should list
+    printf("Virtual USB serial device up: engine->/dev/ttyGS0, browser->%s\n",
+           hostStr.empty() ? "/dev/ttyACM? (none yet)" : hostStr.c_str());
+    if (hostStr.empty()) {
+      printf("  WARNING: no host-side ttyACM appeared; Web Serial will not show it\n");
+    }
+  }
+  return true;
+#else
+  return false;
+#endif
+}
+
+void VortexCLI::teardownVirtualGadget()
+{
+#ifndef WASM
+  if (!m_usingVirtualGadget && !m_gadgetReady) {
+    // we never set the gadget up or bridged one, so there is nothing of ours
+    // to remove
+    return;
+  }
+  // restore the terminal first: after ctrl-c stdin is still in raw mode and the
+  // sudo password prompt won't work, so tear the gadget down on a sane terminal
+  restore_terminal();
+  int rc = runSudoSelf("--gadget-teardown");
+  m_gadgetAttempted = false;
+  m_gadgetReady = false;
+  m_usingVirtualGadget = false;
+  if (rc != 0) {
+    printf("WARNING: could not tear down the virtual USB serial device\n");
+  } else {
+    printf("Virtual USB serial device torn down\n");
+  }
+#endif
+}
+
+bool VortexCLI::startSocatBridge()
+{
+  if (m_bridgeStarted) {
+    return true;
+  }
+  if (!m_virtualSerial || m_virtualSerial->path() == nullptr) {
+    return false;
+  }
+#ifdef WASM
+  return false;
+#else
+  // the pty is what the engine talks to, socat relays it to the real device.
+  // VORTEX_BRIDGE_DEVICE overrides auto-detection (useful for testing and for
+  // picking a specific port when several adapters are plugged in)
+  std::string device;
+  const char *bridgeOverride = getenv("VORTEX_BRIDGE_DEVICE");
+  if (bridgeOverride && bridgeOverride[0] != '\0') {
+    device = bridgeOverride;
+  } else {
+    device = findUsbSerialDevice();
+    if (device.compare(0, 10, "/dev/ttyGS") == 0) {
+      // this is the device side of our synthesized gadget (whether created just
+      // now or left over by an earlier run): always (re-)run the idempotent root
+      // setup so both sides are world-writable, otherwise socat/the browser get
+      // a root:uucp 660 port it cannot open
+      setupVirtualGadget();
+    } else if (device.empty() && setupVirtualGadget()) {
+      // no physical dongle: the kernel gadget now provides a real serial port
+      device = findUsbSerialDevice();
+    }
+  }
+  if (device.empty()) {
+    return false;
+  }
+  // bridging the device side of a synthesized gadget means we own that gadget,
+  // even if a previous run created it, so it must be torn down on exit
+  if (device.compare(0, 10, "/dev/ttyGS") == 0) {
+    m_usingVirtualGadget = true;
+  }
+  // widen permissions on the bridge target. when bridging the device side of
+  // the synthesized gadget (ttyGS0) the browser opens the host side (ttyACMx),
+  // so that needs opening up too.
+  chmodIfLocked(device.c_str());
+  if (device.compare(0, 10, "/dev/ttyGS") == 0) {
+    for (int i = 0; i < 32; ++i) {
+      char acm[64];
+      snprintf(acm, sizeof(acm), "/dev/ttyACM%d", i);
+      struct stat st;
+      if (stat(acm, &st) == 0 && S_ISCHR(st.st_mode) && ttyUsbVendor(acm + 5) != "28de") {
+        chmodIfLocked(acm);
+      }
+    }
+  }
+  std::string optStr = device + ",b115200,raw,echo=0,clocal=1";
+  pid_t pid = fork();
+  if (pid < 0) {
+    printf("Failed to fork socat bridge\n");
+    return false;
+  }
+  if (pid == 0) {
+    // child: exec socat, replace our image with it
+    execlp("socat", "socat", m_virtualSerial->path(), optStr.c_str(), nullptr);
+    _exit(127);
+  }
+  m_socatPid = pid;
+  m_bridgeStarted = true;
+  m_bridgeDevice = device;
+  printf("Bridging %s to %s via socat\n", m_virtualSerial->path(), device.c_str());
+  return true;
+#endif
+}
+
+void VortexCLI::pollBridge()
+{
+#ifndef WASM
+  // if socat died (device unplugged) or never started, keep looking for a
+  // USB serial device silently so the user can plug one in after startup
+  if (m_bridgeStarted) {
+    int status = 0;
+    if (m_socatPid > 0 && waitpid(m_socatPid, &status, WNOHANG) == m_socatPid) {
+      m_socatPid = -1;
+      m_bridgeStarted = false;
+    }
+  }
+  if (m_bridgeStarted) {
+    return;
+  }
+  // don't hammer the filesystem on every tick, scan once a second
+  uint32_t now = Time::getCurtime();
+  if (m_bridgeScanTick && (now - m_bridgeScanTick) < 1000) {
+    return;
+  }
+  m_bridgeScanTick = now;
+  startSocatBridge();
+#endif
+}
+
+void VortexCLI::updateHostConnection()
+{
+#ifndef WASM
+  if (!m_bridgeStarted || m_bridgeDevice.empty()) {
+    // nothing is bridged yet, so nobody can possibly be attached
+    m_hostConnected = false;
+    return;
+  }
+  // don't rescan /proc on every tick
+  uint32_t now = Time::getCurtime();
+  if (m_hostCheckTick && (now - m_hostCheckTick) < 100) {
+    return;
+  }
+  m_hostCheckTick = now;
+  // the browser opens the HOST side of the gadget (/dev/ttyACM*) while socat
+  // holds the DEVICE side (/dev/ttyGS*), so every node that counts as
+  // 'someone is attached' has to be collected first: the bridged device plus
+  // (when bridging our own gadget) every real ttyACM it exposes to the host
+  std::vector<std::string> nodes;
+  nodes.push_back(m_bridgeDevice);
+  if (m_bridgeDevice.compare(0, 10, "/dev/ttyGS") == 0) {
+    for (int i = 0; i < 32; ++i) {
+      char acm[64];
+      snprintf(acm, sizeof(acm), "/dev/ttyACM%d", i);
+      if (access(acm, F_OK) == 0 && ttyUsbVendor(acm + 5) != "28de") {
+        nodes.push_back(acm);
+      }
+    }
+  }
+  // the only reliable way to know whether Web Serial actually opened the
+  // port: check whether any process holds the device node open. the gadget
+  // kernels don't expose the host's DTR through TIOCMGET, and the browser
+  // is just another local process anyway
+  bool opened = false;
+  if (DIR *proc = opendir("/proc")) {
+    while (struct dirent *e = readdir(proc)) {
+      if (e->d_name[0] < '0' || e->d_name[0] > '9') {
+        continue;
+      }
+      int pid = atoi(e->d_name);
+      // skip ourselves and our own socat bridge, socat obviously has the
+      // bridged device open but it isn't the editor
+      if (pid == m_socatPid || pid == (int)getpid()) {
+        continue;
+      }
+      std::string fddir = std::string("/proc/") + e->d_name + "/fd";
+      DIR *fds = opendir(fddir.c_str());
+      if (!fds) {
+        continue; // permission denied (other users' processes) etc
+      }
+      while (struct dirent *f = readdir(fds)) {
+        char target[256];
+        ssize_t len = readlink((fddir + "/" + f->d_name).c_str(), target, sizeof(target) - 1);
+        if (len <= 0) {
+          continue;
+        }
+        target[len] = '\0';
+        for (const std::string &node : nodes) {
+          if (node == target) {
+            opened = true;
+            break;
+          }
+        }
+        if (opened) {
+          break;
+        }
+      }
+      closedir(fds);
+      if (opened) {
+        break;
+      }
+    }
+    closedir(proc);
+  }
+  m_hostConnected = opened;
+#endif
+}
+
+bool VortexCLI::isEditorConnected()
+{
+  if (!m_virtualSerial || !m_virtualSerial->hasClient()) {
+    return false;
+  }
+  return m_hostConnected;
+}
+
 // main function to run the CLI
 int main(int argc, char *argv[])
 {
+  // hidden elevated modes that perform the virtual USB gadget setup/teardown
+  // in-process: the running (user) instance re-execs itself as root for these
+  for (int i = 1; i < argc; ++i) {
+    if (strcmp(argv[i], "--gadget-setup") == 0) {
+#ifdef WASM
+      return 1;
+#else
+      return doGadgetSetup() ? 0 : 1;
+#endif
+    }
+    if (strcmp(argv[i], "--gadget-teardown") == 0) {
+#ifdef WASM
+      return 1;
+#else
+      return doGadgetTeardown() ? 0 : 1;
+#endif
+    }
+  }
   VortexCLI cli;
   cli.init(argc, argv);
 #ifndef WASM

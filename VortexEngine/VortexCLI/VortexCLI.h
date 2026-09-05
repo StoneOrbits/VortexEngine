@@ -8,6 +8,8 @@
 #include "Colors/Colorset.h"
 #include "Leds/LedTypes.h"
 
+#include "VirtualSerial.h"
+
 class VortexCLI
 {
 public:
@@ -49,12 +51,40 @@ private:
     virtual long checkPinHook(uint32_t pin) override;
     virtual void ledsInit(void *cl, int count) override;
     virtual void ledsShow() override;
+    virtual bool serialCheck() override;
+    virtual void serialBegin(uint32_t baud) override;
+    virtual int32_t serialAvail() override;
+    virtual size_t serialRead(char *buf, size_t amt) override;
+    virtual uint32_t serialWrite(const uint8_t *buf, size_t amt) override;
+    virtual bool serialConnectedReal() override;
   private:
     // receive a message from client
   };
 
   // internal helper for updating terminal size
   void get_terminal_size();
+
+  // find a USB serial device (/dev/ttyUSB*, /dev/ttyACM*) that the browser's
+  // Web Serial can enumerate, returns empty string when none is present
+  std::string findUsbSerialDevice();
+  // synthesize a virtual USB serial device in the kernel (dummy_hcd +
+  // composite acm gadget) so the browser has a real port to open even with no
+  // physical hardware, needs sudo once per boot
+  bool setupVirtualGadget();
+  // undo the synthesized gadget so the ttyACM* it created goes away when the
+  // tool exits, needs sudo once per boot
+  void teardownVirtualGadget();
+  // spawn socat to bridge the virtual port to a USB serial device, returns
+  // false if socat is missing or the bridge could not be started
+  bool startSocatBridge();
+  // called every run loop tick while waiting for a device to be plugged in
+  void pollBridge();
+  // samples the modem status lines of the bridged gadget device so we can
+  // tell whether Web Serial actually opened the host-side port (DTR)
+  void updateHostConnection();
+  // whether the editor is truly reachable end-to-end: pty client attached
+  // AND (for the synthesized gadget) the browser has the port open
+  bool isEditorConnected();
 
   // these are in no particular order
   RGBColor *m_ledList;
@@ -102,6 +132,28 @@ private:
   std::string m_patternIDStr;
   std::string m_colorsetStr;
   std::string m_argumentsStr;
+  // virtual serial device support, emulates a USB-connected device so the
+  // editor website can connect to the engine over a real com port
+  bool m_editorMode;
+  VirtualSerial *m_virtualSerial;
+  // automatic socat bridge between the virtual port and a real USB serial
+  // device (the only thing the browser's Web Serial can enumerate)
+  bool m_bridgeStarted;
+  int m_socatPid;
+  uint32_t m_bridgeScanTick;
+  // virtual USB gadget (dummy_hcd) synthesis state
+  bool m_gadgetAttempted;
+  bool m_gadgetReady;
+  // set once we bridge the device side (ttyGS*) of a synthesized gadget, even
+  // if the gadget itself was created by an earlier run; makes teardown remove
+  // it on exit instead of leaving the ttyACM* behind
+  bool m_usingVirtualGadget;
+  // the device the socat bridge relays to (ex: /dev/ttyGS0)
+  std::string m_bridgeDevice;
+  // whether any process (i.e. Web Serial in the browser) actually has the
+  // bridged device open, detected by scanning /proc/*/fd
+  bool m_hostConnected;
+  uint32_t m_hostCheckTick;
   // to pipe stuff into the engine
   int m_pipe_fd[2];
   int m_saved_stdin;
