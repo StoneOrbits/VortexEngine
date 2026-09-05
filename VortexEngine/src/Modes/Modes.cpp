@@ -209,6 +209,12 @@ bool Modes::saveStorage()
     if (!mode->serialize(modeBuffer)) {
       return false;
     }
+    // compress the mode so that it occupies the smallest amount of
+    // storage space possible, otherwise large modes may not fit in
+    // the fixed size storage slot
+    if (!modeBuffer.compress()) {
+      return false;
+    }
     // just uninstansiate the mode after serializing
     ptr->uninstantiate();
     // next mode
@@ -259,7 +265,15 @@ bool Modes::loadStorage()
   for (uint8_t i = 0; i < numModes; ++i) {
     ByteStream modeBuffer(MAX_MODE_SIZE);
     // read each mode from a storage slot and load it
-    if (!Storage::read(i + 1, modeBuffer) || !addSerializedMode(modeBuffer)) {
+    if (!Storage::read(i + 1, modeBuffer)) {
+      return false;
+    }
+    // decompress the mode if it was stored compressed, this is a
+    // no-op for old modes that were saved uncompressed
+    if (!modeBuffer.decompress()) {
+      return false;
+    }
+    if (!addSerializedMode(modeBuffer)) {
       return false;
     }
   }
