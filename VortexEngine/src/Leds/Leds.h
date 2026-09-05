@@ -37,6 +37,14 @@ public:
   static void clearPair(Pair pair) { setPair(pair, RGB_OFF); }
   static void clearPairs(Pair first, Pair last) { setPairs(first, last, RGB_OFF); }
 
+  // control two LEDs on a pair, these are appropriate for use in internal pattern logic
+  static void setRadial(Radial radial, RGBColor col);
+  static void setRadials(Radial first, Radial last, RGBColor col);
+
+  // Turn off both LEDs on a pair, these are appropriate for use in internal pattern logic
+  static void clearRadial(Radial radial) { setRadial(radial, RGB_OFF); }
+  static void clearRadials(Radial first, Radial last) { setRadials(first, last, RGB_OFF); }
+
   // Controll pair evens
   static void setRangeEvens(Pair first, Pair last, RGBColor);
   static void setAllEvens(RGBColor col);
@@ -92,6 +100,9 @@ public:
     uint32_t magnitude = 15, uint8_t sat = 255, uint8_t val = 210);
   static void breatheRange(LedPos first, LedPos last, uint8_t hue, uint32_t variance,
     uint32_t magnitude = 15, uint8_t sat = 255, uint8_t val = 210);
+  // breathe an RGB color on an index using its hue for modulation
+  static void breatheIndexRGB(LedPos target, RGBColor col, uint32_t variance,
+    uint32_t magnitude = 15, uint8_t val = 210);
   static void breatheIndexSat(LedPos target, uint8_t hue, uint32_t variance,
     uint32_t magnitude = 15, uint8_t sat = 255, uint8_t val = 210);
   static void breatheIndexVal(LedPos target, uint8_t hue, uint32_t variance,

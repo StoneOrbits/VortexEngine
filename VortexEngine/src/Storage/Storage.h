@@ -18,10 +18,29 @@ public:
   static bool init();
   static void cleanup();
 
+  // set the global storage page, the chromadeck has 8 pages of 16 slots each
+  static void setStoragePage(uint8_t page);
+  // get the current storage page
+  static uint8_t getStoragePage();
+
   // store a serial buffer to storage
   static bool write(uint16_t slot, ByteStream &buffer);
   // read a serial buffer from storage
   static bool read(uint16_t slot, ByteStream &buffer);
+
+  // store a serial buffer to the global storage space which is not affected
+  // by the selected storage page, this is where the single global save
+  // header lives as it is shared by all profiles
+  static bool writeGlobal(ByteStream &buffer);
+  // read a serial buffer from the global storage space
+  static bool readGlobal(ByteStream &buffer);
+
+  // store a serial buffer to the mode header slot of the currently selected
+  // storage page, the mode header sits at slot 0 of each page and contains
+  // the number of modes stored in that page
+  static bool writeModeHeader(ByteStream &buffer);
+  // read the mode header from the currently selected storage page
+  static bool readModeHeader(ByteStream &buffer);
 
   // the last save size (use STORAGE_SIZE For total space)
   static uint32_t lastSaveSize();
@@ -38,6 +57,9 @@ private:
 
   // the size of the last save
   static uint32_t m_lastSaveSize;
+
+  // the curren storage page
+  static uint8_t m_storagePage;
 };
 
 #endif

@@ -11,6 +11,8 @@
 #include "../Storage/Storage.h"
 #include "../Buttons/Buttons.h"
 #include "../Time/Timings.h"
+#include "../Menus/Menus.h"
+#include "../Menus/MainMenu.h"
 #include "../Modes/Mode.h"
 #include "../Leds/Leds.h"
 #include "../Log/Log.h"
@@ -35,9 +37,12 @@ bool Modes::init()
   test();
   return true;
 #endif
-  ByteStream headerBuffer;
-  Storage::read(0, headerBuffer);
-  unserializeSaveHeader(headerBuffer);
+  // the save header is stored in the global storage space because it
+  // contains device-wide settings shared by all profiles
+  if (!loadHeader()) {
+    // write a new save header
+    saveHeader();
+  }
   m_loaded = false;
 #ifdef VORTEX_LIB
   // enable the adv menus by default in vortex lib
@@ -82,8 +87,16 @@ void Modes::play()
     return;
   }
   // shortclick cycles to the next mode
-  if (g_pButton->onShortClick()) {
+  if (g_pButtonR->onShortClick()) {
     nextMode();
+  }
+  // shortclick cycles to the next mode
+  //if (g_pButtonM->onShortClick()) {
+  //  Menus::openMenuSelection();
+  //}
+  // shortclick cycles to the next mode
+  if (g_pButtonL->onShortClick()) {
+    previousMode();
   }
   // play the current mode
   m_pCurModeLink->play();
@@ -135,11 +148,11 @@ bool Modes::saveHeader()
   if (!serializeSaveHeader(headerBuffer)) {
     return false;
   }
-  // serialize the number of modes
-  if (!headerBuffer.serialize8(m_numModes)) {
-    return false;
-  }
-  if (!Storage::write(0, headerBuffer)) {
+  // NOTE: the save header does not contain the number of modes anymore,
+  //       that is stored in the mode header of each storage page instead
+  // the save header is written to the global storage space so that it is
+  // shared by all profiles instead of being duplicated in each one
+  if (!Storage::writeGlobal(headerBuffer)) {
     return false;
   }
   return true;
@@ -149,20 +162,15 @@ bool Modes::loadHeader()
 {
   ByteStream headerBuffer;
   // only read storage if the modebuffer isn't filled
-  if (!Storage::read(0, headerBuffer) || !headerBuffer.size()) {
+  if (!Storage::readGlobal(headerBuffer) || !headerBuffer.size()) {
     DEBUG_LOG("Empty buffer read from storage");
     // this kinda sucks whatever they had loaded is gone
     return false;
   }
-  // this erases what is stored before we know whether there is data
-  // but it's the easiest way to just re-load new data from storage
-  clearModes();
-  // read the header and load the data
+  // read the header
   if (!unserializeSaveHeader(headerBuffer)) {
     return false;
   }
-  // NOTE: We do not bother loading the number of modes because
-  //       we can't really do anything with it anyway
   return true;
 }
 
@@ -172,6 +180,15 @@ bool Modes::saveStorage()
 {
   DEBUG_LOG("Saving modes...");
   saveHeader();
+  // save the mode header of this page which contains the number of modes
+  // stored here, the modes themselves are saved in slots 1 and up
+  ByteStream modeHeader(MAX_MODE_SIZE);
+  if (!modeHeader.serialize8(m_numModes)) {
+    return false;
+  }
+  if (!Storage::writeModeHeader(modeHeader)) {
+    return false;
+  }
   // make sure the current mode is saved in case it has changed somehow
   saveCurMode();
   // uninstantiate cur mode so we have stack space to serialize
@@ -190,6 +207,12 @@ bool Modes::saveStorage()
     }
     // serialize it into the target modes buffer
     if (!mode->serialize(modeBuffer)) {
+      return false;
+    }
+    // compress the mode so that it occupies the smallest amount of
+    // storage space possible, otherwise large modes may not fit in
+    // the fixed size storage slot
+    if (!modeBuffer.compress()) {
       return false;
     }
     // just uninstansiate the mode after serializing
@@ -211,13 +234,16 @@ bool Modes::saveStorage()
 
 bool Modes::loadStorage()
 {
-  // NOTE: We could call loadHeader here but then we wouldn't have the headerBuffer
-  //       and in turn wouldn't be able to unserialize the number of modes. The number
-  //       of modes is a weird case, it's technically part of the mode list not the
-  //       header but it is stored in the same storage slot as the header
-  ByteStream headerBuffer;
-  // only read storage if the modebuffer isn't filled
-  if (!Storage::read(0, headerBuffer) || !headerBuffer.size()) {
+  // NOTE: The save header lives in the global storage space and none of the
+  //       modes below need anything from it, but loading the save header is
+  //       part of loading storage so the device-wide settings are refreshed
+  if (!loadHeader()) {
+    return false;
+  }
+  // the mode header at slot 0 of this page holds the number of modes
+  // stored in this profile
+  ByteStream modeHeader;
+  if (!Storage::readModeHeader(modeHeader) || !modeHeader.size()) {
     DEBUG_LOG("Empty buffer read from storage");
     // this kinda sucks whatever they had loaded is gone
     return false;
@@ -225,13 +251,9 @@ bool Modes::loadStorage()
   // this erases what is stored before we know whether there is data
   // but it's the easiest way to just re-load new data from storage
   clearModes();
-  // read the header and load the data
-  if (!unserializeSaveHeader(headerBuffer)) {
-    return false;
-  }
-  // unserialize the number of modes next
+  // unserialize the number of modes out of the mode header
   uint8_t numModes = 0;
-  if (!headerBuffer.unserialize8(&numModes)) {
+  if (!modeHeader.unserialize8(&numModes)) {
     return false;
   }
   if (!numModes) {
@@ -243,7 +265,15 @@ bool Modes::loadStorage()
   for (uint8_t i = 0; i < numModes; ++i) {
     ByteStream modeBuffer(MAX_MODE_SIZE);
     // read each mode from a storage slot and load it
-    if (!Storage::read(i + 1, modeBuffer) || !addSerializedMode(modeBuffer)) {
+    if (!Storage::read(i + 1, modeBuffer)) {
+      return false;
+    }
+    // decompress the mode if it was stored compressed, this is a
+    // no-op for old modes that were saved uncompressed
+    if (!modeBuffer.decompress()) {
+      return false;
+    }
+    if (!addSerializedMode(modeBuffer)) {
       return false;
     }
   }
@@ -268,6 +298,12 @@ bool Modes::serializeSaveHeader(ByteStream &saveBuffer)
   // serialize the global brightness
   if (!saveBuffer.serialize8((uint8_t)Leds::getBrightness())) {
     return false;
+  }
+  // serialize profile colors for main menu display
+  for (uint8_t i = 0; i < NUM_SELECTIONS; ++i) {
+    if (!MainMenu::getProfileColor(i).serialize(saveBuffer)) {
+      return false;
+    }
   }
   DEBUG_LOGF("Serialized all modes, uncompressed size: %u", saveBuffer.size());
   return true;
@@ -309,6 +345,19 @@ bool Modes::unserializeSaveHeader(ByteStream &saveHeader)
   }
   if (brightness) {
     Leds::setBrightness(brightness);
+  }
+  // unserialize profile colors for main menu display (added in v1.6)
+  if (minor >= 6) {
+    for (uint8_t i = 0; i < NUM_SELECTIONS; ++i) {
+      RGBColor col;
+      if (!col.unserialize(saveHeader)) {
+        MainMenu::setDefaultProfileColors();
+        return true;
+      }
+      MainMenu::setProfileColor(i, col);
+    }
+  } else {
+    MainMenu::setDefaultProfileColors();
   }
   return true;
 }
@@ -710,8 +759,8 @@ bool Modes::setFlag(uint8_t flag, bool enable, bool save)
   }
   // otherwise need to update the global flags field of the save header in storage
   ByteStream headerBuffer;
-  // read out the storage header so we can update the flag field
-  if (!Storage::read(0, headerBuffer) || !headerBuffer.size()) {
+  // read out the global storage header so we can update the flag field
+  if (!Storage::readGlobal(headerBuffer) || !headerBuffer.size()) {
     // if cannot read the save header then just save it normally
     return saveHeader();
   }
@@ -722,8 +771,8 @@ bool Modes::setFlag(uint8_t flag, bool enable, bool save)
     uint8_t vMajor;
     uint8_t vMinor;
     uint8_t globalFlags;
-    uint8_t brightness;
-    uint8_t numModes;
+    // brightness comes after
+    // then the profile colors
   };
   // data cannot be NULL since size is non zero
   SaveHeader *pHeader = (SaveHeader *)headerBuffer.data();
@@ -732,8 +781,8 @@ bool Modes::setFlag(uint8_t flag, bool enable, bool save)
   // need to force the crc to recalc since we modified the data, just mark the
   // CRC as dirty and Storage::write() will re-calculate the CRC if it's dirty
   headerBuffer.setCRCDirty();
-  // write the save header back to storage
-  return Storage::write(0, headerBuffer);
+  // write the save header back to the global storage space
+  return Storage::writeGlobal(headerBuffer);
 }
 
 #ifdef VORTEX_LIB
