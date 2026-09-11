@@ -27,7 +27,7 @@ parent: Lightshow.lol
 # Getting Started
 This guide covers the basics of using lightshow.lol with a **Mobile Device**, to use lightshow.lol with a **Computer** see [Getting Started on PC]({{ site.baseurl }}{% link lightshow-lol/getting-started.md %}).
 
-In order to use iOS or an Apple device, you must download a bluetooth enable web browser from the app store, for example: Bluefy.
+In order to use iOS or an Apple device, you must download a bluetooth enabled web browser from the app store, for example: Bluefy.
 
 Mobile and Bluetooth are still beta, please report any bugs on our [Discord]({{ site.baseurl }}{% link support/index.md %}).
 
