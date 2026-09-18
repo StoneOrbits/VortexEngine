@@ -2,6 +2,7 @@
 
 #include <string.h>
 
+#include "../../../c_types.h"
 #if VORTEX_SLIM == 1
 
 void PatternMap_init(PatternMap *self) {

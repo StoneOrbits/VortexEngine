@@ -1,47 +1,43 @@
-#include "PatternBuilder.h"
 
-#include "../Serial/ByteStream.h"
-#include "../Time/TimeControl.h"
-#include "../Time/Timings.h"
-#include "../Log/Log.h"
-#include "../Memory/Memory.h"
 
-#include "Pattern.h"
 
-#include "Single/SingleLedPattern.h"
-#include "Single/BasicPattern.h"
-#include "Single/BlendPattern.h"
-#include "Single/SolidPattern.h"
 
+#include "../c_types.h"
 #if VORTEX_SLIM == 0
-#include "Multi/Sequencer/SequencedPattern.h"
-#include "Multi/Sequencer/ChaserPattern.h"
-#include "Multi/Sequencer/Sequence.h"
 
-#include "Multi/TheaterChasePattern.h"
-#include "Multi/HueShiftPattern.h"
-#include "Multi/ZigzagPattern.h"
-#include "Multi/DripPattern.h"
-#include "Multi/DripMorphPattern.h"
-#include "Multi/CrossDopsPattern.h"
-#include "Multi/DoubleStrobePattern.h"
-#include "Multi/MeteorPattern.h"
-#include "Multi/SparkleTracePattern.h"
-#include "Multi/VortexWipePattern.h"
-#include "Multi/WarpPattern.h"
-#include "Multi/WarpWormPattern.h"
-#include "Multi/FillPattern.h"
-#include "Multi/SnowballPattern.h"
-#include "Multi/LighthousePattern.h"
-#include "Multi/PulsishPattern.h"
-#include "Multi/BouncePattern.h"
-#include "Multi/BackStrobePattern.h"
-#include "Multi/VortexPattern.h"
 #endif
 
 // Forward declarations
 static Pattern *PatternBuilder_generate(PatternID id, const PatternArgs *args);
 static Pattern *PatternBuilder_makeInternal(PatternID id, const PatternArgs *args);
+
+static PatternUnion s_patternPool[MAX_PATTERN_POOL];
+static uint8_t s_patternPoolInUse[MAX_PATTERN_POOL];
+
+Pattern *PatternBuilder_alloc(void)
+{
+  for (uint8_t i = 0; i < MAX_PATTERN_POOL; ++i) {
+    if (!s_patternPoolInUse[i]) {
+      s_patternPoolInUse[i] = 1;
+      return &s_patternPool[i].base;
+    }
+  }
+  ERROR_OUT_OF_MEMORY();
+  return NULL;
+}
+
+void PatternBuilder_release(Pattern *pat)
+{
+  if (!pat) {
+    return;
+  }
+  for (uint8_t i = 0; i < MAX_PATTERN_POOL; ++i) {
+    if (&s_patternPool[i].base == pat) {
+      s_patternPoolInUse[i] = 0;
+      return;
+    }
+  }
+}
 
 Pattern *PatternBuilder_make(PatternID id, const PatternArgs *args)
 {
@@ -106,7 +102,7 @@ Pattern *PatternBuilder_unserialize(ByteStream *buffer)
   }
   if (!Pattern_unserialize(pat, buffer)) {
     Pattern_destroy(pat);
-    vfree(pat);
+    PatternBuilder_release(pat);
     return NULL;
   }
   return pat;
@@ -202,7 +198,7 @@ uint8_t PatternBuilder_numDefaultArgs(PatternID id)
   }
   uint8_t numArgs = Pattern_getNumArgs(pat);
   Pattern_destroy(pat);
-  vfree(pat);
+  PatternBuilder_release(pat);
   return numArgs;
 }
 
@@ -238,7 +234,7 @@ static Pattern *PatternBuilder_generate(PatternID id, const PatternArgs *userArg
     case PATTERN_TRACER:
     case PATTERN_RIBBON:
     case PATTERN_MINIRIBBON: {
-      BasicPattern *bp = (BasicPattern *)vmalloc(sizeof(BasicPattern));
+      BasicPattern *bp = (BasicPattern *)PatternBuilder_alloc();
       if (!bp) return NULL;
       BasicPattern_init(bp, args);
       return &bp->base.base;
@@ -249,13 +245,13 @@ static Pattern *PatternBuilder_generate(PatternID id, const PatternArgs *userArg
     case PATTERN_COMPLEMENTARY_BLEND:
     case PATTERN_COMPLEMENTARY_BLENDSTROBE:
     case PATTERN_COMPLEMENTARY_BLENDSTROBEGAP: {
-      BlendPattern *bp = (BlendPattern *)vmalloc(sizeof(BlendPattern));
+      BlendPattern *bp = (BlendPattern *)PatternBuilder_alloc();
       if (!bp) return NULL;
       BlendPattern_init(bp, args);
       return &bp->base.base.base;
     }
     case PATTERN_SOLID: {
-      SolidPattern *sp = (SolidPattern *)vmalloc(sizeof(SolidPattern));
+      SolidPattern *sp = (SolidPattern *)PatternBuilder_alloc();
       if (!sp) return NULL;
       SolidPattern_init(sp, args);
       return &sp->base.base.base;

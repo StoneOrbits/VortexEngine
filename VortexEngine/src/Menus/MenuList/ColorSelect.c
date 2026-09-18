@@ -1,21 +1,8 @@
-#include "ColorSelect.h"
 #include <stdlib.h>
 
-#include "../../VortexEngine.h"
 
-#include "../../Time/TimeControl.h"
-#include "../../Patterns/PatternBuilder.h"
-#include "../../Patterns/Pattern.h"
-#include "../../Colors/Colorset.h"
-#include "../../Buttons/Button.h"
-#include "../../Random/Random.h"
-#include "../../Time/Timings.h"
-#include "../../Menus/Menus.h"
-#include "../../Modes/Modes.h"
-#include "../../Modes/Mode.h"
-#include "../../Leds/Leds.h"
-#include "../../Log/Log.h"
 
+#include "../../c_types.h"
 #define COL32(v) ((RGBColor){ ((v) >> 16) & 0xFF, ((v) >> 8) & 0xFF, (v) & 0xFF })
 
 static const uint8_t s_sats[4] = { SAT_OPTION_4, SAT_OPTION_3, SAT_OPTION_2, SAT_OPTION_1 };
@@ -29,7 +16,7 @@ extern void VortexEngine_toggleForceSleep(bool enabled);
 
 Menu *ColorSelectMenu_Create(RGBColor col, bool advanced)
 {
-  ColorSelectMenu *self = (ColorSelectMenu *)malloc(sizeof(ColorSelectMenu));
+  ColorSelectMenu *self = &g_menuWorkspace.colorSelect;
   if (!self) return NULL;
   Menu_construct(&self->base, col, advanced);
   self->base.vtable = &g_colorSelectMenuVTable;

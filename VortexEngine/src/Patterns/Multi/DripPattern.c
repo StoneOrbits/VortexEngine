@@ -1,5 +1,5 @@
-#include "DripPattern.h"
 
+#include "../../c_types.h"
 static const PatternVTable DripPattern_vtable = { NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL };
 
 void DripPattern_init(DripPattern *self, const PatternArgs *args) {

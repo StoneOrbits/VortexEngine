@@ -1,5 +1,5 @@
-#include "BackStrobePattern.h"
 
+#include "../../c_types.h"
 static const PatternVTable BackStrobePattern_vtable = { NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL };
 
 void BackStrobePattern_init(BackStrobePattern *self, const PatternArgs *args) {

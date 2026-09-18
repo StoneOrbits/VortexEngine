@@ -1,16 +1,6 @@
-#include "Mode.h"
 
-#include "../Patterns/Patterns.h"
-#include "../Patterns/PatternArgs.h"
-#include "../Patterns/Pattern.h"
-#include "../Patterns/PatternBuilder.h"
-#include "../Colors/Colorset.h"
-#include "../Serial/ByteStream.h"
-#include "../Leds/Leds.h"
-#include "../Memory/Memory.h"
-#include "../Log/Log.h"
-#include "../VortexEngine.h"
 
+#include "../c_types.h"
 void Mode_initFromEntry(Mode *self, const struct DefaultModeEntry *entry)
 {
   Mode_init(self);
@@ -438,7 +428,7 @@ bool Mode_setPattern(Mode *self, PatternID pat, LedPos pos, const PatternArgs *a
   case LED_MULTI:
     if (self->m_multiPat) {
       Pattern_destroy(self->m_multiPat);
-      vfree(self->m_multiPat);
+      PatternBuilder_release(self->m_multiPat);
       self->m_multiPat = NULL;
     }
     if (isMultiLedPatternID(pat)) {
@@ -476,7 +466,7 @@ bool Mode_setPattern(Mode *self, PatternID pat, LedPos pos, const PatternArgs *a
     }
     if (self->m_singlePats[pos]) {
       Pattern_destroy(self->m_singlePats[pos]);
-      vfree(self->m_singlePats[pos]);
+      PatternBuilder_release(self->m_singlePats[pos]);
     }
     self->m_singlePats[pos] = PatternBuilder_makeSingle(pat, args);
     if (self->m_singlePats[pos]) {
@@ -505,7 +495,7 @@ void Mode_copyPatternFrom(Mode *self, const Mode *other, LedPos to, LedPos from)
   }
   if (self->m_singlePats[to]) {
     Pattern_destroy(self->m_singlePats[to]);
-    vfree(self->m_singlePats[to]);
+    PatternBuilder_release(self->m_singlePats[to]);
   }
   self->m_singlePats[to] = PatternBuilder_dupe(other->m_singlePats[from]);
 }

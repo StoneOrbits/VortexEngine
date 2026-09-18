@@ -1,5 +1,5 @@
-#include "SequencedPattern.h"
 
+#include "../../../c_types.h"
 static const PatternVTable SequencedPattern_vtable = { NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL };
 
 void SequencedPattern_init(SequencedPattern *self, const PatternArgs *args) {

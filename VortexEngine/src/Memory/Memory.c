@@ -1,10 +1,9 @@
-#include "Memory.h"
 
 #include <stdlib.h>
 #include <stdio.h>
 
-#include "../Log/Log.h"
 
+#include "../c_types.h"
 #if DEBUG_ALLOCATIONS == 1
 
 static uint32_t cur_mem_usage = 0;

@@ -1,9 +1,7 @@
-#include "Compression.h"
 
+#include "../c_types.h"
 // This is a heavily stripped down version of lz4
 
-#include "../Memory/Memory.h"
-#include "../VortexConfig.h"
 
 #include <string.h>
 #include <limits.h>

@@ -1,7 +1,6 @@
-#include "DefaultModes.h"
 
-#include "../Colors/ColorTypes.h"
 
+#include "../c_types.h"
 const uint32_t rgbCols[] = { RGB_RED, RGB_GREEN, RGB_BLUE, };
 const uint32_t pat2TipCols = 0x97709F;
 const uint32_t pat2TopCols = 0x4D00B2;

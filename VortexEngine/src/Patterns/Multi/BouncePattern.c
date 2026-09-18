@@ -1,5 +1,5 @@
-#include "BouncePattern.h"
 
+#include "../../c_types.h"
 static const PatternVTable BouncePattern_vtable = { NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL };
 
 void BouncePattern_init(BouncePattern *self, const PatternArgs *args) {

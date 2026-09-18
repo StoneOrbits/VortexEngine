@@ -1,15 +1,11 @@
-#include "Button.h"
 
-#include "../Time/TimeControl.h"
-#include "../Time/Timings.h"
-#include "../Log/Log.h"
 
+#include "../c_types.h"
 #ifdef VORTEX_LIB
 #include "VortexLib.h"
 #endif
 
 #ifdef VORTEX_EMBEDDED
-#include "../VortexEngine.h"
 #include <avr/interrupt.h>
 #include <avr/io.h>
 

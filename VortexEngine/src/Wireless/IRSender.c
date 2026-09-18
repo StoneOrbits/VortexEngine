@@ -1,11 +1,7 @@
-#include "IRSender.h"
-#include "IRConfig.h"
 
+#include "../c_types.h"
 #if IR_ENABLE_SENDER == 1
 
-#include "../Time/TimeControl.h"
-#include "../Modes/Mode.h"
-#include "../Log/Log.h"
 
 #ifdef VORTEX_LIB
 #include "VortexLib.h"

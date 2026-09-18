@@ -1,10 +1,7 @@
-#include "Timer.h"
 
-#include "TimeControl.h"
 
-#include "../Memory/Memory.h"
-#include "../Log/Log.h"
 
+#include "../c_types.h"
 static uint32_t Timer_getStartTime(const Timer *self)
 {
 #ifdef VORTEX_LIB
@@ -28,7 +25,6 @@ static void Timer_setStartTime(Timer *self, uint32_t tick)
 
 void Timer_init(Timer *self)
 {
-  self->alarms = NULL;
   self->numAlarms = 0;
   self->curAlarm = 0;
   self->startTime = 0;
@@ -39,10 +35,7 @@ void Timer_init(Timer *self)
 
 void Timer_cleanup(Timer *self)
 {
-  if (self->alarms) {
-    vfree(self->alarms);
-    self->alarms = NULL;
-  }
+  (void)self;
 }
 
 void Timer_initFlags(Timer *self, uint8_t flags, uint8_t alarm1, uint8_t alarm2, uint8_t alarm3, uint8_t alarm4)
@@ -57,12 +50,10 @@ void Timer_initFlags(Timer *self, uint8_t flags, uint8_t alarm1, uint8_t alarm2,
 
 AlarmID Timer_addAlarm(Timer *self, uint32_t interval)
 {
-  void *temp = vrealloc(self->alarms, sizeof(uint32_t) * (self->numAlarms + 1));
-  if (!temp) {
+  if (self->numAlarms >= TIMER_4_ALARMS) {
     ERROR_OUT_OF_MEMORY();
     return -1;
   }
-  self->alarms = (uint32_t *)temp;
   self->alarms[self->numAlarms] = interval;
   return (AlarmID)(self->numAlarms++);
 }
@@ -83,8 +74,6 @@ void Timer_start(Timer *self, uint32_t offset)
 
 void Timer_reset(Timer *self)
 {
-  vfree(self->alarms);
-  self->alarms = NULL;
   self->numAlarms = 0;
   self->curAlarm = 0;
   self->startTime = 0;
@@ -103,7 +92,7 @@ bool Timer_onStart(const Timer *self)
 
 bool Timer_onEnd(const Timer *self)
 {
-  if (!self->alarms || !self->numAlarms) {
+  if (!self->numAlarms) {
     return false;
   }
   uint32_t alarmTime = self->alarms[self->curAlarm];
@@ -121,7 +110,7 @@ bool Timer_onEnd(const Timer *self)
 
 AlarmID Timer_alarm(Timer *self)
 {
-  if (!self->numAlarms || !self->alarms || self->curAlarm == ALARM_NONE) {
+  if (!self->numAlarms || self->curAlarm == ALARM_NONE) {
     return ALARM_NONE;
   }
   uint32_t now = Time_getCurtime();

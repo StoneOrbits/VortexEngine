@@ -1,5 +1,5 @@
-#include "SnowballPattern.h"
 
+#include "../../c_types.h"
 static const PatternVTable SnowballPattern_vtable = { NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL };
 
 void SnowballPattern_init(SnowballPattern *self, const PatternArgs *args) {

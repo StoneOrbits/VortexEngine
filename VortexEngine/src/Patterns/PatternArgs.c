@@ -1,7 +1,6 @@
-#include "PatternArgs.h"
 
-#include "../Serial/ByteStream.h"
 
+#include "../c_types.h"
 void PatternArgs_init(PatternArgs *self) {
   self->arg1 = 0; self->arg2 = 0; self->arg3 = 0; self->arg4 = 0;
   self->arg5 = 0; self->arg6 = 0; self->arg7 = 0; self->arg8 = 0;

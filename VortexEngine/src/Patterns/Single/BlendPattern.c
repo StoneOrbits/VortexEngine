@@ -1,9 +1,6 @@
-#include "BlendPattern.h"
 
-#include "../../Time/TimeControl.h"
-#include "../../Colors/Colorset.h"
-#include "../../Leds/Leds.h"
 
+#include "../../c_types.h"
 const PatternVTable BlendPattern_vtable = {
   NULL,
   BasicPattern_play,

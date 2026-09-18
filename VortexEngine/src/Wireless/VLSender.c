@@ -1,12 +1,7 @@
-#include "VLSender.h"
-#include "IRConfig.h"
 
+#include "../c_types.h"
 #if VL_ENABLE_SENDER == 1
 
-#include "../Time/TimeControl.h"
-#include "../Modes/Mode.h"
-#include "../Leds/Leds.h"
-#include "../Log/Log.h"
 
 #ifdef VORTEX_LIB
 #include "VortexLib.h"
@@ -19,6 +14,8 @@ BitStream VLSender_bitStream;
 uint8_t VLSender_size = 0;
 uint8_t VLSender_parity = 0;
 
+static uint8_t s_vlSenderStore[88];
+
 bool VLSender_init()
 {
   return true;
@@ -30,7 +27,7 @@ void VLSender_cleanup()
 
 bool VLSender_loadMode(const Mode *targetMode)
 {
-  ByteStream_clear(&VLSender_serialBuf);
+  ByteStream_initStatic(&VLSender_serialBuf, s_vlSenderStore, sizeof(s_vlSenderStore));
   if (!Mode_saveToBuffer(targetMode, &VLSender_serialBuf, 2)) {
     DEBUG_LOG("Failed to save mode to buffer");
     return false;

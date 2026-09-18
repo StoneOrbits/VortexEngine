@@ -1,5 +1,5 @@
-#include "ZigzagPattern.h"
 
+#include "../../c_types.h"
 static const PatternVTable ZigzagPattern_vtable = { NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL };
 
 void ZigzagPattern_init(ZigzagPattern *self, const PatternArgs *args) {

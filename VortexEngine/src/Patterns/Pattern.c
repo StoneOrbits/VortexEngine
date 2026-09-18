@@ -1,13 +1,6 @@
-#include "Pattern.h"
 
-#include "../Patterns/PatternBuilder.h"
-#include "../Serial/ByteStream.h"
-#include "../Time/TimeControl.h"
-#include "../Colors/Colorset.h"
-#include "../Memory/Memory.h"
-#include "../Log/Log.h"
-#include "../VortexConfig.h"
 
+#include "../c_types.h"
 void Pattern_init(Pattern *self, const PatternArgs *args)
 {
   (void)args;

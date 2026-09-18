@@ -1,5 +1,5 @@
-#include "FillPattern.h"
 
+#include "../../c_types.h"
 static const PatternVTable FillPattern_vtable = { NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL };
 
 void FillPattern_init(FillPattern *self, const PatternArgs *args) {

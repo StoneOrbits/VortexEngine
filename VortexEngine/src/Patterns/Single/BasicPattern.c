@@ -1,9 +1,6 @@
-#include "BasicPattern.h"
 
-#include "../../Time/TimeControl.h"
-#include "../../Colors/Colorset.h"
-#include "../../Leds/Leds.h"
 
+#include "../../c_types.h"
 const PatternVTable BasicPattern_vtable = {
   NULL,
   BasicPattern_play,

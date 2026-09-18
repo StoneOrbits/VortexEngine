@@ -1,5 +1,5 @@
-#include "MeteorPattern.h"
 
+#include "../../c_types.h"
 static const PatternVTable MeteorPattern_vtable = { NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL };
 
 void MeteorPattern_init(MeteorPattern *self, const PatternArgs *args) {

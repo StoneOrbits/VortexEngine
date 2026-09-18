@@ -1,13 +1,9 @@
-#include "Storage.h"
 
 #include <string.h>
 #include <stdlib.h>
 
-#include "../VortexConfig.h"
-#include "../Memory/Memory.h"
-#include "../Serial/ByteStream.h"
-#include "../Log/Log.h"
 
+#include "../c_types.h"
 #ifdef VORTEX_EMBEDDED
 #include <avr/io.h>
 #include <avr/pgmspace.h>
@@ -161,8 +157,12 @@ bool Storage_read(uint8_t slot, ByteStream *buffer)
   if (size > STORAGE_SIZE || size < sizeof(RawBuffer) + 4 || slot >= NUM_MODE_SLOTS) {
     return false;
   }
-  if (!ByteStream_init(buffer, size, NULL)) {
-    return false;
+  if (ByteStream_capacity(buffer) < size) {
+    if (!ByteStream_init(buffer, size, NULL)) {
+      return false;
+    }
+  } else {
+    ByteStream_resetData(buffer);
   }
 #ifdef VORTEX_EMBEDDED
   uint8_t *buf = (uint8_t *)ByteStream_rawData(buffer);

@@ -1,14 +1,7 @@
-#include "VLReceiver.h"
-#include "IRConfig.h"
 
+#include "../c_types.h"
 #if VL_ENABLE_RECEIVER == 1
 
-#include "../Serial/ByteStream.h"
-#include "../Serial/BitStream.h"
-#include "../Time/TimeControl.h"
-#include "../Modes/Mode.h"
-#include "../Leds/Leds.h"
-#include "../Log/Log.h"
 
 #ifdef VORTEX_EMBEDDED
 #include <avr/interrupt.h>
@@ -86,7 +79,9 @@ uint8_t VLReceiver_percentReceived()
 
 bool VLReceiver_receiveMode(Mode *pMode)
 {
-  ByteStream buf;
+  static uint8_t s_vlModeStore[96];
+  static ByteStream buf;
+  ByteStream_initStatic(&buf, s_vlModeStore, sizeof(s_vlModeStore));
   if (!VLReceiver_read(&buf)) {
     DEBUG_LOG("No data available to read, or error reading");
     return false;
@@ -130,6 +125,11 @@ bool VLReceiver_onNewData()
   }
   VLReceiver_previousBytes = VLReceiver_bytesReceived();
   return true;
+}
+
+uint16_t VLReceiver_bytesReceived()
+{
+  return BitStream_bytepos(&VLReceiver_vlData);
 }
 
 bool VLReceiver_read(ByteStream *data)

@@ -1,5 +1,5 @@
-#include "HueShiftPattern.h"
 
+#include "../../c_types.h"
 static const PatternVTable HueShiftPattern_vtable = { NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL };
 
 void HueShiftPattern_init(HueShiftPattern *self, const PatternArgs *args) {

@@ -1,5 +1,5 @@
-#include "SparkleTracePattern.h"
 
+#include "../../c_types.h"
 static const PatternVTable SparkleTracePattern_vtable = { NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL };
 
 void SparkleTracePattern_init(SparkleTracePattern *self, const PatternArgs *args) {

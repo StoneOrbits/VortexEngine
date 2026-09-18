@@ -1,22 +1,10 @@
-#include "Menus.h"
 
-#include "Menu.h"
-#include "MenuList/GlobalBrightness.h"
-#include "MenuList/EditorConnection.h"
-#include "MenuList/FactoryReset.h"
-#include "MenuList/ModeSharing.h"
-#include "MenuList/ColorSelect.h"
-#include "MenuList/PatternSelect.h"
-#include "MenuList/Randomizer.h"
 
-#include "../Time/TimeControl.h"
-#include "../Time/Timings.h"
-#include "../Buttons/Button.h"
-#include "../Modes/Modes.h"
-#include "../Leds/Leds.h"
-#include "../Log/Log.h"
 
+#include "../c_types.h"
 #define COL32(v) ((RGBColor){ ((v) >> 16) & 0xFF, ((v) >> 8) & 0xFF, (v) & 0xFF })
+
+MenuWorkspace g_menuWorkspace;
 
 // Menu state
 static enum {
@@ -190,6 +178,10 @@ bool Menus_openMenu(uint32_t index, bool advanced)
     return false;
   }
   m_selection = index;
+  if (m_pCurMenu) {
+    m_pCurMenu->vtable->destroy(m_pCurMenu);
+    m_pCurMenu = NULL;
+  }
   Menu *newMenu = menuList[m_selection].initMenu(menuList[m_selection].color, advanced);
   if (!newMenu) {
     return false;
@@ -198,9 +190,6 @@ bool Menus_openMenu(uint32_t index, bool advanced)
     DEBUG_LOGF("Failed to initialize %s menu", menuList[m_selection].menuName);
     newMenu->vtable->destroy(newMenu);
     return false;
-  }
-  if (m_pCurMenu) {
-    m_pCurMenu->vtable->destroy(m_pCurMenu);
   }
   m_pCurMenu = newMenu;
   Leds_clearAll();

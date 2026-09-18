@@ -1,5 +1,5 @@
-#include "Random.h"
 
+#include "../c_types.h"
 void Random_init(Random *self) {
   self->seed = 0;
 }

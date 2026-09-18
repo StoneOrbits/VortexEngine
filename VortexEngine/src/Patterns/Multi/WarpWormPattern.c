@@ -1,5 +1,5 @@
-#include "WarpWormPattern.h"
 
+#include "../../c_types.h"
 static const PatternVTable WarpWormPattern_vtable = { NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL };
 
 void WarpWormPattern_init(WarpWormPattern *self, const PatternArgs *args) {

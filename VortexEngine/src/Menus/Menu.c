@@ -1,14 +1,6 @@
-#include "Menu.h"
 
-#include "../Time/TimeControl.h"
-#include "../Time/Timings.h"
-#include "../Buttons/Button.h"
-#include "../Menus/Menus.h"
-#include "../Modes/Modes.h"
-#include "../Modes/Mode.h"
-#include "../Leds/Leds.h"
-#include "../Log/Log.h"
 
+#include "../c_types.h"
 void Menu_construct(Menu *self, RGBColor col, bool advanced)
 {
   self->vtable = &g_menuVTable;
@@ -23,7 +15,7 @@ void Menu_construct(Menu *self, RGBColor col, bool advanced)
 
 void Menu_destroy(Menu *self)
 {
-  (void)self;
+  Mode_cleanup(&self->previewMode);
 }
 
 bool Menu_init(Menu *self)
@@ -36,8 +28,10 @@ bool Menu_init(Menu *self)
       Mode tmpMode;
       Mode_initFromID(&tmpMode, PATTERN_STROBE, NULL);
       if (!Modes_addModeMode(&tmpMode)) {
+        Mode_cleanup(&tmpMode);
         return false;
       }
+      Mode_cleanup(&tmpMode);
     }
     if (!Modes_curMode()) {
       return false;

@@ -1,9 +1,11 @@
-#include "BitStream.h"
 
-#include "../Memory/Memory.h"
-#include "../Log/Log.h"
 
 #include <string.h>
+
+#include "../c_types.h"
+
+#define BITSTREAM_STATIC_BYTES VL_RECV_BUF_SIZE
+static uint32_t s_bitStreamStatic[(BITSTREAM_STATIC_BYTES + 3) / sizeof(uint32_t)];
 
 void BitStream_init(BitStream *self)
 {
@@ -24,25 +26,18 @@ void BitStream_initBuf(BitStream *self, uint8_t *buf, uint32_t size)
 
 bool BitStream_initAlloc(BitStream *self, uint32_t size)
 {
-  if (self->buf) {
-    vfree(self->buf);
-  }
-  self->buf = (uint8_t *)vcalloc(1, size);
-  if (!self->buf) {
+  if (size > sizeof(s_bitStreamStatic)) {
     ERROR_OUT_OF_MEMORY();
     return false;
   }
-  self->buf_size = (uint16_t)size;
-  self->allocated = true;
-  BitStream_resetPos(self);
+  BitStream_initBuf(self, (uint8_t *)s_bitStreamStatic, size);
+  memset(self->buf, 0, size);
   return true;
 }
 
 void BitStream_destroy(BitStream *self)
 {
-  if (self->allocated) {
-    vfree(self->buf);
-  }
+  (void)self;
 }
 
 void BitStream_reset(BitStream *self)
@@ -116,4 +111,44 @@ void BitStream_writeBits(BitStream *self, uint32_t numBits, uint32_t val)
   for (uint32_t i = 0; i < numBits; ++i) {
     BitStream_write1Bit(self, (val >> ((numBits - 1) - i)) & 1);
   }
+}
+
+bool BitStream_eof(const BitStream *self)
+{
+  return self->buf_eof;
+}
+
+bool BitStream_allocated(const BitStream *self)
+{
+  return self->allocated;
+}
+
+uint16_t BitStream_size(const BitStream *self)
+{
+  return self->buf_size;
+}
+
+const uint8_t *BitStream_data(const BitStream *self)
+{
+  return self->buf;
+}
+
+uint8_t BitStream_peekData(const BitStream *self, uint8_t pos)
+{
+  return self->buf[pos];
+}
+
+uint16_t BitStream_dwordpos(const BitStream *self)
+{
+  return (uint16_t)(self->bit_pos / 32);
+}
+
+uint16_t BitStream_bytepos(const BitStream *self)
+{
+  return (uint16_t)(self->bit_pos / 8);
+}
+
+uint16_t BitStream_bitpos(const BitStream *self)
+{
+  return self->bit_pos;
 }

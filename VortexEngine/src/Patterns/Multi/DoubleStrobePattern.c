@@ -1,5 +1,5 @@
-#include "DoubleStrobePattern.h"
 
+#include "../../c_types.h"
 static const PatternVTable DoubleStrobePattern_vtable = { NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL };
 
 void DoubleStrobePattern_init(DoubleStrobePattern *self, const PatternArgs *args) {

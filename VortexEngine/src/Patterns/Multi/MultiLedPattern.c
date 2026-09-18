@@ -1,7 +1,6 @@
-#include "MultiLedPattern.h"
 
-#include "../Pattern.h"
 
+#include "../../c_types.h"
 const PatternVTable MultiLedPattern_vtable = {
   NULL,
   NULL,

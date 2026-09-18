@@ -1,24 +1,12 @@
-#include "PatternSelect.h"
 #include <stdlib.h>
 
-#include "../../Patterns/PatternBuilder.h"
-#include "../../Patterns/PatternArgs.h"
-#include "../../Patterns/Pattern.h"
-#include "../../Serial/ByteStream.h"
-#include "../../Time/TimeControl.h"
-#include "../../Buttons/Button.h"
-#include "../../Random/Random.h"
-#include "../../Time/Timings.h"
-#include "../../Modes/Modes.h"
-#include "../../Menus/Menus.h"
-#include "../../Leds/Leds.h"
-#include "../../Log/Log.h"
 
+#include "../../c_types.h"
 #define COL32(v) ((RGBColor){ ((v) >> 16) & 0xFF, ((v) >> 8) & 0xFF, (v) & 0xFF })
 
 Menu *PatternSelectMenu_Create(RGBColor col, bool advanced)
 {
-  PatternSelectMenu *self = (PatternSelectMenu *)malloc(sizeof(PatternSelectMenu));
+  PatternSelectMenu *self = &g_menuWorkspace.patternSelect;
   if (!self) return NULL;
   Menu_construct(&self->base, col, advanced);
   self->base.vtable = &g_patternSelectMenuVTable;

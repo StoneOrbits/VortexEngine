@@ -1,5 +1,5 @@
-#include "TheaterChasePattern.h"
 
+#include "../../c_types.h"
 static const PatternVTable TheaterChasePattern_vtable = { NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL };
 
 void TheaterChasePattern_init(TheaterChasePattern *self, const PatternArgs *args) {

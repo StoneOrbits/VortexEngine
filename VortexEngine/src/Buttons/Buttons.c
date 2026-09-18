@@ -1,22 +1,17 @@
-#include "Buttons.h"
 
-#include "../Memory/Memory.h"
 
+#include "../c_types.h"
 #ifdef VORTEX_LIB
 #include "VortexLib.h"
 #else
-#include "../Time/TimeControl.h"
-#include "../Time/Timings.h"
 #endif
 
 Button *g_pButton = NULL;
+static Button s_button;
 
 bool Buttons_init(uint8_t pin)
 {
-  g_pButton = (Button *)vmalloc(sizeof(Button));
-  if (!g_pButton) {
-    return false;
-  }
+  g_pButton = &s_button;
   Button_init(g_pButton);
   return Button_initPin(g_pButton, pin);
 }
@@ -25,7 +20,6 @@ void Buttons_cleanup(void)
 {
   if (g_pButton) {
     Button_cleanup(g_pButton);
-    vfree(g_pButton);
     g_pButton = NULL;
   }
 }

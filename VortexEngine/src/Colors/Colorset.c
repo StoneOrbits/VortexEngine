@@ -1,10 +1,6 @@
-#include "Colorset.h"
-#include "../Serial/ByteStream.h"
-#include "../Random/Random.h"
-#include "../Memory/Memory.h"
-#include "../Log/Log.h"
 #include <string.h>
 
+#include "../c_types.h"
 #define INDEX_NONE UINT8_MAX
 
 void Colorset_init(Colorset *self)

@@ -1,5 +1,5 @@
-#include "CrossDopsPattern.h"
 
+#include "../../c_types.h"
 static const PatternVTable CrossDopsPattern_vtable = { NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL };
 
 void CrossDopsPattern_init(CrossDopsPattern *self, const PatternArgs *args) {

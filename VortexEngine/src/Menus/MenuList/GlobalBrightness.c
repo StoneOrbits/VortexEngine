@@ -1,19 +1,8 @@
-#include "GlobalBrightness.h"
 #include <stdlib.h>
 
-#include "../../VortexEngine.h"
 
-#include "../../Patterns/PatternArgs.h"
-#include "../../Patterns/Pattern.h"
-#include "../../Time/TimeControl.h"
-#include "../../Colors/Colorset.h"
-#include "../../Buttons/Button.h"
-#include "../../Time/Timings.h"
-#include "../../Menus/Menus.h"
-#include "../../Modes/Modes.h"
-#include "../../Leds/Leds.h"
-#include "../../Log/Log.h"
 
+#include "../../c_types.h"
 #define COL32(v) ((RGBColor){ ((v) >> 16) & 0xFF, ((v) >> 8) & 0xFF, (v) & 0xFF })
 
 static const uint8_t s_brightnessOptions[4] = {
@@ -31,7 +20,7 @@ extern void VortexEngine_enterSleep(bool save);
 
 Menu *GlobalBrightnessMenu_Create(RGBColor col, bool advanced)
 {
-  GlobalBrightnessMenu *self = (GlobalBrightnessMenu *)malloc(sizeof(GlobalBrightnessMenu));
+  GlobalBrightnessMenu *self = &g_menuWorkspace.globalBrightness;
   if (!self) return NULL;
   Menu_construct(&self->base, col, advanced);
   self->base.vtable = &g_globalBrightnessMenuVTable;

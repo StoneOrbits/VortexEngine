@@ -1,15 +1,20 @@
-#include "ByteStream.h"
 
-#include "../Serial/BitStream.h"
-#include "../Memory/Memory.h"
-#include "../Log/Log.h"
 
 #include <string.h>
 
-#include "Compression.h"
 
+#include "../c_types.h"
 #define BUFFER_FLAG_COMRPESSED (1<<0)
 #define BUFFER_FLAG_DIRTY      (1<<1)
+
+#define BYTESTREAM_SCRATCH_BYTES 96
+static uint32_t s_scratch[BYTESTREAM_SCRATCH_BYTES / sizeof(uint32_t)];
+static bool s_scratchBusy = false;
+
+static bool ByteStream_usesScratch(const ByteStream *self)
+{
+  return self->pData == (const RawBuffer *)s_scratch;
+}
 
 // --- RawBuffer free functions ---
 
@@ -53,9 +58,6 @@ void ByteStream_destroy(ByteStream *self)
 
 void ByteStream_copy(ByteStream *self, const ByteStream *other)
 {
-  self->pData = NULL;
-  self->position = 0;
-  self->capacity = 0;
   ByteStream_init(self, other->capacity, ByteStream_data(other));
   if (self->pData && other->pData) {
     self->pData->flags = other->pData->flags;
@@ -79,6 +81,7 @@ void ByteStream_move(ByteStream *self, ByteStream *target)
   if (!target) {
     return;
   }
+  bool wasScratch = ByteStream_usesScratch(self);
   ByteStream_clear(target);
   target->pData = self->pData;
   target->position = self->position;
@@ -86,6 +89,36 @@ void ByteStream_move(ByteStream *self, ByteStream *target)
   self->pData = NULL;
   self->position = 0;
   self->capacity = 0;
+  if (wasScratch) {
+    s_scratchBusy = true;
+  }
+}
+
+void ByteStream_resetData(ByteStream *self)
+{
+  if (!self->pData) {
+    return;
+  }
+  self->pData->size = 0;
+  self->pData->flags = 0;
+  self->pData->crc32 = 0;
+  self->position = 0;
+}
+
+void ByteStream_initStatic(ByteStream *self, uint8_t *storage, uint32_t storageSize)
+{
+  if (ByteStream_usesScratch(self)) {
+    s_scratchBusy = false;
+  }
+  if (!storage || storageSize <= sizeof(RawBuffer)) {
+    self->pData = NULL;
+    self->capacity = 0;
+    self->position = 0;
+    return;
+  }
+  self->pData = (RawBuffer *)storage;
+  self->capacity = (uint16_t)((storageSize - sizeof(RawBuffer)) & ~3u);
+  ByteStream_resetData(self);
 }
 
 bool ByteStream_rawInit(ByteStream *self, const uint8_t *rawdata, uint32_t size)
@@ -94,12 +127,13 @@ bool ByteStream_rawInit(ByteStream *self, const uint8_t *rawdata, uint32_t size)
     DEBUG_LOGF("Cannot rawInit: %p %u", (const void *)rawdata, (unsigned)size);
     return false;
   }
-  self->capacity = (uint16_t)((size + 4) - (size % 4));
-  self->pData = (RawBuffer *)vcalloc(1, (size_t)self->capacity + sizeof(RawBuffer));
-  if (!self->pData) {
-    self->capacity = 0;
-    ERROR_OUT_OF_MEMORY();
-    return false;
+  uint16_t capacity = (uint16_t)((size + 4) - (size % 4));
+  if (ByteStream_capacity(self) < capacity) {
+    if (!ByteStream_init(self, capacity, NULL)) {
+      return false;
+    }
+  } else {
+    ByteStream_resetData(self);
   }
   memcpy(self->pData, rawdata, size);
   ByteStream_sanity(self);
@@ -109,20 +143,25 @@ bool ByteStream_rawInit(ByteStream *self, const uint8_t *rawdata, uint32_t size)
 bool ByteStream_init(ByteStream *self, uint32_t size, const uint8_t *buf)
 {
   ByteStream_clear(self);
+  uint16_t capacity;
   if (size) {
-    self->capacity = (uint16_t)((size + 4) - (size % 4));
-    self->pData = (RawBuffer *)vcalloc(1, (size_t)self->capacity + sizeof(RawBuffer));
-    if (!self->pData) {
-      self->capacity = 0;
-      ERROR_OUT_OF_MEMORY();
-      return false;
-    }
-    self->pData->size = 0;
-    self->pData->flags = 0;
-    self->pData->crc32 = 0;
-    memset(self->pData->buf, 0, self->capacity);
+    capacity = (uint16_t)((size + 4) - (size % 4));
+  } else {
+    capacity = (uint16_t)((sizeof(s_scratch) - sizeof(RawBuffer)) & ~3u);
   }
-  if (buf && self->pData) {
+  if (((uint32_t)capacity + sizeof(RawBuffer) > sizeof(s_scratch)) || s_scratchBusy) {
+    ERROR_OUT_OF_MEMORY();
+    self->capacity = 0;
+    return false;
+  }
+  s_scratchBusy = true;
+  self->capacity = capacity;
+  self->pData = (RawBuffer *)s_scratch;
+  self->pData->size = 0;
+  self->pData->flags = 0;
+  self->pData->crc32 = 0;
+  memset(self->pData->buf, 0, capacity);
+  if (buf) {
     memcpy(self->pData->buf, buf, size);
     self->pData->size = size;
     RawBuffer_recalcCRC(self->pData);
@@ -132,10 +171,10 @@ bool ByteStream_init(ByteStream *self, uint32_t size, const uint8_t *buf)
 
 void ByteStream_clear(ByteStream *self)
 {
-  if (self->pData) {
-    vfree(self->pData);
-    self->pData = NULL;
+  if (ByteStream_usesScratch(self)) {
+    s_scratchBusy = false;
   }
+  self->pData = NULL;
   self->capacity = 0;
   self->position = 0;
 }
@@ -145,16 +184,7 @@ bool ByteStream_shrink(ByteStream *self)
   if (!self->pData) {
     return false;
   }
-  if (self->pData->size == self->capacity) {
-    return true;
-  }
   self->capacity = (uint16_t)self->pData->size;
-  RawBuffer *temp = (RawBuffer *)vrealloc(self->pData, (size_t)self->pData->size + sizeof(RawBuffer));
-  if (!temp) {
-    ERROR_OUT_OF_MEMORY();
-    return false;
-  }
-  self->pData = temp;
   return true;
 }
 
@@ -196,20 +226,8 @@ bool ByteStream_extend(ByteStream *self, uint32_t size)
   if (!self->capacity) {
     return ByteStream_init(self, size, NULL);
   }
-  uint32_t buffer_size = (uint32_t)self->capacity + size + 3;
-  buffer_size -= buffer_size % 4;
-  uint32_t new_size = buffer_size + sizeof(RawBuffer);
-  RawBuffer *temp = (RawBuffer *)vrealloc(self->pData, new_size);
-  if (!temp) {
-    ERROR_OUT_OF_MEMORY();
-    return false;
-  }
-  uint8_t *new_mem = ((uint8_t *)temp) + sizeof(RawBuffer) + self->capacity;
-  size_t new_mem_size = buffer_size - self->capacity;
-  memset(new_mem, 0, new_mem_size);
-  self->pData = temp;
-  self->capacity = (uint16_t)buffer_size;
-  return true;
+  ERROR_OUT_OF_MEMORY();
+  return false;
 }
 
 bool ByteStream_compress(ByteStream *self)

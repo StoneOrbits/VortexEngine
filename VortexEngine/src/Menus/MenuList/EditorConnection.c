@@ -1,20 +1,9 @@
-#include "EditorConnection.h"
 
-#include "../../Patterns/PatternArgs.h"
-#include "../../Serial/ByteStream.h"
-#include "../../Serial/Serial.h"
-#include "../../Storage/Storage.h"
-#include "../../Wireless/VLSender.h"
-#include "../../Time/TimeControl.h"
-#include "../../Colors/Colorset.h"
-#include "../../Modes/Modes.h"
-#include "../../Modes/Mode.h"
-#include "../../Leds/Leds.h"
-#include "../../Log/Log.h"
 
 #include <string.h>
 #include <stdlib.h>
 
+#include "../../c_types.h"
 #define COL32(v) ((RGBColor){ ((v) >> 16) & 0xFF, ((v) >> 8) & 0xFF, (v) & 0xFF })
 
 static void clearDemo(EditorConnectionMenu *self);
@@ -51,7 +40,7 @@ static const EditorConnectionCommandState s_commands[] = {
 
 Menu *EditorConnectionMenu_Create(RGBColor col, bool advanced)
 {
-  EditorConnectionMenu *self = (EditorConnectionMenu *)malloc(sizeof(EditorConnectionMenu));
+  EditorConnectionMenu *self = &g_menuWorkspace.editorConnection;
   if (!self) return NULL;
   Menu_construct(&self->base, col, advanced);
   self->base.vtable = &g_editorConnectionMenuVTable;

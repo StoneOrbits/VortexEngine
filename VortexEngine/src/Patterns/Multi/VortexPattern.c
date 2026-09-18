@@ -1,5 +1,5 @@
-#include "VortexPattern.h"
 
+#include "../../c_types.h"
 static const PatternVTable VortexPattern_vtable = { NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL };
 
 void VortexPattern_init(VortexPattern *self, const PatternArgs *args) {

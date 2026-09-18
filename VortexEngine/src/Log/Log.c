@@ -1,12 +1,10 @@
-#include "Log.h"
 
-#include "../Time/TimeControl.h"
-#include "../Serial/Serial.h"
 
 #include <stdarg.h>
 #include <string.h>
 #include <stdio.h>
 
+#include "../c_types.h"
 #ifdef VORTEX_LIB
 #include "VortexLib.h"
 #endif

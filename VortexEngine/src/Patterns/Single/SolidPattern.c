@@ -1,5 +1,5 @@
-#include "SolidPattern.h"
 
+#include "../../c_types.h"
 const PatternVTable SolidPattern_vtable = {
   NULL,
   BasicPattern_play,

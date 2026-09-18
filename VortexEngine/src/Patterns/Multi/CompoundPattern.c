@@ -1,5 +1,5 @@
-#include "CompoundPattern.h"
 
+#include "../../c_types.h"
 static const PatternVTable CompoundPattern_vtable = { NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL };
 
 void CompoundPattern_init(CompoundPattern *self, const PatternArgs *args) {

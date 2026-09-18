@@ -1,19 +1,8 @@
-#include "FactoryReset.h"
 #include <stdlib.h>
 
-#include "../../VortexEngine.h"
-#include "../../Modes/DefaultModes.h"
-#include "../../Time/TimeControl.h"
-#include "../../Patterns/Pattern.h"
-#include "../../Buttons/Button.h"
-#include "../../Time/Timings.h"
-#include "../../Modes/Modes.h"
-#include "../../Modes/Mode.h"
-#include "../../Leds/Leds.h"
-#include "../../Log/Log.h"
 
-#include "../../VortexConfig.h"
 
+#include "../../c_types.h"
 #define COL32(v) ((RGBColor){ ((v) >> 16) & 0xFF, ((v) >> 8) & 0xFF, (v) & 0xFF })
 
 static void showReset(FactoryResetMenu *self);
@@ -22,7 +11,7 @@ extern void VortexEngine_setAutoCycle(bool enabled);
 
 Menu *FactoryResetMenu_Create(RGBColor col, bool advanced)
 {
-  FactoryResetMenu *self = (FactoryResetMenu *)malloc(sizeof(FactoryResetMenu));
+  FactoryResetMenu *self = &g_menuWorkspace.factoryReset;
   if (!self) return NULL;
   Menu_construct(&self->base, col, advanced);
   self->base.vtable = &g_factoryResetMenuVTable;

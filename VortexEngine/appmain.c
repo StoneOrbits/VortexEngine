@@ -1,5 +1,5 @@
-#include "src/VortexEngine.h"
 
+#include "src/c_types.h"
 int main(void)
 {
   VortexEngine_init();

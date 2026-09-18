@@ -1,20 +1,7 @@
-#include "ModeSharing.h"
 #include <stdlib.h>
 
-#include "../../VortexEngine.h"
-#include "../../Serial/ByteStream.h"
-#include "../../Serial/Serial.h"
-#include "../../Time/TimeControl.h"
-#include "../../Time/Timings.h"
-#include "../../Wireless/VLReceiver.h"
-#include "../../Wireless/VLSender.h"
-#include "../../Patterns/Pattern.h"
-#include "../../Buttons/Button.h"
-#include "../../Modes/Modes.h"
-#include "../../Modes/Mode.h"
-#include "../../Leds/Leds.h"
-#include "../../Log/Log.h"
 
+#include "../../c_types.h"
 #define COL32(v) ((RGBColor){ ((v) >> 16) & 0xFF, ((v) >> 8) & 0xFF, (v) & 0xFF })
 
 static void receiveMode(ModeSharingMenu *self);
@@ -24,7 +11,7 @@ extern void VortexEngine_toggleForceSleep(bool enabled);
 
 Menu *ModeSharingMenu_Create(RGBColor col, bool advanced)
 {
-  ModeSharingMenu *self = (ModeSharingMenu *)malloc(sizeof(ModeSharingMenu));
+  ModeSharingMenu *self = &g_menuWorkspace.modeSharing;
   if (!self) return NULL;
   Menu_construct(&self->base, col, advanced);
   self->base.vtable = &g_modeSharingMenuVTable;

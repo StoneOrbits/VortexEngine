@@ -1,5 +1,5 @@
-#include "LedStash.h"
 
+#include "../c_types.h"
 void LedStash_init(LedStash *self)
 {
   (void)self;

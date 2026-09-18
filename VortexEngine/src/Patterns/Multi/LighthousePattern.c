@@ -1,5 +1,5 @@
-#include "LighthousePattern.h"
 
+#include "../../c_types.h"
 static const PatternVTable LighthousePattern_vtable = { NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL };
 
 void LighthousePattern_init(LighthousePattern *self, const PatternArgs *args) {

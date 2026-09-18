@@ -1,13 +1,7 @@
-#include "IRReceiver.h"
-#include "IRConfig.h"
 
+#include "../c_types.h"
 #if IR_ENABLE_RECEIVER == 1
 
-#include "../Serial/ByteStream.h"
-#include "../Serial/BitStream.h"
-#include "../Time/TimeControl.h"
-#include "../Modes/Mode.h"
-#include "../Log/Log.h"
 
 BitStream IRReceiver_irData;
 IRRecvState IRReceiver_recvState = IR_WAITING_HEADER_MARK;

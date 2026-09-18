@@ -1,30 +1,58 @@
-#include "Modes.h"
-#include "DefaultModes.h"
-#include "Mode.h"
 
-#include "../Patterns/Patterns.h"
-#include "../Patterns/PatternArgs.h"
-#include "../Patterns/Pattern.h"
-#include "../Patterns/PatternBuilder.h"
-#include "../Colors/Colorset.h"
-#include "../Serial/ByteStream.h"
-#include "../Time/TimeControl.h"
-#include "../Storage/Storage.h"
-#include "../Buttons/Buttons.h"
-#include "../Buttons/Button.h"
-#include "../Time/Timings.h"
-#include "../Leds/Leds.h"
-#include "../Log/Log.h"
-#include "../Memory/Memory.h"
 
+#include "../c_types.h"
 // file-scope globals (replaces static class members)
 static bool s_loaded = false;
 static uint8_t s_curMode = 0;
 static uint8_t s_numModes = 0;
-static ModeLink *s_pCurModeLink = NULL;
-static ModeLink *s_storedModes = NULL;
 uint8_t Modes_globalFlags = 0;
 static uint32_t s_lastSwitchTime = 0;
+static Mode s_liveMode;
+static bool s_liveValid = false;
+static uint8_t s_modeStoreData[MAX_MODE_SIZE];
+static ByteStream s_modeBuf;
+static uint8_t s_headerStoreData[MAX_MODE_SIZE];
+static ByteStream s_headerBuf;
+
+static void Modes_resetModeBuf(void)
+{
+  ByteStream_initStatic(&s_modeBuf, s_modeStoreData, sizeof(s_modeStoreData));
+}
+
+static void Modes_resetHeaderBuf(void)
+{
+  ByteStream_initStatic(&s_headerBuf, s_headerStoreData, sizeof(s_headerStoreData));
+}
+
+static void Modes_unloadLive(void)
+{
+  if (s_liveValid) {
+    Mode_cleanup(&s_liveMode);
+    s_liveValid = false;
+  }
+}
+
+static bool Modes_loadLive(void)
+{
+  if (s_liveValid) {
+    return true;
+  }
+  if (!s_numModes) {
+    return false;
+  }
+  Modes_resetModeBuf();
+  if (!Storage_read(s_curMode + 1, &s_modeBuf)) {
+    DEBUG_LOG("Failed to read current mode from storage");
+    return false;
+  }
+  Mode_init(&s_liveMode);
+  if (!Mode_loadFromBuffer(&s_liveMode, &s_modeBuf)) {
+    Mode_cleanup(&s_liveMode);
+    return false;
+  }
+  s_liveValid = true;
+  return true;
+}
 
 bool Modes_init(void)
 {
@@ -33,12 +61,10 @@ bool Modes_init(void)
   Modes_test();
   return true;
 #endif
-  ByteStream headerBuffer;
-  ByteStream_init(&headerBuffer, 0, NULL);
-  if (!Storage_read(0, &headerBuffer) || !Modes_unserializeSaveHeader(&headerBuffer)) {
+  Modes_resetHeaderBuf();
+  if (!Storage_read(0, &s_headerBuf) || !Modes_unserializeSaveHeader(&s_headerBuf)) {
     Modes_globalFlags |= MODES_FLAG_NEW_FIRMWARE;
   }
-  ByteStream_destroy(&headerBuffer);
   s_loaded = false;
 #ifdef VORTEX_LIB
   Modes_globalFlags |= MODES_FLAG_ADV_MENUS;
@@ -48,7 +74,7 @@ bool Modes_init(void)
 
 void Modes_cleanup(void)
 {
-  Modes_clearModes();
+  Modes_unloadLive();
 }
 
 bool Modes_load(void)
@@ -74,7 +100,7 @@ void Modes_play(void)
     Leds_clearAll();
     return;
   }
-  if (!s_pCurModeLink && !Modes_initCurMode(false)) {
+  if (!s_liveValid && !Modes_loadLive()) {
     DEBUG_LOG("Error failed to load any modes!");
     return;
   }
@@ -86,7 +112,7 @@ void Modes_play(void)
     }
     Modes_nextMode();
   }
-  ModeLink_play(s_pCurModeLink);
+  Mode_play(&s_liveMode);
 }
 
 bool Modes_saveToBuffer(ByteStream *modesBuffer)
@@ -114,35 +140,27 @@ bool Modes_loadFromBuffer(ByteStream *modesBuffer)
 
 bool Modes_saveHeader(void)
 {
-  ByteStream headerBuffer;
-  ByteStream_init(&headerBuffer, MAX_MODE_SIZE, NULL);
-  if (!Modes_serializeSaveHeader(&headerBuffer)) {
-    ByteStream_destroy(&headerBuffer);
+  Modes_resetHeaderBuf();
+  if (!Modes_serializeSaveHeader(&s_headerBuf)) {
     return false;
   }
-  if (!Storage_write(0, &headerBuffer)) {
-    ByteStream_destroy(&headerBuffer);
+  if (!Storage_write(0, &s_headerBuf)) {
     return false;
   }
-  ByteStream_destroy(&headerBuffer);
   return true;
 }
 
 bool Modes_loadHeader(void)
 {
-  ByteStream headerBuffer;
-  ByteStream_init(&headerBuffer, 0, NULL);
-  if (!Storage_read(0, &headerBuffer) || !ByteStream_size(&headerBuffer)) {
+  Modes_resetHeaderBuf();
+  if (!Storage_read(0, &s_headerBuf) || !ByteStream_size(&s_headerBuf)) {
     DEBUG_LOG("Empty buffer read from storage");
-    ByteStream_destroy(&headerBuffer);
     return false;
   }
   Modes_clearModes();
-  if (!Modes_unserializeSaveHeader(&headerBuffer)) {
-    ByteStream_destroy(&headerBuffer);
+  if (!Modes_unserializeSaveHeader(&s_headerBuf)) {
     return false;
   }
-  ByteStream_destroy(&headerBuffer);
   return true;
 }
 
@@ -151,77 +169,36 @@ bool Modes_saveStorage(void)
   DEBUG_LOG("Saving modes...");
   Modes_saveHeader();
   Modes_saveCurMode();
-  if (s_pCurModeLink) {
-    ModeLink_uninstantiate(s_pCurModeLink);
-  }
-  uint8_t i = 0;
-  ModeLink *ptr = s_storedModes;
-  while (ptr && i < MAX_MODES) {
-    ByteStream modeBuffer;
-    ByteStream_init(&modeBuffer, MAX_MODE_SIZE, NULL);
-    Mode *mode = ModeLink_instantiate(ptr);
-    if (!mode) {
-      ERROR_OUT_OF_MEMORY();
-      ByteStream_destroy(&modeBuffer);
-      return false;
-    }
-    if (!Mode_serialize(mode, &modeBuffer, 0)) {
-      ByteStream_destroy(&modeBuffer);
-      return false;
-    }
-    ModeLink_uninstantiate(ptr);
-    ptr = ModeLink_next(ptr);
-    if (!Storage_write(++i, &modeBuffer)) {
-      ByteStream_destroy(&modeBuffer);
-      return false;
-    }
-    ByteStream_destroy(&modeBuffer);
-  }
-  if (s_pCurModeLink && !ModeLink_instantiate(s_pCurModeLink)) {
-    return false;
-  }
   DEBUG_LOGF("Serialized num modes: %u", s_numModes);
   return true;
 }
 
 bool Modes_loadStorage(void)
 {
-  ByteStream headerBuffer;
-  ByteStream_init(&headerBuffer, 0, NULL);
-  if (!Storage_read(0, &headerBuffer) || !ByteStream_size(&headerBuffer)) {
+  Modes_resetHeaderBuf();
+  if (!Storage_read(0, &s_headerBuf) || !ByteStream_size(&s_headerBuf)) {
     DEBUG_LOG("Empty buffer read from storage");
-    ByteStream_destroy(&headerBuffer);
     return false;
   }
   Modes_clearModes();
-  if (!Modes_unserializeSaveHeader(&headerBuffer)) {
-    ByteStream_destroy(&headerBuffer);
+  if (!Modes_unserializeSaveHeader(&s_headerBuf)) {
     return false;
   }
   uint8_t numModes = 0;
-  if (!ByteStream_unserialize8(&headerBuffer, &numModes)) {
-    ByteStream_destroy(&headerBuffer);
+  if (!ByteStream_unserialize8(&s_headerBuf, &numModes)) {
     return false;
   }
   if (!numModes) {
     DEBUG_LOG("Did not find any modes");
-    ByteStream_destroy(&headerBuffer);
     return false;
   }
-  for (uint8_t i = 0; i < numModes; ++i) {
-    ByteStream modeBuffer;
-    ByteStream_init(&modeBuffer, MAX_MODE_SIZE, NULL);
-    if (!Storage_read(i + 1, &modeBuffer) || !Modes_addSerializedMode(&modeBuffer)) {
-      ByteStream_destroy(&modeBuffer);
-      ByteStream_destroy(&headerBuffer);
-      return false;
-    }
-    ByteStream_destroy(&modeBuffer);
+  if (numModes > MAX_MODES) {
+    numModes = MAX_MODES;
   }
+  s_numModes = numModes;
   if (Modes_oneClickModeEnabled()) {
     Modes_switchToStartupMode();
   }
-  ByteStream_destroy(&headerBuffer);
   return true;
 }
 
@@ -286,25 +263,22 @@ bool Modes_serialize(ByteStream *modesBuffer)
   if (!ByteStream_serialize8(modesBuffer, s_numModes)) {
     return false;
   }
-  Modes_saveCurMode();
-  if (s_pCurModeLink) {
-    ModeLink_uninstantiate(s_pCurModeLink);
-  }
-  ModeLink *ptr = s_storedModes;
-  while (ptr) {
-    Mode *mode = ModeLink_instantiate(ptr);
-    if (!mode) {
-      ERROR_OUT_OF_MEMORY();
+  for (uint8_t i = 0; i < s_numModes; ++i) {
+    Mode tmpMode;
+    Modes_resetModeBuf();
+    if (!Storage_read(i + 1, &s_modeBuf)) {
       return false;
     }
-    if (!Mode_serialize(mode, modesBuffer, 0)) {
+    Mode_init(&tmpMode);
+    if (!Mode_loadFromBuffer(&tmpMode, &s_modeBuf)) {
+      Mode_cleanup(&tmpMode);
       return false;
     }
-    ModeLink_uninstantiate(ptr);
-    ptr = ModeLink_next(ptr);
-  }
-  if (s_pCurModeLink && !ModeLink_instantiate(s_pCurModeLink)) {
-    return false;
+    bool result = Mode_serialize(&tmpMode, modesBuffer, 0);
+    Mode_cleanup(&tmpMode);
+    if (!result) {
+      return false;
+    }
   }
   DEBUG_LOGF("Serialized num modes: %u", s_numModes);
   return true;
@@ -339,7 +313,9 @@ bool Modes_setDefaults(void)
   for (uint8_t i = 0; i < MAX_MODES; ++i) {
     Mode defMode;
     Mode_initFromEntry(&defMode, &defaultModes[i]);
-    if (!Modes_addModeMode(&defMode)) {
+    bool result = Modes_addModeMode(&defMode);
+    Mode_cleanup(&defMode);
+    if (!result) {
       ERROR_LOGF("Failed to add default mode %u", i);
       return false;
     }
@@ -357,10 +333,13 @@ bool Modes_addSerializedMode(ByteStream *serializedMode)
   Mode tmpMode;
   Mode_init(&tmpMode);
   if (!Mode_unserialize(&tmpMode, serializedMode)) {
+    Mode_cleanup(&tmpMode);
     return false;
   }
   Mode_initMode(&tmpMode);
-  return Modes_addModeMode(&tmpMode);
+  bool result = Modes_addModeMode(&tmpMode);
+  Mode_cleanup(&tmpMode);
+  return result;
 }
 
 bool Modes_addModeFromBuffer(ByteStream *serializedMode)
@@ -370,18 +349,15 @@ bool Modes_addModeFromBuffer(ByteStream *serializedMode)
     return false;
   }
 #endif
-  if (!s_storedModes) {
-    s_storedModes = (ModeLink *)vmalloc(sizeof(ModeLink));
-    if (!s_storedModes) {
-      ERROR_OUT_OF_MEMORY();
-      return false;
-    }
-    ModeLink_initFromStream(s_storedModes, serializedMode, false);
-  } else {
-    if (!ModeLink_appendStream(s_storedModes, serializedMode)) {
-      ERROR_OUT_OF_MEMORY();
-      return false;
-    }
+  if (!ByteStream_size(serializedMode)) {
+    return false;
+  }
+  if (ByteStream_rawSize(serializedMode) > MAX_MODE_SIZE) {
+    ERROR_LOG("Mode too big for storage space");
+    return false;
+  }
+  if (!Storage_write(s_numModes + 1, serializedMode)) {
+    return false;
   }
   s_numModes++;
   return true;
@@ -390,29 +366,29 @@ bool Modes_addModeFromBuffer(ByteStream *serializedMode)
 bool Modes_shiftCurMode(int32_t offset)
 {
   uint32_t newPos = (uint32_t)((int32_t)s_curMode + offset);
-  if (newPos >= s_numModes) {
+  if (!s_numModes || offset == 0 || newPos >= s_numModes) {
     return false;
   }
-  if (newPos == s_curMode) {
-    return true;
-  }
-  ModeLink *target = Modes_getModeLink(newPos);
-  if (!target) {
-    return false;
-  }
-  if (!s_curMode && offset > 0) {
-    s_storedModes = ModeLink_next(s_storedModes);
-  }
-  ModeLink_unlinkSelf(s_pCurModeLink);
-  s_curMode = (uint8_t)newPos;
-  if (offset < 0) {
-    ModeLink_linkBefore(target, s_pCurModeLink);
-    if (!s_curMode) {
-      s_storedModes = s_pCurModeLink;
+  Modes_unloadLive();
+  int8_t step = (offset > 0) ? 1 : -1;
+  uint8_t pos = s_curMode;
+  while (pos != (uint8_t)newPos) {
+    uint8_t other = (uint8_t)((int8_t)pos + step);
+    if (!Storage_read(pos + 1, &s_modeBuf)) {
+      return false;
     }
-  } else {
-    ModeLink_linkAfter(target, s_pCurModeLink);
+    if (!Storage_read(other + 1, &s_headerBuf)) {
+      return false;
+    }
+    if (!Storage_write(pos + 1, &s_headerBuf)) {
+      return false;
+    }
+    if (!Storage_write(other + 1, &s_modeBuf)) {
+      return false;
+    }
+    pos = other;
   }
+  s_curMode = (uint8_t)newPos;
   return true;
 }
 
@@ -437,28 +413,31 @@ bool Modes_addModeArgsSet(PatternID id, const PatternArgs *args, const Colorset 
   Mode tmpMode;
   Mode_initFromIDArgsSetPtr(&tmpMode, id, args, set);
   Mode_initMode(&tmpMode);
-  return Modes_addModeMode(&tmpMode);
+  bool result = Modes_addModeMode(&tmpMode);
+  Mode_cleanup(&tmpMode);
+  return result;
 }
 
 bool Modes_addModeMode(const Mode *mode)
 {
+  if (!mode) {
+    return false;
+  }
 #if MAX_MODES != 0
   if (s_numModes >= MAX_MODES) {
     return false;
   }
 #endif
-  if (!s_storedModes) {
-    s_storedModes = (ModeLink *)vmalloc(sizeof(ModeLink));
-    if (!s_storedModes) {
-      ERROR_OUT_OF_MEMORY();
-      return false;
-    }
-    ModeLink_init(s_storedModes, mode, false);
-  } else {
-    if (!ModeLink_appendMode(s_storedModes, mode)) {
-      ERROR_OUT_OF_MEMORY();
-      return false;
-    }
+  Modes_resetModeBuf();
+  if (!Mode_saveToBuffer(mode, &s_modeBuf, 0)) {
+    return false;
+  }
+  if (ByteStream_rawSize(&s_modeBuf) > MAX_MODE_SIZE) {
+    ERROR_LOG("Mode too big for storage space");
+    return false;
+  }
+  if (!Storage_write(s_numModes + 1, &s_modeBuf)) {
+    return false;
   }
   s_numModes++;
   return true;
@@ -477,7 +456,8 @@ bool Modes_updateCurMode(const Mode *mode)
   if (!Modes_saveCurMode()) {
     return false;
   }
-  return Modes_initCurMode(false) != NULL;
+  Modes_unloadLive();
+  return Modes_curMode() != NULL;
 }
 
 Mode *Modes_setCurMode(uint8_t index)
@@ -486,23 +466,16 @@ Mode *Modes_setCurMode(uint8_t index)
     return NULL;
   }
   Leds_clearAll();
-  if (s_pCurModeLink) {
-    ModeLink_uninstantiate(s_pCurModeLink);
-  }
+  Modes_unloadLive();
   int8_t newModeIdx = index % s_numModes;
-  ModeLink *newCurLink = Modes_getModeLink((uint32_t)newModeIdx);
-  if (!newCurLink) {
-    return NULL;
-  }
-  Mode *newCur = ModeLink_instantiate(newCurLink);
+  s_curMode = (uint8_t)newModeIdx;
+  s_lastSwitchTime = Time_getCurtime();
+  Modes_setStartupMode((uint8_t)newModeIdx);
+  Mode *newCur = Modes_curMode();
   if (!newCur) {
     ERROR_OUT_OF_MEMORY();
     return NULL;
   }
-  s_curMode = (uint8_t)newModeIdx;
-  s_pCurModeLink = newCurLink;
-  s_lastSwitchTime = Time_getCurtime();
-  Modes_setStartupMode((uint8_t)newModeIdx);
   DEBUG_LOGF("Switch to Mode: %u / %u (pattern id: %u)",
     s_curMode, s_numModes - 1, Pattern_getPatternID(Mode_getPatternConst(newCur, LED_ANY)));
   return newCur;
@@ -513,13 +486,13 @@ Mode *Modes_curMode(void)
   if (!s_numModes) {
     return NULL;
   }
-  if (!s_pCurModeLink) {
-    if (!Modes_initCurMode(false)) {
+  if (!s_liveValid) {
+    if (!Modes_loadLive()) {
       ERROR_LOG("Failed to initialize current mode");
       return NULL;
     }
   }
-  return ModeLink_instantiate(s_pCurModeLink);
+  return &s_liveMode;
 }
 
 Mode *Modes_nextMode(void)
@@ -553,34 +526,36 @@ Mode *Modes_nextModeSkipEmpty(void)
 
 void Modes_deleteCurMode(void)
 {
-  if (!s_numModes || !s_pCurModeLink) {
+  if (!s_numModes || s_curMode >= s_numModes) {
     return;
   }
-  ModeLink *newCur = ModeLink_unlinkSelf(s_pCurModeLink);
-  ModeLink_cleanup(s_pCurModeLink);
-  vfree(s_pCurModeLink);
-  s_pCurModeLink = newCur;
-  if (s_curMode) {
-    s_curMode--;
-  } else {
-    s_storedModes = s_pCurModeLink;
+  Modes_unloadLive();
+  for (uint8_t i = s_curMode; (uint8_t)(i + 1) < s_numModes; ++i) {
+    Modes_resetModeBuf();
+    if (!Storage_read(i + 2, &s_modeBuf)) {
+      return;
+    }
+    if (!Storage_write(i + 1, &s_modeBuf)) {
+      return;
+    }
   }
   s_numModes--;
   if (!s_numModes) {
-    s_storedModes = NULL;
+    s_curMode = 0;
+    Leds_clearAll();
+    return;
   }
+  if (s_curMode >= s_numModes) {
+    s_curMode = s_numModes - 1;
+  }
+  Modes_loadLive();
 }
 
 void Modes_clearModes(void)
 {
-  if (!s_numModes || !s_storedModes) {
-    return;
-  }
-  ModeLink_cleanup(s_storedModes);
-  vfree(s_storedModes);
-  s_pCurModeLink = NULL;
-  s_storedModes = NULL;
+  Modes_unloadLive();
   s_numModes = 0;
+  s_curMode = 0;
   Leds_clearAll();
 }
 
@@ -611,10 +586,8 @@ bool Modes_setFlag(uint8_t flag, bool enable, bool save)
   if (!save) {
     return true;
   }
-  ByteStream headerBuffer;
-  ByteStream_init(&headerBuffer, 0, NULL);
-  if (!Storage_read(0, &headerBuffer) || !ByteStream_size(&headerBuffer)) {
-    ByteStream_destroy(&headerBuffer);
+  Modes_resetHeaderBuf();
+  if (!Storage_read(0, &s_headerBuf) || !ByteStream_size(&s_headerBuf)) {
     return Modes_saveHeader();
   }
   typedef struct {
@@ -624,12 +597,10 @@ bool Modes_setFlag(uint8_t flag, bool enable, bool save)
     uint8_t brightness;
     uint8_t numModes;
   } SaveHeader;
-  SaveHeader *pHeader = (SaveHeader *)ByteStream_data(&headerBuffer);
+  SaveHeader *pHeader = (SaveHeader *)ByteStream_data(&s_headerBuf);
   pHeader->globalFlags = Modes_globalFlags;
-  ByteStream_setCRCDirty(&headerBuffer);
-  bool result = Storage_write(0, &headerBuffer);
-  ByteStream_destroy(&headerBuffer);
-  return result;
+  ByteStream_setCRCDirty(&s_headerBuf);
+  return Storage_write(0, &s_headerBuf);
 }
 
 bool Modes_getFlag(uint8_t flag)
@@ -762,219 +733,31 @@ uint8_t Modes_getGlobalFlags(void)
 }
 #endif
 
-ModeLink *Modes_getModeLink(uint32_t index)
-{
-  if (index >= s_numModes) {
-    return NULL;
-  }
-  ModeLink *ptr = s_storedModes;
-  while (index > 0 && ptr) {
-    ptr = ModeLink_next(ptr);
-    index--;
-  }
-  return ptr;
-}
-
 Mode *Modes_initCurMode(bool force)
 {
-  if (!s_numModes) {
-    return NULL;
-  }
-  if (s_pCurModeLink) {
-    ModeLink_uninstantiate(s_pCurModeLink);
-  }
-  s_pCurModeLink = Modes_getModeLink(s_curMode);
-  if (!s_pCurModeLink) {
-    return NULL;
-  }
-  if (force) {
-    ModeLink_uninstantiate(s_pCurModeLink);
-  }
-  return ModeLink_instantiate(s_pCurModeLink);
+  (void)force;
+  Modes_unloadLive();
+  return Modes_curMode();
 }
 
 bool Modes_saveCurMode(void)
 {
-  if (!s_pCurModeLink) {
+  if (!s_liveValid) {
+    return true;
+  }
+  Modes_resetModeBuf();
+  if (!Mode_saveToBuffer(&s_liveMode, &s_modeBuf, 0)) {
     return false;
   }
-  return ModeLink_save(s_pCurModeLink);
-}
-
-// ModeLink implementation
-void ModeLink_init(ModeLink *self, const Mode *src, bool inst)
-{
-  self->m_pInstantiatedMode = NULL;
-  ByteStream_init(&self->m_storedMode, 0, NULL);
-  self->m_next = NULL;
-  self->m_prev = NULL;
-  if (src) {
-    ModeLink_initMode(self, src);
-  }
-  if (src && inst) {
-    ModeLink_instantiate(self);
-  }
-}
-
-void ModeLink_initFromStream(ModeLink *self, const ByteStream *src, bool inst)
-{
-  self->m_pInstantiatedMode = NULL;
-  ByteStream_copy(&self->m_storedMode, src);
-  self->m_next = NULL;
-  self->m_prev = NULL;
-  if (ByteStream_size(&self->m_storedMode) && inst) {
-    ModeLink_instantiate(self);
-  }
-}
-
-void ModeLink_cleanup(ModeLink *self)
-{
-  if (self->m_next) {
-    ModeLink_cleanup(self->m_next);
-    vfree(self->m_next);
-  }
-  if (self->m_pInstantiatedMode) {
-    Mode_cleanup(self->m_pInstantiatedMode);
-    vfree(self->m_pInstantiatedMode);
-  }
-  ByteStream_destroy(&self->m_storedMode);
-}
-
-bool ModeLink_initMode(ModeLink *self, const Mode *mode)
-{
-  if (!mode) {
+  if (ByteStream_rawSize(&s_modeBuf) > MAX_MODE_SIZE) {
+    ERROR_LOG("Mode too big for storage space");
     return false;
   }
-  ByteStream_clear(&self->m_storedMode);
-  return Mode_saveToBuffer(mode, &self->m_storedMode, 0);
-}
-
-bool ModeLink_appendMode(ModeLink *self, const Mode *next)
-{
-  if (!next) {
+  if (!Storage_write(s_curMode + 1, &s_modeBuf)) {
     return false;
   }
-  if (self->m_next) {
-    return ModeLink_appendMode(self->m_next, next);
-  }
-  self->m_next = (ModeLink *)vmalloc(sizeof(ModeLink));
-  if (!self->m_next) {
-    ERROR_OUT_OF_MEMORY();
-    return false;
-  }
-  ModeLink_init(self->m_next, next, false);
-  self->m_next->m_prev = self;
   return true;
 }
-
-bool ModeLink_appendStream(ModeLink *self, const ByteStream *next)
-{
-  if (!ByteStream_size(next)) {
-    return false;
-  }
-  if (self->m_next) {
-    return ModeLink_appendStream(self->m_next, next);
-  }
-  self->m_next = (ModeLink *)vmalloc(sizeof(ModeLink));
-  if (!self->m_next) {
-    ERROR_OUT_OF_MEMORY();
-    return false;
-  }
-  ModeLink_initFromStream(self->m_next, next, false);
-  self->m_next->m_prev = self;
-  return true;
-}
-
-void ModeLink_play(ModeLink *self)
-{
-  if (!self->m_pInstantiatedMode) {
-    return;
-  }
-  Mode_play(self->m_pInstantiatedMode);
-}
-
-ModeLink *ModeLink_unlinkSelf(ModeLink *self)
-{
-  if (self->m_prev) {
-    self->m_prev->m_next = self->m_next;
-  }
-  if (self->m_next) {
-    self->m_next->m_prev = self->m_prev;
-  }
-  ModeLink *newLink = self->m_prev ? self->m_prev : self->m_next;
-  self->m_prev = NULL;
-  self->m_next = NULL;
-  return newLink;
-}
-
-void ModeLink_linkAfter(ModeLink *self, ModeLink *link)
-{
-  if (!link) {
-    return;
-  }
-  if (self->m_next) {
-    self->m_next->m_prev = link;
-    link->m_next = self->m_next;
-  }
-  self->m_next = link;
-  link->m_prev = self;
-}
-
-void ModeLink_linkBefore(ModeLink *self, ModeLink *link)
-{
-  if (!link) {
-    return;
-  }
-  if (self->m_prev) {
-    self->m_prev->m_next = link;
-    link->m_prev = self->m_prev;
-  }
-  self->m_prev = link;
-  link->m_next = self;
-}
-
-Mode *ModeLink_instantiate(ModeLink *self)
-{
-  if (self->m_pInstantiatedMode) {
-    return self->m_pInstantiatedMode;
-  }
-  Mode *newMode = (Mode *)vmalloc(sizeof(Mode));
-  if (!newMode) {
-    ERROR_OUT_OF_MEMORY();
-    return NULL;
-  }
-  Mode_init(newMode);
-  ByteStream_resetUnserializer(&self->m_storedMode);
-  if (!Mode_loadFromBuffer(newMode, &self->m_storedMode)) {
-    vfree(newMode);
-    return NULL;
-  }
-  self->m_pInstantiatedMode = newMode;
-  return self->m_pInstantiatedMode;
-}
-
-void ModeLink_uninstantiate(ModeLink *self)
-{
-  if (self->m_pInstantiatedMode) {
-    Mode_cleanup(self->m_pInstantiatedMode);
-    vfree(self->m_pInstantiatedMode);
-    self->m_pInstantiatedMode = NULL;
-  }
-}
-
-bool ModeLink_save(ModeLink *self)
-{
-  if (!self->m_pInstantiatedMode) {
-    return false;
-  }
-  ByteStream_clear(&self->m_storedMode);
-  return Mode_saveToBuffer(self->m_pInstantiatedMode, &self->m_storedMode, 0);
-}
-
-ByteStream *ModeLink_buffer(ModeLink *self) { return &self->m_storedMode; }
-Mode *ModeLink_mode(ModeLink *self) { return self->m_pInstantiatedMode; }
-ModeLink *ModeLink_next(ModeLink *self) { return self->m_next; }
-ModeLink *ModeLink_prev(ModeLink *self) { return self->m_prev; }
 
 #if MODES_TEST == 1
 #include <assert.h>

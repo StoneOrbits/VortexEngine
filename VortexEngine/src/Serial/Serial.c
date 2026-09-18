@@ -1,12 +1,7 @@
-#include "Serial.h"
 
-#include "../Serial/ByteStream.h"
-#include "../Time/TimeControl.h"
-#include "../Time/Timings.h"
-#include "../Log/Log.h"
 
-#include "../VortexEngine.h"
 
+#include "../c_types.h"
 #ifdef VORTEX_LIB
 #include "VortexLib.h"
 #include <stdio.h>

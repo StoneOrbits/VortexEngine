@@ -1,21 +1,11 @@
-#include "Randomizer.h"
 #include <stdlib.h>
 
-#include "../../Memory/Memory.h"
 
-#include "../../Patterns/PatternBuilder.h"
-#include "../../Patterns/Pattern.h"
-#include "../../Colors/Colorset.h"
-#include "../../Random/Random.h"
-#include "../../Time/Timings.h"
-#include "../../Buttons/Button.h"
-#include "../../Menus/Menus.h"
-#include "../../Modes/Modes.h"
-#include "../../Modes/Mode.h"
-#include "../../Leds/Leds.h"
-#include "../../Log/Log.h"
 
+#include "../../c_types.h"
 #define COL32(v) ((RGBColor){ ((v) >> 16) & 0xFF, ((v) >> 8) & 0xFF, (v) & 0xFF })
+
+static uint8_t s_randLedStore[64];
 
 static bool reRoll(RandomizerMenu *self);
 static void showRandomizationSelect(RandomizerMenu *self);
@@ -34,7 +24,7 @@ static void crushPattern(Random *ctx, PatternArgs *outArgs);
 
 Menu *RandomizerMenu_Create(RGBColor col, bool advanced)
 {
-  RandomizerMenu *self = (RandomizerMenu *)malloc(sizeof(RandomizerMenu));
+  RandomizerMenu *self = &g_menuWorkspace.randomizer;
   if (!self) return NULL;
   Menu_construct(&self->base, col, advanced);
   self->base.vtable = &g_randomizerMenuVTable;
@@ -73,7 +63,7 @@ bool RandomizerMenu_init(Menu *self)
 #endif
   for (LedPos l = LED_FIRST; l < LED_COUNT; ++l) {
     ByteStream ledData;
-    ByteStream_init(&ledData, 0, NULL);
+    ByteStream_initStatic(&ledData, s_randLedStore, sizeof(s_randLedStore));
     Pattern *pat = Mode_getPattern(cur, l);
     if (pat) {
       if (!Pattern_serialize(pat, &ledData)) {

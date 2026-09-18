@@ -1,5 +1,5 @@
-#include "PulsishPattern.h"
 
+#include "../../c_types.h"
 static const PatternVTable PulsishPattern_vtable = { NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL };
 
 void PulsishPattern_init(PulsishPattern *self, const PatternArgs *args) {

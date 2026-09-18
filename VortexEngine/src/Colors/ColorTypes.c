@@ -1,7 +1,6 @@
-#include "ColorTypes.h"
 
-#include "../Serial/ByteStream.h"
 
+#include "../c_types.h"
 hsv_to_rgb_algorithm g_hsv_rgb_alg = HSV_TO_RGB_GENERIC;
 
 void HSVColor_init(HSVColor *self) {

@@ -1,21 +1,6 @@
-#include "VortexEngine.h"
 
-#include "Wireless/IRReceiver.h"
-#include "Wireless/IRSender.h"
-#include "Wireless/VLReceiver.h"
-#include "Wireless/VLSender.h"
-#include "Wireless/IRConfig.h"
-#include "Wireless/VLConfig.h"
-#include "Storage/Storage.h"
-#include "Buttons/Buttons.h"
-#include "Time/TimeControl.h"
-#include "Time/Timings.h"
-#include "Serial/Serial.h"
-#include "Modes/Modes.h"
-#include "Menus/Menus.h"
-#include "Modes/Mode.h"
-#include "Leds/Leds.h"
 
+#include "c_types.h"
 #ifdef VORTEX_EMBEDDED
 #include <avr/interrupt.h>
 #include <avr/sleep.h>
@@ -417,9 +402,6 @@ void VortexEngine_enableMOSFET(bool enabled)
 #if COMPRESSION_TEST == 1
 #include <string.h>
 #include <stdio.h>
-#include "Colors/Colorset.h"
-#include "Memory/Memory.h"
-#include "Random/Random.h"
 void VortexEngine_compressionTest(void)
 {
   Random rand;

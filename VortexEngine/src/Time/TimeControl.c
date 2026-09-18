@@ -1,14 +1,10 @@
-#include "TimeControl.h"
 
 #include <math.h>
 
-#include "../Memory/Memory.h"
-#include "../Log/Log.h"
 
-#include "Timings.h"
 
-#include "../Leds/Leds.h"
 
+#include "../c_types.h"
 #ifdef VORTEX_EMBEDDED
 #include <avr/sleep.h>
 #include <avr/interrupt.h>

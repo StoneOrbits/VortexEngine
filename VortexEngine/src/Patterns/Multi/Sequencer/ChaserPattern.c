@@ -1,5 +1,6 @@
 #include "../../Patterns/Multi/Sequencer/ChaserPattern.h"
 
+#include "../../../c_types.h"
 static const PatternVTable ChaserPattern_vtable = { NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL };
 
 void ChaserPattern_init(ChaserPattern *self, const PatternArgs *args) {
