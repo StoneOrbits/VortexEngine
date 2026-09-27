@@ -1,0 +1,45 @@
+# clear out all default make targets
+.SUFFIXES:
+
+# List all make targets which are not filenames
+.PHONY: all clean
+
+RM=rm -rf
+
+# Embedded AVR toolchain
+CC=avr-gcc
+OBJCOPY=avr-objcopy
+SIZE=avr-size
+# Set this to match your target hardware (e.g. attiny3216, atmega4809, avr64dd28)
+MCU=attiny3217
+F_CPU=20000000
+
+CFLAGS=-mmcu=$(MCU) -DF_CPU=$(F_CPU) -DVORTEX_EMBEDDED -DVORTEX_SLIM=1 -Os -Wall -Wextra -std=gnu11
+CFLAGS += -ffunction-sections -fdata-sections
+LDFLAGS=-mmcu=$(MCU) -Wl,-gc-sections
+
+# include paths
+INCLUDES=-I src/
+
+# source files - all .c files in src/ tree, excluding multi-led patterns (VORTEX_SLIM)
+SRC=$(shell find src/ -type f -name '*.c' \
+  ! -path 'src/Patterns/Multi/*' \
+  ! -path 'src/Serial/Compression.c') appmain.c
+OBJS=$(SRC:.c=.o)
+
+TARGET=vortex
+
+all: $(TARGET).hex $(TARGET).elf
+
+$(TARGET).elf: $(OBJS)
+	$(CC) $(LDFLAGS) -o $@ $^
+	$(SIZE) $@
+
+$(TARGET).hex: $(TARGET).elf
+	$(OBJCOPY) -O ihex $< $@
+
+%.o: %.c
+	$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
+
+clean:
+	@$(RM) $(OBJS) $(TARGET).elf $(TARGET).hex
