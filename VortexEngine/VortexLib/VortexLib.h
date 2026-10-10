@@ -64,12 +64,12 @@ public:
 };
 
 // forward decls for various classes
-class PatternArgs;
-class ByteStream;
-class Colorset;
-class Pattern;
-class Button;
-class Mode;
+typedef struct PatternArgs PatternArgs;
+typedef struct ByteStream ByteStream;
+typedef struct Colorset Colorset;
+typedef struct Pattern Pattern;
+typedef struct Button Button;
+typedef struct Mode Mode;
 
 // json type is just nlohmann::json
 using json = nlohmann::json;
@@ -316,8 +316,8 @@ private:
   // internal function to handle numeric values in commands
   static void handleNumber(char c);
 
-  // so that the buttons class can call handleInputQueue
-  friend class Buttons;
+  // so that the buttons can call handleInputQueue
+  friend void Buttons_update(void);
 
   // called by the engine right after all buttons are checked, this will process
   // the input deque that is fed by the apis like shortClick() above and translate

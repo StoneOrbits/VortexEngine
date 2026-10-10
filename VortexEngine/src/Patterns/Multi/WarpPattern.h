@@ -1,22 +1,25 @@
-#include "BlinkStepPattern.h"
+#ifndef WARP_PATTERN_H
+#define WARP_PATTERN_H
 
+#include <stdbool.h>
+#include "BlinkStepPattern.h"
 #include "../../Time/Timings.h"
 
-class WarpPattern : public BlinkStepPattern
-{
-public:
-  WarpPattern(const PatternArgs &args);
-  virtual ~WarpPattern();
-
-  // init the pattern to initial state
-  virtual void init() override;
-
-protected:
-  virtual void blinkOn() override;
-  virtual void poststep() override;
-
-private:
-  // how much the warp has progressed
+typedef struct WarpPattern {
+  // must remain the first member
+  BlinkStepPattern base;
   uint8_t m_progress;
-};
+} WarpPattern;
 
+// the blink/step vtable for this pattern
+extern const BlinkStepVtable WarpPattern_bvtable;
+
+// initialize a new WarpPattern
+void WarpPattern_init(WarpPattern *self, const PatternArgs *args);
+void WarpPattern_destroy(Pattern *self);
+
+void WarpPattern_initImpl(Pattern *self);
+void WarpPattern_blinkOn(BlinkStepPattern *self);
+void WarpPattern_poststep(BlinkStepPattern *self);
+
+#endif

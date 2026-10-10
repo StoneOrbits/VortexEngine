@@ -2,77 +2,67 @@
 #define VORTEX_ENGINE_H
 
 #include <inttypes.h>
+#include <stdbool.h>
+
 #include "VortexConfig.h"
 
-class ByteStream;
-class Mode;
+typedef struct ByteStream ByteStream;
+typedef struct Mode Mode;
 
-class VortexEngine
-{
-  // private unimplemented constructor
-  VortexEngine();
+// VortexEngine is a stateless namespace of free functions, the state
+// lives in VortexEngine.cpp
 
-public:
-  // setup and initialization function
-  static bool init();
-  // cleanup
-  static void cleanup();
+// setup and initialization function
+bool VortexEngine_init(void);
+// cleanup
+void VortexEngine_cleanup(void);
 
-  // tick function for each loop
-  static void tick();
+// tick function for each loop
+void VortexEngine_tick(void);
 
-  // run the main logic of the engine
-  static void runMainLogic();
+// run the main logic of the engine
+void VortexEngine_runMainLogic(void);
 
-  // serialize the version number to a byte stream
-  static bool serializeVersion(ByteStream &stream);
-  static bool checkVersion(uint8_t major, uint8_t minor);
+// serialize the version number to a byte stream
+bool VortexEngine_serializeVersion(ByteStream *stream);
+bool VortexEngine_checkVersion(uint8_t major, uint8_t minor);
 
-  // get the current mode
-  static Mode *curMode();
+// get the current mode
+Mode *VortexEngine_curMode(void);
 
 #ifdef VORTEX_LIB
-  // the total available storage space
-  static uint32_t totalStorageSpace();
-  // the size of the savefile
-  static uint32_t savefileSize();
-  // whether sleeping or not
-  static bool isSleeping() { return m_sleeping; }
+// the total available storage space
+uint32_t VortexEngine_totalStorageSpace(void);
+// the size of the savefile
+uint32_t VortexEngine_savefileSize(void);
+// whether sleeping or not
+bool VortexEngine_isSleeping(void);
 #endif
 
-  // enter/leave sleep mode
-  static void enterSleep(bool save = true);
-  static void wakeup(bool reset = true);
+// enter/leave sleep mode
+void VortexEngine_enterSleep(bool save);
+void VortexEngine_wakeup(bool reset);
 
-  // toggle force sleep from working
-  static void toggleForceSleep(bool enabled) { m_forceSleepEnabled = enabled; }
-  // toggle auto cycle enabled
-  static void setAutoCycle(bool enabled) { m_autoCycle = enabled; }
+// toggle force sleep from working
+void VortexEngine_toggleForceSleep(bool enabled);
+// toggle auto cycle enabled
+void VortexEngine_setAutoCycle(bool enabled);
 
 #ifdef VORTEX_EMBEDDED
-  // clear output pins
-  static void clearOutputPins();
-  // enable/disable the mosfet
-  static void enableMOSFET(bool enabled);
+// clear output pins
+void VortexEngine_clearOutputPins(void);
+// enable/disable the mosfet
+void VortexEngine_enableMOSFET(bool enabled);
 #endif
-
-private:
-  // bool in vortexlib to simulate sleeping
-  static volatile bool m_sleeping;
-  static bool m_forceSleepEnabled;
-
-  // whether auto cycle modes is turned on
-  static bool m_autoCycle;
 
 #if COMPRESSION_TEST == 1
-  static void compressionTest();
+void VortexEngine_compressionTest(void);
 #endif
 #if SERIALIZATION_TEST == 1
-  static void serializationTest();
+void VortexEngine_serializationTest(void);
 #endif
 #if TIMER_TEST == 1
-  static void timerTest();
+void VortexEngine_timerTest(void);
 #endif
-};
 
 #endif

@@ -117,23 +117,61 @@ uint32_t cur_memory_usage_total()
 
 #endif // DEBUG_ALLOCATIONS == 1
 
-#ifndef VORTEX_LIB
+void MemPool_init(MemPool *self, void *storage, uint16_t blockSize, uint8_t numBlocks)
+{
+  if (self->m_storage) {
+    // already initialized, blocks may still be in use so leave it be
+    return;
+  }
+  self->m_storage = (uint8_t *)storage;
+  self->m_blockSize = MEMPOOL_ALIGN(blockSize);
+  self->m_numBlocks = numBlocks;
+  self->m_numUsed = 0;
+  self->m_highWater = 0;
+  self->m_freeList = NULL;
+  // thread every block onto the free list, last block first so the
+  // first block ends up at the front of the list
+  for (uint8_t i = numBlocks; i > 0; --i) {
+    void **block = (void **)(self->m_storage + ((uint32_t)self->m_blockSize * (i - 1)));
+    *block = self->m_freeList;
+    self->m_freeList = block;
+  }
+}
 
-// for C++11 need the following:
-void *operator new  (size_t size) { return vmalloc(size); }
-void *operator new[](size_t size) { return vmalloc(size); }
-void  operator delete  (void *ptr) { vfree(ptr); }
-void  operator delete[](void *ptr) { vfree(ptr); }
-void *operator new  (size_t size, void *ptr) noexcept { return ptr; }
-void *operator new[](size_t size, void *ptr) noexcept { return ptr; }
-void  operator delete  (void *ptr, size_t size) noexcept { vfree(ptr); }
-void  operator delete[](void *ptr, size_t size) noexcept { vfree(ptr); }
-//void *operator new  (size_t size, std::align_val_t al) { return vmalloc(size); }
-//void *operator new[](size_t size, std::align_val_t al) { return vmalloc(size); }
-//void  operator delete  (void *ptr, std::align_val_t al) noexcept { vfree(ptr); }
-//void  operator delete[](void *ptr, std::align_val_t al) noexcept { vfree(ptr); }
-//void  operator delete  (void *ptr, size_t size, std::align_val_t al) noexcept { vfree(ptr); }
-//void  operator delete[](void *ptr, size_t size, std::align_val_t al) noexcept { vfree(ptr); }
+void *MemPool_alloc(MemPool *self)
+{
+  void **block = (void **)self->m_freeList;
+  if (!block) {
+    ERROR_OUT_OF_MEMORY();
+    return NULL;
+  }
+  self->m_freeList = *block;
+  self->m_numUsed++;
+  if (self->m_numUsed > self->m_highWater) {
+    self->m_highWater = self->m_numUsed;
+  }
+  return block;
+}
+
+void MemPool_free(MemPool *self, void *ptr)
+{
+  if (!ptr) {
+    return;
+  }
+  void **block = (void **)ptr;
+  *block = self->m_freeList;
+  self->m_freeList = block;
+  self->m_numUsed--;
+}
+
+bool MemPool_contains(const MemPool *self, const void *ptr)
+{
+  const uint8_t *p = (const uint8_t *)ptr;
+  return self->m_storage && p >= self->m_storage &&
+    p < self->m_storage + ((uint32_t)self->m_blockSize * self->m_numBlocks);
+}
+
+#ifndef VORTEX_LIB
 
 // needed for C++ virtual functions
 extern "C" void __cxa_pure_virtual(void) {}

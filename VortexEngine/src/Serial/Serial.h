@@ -1,41 +1,31 @@
 #ifndef SERIAL_H
 #define SERIAL_H
 
+#include <stdbool.h>
 #include <inttypes.h>
 
-class ByteStream;
+typedef struct ByteStream ByteStream;
 
-// Really wish I could name this Serial but arduino ruined that for me
-class SerialComs
-{
-public:
+// init serial
+bool SerialComs_init();
+void SerialComs_cleanup();
 
-  // init serial
-  static bool init();
-  static void cleanup();
+// whether serial is initialized
+bool SerialComs_isConnected();
 
-  // whether serial is initialized
-  static bool isConnected();
+// check for any serial connection or messages
+bool SerialComs_checkSerial();
 
-  // check for any serial connection or messages
-  static bool checkSerial();
+// write a formatted message to serial
+void SerialComs_write(const char *msg, ...);
 
-  // write a message to serial
-  static void write(const char *msg, ...);
+// write raw data
+void SerialComs_writeStream(ByteStream *byteStream);
 
-  // write raw data
-  static void write(ByteStream &byteStream);
+// read a message from serial
+void SerialComs_read(ByteStream *byteStream);
 
-  // read a message from serial
-  static void read(ByteStream &byteStream);
-
-  // data in the socket ready to read
-  static bool dataReady();
-
-private:
-  // whether serial communications are initialized
-  static bool m_serialConnected;
-  static uint32_t m_lastCheck;
-};
+// data in the socket ready to read
+bool SerialComs_dataReady();
 
 #endif

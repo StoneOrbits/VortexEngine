@@ -1,3 +1,6 @@
+#define _DEFAULT_SOURCE
+#define _XOPEN_SOURCE 700
+#define _POSIX_C_SOURCE 200809L
 #include "TimeControl.h"
 
 #include <math.h>
@@ -27,17 +30,17 @@ static LARGE_INTEGER tps;
 static LARGE_INTEGER start;
 #endif
 
-// static members
+// file scope state, previously static class members
 #if VARIABLE_TICKRATE == 1
-uint32_t Time::m_tickrate = DEFAULT_TICKRATE;
+static uint32_t m_tickrate = DEFAULT_TICKRATE;
 #endif
-uint32_t Time::m_curTick = 0;
+static uint32_t m_curTick = 0;
 #ifdef VORTEX_LIB
-uint32_t Time::m_prevTime = 0;
-uint32_t Time::m_firstTime = 0;
-uint32_t Time::m_simulationTick = 0;
-bool Time::m_isSimulation = false;
-bool Time::m_instantTimestep = false;
+static uint32_t m_prevTime = 0;
+static uint32_t m_firstTime = 0;
+static uint32_t m_simulationTick = 0;
+static bool m_isSimulation = false;
+static bool m_instantTimestep = false;
 #endif
 
 // Within this file TICKRATE may refer to the variable member
@@ -48,7 +51,7 @@ bool Time::m_instantTimestep = false;
 #define TICKRATE DEFAULT_TICKRATE
 #endif
 
-bool Time::init()
+bool Time_init()
 {
 #ifdef VORTEX_EMBEDDED
   // initialize main clock
@@ -70,13 +73,13 @@ bool Time::init()
   m_tickrate = DEFAULT_TICKRATE;
 #endif
 #ifdef VORTEX_LIB
-  m_firstTime = m_prevTime = microseconds();
+  m_firstTime = m_prevTime = Time_microseconds();
   m_simulationTick = 0;
   m_isSimulation = false;
   m_instantTimestep = false;
 #endif
 #if !defined(_WIN32) || defined(WASM)
-  start = microseconds();
+  start = Time_microseconds();
 #else
   QueryPerformanceFrequency(&tps);
   QueryPerformanceCounter(&start);
@@ -84,11 +87,11 @@ bool Time::init()
   return true;
 }
 
-void Time::cleanup()
+void Time_cleanup()
 {
 }
 
-void Time::tickClock()
+void Time_tickClock()
 {
   // tick clock forward
   m_curTick++;
@@ -110,7 +113,7 @@ void Time::tickClock()
   uint32_t elapsed_us;
   uint32_t us;
   do {
-    us = microseconds();
+    us = Time_microseconds();
     // detect rollover of microsecond counter
     if (us < m_prevTime) {
       // calculate wrapped around difference
@@ -131,7 +134,7 @@ void Time::tickClock()
       // up being more accurate to poll QPF + QPC via microseconds()
       sleepTime = required - elapsed_us;
     }
-    Time::delayMicroseconds(sleepTime);
+    Time_delayMicroseconds(sleepTime);
     break;
 #endif
     // 1000us per ms, divided by tickrate gives
@@ -139,24 +142,24 @@ void Time::tickClock()
   } while (elapsed_us < (1000000 / TICKRATE));
 
   // store current time
-  m_prevTime = microseconds();
+  m_prevTime = Time_microseconds();
 #endif
 }
 
 // the real current time, bypass simulations, used by timers
-uint32_t Time::getRealCurtime()
+uint32_t Time_getRealCurtime()
 {
   return m_curTick;
 }
 
-uint32_t Time::getTickrate()
+uint32_t Time_getTickrate()
 {
   return TICKRATE;
 }
 
 // Set tickrate in Ticks Per Second (TPS)
 // The valid range for this is 1 <= x <= 1000000
-void Time::setTickrate(uint32_t tickrate)
+void Time_setTickrate(uint32_t tickrate)
 {
 #if VARIABLE_TICKRATE == 1
   if (!tickrate) {
@@ -172,7 +175,7 @@ void Time::setTickrate(uint32_t tickrate)
 }
 
 #if VARIABLE_TICKRATE == 1
-uint32_t Time::millisecondsToTicks(uint32_t ms)
+uint32_t Time_millisecondsToTicks(uint32_t ms)
 {
   // 0ms = 0 ticks
   if (!ms) {
@@ -189,7 +192,7 @@ uint32_t Time::millisecondsToTicks(uint32_t ms)
 }
 #endif
 
-uint32_t Time::microseconds()
+uint32_t Time_microseconds()
 {
 #ifndef VORTEX_LIB // Embedded avr devices
   uint32_t ticks;
@@ -215,7 +218,7 @@ uint32_t Time::microseconds()
 #ifdef VORTEX_EMBEDDED
 __attribute__ ((noinline))
 #endif
-void Time::delayMicroseconds(uint32_t us)
+void Time_delayMicroseconds(uint32_t us)
 {
 #ifdef VORTEX_EMBEDDED
 #if F_CPU >= 20000000L
@@ -257,12 +260,12 @@ void Time::delayMicroseconds(uint32_t us)
 #endif
 }
 
-void Time::delayMilliseconds(uint32_t ms)
+void Time_delayMilliseconds(uint32_t ms)
 {
 #ifdef VORTEX_EMBEDDED
   // not very accurate
   for (uint16_t i = 0; i < ms; ++i) {
-    delayMicroseconds(1000);
+    Time_delayMicroseconds(1000);
   }
 #elif defined(_WIN32)
   Sleep(ms);
@@ -276,38 +279,49 @@ void Time::delayMilliseconds(uint32_t ms)
 // Start a time simulation, while the simulation is active you can
 // increment the 'current time' with tickSimulation() then when you
 // call endSimulation() the currentTime will be restored
-uint32_t Time::startSimulation()
+uint32_t Time_startSimulation()
 {
   m_simulationTick = 0;
   m_isSimulation = true;
-  return (uint32_t)getCurtime();
+  return (uint32_t)Time_getCurtime();
 }
 
 // Tick a time simulation forward, returning the next tick
-uint32_t Time::tickSimulation()
+uint32_t Time_tickSimulation()
 {
   return ++m_simulationTick;
 }
 
 // whether running time simulation
-bool Time::isSimulation()
+bool Time_isSimulation()
 {
   return m_isSimulation;
 }
 
 // get the current tick in the simulation
-uint32_t Time::getSimulationTick()
+uint32_t Time_getSimulationTick()
 {
   return m_simulationTick;
 }
 
 // Finish a time simulation
-uint32_t Time::endSimulation()
+uint32_t Time_endSimulation()
 {
-  uint32_t endTick = (uint32_t)getCurtime();
+  uint32_t endTick = (uint32_t)Time_getCurtime();
   m_simulationTick = 0;
   m_isSimulation = false;
   return endTick;
+}
+
+// Toggle instant step
+void Time_setInstantTimestep(bool instant)
+{
+  m_instantTimestep = instant;
+}
+
+bool Time_isInstantStepping()
+{
+  return m_instantTimestep;
 }
 
 #endif
@@ -315,14 +329,14 @@ uint32_t Time::endSimulation()
 #if TIMER_TEST == 1
 #include <assert.h>
 
-void Time::test()
+void Time_test()
 {
   DEBUG_LOG("Starting Time class tests...");
 
   // just return immediately when testing the time system,
   // this prevents the actual delay from occurring and
   // allows us to tick forward as fast as we want
-  setInstantTimestep(true);
+  Time_setInstantTimestep(true);
 
   // Test init function
   assert(init());
@@ -336,9 +350,9 @@ void Time::test()
   DEBUG_LOG("tickClock test passed");
 
   // Test msToTicks function
-  assert(msToTicks(1000) == TICKRATE);
-  assert(msToTicks(500) == TICKRATE / 2);
-  assert(msToTicks(0) == 0);
+  assert(MS_TO_TICKS(1000) == TICKRATE);
+  assert(MS_TO_TICKS(500) == TICKRATE / 2);
+  assert(MS_TO_TICKS(0) == 0);
   DEBUG_LOG("msToTicks test passed");
 
   // Test getRealCurtime function

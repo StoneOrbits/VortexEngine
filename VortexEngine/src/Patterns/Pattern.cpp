@@ -1,3 +1,4 @@
+#include <string.h>
 #include "Pattern.h"
 
 #include "../Patterns/PatternBuilder.h"
@@ -9,62 +10,93 @@
 
 #include "../VortexConfig.h"
 
-Pattern::Pattern() :
-  m_patternID(PATTERN_FIRST),
-  m_patternFlags(0),
-  m_colorset(),
-  m_ledPos(LED_FIRST),
-  m_numArgs(0),
-  m_argList()
+const PatternVtable Pattern_baseVtable = {
+  .destroy = Pattern_destroy,
+  .bind = Pattern_baseBind,
+  .init = Pattern_baseInit,
+  .play = Pattern_basePlay
+};
+
+void Pattern_initBase(Pattern *self, PatternID id, const PatternVtable *vtable)
+{
+  self->vtable = vtable;
+  self->m_patternID = id;
+  self->m_patternFlags = 0;
+  Colorset_make(&self->m_colorset);
+  self->m_ledPos = LED_FIRST;
+  self->m_numArgs = 0;
+  memset((void *)self->m_argList, 0, sizeof(self->m_argList));
 #ifdef VORTEX_LIB
-  ,m_argNameList()
+  memset((void *)self->m_argNameList, 0, sizeof(self->m_argNameList));
 #endif
-{
 }
 
-Pattern::Pattern(const PatternArgs &args) :
-  Pattern()
+void Pattern_destroy(Pattern *self)
 {
+  if (!self) {
+    return;
+  }
+  // run the derived destructor hook; this does *not* free the object,
+  // the caller is responsible for vfree()ing it after this returns
+  if (self->vtable && self->vtable->destroy && self->vtable->destroy != Pattern_destroy) {
+    self->vtable->destroy(self);
+  }
 }
 
-Pattern::~Pattern()
+void Pattern_bind(Pattern *self, LedPos pos)
 {
+  self->vtable->bind(self, pos);
 }
 
-void Pattern::bind(LedPos pos)
+void Pattern_init(Pattern *self)
 {
-  m_ledPos = pos;
+  self->vtable->init(self);
 }
 
-void Pattern::init()
+void Pattern_play(Pattern *self)
 {
-  m_colorset.resetIndex();
+  self->vtable->play(self);
+}
+
+void Pattern_baseBind(Pattern *self, LedPos pos)
+{
+  self->m_ledPos = pos;
+}
+
+void Pattern_baseInit(Pattern *self)
+{
+  Colorset_resetIndex(&self->m_colorset);
+}
+
+void Pattern_basePlay(Pattern *self)
+{
 }
 
 #ifdef VORTEX_LIB
-void Pattern::skip(uint32_t ticks)
+void Pattern_skip(Pattern *self, uint32_t ticks)
 {
-  Time::startSimulation();
+  Time_startSimulation();
   for (uint32_t i = 0; i < ticks; ++i) {
-    play();  // simulate playing the pattern
-    Time::tickSimulation();
+    Pattern_play(self);  // simulate playing the pattern
+    Time_tickSimulation();
   }
-  Time::endSimulation();
+  Time_endSimulation();
 }
 #endif
 
 // must override the serialize routine to save the pattern
-bool Pattern::serialize(ByteStream &buffer) const
+bool Pattern_serialize(const Pattern *self, ByteStream *buffer)
 {
-  if (!buffer.serialize8((uint8_t)m_patternID)) {
+  if (!ByteStream_serialize8(buffer, (uint8_t)self->m_patternID)) {
     return false;
   }
-  if (!m_colorset.serialize(buffer)) {
+  if (!Colorset_serialize(&self->m_colorset, buffer)) {
     return false;
   }
   PatternArgs args;
-  getArgs(args);
-  PatternArgs defaults = PatternBuilder::getDefaultArgs(m_patternID);
+  Pattern_getArgs(self, &args);
+  PatternArgs defaults;
+  PatternBuilder_getDefaultArgs(self->m_patternID, &defaults);
   // generate a bitmap of which args are defaulted
   uint8_t argmap = ARG_NONE;
   for (uint32_t i = 0; i < MAX_ARGS; ++i) {
@@ -72,88 +104,89 @@ bool Pattern::serialize(ByteStream &buffer) const
       ARGMAP_SET(argmap, i);
     }
   }
-  if (!args.serialize(buffer, argmap)) {
+  if (!PatternArgs_serialize(&args, buffer, argmap)) {
     return false;
   }
   return true;
 }
 
 // must override unserialize to load patterns
-bool Pattern::unserialize(ByteStream &buffer)
+bool Pattern_unserialize(Pattern *self, ByteStream *buffer)
 {
   // don't unserialize the pattern ID because it is already
   // unserialized by the pattern builder to decide which pattern
   // to instantiate, instead only unserialize the colorset
-  if (!m_colorset.unserialize(buffer)) {
+  if (!Colorset_unserialize(&self->m_colorset, buffer)) {
     return false;
   }
   // start with the default args for this pattern
-  PatternArgs args = PatternBuilder::getDefaultArgs(m_patternID);
+  PatternArgs args;
+  PatternBuilder_getDefaultArgs(self->m_patternID, &args);
   // then unserialize any different args overtop of the defaults
-  args.unserialize(buffer);
-  setArgs(args);
+  PatternArgs_unserialize(&args, buffer);
+  Pattern_setArgs(self, &args);
   return true;
 }
 
-void Pattern::setArg(uint8_t index, uint8_t value)
+void Pattern_setArg(Pattern *self, uint8_t index, uint8_t value)
 {
-  if (index >= m_numArgs) {
+  if (index >= self->m_numArgs) {
     return;
   }
-  *((uint8_t *)this + m_argList[index]) = value;
+  *((uint8_t *)self + self->m_argList[index]) = value;
 }
 
-uint8_t Pattern::getArg(uint8_t index) const
+uint8_t Pattern_getArg(const Pattern *self, uint8_t index)
 {
-  if (index >= m_numArgs) {
+  if (index >= self->m_numArgs) {
     return 0;
   }
-  return *((uint8_t *)this + m_argList[index]);
+  return *((uint8_t *)self + self->m_argList[index]);
 }
 
-uint8_t &Pattern::argRef(uint8_t index)
+uint8_t *Pattern_argRef(Pattern *self, uint8_t index)
 {
-  if (index >= m_numArgs) {
+  if (index >= self->m_numArgs) {
     index = 0;
   }
-  return *((uint8_t *)this + m_argList[index]);
+  return ((uint8_t *)self + self->m_argList[index]);
 }
 
-void Pattern::setArgs(const PatternArgs &args)
+void Pattern_setArgs(Pattern *self, const PatternArgs *args)
 {
-  for (uint32_t i = 0; i < m_numArgs; ++i) {
-    *((uint8_t *)this + m_argList[i]) = args.args[i];
+  for (uint32_t i = 0; i < self->m_numArgs; ++i) {
+    *((uint8_t *)self + self->m_argList[i]) = args->args[i];
   }
 }
 
-void Pattern::getArgs(PatternArgs &args) const
+void Pattern_getArgs(const Pattern *self, PatternArgs *args)
 {
-  args.init();
-  for (uint32_t i = 0; i < m_numArgs; ++i) {
-    args.addArgs(*((uint8_t *)this + m_argList[i]));
+  PatternArgs_init0(args);
+  for (uint32_t i = 0; i < self->m_numArgs; ++i) {
+    PatternArgs_addArgs1(args, *((uint8_t *)self + self->m_argList[i]));
   }
 }
 
-bool Pattern::equals(const Pattern *other)
+bool Pattern_equals(Pattern *self, const Pattern *other)
 {
   if (!other) {
     return false;
   }
   // compare pattern id
-  if (m_patternID != other->m_patternID) {
+  if (self->m_patternID != other->m_patternID) {
     return false;
   }
   // then colorset
-  if (!m_colorset.equals(&other->m_colorset)) {
+  if (!Colorset_equalsPtr(&self->m_colorset, &other->m_colorset)) {
     return false;
   }
   // number of args
-  if (m_numArgs != other->m_numArgs) {
+  if (self->m_numArgs != other->m_numArgs) {
     return false;
   }
   // compare each arg
-  for (uint8_t i = 0; i < m_numArgs; ++i) {
-    if (getArg(i) != other->getArg(i)) {
+  for (uint8_t i = 0; i < self->m_numArgs; ++i) {
+    if (Pattern_getArg(self, i) != Pattern_getArg(other, i)) {
       return false;
     }
   }
@@ -161,28 +194,28 @@ bool Pattern::equals(const Pattern *other)
 }
 
 // change the colorset
-void Pattern::setColorset(const Colorset &set)
+void Pattern_setColorset(Pattern *self, const Colorset *set)
 {
-  m_colorset = set;
+  Colorset_set(&self->m_colorset, set);
 }
 
-void Pattern::clearColorset()
+void Pattern_clearColorset(Pattern *self)
 {
-  m_colorset.clear();
+  Colorset_clear(&self->m_colorset);
 }
 
 #ifdef VORTEX_LIB
-void Pattern::registerArg(const char *name, arg_offset_t argOffset)
+void Pattern_registerArg(Pattern *self, const char *name, arg_offset_t argOffset)
 #else
-void Pattern::registerArg(arg_offset_t argOffset)
+void Pattern_registerArg(Pattern *self, arg_offset_t argOffset)
 #endif
 {
-  if (m_numArgs >= MAX_PATTERN_ARGS) {
+  if (self->m_numArgs >= MAX_PATTERN_ARGS) {
     ERROR_LOG("too many args");
     return;
   }
 #ifdef VORTEX_LIB
-  m_argNameList[m_numArgs] = name;
+  self->m_argNameList[self->m_numArgs] = name;
 #endif
-  m_argList[m_numArgs++] = argOffset;
+  self->m_argList[self->m_numArgs++] = argOffset;
 }

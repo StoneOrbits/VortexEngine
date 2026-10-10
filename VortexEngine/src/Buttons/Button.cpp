@@ -38,59 +38,59 @@ ISR(PORT_VECT)
   // turn off the interrupt
   BUTTON_PORT.PIN_CTRL &= ~PORT_ISC_gm;
   // call the wakeup routine in the engine
-  VortexEngine::wakeup();
+  VortexEngine_wakeup(true);
 }
 
-void Button::enableWake()
+void Button_enableWake(Button *self)
 {
   // turn on the above interrupt for FALLING edge, maintain the pullup enabled
   BUTTON_PORT.PIN_CTRL = PORT_PULLUPEN_bm | PORT_ISC_FALLING_gc;
 }
 #endif
 
-Button::Button() :
-  m_pressTime(0),
-  m_releaseTime(0),
-  m_holdDuration(0),
-  m_releaseDuration(0),
-  m_consecutivePresses(0),
-  m_releaseCount(0),
-  m_buttonState(false),
-  m_newPress(false),
-  m_newRelease(false),
-  m_isPressed(false),
-  m_shortClick(false),
-  m_longClick(false)
+void Button_make(Button *self)
+{
+  self->m_pressTime = 0;
+  self->m_releaseTime = 0;
+  self->m_holdDuration = 0;
+  self->m_releaseDuration = 0;
+  self->m_consecutivePresses = 0;
+  self->m_releaseCount = 0;
+  self->m_buttonState = false;
+  self->m_newPress = false;
+  self->m_newRelease = false;
+  self->m_isPressed = false;
+  self->m_shortClick = false;
+  self->m_longClick = false;
+}
+
+void Button_destroy(Button *self)
 {
 }
 
-Button::~Button()
+bool Button_init(Button *self, uint8_t pin)
 {
-}
-
-bool Button::init(uint8_t pin)
-{
-  m_pressTime = 0;
-  m_releaseTime = 0;
-  m_holdDuration = 0;
-  m_releaseDuration = 0;
-  m_consecutivePresses = 0;
-  m_newPress = false;
-  m_newRelease = false;
-  m_shortClick = false;
-  m_longClick = false;
+  self->m_pressTime = 0;
+  self->m_releaseTime = 0;
+  self->m_holdDuration = 0;
+  self->m_releaseDuration = 0;
+  self->m_consecutivePresses = 0;
+  self->m_newPress = false;
+  self->m_newRelease = false;
+  self->m_shortClick = false;
+  self->m_longClick = false;
   // this is weird, when I did m_releaseCount = !m_buttonState the
   // compiler generated a huge amount of assembly, but not !check()
-  m_buttonState = check();
-  m_releaseCount = !check();
-  m_isPressed = m_buttonState;
+  self->m_buttonState = Button_check(self);
+  self->m_releaseCount = !Button_check(self);
+  self->m_isPressed = self->m_buttonState;
 #ifdef VORTEX_EMBEDDED
   BUTTON_PORT.PIN_CTRL = PORT_PULLUPEN_bm;
 #endif
   return true;
 }
 
-bool Button::check()
+bool Button_check(Button *self)
 {
 #ifdef VORTEX_LIB
   return (Vortex::vcallbacks()->checkPinHook(0) == 0);
@@ -99,79 +99,91 @@ bool Button::check()
 #endif
 }
 
-void Button::update()
+void Button_update(Button *self)
 {
   // reset the new press/release members this tick
-  m_newPress = false;
-  m_newRelease = false;
+  self->m_newPress = false;
+  self->m_newRelease = false;
 
   // read the new button state
-  bool newButtonState = check();
+  bool newButtonState = Button_check(self);
 
   // did the button change (press/release occurred)
-  if (newButtonState != m_buttonState) {
+  if (newButtonState != self->m_buttonState) {
     // set the new state
-    m_buttonState = newButtonState;
+    self->m_buttonState = newButtonState;
     // update the currently pressed member
-    m_isPressed = m_buttonState;
+    self->m_isPressed = self->m_buttonState;
 
     // update the press/release times and newpress/newrelease members
-    if (m_isPressed) {
+    if (self->m_isPressed) {
       // the button was just pressed
-      m_pressTime = Time::getCurtime();
-      m_newPress = true;
+      self->m_pressTime = Time_getCurtime();
+      self->m_newPress = true;
     } else {
       // simply ignore the first release, always. Because they just turned the device
       // on and we don't want them to cycle to the next mode or something
-      if (m_releaseCount > 0) {
+      if (self->m_releaseCount > 0) {
         // the button was just released
-        m_releaseTime = Time::getCurtime();
-        m_newRelease = true;
+        self->m_releaseTime = Time_getCurtime();
+        self->m_newRelease = true;
       }
       // count releases even inside the ignore window so that
       // we can tell if the button was released to stop ignoring
-      m_releaseCount++;
+      self->m_releaseCount++;
     }
   }
 
   // calculate new hold/release durations if currently held/released
-  if (m_isPressed) {
+  if (self->m_isPressed) {
     // update the hold duration as long as the button is pressed
-    if (Time::getCurtime() >= m_pressTime) {
-      m_holdDuration = (uint32_t)(Time::getCurtime() - m_pressTime);
+    if (Time_getCurtime() >= self->m_pressTime) {
+      self->m_holdDuration = (uint32_t)(Time_getCurtime() - self->m_pressTime);
     }
   } else {
     // update the release duration as long as the button is released
-    if (Time::getCurtime() >= m_releaseTime) {
-      m_releaseDuration = (uint32_t)(Time::getCurtime() - m_releaseTime);
-      if (m_releaseDuration > CONSECUTIVE_WINDOW_TICKS) {
+    if (Time_getCurtime() >= self->m_releaseTime) {
+      self->m_releaseDuration = (uint32_t)(Time_getCurtime() - self->m_releaseTime);
+      if (self->m_releaseDuration > CONSECUTIVE_WINDOW_TICKS) {
         // if the release duration is greater than the threshold, reset the consecutive presses
-        m_consecutivePresses = 0;
+        self->m_consecutivePresses = 0;
       }
     }
   }
 
-  if (m_newRelease) {
-    m_consecutivePresses++;
+  if (self->m_newRelease) {
+    self->m_consecutivePresses++;
   }
 
   // whether a shortclick or long click just occurred
-  m_shortClick = (m_newRelease && (m_holdDuration <= SHORT_CLICK_THRESHOLD_TICKS));
-  m_longClick = (m_newRelease && (m_holdDuration > SHORT_CLICK_THRESHOLD_TICKS));
+  self->m_shortClick = (self->m_newRelease && (self->m_holdDuration <= SHORT_CLICK_THRESHOLD_TICKS));
+  self->m_longClick = (self->m_newRelease && (self->m_holdDuration > SHORT_CLICK_THRESHOLD_TICKS));
 
-  if (m_shortClick) {
+  if (self->m_shortClick) {
     DEBUG_LOG("Short click");
   }
-  if (m_longClick) {
+  if (self->m_longClick) {
     DEBUG_LOG("Long click");
   }
 }
 
-bool Button::onConsecutivePresses(uint8_t numPresses)
+bool Button_onConsecutivePresses(Button *self, uint8_t numPresses)
 {
-  if (m_consecutivePresses >= numPresses) {
-    m_consecutivePresses = 0;
+  if (self->m_consecutivePresses >= numPresses) {
+    self->m_consecutivePresses = 0;
     return true;
   }
   return false;
 }
+
+bool Button_onPress(const Button *self) { return self->m_newPress; }
+bool Button_onRelease(const Button *self) { return self->m_newRelease; }
+bool Button_isPressed(const Button *self) { return self->m_isPressed; }
+bool Button_onShortClick(const Button *self) { return self->m_shortClick; }
+bool Button_onLongClick(const Button *self) { return self->m_longClick; }
+uint32_t Button_pressTime(const Button *self) { return self->m_pressTime; }
+uint32_t Button_releaseTime(const Button *self) { return self->m_releaseTime; }
+uint32_t Button_holdDuration(const Button *self) { return self->m_holdDuration; }
+uint32_t Button_releaseDuration(const Button *self) { return self->m_releaseDuration; }
+uint8_t Button_consecutivePresses(const Button *self) { return self->m_consecutivePresses; }
+uint8_t Button_releaseCount(const Button *self) { return self->m_releaseCount; }

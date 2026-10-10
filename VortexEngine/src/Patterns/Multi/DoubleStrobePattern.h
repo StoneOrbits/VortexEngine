@@ -1,19 +1,23 @@
 #ifndef DOUBLESTROBE_PATTERN_H
 #define DOUBLESTROBE_PATTERN_H
 
+#include <stdbool.h>
 #include "BlinkStepPattern.h"
-
 #include "../../Time/Timings.h"
 
-class DoubleStrobePattern : public BlinkStepPattern
-{
-public:
-  DoubleStrobePattern(const PatternArgs &args);
-  virtual ~DoubleStrobePattern();
+typedef struct DoubleStrobePattern {
+  // must remain the first member
+  BlinkStepPattern base;
+} DoubleStrobePattern;
 
-  virtual void init() override;
+// the blink/step vtable for this pattern
+extern const BlinkStepVtable DoubleStrobePattern_bvtable;
 
-protected:
-  virtual void blinkOn() override;
-};
+// initialize a new DoubleStrobePattern
+void DoubleStrobePattern_init(DoubleStrobePattern *self, const PatternArgs *args);
+void DoubleStrobePattern_destroy(Pattern *self);
+
+void DoubleStrobePattern_initImpl(Pattern *self);
+void DoubleStrobePattern_blinkOn(BlinkStepPattern *self);
+
 #endif

@@ -516,21 +516,23 @@ bool VortexCLI::init(int argc, char *argv[])
 
   // load a .vortex or .vtxmode savefile
   if (m_loadSaveFile.size() > 0) {
-    ByteStream stream(4096);
+    ByteStream stream;
+    ByteStream_make(&stream);
+    ByteStream_init(&stream, 4096);
     // Open the file in read mode
     FILE *inputFile = fopen(m_loadSaveFile.c_str(), "r");
     if (!inputFile) {
       printf("Failed to open: [%s] (%s)\n", m_loadSaveFile.c_str(), strerror(errno));
       exit(2);
     }
-    if (!fread((void *)stream.rawData(), 1, stream.capacity(), inputFile)) {
+    if (!fread((void *)ByteStream_rawData(&stream), 1, ByteStream_capacity(&stream), inputFile)) {
       // error
       printf("Failed to read [%s]\n", m_loadSaveFile.c_str());
       exit(2);
     }
     fclose(inputFile);
     // clear existing modes
-    Modes::clearModes();
+    Modes_clearModes();
     // check if the load from savefile was provided, this is kinda ugly but whatever
     if (m_loadSaveFile.size() >= 8 && m_loadSaveFile.rfind(".vtxmode") == m_loadSaveFile.size() - 8) {
       // ends with .vtxmode, load just a single mode
@@ -560,13 +562,14 @@ bool VortexCLI::init(int argc, char *argv[])
     stringstream ss(m_colorsetStr);
     string color;
     Colorset set;
+    Colorset_make(&set);
     while (getline(ss, color, ',')) {
       // iterate letters and lowercase them
       transform(color.begin(), color.end(), color.begin(), [](unsigned char c){ return tolower(c); });
       if (color_map.count(color) > 0) {
-        set.addColor(color_map[color]);
+        Colorset_addColor(&set, RGBColor_fromU32(color_map[color]));
       } else {
-        set.addColor(strtoul(color.c_str(), nullptr, 16));
+        Colorset_addColor(&set, RGBColor_fromU32(strtoul(color.c_str(), nullptr, 16)));
       }
     }
     // TODO: add arg for the led position
@@ -640,6 +643,7 @@ void VortexCLI::cleanup()
   }
   if (m_writeSaveFile.length() > 0) {
     ByteStream stream;
+    ByteStream_make(&stream);
     Vortex::getModes(stream);
     FILE *outputFile = fopen(m_writeSaveFile.c_str(), "w");
     if (!outputFile) {
@@ -647,13 +651,14 @@ void VortexCLI::cleanup()
       exit(2);
     }
     // Print the recorded input to the file
-    fwrite(stream.rawData(), 1, stream.rawSize(), outputFile);
+    fwrite(ByteStream_rawData(&stream), 1, ByteStream_rawSize(&stream), outputFile);
     // Close the output file
     fclose(outputFile);
     printf("Wrote vortex save to [%s]\n", m_writeSaveFile.c_str());
   }
   if (m_writeModeFile.length() > 0) {
     ByteStream stream;
+    ByteStream_make(&stream);
     Vortex::getCurMode(stream);
     FILE *outputFile = fopen(m_writeModeFile.c_str(), "w");
     if (!outputFile) {
@@ -661,7 +666,7 @@ void VortexCLI::cleanup()
       exit(2);
     }
     // Print the recorded input to the file
-    fwrite(stream.rawData(), 1, stream.rawSize(), outputFile);
+    fwrite(ByteStream_rawData(&stream), 1, ByteStream_rawSize(&stream), outputFile);
     // Close the output file
     fclose(outputFile);
     printf("Wrote vtxmode save to [%s]\n", m_writeModeFile.c_str());
@@ -718,7 +723,7 @@ void VortexCLI::show()
     // otherwise this just prints out the raw hex code if not in color mode
     for (uint32_t i = 0; i < m_numLeds; ++i) {
       char buf[128] = { 0 };
-      snprintf(buf, sizeof(buf), "%06X", m_ledList[i].raw());
+      snprintf(buf, sizeof(buf), "%06X", RGBColor_raw(&m_ledList[i]));
       out += buf;
     }
   }

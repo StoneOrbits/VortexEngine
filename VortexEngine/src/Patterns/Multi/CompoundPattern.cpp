@@ -1,91 +1,102 @@
 #include "CompoundPattern.h"
 
-#include "../Single/SingleLedPattern.h"
-#include "../../Colors/Colorset.h"
+#include <string.h>
+
+#include "../../Memory/Memory.h"
 #include "../PatternBuilder.h"
 
-CompoundPattern::CompoundPattern(const PatternArgs &args) :
-  MultiLedPattern(args),
-  m_ledPatterns()
+const PatternVtable CompoundPattern_vtable = {
+  .destroy = CompoundPattern_destroy,
+  .bind = MultiLedPattern_bind,
+  .init = CompoundPattern_initImpl,
+  .play = CompoundPattern_play,
+};
+
+void CompoundPattern_init(CompoundPattern *self, const PatternArgs *args, const PatternVtable *vtable)
 {
-  // Hybrid is an abstract class it cannot be directly
-  // instantiated so we do not need to assign a pattern id
+  memset(self->m_ledPatterns, 0, sizeof(self->m_ledPatterns));
+  MultiLedPattern_init(&self->base, args, vtable);
 }
 
-CompoundPattern::~CompoundPattern()
+// clean up all the sub patterns
+void CompoundPattern_destroy(Pattern *pat)
 {
-  // clean up all the sub patterns
+  CompoundPattern *self = (CompoundPattern *)pat;
   for (LedPos pos = LED_FIRST; pos <= LED_LAST; pos++) {
-    if (m_ledPatterns[pos]) {
-      delete m_ledPatterns[pos];
-      m_ledPatterns[pos] = nullptr;
+    if (self->m_ledPatterns[pos]) {
+      Pattern_destroy(self->m_ledPatterns[pos]);
+      PatternBuilder_freePattern(self->m_ledPatterns[pos]);
+      self->m_ledPatterns[pos] = NULL;
     }
   }
 }
 
 // init the pattern to initial state
-void CompoundPattern::init()
+void CompoundPattern_initImpl(Pattern *pat)
 {
-  MultiLedPattern::init();
+  CompoundPattern *self = (CompoundPattern *)pat;
+  MultiLedPattern_doInit(pat);
 }
 
-// play the hybrid pattern (play all led patterns)
-void CompoundPattern::play()
+// play the compound pattern (play all led patterns)
+void CompoundPattern_play(Pattern *pat)
 {
+  CompoundPattern *self = (CompoundPattern *)pat;
   for (LedPos pos = LED_FIRST; pos <= LED_LAST; pos++) {
-    SingleLedPattern *pat = m_ledPatterns[pos];
-    if (!pat) {
+    SingleLedPattern *sub = self->m_ledPatterns[pos];
+    if (!sub) {
       // should never happen, but just in case
       continue;
     }
-    pat->play();
+    Pattern_play(sub);
   }
 }
 
-void CompoundPattern::clearPatterns()
+void CompoundPattern_clearPatterns(CompoundPattern *self)
 {
   for (LedPos pos = LED_FIRST; pos <= LED_LAST; pos++) {
-    if (!m_ledPatterns[pos]) {
+    if (!self->m_ledPatterns[pos]) {
       continue;
     }
-    delete m_ledPatterns[pos];
-    m_ledPatterns[pos] = nullptr;
+    Pattern_destroy(self->m_ledPatterns[pos]);
+    PatternBuilder_freePattern(self->m_ledPatterns[pos]);
+    self->m_ledPatterns[pos] = NULL;
   }
 }
 
-void CompoundPattern::setPatternAt(LedPos pos, SingleLedPattern *pat,
-  const Colorset *set)
+void CompoundPattern_setPatternAt(CompoundPattern *self, LedPos pos, SingleLedPattern *pat, const Colorset *set)
 {
   if (!pat || pos >= LED_COUNT) {
     return;
   }
-  pat->bind(pos);
-  pat->setColorset(set ? *set : m_colorset);
-  pat->init();
+  Colorset use = set ? *set : self->base.base.m_colorset;
+  Pattern_bind(pat, pos);
+  Pattern_setColorset(pat, &use);
+  Pattern_init(pat);
   // handle re-initialization and prevent leaks
-  if (m_ledPatterns[pos]) {
-    delete m_ledPatterns[pos];
+  if (self->m_ledPatterns[pos]) {
+    Pattern_destroy(self->m_ledPatterns[pos]);
+    PatternBuilder_freePattern(self->m_ledPatterns[pos]);
   }
   // store the pattern for the given led
-  m_ledPatterns[pos] = pat;
+  self->m_ledPatterns[pos] = pat;
 }
 
-void CompoundPattern::setPatternAt(LedPos pos, PatternID id,
-  const PatternArgs *args, const Colorset *set)
+void CompoundPattern_setPatternAtId(CompoundPattern *self, LedPos pos, PatternID id, const PatternArgs *args, const Colorset *set)
 {
   if (pos >= LED_COUNT) {
     return;
   }
-  setPatternAt(pos, PatternBuilder::makeSingle(id, args), set);
+  CompoundPattern_setPatternAt(self, pos, PatternBuilder_makeSingle(id, args), set);
 }
 
-void CompoundPattern::setEvensOdds(PatternID evenPattern, PatternID oddPattern,
+void CompoundPattern_setEvensOdds(CompoundPattern *self, PatternID evenPattern, PatternID oddPattern,
   const PatternArgs *evenArgs, const PatternArgs *oddArgs)
 {
   // Set the evenPattern on all evens and oddPattern on all odds
   for (LedPos p = LED_FIRST; p <= LED_LAST; p++) {
     const PatternArgs *args = isEven(p) ? evenArgs : oddArgs;
     PatternID id = isEven(p) ? evenPattern : oddPattern;
-    setPatternAt(p, PatternBuilder::makeSingle(id, args));
+    CompoundPattern_setPatternAt(self, p, PatternBuilder_makeSingle(id, args), NULL);
   }
 }

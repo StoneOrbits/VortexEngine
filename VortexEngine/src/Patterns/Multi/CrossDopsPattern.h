@@ -1,26 +1,25 @@
 #ifndef CROSSDOPS_PATTERN_H
 #define CROSSDOPS_PATTERN_H
 
+#include <stdbool.h>
 #include "BlinkStepPattern.h"
-
 #include "../../Time/Timings.h"
 
-class CrossDopsPattern : public BlinkStepPattern
-{
-public:
-  CrossDopsPattern(const PatternArgs &args);
-  virtual ~CrossDopsPattern();
-
-  // init the pattern to initial state
-  virtual void init() override;
-
-protected:
-  // overrideable members:
-  virtual void blinkOn() override;
-  virtual void poststep() override;
-
-private:
+typedef struct CrossDopsPattern {
+  // must remain the first member
+  BlinkStepPattern base;
   LedMap m_ledMap;
-};
+} CrossDopsPattern;
+
+// the blink/step vtable for this pattern
+extern const BlinkStepVtable CrossDopsPattern_bvtable;
+
+// initialize a new CrossDopsPattern
+void CrossDopsPattern_init(CrossDopsPattern *self, const PatternArgs *args);
+void CrossDopsPattern_destroy(Pattern *self);
+
+void CrossDopsPattern_initImpl(Pattern *self);
+void CrossDopsPattern_blinkOn(BlinkStepPattern *self);
+void CrossDopsPattern_poststep(BlinkStepPattern *self);
 
 #endif

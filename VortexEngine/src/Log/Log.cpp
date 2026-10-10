@@ -16,7 +16,7 @@ void InfoMsg(const char *msg, ...)
 {
   va_list list;
   va_start(list, msg);
-  Vortex::printlog(NULL, NULL, 0, msg, list);
+  Vortex_printlog(NULL, NULL, 0, msg, list);
   va_end(list);
 }
 #endif
@@ -26,7 +26,7 @@ void ErrorMsg(const char *func, const char *msg, ...)
 {
   va_list list;
   va_start(list, msg);
-  Vortex::printlog(NULL, func, 0, msg, list);
+  Vortex_printlog(NULL, func, 0, msg, list);
   va_end(list);
 }
 #endif
@@ -46,7 +46,7 @@ void DebugMsg(const char *file, const char *func, int line, const char *msg, ...
     }
     ptr--;
   }
-  Vortex::printlog(file, func, line, msg, list);
+  Vortex_printlog(file, func, line, msg, list);
   va_end(list);
 }
 #endif

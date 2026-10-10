@@ -680,14 +680,14 @@ Vortex::Vortex()
     // error! out of memory
   }
 #ifdef _WIN32
-  m_randCtx.seed((uint32_t)(time(NULL) ^ GetTickCount64()));
+  Random_seed(&m_randCtx, (uint32_t)(time(NULL) ^ GetTickCount64()));
 #else
   struct timespec ts;
   unsigned long theTick = 0U;
   clock_gettime(CLOCK_MONOTONIC, &ts);
   theTick = ts.tv_nsec / 1000000;
   theTick += ts.tv_sec * 1000;
-  m_randCtx.seed(time(NULL) ^ theTick);
+  Random_seed(&m_randCtx, time(NULL) ^ theTick);
 #endif
 }
 
@@ -732,12 +732,12 @@ bool Vortex::init(VortexCallbacks *callbacks)
 #endif
 
   // init the engine
-  VortexEngine::init();
+  VortexEngine_init();
   // load the modes
   // TODO: don't load modes here? separate api?
-  Modes::load();
+  Modes_load();
   // clear the modes
-  //Modes::clearModes();
+  //Modes_clearModes();
   // save and set undo buffer
   doSave();
 
@@ -748,7 +748,7 @@ bool Vortex::init(VortexCallbacks *callbacks)
 
 void Vortex::cleanup()
 {
-  VortexEngine::cleanup();
+  VortexEngine_cleanup();
   if (m_storedCallbacks) {
     delete m_storedCallbacks;
     m_storedCallbacks = nullptr;
@@ -913,12 +913,12 @@ bool Vortex::sleepEnabled()
 // whether the engine is sleeping, and/or to enter sleep
 void Vortex::enterSleep(bool save)
 {
-  VortexEngine::enterSleep(save);
+  VortexEngine_enterSleep(save);
 }
 
 bool Vortex::isSleeping()
 {
-  return VortexEngine::isSleeping();
+  return VortexEngine_isSleeping();
 }
 
 bool Vortex::tick()
@@ -942,7 +942,7 @@ bool Vortex::tick()
     doCommand(getchar());
   }
   // tick the vortex engine forward
-  VortexEngine::tick();
+  VortexEngine_tick();
   return true;
 }
 
@@ -954,13 +954,13 @@ void Vortex::installCallbacks(VortexCallbacks *callbacks)
 
 void Vortex::setInstantTimestep(bool timestep)
 {
-  Time::setInstantTimestep(timestep);
+  Time_setInstantTimestep(timestep);
 }
 
 // select the button to send clicks to (0 = first button)
 void Vortex::selectButton(uint8_t buttonIndex)
 {
-  if (buttonIndex >= Buttons::numButtons()) {
+  if (buttonIndex >= Buttons_numButtons()) {
     return;
   }
   m_selectedButton = buttonIndex;
@@ -1061,7 +1061,7 @@ void Vortex::rapidClick(uint32_t amount)
 
 Mode *Vortex::getMenuDemoMode()
 {
-  Menu *pMenu = Menus::curMenu();
+  Menu *pMenu = Menus_curMenu();
   if (!pMenu) {
     return nullptr;
   }
@@ -1073,15 +1073,15 @@ bool Vortex::setMenuDemoMode(const Mode *mode)
   if (!mode) {
      return false;
   }
-  Menu *pMenu = Menus::curMenu();
+  Menu *pMenu = Menus_curMenu();
   if (!pMenu) {
     return false;
   }
-  if (!mode->getLedCount() || pMenu->m_previewMode.equals(mode)) {
+  if (!Mode_getLedCount(mode) || Mode_equals(&pMenu->m_previewMode, mode)) {
     return false;
   }
-  pMenu->m_previewMode = *mode;
-  pMenu->m_previewMode.init();
+  Mode_assign(&pMenu->m_previewMode, mode);
+  Mode_initPatterns(&pMenu->m_previewMode);
   return true;
 }
 
@@ -1093,72 +1093,72 @@ void Vortex::quitClick()
 void Vortex::IRDeliver(uint32_t timing)
 {
 #if IR_ENABLE_RECEIVER == 1
-  IRReceiver::handleIRTiming(timing);
+  IRReceiver_handleIRTiming(timing);
 #endif
 }
 
 void Vortex::VLDeliver(uint32_t timing)
 {
 #if VL_ENABLE_RECEIVER == 1
-  VLReceiver::handleVLTiming(timing);
+  VLReceiver_handleVLTiming(timing);
 #endif
 }
 
 void Vortex::getStorageStats(uint32_t *outTotal, uint32_t *outUsed)
 {
   if (outTotal) {
-    *outTotal = VortexEngine::totalStorageSpace();
+    *outTotal = VortexEngine_totalStorageSpace();
   }
   if (outUsed) {
-    *outUsed = VortexEngine::savefileSize();
+    *outUsed = VortexEngine_savefileSize();
   }
 }
 
 void Vortex::loadStorage()
 {
-  Modes::loadStorage();
+  Modes_loadStorage();
 }
 
 void Vortex::openRandomizer(bool advanced)
 {
-  Menus::openMenu(MENU_RANDOMIZER, advanced);
+  Menus_openMenu(MENU_RANDOMIZER, advanced);
 }
 
 void Vortex::openColorSelect(bool advanced)
 {
-  Menus::openMenu(MENU_COLOR_SELECT, advanced);
+  Menus_openMenu(MENU_COLOR_SELECT, advanced);
 }
 
 void Vortex::openPatternSelect(bool advanced)
 {
-  Menus::openMenu(MENU_PATTERN_SELECT, advanced);
+  Menus_openMenu(MENU_PATTERN_SELECT, advanced);
 }
 
 void Vortex::openGlobalBrightness(bool advanced)
 {
-  Menus::openMenu(MENU_GLOBAL_BRIGHTNESS, advanced);
+  Menus_openMenu(MENU_GLOBAL_BRIGHTNESS, advanced);
 }
 
 void Vortex::openFactoryReset(bool advanced)
 {
-  Menus::openMenu(MENU_FACTORY_RESET, advanced);
+  Menus_openMenu(MENU_FACTORY_RESET, advanced);
 }
 
 void Vortex::openModeSharing(bool advanced)
 {
-  Menus::openMenu(MENU_MODE_SHARING, advanced);
+  Menus_openMenu(MENU_MODE_SHARING, advanced);
 }
 
 void Vortex::openEditorConnection(bool advanced)
 {
 #if ENABLE_EDITOR_CONNECTION == 1
-  Menus::openMenu(MENU_EDITOR_CONNECTION, advanced);
+  Menus_openMenu(MENU_EDITOR_CONNECTION, advanced);
 #endif
 }
 
 //void Vortex::clearMenuTargetLeds()
 //{
-//  Menu *cur = Menus::curMenu();
+//  Menu *cur = Menus_curMenu();
 //  if (!cur) {
 //    return;
 //  }
@@ -1167,7 +1167,7 @@ void Vortex::openEditorConnection(bool advanced)
 //
 //void Vortex::setMenuTargetLeds(LedMap targetLeds)
 //{
-//  Menu *cur = Menus::curMenu();
+//  Menu *cur = Menus_curMenu();
 //  if (!cur) {
 //    return;
 //  }
@@ -1176,7 +1176,7 @@ void Vortex::openEditorConnection(bool advanced)
 //
 //void Vortex::addMenuTargetLeds(LedPos pos)
 //{
-//  Menu *cur = Menus::curMenu();
+//  Menu *cur = Menus_curMenu();
 //  if (!cur) {
 //    return;
 //  }
@@ -1187,15 +1187,15 @@ void Vortex::openEditorConnection(bool advanced)
 bool Vortex::getModes(ByteStream &outStream)
 {
   // now serialize all the modes
-  Modes::saveToBuffer(outStream);
+  Modes_saveToBuffer(&outStream);
   return true;
 }
 
 bool Vortex::setModes(ByteStream &stream, bool save)
 {
-  Modes::clearModes();
+  Modes_clearModes();
   // now unserialize the stream of data that was read
-  if (!Modes::loadFromBuffer(stream)) {
+  if (!Modes_loadFromBuffer(&stream)) {
     return false;
   }
   return !save || doSave();
@@ -1203,41 +1203,41 @@ bool Vortex::setModes(ByteStream &stream, bool save)
 
 bool Vortex::matchLedCount(ByteStream &stream, bool vtxMode)
 {
-  if (!stream.decompress()) {
+  if (!ByteStream_decompress(&stream)) {
     return false;
   }
   // reset the unserializer index before unserializing anything
-  stream.resetUnserializer();
+  ByteStream_resetUnserializer(&stream);
   uint8_t major = 0;
   uint8_t minor = 0;
   // unserialize the vortex version
-  stream.unserialize8(&major);
-  stream.unserialize8(&minor);
+  ByteStream_unserialize8(&stream, &major);
+  ByteStream_unserialize8(&stream, &minor);
   // unserialize the global brightness
   if (!vtxMode) {
     uint8_t flags;
-    stream.unserialize8(&flags);
+    ByteStream_unserialize8(&stream, &flags);
     uint8_t brightness = 0;
-    stream.unserialize8(&brightness);
+    ByteStream_unserialize8(&stream, &brightness);
     uint8_t numModes = 0;
-    stream.unserialize8(&numModes);
+    ByteStream_unserialize8(&stream, &numModes);
   }
   uint8_t ledCount = 0;
-  stream.unserialize8(&ledCount);
+  ByteStream_unserialize8(&stream, &ledCount);
   // put the unserializer back where it was for the next thing
-  stream.resetUnserializer();
+  ByteStream_resetUnserializer(&stream);
   return setLedCount(ledCount);
 }
 
 bool Vortex::checkLedCount()
 {
-  Mode *mode = Modes::curMode();
+  Mode *mode = Modes_curMode();
   if (!mode) {
     return false;
   }
-  uint8_t numLeds = mode->getLedCount();
+  uint8_t numLeds = Mode_getLedCount(mode);
   if (numLeds != LED_COUNT) {
-    //Leds::setLedCount(numLeds);
+    //Leds_setLedCount(numLeds);
     return false;
   }
   return true;
@@ -1255,40 +1255,40 @@ uint8_t Vortex::getLedCount()
 
 bool Vortex::getCurMode(ByteStream &outStream)
 {
-  Mode *pMode = Modes::curMode();
+  Mode *pMode = Modes_curMode();
   if (!pMode) {
     return false;
   }
   // save to ensure we get the correct mode, not using doSave() because it causes
   // an undo buffer entry to be added
-  if (!Modes::saveStorage()) {
+  if (!Modes_saveStorage()) {
     return false;
   }
-  return Modes::curMode()->saveToBuffer(outStream);
+  return Mode_saveToBuffer(Modes_curMode(), &outStream, LED_COUNT);
 }
 
 uint32_t Vortex::curModeIndex()
 {
-  return Modes::curModeIndex();
+  return Modes_curModeIndex();
 }
 
 uint32_t Vortex::numModes()
 {
-  return Modes::numModes();
+  return Modes_numModes();
 }
 
 uint32_t Vortex::numLedsInMode()
 {
-  Mode *pMode = Modes::curMode();
+  Mode *pMode = Modes_curMode();
   if (!pMode) {
     return false;
   }
-  return pMode->getLedCount();
+  return Mode_getLedCount(pMode);
 }
 
 bool Vortex::addMode(const Mode *mode, bool save)
 {
-  if (!Modes::addMode(mode)) {
+  if (!Modes_addMode(mode)) {
     return false;
   }
   return !save || doSave();
@@ -1297,14 +1297,15 @@ bool Vortex::addMode(const Mode *mode, bool save)
 bool Vortex::addNewMode(bool save)
 {
   Colorset set;
-  set.randomize(m_randCtx);
+  Colorset_make(&set);
+  Colorset_randomize(&set, &m_randCtx, 0);
   // create a random pattern ID from all patterns
   PatternID randomPattern;
   do {
     // continuously re-randomize the pattern so we don't get solids
-    randomPattern = (PatternID)m_randCtx.next16(PATTERN_FIRST, PATTERN_SINGLE_LAST);
+    randomPattern = (PatternID)Random_next16(&m_randCtx, PATTERN_FIRST, PATTERN_SINGLE_LAST);
   } while (randomPattern == PATTERN_SOLID);
-  if (!Modes::addMode(randomPattern, nullptr, &set)) {
+  if (!Modes_addMode(randomPattern, nullptr, &set)) {
     return false;
   }
   return !save || doSave();
@@ -1312,7 +1313,7 @@ bool Vortex::addNewMode(bool save)
 
 bool Vortex::addNewMode(ByteStream &stream, bool save)
 {
-  if (!Modes::addModeFromBuffer(stream)) {
+  if (!Modes_addModeFromBuffer(&stream)) {
     return false;
   }
   return !save || doSave();
@@ -1320,10 +1321,10 @@ bool Vortex::addNewMode(ByteStream &stream, bool save)
 
 bool Vortex::setCurMode(uint32_t index, bool save)
 {
-  if (index >= Modes::numModes()) {
+  if (index >= Modes_numModes()) {
     return true;
   }
-  if (!Modes::setCurMode(index)) {
+  if (!Modes_setCurMode(index)) {
     return false;
   }
   return !save || doSave();
@@ -1331,54 +1332,54 @@ bool Vortex::setCurMode(uint32_t index, bool save)
 
 bool Vortex::nextMode(bool save)
 {
-  if (!Modes::numModes()) {
+  if (!Modes_numModes()) {
     return true;
   }
-  Modes::nextMode();
+  Modes_nextMode();
   return !save || doSave();
 }
 
 bool Vortex::delCurMode(bool save)
 {
-  if (!Modes::numModes()) {
+  if (!Modes_numModes()) {
     return true;
   }
-  Modes::deleteCurMode();
+  Modes_deleteCurMode();
   return !save || doSave();
 }
 
 bool Vortex::shiftCurMode(int8_t offset, bool save)
 {
-  if (!Modes::numModes()) {
+  if (!Modes_numModes()) {
     return true;
   }
   if (offset == 0) {
     return true;
   }
-  Modes::shiftCurMode(offset);
+  Modes_shiftCurMode(offset);
   return !save || doSave();
 }
 
 bool Vortex::setPattern(PatternID id, const PatternArgs *args, const Colorset *set, bool save)
 {
-  Mode *pMode = Modes::curMode();
+  Mode *pMode = Modes_curMode();
   if (!pMode) {
     return false;
   }
-  if (!pMode->setPattern(id, LED_ANY, args, set)) {
+  if (!Mode_setPattern(pMode, id, LED_ANY, args, set)) {
     return false;
   }
-  pMode->init();
+  Mode_initPatterns(pMode);
   return !save || doSave();
 }
 
 PatternID Vortex::getPatternID(LedPos pos)
 {
-  Mode *pMode = Modes::curMode();
+  Mode *pMode = Modes_curMode();
   if (!pMode) {
     return PATTERN_NONE;
   }
-  return pMode->getPatternID(pos);
+  return Mode_getPatternID(pMode, pos);
 }
 
 string Vortex::getPatternName(LedPos pos)
@@ -1388,21 +1389,21 @@ string Vortex::getPatternName(LedPos pos)
 
 string Vortex::getModeName()
 {
-  Mode *pMode = Modes::curMode();
+  Mode *pMode = Modes_curMode();
   if (!pMode) {
     return patternToString(PATTERN_NONE);
   }
-  if (pMode->isMultiLed()) {
-    return patternToString(pMode->getPatternID(LED_MULTI));
+  if (Mode_isMultiLed(pMode)) {
+    return patternToString(Mode_getPatternID(pMode, LED_MULTI));
   }
   // can't use isSampleSingleLed because that will compare the entire
   // pattern for differences in any single led pattern, we only care
   // about the pattern id being different
   bool all_same_id = true;
-  PatternID first = pMode->getPatternID(LED_FIRST);
+  PatternID first = Mode_getPatternID(pMode, LED_FIRST);
   for (uint32_t i = LED_FIRST + 1; i < numLedsInMode(); ++i) {
     // if any don't match 0 then no good
-    if (pMode->getPatternID((LedPos)i) != first) {
+    if (Mode_getPatternID(pMode, (LedPos)i) != first) {
       all_same_id = false;
       break;
     }
@@ -1418,57 +1419,57 @@ string Vortex::getModeName()
 bool Vortex::setPatternAt(LedPos pos, PatternID id,
   const PatternArgs *args, const Colorset *set, bool save)
 {
-  Mode *pMode = Modes::curMode();
+  Mode *pMode = Modes_curMode();
   if (!pMode) {
     return false;
   }
-  if (!pMode->setPattern(id, pos, args, set)) {
+  if (!Mode_setPattern(pMode, id, pos, args, set)) {
     return false;
   }
-  pMode->init();
+  Mode_initPatterns(pMode);
   return !save || doSave();
 }
 
 bool Vortex::getColorset(LedPos pos, Colorset &set)
 {
-  Mode *pMode = Modes::curMode();
+  Mode *pMode = Modes_curMode();
   if (!pMode) {
     return false;
   }
-  set = pMode->getColorset(pos);
+  set = Mode_getColorset(pMode, pos);
   return true;
 }
 
 bool Vortex::setColorset(LedPos pos, const Colorset &set, bool save)
 {
-  Mode *pMode = Modes::curMode();
+  Mode *pMode = Modes_curMode();
   if (!pMode) {
     return false;
   }
-  if (!pMode->setColorset(set, pos)) {
+  if (!Mode_setColorset(pMode, &set, pos)) {
     return false;
   }
-  pMode->init();
+  Mode_initPatterns(pMode);
   return !save || doSave();
 }
 
 bool Vortex::getPatternArgs(LedPos pos, PatternArgs &args)
 {
-  Mode *pMode = Modes::curMode();
+  Mode *pMode = Modes_curMode();
   if (!pMode) {
     return false;
   }
-  Pattern *pat = pMode->getPattern(pos);
+  Pattern *pat = Mode_getPatternMutable(pMode, pos);
   if (!pat) {
     return false;
   }
-  pat->getArgs(args);
+  Pattern_getArgs(pat, &args);
   return true;
 }
 
 bool Vortex::setPatternArgs(LedPos pos, PatternArgs &args, bool save)
 {
-  Mode *pMode = Modes::curMode();
+  Mode *pMode = Modes_curMode();
   if (!pMode) {
     return false;
   }
@@ -1476,25 +1477,25 @@ bool Vortex::setPatternArgs(LedPos pos, PatternArgs &args, bool save)
   // Equivalent to cases LED_ANY, LED_ALL and LED_MULTI
   if (pos == LED_ANY || pos == LED_ALL || pos == LED_MULTI) {
 #if VORTEX_SLIM == 0
-    pat = pMode->getPattern(LED_MULTI);
+    pat = Mode_getPatternMutable(pMode, LED_MULTI);
     if (pat) {
-      pat->setArgs(args);
+      Pattern_setArgs(pat, &args);
     }
     if (pos == LED_MULTI) {
       // don't fallthrough if actually multi, it's possible
       // we got here by falling through from LED_ALL
-      pMode->init();
+      Mode_initPatterns(pMode);
       return !save || doSave();
     }
     // fall through if LED_ALL and change the single leds
     else if (pos == LED_ANY || pos == LED_ALL) {
       for (LedPos pos = LED_FIRST; pos < LED_COUNT; ++pos) {
-        pat = pMode->getPattern(pos);
+        pat = Mode_getPatternMutable(pMode, pos);
         if (pat) {
-          pat->setArgs(args);
+          Pattern_setArgs(pat, &args);
         }
       }
-      pMode->init();
+      Mode_initPatterns(pMode);
       // actually break here
       return !save || doSave();
     }
@@ -1504,12 +1505,12 @@ bool Vortex::setPatternArgs(LedPos pos, PatternArgs &args, bool save)
   // equivalent to case LED_ALL_SINGLE
   else if (pos == LED_ALL_SINGLE) {
     for (LedPos pos = LED_FIRST; pos < LED_COUNT; ++pos) {
-      pat = pMode->getPattern(pos);
+      pat = Mode_getPatternMutable(pMode, pos);
       if (pat) {
-        pat->setArgs(args);
+        Pattern_setArgs(pat, &args);
       }
     }
-    pMode->init();
+    Mode_initPatterns(pMode);
     // actually break here
     return !save || doSave();
   }
@@ -1519,12 +1520,12 @@ bool Vortex::setPatternArgs(LedPos pos, PatternArgs &args, bool save)
     if (pos >= LED_COUNT) {
       return false;
     }
-    pat = pMode->getPattern(pos);
+    pat = Mode_getPatternMutable(pMode, pos);
     if (!pat) {
       return false;
     }
-    pat->setArgs(args);
-    pMode->init();
+    Pattern_setArgs(pat, &args);
+    Mode_initPatterns(pMode);
     return !save || doSave();
   }
 
@@ -1533,11 +1534,11 @@ bool Vortex::setPatternArgs(LedPos pos, PatternArgs &args, bool save)
 
 bool Vortex::isCurModeMulti()
 {
-  Mode *pMode = Modes::curMode();
+  Mode *pMode = Modes_curMode();
   if (!pMode) {
     return false;
   }
-  return pMode->isMultiLed();
+  return Mode_isMultiLed(pMode);
 }
 
 string Vortex::patternToString(PatternID id)
@@ -1581,20 +1582,21 @@ string Vortex::ledToString(LedPos pos)
 // the number of custom parameters for any given pattern id
 uint32_t Vortex::numCustomParams(PatternID id)
 {
-  return PatternBuilder::numDefaultArgs(id);
+  return PatternBuilder_numDefaultArgs(id);
 }
 
 vector<string> Vortex::getCustomParams(PatternID id)
 {
-  Pattern *pat = PatternBuilder::make(id);
+  Pattern *pat = PatternBuilder_make(id, nullptr);
   vector<string> params;
   if (!pat) {
     return params;
   }
-  for (uint32_t i = 0; i < pat->getNumArgs(); ++i) {
-    params.push_back(pat->getArgName(i));
+  for (uint32_t i = 0; i < Pattern_getNumArgs(pat); ++i) {
+    params.push_back(Pattern_getArgName(pat, i));
   }
-  delete pat;
+  Pattern_destroy(pat);
+  PatternBuilder_freePattern(pat);
   return params;
 }
 
@@ -1609,31 +1611,40 @@ bool Vortex::addUndoBuffer()
     return true;
   }
   ByteStream modes;
+  ByteStream_make(&modes);
   getModes(modes);
-  if (!modes.size()) {
+  if (!ByteStream_size(&modes)) {
+    ByteStream_destroy(&modes);
     return false;
   }
   // only save an undo if the buffer is different
-  if (m_undoBuffer.size() > 0 && modes.CRC() == m_undoBuffer.back().CRC()) {
+  if (m_undoBuffer.size() > 0 && ByteStream_CRC(&modes) == ByteStream_CRC(&m_undoBuffer.back())) {
     //printf("Not saving duplicate undo buffer\n");
+    ByteStream_destroy(&modes);
     return false;
   }
   // must rewind to that step before pushing next step
   while (m_undoIndex > 0) {
+    ByteStream_destroy(&m_undoBuffer.back());
     m_undoBuffer.pop_back();
     m_undoIndex--;
   }
-  m_undoBuffer.push_back(modes);
+  // the arena tracks each buffer's owner so move the data into
+  // the deque element rather than copying the struct
+  m_undoBuffer.emplace_back();
+  ByteStream_make(&m_undoBuffer.back());
+  ByteStream_move(&modes, &m_undoBuffer.back());
   //printf("Pushing undo buffer (pos: %u)\n", m_undoIndex);
   // make sure list doesn't grow too big
   if (m_undoLimit && m_undoBuffer.size() > m_undoLimit) {
     //printf("Popping front of undo buffer\n");
+    ByteStream_destroy(&m_undoBuffer.front());
     m_undoBuffer.pop_front();
   }
 #if 0
   printf("Buffer:\n");
   for (uint32_t i = 0; i < m_undoBuffer.size(); ++i) {
-    printf("\t%u: %x", i, m_undoBuffer[i].CRC());
+    printf("\t%u: %x", i, ByteStream_CRC(&m_undoBuffer[i]));
     if ((m_undoBuffer.size() - 1) - m_undoIndex == i) {
       printf(" <--\n");
     } else {
@@ -1657,7 +1668,7 @@ bool Vortex::applyUndo()
   //printf("Buffer:\n");
 #if 0
   for (uint32_t i = 0; i < m_undoBuffer.size(); ++i) {
-    printf("\t%u: %x", i, m_undoBuffer[i].CRC());
+    printf("\t%u: %x", i, ByteStream_CRC(&m_undoBuffer[i]));
     if ((m_undoBuffer.size() - 1) - m_undoIndex == i) {
       printf(" <--\n");
     } else {
@@ -1667,7 +1678,7 @@ bool Vortex::applyUndo()
 #endif
   // index from the back instead of the front
   uint32_t backIndex = highestIndex - m_undoIndex;
-  m_undoBuffer[backIndex].resetUnserializer();
+  ByteStream_resetUnserializer(&m_undoBuffer[backIndex]);
   Vortex::setModes(m_undoBuffer[backIndex], false);
   return true;
 }
@@ -1701,17 +1712,17 @@ bool Vortex::redo()
 
 void Vortex::setTickrate(uint32_t tickrate)
 {
-  Time::setTickrate(tickrate);
+  Time_setTickrate(tickrate);
 }
 
 uint32_t Vortex::getTickrate()
 {
-  return Time::getTickrate();
+  return Time_getTickrate();
 }
 
 bool Vortex::doSave()
 {
-  return Modes::saveStorage() && addUndoBuffer();
+  return Modes_saveStorage() && addUndoBuffer();
 }
 
 void Vortex::handleInputQueue(Button *buttons, uint32_t numButtons)
@@ -1741,14 +1752,14 @@ void Vortex::handleInputQueue(Button *buttons, uint32_t numButtons)
   case EVENT_SHORT_CLICK:
     pButton->m_newRelease = true;
     pButton->m_shortClick = true;
-    pButton->m_pressTime = Time::getCurtime();
+    pButton->m_pressTime = Time_getCurtime();
     pButton->m_holdDuration = SHORT_CLICK_THRESHOLD_TICKS - 1;
     DEBUG_LOG("Injecting short click");
     break;
   case EVENT_LONG_CLICK:
     pButton->m_newRelease = true;
     pButton->m_longClick = true;
-    pButton->m_pressTime = Time::getCurtime();
+    pButton->m_pressTime = Time_getCurtime();
     pButton->m_holdDuration = SHORT_CLICK_THRESHOLD_TICKS + 1;
     DEBUG_LOG("Injecting long click");
     break;
@@ -1757,7 +1768,7 @@ void Vortex::handleInputQueue(Button *buttons, uint32_t numButtons)
     // to something more than the menu trigger threshold that will make
     // us immediately enter the menus. But we need to unset the pressed
     // button right after so we push a reset click event to reset the button
-    pButton->m_pressTime = Time::getCurtime();
+    pButton->m_pressTime = Time_getCurtime();
 #if defined(SLEEP_ENTER_THRESHOLD_TICKS) && defined(SLEEP_WINDOW_THRESHOLD_TICKS)
     // microlight must hold longer (past sleep time)
     pButton->m_holdDuration = MENU_TRIGGER_THRESHOLD_TICKS + SLEEP_ENTER_THRESHOLD_TICKS + SLEEP_WINDOW_THRESHOLD_TICKS + 1;
@@ -1773,7 +1784,7 @@ void Vortex::handleInputQueue(Button *buttons, uint32_t numButtons)
     // to something more than the menu trigger threshold that will make
     // us immediately enter the menus. But we need to unset the pressed
     // button right after so we push a reset click event to reset the button
-    pButton->m_pressTime = Time::getCurtime();
+    pButton->m_pressTime = Time_getCurtime();
     pButton->m_holdDuration = ADV_MENU_DURATION_TICKS + 1;
     pButton->m_longClick = true;
     pButton->m_newRelease = true;
@@ -1784,7 +1795,7 @@ void Vortex::handleInputQueue(Button *buttons, uint32_t numButtons)
     // to something more than the menu trigger threshold that will make
     // us immediately enter the menus. But we need to unset the pressed
     // button right after so we push a reset click event to reset the button
-    pButton->m_pressTime = Time::getCurtime();
+    pButton->m_pressTime = Time_getCurtime();
     pButton->m_holdDuration = DELETE_THRESHOLD_TICKS + DELETE_CYCLE_TICKS + 1;
     pButton->m_longClick = true;
     pButton->m_newRelease = true;
@@ -1796,7 +1807,7 @@ void Vortex::handleInputQueue(Button *buttons, uint32_t numButtons)
     // us immediately enter the menus. But we need to unset the pressed
     // button right after so we push a reset click event to reset the button
 #ifdef SLEEP_ENTER_THRESHOLD_TICKS
-    pButton->m_pressTime = Time::getCurtime();
+    pButton->m_pressTime = Time_getCurtime();
     pButton->m_holdDuration = SLEEP_ENTER_THRESHOLD_TICKS + 1;
     pButton->m_longClick = true;
     pButton->m_newRelease = true;
@@ -1809,7 +1820,7 @@ void Vortex::handleInputQueue(Button *buttons, uint32_t numButtons)
     // us immediately enter the menus. But we need to unset the pressed
     // button right after so we push a reset click event to reset the button
 #ifdef FORCE_SLEEP_THRESHOLD_TICKS
-    pButton->m_pressTime = Time::getCurtime();
+    pButton->m_pressTime = Time_getCurtime();
     pButton->m_holdDuration = FORCE_SLEEP_THRESHOLD_TICKS + 1;
     pButton->m_longClick = true;
     pButton->m_newRelease = true;
@@ -1824,20 +1835,20 @@ void Vortex::handleInputQueue(Button *buttons, uint32_t numButtons)
       // ticks the engine forward some number of ticks, the event queue is empty
       // so the engine won't process any input events while doing this
       for (uint32_t i = 0; i < buttonEvent.target; ++i) {
-        VortexEngine::tick();
+        VortexEngine_tick();
       }
       // then restore the event queue so that events are processed like normal
       swap(backup, m_buttonEventQueue);
     }
     break;
   case EVENT_TOGGLE_CLICK:
-    if (pButton->isPressed()) {
+    if (Button_isPressed(pButton)) {
       // re-calc all this stuff because there's no api in Button class to do it
       // I don't want to add the api there because it's useless besides for this
       pButton->m_buttonState = false;
       pButton->m_isPressed = false;
-      pButton->m_holdDuration = (uint32_t)(Time::getCurtime() - pButton->m_pressTime);
-      pButton->m_releaseTime = Time::getCurtime();
+      pButton->m_holdDuration = (uint32_t)(Time_getCurtime() - pButton->m_pressTime);
+      pButton->m_releaseTime = Time_getCurtime();
       pButton->m_newRelease = true;
       pButton->m_shortClick = (pButton->m_holdDuration <= SHORT_CLICK_THRESHOLD_TICKS);
       pButton->m_longClick = !pButton->m_shortClick;
@@ -1845,8 +1856,8 @@ void Vortex::handleInputQueue(Button *buttons, uint32_t numButtons)
     } else {
       pButton->m_buttonState = true;
       pButton->m_isPressed = true;
-      pButton->m_releaseDuration = (uint32_t)(Time::getCurtime() - pButton->m_releaseTime);
-      pButton->m_pressTime = Time::getCurtime();
+      pButton->m_releaseDuration = (uint32_t)(Time_getCurtime() - pButton->m_releaseTime);
+      pButton->m_pressTime = Time_getCurtime();
       pButton->m_newPress = true;
       DEBUG_LOG("Injecting press");
     }
@@ -1855,7 +1866,7 @@ void Vortex::handleInputQueue(Button *buttons, uint32_t numButtons)
     pButton->m_consecutivePresses = buttonEvent.target;
     pButton->m_newRelease = true;
     pButton->m_shortClick = true;
-    pButton->m_pressTime = Time::getCurtime();
+    pButton->m_pressTime = Time_getCurtime();
     pButton->m_holdDuration = 1;
     DEBUG_LOGF("Injecting %u x rapid click", buttonEvent.target);
     break;
@@ -1936,12 +1947,12 @@ void Vortex::printlog(const char *file, const char *func, int line, const char *
 
 void Vortex::setStorageFilename(const string &name)
 {
-  Storage::setStorageFilename(name);
+  Storage_setStorageFilename(name);
 }
 
 string Vortex::getStorageFilename()
 {
-  return Storage::getStorageFilename();
+  return Storage_getStorageFilename();
 }
 
 json Vortex::modeToJson(const Mode *mode)
@@ -1951,17 +1962,17 @@ json Vortex::modeToJson(const Mode *mode)
   }
 
   json modeJson;
-  modeJson["num_leds"] = mode->getLedCount();
-  modeJson["flags"] = (uint8_t)mode->getFlags();
+  modeJson["num_leds"] = Mode_getLedCount(mode);
+  modeJson["flags"] = (uint8_t)Mode_getFlags(mode);
 
-  const Pattern *multiPattern = mode->getPattern(LED_MULTI);
+  const Pattern *multiPattern = Mode_getPattern(mode, LED_MULTI);
   if (multiPattern) {
     modeJson["multi_pat"] = patternToJson(multiPattern);
   }
 
   json singlePatterns = json::array();
-  for (LedPos l = LED_FIRST; l < mode->getLedCount(); ++l) {
-    const Pattern *pattern = mode->getPattern(l);
+  for (LedPos l = LED_FIRST; l < Mode_getLedCount(mode); ++l) {
+    const Pattern *pattern = Mode_getPattern(mode, l);
     if (pattern) {
       singlePatterns.push_back(patternToJson(pattern));
     } else {
@@ -1979,7 +1990,8 @@ Mode *Vortex::modeFromJson(const json &modeJson)
     return nullptr;
   }
 
-  Mode *mode = new Mode();
+  Mode *mode = new Mode;
+  Mode_init(mode);
   if (!mode) {
     return nullptr;
   }
@@ -1996,10 +2008,12 @@ Mode *Vortex::modeFromJson(const json &modeJson)
     Pattern *multiPattern = patternFromJson(multiPatJson);
     if (multiPattern) {
       PatternArgs args;
-      multiPattern->getArgs(args);
-      Colorset set = multiPattern->getColorset();
-      mode->setPattern(multiPattern->getPatternID(), LED_MULTI, &args, &set);
-      delete multiPattern;
+      PatternArgs_make0(&args);
+      Pattern_getArgs(multiPattern, &args);
+      Colorset set = Pattern_getColorset(multiPattern);
+      Mode_setPattern(mode, Pattern_getPatternID(multiPattern), LED_MULTI, &args, &set);
+      Pattern_destroy(multiPattern);
+      PatternBuilder_freePattern(multiPattern);
     }
   }
 
@@ -2011,10 +2025,12 @@ Mode *Vortex::modeFromJson(const json &modeJson)
         Pattern *pattern = patternFromJson(patJson);
         if (pattern) {
           PatternArgs args;
-          pattern->getArgs(args);
-          Colorset set = pattern->getColorset();
-          mode->setPattern(pattern->getPatternID(), pos++, &args, &set);
-          delete pattern;
+          PatternArgs_make0(&args);
+          Pattern_getArgs(pattern, &args);
+          Colorset set = Pattern_getColorset(pattern);
+          Mode_setPattern(mode, Pattern_getPatternID(pattern), pos++, &args, &set);
+          Pattern_destroy(pattern);
+          PatternBuilder_freePattern(pattern);
         }
       }
     }
@@ -2027,10 +2043,12 @@ Mode *Vortex::modeFromJson(const json &modeJson)
       return mode;
     }
     PatternArgs args;
-    pattern->getArgs(args);
-    Colorset set = pattern->getColorset();
-    mode->setPattern(pattern->getPatternID(), LED_FIRST, &args, &set);
-    delete pattern;
+    PatternArgs_make0(&args);
+    Pattern_getArgs(pattern, &args);
+    Colorset set = Pattern_getColorset(pattern);
+    Mode_setPattern(mode, Pattern_getPatternID(pattern), LED_FIRST, &args, &set);
+    Pattern_destroy(pattern);
+    PatternBuilder_freePattern(pattern);
   }
 
   return mode;
@@ -2043,15 +2061,15 @@ json Vortex::patternToJson(const Pattern *pattern)
   }
 
   json patternJson;
-  patternJson["pattern_id"] = pattern->getPatternID();
-  patternJson["flags"] = pattern->getFlags();
+  patternJson["pattern_id"] = Pattern_getPatternID(pattern);
+  patternJson["flags"] = Pattern_getFlags(pattern);
 
-  const Colorset &colorset = pattern->getColorset();
-  patternJson["numColors"] = colorset.numColors();
+  const Colorset &colorset = Pattern_getColorset(pattern);
+  patternJson["numColors"] = Colorset_numColors(&colorset);
 
   json colorsetArray = json::array();
-  for (uint8_t c = 0; c < colorset.numColors(); ++c) {
-    const RGBColor &color = colorset.get(c);
+  for (uint8_t c = 0; c < Colorset_numColors(&colorset); ++c) {
+    const RGBColor &color = Colorset_get(&colorset, c);
     std::stringstream colorString;
     colorString << "0x"
       << std::setfill('0') << std::setw(2) << std::hex << (int)color.red
@@ -2062,8 +2080,8 @@ json Vortex::patternToJson(const Pattern *pattern)
   patternJson["colorset"] = colorsetArray;
 
   json argsArray = json::array();
-  for (uint8_t a = 0; a < pattern->getNumArgs(); ++a) {
-    argsArray.push_back(pattern->getArg(a));
+  for (uint8_t a = 0; a < Pattern_getNumArgs(pattern); ++a) {
+    argsArray.push_back(Pattern_getArg(pattern, a));
   }
   patternJson["args"] = argsArray;
 
@@ -2089,16 +2107,18 @@ Pattern *Vortex::patternFromJson(const json &patternJson)
 
   // Parse out the args
   PatternArgs args;
+  PatternArgs_make0(&args);
   if (patternJson.contains("args") && patternJson["args"].is_array()) {
     for (const auto &arg : patternJson["args"]) {
       if (arg.is_number_unsigned()) {
-        args.addArgs(static_cast<uint8_t>(arg.get<uint8_t>()));
+        PatternArgs_addArgs1(&args, static_cast<uint8_t>(arg.get<uint8_t>()));
       }
     }
   }
 
   // Parse out the colorset
   Colorset set;
+  Colorset_make(&set);
   if (patternJson.contains("colorset") && patternJson["colorset"].is_array()) {
     for (const auto &colorElement : patternJson["colorset"]) {
       if (colorElement.is_string()) {
@@ -2107,20 +2127,20 @@ Pattern *Vortex::patternFromJson(const json &patternJson)
           strVal = strVal.substr(2);
         }
         uint32_t dwCol = strtoul(strVal.c_str(), NULL, 16);
-        set.addColor(RGBColor(dwCol));
+        Colorset_addColor(&set, RGBColor_fromU32(dwCol));
       }
     }
   }
 
   // Build the pattern with ID + args
-  Pattern *pattern = PatternBuilder::make(id, &args);
+  Pattern *pattern = PatternBuilder_make(id, &args);
   if (!pattern) {
     return nullptr;
   }
 
   // Apply colorset and init
-  pattern->setColorset(set);
-  pattern->init();
+  Pattern_setColorset(pattern, &set);
+  Pattern_init(pattern);
 
   return pattern;
 }
@@ -2128,7 +2148,7 @@ Pattern *Vortex::patternFromJson(const json &patternJson)
 json Vortex::saveModeToJson()
 {
   json saveJson;
-  Mode *cur = Modes::curMode();
+  Mode *cur = Modes_curMode();
   if (!cur) {
     return nullptr;
   }
@@ -2152,7 +2172,7 @@ bool Vortex::loadModeFromJson(const json &js)
   //  minor = js["version_minor"].get<uint8_t>();
   //}
 
-  //if (!VortexEngine::checkVersion(major, minor)) {
+  //if (!VortexEngine_checkVersion(major, minor)) {
   //  return false;
   //}
 
@@ -2160,7 +2180,8 @@ bool Vortex::loadModeFromJson(const json &js)
   if (!mode) {
     return false;
   }
-  bool rv = Modes::addMode(mode);
+  bool rv = Modes_addMode(mode);
+  Mode_destroy(mode);
   delete mode;
   return rv;
 }
@@ -2171,17 +2192,17 @@ json Vortex::saveToJson()
 
   saveJson["version_major"] = static_cast<uint8_t>(VORTEX_VERSION_MAJOR);
   saveJson["version_minor"] = static_cast<uint8_t>(VORTEX_VERSION_MINOR);
-  saveJson["global_flags"] = Modes::globalFlags();
-  saveJson["brightness"] = static_cast<uint8_t>(Leds::getBrightness());
+  saveJson["global_flags"] = Modes_globalFlags();
+  saveJson["brightness"] = static_cast<uint8_t>(Leds_getBrightness());
 
-  uint8_t numModes = Modes::numModes();
+  uint8_t numModes = Modes_numModes();
   saveJson["num_modes"] = numModes;
 
   json modesArray = json::array();
-  Modes::setCurMode(0);
+  Modes_setCurMode(0);
   for (uint8_t i = 0; i < numModes; ++i) {
     modesArray.push_back(saveModeToJson());
-    Modes::nextMode();
+    Modes_nextMode();
   }
   saveJson["modes"] = modesArray;
 
@@ -2204,18 +2225,18 @@ bool Vortex::loadFromJson(const json& js)
     minor = js["version_minor"].get<uint8_t>();
   }
 
-  if (!VortexEngine::checkVersion(major, minor)) {
+  if (!VortexEngine_checkVersion(major, minor)) {
     return false;
   }
 
   if (js.contains("brightness") && js["brightness"].is_number_unsigned()) {
     uint8_t brightness = js["brightness"].get<uint8_t>();
-    Leds::setBrightness(brightness);
+    Leds_setBrightness(brightness);
   }
 
   if (js.contains("global_flags") && js["global_flags"].is_number_unsigned()) {
     uint8_t global_flags = js["global_flags"].get<uint8_t>();
-    Modes::setFlag(global_flags, true, false);
+    Modes_setFlag(global_flags, true, false);
   }
 
   uint8_t num_modes = 0;
@@ -2227,7 +2248,7 @@ bool Vortex::loadFromJson(const json& js)
     return false;
   }
 
-  Modes::clearModes();
+  Modes_clearModes();
   for (const auto &modeValue : js["modes"]) {
     if (modeValue.is_null() || !modeValue.is_object()) {
       continue;
@@ -2238,14 +2259,14 @@ bool Vortex::loadFromJson(const json& js)
     }
   }
 
-  return Modes::numModes() == num_modes;
+  return Modes_numModes() == num_modes;
 }
 
 // print/parse the current mode json
 std::string Vortex::printModeJson(bool pretty)
 {
   std::string jsonStr = "{}";
-  Mode *cur = Modes::curMode();
+  Mode *cur = Modes_curMode();
   if (!cur) {
     return jsonStr;
   }
@@ -2267,7 +2288,8 @@ bool Vortex::parseModeJson(const std::string &jsonStr)
     return false;
   }
   // update the current mode with the parsed json mode
-  bool result = Modes::updateCurMode(tempMode);
+  bool result = Modes_updateCurMode(tempMode);
+  Mode_destroy(tempMode);
   delete tempMode;
   return result;
 }
@@ -2276,11 +2298,11 @@ bool Vortex::parseModeJson(const std::string &jsonStr)
 std::string Vortex::printPatternJson(LedPos pos, bool pretty)
 {
   std::string jsonStr = "{}";
-  Mode *cur = Modes::curMode();
+  Mode *cur = Modes_curMode();
   if (!cur) {
     return jsonStr;
   }
-  Pattern *pat = cur->getPattern(pos);
+  Pattern *pat = Mode_getPatternMutable(cur, pos);
   if (!pat) {
     return jsonStr;
   }
@@ -2290,7 +2312,7 @@ std::string Vortex::printPatternJson(LedPos pos, bool pretty)
 
 bool Vortex::parsePatternJson(LedPos pos, const std::string &jsonStr)
 {
-  Mode *cur = Modes::curMode();
+  Mode *cur = Modes_curMode();
   if (!cur) {
     return false;
   }
@@ -2306,12 +2328,14 @@ bool Vortex::parsePatternJson(LedPos pos, const std::string &jsonStr)
     return false;
   }
   // update the current mode with the parsed json mode
-  PatternID patID = tempPat->getPatternID();
+  PatternID patID = Pattern_getPatternID(tempPat);
   PatternArgs args;
-  tempPat->getArgs(args);
-  Colorset set = tempPat->getColorset();
-  delete tempPat;
-  return cur->setPattern(patID, pos, &args, &set);
+  PatternArgs_make0(&args);
+  Pattern_getArgs(tempPat, &args);
+  Colorset set = Pattern_getColorset(tempPat);
+  Pattern_destroy(tempPat);
+  PatternBuilder_freePattern(tempPat);
+  return Mode_setPattern(cur, patID, pos, &args, &set);
 }
 
 // dump the json to output

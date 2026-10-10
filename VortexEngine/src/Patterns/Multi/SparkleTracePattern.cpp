@@ -1,33 +1,53 @@
 #include "SparkleTracePattern.h"
 
+#include <string.h>
 #include "../../Time/TimeControl.h"
 #include "../../Leds/Leds.h"
 #include "../../Log/Log.h"
+#include "../../Memory/Memory.h"
+#include "../Pattern.h"
 
-SparkleTracePattern::SparkleTracePattern(const PatternArgs &args) :
-  BlinkStepPattern(args),
-  m_randCtx()
+const BlinkStepVtable SparkleTracePattern_bvtable = {
+  .base = {
+    .destroy = SparkleTracePattern_destroy,
+    .bind = MultiLedPattern_bind,
+    .init = BlinkStepPattern_initImpl,
+    .play = BlinkStepPattern_play
+  },
+  .blinkOn = SparkleTracePattern_blinkOn,
+  .blinkOff = BlinkStepPattern_blinkOff,
+  .prestep = BlinkStepPattern_prestep,
+  .poststep = SparkleTracePattern_poststep,
+};
+
+void SparkleTracePattern_init(SparkleTracePattern *self, const PatternArgs *args)
 {
-  m_patternID = PATTERN_SPARKLETRACE;
-  setArgs(args);
+  BlinkStepPattern_init(&self->base, args, &SparkleTracePattern_bvtable);
+  Random_make(&self->m_randCtx);
+  Pattern_setPatternID((&self->base.base.base), PATTERN_SPARKLETRACE);
+  Pattern_setArgs((&self->base.base.base), args);
 }
 
-SparkleTracePattern::~SparkleTracePattern()
+void SparkleTracePattern_destroy(Pattern *pat)
 {
+  SparkleTracePattern *self = (SparkleTracePattern *)pat;
+  (void)self;
 }
 
-void SparkleTracePattern::blinkOn()
+void SparkleTracePattern_blinkOn(BlinkStepPattern *bsp)
 {
-  Leds::setAll(m_colorset.get(0));
+  SparkleTracePattern *self = (SparkleTracePattern *)bsp;
+  Leds_setAll(Colorset_get(&(&self->base.base.base)->m_colorset, 0));
 }
 
-void SparkleTracePattern::poststep()
+void SparkleTracePattern_poststep(BlinkStepPattern *bsp)
 {
+  SparkleTracePattern *self = (SparkleTracePattern *)bsp;
   for (uint8_t dot = 0; dot < 4; ++dot) {
-    Leds::setPair((Pair)m_randCtx.next8(PAIR_FIRST, PAIR_LAST), m_colorset.cur());
+    Leds_setPair((Pair)Random_next8(&self->m_randCtx, PAIR_FIRST, PAIR_LAST), Colorset_cur(&(&self->base.base.base)->m_colorset));
   }
-  m_colorset.skip();
-  if (m_colorset.curIndex() == 0) {
-    m_colorset.skip();
+  Colorset_skip(&(&self->base.base.base)->m_colorset, 1);
+  if (Colorset_curIndex(&(&self->base.base.base)->m_colorset) == 0) {
+    Colorset_skip(&(&self->base.base.base)->m_colorset, 1);
   }
 }

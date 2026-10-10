@@ -1,39 +1,34 @@
-#include "BlinkStepPattern.h"
+#ifndef LIGHTHOUSE_PATTERN_H
+#define LIGHTHOUSE_PATTERN_H
 
+#include <stdbool.h>
+#include "BlinkStepPattern.h"
 #include "../../Leds/LedStash.h"
 #include "../../Time/Timings.h"
 #include "../../Time/Timer.h"
 
-class LighthousePattern : public BlinkStepPattern
-{
-public:
-  LighthousePattern(const PatternArgs &args);
-  virtual ~LighthousePattern();
-
-  // init the pattern to initial state
-  virtual void init() override;
-
-  // pure virtual must override the play function
-  virtual void play() override;
-
-protected:
-  // overrideable members:
-  virtual void blinkOn() override;
-  virtual void blinkOff() override;
-  virtual void poststep() override;
-
-  // new function for this pattern
-  virtual void fade();
-
-private:
-  // the amount of fade to apply
+typedef struct LighthousePattern {
+  // must remain the first member
+  BlinkStepPattern base;
   uint8_t m_fadeAmount;
-  // the frequency at which the fade is applied
   uint8_t m_fadeRate;
-  // a timer for controling fade frqeuency
   Timer m_fadeTimer;
-  // storage for leds
   LedStash m_stash;
-  // how much the warp has progressed
   uint8_t m_progress;
-};
+} LighthousePattern;
+
+// the blink/step vtable for this pattern
+extern const BlinkStepVtable LighthousePattern_bvtable;
+
+// initialize a new LighthousePattern
+void LighthousePattern_init(LighthousePattern *self, const PatternArgs *args);
+void LighthousePattern_destroy(Pattern *self);
+
+void LighthousePattern_initImpl(Pattern *self);
+void LighthousePattern_play(Pattern *self);
+void LighthousePattern_blinkOn(BlinkStepPattern *self);
+void LighthousePattern_blinkOff(BlinkStepPattern *self);
+void LighthousePattern_poststep(BlinkStepPattern *self);
+void LighthousePattern_fade(LighthousePattern *self);
+
+#endif

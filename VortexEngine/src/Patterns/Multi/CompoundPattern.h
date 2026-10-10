@@ -1,39 +1,39 @@
-#ifndef HYBRID_PATTERN_H
-#define HYBRID_PATTERN_H
+#ifndef COMPOUND_PATTERN_H
+#define COMPOUND_PATTERN_H
 
+#include <stdbool.h>
 #include "MultiLedPattern.h"
+#include "../Single/SingleLedPattern.h"
 
-class SingleLedPattern;
-
-// A hybrid pattern is a type of multi-led pattern that works by displaying
-// pre-existing patterns on different leds simultaneously
-class CompoundPattern : public MultiLedPattern
-{
-protected:
-  // CompoundPattern is an abstract class
-  CompoundPattern(const PatternArgs &args);
-
-public:
-  virtual ~CompoundPattern();
-
-  // init the pattern to initial state
-  virtual void init() override;
-
-  // play the hybrid pattern (play all led patterns)
-  virtual void play() override;
-
-protected:
-  // set a pattern at an index of the hybrid pattern (optionally replace colorset)
-  void setPatternAt(LedPos pos, SingleLedPattern *pat, const Colorset *set = nullptr);
-  void setPatternAt(LedPos pos, PatternID id, const PatternArgs *args = nullptr, const Colorset *set = nullptr);
-  void clearPatterns();
-
-  // change the patterns on the evens/odds respectively
-  void setEvensOdds(PatternID tipPattern, PatternID topPattern,
-    const PatternArgs *tipArgs = nullptr, const PatternArgs *topArgs = nullptr);
+// CompoundPattern is a multi-led pattern that displays pre-existing single
+// led patterns simultaneously, one per led. It is abstract.
+typedef struct CompoundPattern {
+  // must remain the first member
+  MultiLedPattern base;
 
   // array of single LED patterns, one for each LED
   SingleLedPattern *m_ledPatterns[LED_COUNT];
-};
+} CompoundPattern;
+
+// CompoundPattern is abstract, so it supplies its own vtable rather than the
+// plain MultiLedPattern one. Derived compound patterns reuse this table
+// unless they override play().
+extern const PatternVtable CompoundPattern_vtable;
+
+// initialize the base portion of a CompoundPattern. No pattern id is
+// assigned because CompoundPattern cannot be directly instantiated.
+void CompoundPattern_init(CompoundPattern *self, const PatternArgs *args, const PatternVtable *vtable);
+
+// vtable entry points, shared by every Compound derived pattern
+void CompoundPattern_destroy(Pattern *self);
+void CompoundPattern_initImpl(Pattern *self);
+void CompoundPattern_play(Pattern *self);
+
+// non-virtual helpers
+void CompoundPattern_clearPatterns(CompoundPattern *self);
+void CompoundPattern_setPatternAt(CompoundPattern *self, LedPos pos, SingleLedPattern *pat, const Colorset *set);
+void CompoundPattern_setPatternAtId(CompoundPattern *self, LedPos pos, PatternID id, const PatternArgs *args, const Colorset *set);
+void CompoundPattern_setEvensOdds(CompoundPattern *self, PatternID evenPattern, PatternID oddPattern,
+  const PatternArgs *evenArgs, const PatternArgs *oddArgs);
 
 #endif
