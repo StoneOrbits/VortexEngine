@@ -43,6 +43,11 @@ bool VortexEngine_isSleeping(void);
 void VortexEngine_enterSleep(bool save);
 void VortexEngine_wakeup(bool reset);
 
+#ifdef VORTEX_EMBEDDED
+// called when an allocation fails, shows red for a second then shuts off
+void VortexEngine_outOfMemory(void);
+#endif
+
 // toggle force sleep from working
 void VortexEngine_toggleForceSleep(bool enabled);
 // toggle auto cycle enabled

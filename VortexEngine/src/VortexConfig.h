@@ -263,6 +263,12 @@
 // pointer, this is the same as the default malloc margin. Elsewhere the
 // arena is a fixed size buffer of BYTESTREAM_ARENA_SIZE bytes.
 #define BYTESTREAM_STACK_MARGIN 32
+// The margin alone is not enough because an allocation made while the stack
+// is shallow can be overrun when the stack later grows deeper (for example
+// saving all modes after receiving one), so the arena also never grows into
+// this many bytes at the top of ram. This must cover the deepest stack the
+// engine ever reaches, which is about 260 bytes.
+#define BYTESTREAM_STACK_RESERVE 300
 #define BYTESTREAM_ARENA_SIZE 640
 
 // Log Level

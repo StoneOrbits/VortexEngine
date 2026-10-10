@@ -465,6 +465,24 @@ void VortexEngine_enterSleep(bool save)
 #endif
 }
 
+#ifdef VORTEX_EMBEDDED
+void VortexEngine_outOfMemory(void)
+{
+  // show red for a second so the failure is visible
+  Leds_setAll(RGB_RED);
+  Leds_update();
+  for (uint16_t i = 0; i < 1000; ++i) {
+    Time_delayMicroseconds(1000);
+  }
+  // then turn off without saving, saving would need to allocate
+  VortexEngine_enterSleep(false);
+  // the button wakes the chip but this usually runs inside the tick
+  // interrupt so the wake interrupt can't run yet, just reset here instead
+  // of returning to whatever just failed to allocate
+  VortexEngine_wakeup(true);
+}
+#endif
+
 void VortexEngine_wakeup(bool reset)
 {
   DEBUG_LOG("Waking up");

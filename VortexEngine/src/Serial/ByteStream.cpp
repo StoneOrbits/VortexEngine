@@ -111,7 +111,12 @@ static arena_size_t ByteStream_arenaFree()
 {
 #ifdef VORTEX_EMBEDDED
   // the arena can grow up to the margin below the current stack pointer
+  // but never into the space reserved for the deepest the stack can go
   uint8_t *limit = (uint8_t *)SP - BYTESTREAM_STACK_MARGIN;
+  uint8_t *reserve = (uint8_t *)(RAMEND + 1 - BYTESTREAM_STACK_RESERVE);
+  if (limit > reserve) {
+    limit = reserve;
+  }
   uint8_t *end = s_arena + s_arenaUsed;
   return (limit > end) ? (arena_size_t)(limit - end) : 0;
 #else
