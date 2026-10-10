@@ -814,7 +814,7 @@ uint32_t Modes_maxModeSize()
       (uint8_t)p + 0xd6, (uint8_t)p + 0xd7, (uint8_t)p + 0xd8, (uint8_t)p + 0xd9);
     //PatternArgs typicalArgs = PatternBuilder_getDefaultArgs(PATTERN_BLEND);
     Colorset maxSet;
-  Colorset_make(&maxSet);
+    Colorset_make(&maxSet);
     for (uint8_t i = 0; i < MAX_COLOR_SLOTS; ++i) {
       // different color in each slot
       RGBColor col;
@@ -828,7 +828,10 @@ uint32_t Modes_maxModeSize()
   ByteStream stream;
   ByteStream_make(&stream);
   Mode_saveToBuffer(&maxMode, &stream, 0);
-  return stream.m_pData->size;
+  uint32_t size = stream.m_pData->size;
+  ByteStream_destroy(&stream);
+  Mode_destroy(&maxMode);
+  return size;
 }
 
 // get the maximum size a savefile can occupy
@@ -843,14 +846,14 @@ uint32_t Modes_maxSaveSize()
   Modes_saveToBuffer(&backupModes);
   for (uint32_t i = 0; i < MAX_MODES; ++i) {
     Mode maxMode;
-  Mode_init(&maxMode);
+    Mode_init(&maxMode);
     for (LedPos p = LED_FIRST; p < LED_COUNT; ++p) {
       // blend takes up 8 params
       PatternArgs maxArgs;
       PatternArgs_make8(&maxArgs, (uint8_t)p + 2, (uint8_t)p + 3, (uint8_t)p + 4, (uint8_t)p + 5,
         (uint8_t)p + 6, (uint8_t)p + 7, (uint8_t)p + 8, (uint8_t)p + 9);
       Colorset maxSet;
-  Colorset_make(&maxSet);
+      Colorset_make(&maxSet);
       for (uint32_t i = 0; i < MAX_COLOR_SLOTS; ++i) {
         // different color in each slot
         Colorset_addColor(&maxSet, RGBColor_makeRGB((uint8_t)p + (i * 3), (uint8_t)p + (i * 3) + 1, (uint8_t)p + (i * 3) + 2));
@@ -858,14 +861,17 @@ uint32_t Modes_maxSaveSize()
       Mode_setPattern(&maxMode, PATTERN_BLEND, p, &maxArgs, &maxSet);
     }
     Modes_addMode(&maxMode);
+    Mode_destroy(&maxMode);
   }
   // grab the size of the new buffer
   ByteStream stream;
   ByteStream_make(&stream);
   Modes_saveToBuffer(&stream);
   uint32_t size = stream.m_pData->size;
+  ByteStream_destroy(&stream);
   // restore backed up modes
   Modes_loadFromBuffer(&backupModes);
+  ByteStream_destroy(&backupModes);
   return size;
 #endif
 }
