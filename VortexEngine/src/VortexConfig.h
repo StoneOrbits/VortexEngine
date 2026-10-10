@@ -238,6 +238,39 @@
 // Mostly for catching leaks or high memory usage in development.
 #define MAX_MEMORY            8000
 
+// Memory Pools
+//
+// The engine never allocates memory while running, all of the objects
+// that come and go at runtime are carved out of fixed block pools which
+// are allocated once at startup. Fixed blocks can never fragment memory,
+// the only failure is running out of blocks so these are the maximum
+// number of each object that can exist at the same time.
+//
+// Patterns: two leds worth for the current mode and the menu preview
+// mode, plus one spare for a temporary pattern
+#define PATTERN_POOL_SIZE     5
+// Instantiated modes: the current mode and one more being serialized
+#define MODE_POOL_SIZE        2
+// Mode links: one for each mode in the mode list
+#define MODELINK_POOL_SIZE    MAX_MODES
+// Menus: only one menu is ever open at a time
+#define MENU_POOL_SIZE        1
+// ByteStreams: the data of every ByteStream lives in one arena, this holds
+// the serialized form of every mode plus any temporary buffers used for
+// saving, loading and transferring modes. On the device the arena is all
+// of the free ram between the static data and the stack (where the heap
+// would be) and it always leaves this many bytes free below the stack
+// pointer, this is the same as the default malloc margin. Elsewhere the
+// arena is a fixed size buffer of BYTESTREAM_ARENA_SIZE bytes.
+#define BYTESTREAM_STACK_MARGIN 32
+// The margin alone is not enough because an allocation made while the stack
+// is shallow can be overrun when the stack later grows deeper (for example
+// saving all modes after receiving one), so the arena also never grows into
+// this many bytes at the top of ram. This must cover the deepest stack the
+// engine ever reaches, which is about 260 bytes.
+#define BYTESTREAM_STACK_RESERVE 300
+#define BYTESTREAM_ARENA_SIZE 640
+
 // Log Level
 //
 // Set the logging level to control info/error/debug logs accordingly
@@ -422,6 +455,14 @@
 //  See the below header for all of the available color constants
 #include "Colors/ColorConstants.h"
 
+// static_assert spelling that works in both C11 and C++11, the sources
+// are being converted to C but headers are shared during the transition
+#if defined(__cplusplus)
+#define STATIC_ASSERT(cond, msg) static_assert(cond, msg)
+#else
+#define STATIC_ASSERT(cond, msg) _Static_assert(cond, msg)
+#endif
+
 // Randomizer Menu Color
 #define RGB_MENU_RANDOMIZER         RGB_WHITE1
 
@@ -601,6 +642,19 @@
 #ifdef VORTEX_LIB
 #undef VORTEX_SLIM
 #define VORTEX_SLIM 0
+
+// VortexLib has plenty of memory and the editor/test framework juggle far
+// more modes and patterns at once so give the pools lots of room
+#undef PATTERN_POOL_SIZE
+#define PATTERN_POOL_SIZE     128
+#undef MODE_POOL_SIZE
+#define MODE_POOL_SIZE        16
+#undef MODELINK_POOL_SIZE
+#define MODELINK_POOL_SIZE    128
+#undef MENU_POOL_SIZE
+#define MENU_POOL_SIZE        2
+#undef BYTESTREAM_ARENA_SIZE
+#define BYTESTREAM_ARENA_SIZE (256 * 1024)
 
 // The test framework needs brighter menu colors can't really see them on the screen
 #undef RGB_MENU_RANDOMIZER

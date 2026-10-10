@@ -3,11 +3,18 @@
 
 #include <inttypes.h>
 #include <stdarg.h>
+#include <stdbool.h>
 
 #include "../VortexConfig.h"
 
-// Defined the LED positions, their order, and index
-enum LedPos : uint8_t
+// Defined the LED positions, their order, and index.
+// LedPos and Pair are plain uint8_t typedefs so that the native integer
+// operators (++, --, +, -, +=, -=) work as they did with the C++ enum
+// operator overloads.
+typedef uint8_t LedPos;
+typedef uint8_t Pair;
+
+enum
 {
   // this should always be first
   LED_FIRST = 0,
@@ -59,7 +66,7 @@ enum LedPos : uint8_t
 #define LED_TIP LED_0
 #define LED_TOP LED_1
 
-enum Pair : uint8_t
+enum
 {
   PAIR_FIRST = 0,
 
@@ -71,7 +78,7 @@ enum Pair : uint8_t
 };
 
 // Compile-time check on the number of pairs and leds
-static_assert(LED_COUNT == (PAIR_COUNT * 2), "Incorrect number of Pairs for Leds! Adjust the Led enum or Pair enum to match");
+STATIC_ASSERT(LED_COUNT == (PAIR_COUNT * 2), "Incorrect number of Pairs for Leds! Adjust the Led enum or Pair enum to match");
 
 // backwards compat with bigger patterns
 #define LED_2 LED_0
@@ -93,30 +100,30 @@ static_assert(LED_COUNT == (PAIR_COUNT * 2), "Incorrect number of Pairs for Leds
 #define isOdd(pos) ((pos % 2) != 0)
 
 // convert a pair to even or odd led position
-#define pairEven(pair) (LedPos)((uint32_t)pair * 2)
-#define pairOdd(pair) (LedPos)(((uint32_t)pair * 2) + 1)
+#define pairEven(pair) ((LedPos)((uint32_t)(pair) * 2))
+#define pairOdd(pair) ((LedPos)(((uint32_t)(pair) * 2) + 1))
 
 // convert an led position to a pair
-#define ledToPair(pos) (Pair)((uint32_t)pos / 2)
+#define ledToPair(pos) ((Pair)((uint32_t)(pos) / 2))
 
 // LedMap is a bitmap of leds, used for expressing whether to turn certain leds on
 // or off with a single integer
 typedef uint64_t LedMap;
 
 // various macros for mapping leds to an LedMap
-#define MAP_LED(led) (LedMap)((uint64_t)1 << led)
+#define MAP_LED(led) (LedMap)((uint64_t)1 << (led))
 #define MAP_PAIR_EVEN(pair) MAP_LED(pairEven(pair))
 #define MAP_PAIR_ODD(pair) MAP_LED(pairOdd(pair))
 #define MAP_PAIR(pair) (MAP_PAIR_EVEN(pair) | MAP_PAIR_ODD(pair))
 
 // check if a map is purely just 1 led or not
-#define MAP_IS_ONE_LED(map) (map && !(map & (map-1)))
+#define MAP_IS_ONE_LED(map) ((map) && !((map) & ((map)-1)))
 
 // foreach led macro (only iterates singles)
 #define MAP_FOREACH_LED(map) for (LedPos pos = ledmapGetFirstLed(map); pos != LED_COUNT; pos = ledmapGetNextLed(map, pos))
 
 // convert a map to the first Led position in the map
-inline LedPos ledmapGetFirstLed(LedMap map)
+static inline LedPos ledmapGetFirstLed(LedMap map)
 {
   if (map == MAP_LED(LED_MULTI)) {
     return LED_MULTI;
@@ -133,7 +140,7 @@ inline LedPos ledmapGetFirstLed(LedMap map)
 }
 
 // given an led map and a position, find the next position in the map
-inline LedPos ledmapGetNextLed(LedMap map, LedPos pos)
+static inline LedPos ledmapGetNextLed(LedMap map, LedPos pos)
 {
   pos = (LedPos)(pos + 1);
   map >>= pos;
@@ -153,7 +160,7 @@ inline LedPos ledmapGetNextLed(LedMap map, LedPos pos)
 // blank map
 #define MAP_LED_NONE 0
 
-#define MAP_INVERSE(map) ((~map) & MAP_LED_ALL)
+#define MAP_INVERSE(map) ((~(map)) & MAP_LED_ALL)
 
 // macro for all evens and odds
 #define MAP_PAIR_EVENS (((1 << LED_COUNT) - 1) & 0x55555555)
@@ -167,78 +174,26 @@ inline LedPos ledmapGetNextLed(LedMap map, LedPos pos)
 #define MAP_PAIR_EVEN_ODDS (MAP_PAIR_ODD(PAIR_3) | MAP_PAIR_ODD(PAIR_1))
 
 // set a single led
-inline void ledmapSetLed(LedMap &map, LedPos pos)
+static inline void ledmapSetLed(LedMap *map, LedPos pos)
 {
-  if (pos < LED_COUNT) map |= (1ull << pos);
+  if (pos < LED_COUNT) *map |= (1ull << pos);
 }
 // set a single pair
-inline void ledmapSetPair(LedMap &map, Pair pair)
+static inline void ledmapSetPair(LedMap *map, Pair pair)
 {
   ledmapSetLed(map, pairEven(pair));
   ledmapSetLed(map, pairOdd(pair));
 }
 
 // check if an led is set in the map
-inline bool ledmapCheckLed(LedMap map, LedPos pos)
+static inline bool ledmapCheckLed(LedMap map, LedPos pos)
 {
   return ((map & (1ull << pos)) != 0);
 }
 // check if a pair is set in the map (both leds)
-inline bool ledmapCheckPair(LedMap map, Pair pair)
+static inline bool ledmapCheckPair(LedMap map, Pair pair)
 {
   return ledmapCheckLed(map, pairEven(pair)) && ledmapCheckLed(map, pairOdd(pair));
-}
-
-// LedPos operators
-inline LedPos &operator++(LedPos &c)
-{
-  c = LedPos(((uint32_t)c) + 1);
-  return c;
-}
-inline LedPos operator++(LedPos &c, int)
-{
-  LedPos temp = c;
-  ++c;
-  return temp;
-}
-inline LedPos operator+(LedPos &c, int b)
-{
-  return (LedPos)((uint32_t)c + b);
-}
-inline LedPos &operator+=(LedPos &c, int b)
-{
-  c = LedPos(((uint32_t)c) + b);
-  return c;
-}
-inline LedPos operator-(LedPos &c, int b)
-{
-  return (LedPos)((uint32_t)c - b);
-}
-inline LedPos &operator-=(LedPos &c, int b)
-{
-  c = LedPos(((uint32_t)c) - b);
-  return c;
-}
-
-// pair operators
-inline Pair &operator++(Pair &c)
-{
-  c = Pair(((uint32_t)c) + 1);
-  return c;
-}
-inline Pair operator++(Pair &c, int)
-{
-  Pair temp = c;
-  ++c;
-  return temp;
-}
-inline Pair operator+(Pair &c, int b)
-{
-  return (Pair)((uint32_t)c + b);
-}
-inline Pair operator-(Pair &c, int b)
-{
-  return (Pair)((uint32_t)c - b);
 }
 
 #endif

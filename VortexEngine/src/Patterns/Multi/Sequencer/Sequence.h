@@ -1,100 +1,86 @@
 #ifndef SEQUENCER_H
 #define SEQUENCER_H
 
+#include <stdbool.h>
+#include <stddef.h>
 #include "../../Patterns.h"
 #include "../../../Leds/LedTypes.h"
 #include "../../../Colors/Colorset.h"
 #include "../../../Time/Timer.h"
 
-class SequencedPattern;
-class SingleLedPattern;
-class ByteStream;
+typedef struct ByteStream ByteStream;
+typedef struct Sequence Sequence;
+typedef struct SequenceStep SequenceStep;
 
 // a map of leds to pattern ids
-class PatternMap
-{
-public:
-  PatternMap();
-  PatternMap(PatternID pattern, LedMap positions = MAP_LED_ALL);
-
-  // set a pattern at each position in the LedMap
-  void setPatternAt(PatternID pattern, LedMap positions);
-  PatternID operator[](LedPos index) const;
-
-  // serialize and unserialize a pattern map
-  bool serialize(ByteStream &buffer) const;
-  bool unserialize(ByteStream &buffer);
-
+typedef struct PatternMap {
   // public list of pattern IDs for each led
   PatternID m_patternMap[LED_COUNT];
-};
+} PatternMap;
 
-// A map of leds to colorsets
-class ColorsetMap
-{
-public:
-  ColorsetMap();
-  ColorsetMap(const Colorset &colorset, LedMap positions = MAP_LED_ALL);
+void PatternMap_make(PatternMap *self);
+void PatternMap_makeWith(PatternMap *self, PatternID pattern, LedMap positions);
+// set a pattern at each position in the LedMap
+void PatternMap_setPatternAt(PatternMap *self, PatternID pattern, LedMap positions);
+PatternID PatternMap_at(const PatternMap *self, LedPos index);
+// serialize and unserialize a pattern map
+bool PatternMap_serialize(const PatternMap *self, ByteStream *buffer);
+bool PatternMap_unserialize(PatternMap *self, ByteStream *buffer);
 
-  // set a pattern at each position in the LedMap
-  void setColorsetAt(const Colorset &colorset, LedMap positions);
-  const Colorset &operator[](LedPos index) const;
-
-  // serialize and unserialize a colorset map
-  bool serialize(ByteStream &buffer) const;
-  bool unserialize(ByteStream &buffer);
-
-  // public list of pattern IDs for each led
+// a map of leds to colorsets
+typedef struct ColorsetMap {
+  // public list of colorsets for each led
   Colorset m_colorsetMap[LED_COUNT];
-};
+} ColorsetMap;
 
-// A single step in a sequence
-class SequenceStep
-{
-public:
-  SequenceStep();
-  SequenceStep(uint16_t duration, const PatternMap &patternMap, const ColorsetMap &colorsetMap = Colorset());
-  SequenceStep(const SequenceStep &other);
+void ColorsetMap_make(ColorsetMap *self);
+void ColorsetMap_makeWith(ColorsetMap *self, const Colorset *colorset, LedMap positions);
+// set a colorset at each position in the LedMap
+void ColorsetMap_setColorsetAt(ColorsetMap *self, const Colorset *colorset, LedMap positions);
+const Colorset *ColorsetMap_at(const ColorsetMap *self, LedPos index);
+// serialize and unserialize a colorset map
+bool ColorsetMap_serialize(const ColorsetMap *self, ByteStream *buffer);
+bool ColorsetMap_unserialize(ColorsetMap *self, ByteStream *buffer);
 
-  // serialize and unserialize a step in the sequencer
-  bool serialize(ByteStream &buffer) const;
-  bool unserialize(ByteStream &buffer);
-
+// a single step in a sequence
+struct SequenceStep {
   // public members to allow for easy initialization of an array of SequenceSteps
   uint16_t m_duration;
   PatternMap m_patternMap;
   ColorsetMap m_colorsetMap;
 };
 
-// A sequence which can contain multiple SequenceSteps
-class Sequence
-{
-public:
-  Sequence();
-  ~Sequence();
+void SequenceStep_make(SequenceStep *self);
+void SequenceStep_makeWith(SequenceStep *self, uint16_t duration, const PatternMap *patternMap, const ColorsetMap *colorsetMap);
+// serialize and unserialize a step in the sequencer
+bool SequenceStep_serialize(const SequenceStep *self, ByteStream *buffer);
+bool SequenceStep_unserialize(SequenceStep *self, ByteStream *buffer);
 
-  Sequence(const Sequence &other);
-  Sequence(Sequence &&other) noexcept;
-
-  void operator=(const Sequence &other);
-  bool operator==(const Sequence &other) const;
-  bool operator!=(const Sequence &other) const;
-
-  void initSteps(uint8_t numSteps);
-  uint8_t addStep(const SequenceStep &step);
-  uint8_t addStep(uint16_t duration, const PatternMap &patternMap, const ColorsetMap &colorsetMap = Colorset());
-  void clear();
-
-  bool serialize(ByteStream &buffer) const;
-  bool unserialize(ByteStream &buffer);
-
-  uint8_t numSteps() const;
-  const SequenceStep &operator[](uint8_t index) const;
-
-private:
+// a sequence which can contain multiple SequenceSteps
+struct Sequence {
   // static data
   SequenceStep *m_sequenceSteps;
   uint8_t m_numSteps;
 };
+
+void Sequence_make(Sequence *self);
+void Sequence_destroy(Sequence *self);
+void Sequence_copy(Sequence *self, const Sequence *other);
+bool Sequence_equals(const Sequence *self, const Sequence *other);
+
+void Sequence_initSteps(Sequence *self, uint8_t numSteps);
+bool Sequence_addStep(Sequence *self, const SequenceStep *step);
+bool Sequence_addStepWith(Sequence *self, uint16_t duration, const PatternMap *patternMap, const ColorsetMap *colorsetMap);
+void Sequence_clear(Sequence *self);
+
+bool Sequence_serialize(const Sequence *self, ByteStream *buffer);
+bool Sequence_unserialize(Sequence *self, ByteStream *buffer);
+
+static inline uint8_t Sequence_numSteps(const Sequence *self)
+{
+  return self->m_numSteps;
+}
+
+const SequenceStep *Sequence_at(const Sequence *self, uint8_t index);
 
 #endif

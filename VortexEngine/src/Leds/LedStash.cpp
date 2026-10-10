@@ -1,31 +1,33 @@
 #include "LedStash.h"
 
-LedStash::LedStash() :
-  m_ledColorsStash()
+#include <string.h>
+
+void LedStash_make(LedStash *self)
 {
+  memset((void *)self->m_ledColorsStash, 0, sizeof(self->m_ledColorsStash));
 }
 
-void LedStash::setIndex(LedPos pos, RGBColor col)
+void LedStash_setIndex(LedStash *self, LedPos pos, RGBColor col)
 {
   if (pos > LED_LAST) {
     return;
   }
-  m_ledColorsStash[pos] = col;
+  self->m_ledColorsStash[pos] = col;
 }
 
-void LedStash::clear()
+void LedStash_clear(LedStash *self)
 {
   for (LedPos pos = LED_FIRST; pos < LED_LAST; ++pos) {
-    m_ledColorsStash[pos].clear();
+    RGBColor_clear(&self->m_ledColorsStash[pos]);
   }
 }
 
 // index operator to access color index
-RGBColor &LedStash::operator[](int index)
+RGBColor *LedStash_at(LedStash *self, int index)
 {
-  return m_ledColorsStash[index];
+  return &self->m_ledColorsStash[index];
 }
 
-LedStash::~LedStash()
+void LedStash_destroy(LedStash *self)
 {
 }

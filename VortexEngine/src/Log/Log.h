@@ -37,7 +37,12 @@ void DebugMsg(const char *file, const char *func, int line, const char *msg, ...
 #define DEBUG_LOGF(msg, ...)
 #endif
 
-// report OOM
+// report OOM, on the device an allocation failure flashes red and shuts off
+#ifdef VORTEX_EMBEDDED
+void VortexEngine_outOfMemory(void);
+#define ERROR_OUT_OF_MEMORY() VortexEngine_outOfMemory()
+#else
 #define ERROR_OUT_OF_MEMORY() ERROR_LOG("Out of memory")
+#endif
 
 #endif

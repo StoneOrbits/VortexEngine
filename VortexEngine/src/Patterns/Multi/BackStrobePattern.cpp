@@ -1,55 +1,67 @@
 #include "BackStrobePattern.h"
 
-BackStrobePattern::BackStrobePattern(const PatternArgs &args) :
-  CompoundPattern(args),
-  m_stepSpeed(0),
-  m_stepTimer(),
-  m_switch(),
-  m_firstPatternArgs(0, 0, 0),
-  m_secondPatternArgs(0, 0, 0),
-  m_firstPat(PATTERN_DOPS),
-  m_secPat(PATTERN_STROBE)
+#include <string.h>
+#include "../../Memory/Memory.h"
+#include "../Pattern.h"
+
+const PatternVtable BackStrobePattern_vtable = {
+  .destroy = BackStrobePattern_destroy,
+  .bind = MultiLedPattern_bind,
+  .init = BackStrobePattern_initImpl,
+  .play = BackStrobePattern_play
+};
+
+void BackStrobePattern_init(BackStrobePattern *self, const PatternArgs *args)
 {
-  m_patternID = PATTERN_BACKSTROBE;
-  REGISTER_ARG(m_firstPatternArgs.arg1);
-  REGISTER_ARG(m_firstPatternArgs.arg2);
-  REGISTER_ARG(m_firstPatternArgs.arg3);
-  REGISTER_ARG(m_secondPatternArgs.arg1);
-  REGISTER_ARG(m_secondPatternArgs.arg2);
-  REGISTER_ARG(m_stepSpeed);
-  REGISTER_ARG(m_firstPat);
-  REGISTER_ARG(m_secPat);
-  setArgs(args);
+  CompoundPattern_init(&self->base, args, &BackStrobePattern_vtable);
+  self->m_stepSpeed = 0;
+  Timer_make(&self->m_stepTimer);
+  self->m_switch = false;
+  PatternArgs_make(&self->m_firstPatternArgs, 0, 0, 0);
+  PatternArgs_make(&self->m_secondPatternArgs, 0, 0, 0);
+  self->m_firstPat = PATTERN_DOPS;
+  self->m_secPat = PATTERN_STROBE;
+  Pattern_setPatternID((&self->base.base.base), PATTERN_BACKSTROBE);
+  REGISTER_ARG((&self->base.base.base), BackStrobePattern, m_firstPatternArgs.arg1);
+  REGISTER_ARG((&self->base.base.base), BackStrobePattern, m_firstPatternArgs.arg2);
+  REGISTER_ARG((&self->base.base.base), BackStrobePattern, m_firstPatternArgs.arg3);
+  REGISTER_ARG((&self->base.base.base), BackStrobePattern, m_secondPatternArgs.arg1);
+  REGISTER_ARG((&self->base.base.base), BackStrobePattern, m_secondPatternArgs.arg2);
+  REGISTER_ARG((&self->base.base.base), BackStrobePattern, m_stepSpeed);
+  REGISTER_ARG((&self->base.base.base), BackStrobePattern, m_firstPat);
+  REGISTER_ARG((&self->base.base.base), BackStrobePattern, m_secPat);
+  Pattern_setArgs((&self->base.base.base), args);
 }
 
-BackStrobePattern::~BackStrobePattern()
+void BackStrobePattern_destroy(Pattern *pat)
 {
+  BackStrobePattern *self = (BackStrobePattern *)pat;
+  (void)self;
 }
 
-// init the pattern to initial state
-void BackStrobePattern::init()
+void BackStrobePattern_initImpl(Pattern *pat)
 {
-  CompoundPattern::init();
-
+  BackStrobePattern *self = (BackStrobePattern *)pat;
+  CompoundPattern_initImpl(pat);
   // timer for switch
-  m_stepTimer.reset();
-  m_stepTimer.addAlarm(m_stepSpeed * 100);
-  m_stepTimer.start();
-
+  Timer_reset(&self->m_stepTimer);
+  Timer_addAlarm(&self->m_stepTimer, self->m_stepSpeed * 100);
+  Timer_start0(&self->m_stepTimer);
   // initialize the sub patterns one time first
-  setEvensOdds((PatternID)m_firstPat, (PatternID)m_secPat, &m_firstPatternArgs, &m_secondPatternArgs);
+  CompoundPattern_setEvensOdds(&self->base, (PatternID)self->m_firstPat, (PatternID)self->m_secPat, &self->m_firstPatternArgs, &self->m_secondPatternArgs);
 }
 
-void BackStrobePattern::play()
+void BackStrobePattern_play(Pattern *pat)
 {
-  if (m_stepTimer.alarm() == 0) {
+  BackStrobePattern *self = (BackStrobePattern *)pat;
+  if (Timer_alarm(&self->m_stepTimer) == 0) {
     // switch which patterns are displayed
-    m_switch = !m_switch;
+    self->m_switch = !self->m_switch;
     // update the tip/top patterns based on the switch
-    setEvensOdds(m_switch ? (PatternID)m_firstPat : (PatternID)m_secPat,
-                m_switch ? (PatternID)m_secPat : (PatternID)m_firstPat,
-                m_switch ? &m_firstPatternArgs : &m_secondPatternArgs,
-                m_switch ? &m_secondPatternArgs : &m_firstPatternArgs);
+    CompoundPattern_setEvensOdds(&self->base, self->m_switch ? (PatternID)self->m_firstPat : (PatternID)self->m_secPat,
+                self->m_switch ? (PatternID)self->m_secPat : (PatternID)self->m_firstPat,
+                self->m_switch ? &self->m_firstPatternArgs : &self->m_secondPatternArgs,
+                self->m_switch ? &self->m_secondPatternArgs : &self->m_firstPatternArgs);
   }
-  CompoundPattern::play();
+  CompoundPattern_play(pat);
 }

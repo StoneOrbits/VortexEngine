@@ -1,6 +1,7 @@
 #ifndef RING_MENU_H
 #define RING_MENU_H
 
+#include <stdbool.h>
 #include <inttypes.h>
 
 #include "../Colors/ColorTypes.h"
@@ -27,73 +28,63 @@ enum MenuEntryID
   MENU_COUNT
 };
 
-class Menu;
+typedef struct Menu Menu;
 
-class Menus
-{
-  // private unimplemented constructor
-  Menus();
+typedef uint8_t MenuState;
 
-public:
-  // opting for static class here because there should only ever be one
-  // Menu control object and I don't like singletons
-  static bool init();
-  static void cleanup();
+// menus aren't open at all
+#define MENU_STATE_NOT_OPEN        0
+// menus are open and the user is choosing a menu
+#define MENU_STATE_MENU_SELECTION  1
+// the menus are open and we opened a menu
+#define MENU_STATE_IN_MENU         2
 
-  // Run the menus returns true if the menu remains open, false if closed
-  static bool run();
+// the current menus states
+extern MenuState Menus_m_menuState;
 
-  // open the ring menu
-  static bool openMenuSelection();
+// the ring menu section
+extern uint8_t Menus_m_selection;
+// the time when we first opened the ringmenu
+extern uint32_t Menus_m_openTime;
+// the current sub menu that is open
+extern Menu *Menus_m_pCurMenu;
 
-  // open a menu by index in the menu table, optionally specify to
-  // open the advanced version of the menu (default basic version)
-  static bool openMenu(uint32_t index, bool advanced = false);
+// opting for free functions here because there should only ever be one
+// Menu control object and I don't like singletons
 
-  // if you call this then a blink will be shown when the user has
-  // held the button for at least the long click duration
-  static void showSelection(RGBColor colval = RGB_WHITE5);
+// =====================
+//  free functions
 
-  // whether the menus are actually open (The user has let go after opening)
-  static bool checkOpen();
-  // whether the user is actually in a menu
-  static bool checkInMenu();
-  static Menu *curMenu();
-  static MenuEntryID curMenuID();
+bool Menus_init();
+void Menus_cleanup();
 
-private:
-  // run the currently open menu
-  static bool runCurMenu();
-  // run the ring filling logic
-  static bool runMenuSelection();
-  // helper to calculate the relative hold time for the current menu
-  static LedPos calcLedPos();
-  // close the currently open menu
-  static void closeCurMenu();
+bool Menus_run();
 
-  // =====================
-  //  private members
+bool Menus_openMenuSelection();
 
-  enum MenuState {
-    // menus aren't open at all
-    MENU_STATE_NOT_OPEN = 0,
+bool Menus_openMenu(uint32_t index, bool advanced);
 
-    // menus are open and the user is choosing a menu
-    MENU_STATE_MENU_SELECTION,
+void Menus_showSelection(RGBColor colval);
 
-    // the menus are open and we opened a menu
-    MENU_STATE_IN_MENU
-  };
+bool Menus_checkOpen();
 
-  // the current menus states
-  static MenuState m_menuState;
+bool Menus_checkInMenu();
 
-  // the ring menu section
-  static uint8_t m_selection;
-  // the time when we first opened the ringmenu
-  static uint32_t m_openTime;
-  // the current sub menu that is open
-  static Menu *m_pCurMenu;
-};
+Menu *Menus_curMenu();
+
+// grab a block from the menu pool to construct a menu in
+void *Menus_allocMenu(void);
+// return a menu's block to the pool
+void Menus_freeMenu(Menu *menu);
+
+MenuEntryID Menus_curMenuID();
+
+bool Menus_runCurMenu();
+
+bool Menus_runMenuSelection();
+
+LedPos Menus_calcLedPos();
+
+void Menus_closeCurMenu();
 
 #endif

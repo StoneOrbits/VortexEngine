@@ -5,124 +5,126 @@
 
 #include <string.h>
 
-BitStream::BitStream() :
-  m_buf(nullptr), m_buf_size(0),
-  m_bit_pos(0), m_buf_eof(false),
-  m_allocated(false)
+void BitStream_make(BitStream *self)
 {
+  self->m_buf = NULL;
+  self->m_buf_size = 0;
+  self->m_bit_pos = 0;
+  self->m_buf_eof = false;
+  self->m_allocated = false;
 }
 
-BitStream::BitStream(uint8_t *buf, uint32_t size) :
-  BitStream()
+void BitStream_makeBuf(BitStream *self, uint8_t *buf, uint32_t size)
 {
-  init(buf, size);
+  BitStream_make(self);
+  BitStream_initBuf(self, buf, size);
 }
 
-BitStream::BitStream(uint32_t size) :
-  BitStream()
+void BitStream_makeSize(BitStream *self, uint32_t size)
 {
-  init(size);
+  BitStream_make(self);
+  BitStream_initSize(self, size);
 }
 
-BitStream::~BitStream()
+void BitStream_destroy(BitStream *self)
 {
-  if (m_allocated) {
-    vfree(m_buf);
+  if (self->m_allocated) {
+    vfree(self->m_buf);
   }
 }
 
-bool BitStream::init(uint8_t *buf, uint32_t size)
+bool BitStream_initBuf(BitStream *self, uint8_t *buf, uint32_t size)
 {
-  m_buf = buf;
-  m_buf_size = size;
-  resetPos();
+  self->m_buf = buf;
+  self->m_buf_size = size;
+  BitStream_resetPos(self);
   return true;
 }
 
-bool BitStream::init(uint32_t size)
+bool BitStream_initSize(BitStream *self, uint32_t size)
 {
-  if (m_buf) {
-    vfree(m_buf);
+  if (self->m_buf) {
+    vfree(self->m_buf);
   }
-  m_buf = (uint8_t *)vcalloc(1, size);
-  if (!m_buf) {
+  self->m_buf = (uint8_t *)vcalloc(1, size);
+  if (!self->m_buf) {
     ERROR_OUT_OF_MEMORY();
     return false;
   }
-  m_buf_size = size;
-  m_allocated = true;
-  resetPos();
+  self->m_buf_size = size;
+  self->m_allocated = true;
+  BitStream_resetPos(self);
   return true;
 }
 
-void BitStream::reset()
+void BitStream_reset(BitStream *self)
 {
-  if (m_buf) {
-    memset(m_buf, 0, m_buf_size);
+  if (self->m_buf) {
+    memset(self->m_buf, 0, self->m_buf_size);
   }
-  resetPos();
+  BitStream_resetPos(self);
 }
 
-void BitStream::resetPos()
+void BitStream_resetPos(BitStream *self)
 {
-  m_bit_pos = 0;
-  m_buf_eof = false;
+  self->m_bit_pos = 0;
+  self->m_buf_eof = false;
 }
 
-uint8_t BitStream::read1Bit()
+uint8_t BitStream_read1Bit(BitStream *self)
 {
-  if (m_buf_eof) {
+  if (self->m_buf_eof) {
     return 0;
   }
-  if (m_bit_pos >= (m_buf_size * 8)) {
-    m_buf_eof = true;
+  if (self->m_bit_pos >= (self->m_buf_size * 8)) {
+    self->m_buf_eof = true;
     return 0;
   }
-  uint32_t rv = (m_buf[m_bit_pos / 8] >> (7 - (m_bit_pos % 8))) & 1;
-  m_bit_pos++;
-  if (m_bit_pos >= (m_buf_size * 8)) {
-    m_buf_eof = true;
+  uint32_t rv = (self->m_buf[self->m_bit_pos / 8] >> (7 - (self->m_bit_pos % 8))) & 1;
+  self->m_bit_pos++;
+  if (self->m_bit_pos >= (self->m_buf_size * 8)) {
+    self->m_buf_eof = true;
   }
   return rv;
 }
 
-void BitStream::write1Bit(bool bit)
+void BitStream_write1Bit(BitStream *self, bool bit)
 {
-  if (m_buf_eof) {
+  if (self->m_buf_eof) {
     return;
   }
-  if (m_bit_pos >= (m_buf_size * 8)) {
-    m_buf_eof = true;
+  if (self->m_bit_pos >= (self->m_buf_size * 8)) {
+    self->m_buf_eof = true;
     return;
   }
   uint8_t bitVal = (uint8_t)bit & 1;
-  m_buf[m_bit_pos / 8] |= bitVal << (7 - (m_bit_pos % 8));
-  m_bit_pos++;
-  if (m_bit_pos >= (m_buf_size * 8)) {
-    m_buf_eof = true;
+  self->m_buf[self->m_bit_pos / 8] |= bitVal << (7 - (self->m_bit_pos % 8));
+  self->m_bit_pos++;
+  if (self->m_bit_pos >= (self->m_buf_size * 8)) {
+    self->m_buf_eof = true;
   }
 }
 
-uint8_t BitStream::readBits(uint32_t numBits)
+uint8_t BitStream_readBits(BitStream *self, uint32_t numBits)
 {
   uint32_t val = 0;
-  if (m_buf_eof) {
+  if (self->m_buf_eof) {
     return 0;
   }
   for (uint32_t i = 0; i < numBits; ++i) {
-    val = (val << 1) | read1Bit();
-    if (m_buf_eof) {
+    val = (val << 1) | BitStream_read1Bit(self);
+    if (self->m_buf_eof) {
       break;
     }
   }
-  if (m_bit_pos >= (m_buf_size * 8)) {
-    m_buf_eof = true;
+  if (self->m_bit_pos >= (self->m_buf_size * 8)) {
+    self->m_buf_eof = true;
   }
   return val;
 }
 
 // writes numBits of the LSB in sequential order
-void BitStream::writeBits(uint32_t numBits, uint32_t val)
+void BitStream_writeBits(BitStream *self, uint32_t numBits, uint32_t val)
 {
   for (uint32_t i = 0; i < numBits; ++i) {
     // write each bit in order, for ex if numBits is 4:
@@ -130,6 +132,6 @@ void BitStream::writeBits(uint32_t numBits, uint32_t val)
     //  00000000 01010101
     //               ^^^^
     //            write these four bits from left to right
-    write1Bit((val >> ((numBits - 1) - i)) & 1);
+    BitStream_write1Bit(self, (val >> ((numBits - 1) - i)) & 1);
   }
 }

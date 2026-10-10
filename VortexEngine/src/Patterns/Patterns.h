@@ -1,6 +1,7 @@
 #ifndef PATTERNS_H
 #define PATTERNS_H
 
+#include <stdbool.h>
 #include <inttypes.h>
 
 // List of patterns that can be built, both single and multi-led patterns are found in this list.
@@ -8,11 +9,13 @@
 // with a class, and there are 'shell' patterns which are simply wrapperns around another pattern
 // with different parameters passed to the constructor.  There is no way to know which patterns
 // are 'core' patterns, except by looking at PatternBuilder::generate to see which classes exist
-enum PatternID : int8_t
+typedef int8_t PatternID;
+
+enum
 {
   // no pattern at all, use this sparingly and default to
   // PATTERN_FIRST when possible
-  PATTERN_NONE = (PatternID)-1,
+  PATTERN_NONE = -1,
 
   // first pattern of all
   PATTERN_FIRST = 0,
@@ -107,27 +110,6 @@ inline bool isMultiLedPatternID(PatternID id) {
 }
 inline bool isSingleLedPatternID(PatternID id) {
   return id < PATTERN_MULTI_FIRST;
-}
-
-// PatternID operators
-inline PatternID &operator++(PatternID &c)
-{
-  c = PatternID(((uint16_t)c) + 1);
-  return c;
-}
-inline PatternID operator++(PatternID &c, int)
-{
-  PatternID temp = c;
-  ++c;
-  return temp;
-}
-inline PatternID operator+(PatternID &c, int b)
-{
-  return (PatternID)((uint16_t)c + b);
-}
-inline PatternID operator-(PatternID &c, int b)
-{
-  return (PatternID)((uint16_t)c - b);
 }
 
 #endif
