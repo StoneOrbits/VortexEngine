@@ -37,7 +37,19 @@ void DebugMsg(const char *file, const char *func, int line, const char *msg, ...
 #define DEBUG_LOGF(msg, ...)
 #endif
 
-// report OOM
+// report OOM, the caller fails and returns false so this is recoverable,
+// the ByteStream arena uses this because how much it needs depends on the
+// size of the modes so a big save or receive is allowed to just fail
 #define ERROR_OUT_OF_MEMORY() ERROR_LOG("Out of memory")
+
+// report a fixed size pool running out of blocks, the pools are sized for the
+// most objects that can ever exist at once so this is a bug, on the device it
+// flashes red and resets
+#ifdef VORTEX_EMBEDDED
+void VortexEngine_outOfMemory(void);
+#define FATAL_OUT_OF_MEMORY() VortexEngine_outOfMemory()
+#else
+#define FATAL_OUT_OF_MEMORY() ERROR_LOG("Out of memory")
+#endif
 
 #endif

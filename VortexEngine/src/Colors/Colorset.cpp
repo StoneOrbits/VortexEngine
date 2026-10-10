@@ -13,196 +13,193 @@
 // the 0th color in the colorset and after the index will be 0
 #define INDEX_NONE UINT8_MAX
 
-Colorset::Colorset() :
-  m_palette(),
-  m_curIndex(INDEX_NONE),
-  m_numColors(0)
+void Colorset_make(Colorset *self)
 {
-  init();
+  memset((void *)self->m_palette, 0, sizeof(self->m_palette));
+  self->m_curIndex = INDEX_NONE;
+  self->m_numColors = 0;
 }
 
-Colorset::Colorset(RGBColor c1, RGBColor c2, RGBColor c3, RGBColor c4,
-  RGBColor c5, RGBColor c6, RGBColor c7, RGBColor c8) :
-  Colorset()
+// constructor for 1-8 color slots
+void Colorset_makeRGB(Colorset *self, RGBColor c1, RGBColor c2, RGBColor c3, RGBColor c4,
+  RGBColor c5, RGBColor c6, RGBColor c7, RGBColor c8)
 {
-  init(c1, c2, c3, c4, c5, c6, c7, c8);
+  Colorset_make(self);
+  Colorset_init(self, c1, c2, c3, c4, c5, c6, c7, c8);
 }
 
-Colorset::Colorset(uint8_t numCols, const uint32_t *cols) :
-  Colorset()
+void Colorset_makeCols(Colorset *self, uint8_t numCols, const uint32_t *cols)
 {
+  Colorset_make(self);
   if (numCols > MAX_COLOR_SLOTS) {
     numCols = MAX_COLOR_SLOTS;
   }
   for (uint8_t i = 0; i < numCols; ++i) {
-    addColor(RGBColor(cols[i]));
+    Colorset_addColor(self, RGBColor_fromU32(cols[i]));
   }
 }
 
-Colorset::Colorset(const Colorset &other) :
-  Colorset()
+void Colorset_destroy(Colorset *self)
 {
-  // invoke = operator
-  *this = other;
+  Colorset_clear(self);
 }
 
-Colorset::~Colorset()
+// move constructor
+void Colorset_moveFrom(Colorset *self, Colorset *other)
 {
-  clear();
+  memset((void *)self->m_palette, 0, sizeof(self->m_palette));
+  self->m_curIndex = INDEX_NONE;
+  self->m_numColors = other->m_numColors;
+  memcpy((void *)self->m_palette, (void *)other->m_palette, sizeof(self->m_palette));
+  memset((void *)other->m_palette, 0, sizeof(other->m_palette));
+  other->m_numColors = 0;
+  other->m_curIndex = INDEX_NONE;
 }
 
-Colorset::Colorset(Colorset &&other) noexcept :
-  m_palette(),
-  m_curIndex(INDEX_NONE),
-  m_numColors(other.m_numColors)
+// copy and assignment operators
+void Colorset_set(Colorset *self, const Colorset *other)
 {
-  memcpy((void *)m_palette, (void *)other.m_palette, sizeof(m_palette));
-  memset((void *)other.m_palette, 0, sizeof(m_palette));
-  other.m_numColors = 0;
-  other.m_curIndex = INDEX_NONE;
-}
-
-void Colorset::operator=(const Colorset &other)
-{
-  initPalette(other.m_numColors);
-  for (uint8_t i = 0; i < other.m_numColors; ++i) {
-    m_palette[i] = other.m_palette[i];
+  Colorset_initPalette(self, other->m_numColors);
+  for (uint8_t i = 0; i < other->m_numColors; ++i) {
+    self->m_palette[i] = other->m_palette[i];
   }
-  resetIndex();
+  Colorset_resetIndex(self);
 }
 
-bool Colorset::operator==(const Colorset &other) const
+// equality operators
+bool Colorset_equal(const Colorset *self, const Colorset *other)
 {
   // only compare the palettes for equality
-  return (m_numColors == other.m_numColors) &&
-         (memcmp(m_palette, other.m_palette, m_numColors * sizeof(RGBColor)) == 0);
+  return (self->m_numColors == other->m_numColors) &&
+         (memcmp(self->m_palette, other->m_palette, self->m_numColors * sizeof(RGBColor)) == 0);
 }
 
-bool Colorset::operator!=(const Colorset &other) const
+bool Colorset_notEqual(const Colorset *self, const Colorset *other)
 {
-  return !operator==(other);
+  return !Colorset_equal(self, other);
 }
 
-void Colorset::init(RGBColor c1, RGBColor c2, RGBColor c3, RGBColor c4,
+void Colorset_init(Colorset *self, RGBColor c1, RGBColor c2, RGBColor c3, RGBColor c4,
   RGBColor c5, RGBColor c6, RGBColor c7, RGBColor c8)
 {
   // clear any existing colors
-  clear();
+  Colorset_clear(self);
   // would be nice if we could do this another way
-  if (!c1.empty()) addColor(c1);
-  if (!c2.empty()) addColor(c2);
-  if (!c3.empty()) addColor(c3);
-  if (!c4.empty()) addColor(c4);
-  if (!c5.empty()) addColor(c5);
-  if (!c6.empty()) addColor(c6);
-  if (!c7.empty()) addColor(c7);
-  if (!c8.empty()) addColor(c8);
+  if (!RGBColor_empty(&c1)) Colorset_addColor(self, c1);
+  if (!RGBColor_empty(&c2)) Colorset_addColor(self, c2);
+  if (!RGBColor_empty(&c3)) Colorset_addColor(self, c3);
+  if (!RGBColor_empty(&c4)) Colorset_addColor(self, c4);
+  if (!RGBColor_empty(&c5)) Colorset_addColor(self, c5);
+  if (!RGBColor_empty(&c6)) Colorset_addColor(self, c6);
+  if (!RGBColor_empty(&c7)) Colorset_addColor(self, c7);
+  if (!RGBColor_empty(&c8)) Colorset_addColor(self, c8);
 }
 
-void Colorset::clear()
+void Colorset_clear(Colorset *self)
 {
-  memset((void *)m_palette, 0, sizeof(m_palette));
-  m_numColors = 0;
-  resetIndex();
+  memset((void *)self->m_palette, 0, sizeof(self->m_palette));
+  self->m_numColors = 0;
+  Colorset_resetIndex(self);
 }
 
-bool Colorset::equals(const Colorset &set) const
+bool Colorset_equals(const Colorset *self, const Colorset *set)
 {
-  return operator==(set);
+  return Colorset_equal(self, set);
 }
 
-bool Colorset::equals(const Colorset *set) const
+bool Colorset_equalsPtr(const Colorset *self, const Colorset *set)
 {
   if (!set) {
     return false;
   }
-  return operator==(*set);
+  return Colorset_equal(self, set);
 }
 
-RGBColor Colorset::operator[](int index) const
+RGBColor Colorset_at(const Colorset *self, int index)
 {
-  return get(index);
+  return Colorset_get(self, index);
 }
 
 // add a single color
-bool Colorset::addColor(RGBColor col)
+bool Colorset_addColor(Colorset *self, RGBColor col)
 {
-  if (m_numColors >= MAX_COLOR_SLOTS) {
+  if (self->m_numColors >= MAX_COLOR_SLOTS) {
     return false;
   }
   // insert new color and increment number of colors
-  m_palette[m_numColors] = col;
-  m_numColors++;
+  self->m_palette[self->m_numColors] = col;
+  self->m_numColors++;
   return true;
 }
 
-bool Colorset::addColorHSV(uint8_t hue, uint8_t sat, uint8_t val)
+bool Colorset_addColorHSV(Colorset *self, uint8_t hue, uint8_t sat, uint8_t val)
 {
-  return addColor(HSVColor(hue, sat, val));
+  HSVColor hsv = HSVColor_makeHSV(hue, sat, val);
+  return Colorset_addColor(self, RGBColor_fromHSV(&hsv));
 }
 
-void Colorset::addColorWithValueStyle(Random &ctx, uint8_t hue, uint8_t sat, ValueStyle valStyle, uint8_t numColors, uint8_t colorPos)
+void Colorset_addColorWithValueStyle(Colorset *self, Random *ctx, uint8_t hue, uint8_t sat, ColorsetValueStyle valStyle, uint8_t numColors, uint8_t colorPos)
 {
   if (numColors == 1) {
-    addColorHSV(hue, sat, ctx.next8(16, 255));
+    Colorset_addColorHSV(self, hue, sat, Random_next8(ctx, 16, 255));
     return;
   }
   switch (valStyle) {
   default:
   case VAL_STYLE_RANDOM:
-    addColorHSV(hue, sat, 85 * ctx.next8(1, 4));
+    Colorset_addColorHSV(self, hue, sat, 85 * Random_next8(ctx, 1, 4));
     break;
   case VAL_STYLE_LOW_FIRST_COLOR:
-    if (m_numColors == 0) {
-      addColorHSV(hue, sat, ctx.next8(0, 86));
+    if (self->m_numColors == 0) {
+      Colorset_addColorHSV(self, hue, sat, Random_next8(ctx, 0, 86));
     } else {
-      addColorHSV(hue, sat, 85 * ctx.next8(1, 4));
+      Colorset_addColorHSV(self, hue, sat, 85 * Random_next8(ctx, 1, 4));
     }
     break;
   case VAL_STYLE_HIGH_FIRST_COLOR:
-    if (m_numColors == 0) {
-      addColorHSV(hue, sat, 255);
+    if (self->m_numColors == 0) {
+      Colorset_addColorHSV(self, hue, sat, 255);
     } else {
-      addColorHSV(hue, sat, ctx.next8(0, 86));
+      Colorset_addColorHSV(self, hue, sat, Random_next8(ctx, 0, 86));
     }
     break;
   case VAL_STYLE_ALTERNATING:
-    if (m_numColors % 2 == 0) {
-      addColorHSV(hue, sat, 255);
+    if (self->m_numColors % 2 == 0) {
+      Colorset_addColorHSV(self, hue, sat, 255);
     } else {
-      addColorHSV(hue, sat, 85);
+      Colorset_addColorHSV(self, hue, sat, 85);
     }
     break;
   case VAL_STYLE_ASCENDING:
-    addColorHSV(hue, sat, (colorPos + 1) * (255 / numColors));
+    Colorset_addColorHSV(self, hue, sat, (colorPos + 1) * (255 / numColors));
     break;
   case VAL_STYLE_DESCENDING:
-    addColorHSV(hue, sat, 255 - (colorPos * (255 / numColors)));
+    Colorset_addColorHSV(self, hue, sat, 255 - (colorPos * (255 / numColors)));
     break;
   case VAL_STYLE_CONSTANT:
-    addColorHSV(hue, sat, 255);
+    Colorset_addColorHSV(self, hue, sat, 255);
   }
 }
 
-void Colorset::removeColor(uint8_t index)
+void Colorset_removeColor(Colorset *self, uint8_t index)
 {
-  if (index >= m_numColors) {
+  if (index >= self->m_numColors) {
     return;
   }
-  for (uint8_t i = index; i < (m_numColors - 1); ++i) {
-    m_palette[i] = m_palette[i + 1];
+  for (uint8_t i = index; i < (self->m_numColors - 1); ++i) {
+    self->m_palette[i] = self->m_palette[i + 1];
   }
-  m_palette[--m_numColors].clear();
+  RGBColor_clear(&self->m_palette[--self->m_numColors]);
 }
 
 // create a set of truely random colors
-void Colorset::randomize(Random &ctx, uint8_t numColors)
+void Colorset_randomize(Colorset *self, Random *ctx, uint8_t numColors)
 {
-  clear();
+  Colorset_clear(self);
   if (!numColors) {
-    numColors = ctx.next8(2, 9);
+    numColors = Random_next8(ctx, 2, 9);
   }
-  ValueStyle valStyle = (ValueStyle)ctx.next8(0, VAL_STYLE_COUNT);
+  ColorsetValueStyle valStyle = (ColorsetValueStyle)Random_next8(ctx, 0, VAL_STYLE_COUNT);
 
   for (uint8_t i = 0; i < numColors; ++i) {
     // call next8 explicitly in this order because the order they
@@ -210,31 +207,31 @@ void Colorset::randomize(Random &ctx, uint8_t numColors)
     // ex: f(a,b,c) may call in the order a,b,c or c,b,a depending on compiler.
     // So different compilers may produce different results, 
     // but like this it is explicit
-    uint8_t sat = ctx.next8();
-    uint8_t hue = ctx.next8();
-    addColorWithValueStyle(ctx, hue, sat, valStyle, numColors, i);
+    uint8_t sat = Random_next8Default(ctx);
+    uint8_t hue = Random_next8Default(ctx);
+    Colorset_addColorWithValueStyle(self, ctx, hue, sat, valStyle, numColors, i);
   }
 }
 
-void Colorset::randomizeColors(Random &ctx, uint8_t numColors, ColorMode mode)
+void Colorset_randomizeColors(Colorset *self, Random *ctx, uint8_t numColors, ColorsetColorMode mode)
 {
-  clear();
+  Colorset_clear(self);
   if (!numColors) {
-    numColors = ctx.next8(mode == MONOCHROMATIC ? 2 : 1, 9);
+    numColors = Random_next8(ctx, mode == MONOCHROMATIC ? 2 : 1, 9);
   }
-  uint8_t randomizedHue = ctx.next8();
+  uint8_t randomizedHue = Random_next8Default(ctx);
   uint8_t colorGap = 0;
   if (mode == THEORY && numColors > 1) {
-    colorGap = ctx.next8(16, 256 / (numColors - 1));
+    colorGap = Random_next8(ctx, 16, 256 / (numColors - 1));
   }
-  ValueStyle valStyle = (ValueStyle)ctx.next8(0, VAL_STYLE_COUNT);
+  ColorsetValueStyle valStyle = (ColorsetValueStyle)Random_next8(ctx, 0, VAL_STYLE_COUNT);
   // the doubleStyle decides if some colors are added to the set twice
   uint8_t doubleStyle = 0;
   if (numColors <= 7) {
-    doubleStyle = (ctx.next8(0, 1));
+    doubleStyle = (Random_next8(ctx, 0, 1));
   }
   if (numColors <= 4) {
-    doubleStyle = (ctx.next8(0, 2));
+    doubleStyle = (Random_next8(ctx, 0, 2));
   }
   for (uint8_t i = 0; i < numColors; i++) {
     uint8_t hueToUse;
@@ -247,237 +244,237 @@ void Colorset::randomizeColors(Random &ctx, uint8_t numColors, ColorMode mode)
     } else { // EVENLY_SPACED
       hueToUse = (randomizedHue + (256 / numColors) * i);
     }
-    addColorWithValueStyle(ctx, hueToUse, valueToUse, valStyle, numColors, i);
+    Colorset_addColorWithValueStyle(self, ctx, hueToUse, valueToUse, valStyle, numColors, i);
     // double all colors or only first color
     if (doubleStyle == 2 || (doubleStyle == 1 && !i)) {
-      addColorWithValueStyle(ctx, hueToUse, valueToUse, valStyle, numColors, i);
+      Colorset_addColorWithValueStyle(self, ctx, hueToUse, valueToUse, valStyle, numColors, i);
     }
   }
 }
 
-void Colorset::randomizeColors2(Random &ctx, ColorMode2 mode)
+void Colorset_randomizeColors2(Colorset *self, Random *ctx, ColorsetColorMode2 mode)
 {
-  clear();
-  uint8_t primaryHue = ctx.next8();
+  Colorset_clear(self);
+  uint8_t primaryHue = Random_next8Default(ctx);
   if (mode == DOUBLE_SPLIT_COMPLIMENTARY) {
-    uint8_t splitGap = ctx.next8(1, 64);
-    ValueStyle valStyle = (ValueStyle)ctx.next8(0, VAL_STYLE_COUNT);
-    addColorWithValueStyle(ctx, (primaryHue + splitGap + 128), 255, valStyle, 5, 0);
-    addColorWithValueStyle(ctx, (primaryHue - splitGap), 255, valStyle, 5, 1);
-    addColorWithValueStyle(ctx, primaryHue, 255, valStyle, 5, 2);
-    addColorWithValueStyle(ctx, (primaryHue + splitGap), 255, valStyle, 5, 3);
-    addColorWithValueStyle(ctx, (primaryHue - splitGap + 128), 255, valStyle, 5, 4);
+    uint8_t splitGap = Random_next8(ctx, 1, 64);
+    ColorsetValueStyle valStyle = (ColorsetValueStyle)Random_next8(ctx, 0, VAL_STYLE_COUNT);
+    Colorset_addColorWithValueStyle(self, ctx, (primaryHue + splitGap + 128), 255, valStyle, 5, 0);
+    Colorset_addColorWithValueStyle(self, ctx, (primaryHue - splitGap), 255, valStyle, 5, 1);
+    Colorset_addColorWithValueStyle(self, ctx, primaryHue, 255, valStyle, 5, 2);
+    Colorset_addColorWithValueStyle(self, ctx, (primaryHue + splitGap), 255, valStyle, 5, 3);
+    Colorset_addColorWithValueStyle(self, ctx, (primaryHue - splitGap + 128), 255, valStyle, 5, 4);
   } else if (mode == TETRADIC) {
-    uint8_t secondaryHue = ctx.next8();
-    ValueStyle valStyle = (ValueStyle)ctx.next8(0, VAL_STYLE_COUNT);
-    addColorWithValueStyle(ctx, primaryHue, 255, valStyle, 4, 0);
-    addColorWithValueStyle(ctx, secondaryHue, 255, valStyle, 4, 1);
-    addColorWithValueStyle(ctx, (primaryHue + 128), 255, valStyle, 4, 2);
-    addColorWithValueStyle(ctx, (secondaryHue + 128), 255, valStyle, 4, 3);
+    uint8_t secondaryHue = Random_next8Default(ctx);
+    ColorsetValueStyle valStyle = (ColorsetValueStyle)Random_next8(ctx, 0, VAL_STYLE_COUNT);
+    Colorset_addColorWithValueStyle(self, ctx, primaryHue, 255, valStyle, 4, 0);
+    Colorset_addColorWithValueStyle(self, ctx, secondaryHue, 255, valStyle, 4, 1);
+    Colorset_addColorWithValueStyle(self, ctx, (primaryHue + 128), 255, valStyle, 4, 2);
+    Colorset_addColorWithValueStyle(self, ctx, (secondaryHue + 128), 255, valStyle, 4, 3);
   }
 }
 
-void Colorset::adjustBrightness(uint8_t fadeby)
+void Colorset_adjustBrightness(Colorset *self, uint8_t fadeby)
 {
-  for (uint8_t i = 0; i < m_numColors; ++i) {
-    m_palette[i].adjustBrightness(fadeby);
+  for (uint8_t i = 0; i < self->m_numColors; ++i) {
+    RGBColor_adjustBrightness(&self->m_palette[i], fadeby);
   }
 }
 
 // get a color from the colorset
-RGBColor Colorset::get(uint8_t index) const
+RGBColor Colorset_get(const Colorset *self, uint8_t index)
 {
-  if (index >= m_numColors) {
-    return RGBColor(0, 0, 0);
+  if (index >= self->m_numColors) {
+    return RGBColor_make();
   }
-  return m_palette[index];
+  return self->m_palette[index];
 }
 
 // set an rgb color in a slot, or add a new color if you specify
 // a slot higher than the number of colors in the colorset
-void Colorset::set(uint8_t index, RGBColor col)
+void Colorset_setColor(Colorset *self, uint8_t index, RGBColor col)
 {
   // special case for 'setting' a color at the edge of the palette,
   // ie adding a new color when you set an index higher than the max
-  if (index >= m_numColors) {
-    if (!addColor(col)) {
+  if (index >= self->m_numColors) {
+    if (!Colorset_addColor(self, col)) {
       ERROR_LOGF("Failed to add new color at index %u", index);
     }
     return;
   }
-  m_palette[index] = col;
+  self->m_palette[index] = col;
 }
 
 // skip some amount of colors
-void Colorset::skip(int32_t amount)
+void Colorset_skip(Colorset *self, int32_t amount)
 {
-  if (!m_numColors) {
+  if (!self->m_numColors) {
     return;
   }
   // if the colorset hasn't started yet
-  if (m_curIndex == INDEX_NONE) {
-    m_curIndex = 0;
+  if (self->m_curIndex == INDEX_NONE) {
+    self->m_curIndex = 0;
   }
 
   // first modulate the amount to skip to be within +/- the number of colors
-  amount %= (int32_t)m_numColors;
+  amount %= (int32_t)self->m_numColors;
 
   // max = 3
-  // m_curIndex = 2
+  // self->m_curIndex = 2
   // amount = -10
-  m_curIndex = ((int32_t)m_curIndex + (int32_t)amount) % (int32_t)m_numColors;
-  if (m_curIndex > m_numColors) { // must have wrapped
+  self->m_curIndex = ((int32_t)self->m_curIndex + (int32_t)amount) % (int32_t)self->m_numColors;
+  if (self->m_curIndex > self->m_numColors) { // must have wrapped
     // simply wrap it back
-    m_curIndex += m_numColors;
+    self->m_curIndex += self->m_numColors;
   }
 }
 
-RGBColor Colorset::cur()
+RGBColor Colorset_cur(Colorset *self)
 {
-  if (m_curIndex >= m_numColors) {
-    return RGBColor(0, 0, 0);
+  if (self->m_curIndex >= self->m_numColors) {
+    return RGBColor_make();
   }
-  if (m_curIndex == INDEX_NONE) {
-    return m_palette[0];
+  if (self->m_curIndex == INDEX_NONE) {
+    return self->m_palette[0];
   }
-  return m_palette[m_curIndex];
+  return self->m_palette[self->m_curIndex];
 }
 
-void Colorset::setCurIndex(uint8_t index)
+void Colorset_setCurIndex(Colorset *self, uint8_t index)
 {
-  if (!m_numColors) {
+  if (!self->m_numColors) {
     return;
   }
-  if (index > (m_numColors - 1)) {
+  if (index > (self->m_numColors - 1)) {
     return;
   }
-  m_curIndex = index;
+  self->m_curIndex = index;
 }
 
-void Colorset::resetIndex()
+void Colorset_resetIndex(Colorset *self)
 {
-  m_curIndex = INDEX_NONE;
+  self->m_curIndex = INDEX_NONE;
 }
 
-RGBColor Colorset::getPrev()
+RGBColor Colorset_getPrev(Colorset *self)
 {
-  if (!m_numColors) {
-    return RGB_OFF;
+  if (!self->m_numColors) {
+    return RGBColor_make();
   }
   // handle wrapping at 0
-  if (m_curIndex == 0 || m_curIndex == INDEX_NONE) {
-    m_curIndex = numColors() - 1;
+  if (self->m_curIndex == 0 || self->m_curIndex == INDEX_NONE) {
+    self->m_curIndex = Colorset_numColors(self) - 1;
   } else {
-    m_curIndex--;
+    self->m_curIndex--;
   }
   // return the color
-  return m_palette[m_curIndex];
+  return self->m_palette[self->m_curIndex];
 }
 
-RGBColor Colorset::getNext()
+RGBColor Colorset_getNext(Colorset *self)
 {
-  if (!m_numColors) {
-    return RGB_OFF;
+  if (!self->m_numColors) {
+    return RGBColor_make();
   }
   // iterate current index, let it wrap at max uint8
-  m_curIndex++;
+  self->m_curIndex++;
   // then modulate the result within max colors
-  m_curIndex %= numColors();
+  self->m_curIndex %= Colorset_numColors(self);
   // return the color
-  return m_palette[m_curIndex];
+  return self->m_palette[self->m_curIndex];
 }
 
 // peek at the next color but don't iterate
-RGBColor Colorset::peek(int32_t offset) const
+RGBColor Colorset_peek(const Colorset *self, int32_t offset)
 {
-  if (!m_numColors) {
-    return RGB_OFF;
+  if (!self->m_numColors) {
+    return RGBColor_make();
   }
   uint8_t nextIndex = 0;
   // get index of the next color
   if (offset >= 0) {
-    nextIndex = (m_curIndex + offset) % numColors();
+    nextIndex = (self->m_curIndex + offset) % Colorset_numColors(self);
   } else {
-    if (offset < -1 * (int32_t)(numColors())) {
-      return RGB_OFF;
+    if (offset < -1 * (int32_t)(Colorset_numColors(self))) {
+      return RGBColor_make();
     }
-    nextIndex = ((m_curIndex + numColors()) + (int)offset) % numColors();
+    nextIndex = ((self->m_curIndex + Colorset_numColors(self)) + (int)offset) % Colorset_numColors(self);
   }
   // return the color
-  return m_palette[nextIndex];
+  return self->m_palette[nextIndex];
 }
 
-bool Colorset::onStart() const
+bool Colorset_onStart(const Colorset *self)
 {
-  return (m_curIndex == 0);
+  return (self->m_curIndex == 0);
 }
 
-bool Colorset::onEnd() const
+bool Colorset_onEnd(const Colorset *self)
 {
-  if (!m_numColors) {
+  if (!self->m_numColors) {
     return false;
   }
-  return (m_curIndex == m_numColors - 1);
+  return (self->m_curIndex == self->m_numColors - 1);
 }
 
-bool Colorset::serialize(ByteStream &buffer) const
+bool Colorset_serialize(const Colorset *self, ByteStream *buffer)
 {
-  if (!buffer.serialize8(m_numColors)) {
+  if (!ByteStream_serialize8(buffer, self->m_numColors)) {
     return false;
   }
   // write all the reds/greens/blues together to maximize chance of
   // repeated values to improve RLE compression
-  for (uint8_t i = 0; i < m_numColors; ++i) {
-    if (!buffer.serialize8(m_palette[i].red)) {
+  for (uint8_t i = 0; i < self->m_numColors; ++i) {
+    if (!ByteStream_serialize8(buffer, self->m_palette[i].red)) {
       return false;
     }
   }
-  for (uint8_t i = 0; i < m_numColors; ++i) {
-    if (!buffer.serialize8(m_palette[i].green)) {
+  for (uint8_t i = 0; i < self->m_numColors; ++i) {
+    if (!ByteStream_serialize8(buffer, self->m_palette[i].green)) {
       return false;
     }
   }
-  for (uint8_t i = 0; i < m_numColors; ++i) {
-    if (!buffer.serialize8(m_palette[i].blue)) {
-      return false;
-    }
-  }
-  return true;
-}
-
-bool Colorset::unserialize(ByteStream &buffer)
-{
-  if (!buffer.unserialize8(&m_numColors)) {
-    return false;
-  }
-  if (m_numColors > MAX_COLOR_SLOTS) {
-    return false;
-  }
-  if (!initPalette(m_numColors)) {
-    return false;
-  }
-  for (uint8_t i = 0; i < m_numColors; ++i) {
-    if (!buffer.unserialize8(&m_palette[i].red)) {
-      return false;
-    }
-  }
-  for (uint8_t i = 0; i < m_numColors; ++i) {
-    if (!buffer.unserialize8(&m_palette[i].green)) {
-      return false;
-    }
-  }
-  for (uint8_t i = 0; i < m_numColors; ++i) {
-    if (!buffer.unserialize8(&m_palette[i].blue)) {
+  for (uint8_t i = 0; i < self->m_numColors; ++i) {
+    if (!ByteStream_serialize8(buffer, self->m_palette[i].blue)) {
       return false;
     }
   }
   return true;
 }
 
-bool Colorset::initPalette(uint8_t numColors)
+bool Colorset_unserialize(Colorset *self, ByteStream *buffer)
 {
-  clear();
-  m_numColors = numColors;
+  if (!ByteStream_unserialize8(buffer, &self->m_numColors)) {
+    return false;
+  }
+  if (self->m_numColors > MAX_COLOR_SLOTS) {
+    return false;
+  }
+  if (!Colorset_initPalette(self, self->m_numColors)) {
+    return false;
+  }
+  for (uint8_t i = 0; i < self->m_numColors; ++i) {
+    if (!ByteStream_unserialize8(buffer, &self->m_palette[i].red)) {
+      return false;
+    }
+  }
+  for (uint8_t i = 0; i < self->m_numColors; ++i) {
+    if (!ByteStream_unserialize8(buffer, &self->m_palette[i].green)) {
+      return false;
+    }
+  }
+  for (uint8_t i = 0; i < self->m_numColors; ++i) {
+    if (!ByteStream_unserialize8(buffer, &self->m_palette[i].blue)) {
+      return false;
+    }
+  }
+  return true;
+}
+
+bool Colorset_initPalette(Colorset *self, uint8_t numColors)
+{
+  Colorset_clear(self);
+  self->m_numColors = numColors;
   return true;
 }
 

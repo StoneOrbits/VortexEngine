@@ -19,6 +19,12 @@ RANLIB=ranlib
 
 CFLAGS=-O2 -Wall
 
+# 'make HEAP_TRACKING=1' tracks the memory the engine uses on the attiny3217,
+# see HEAP_TRACKING in VortexConfig.h
+ifeq ($(HEAP_TRACKING),1)
+CFLAGS += -D HEAP_TRACKING=1
+endif
+
 # add -g flag for debug symbols if we're not using wasm
 ifndef WASM
 CFLAGS += -g

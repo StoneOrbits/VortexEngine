@@ -1,45 +1,45 @@
 #include "Random.h"
 
-Random::Random() :
-  m_seed(0)
+void Random_make(Random *self)
+{
+  self->m_seed = 0;
+}
+
+void Random_makeSeed(Random *self, uint32_t newseed)
+{
+  Random_make(self);
+  Random_seed(self, newseed);
+}
+
+void Random_destroy(Random *self)
 {
 }
 
-Random::Random(uint32_t newseed) :
-  Random()
-{
-  seed(newseed);
-}
-
-Random::~Random()
-{
-}
-
-void Random::seed(uint32_t newseed)
+void Random_seed(Random *self, uint32_t newseed)
 {
   if (!newseed) {
-    m_seed = 42;
+    self->m_seed = 42;
   }
-  m_seed = newseed;
+  self->m_seed = newseed;
 }
 
-uint16_t Random::next16(uint16_t minValue, uint16_t maxValue)
+uint16_t Random_next16(Random *self, uint16_t minValue, uint16_t maxValue)
 {
   // walk the LCG forward to the next step
-  m_seed = (m_seed * 1103515245 + 12345) & 0x7FFFFFFF;
+  self->m_seed = (self->m_seed * 1103515245 + 12345) & 0x7FFFFFFF;
   uint32_t range = maxValue - minValue;
   if (range != 0xFFFFFFFF) {
     // shift the seed 16 bits to the right because the lower 16 bits
     // of this LCG are apparently not uniform whatsoever, where as the
     // upper 16 bits appear to be quite uniform as per tests. We don't
     // really need 32bit random values so we offer max 16bits of entropy
-    return ((m_seed >> 16) % (range + 1)) + minValue;
+    return ((self->m_seed >> 16) % (range + 1)) + minValue;
   }
-  return (m_seed >> 16);
+  return (self->m_seed >> 16);
 }
 
-uint8_t Random::next8(uint8_t minValue, uint8_t maxValue)
+uint8_t Random_next8(Random *self, uint8_t minValue, uint8_t maxValue)
 {
-  uint32_t result = next16(minValue, maxValue);
-  return static_cast<uint8_t>(result);
+  uint32_t result = Random_next16(self, minValue, maxValue);
+  return (uint8_t)result;
 }

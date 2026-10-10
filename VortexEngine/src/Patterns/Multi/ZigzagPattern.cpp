@@ -1,5 +1,7 @@
 #include "ZigzagPattern.h"
 
+#include <string.h>
+
 #include "../../Time/TimeControl.h"
 #include "../../Leds/Leds.h"
 #include "../../Log/Log.h"
@@ -7,7 +9,7 @@
 // Mapping of LED positions to steps.
 // The lights runs across evens, then back across odds.
 // Index this array with m_step in order to get correct LedPos
-const LedPos ZigzagPattern::ledStepPositions[] = {
+const LedPos ZigzagPattern_ledStepPositions[] = {
   LED_1,
   LED_3,
   LED_5,
@@ -22,116 +24,129 @@ const LedPos ZigzagPattern::ledStepPositions[] = {
 };
 
 // There just happens to be LED_COUNT steps in the pattern
-#define NUM_ZIGZAG_STEPS (sizeof(ledStepPositions) / sizeof(ledStepPositions[0]))
+#define NUM_ZIGZAG_STEPS (sizeof(ZigzagPattern_ledStepPositions) / sizeof(ZigzagPattern_ledStepPositions[0]))
 #define HALF_ZIGZAG_STEPS (NUM_ZIGZAG_STEPS / 2)
 
-ZigzagPattern::ZigzagPattern(const PatternArgs &args) :
-  MultiLedPattern(args),
-  m_onDuration(0),
-  m_offDuration(0),
-  m_stepDuration(0),
-  m_snakeSize(0),
-  m_fadeAmount(0),
-  m_stepTimer(),
-  m_snake1(),
-  m_snake2()
+const PatternVtable ZigzagPattern_vtable = {
+  .destroy = ZigzagPattern_destroy,
+  .bind = MultiLedPattern_bind,
+  .init = ZigzagPattern_initImpl,
+  .play = ZigzagPattern_play,
+};
+
+void ZigzagPattern_init(ZigzagPattern *self, const PatternArgs *args)
 {
-  m_patternID = PATTERN_ZIGZAG;
-  REGISTER_ARG(m_onDuration);
-  REGISTER_ARG(m_offDuration);
-  REGISTER_ARG(m_stepDuration);
-  REGISTER_ARG(m_snakeSize);
-  REGISTER_ARG(m_fadeAmount);
-  setArgs(args);
+  MultiLedPattern_init(&self->base, args, &ZigzagPattern_vtable);
+  self->m_onDuration = 0;
+  self->m_offDuration = 0;
+  self->m_stepDuration = 0;
+  self->m_snakeSize = 0;
+  self->m_fadeAmount = 0;
+  Timer_make(&self->m_stepTimer);
+  ZigzagSnake_make(&self->m_snake1);
+  ZigzagSnake_make(&self->m_snake2);
+  Pattern_setPatternID((&self->base.base), PATTERN_ZIGZAG);
+  REGISTER_ARG((&self->base.base), ZigzagPattern, m_onDuration);
+  REGISTER_ARG((&self->base.base), ZigzagPattern, m_offDuration);
+  REGISTER_ARG((&self->base.base), ZigzagPattern, m_stepDuration);
+  REGISTER_ARG((&self->base.base), ZigzagPattern, m_snakeSize);
+  REGISTER_ARG((&self->base.base), ZigzagPattern, m_fadeAmount);
+  Pattern_setArgs((&self->base.base), args);
 }
 
-ZigzagPattern::~ZigzagPattern()
+void ZigzagPattern_destroy(Pattern *pat)
 {
+  ZigzagPattern *self = (ZigzagPattern *)pat;
+  (void)self;
 }
 
 // init the pattern to initial state
-void ZigzagPattern::init()
+void ZigzagPattern_initImpl(Pattern *pat)
 {
-  MultiLedPattern::init();
+  ZigzagPattern *self = (ZigzagPattern *)pat;
+  MultiLedPattern_doInit(pat);
 
   // reset and add alarm
-  m_stepTimer.reset();
-  m_stepTimer.addAlarm(m_stepDuration);
-  m_stepTimer.start();
+  Timer_reset(&self->m_stepTimer);
+  Timer_addAlarm(&self->m_stepTimer, self->m_stepDuration);
+  Timer_start0(&self->m_stepTimer);
 
   // initialize the snakes with dops timing
-  m_snake1.init(m_onDuration, m_offDuration, m_colorset, 0, 0, m_snakeSize, m_fadeAmount, 3);
-  m_snake2.init(m_onDuration, m_offDuration, m_colorset, 1, HALF_ZIGZAG_STEPS, m_snakeSize, m_fadeAmount, 8);
+  ZigzagSnake_init(&self->m_snake1, self->m_onDuration, self->m_offDuration, &self->base.base.m_colorset,
+    0, 0, self->m_snakeSize, self->m_fadeAmount, 3);
+  ZigzagSnake_init(&self->m_snake2, self->m_onDuration, self->m_offDuration, &self->base.base.m_colorset,
+    1, HALF_ZIGZAG_STEPS, self->m_snakeSize, self->m_fadeAmount, 8);
 }
 
 // pure virtual must override the play function
-void ZigzagPattern::play()
+void ZigzagPattern_play(Pattern *pat)
 {
+  ZigzagPattern *self = (ZigzagPattern *)pat;
   // when the step timer triggers
-  if (m_stepTimer.alarm() == 0) {
-    m_snake1.step();
-    m_snake2.step();
+  if (Timer_alarm(&self->m_stepTimer) == 0) {
+    ZigzagSnake_step(&self->m_snake1);
+    ZigzagSnake_step(&self->m_snake2);
   }
 
-  m_snake1.draw();
-  m_snake2.draw();
+  ZigzagSnake_draw(&self->m_snake1);
+  ZigzagSnake_draw(&self->m_snake2);
 }
 
 // ===================
 //  Snake code
 
-ZigzagPattern::Snake::Snake() :
-  m_blinkTimer(),
-  m_colorset(),
-  m_step(0),
-  m_snakeSize(1),
-  m_fadeAmount(55),
-  m_changeBoundary(3)
+void ZigzagSnake_make(ZigzagSnake *self)
 {
+  memset(self, 0, sizeof(*self));
+  Timer_make(&self->m_blinkTimer);
+  self->m_step = 0;
+  self->m_snakeSize = 1;
+  self->m_fadeAmount = 55;
+  self->m_changeBoundary = 3;
 }
 
-void ZigzagPattern::Snake::init(uint8_t onDuration, uint8_t offDuration, const Colorset &colorset, uint32_t colorOffset,
-  uint8_t step, uint8_t snakeSize, uint8_t fadeAmount, uint8_t changeBoundary)
+void ZigzagSnake_init(ZigzagSnake *self, uint8_t onDuration, uint8_t offDuration, const Colorset *colorset,
+  uint32_t colorOffset, uint8_t step, uint8_t snakeSize, uint8_t fadeAmount, uint8_t changeBoundary)
 {
   // reset the blink timer entirely
-  m_blinkTimer.reset();
+  Timer_reset(&self->m_blinkTimer);
   // dops timing
-  m_blinkTimer.addAlarm(onDuration);
-  m_blinkTimer.addAlarm(offDuration);
+  Timer_addAlarm(&self->m_blinkTimer, onDuration);
+  Timer_addAlarm(&self->m_blinkTimer, offDuration);
   // start the blink timer from the next frame
-  m_blinkTimer.start();
+  Timer_start0(&self->m_blinkTimer);
   // start on the first color so that cur() works immediately
-  m_colorset = colorset;
-  m_colorset.setCurIndex(colorOffset);
+  self->m_colorset = *colorset;
+  Colorset_setCurIndex(&self->m_colorset, colorOffset);
   // set the starting step
-  m_step = step;
+  self->m_step = step;
   // set the snake size
-  m_snakeSize = snakeSize;
+  self->m_snakeSize = snakeSize;
   // set fade amount and change boundary
-  m_fadeAmount = fadeAmount;
-  m_changeBoundary = changeBoundary;
+  self->m_fadeAmount = fadeAmount;
+  self->m_changeBoundary = changeBoundary;
 }
 
-void ZigzagPattern::Snake::step()
+void ZigzagSnake_step(ZigzagSnake *self)
 {
   // increment to the next step
-  m_step = (m_step + 1) % NUM_ZIGZAG_STEPS;
+  self->m_step = (self->m_step + 1) % NUM_ZIGZAG_STEPS;
   // if the step is on a change boundary then increment the snake color
-  if (m_step == m_changeBoundary) {
-    m_colorset.getNext();
+  if (self->m_step == self->m_changeBoundary) {
+    Colorset_getNext(&self->m_colorset);
   }
 }
 
-void ZigzagPattern::Snake::draw()
+void ZigzagSnake_draw(ZigzagSnake *self)
 {
   // when the blinkTimer triggers
-  switch (m_blinkTimer.alarm()) {
+  switch (Timer_alarm(&self->m_blinkTimer)) {
   case 0: // blinking on
     // draw two snakes, one on the current step, one on the opposite side
-    drawSnake();
+    ZigzagSnake_drawSnake(self);
     break;
   case 1: // blinking off
-    Leds::clearAll();
+    Leds_clearAll();
     break;
   default:
   case -1:
@@ -140,32 +155,31 @@ void ZigzagPattern::Snake::draw()
   }
 }
 
-void ZigzagPattern::Snake::drawSnake()
+void ZigzagSnake_drawSnake(ZigzagSnake *self)
 {
   uint8_t segment_position;
   int32_t colIndex = 0;
-  for (uint8_t segment = 0; segment < m_snakeSize; ++segment) {
+  for (uint8_t segment = 0; segment < self->m_snakeSize; ++segment) {
     // calculate the position of this segment, if the segment being rendered is
     // greater than the head position it means the snake head is at an index that
     // won't support it's entire tail without wrapping below 0
-    if (segment > m_step) {
-      segment_position = NUM_ZIGZAG_STEPS - (segment - m_step);
+    if (segment > self->m_step) {
+      segment_position = NUM_ZIGZAG_STEPS - (segment - self->m_step);
     } else {
-      segment_position = m_step - segment;
+      segment_position = self->m_step - segment;
     }
     // adjust the brightness of the color before setting
-    RGBColor col = m_colorset.peek(colIndex);
-    if (segment < m_snakeSize) {
-      col.adjustBrightness(m_fadeAmount * segment);
+    RGBColor col = Colorset_peek(&self->m_colorset, colIndex);
+    if (segment < self->m_snakeSize) {
+      RGBColor_adjustBrightness(&col, self->m_fadeAmount * segment);
     }
     // lookup the target in the step positions array and turn it on with given color/brightness
-    Leds::setIndex(ledStepPositions[segment_position], col);
+    Leds_setIndex(ZigzagPattern_ledStepPositions[segment_position], col);
     // if this segment is on the step where the color changes
-    if (segment_position == m_changeBoundary) {
+    if (segment_position == self->m_changeBoundary) {
       // then decrement the color index for the rest of the snake so that the
       // tail of the snake has the old color till it reaches the change point
       colIndex--;
     }
   }
 }
-

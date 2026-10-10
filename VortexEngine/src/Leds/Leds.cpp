@@ -23,16 +23,16 @@
 #define LED_DATA_PIN  7
 
 // global brightness
-uint8_t Leds::m_brightness = DEFAULT_BRIGHTNESS;
+static uint8_t m_brightness = DEFAULT_BRIGHTNESS;
 // array of led color values
-RGBColor Leds::m_ledColors[LED_COUNT] = { RGB_OFF };
+static RGBColor m_ledColors[LED_COUNT] = { RGB_OFF };
 
 // Output PORT register
-volatile uint8_t *Leds::m_port = nullptr;
+static volatile uint8_t *m_port = NULL;
 // Output PORT bitmask
-uint8_t Leds::m_pinMask = 0;
+static uint8_t m_pinMask = 0;
 
-bool Leds::init()
+bool Leds_init()
 {
 #ifdef VORTEX_EMBEDDED
   // clear the onboard led so it displays nothing
@@ -49,240 +49,249 @@ bool Leds::init()
   return true;
 }
 
-void Leds::cleanup()
+void Leds_cleanup()
 {
   for (uint8_t i = 0; i < LED_COUNT; ++i) {
-    m_ledColors[i].clear();
+    RGBColor_clear(&m_ledColors[i]);
   }
+#ifdef VORTEX_LIB
+  // vortexlib fakes the reset on wake with cleanup then init, the
+  // brightness is loaded from storage again like after a real reset
+  m_brightness = DEFAULT_BRIGHTNESS;
+#endif
 }
 
-void Leds::setIndex(LedPos target, RGBColor col)
+void Leds_setIndex(LedPos target, RGBColor col)
 {
   if (target >= LED_COUNT) {
-    setAll(col);
+    Leds_setAll(col);
     return;
   }
-  led(target) = col;
+  *Leds_ledRef(target) = col;
 }
 
-void Leds::setRange(LedPos first, LedPos last, RGBColor col)
+void Leds_setRange(LedPos first, LedPos last, RGBColor col)
 {
   for (LedPos pos = first; pos <= last; pos++) {
-    setIndex(pos, col);
+    Leds_setIndex(pos, col);
   }
 }
 
-void Leds::setAll(RGBColor col)
+void Leds_setAll(RGBColor col)
 {
-  setRange(LED_FIRST, LED_LAST, col);
+  Leds_setRange(LED_FIRST, LED_LAST, col);
 }
 
-void Leds::setPair(Pair pair, RGBColor col)
+void Leds_setPair(Pair pair, RGBColor col)
 {
   // start from tip and go to top
-  setRange(pairEven(pair), pairOdd(pair), col);
+  Leds_setRange(pairEven(pair), pairOdd(pair), col);
 }
 
-void Leds::setPairs(Pair first, Pair last, RGBColor col)
+void Leds_setPairs(Pair first, Pair last, RGBColor col)
 {
   // start from tip and go to top
-  setRange(pairEven(first), pairOdd(last), col);
+  Leds_setRange(pairEven(first), pairOdd(last), col);
 }
 
-void Leds::setRangeEvens(Pair first, Pair last, RGBColor col)
+void Leds_setRangeEvens(Pair first, Pair last, RGBColor col)
 {
   for (Pair pos = first; pos <= last; pos++) {
-    setIndex(pairEven(pos), col);
+    Leds_setIndex(pairEven(pos), col);
   }
 }
 
-void Leds::setAllEvens(RGBColor col)
+void Leds_setAllEvens(RGBColor col)
 {
   for (Pair pos = PAIR_FIRST; pos <= PAIR_LAST; pos++) {
-    setIndex(pairEven(pos), col);
+    Leds_setIndex(pairEven(pos), col);
   }
 }
 
-void Leds::setRangeOdds(Pair first, Pair last, RGBColor col)
+void Leds_setRangeOdds(Pair first, Pair last, RGBColor col)
 {
   for (Pair pos = first; pos <= last; pos++) {
-    setIndex(pairOdd(pos), col);
+    Leds_setIndex(pairOdd(pos), col);
   }
 }
 
-void Leds::setAllOdds(RGBColor col)
+void Leds_setAllOdds(RGBColor col)
 {
   for (Pair pos = PAIR_FIRST; pos <= PAIR_LAST; pos++) {
-    setIndex(pairOdd(pos), col);
+    Leds_setIndex(pairOdd(pos), col);
   }
 }
 
-void Leds::clearRangeEvens(Pair first, Pair last)
+void Leds_clearRangeEvens(Pair first, Pair last)
 {
   for (Pair pos = first; pos <= last; pos++) {
-    clearIndex(pairEven(pos));
+    Leds_clearIndex(pairEven(pos));
   }
 }
 
-void Leds::clearAllEvens()
+void Leds_clearAllEvens()
 {
   for (Pair pos = PAIR_FIRST; pos <= PAIR_LAST; pos++) {
-    clearIndex(pairEven(pos));
+    Leds_clearIndex(pairEven(pos));
   }
 }
 
-void Leds::clearRangeOdds(Pair first, Pair last)
+void Leds_clearRangeOdds(Pair first, Pair last)
 {
   for (Pair pos = first; pos <= last; pos++) {
-    clearIndex(pairOdd(pos));
+    Leds_clearIndex(pairOdd(pos));
   }
 }
 
-void Leds::clearAllOdds()
+void Leds_clearAllOdds()
 {
   for (Pair pos = PAIR_FIRST; pos <= PAIR_LAST; pos++) {
-    clearIndex(pairOdd(pos));
+    Leds_clearIndex(pairOdd(pos));
   }
 }
 
-void Leds::setMap(LedMap map, RGBColor col)
+void Leds_setMap(LedMap map, RGBColor col)
 {
   for (LedPos pos = LED_FIRST; pos <= LED_LAST; pos++) {
     if (ledmapCheckLed(map, pos)) {
-      setIndex(pos, col);
+      Leds_setIndex(pos, col);
     }
   }
 }
 
-void Leds::clearMap(LedMap map)
+void Leds_clearMap(LedMap map)
 {
   for (LedPos pos = LED_FIRST; pos <= LED_LAST; pos++) {
     if (ledmapCheckLed(map, pos)) {
-      clearIndex(pos);
+      Leds_clearIndex(pos);
     }
   }
 }
 
-void Leds::stashAll(LedStash &stash)
+void Leds_stashAll(LedStash *stash)
 {
   for (LedPos pos = LED_FIRST; pos <= LED_LAST; pos++) {
-    stash.m_ledColorsStash[pos] = led(pos);
+    stash->m_ledColorsStash[pos] = Leds_led(pos);
   }
 }
 
-void Leds::restoreAll(const LedStash &stash)
+void Leds_restoreAll(const LedStash *stash)
 {
   for (LedPos pos = LED_FIRST; pos <= LED_LAST; pos++) {
-    led(pos) = stash.m_ledColorsStash[pos];
+    *Leds_ledRef(pos) = stash->m_ledColorsStash[pos];
   }
 }
 
-void Leds::adjustBrightnessIndex(LedPos target, uint8_t fadeBy)
+void Leds_adjustBrightnessIndex(LedPos target, uint8_t fadeBy)
 {
-  led(target).adjustBrightness(fadeBy);
+  RGBColor_adjustBrightness(Leds_ledRef(target), fadeBy);
 }
 
-void Leds::adjustBrightnessRange(LedPos first, LedPos last, uint8_t fadeBy)
+void Leds_adjustBrightnessRange(LedPos first, LedPos last, uint8_t fadeBy)
 {
   for (LedPos pos = first; pos <= last; pos++) {
-    adjustBrightnessIndex(pos, fadeBy);
+    Leds_adjustBrightnessIndex(pos, fadeBy);
   }
 }
 
-void Leds::adjustBrightnessAll(uint8_t fadeBy)
+void Leds_adjustBrightnessAll(uint8_t fadeBy)
 {
-  adjustBrightnessRange(LED_FIRST, LED_LAST, fadeBy);
+  Leds_adjustBrightnessRange(LED_FIRST, LED_LAST, fadeBy);
 }
 
 // blinkIndex with the additional optional time offset
-void Leds::blinkIndexOffset(LedPos target, uint32_t time, uint16_t offMs, uint16_t onMs, RGBColor col)
+void Leds_blinkIndexOffset5(LedPos target, uint32_t time, uint16_t offMs, uint16_t onMs, RGBColor col)
 {
   if ((time % MS_TO_TICKS(offMs + onMs)) < MS_TO_TICKS(onMs)) {
-    setIndex(target, col);
+    Leds_setIndex(target, col);
   }
 }
 
-void Leds::blinkRangeOffset(LedPos first, LedPos last, uint32_t time, uint16_t offMs, uint16_t onMs, RGBColor col)
+void Leds_blinkRangeOffset(LedPos first, LedPos last, uint32_t time, uint16_t offMs, uint16_t onMs, RGBColor col)
 {
   if ((time % MS_TO_TICKS(offMs + onMs)) < MS_TO_TICKS(onMs)) {
-    setRange(first, last, col);
+    Leds_setRange(first, last, col);
   }
 }
 
-void Leds::blinkIndex(LedPos target, uint16_t offMs, uint16_t onMs, RGBColor col)
+void Leds_blinkIndex4(LedPos target, uint16_t offMs, uint16_t onMs, RGBColor col)
 {
-  if ((Time::getCurtime() % MS_TO_TICKS(offMs + onMs)) < MS_TO_TICKS(onMs)) {
-    setIndex(target, col);
+  if ((Time_getCurtime() % MS_TO_TICKS(offMs + onMs)) < MS_TO_TICKS(onMs)) {
+    Leds_setIndex(target, col);
   }
 }
 
-void Leds::blinkRange(LedPos first, LedPos last, uint16_t offMs, uint16_t onMs, RGBColor col)
+void Leds_blinkRange(LedPos first, LedPos last, uint16_t offMs, uint16_t onMs, RGBColor col)
 {
-  if ((Time::getCurtime() % MS_TO_TICKS(offMs + onMs)) < MS_TO_TICKS(onMs)) {
-    setRange(first, last, col);
+  if ((Time_getCurtime() % MS_TO_TICKS(offMs + onMs)) < MS_TO_TICKS(onMs)) {
+    Leds_setRange(first, last, col);
   }
 }
 
-void Leds::blinkMap(LedMap targets, uint16_t offMs, uint16_t onMs, RGBColor col)
+void Leds_blinkMap(LedMap targets, uint16_t offMs, uint16_t onMs, RGBColor col)
 {
-  if ((Time::getCurtime() % MS_TO_TICKS(offMs + onMs)) < MS_TO_TICKS(onMs)) {
+  if ((Time_getCurtime() % MS_TO_TICKS(offMs + onMs)) < MS_TO_TICKS(onMs)) {
     for (LedPos pos = LED_FIRST; pos < LED_COUNT; pos++) {
       if (ledmapCheckLed(targets, pos)) {
-        setIndex(pos, col);
+        Leds_setIndex(pos, col);
       }
     }
   }
 }
 
-void Leds::blinkAll(uint16_t offMs, uint16_t onMs, RGBColor col)
+void Leds_blinkAll3(uint16_t offMs, uint16_t onMs, RGBColor col)
 {
-  if ((Time::getCurtime() % MS_TO_TICKS(offMs + onMs)) < MS_TO_TICKS(onMs)) {
-    setRange(LED_FIRST, LED_LAST, col);
+  if ((Time_getCurtime() % MS_TO_TICKS(offMs + onMs)) < MS_TO_TICKS(onMs)) {
+    Leds_setRange(LED_FIRST, LED_LAST, col);
   }
 }
 
-void Leds::blinkPair(Pair pair, uint16_t offMs, uint16_t onMs, RGBColor col)
+void Leds_blinkPair(Pair pair, uint16_t offMs, uint16_t onMs, RGBColor col)
 {
-  if ((Time::getCurtime() % MS_TO_TICKS(offMs + onMs)) < MS_TO_TICKS(onMs)) {
-    setRange(pairEven(pair), pairOdd(pair), col);
+  if ((Time_getCurtime() % MS_TO_TICKS(offMs + onMs)) < MS_TO_TICKS(onMs)) {
+    Leds_setRange(pairEven(pair), pairOdd(pair), col);
   }
 }
 
-void Leds::blinkPairs(Pair first, Pair last, uint16_t offMs, uint16_t onMs, RGBColor col)
+void Leds_blinkPairs(Pair first, Pair last, uint16_t offMs, uint16_t onMs, RGBColor col)
 {
-  if ((Time::getCurtime() % MS_TO_TICKS(offMs + onMs)) < MS_TO_TICKS(onMs)) {
-    setRange(pairEven(first), pairOdd(last), col);
+  if ((Time_getCurtime() % MS_TO_TICKS(offMs + onMs)) < MS_TO_TICKS(onMs)) {
+    Leds_setRange(pairEven(first), pairOdd(last), col);
   }
 }
 
-void Leds::breatheIndex(LedPos target, uint8_t hue, uint32_t variance, uint32_t magnitude, uint8_t sat, uint8_t val)
+void Leds_breatheIndex6(LedPos target, uint8_t hue, uint32_t variance, uint32_t magnitude, uint8_t sat, uint8_t val)
 {
-  setIndex(target, HSVColor((uint8_t)(hue + ((sin(variance * 0.0174533) + 1) * magnitude)), sat, val));
+  HSVColor hsv = HSVColor_makeHSV((uint8_t)(hue + ((sin(variance * 0.0174533) + 1) * magnitude)), sat, val);
+  Leds_setIndex(target, RGBColor_fromHSV(&hsv));
 }
 
-void Leds::breatheRange(LedPos first, LedPos last, uint8_t hue, uint32_t variance, uint32_t magnitude, uint8_t sat, uint8_t val)
+void Leds_breatheRange(LedPos first, LedPos last, uint8_t hue, uint32_t variance, uint32_t magnitude, uint8_t sat, uint8_t val)
 {
-  setRange(first, last, HSVColor((uint8_t)(hue + ((sin(variance * 0.0174533) + 1) * magnitude)), sat, val));
+  HSVColor hsv = HSVColor_makeHSV((uint8_t)(hue + ((sin(variance * 0.0174533) + 1) * magnitude)), sat, val);
+  Leds_setRange(first, last, RGBColor_fromHSV(&hsv));
 }
 
-void Leds::breatheIndexSat(LedPos target, uint8_t hue, uint32_t variance, uint32_t magnitude, uint8_t sat, uint8_t val)
+void Leds_breatheIndexSat6(LedPos target, uint8_t hue, uint32_t variance, uint32_t magnitude, uint8_t sat, uint8_t val)
 {
-  setIndex(target, HSVColor(hue, 255 - (uint8_t)(sat + 128 + ((sin(variance * 0.0174533) + 1) * magnitude)), val));
+  HSVColor hsv = HSVColor_makeHSV(hue, 255 - (uint8_t)(sat + 128 + ((sin(variance * 0.0174533) + 1) * magnitude)), val);
+  Leds_setIndex(target, RGBColor_fromHSV(&hsv));
 }
 
-void Leds::breatheIndexVal(LedPos target, uint8_t hue, uint32_t variance, uint32_t magnitude, uint8_t sat, uint8_t val)
+void Leds_breatheIndexVal6(LedPos target, uint8_t hue, uint32_t variance, uint32_t magnitude, uint8_t sat, uint8_t val)
 {
-  setIndex(target, HSVColor(hue, sat, 255 - (uint8_t)(val + 128 + ((sin(variance * 0.0174533) + 1) * magnitude))));
+  HSVColor hsv = HSVColor_makeHSV(hue, sat, 255 - (uint8_t)(val + 128 + ((sin(variance * 0.0174533) + 1) * magnitude)));
+  Leds_setIndex(target, RGBColor_fromHSV(&hsv));
 }
 
-void Leds::holdAll(RGBColor col)
+void Leds_holdAll(RGBColor col)
 {
-  setAll(col);
-  update();
-  Time::delayMilliseconds(250);
+  Leds_setAll(col);
+  Leds_update();
+  Time_delayMilliseconds(250);
 }
 
-void Leds::update()
+void Leds_update()
 {
 #ifdef VORTEX_EMBEDDED
   RGBColor ledbackups[LED_COUNT];
@@ -460,4 +469,114 @@ void Leds::update()
   // restore the led colors from the backup (brightness mod)
   memcpy(m_ledColors, ledbackups, sizeof(m_ledColors));
 #endif
+}
+
+RGBColor *Leds_ledRef(LedPos pos)
+{
+  if (pos > LED_LAST) {
+    pos = LED_LAST;
+  }
+  return &m_ledColors[pos];
+}
+
+uint8_t Leds_getBrightness(void)
+{
+  return m_brightness;
+}
+
+void Leds_setBrightness(uint8_t brightness)
+{
+  m_brightness = brightness;
+}
+
+// arity-dispatch variants for the blink/breathe helpers, these forward
+// to the full-arity implementations using the defaults in Leds.h
+void Leds_blinkIndex1(LedPos target)
+{
+  Leds_blinkIndex(target, LED_BLINK_OFF_MS, LED_BLINK_ON_MS, RGB_OFF);
+}
+
+void Leds_blinkIndex2(LedPos target, uint16_t offMs)
+{
+  Leds_blinkIndex(target, offMs, LED_BLINK_ON_MS, RGB_OFF);
+}
+
+void Leds_blinkIndex3(LedPos target, uint16_t offMs, uint16_t onMs)
+{
+  Leds_blinkIndex(target, offMs, onMs, RGB_OFF);
+}
+
+void Leds_blinkAll0(void)
+{
+  Leds_blinkAll(LED_BLINK_OFF_MS, LED_BLINK_ON_MS, RGB_OFF);
+}
+
+void Leds_blinkAll1(uint16_t offMs)
+{
+  Leds_blinkAll(offMs, LED_BLINK_ON_MS, RGB_OFF);
+}
+
+void Leds_blinkAll2(uint16_t offMs, uint16_t onMs)
+{
+  Leds_blinkAll(offMs, onMs, RGB_OFF);
+}
+
+void Leds_blinkIndexOffset2(LedPos target, uint32_t time)
+{
+  Leds_blinkIndexOffset(target, time, LED_BLINK_OFF_MS, LED_BLINK_ON_MS, RGB_OFF);
+}
+
+void Leds_blinkIndexOffset3(LedPos target, uint32_t time, uint16_t offMs)
+{
+  Leds_blinkIndexOffset(target, time, offMs, LED_BLINK_ON_MS, RGB_OFF);
+}
+
+void Leds_blinkIndexOffset4(LedPos target, uint32_t time, uint16_t offMs, uint16_t onMs)
+{
+  Leds_blinkIndexOffset(target, time, offMs, onMs, RGB_OFF);
+}
+
+void Leds_breatheIndex3(LedPos target, uint8_t hue, uint32_t variance)
+{
+  Leds_breatheIndex(target, hue, variance, LED_BREATHE_MAG, LED_BREATHE_SAT, LED_BREATHE_VAL);
+}
+
+void Leds_breatheIndex4(LedPos target, uint8_t hue, uint32_t variance, uint32_t magnitude)
+{
+  Leds_breatheIndex(target, hue, variance, magnitude, LED_BREATHE_SAT, LED_BREATHE_VAL);
+}
+
+void Leds_breatheIndex5(LedPos target, uint8_t hue, uint32_t variance, uint32_t magnitude, uint8_t sat)
+{
+  Leds_breatheIndex(target, hue, variance, magnitude, sat, LED_BREATHE_VAL);
+}
+
+void Leds_breatheIndexSat3(LedPos target, uint8_t hue, uint32_t variance)
+{
+  Leds_breatheIndexSat(target, hue, variance, LED_BREATHE_MAG, LED_BREATHE_SAT, LED_BREATHE_VAL);
+}
+
+void Leds_breatheIndexSat4(LedPos target, uint8_t hue, uint32_t variance, uint32_t magnitude)
+{
+  Leds_breatheIndexSat(target, hue, variance, magnitude, LED_BREATHE_SAT, LED_BREATHE_VAL);
+}
+
+void Leds_breatheIndexSat5(LedPos target, uint8_t hue, uint32_t variance, uint32_t magnitude, uint8_t sat)
+{
+  Leds_breatheIndexSat(target, hue, variance, magnitude, sat, LED_BREATHE_VAL);
+}
+
+void Leds_breatheIndexVal3(LedPos target, uint8_t hue, uint32_t variance)
+{
+  Leds_breatheIndexVal(target, hue, variance, LED_BREATHE_MAG, LED_BREATHE_SAT, LED_BREATHE_VAL);
+}
+
+void Leds_breatheIndexVal4(LedPos target, uint8_t hue, uint32_t variance, uint32_t magnitude)
+{
+  Leds_breatheIndexVal(target, hue, variance, magnitude, LED_BREATHE_SAT, LED_BREATHE_VAL);
+}
+
+void Leds_breatheIndexVal5(LedPos target, uint8_t hue, uint32_t variance, uint32_t magnitude, uint8_t sat)
+{
+  Leds_breatheIndexVal(target, hue, variance, magnitude, sat, LED_BREATHE_VAL);
 }

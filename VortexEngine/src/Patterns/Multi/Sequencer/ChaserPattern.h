@@ -3,11 +3,15 @@
 
 #include "SequencedPattern.h"
 
-class ChaserPattern : public SequencedPattern
-{
-public:
-  // Just provide a constructor to build the sequence
-  ChaserPattern(const PatternArgs &args);
-};
+// ChaserPattern is the demonstration sequenced pattern, it builds a sequence
+// of steps where a single solid led chases around the map.
+typedef struct ChaserPattern {
+  // must remain the first member
+  SequencedPattern base;
+} ChaserPattern;
+
+extern const PatternVtable ChaserPattern_vtable;
+
+void ChaserPattern_init(ChaserPattern *self, const PatternArgs *args);
 
 #endif

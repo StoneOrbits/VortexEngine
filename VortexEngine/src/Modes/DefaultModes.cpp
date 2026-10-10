@@ -4,7 +4,7 @@
 
 // all the different colorsets used in defaults defined separately from the default list
 // so we can save space instead of using fixed sized arrays in the DefaultModeEntry for colors
-const uint32_t rgbCols[] = { RGB_RED, RGB_GREEN, RGB_BLUE, };
+const uint32_t rgbCols[] = { 0xFF0000, 0x00FF00, 0x0000FF, };
 const uint32_t pat2TipCols = 0x97709F;
 const uint32_t pat2TopCols = 0x4D00B2;
 const uint32_t pat4TipCols[] = { 0xC4003B, 0x700000, 0x000000, 0x0017E9, 0x22004E, 0x000000, };
@@ -19,7 +19,7 @@ const uint32_t pat9Cols[] = { 0xFFF600, 0x000880 };
 
 // Here is the array of 'default modes' that are assigned to
 // the gloveset upon factory reset
-const DefaultModeEntry defaultModes[MAX_MODES] = {
+const DefaultModeEntry defaultModes[NUM_DEFAULT_MODES] = {
   // mode 1
   {{
     { PATTERN_STROBEGAP, 3, rgbCols }, // tip

@@ -5,222 +5,206 @@
 // global hsv to rgb algorithm selector
 hsv_to_rgb_algorithm g_hsv_rgb_alg = HSV_TO_RGB_GENERIC;
 
-HSVColor::HSVColor() :
-  hue(0),
-  sat(0),
-  val(0)
+// ==========
+//  HSVColor
+
+HSVColor HSVColor_make(void)
 {
+  HSVColor self;
+  self.hue = 0;
+  self.sat = 0;
+  self.val = 0;
+  return self;
 }
 
-HSVColor::HSVColor(uint8_t hue, uint8_t sat, uint8_t val) :
-  hue(hue), sat(sat), val(val)
+HSVColor HSVColor_makeHSV(uint8_t hue, uint8_t sat, uint8_t val)
 {
+  HSVColor self;
+  self.hue = hue;
+  self.sat = sat;
+  self.val = val;
+  return self;
 }
 
-HSVColor::HSVColor(uint32_t dwVal) :
-  HSVColor()
+HSVColor HSVColor_fromU32(uint32_t dwVal)
 {
-  *this = dwVal;
+  HSVColor self;
+  HSVColor_setU32(&self, dwVal);
+  return self;
 }
 
 // assignment from uint32_t
-HSVColor &HSVColor::operator=(const uint32_t &rhs)
+void HSVColor_setU32(HSVColor *self, uint32_t rhs)
 {
   // check for the HSV bit!
   if (!(rhs & HSV_BIT)) {
     // IT'S NOT AN HSV DWORD!!
-    *this = RGBColor(rhs);
-    return *this;
+    RGBColor rgb = RGBColor_fromU32(rhs);
+    HSVColor_setRGB(self, &rgb);
+    return;
   }
-  hue = ((rhs >> 16) & 0xFF);
-  sat = ((rhs >> 8) & 0xFF);
-  val = (rhs & 0xFF);
-  return *this;
-}
-
-// copy construction
-HSVColor::HSVColor(const HSVColor &rhs)
-{
-  hue = rhs.hue;
-  sat = rhs.sat;
-  val = rhs.val;
+  self->hue = ((rhs >> 16) & 0xFF);
+  self->sat = ((rhs >> 8) & 0xFF);
+  self->val = (rhs & 0xFF);
 }
 
 // assignment operator
-HSVColor &HSVColor::operator=(const HSVColor &rhs)
+void HSVColor_setHSV(HSVColor *self, const HSVColor *rhs)
 {
-  hue = rhs.hue;
-  sat = rhs.sat;
-  val = rhs.val;
-  return *this;
+  self->hue = rhs->hue;
+  self->sat = rhs->sat;
+  self->val = rhs->val;
 }
 
 // construction/assignment from RGB
-HSVColor::HSVColor(const RGBColor &rhs)
-{
-  *this = rhs;
-}
-
-HSVColor &HSVColor::operator=(const RGBColor &rhs)
+void HSVColor_setRGB(HSVColor *self, const RGBColor *rhs)
 {
 #if HSV_TO_RGB_ALGORITHM == 1
-  *this = rgb_to_hsv_approx(rhs);
+  *self = rgb_to_hsv_approx(rhs);
 #else
-  *this = rgb_to_hsv_generic(rhs);
+  *self = rgb_to_hsv_generic(rhs);
 #endif
-  return *this;
 }
 
-bool HSVColor::operator==(const HSVColor &other) const
+bool HSVColor_equals(const HSVColor *self, const HSVColor *other)
 {
-  return (other.raw() == raw());
+  return (HSVColor_raw(other) == HSVColor_raw(self));
 }
 
-bool HSVColor::operator!=(const HSVColor &other) const
+bool HSVColor_empty(const HSVColor *self)
 {
-  return (other.raw() != raw());
+  return !self->hue && !self->sat && !self->val;
 }
 
-bool HSVColor::empty() const
+void HSVColor_clear(HSVColor *self)
 {
-  return !hue && !sat && !val;
-}
-
-void HSVColor::clear()
-{
-  hue = 0;
-  sat = 0;
-  val = 0;
+  self->hue = 0;
+  self->sat = 0;
+  self->val = 0;
 }
 
 // ==========
 //  RGBColor
 
-RGBColor::RGBColor() :
-  red(0),
-  green(0),
-  blue(0)
+RGBColor RGBColor_make(void)
 {
+  RGBColor self;
+  self.red = 0;
+  self.green = 0;
+  self.blue = 0;
+  return self;
 }
 
-RGBColor::RGBColor(uint8_t red, uint8_t green, uint8_t blue) :
-  red(red), green(green), blue(blue)
+RGBColor RGBColor_makeRGB(uint8_t red, uint8_t green, uint8_t blue)
 {
+  RGBColor self;
+  self.red = red;
+  self.green = green;
+  self.blue = blue;
+  return self;
 }
 
-RGBColor::RGBColor(uint32_t dwVal) :
-  RGBColor()
+RGBColor RGBColor_fromU32(uint32_t dwVal)
 {
-  *this = dwVal;
+  RGBColor self;
+  RGBColor_setU32(&self, dwVal);
+  return self;
 }
 
 // assignment from uint32_t
-RGBColor &RGBColor::operator=(const uint32_t &rhs)
+void RGBColor_setU32(RGBColor *self, uint32_t rhs)
 {
   // check for the HSV bit!
   if ((rhs & HSV_BIT) != 0) {
     // IT'S NOT AN RGB DWORD!!
-    *this = HSVColor(rhs);
-    return *this;
+    HSVColor hsv = HSVColor_fromU32(rhs);
+    RGBColor_setHSV(self, &hsv);
+    return;
   }
 
-  red = ((rhs >> 16) & 0xFF);
-  green = ((rhs >> 8) & 0xFF);
-  blue = (rhs & 0xFF);
-  return *this;
-}
-
-// copy construction
-RGBColor::RGBColor(const RGBColor &rhs)
-{
-  red = rhs.red;
-  green = rhs.green;
-  blue = rhs.blue;
+  self->red = ((rhs >> 16) & 0xFF);
+  self->green = ((rhs >> 8) & 0xFF);
+  self->blue = (rhs & 0xFF);
 }
 
 // assignment operator
-RGBColor &RGBColor::operator=(const RGBColor &rhs)
+void RGBColor_setRGB(RGBColor *self, const RGBColor *rhs)
 {
-  red = rhs.red;
-  green = rhs.green;
-  blue = rhs.blue;
-  return *this;
+  self->red = rhs->red;
+  self->green = rhs->green;
+  self->blue = rhs->blue;
 }
 
-RGBColor::RGBColor(const HSVColor &rhs)
+// construction/assignment from HSV
+RGBColor RGBColor_fromHSV(const HSVColor *rhs)
 {
-  *this = rhs;
+  RGBColor self;
+  RGBColor_setHSV(&self, rhs);
+  return self;
 }
 
-RGBColor &RGBColor::operator=(const HSVColor &rhs)
+void RGBColor_setHSV(RGBColor *self, const HSVColor *rhs)
 {
   switch (g_hsv_rgb_alg) {
   case HSV_TO_RGB_RAINBOW:
-    *this = hsv_to_rgb_rainbow(rhs);
+    *self = hsv_to_rgb_rainbow(rhs);
     break;
   case HSV_TO_RGB_RAW:
-    *this = hsv_to_rgb_raw_C(rhs);
+    *self = hsv_to_rgb_raw_C(rhs);
     break;
   case HSV_TO_RGB_GENERIC:
-    *this = hsv_to_rgb_generic(rhs);
+    *self = hsv_to_rgb_generic(rhs);
     break;
   }
-  return *this;
 }
 
-bool RGBColor::operator==(const RGBColor &other) const
+bool RGBColor_equals(const RGBColor *self, const RGBColor *other)
 {
-  return (other.raw() == raw());
+  return (RGBColor_raw(other) == RGBColor_raw(self));
 }
 
-bool RGBColor::operator!=(const RGBColor &other) const
+bool RGBColor_empty(const RGBColor *self)
 {
-  return (other.raw() != raw());
+  return !self->red && !self->green && !self->blue;
 }
 
-bool RGBColor::empty() const
+void RGBColor_clear(RGBColor *self)
 {
-  return !red && !green && !blue;
+  self->red = 0;
+  self->green = 0;
+  self->blue = 0;
 }
 
-void RGBColor::clear()
+void RGBColor_adjustBrightness(RGBColor *self, uint8_t fadeBy)
 {
-  red = 0;
-  green = 0;
-  blue = 0;
+  self->red = (((int)self->red) * (int)(256 - fadeBy)) >> 8;
+  self->green = (((int)self->green) * (int)(256 - fadeBy)) >> 8;
+  self->blue = (((int)self->blue) * (int)(256 - fadeBy)) >> 8;
 }
 
-RGBColor RGBColor::adjustBrightness(uint8_t fadeBy)
+bool RGBColor_serialize(const RGBColor *self, ByteStream *buffer)
 {
-  red = (((int)red) * (int)(256 - fadeBy)) >> 8;
-  green = (((int)green) * (int)(256 - fadeBy)) >> 8;
-  blue = (((int)blue) * (int)(256 - fadeBy)) >> 8;
-  return *this;
-}
-
-bool RGBColor::serialize(ByteStream &buffer) const
-{
-  if (!buffer.serialize8(red)) {
+  if (!ByteStream_serialize8(buffer, self->red)) {
     return false;
   }
-  if (!buffer.serialize8(green)) {
+  if (!ByteStream_serialize8(buffer, self->green)) {
     return false;
   }
-  if (!buffer.serialize8(blue)) {
+  if (!ByteStream_serialize8(buffer, self->blue)) {
     return false;
   }
   return true;
 }
 
-bool RGBColor::unserialize(ByteStream &buffer)
+bool RGBColor_unserialize(RGBColor *self, ByteStream *buffer)
 {
-  if (!buffer.unserialize8(&red)) {
+  if (!ByteStream_unserialize8(buffer, &self->red)) {
     return false;
   }
-  if (!buffer.unserialize8(&green)) {
+  if (!ByteStream_unserialize8(buffer, &self->green)) {
     return false;
   }
-  if (!buffer.unserialize8(&blue)) {
+  if (!ByteStream_unserialize8(buffer, &self->blue)) {
     return false;
   }
   return true;
@@ -235,7 +219,7 @@ bool RGBColor::unserialize(ByteStream &buffer)
 // Stolen from FastLED hsv to rgb full rainbox where all colours
 // are given equal weight, this makes for-example yellow larger
 // best to use this function as it is the legacy choice
-RGBColor hsv_to_rgb_rainbow(const HSVColor &rhs)
+RGBColor hsv_to_rgb_rainbow(const HSVColor *rhs)
 {
   RGBColor col;
   // Yellow has a higher inherent brightness than
@@ -258,9 +242,9 @@ RGBColor hsv_to_rgb_rainbow(const HSVColor &rhs)
   const uint8_t Gscale = 185;
 
 
-  uint8_t hue = rhs.hue;
-  uint8_t sat = rhs.sat;
-  uint8_t val = rhs.val;
+  uint8_t hue = rhs->hue;
+  uint8_t sat = rhs->sat;
+  uint8_t val = rhs->val;
 
   uint8_t offset = hue & 0x1F; // 0..31
 
@@ -410,7 +394,7 @@ RGBColor hsv_to_rgb_rainbow(const HSVColor &rhs)
 
 // stolen from FastLED raw hsv to rgb conversion, idk what is special
 // about this one but I think the hue stops at 190 maybe?
-RGBColor hsv_to_rgb_raw_C(const HSVColor &rhs)
+RGBColor hsv_to_rgb_raw_C(const HSVColor *rhs)
 {
   RGBColor col;
   // Convert hue, saturation and brightness ( HSV/HSB ) to RGB
@@ -418,8 +402,8 @@ RGBColor hsv_to_rgb_raw_C(const HSVColor &rhs)
   // the output more visually linear.
 
   // Apply dimming curves
-  uint8_t value = rhs.val;
-  uint8_t saturation = rhs.sat;
+  uint8_t value = rhs->val;
+  uint8_t saturation = rhs->sat;
 
   // The brightness floor is minimum number that all of
   // R, G, and B will be set to.
@@ -433,8 +417,8 @@ RGBColor hsv_to_rgb_raw_C(const HSVColor &rhs)
 
   // Figure out which section of the hue wheel we're in,
   // and how far offset we are withing that section
-  uint8_t section = rhs.hue / 0x40; // 0..2
-  uint8_t offset = rhs.hue % 0x40;  // 0..63
+  uint8_t section = rhs->hue / 0x40; // 0..2
+  uint8_t offset = rhs->hue % 0x40;  // 0..63
 
   uint8_t rampup = offset; // 0..63
   uint8_t rampdown = (0x40 - 1) - offset; // 63..0
@@ -498,44 +482,44 @@ RGBColor hsv_to_rgb_raw_C(const HSVColor &rhs)
 }
 
 // generic hsv to rgb conversion nothing special
-RGBColor hsv_to_rgb_generic(const HSVColor &rhs)
+RGBColor hsv_to_rgb_generic(const HSVColor *rhs)
 {
   unsigned char region, remainder, p, q, t;
   RGBColor col;
 
-  if (rhs.sat == 0) {
-    col.red = rhs.val;
-    col.green = rhs.val;
-    col.blue = rhs.val;
+  if (rhs->sat == 0) {
+    col.red = rhs->val;
+    col.green = rhs->val;
+    col.blue = rhs->val;
     return col;
   }
 
-  region = rhs.hue / 43;
-  remainder = ((rhs.hue - (region * 43)) * 6);
+  region = rhs->hue / 43;
+  remainder = ((rhs->hue - (region * 43)) * 6);
 
   // extraneous casts to uint16_t are to prevent overflow
-  p = (uint8_t)(((uint16_t)(rhs.val) * (255 - rhs.sat)) >> 8);
-  q = (uint8_t)(((uint16_t)(rhs.val) * (255 - (((uint16_t)(rhs.sat) * remainder) >> 8))) >> 8);
-  t = (uint8_t)(((uint16_t)(rhs.val) * (255 - (((uint16_t)(rhs.sat) * (255 - remainder)) >> 8))) >> 8);
+  p = (uint8_t)(((uint16_t)(rhs->val) * (255 - rhs->sat)) >> 8);
+  q = (uint8_t)(((uint16_t)(rhs->val) * (255 - (((uint16_t)(rhs->sat) * remainder) >> 8))) >> 8);
+  t = (uint8_t)(((uint16_t)(rhs->val) * (255 - (((uint16_t)(rhs->sat) * (255 - remainder)) >> 8))) >> 8);
 
   switch (region) {
   case 0:
-    col.red = rhs.val; col.green = t; col.blue = p;
+    col.red = rhs->val; col.green = t; col.blue = p;
     break;
   case 1:
-    col.red = q; col.green = rhs.val; col.blue = p;
+    col.red = q; col.green = rhs->val; col.blue = p;
     break;
   case 2:
-    col.red = p; col.green = rhs.val; col.blue = t;
+    col.red = p; col.green = rhs->val; col.blue = t;
     break;
   case 3:
-    col.red = p; col.green = q; col.blue = rhs.val;
+    col.red = p; col.green = q; col.blue = rhs->val;
     break;
   case 4:
-    col.red = t; col.green = p; col.blue = rhs.val;
+    col.red = t; col.green = p; col.blue = rhs->val;
     break;
   default:
-    col.red = rhs.val; col.green = p; col.blue = q;
+    col.red = rhs->val; col.green = p; col.blue = q;
     break;
   }
   return col;
@@ -587,11 +571,11 @@ enum
 
 // Convert rgb to hsv with slower approximation that matches
 // the fastled hsv to rgb 'rainbow'
-HSVColor rgb_to_hsv_approx(const RGBColor &rhs)
+HSVColor rgb_to_hsv_approx(const RGBColor *rhs)
 {
-  uint8_t r = rhs.red;
-  uint8_t g = rhs.green;
-  uint8_t b = rhs.blue;
+  uint8_t r = rhs->red;
+  uint8_t g = rhs->green;
+  uint8_t b = rhs->blue;
   uint8_t h, s, v;
   // find desaturation
   uint8_t desat = 255;
@@ -613,7 +597,7 @@ HSVColor rgb_to_hsv_approx(const RGBColor &rhs)
   // shade of gray.
   if ((r + g + b) == 0) {
     // we pick hue zero for no special reason
-    return HSVColor(0, 0, 255 - s);
+    return HSVColor_makeHSV(0, 0, 255 - s);
   }
   // scale all channels up to compensate for desaturation
   if (s < 255) {
@@ -707,15 +691,15 @@ HSVColor rgb_to_hsv_approx(const RGBColor &rhs)
     }
   }
   h += 1;
-  return HSVColor(h, s, v);
+  return HSVColor_makeHSV(h, s, v);
 }
 
 // Convert rgb to hsv with generic fast method
-HSVColor rgb_to_hsv_generic(const RGBColor &rhs)
+HSVColor rgb_to_hsv_generic(const RGBColor *rhs)
 {
   unsigned char rgbMin, rgbMax;
-  rgbMin = rhs.red < rhs.green ? (rhs.red < rhs.blue ? rhs.red : rhs.blue) : (rhs.green < rhs.blue ? rhs.green : rhs.blue);
-  rgbMax = rhs.red > rhs.green ? (rhs.red > rhs.blue ? rhs.red : rhs.blue) : (rhs.green > rhs.blue ? rhs.green : rhs.blue);
+  rgbMin = rhs->red < rhs->green ? (rhs->red < rhs->blue ? rhs->red : rhs->blue) : (rhs->green < rhs->blue ? rhs->green : rhs->blue);
+  rgbMax = rhs->red > rhs->green ? (rhs->red > rhs->blue ? rhs->red : rhs->blue) : (rhs->green > rhs->blue ? rhs->green : rhs->blue);
   HSVColor hsv;
 
   hsv.val = rgbMax;
@@ -731,12 +715,12 @@ HSVColor rgb_to_hsv_generic(const RGBColor &rhs)
     return hsv;
   }
 
-  if (rgbMax == rhs.red) {
-    hsv.hue = 0 + 43 * (rhs.green - rhs.blue) / (rgbMax - rgbMin);
-  } else if (rgbMax == rhs.green) {
-    hsv.hue = 85 + 43 * (rhs.blue - rhs.red) / (rgbMax - rgbMin);
+  if (rgbMax == rhs->red) {
+    hsv.hue = 0 + 43 * (rhs->green - rhs->blue) / (rgbMax - rgbMin);
+  } else if (rgbMax == rhs->green) {
+    hsv.hue = 85 + 43 * (rhs->blue - rhs->red) / (rgbMax - rgbMin);
   } else {
-    hsv.hue = 171 + 43 * (rhs.red - rhs.green) / (rgbMax - rgbMin);
+    hsv.hue = 171 + 43 * (rhs->red - rhs->green) / (rgbMax - rgbMin);
   }
   return hsv;
 }

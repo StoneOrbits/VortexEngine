@@ -64,12 +64,12 @@ public:
 };
 
 // forward decls for various classes
-class PatternArgs;
-class ByteStream;
-class Colorset;
-class Pattern;
-class Button;
-class Mode;
+typedef struct PatternArgs PatternArgs;
+typedef struct ByteStream ByteStream;
+typedef struct Colorset Colorset;
+typedef struct Pattern Pattern;
+typedef struct Button Button;
+typedef struct Mode Mode;
 
 // json type is just nlohmann::json
 using json = nlohmann::json;
@@ -154,6 +154,9 @@ public:
   // timing either way
   static void IRDeliver(uint32_t timing);
   static void VLDeliver(uint32_t timing);
+  // simulate another device sending one of the default modes over VL, the
+  // timings it blinks are delivered to the VL receiver of this device
+  static void VLTransmitDefaultMode(uint8_t index);
 
   // get total/used storage space
   static void getStorageStats(uint32_t *outTotal, uint32_t *outUsed);
@@ -316,8 +319,8 @@ private:
   // internal function to handle numeric values in commands
   static void handleNumber(char c);
 
-  // so that the buttons class can call handleInputQueue
-  friend class Buttons;
+  // so that the buttons can call handleInputQueue
+  friend void Buttons_update(void);
 
   // called by the engine right after all buttons are checked, this will process
   // the input deque that is fed by the apis like shortClick() above and translate
@@ -357,6 +360,11 @@ private:
     // this is an automated event that will reset the button click
     // after the ring menu hold-to-enter sequence
     EVENT_RESET_CLICK,
+
+    // another device sends a default mode over VL (target is the mode index)
+    EVENT_VL_TRANSMIT,
+    // print the device memory stats of a heap tracking build
+    EVENT_HEAP_STATS,
   };
 
   class VortexButtonEvent

@@ -89,6 +89,7 @@ private:
   bool m_inPlace;
   bool m_record;
   bool m_storage;
+  bool m_eraseStorage;
   bool m_sleepEnabled;
   bool m_lockEnabled;
   bool m_jsonPretty;

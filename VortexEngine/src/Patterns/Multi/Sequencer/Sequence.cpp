@@ -10,276 +10,270 @@
 // some arbitrary number
 #define MAX_SEQUENCE_STEPS 64
 
-PatternMap::PatternMap() :
-  m_patternMap()
+// ===================
+//  PatternMap
+
+void PatternMap_make(PatternMap *self)
 {
   for (LedPos i = LED_FIRST; i < LED_COUNT; ++i) {
-    m_patternMap[i] = PATTERN_NONE;
+    self->m_patternMap[i] = PATTERN_NONE;
   }
 }
 
-PatternMap::PatternMap(PatternID pattern, LedMap positions) :
-  PatternMap()
+void PatternMap_makeWith(PatternMap *self, PatternID pattern, LedMap positions)
 {
-  setPatternAt(pattern, positions);
+  PatternMap_make(self);
+  PatternMap_setPatternAt(self, pattern, positions);
 }
 
 // set a pattern at each position in the LedMap
-void PatternMap::setPatternAt(PatternID pattern, LedMap positions)
+void PatternMap_setPatternAt(PatternMap *self, PatternID pattern, LedMap positions)
 {
   for (LedPos pos = LED_FIRST; pos < LED_COUNT; ++pos) {
     if (ledmapCheckLed(positions, pos)) {
-      m_patternMap[pos] = pattern;
+      self->m_patternMap[pos] = pattern;
     }
   }
 }
 
-PatternID PatternMap::operator[](LedPos index) const
+PatternID PatternMap_at(const PatternMap *self, LedPos index)
 {
-  return m_patternMap[index];
+  return self->m_patternMap[index];
 }
 
-bool PatternMap::serialize(ByteStream &buffer) const
+bool PatternMap_serialize(const PatternMap *self, ByteStream *buffer)
 {
   for (LedPos i = LED_FIRST; i < LED_COUNT; ++i) {
     // ensure the PatternID is interpreted as uint8_t
-    if (!buffer.serialize8((uint8_t)m_patternMap[i])) {
+    if (!ByteStream_serialize8(buffer, (uint8_t)self->m_patternMap[i])) {
       return false;
     }
   }
   return true;
 }
 
-bool PatternMap::unserialize(ByteStream &buffer)
+bool PatternMap_unserialize(PatternMap *self, ByteStream *buffer)
 {
   for (LedPos i = LED_FIRST; i < LED_COUNT; ++i) {
-    if (!buffer.unserialize8((uint8_t *)m_patternMap + i)) {
+    if (!ByteStream_unserialize8(buffer, (uint8_t *)self->m_patternMap + i)) {
       return false;
     }
   }
   return true;
 }
 
-ColorsetMap::ColorsetMap() :
-  m_colorsetMap()
+// ===================
+//  ColorsetMap
+
+void ColorsetMap_make(ColorsetMap *self)
 {
+  memset(self, 0, sizeof(*self));
 }
 
-ColorsetMap::ColorsetMap(const Colorset &colorset, LedMap positions) :
-  ColorsetMap()
+void ColorsetMap_makeWith(ColorsetMap *self, const Colorset *colorset, LedMap positions)
 {
-  setColorsetAt(colorset, positions);
+  ColorsetMap_make(self);
+  ColorsetMap_setColorsetAt(self, colorset, positions);
 }
 
-// set a pattern at each position in the LedMap
-void ColorsetMap::setColorsetAt(const Colorset &colorset, LedMap positions)
+// set a colorset at each position in the LedMap
+void ColorsetMap_setColorsetAt(ColorsetMap *self, const Colorset *colorset, LedMap positions)
 {
   for (LedPos pos = LED_FIRST; pos < LED_COUNT; ++pos) {
     if (ledmapCheckLed(positions, pos)) {
-      m_colorsetMap[pos] = colorset;
+      self->m_colorsetMap[pos] = *colorset;
     }
   }
 }
-const Colorset &ColorsetMap::operator[](LedPos index) const
+
+const Colorset *ColorsetMap_at(const ColorsetMap *self, LedPos index)
 {
-  return m_colorsetMap[index];
+  return &self->m_colorsetMap[index];
 }
 
-bool ColorsetMap::serialize(ByteStream &buffer) const
+bool ColorsetMap_serialize(const ColorsetMap *self, ByteStream *buffer)
 {
   for (LedPos i = LED_FIRST; i < LED_COUNT; ++i) {
-    if (!m_colorsetMap[i].serialize(buffer)) {
+    if (!Colorset_serialize(&self->m_colorsetMap[i], buffer)) {
       return false;
     }
   }
   return true;
 }
 
-bool ColorsetMap::unserialize(ByteStream &buffer)
+bool ColorsetMap_unserialize(ColorsetMap *self, ByteStream *buffer)
 {
   for (LedPos i = LED_FIRST; i < LED_COUNT; ++i) {
-    if (!m_colorsetMap[i].unserialize(buffer)) {
+    if (!Colorset_unserialize(&self->m_colorsetMap[i], buffer)) {
       return false;
     }
   }
   return true;
 }
 
-// Make an array of sequence steps to create a sequenced pattern
-SequenceStep::SequenceStep() :
-  m_duration(0), m_patternMap(), m_colorsetMap()
+// ===================
+//  SequenceStep
+
+void SequenceStep_make(SequenceStep *self)
 {
-}
-SequenceStep::SequenceStep(uint16_t duration, const PatternMap &patternMap, const ColorsetMap &colorsetMap) :
-  m_duration(duration), m_patternMap(patternMap), m_colorsetMap(colorsetMap)
-{
-}
-SequenceStep::SequenceStep(const SequenceStep &other) :
-  SequenceStep(other.m_duration, other.m_patternMap, other.m_colorsetMap)
-{
+  self->m_duration = 0;
+  PatternMap_make(&self->m_patternMap);
+  ColorsetMap_make(&self->m_colorsetMap);
 }
 
-bool SequenceStep::serialize(ByteStream &buffer) const
+void SequenceStep_makeWith(SequenceStep *self, uint16_t duration, const PatternMap *patternMap, const ColorsetMap *colorsetMap)
 {
-  if (!buffer.serialize16(m_duration)) {
-    return false;
+  self->m_duration = duration;
+  self->m_patternMap = *patternMap;
+  if (colorsetMap) {
+    self->m_colorsetMap = *colorsetMap;
+  } else {
+    ColorsetMap_make(&self->m_colorsetMap);
   }
-  if (!m_patternMap.serialize(buffer)) {
-    return false;
-  }
-  if (!m_colorsetMap.serialize(buffer)) {
-    return false;
-  }
-  return true;
 }
 
-bool SequenceStep::unserialize(ByteStream &buffer)
+bool SequenceStep_serialize(const SequenceStep *self, ByteStream *buffer)
 {
-  if (!buffer.unserialize16(&m_duration)) {
+  if (!ByteStream_serialize16(buffer, self->m_duration)) {
     return false;
   }
-  if (!m_patternMap.unserialize(buffer)) {
+  if (!PatternMap_serialize(&self->m_patternMap, buffer)) {
     return false;
   }
-  if (!m_colorsetMap.unserialize(buffer)) {
+  if (!ColorsetMap_serialize(&self->m_colorsetMap, buffer)) {
     return false;
   }
   return true;
 }
 
-Sequence::Sequence() :
-  m_sequenceSteps(nullptr),
-  m_numSteps(0)
+bool SequenceStep_unserialize(SequenceStep *self, ByteStream *buffer)
 {
+  if (!ByteStream_unserialize16(buffer, &self->m_duration)) {
+    return false;
+  }
+  if (!PatternMap_unserialize(&self->m_patternMap, buffer)) {
+    return false;
+  }
+  if (!ColorsetMap_unserialize(&self->m_colorsetMap, buffer)) {
+    return false;
+  }
+  return true;
 }
 
-Sequence::~Sequence()
+// ===================
+//  Sequence
+
+void Sequence_make(Sequence *self)
 {
-  clear();
+  self->m_sequenceSteps = NULL;
+  self->m_numSteps = 0;
 }
 
-Sequence::Sequence(const Sequence &other) :
-  Sequence()
+void Sequence_destroy(Sequence *self)
 {
-  // invoke = operator
-  *this = other;
+  Sequence_clear(self);
 }
 
-Sequence::Sequence(Sequence &&other) noexcept :
-  m_sequenceSteps(other.m_sequenceSteps),
-  m_numSteps(other.m_numSteps)
+void Sequence_copy(Sequence *self, const Sequence *other)
 {
-  other.m_sequenceSteps = nullptr;
-  other.m_numSteps = 0;
-}
-
-void Sequence::operator=(const Sequence &other)
-{
-  clear();
-  initSteps(other.m_numSteps);
-  for (uint8_t i = 0; i < other.m_numSteps; ++i) {
-    m_sequenceSteps[i] = other.m_sequenceSteps[i];
+  Sequence_clear(self);
+  Sequence_initSteps(self, other->m_numSteps);
+  for (uint8_t i = 0; i < other->m_numSteps; ++i) {
+    self->m_sequenceSteps[i] = other->m_sequenceSteps[i];
   }
 }
 
-bool Sequence::operator==(const Sequence &other) const
+bool Sequence_equals(const Sequence *self, const Sequence *other)
 {
   // only compare the palettes for equality
-  return (m_numSteps == other.m_numSteps) &&
-    (memcmp(m_sequenceSteps, other.m_sequenceSteps, m_numSteps * sizeof(SequenceStep)) == 0);
+  return (self->m_numSteps == other->m_numSteps) &&
+    (memcmp(self->m_sequenceSteps, other->m_sequenceSteps, self->m_numSteps * sizeof(SequenceStep)) == 0);
 }
 
-bool Sequence::operator!=(const Sequence &other) const
+void Sequence_initSteps(Sequence *self, uint8_t numSteps)
 {
-  return !operator==(other);
-}
-
-void Sequence::initSteps(uint8_t numSteps)
-{
-  if (m_sequenceSteps) {
-    delete[] m_sequenceSteps;
+  if (self->m_sequenceSteps) {
+    vfree(self->m_sequenceSteps);
   }
-  m_sequenceSteps = new SequenceStep[numSteps];
-  if (!m_sequenceSteps) {
+  self->m_sequenceSteps = (SequenceStep *)vmalloc(sizeof(SequenceStep) * numSteps);
+  if (!self->m_sequenceSteps) {
     ERROR_OUT_OF_MEMORY();
     return;
   }
-  m_numSteps = numSteps;
+  self->m_numSteps = numSteps;
 }
 
-uint8_t Sequence::addStep(const SequenceStep &step)
+bool Sequence_addStep(Sequence *self, const SequenceStep *step)
 {
-  if (m_numSteps >= MAX_SEQUENCE_STEPS) {
+  if (self->m_numSteps >= MAX_SEQUENCE_STEPS) {
     return false;
   }
   // allocate a new palette one larger than before
-  SequenceStep *temp = new SequenceStep[m_numSteps + 1];
+  SequenceStep *temp = (SequenceStep *)vmalloc(sizeof(SequenceStep) * (self->m_numSteps + 1));
   if (!temp) {
     return false;
   }
   // if there is already some colors in the palette
-  if (m_numSteps && m_sequenceSteps) {
+  if (self->m_numSteps && self->m_sequenceSteps) {
     // copy over existing colors
-    for (uint8_t i = 0; i < m_numSteps; ++i) {
-      temp[i] = m_sequenceSteps[i];
+    for (uint8_t i = 0; i < self->m_numSteps; ++i) {
+      temp[i] = self->m_sequenceSteps[i];
     }
-    // and delete the existing palette
-    delete[] m_sequenceSteps;
+    // and free the existing palette
+    vfree(self->m_sequenceSteps);
   }
   // reassign new palette
-  m_sequenceSteps = temp;
+  self->m_sequenceSteps = temp;
   // insert new color and increment number of colors
-  m_sequenceSteps[m_numSteps] = step;
-  m_numSteps++;
+  self->m_sequenceSteps[self->m_numSteps] = *step;
+  self->m_numSteps++;
   return true;
 }
 
-uint8_t Sequence::addStep(uint16_t duration, const PatternMap &patternMap, const ColorsetMap &colorsetMap)
+bool Sequence_addStepWith(Sequence *self, uint16_t duration, const PatternMap *patternMap, const ColorsetMap *colorsetMap)
 {
-  return addStep(SequenceStep(duration, patternMap, colorsetMap));
+  SequenceStep step;
+  SequenceStep_makeWith(&step, duration, patternMap, colorsetMap);
+  bool ok = Sequence_addStep(self, &step);
+  return ok;
 }
 
-void Sequence::clear()
+void Sequence_clear(Sequence *self)
 {
-  if (m_sequenceSteps) {
-    delete[] m_sequenceSteps;
-    m_sequenceSteps = nullptr;
+  if (self->m_sequenceSteps) {
+    vfree(self->m_sequenceSteps);
+    self->m_sequenceSteps = NULL;
   }
-  m_numSteps = 0;
+  self->m_numSteps = 0;
 }
 
-bool Sequence::serialize(ByteStream &buffer) const
+bool Sequence_serialize(const Sequence *self, ByteStream *buffer)
 {
-  if (!buffer.serialize8(m_numSteps)) {
+  if (!ByteStream_serialize8(buffer, self->m_numSteps)) {
     return false;
   }
-  for (uint8_t i = 0; i < m_numSteps; ++i) {
-    if (!m_sequenceSteps[i].serialize(buffer)) {
+  for (uint8_t i = 0; i < self->m_numSteps; ++i) {
+    if (!SequenceStep_serialize(&self->m_sequenceSteps[i], buffer)) {
       return false;
     }
   }
   return true;
 }
 
-bool Sequence::unserialize(ByteStream &buffer)
+bool Sequence_unserialize(Sequence *self, ByteStream *buffer)
 {
-  if (!buffer.unserialize8(&m_numSteps)) {
+  if (!ByteStream_unserialize8(buffer, &self->m_numSteps)) {
     return false;
   }
-  for (uint8_t i = 0; i < m_numSteps; ++i) {
-    if (!m_sequenceSteps[i].unserialize(buffer)) {
+  for (uint8_t i = 0; i < self->m_numSteps; ++i) {
+    if (!SequenceStep_unserialize(&self->m_sequenceSteps[i], buffer)) {
       return false;
     }
   }
   return true;
 }
 
-uint8_t Sequence::numSteps() const
+const SequenceStep *Sequence_at(const Sequence *self, uint8_t index)
 {
-  return m_numSteps;
-}
-
-const SequenceStep &Sequence::operator[](uint8_t index) const
-{
-  return m_sequenceSteps[index];
+  return &self->m_sequenceSteps[index];
 }

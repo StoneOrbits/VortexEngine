@@ -1,5 +1,7 @@
 #include "Buttons.h"
 
+#include "../Memory/Memory.h"
+
 #ifdef VORTEX_LIB
 #include "VortexLib.h"
 #else
@@ -12,27 +14,36 @@
 // is added. This makes it easier to access the button from other places while
 // still allowing for a second instance to be added.  I wish there was a more
 // elegant way to make the button accessible but not global.
-// This will simply point at Buttons::m_button.
-Button *g_pButton = nullptr;
+// This will simply point at the static button below.
+Button *g_pButton = NULL;
 
-bool Buttons::init()
+// the storage for the button(s), these are static so they never touch the heap
+static Button s_buttons[NUM_BUTTONS];
+
+bool Buttons_init()
 {
-  g_pButton = new Button();
-  if (!g_pButton) {
-    return false;
-  }
+  g_pButton = &s_buttons[0];
+  Button_make(g_pButton);
   // init the button on pin 1
-  return g_pButton->init(1);
+  return Button_init(g_pButton, 1);
 }
 
-void Buttons::cleanup()
+void Buttons_cleanup()
 {
-  delete g_pButton;
+  if (g_pButton) {
+    Button_destroy(g_pButton);
+    g_pButton = NULL;
+  }
 }
 
-void Buttons::update()
+uint8_t Buttons_numButtons()
 {
-  g_pButton->update();
+  return NUM_BUTTONS;
+}
+
+void Buttons_update()
+{
+  Button_update(g_pButton);
 #ifdef VORTEX_LIB
   // read input from the vortex lib interface, for example Vortex::shortClick()
   Vortex::handleInputQueue(g_pButton, NUM_BUTTONS);

@@ -19,6 +19,12 @@ RANLIB=ranlib
 
 CFLAGS=-O2 -g -Wall
 
+# 'make HEAP_TRACKING=1' tracks the memory the engine uses on the attiny3217,
+# see HEAP_TRACKING in VortexConfig.h
+ifeq ($(HEAP_TRACKING),1)
+CFLAGS += -D HEAP_TRACKING=1
+endif
+
 # The branch/tag suffix for this device
 BRANCH_SUFFIX=d
 

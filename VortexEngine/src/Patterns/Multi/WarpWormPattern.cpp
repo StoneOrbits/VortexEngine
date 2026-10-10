@@ -1,56 +1,75 @@
 #include "WarpWormPattern.h"
 
+#include <string.h>
 #include "../../Serial/ByteStream.h"
 #include "../../Time/TimeControl.h"
 #include "../../Leds/Leds.h"
 #include "../../Log/Log.h"
+#include "../../Memory/Memory.h"
+#include "../Pattern.h"
 
-WarpWormPattern::WarpWormPattern(const PatternArgs &args) :
-  BlinkStepPattern(args),
-  m_progress(0)
+const BlinkStepVtable WarpWormPattern_bvtable = {
+  .base = {
+    .destroy = WarpWormPattern_destroy,
+    .bind = MultiLedPattern_bind,
+    .init = WarpWormPattern_initImpl,
+    .play = BlinkStepPattern_play
+  },
+  .blinkOn = WarpWormPattern_blinkOn,
+  .blinkOff = BlinkStepPattern_blinkOff,
+  .prestep = BlinkStepPattern_prestep,
+  .poststep = WarpWormPattern_poststep,
+};
+
+void WarpWormPattern_init(WarpWormPattern *self, const PatternArgs *args)
 {
-  m_patternID = PATTERN_WARPWORM;
-  setArgs(args);
+  BlinkStepPattern_init(&self->base, args, &WarpWormPattern_bvtable);
+  Pattern_setPatternID((&self->base.base.base), PATTERN_WARPWORM);
+  Pattern_setArgs((&self->base.base.base), args);
 }
 
-WarpWormPattern::~WarpWormPattern()
+void WarpWormPattern_destroy(Pattern *pat)
 {
+  WarpWormPattern *self = (WarpWormPattern *)pat;
+  (void)self;
 }
 
-// init the pattern to initial state
-void WarpWormPattern::init()
+void WarpWormPattern_initImpl(Pattern *pat)
 {
-  BlinkStepPattern::init();
+  WarpWormPattern *self = (WarpWormPattern *)pat;
+  BlinkStepPattern_initImpl(pat);
   // reset progress
-  m_progress = 0;
+  self->m_progress = 0;
   // start colorset at index 0 so cur() works
-  m_colorset.setCurIndex(1);
+  Colorset_setCurIndex(&(&self->base.base.base)->m_colorset, 1);
 }
 
-void WarpWormPattern::blinkOn()
+void WarpWormPattern_blinkOn(BlinkStepPattern *bsp)
 {
+  WarpWormPattern *self = (WarpWormPattern *)bsp;
   int wormSize = 6;
-  Leds::setAll(m_colorset.get(0));
+  Leds_setAll(Colorset_get(&(&self->base.base.base)->m_colorset, 0));
   for (int body = 0; body < wormSize; ++body) {
-    if (body + m_progress < LED_COUNT) {
-      Leds::setIndex((LedPos)(body + m_progress), m_colorset.cur());
+    if (body + self->m_progress < LED_COUNT) {
+      Leds_setIndex((LedPos)(body + self->m_progress), Colorset_cur(&(&self->base.base.base)->m_colorset));
     } else {
-      RGBColor col = m_colorset.peekNext();
-      if (m_colorset.curIndex() == m_colorset.numColors() - 1) {
-        col = m_colorset.peek(2);
+      RGBColor col = Colorset_peekNext(&(&self->base.base.base)->m_colorset);
+      if (Colorset_curIndex(&(&self->base.base.base)->m_colorset) == Colorset_numColors(&(&self->base.base.base)->m_colorset) - 1) {
+        col = Colorset_peek(&(&self->base.base.base)->m_colorset, 2);
       }
-      Leds::setIndex((LedPos)((body + m_progress) % LED_COUNT), col);
+      Leds_setIndex((LedPos)((body + self->m_progress) % LED_COUNT), col);
     }
   }
 }
 
-void WarpWormPattern::poststep()
+void WarpWormPattern_poststep(BlinkStepPattern *bsp)
 {
-  m_progress = (m_progress + 1) % LED_COUNT;
-  if (m_progress == 0) {
-    m_colorset.getNext();
-    if (m_colorset.curIndex() == 0) {
-      m_colorset.getNext();
+  WarpWormPattern *self = (WarpWormPattern *)bsp;
+  self->m_progress = (self->m_progress + 1) % LED_COUNT;
+  if (self->m_progress == 0) {
+    Colorset_getNext(&(&self->base.base.base)->m_colorset);
+    if (Colorset_curIndex(&(&self->base.base.base)->m_colorset) == 0) {
+      Colorset_getNext(&(&self->base.base.base)->m_colorset);
     }
   }
 }

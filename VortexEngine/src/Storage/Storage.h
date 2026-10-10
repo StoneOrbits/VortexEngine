@@ -1,47 +1,42 @@
 #ifndef STORAGE_H
 #define STORAGE_H
 
+#include <stdbool.h>
 #include <inttypes.h>
 
 #ifdef VORTEX_LIB
 #include <string>
 #endif
 
-class ByteStream;
+typedef struct ByteStream ByteStream;
 
-class Storage
-{
-  Storage();
-public:
+// init storage
+bool Storage_init(void);
+void Storage_cleanup(void);
 
-  // init storage
-  static bool init();
-  static void cleanup();
+// store a serial buffer to storage
+bool Storage_write(uint8_t slot, ByteStream *buffer);
+// read a serial buffer from storage
+bool Storage_read(uint8_t slot, ByteStream *buffer);
 
-  // store a serial buffer to storage
-  static bool write(uint8_t slot, ByteStream &buffer);
-  // read a serial buffer from storage
-  static bool read(uint8_t slot, ByteStream &buffer);
+// the last save size (use STORAGE_SIZE For total space)
+uint32_t Storage_lastSaveSize(void);
 
-  // the last save size (use STORAGE_SIZE For total space)
-  static uint32_t lastSaveSize();
-
-#ifdef VORTEX_LIB
-  static void setStorageFilename(const std::string &name) { m_storageFilename = name; }
-  static std::string getStorageFilename() { return m_storageFilename; }
-#endif
-
-private:
-  // write out a single byte to the eeprom
-  static void eepromWriteByte(uint16_t index, uint8_t in);
-  static uint8_t eepromReadByte(uint16_t index);
+// write out a byte to the eeprom
+void Storage_eepromWriteByte(uint16_t index, uint8_t in);
+// read a byte from the eeprom
+uint8_t Storage_eepromReadByte(uint16_t index);
 
 #ifdef VORTEX_LIB
-  static std::string m_storageFilename;
+void Storage_setStorageFilename(const std::string &name);
+std::string Storage_getStorageFilename(void);
 #endif
 
-  // the size of the last save
-  static uint32_t m_lastSaveSize;
-};
+#ifdef VORTEX_LIB
+extern std::string Storage_m_storageFilename;
+#endif
+
+// the size of the last save
+extern uint32_t Storage_m_lastSaveSize;
 
 #endif

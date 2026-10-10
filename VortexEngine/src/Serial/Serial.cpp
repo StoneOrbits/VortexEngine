@@ -7,46 +7,48 @@
 
 #include "../VortexEngine.h"
 
+#include <stdarg.h>
+#include <stdio.h>
+
 #ifdef VORTEX_LIB
 #include "VortexLib.h"
-#include <stdio.h>
 #endif
 
-bool SerialComs::m_serialConnected = false;
-uint32_t SerialComs::m_lastCheck = 0;
+static bool s_serialConnected = false;
+static uint32_t s_lastCheck = 0;
 
 // init serial
-bool SerialComs::init()
+bool SerialComs_init()
 {
   // Try connecting serial ?
   //checkSerial();
   return true;
 }
 
-void SerialComs::cleanup()
+void SerialComs_cleanup()
 {
 }
 
-bool SerialComs::isConnected()
+bool SerialComs_isConnected()
 {
-  return m_serialConnected;
+  return s_serialConnected;
 }
 
 // check for any serial connection or messages
-bool SerialComs::checkSerial()
+bool SerialComs_checkSerial()
 {
 #if VORTEX_SLIM == 0
-  if (isConnected()) {
+  if (SerialComs_isConnected()) {
     // already connected
     return true;
   }
-  uint32_t now = Time::getCurtime();
+  uint32_t now = Time_getCurtime();
   // don't check for serial too fast
-  if (m_lastCheck && (now - m_lastCheck) < MAX_SERIAL_CHECK_INTERVAL) {
+  if (s_lastCheck && (now - s_lastCheck) < MAX_SERIAL_CHECK_INTERVAL) {
     // can't check yet too soon
     return false;
   }
-  m_lastCheck = now;
+  s_lastCheck = now;
 #ifdef VORTEX_LIB
   if (!Vortex::vcallbacks()->serialCheck()) {
     return false;
@@ -63,14 +65,14 @@ bool SerialComs::checkSerial()
 #endif
 #endif
   // serial is now connected
-  m_serialConnected = true;
+  s_serialConnected = true;
   return true;
 }
 
-void SerialComs::write(const char *msg, ...)
+void SerialComs_write(const char *msg, ...)
 {
 #if VORTEX_SLIM == 0
-  if (!isConnected()) {
+  if (!SerialComs_isConnected()) {
     return;
   }
   va_list list;
@@ -87,29 +89,29 @@ void SerialComs::write(const char *msg, ...)
 #endif
 }
 
-void SerialComs::write(ByteStream &byteStream)
+void SerialComs_writeStream(ByteStream *byteStream)
 {
 #if VORTEX_SLIM == 0
-  if (!isConnected()) {
+  if (!SerialComs_isConnected()) {
     return;
   }
-  byteStream.recalcCRC();
-  uint32_t size = byteStream.rawSize();
+  ByteStream_recalcCRC(byteStream, false);
+  uint32_t size = ByteStream_rawSize(byteStream);
 #ifdef VORTEX_LIB
   Vortex::vcallbacks()->serialWrite((const uint8_t *)&size, sizeof(size));
-  Vortex::vcallbacks()->serialWrite((const uint8_t *)byteStream.rawData(), byteStream.rawSize());
+  Vortex::vcallbacks()->serialWrite((const uint8_t *)ByteStream_rawData(byteStream), ByteStream_rawSize(byteStream));
 #else
   Serial.write((const uint8_t *)&size, sizeof(size));
-  Serial.write((const uint8_t *)byteStream.rawData(), byteStream.rawSize());
+  Serial.write((const uint8_t *)ByteStream_rawData(byteStream), ByteStream_rawSize(byteStream));
   Serial.flush();
 #endif
 #endif
 }
 
-void SerialComs::read(ByteStream &byteStream)
+void SerialComs_read(ByteStream *byteStream)
 {
 #if VORTEX_SLIM == 0
-  if (!isConnected()) {
+  if (!SerialComs_isConnected()) {
     return;
   }
 #ifdef VORTEX_LIB
@@ -129,15 +131,15 @@ void SerialComs::read(ByteStream &byteStream)
 #else
     byte = Serial.read();
 #endif
-    byteStream.serialize8(byte);
+    ByteStream_serialize8(byteStream, byte);
   } while (--amt > 0);
 #endif
 }
 
-bool SerialComs::dataReady()
+bool SerialComs_dataReady()
 {
 #if VORTEX_SLIM == 0
-  if (!isConnected()) {
+  if (!SerialComs_isConnected()) {
     return false;
   }
 #ifdef VORTEX_LIB
