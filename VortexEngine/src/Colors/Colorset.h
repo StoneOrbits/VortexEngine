@@ -108,12 +108,12 @@ enum {
 void Colorset_randomizeColors2(Colorset *self, Random *ctx, ColorsetColorMode2 mode);
 
 // wrappers for various spacings
-void Colorset_randomizeSolid(Colorset *self, Random *ctx);
-void Colorset_randomizeComplimentary(Colorset *self, Random *ctx);
-void Colorset_randomizeTriadic(Colorset *self, Random *ctx);
-void Colorset_randomizeSquare(Colorset *self, Random *ctx);
-void Colorset_randomizePentadic(Colorset *self, Random *ctx);
-void Colorset_randomizeRainbow(Colorset *self, Random *ctx);
+static inline void Colorset_randomizeSolid(Colorset *self, Random *ctx) { Colorset_randomizeColors(self, ctx, 1, EVENLY_SPACED); }
+static inline void Colorset_randomizeComplimentary(Colorset *self, Random *ctx) { Colorset_randomizeColors(self, ctx, 2, EVENLY_SPACED); }
+static inline void Colorset_randomizeTriadic(Colorset *self, Random *ctx) { Colorset_randomizeColors(self, ctx, 3, EVENLY_SPACED); }
+static inline void Colorset_randomizeSquare(Colorset *self, Random *ctx) { Colorset_randomizeColors(self, ctx, 4, EVENLY_SPACED); }
+static inline void Colorset_randomizePentadic(Colorset *self, Random *ctx) { Colorset_randomizeColors(self, ctx, 5, EVENLY_SPACED); }
+static inline void Colorset_randomizeRainbow(Colorset *self, Random *ctx) { Colorset_randomizeColors(self, ctx, 8, EVENLY_SPACED); }
 
 // fade all of the colors in the set
 void Colorset_adjustBrightness(Colorset *self, uint8_t fadeby);
