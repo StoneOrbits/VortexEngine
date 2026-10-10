@@ -1,0 +1,15 @@
+# Heap tests for heaptest.sh, each line is: input | brief
+#
+# Every test opens mode sharing (mw30cw300lw300), has another device send a
+# default mode over VL (v<N>), lets the receive and save finish (w100) then
+# moves on to the next mode (cw10). The H prints the heap stats after each.
+#
+w10Hmw30cw300lw300v0w100Hcw10mw30cw300lw300v0w100Hcw10mw30cw300lw300v0w100Hcw10mw30cw300lw300v0w100Hcw10q | Receive default mode 0 into four modes in a row
+w10Hmw30cw300lw300v1w100Hcw10mw30cw300lw300v1w100Hcw10mw30cw300lw300v1w100Hcw10mw30cw300lw300v1w100Hcw10q | Receive default mode 1 into four modes in a row
+w10Hmw30cw300lw300v2w100Hcw10mw30cw300lw300v2w100Hcw10mw30cw300lw300v2w100Hcw10mw30cw300lw300v2w100Hcw10q | Receive default mode 2 into four modes in a row
+w10Hmw30cw300lw300v3w100Hcw10mw30cw300lw300v3w100Hcw10mw30cw300lw300v3w100Hcw10mw30cw300lw300v3w100Hcw10q | Receive default mode 3 into four modes in a row
+w10Hmw30cw300lw300v4w100Hcw10mw30cw300lw300v4w100Hcw10mw30cw300lw300v4w100Hcw10mw30cw300lw300v4w100Hcw10q | Receive default mode 4 into four modes in a row
+w10Hmw30cw300lw300v5w100Hcw10mw30cw300lw300v5w100Hcw10mw30cw300lw300v5w100Hcw10mw30cw300lw300v5w100Hcw10q | Receive default mode 5 into four modes in a row
+w10Hmw30cw300lw300v6w100Hcw10mw30cw300lw300v6w100Hcw10mw30cw300lw300v6w100Hcw10mw30cw300lw300v6w100Hcw10q | Receive default mode 6 into four modes in a row
+w10Hmw30cw300lw300v7w100Hcw10mw30cw300lw300v7w100Hcw10mw30cw300lw300v7w100Hcw10mw30cw300lw300v7w100Hcw10q | Receive default mode 7 into four modes in a row
+w10Hmw30cw300lw300v8w100Hcw10mw30cw300lw300v8w100Hcw10mw30cw300lw300v8w100Hcw10mw30cw300lw300v8w100Hcw10q | Receive default mode 8 into four modes in a row

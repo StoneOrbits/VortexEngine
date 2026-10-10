@@ -1,6 +1,7 @@
 #ifndef SEQUENCED_PATTERN_H
 #define SEQUENCED_PATTERN_H
 
+#include <stdbool.h>
 #include "../CompoundPattern.h"
 
 #include "../../../Leds/LedTypes.h"
@@ -8,38 +9,34 @@
 
 #include "Sequence.h"
 
-class ByteStream;
-
-class SequencedPattern : public CompoundPattern
-{
-protected:
-  // SequencedPattern is an abstract class it cannot be directly
-  SequencedPattern(const PatternArgs &args);
-  SequencedPattern(const PatternArgs &args, const Sequence &sequence);
-
-public:
-  // initialize a sequence pattern with a list of pointers to sequencesteps and the
-  // number of entries in that list
-  virtual ~SequencedPattern();
-
-  // init the pattern to initial state
-  virtual void init() override;
-
-  // pure virtual must override the play function
-  virtual void play() override;
-
-  // change the sequence of the pattern
-  void bindSequence(const Sequence &sequence);
-
-protected:
-  void playSequenceStep(const SequenceStep &step);
+// SequencedPattern is abstract, it drives a CompoundPattern through an
+// ordered list of steps, each of which assigns a pattern to every led.
+typedef struct SequencedPattern {
+  // must remain the first member
+  CompoundPattern base;
 
   // static data
   Sequence m_sequence;
 
   // runtime data
   uint8_t m_curSequence;
+  // the timer only holds the duration of one step (a sequence can have more
+  // steps than a timer has alarms) so the step it is timing is tracked here
+  uint8_t m_curAlarm;
   Timer m_timer;
-};
+} SequencedPattern;
+
+// the vtable shared by every SequencedPattern
+extern const PatternVtable SequencedPattern_vtable;
+
+void SequencedPattern_init(SequencedPattern *self, const PatternArgs *args, const PatternVtable *vtable);
+void SequencedPattern_initWithSequence(SequencedPattern *self, const PatternArgs *args, const Sequence *sequence, const PatternVtable *vtable);
+
+void SequencedPattern_destroy(Pattern *self);
+void SequencedPattern_initImpl(Pattern *self);
+void SequencedPattern_play(Pattern *self);
+
+// change the sequence of the pattern
+void SequencedPattern_bindSequence(SequencedPattern *self, const Sequence *sequence);
 
 #endif

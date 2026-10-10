@@ -3,19 +3,10 @@
 
 #include "../Pattern.h"
 
-class SingleLedPattern : public Pattern
-{
-protected:
-  // SingleLedPattern is an abstract class
-  SingleLedPattern(const PatternArgs &args);
-
-public:
-  virtual ~SingleLedPattern();
-
-  virtual void init() override;
-
-private:
-
-};
+// SingleLedPattern used to be a thin abstract subclass of Pattern whose only
+// behaviour was to call Pattern::init(). In C that distinction disappears,
+// so it is simply an alias for the base and existing references keep working.
+// The concrete single-led patterns derive from BlinkPattern directly.
+typedef Pattern SingleLedPattern;
 
 #endif

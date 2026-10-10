@@ -18,7 +18,11 @@ struct DefaultModeEntry
   DefaultLedEntry leds[LED_COUNT];
 };
 
+// the number of default modes, this is separate from MAX_MODES because the
+// tests set MAX_MODES to 0 (unlimited) which would make the array empty
+#define NUM_DEFAULT_MODES 9
+
 // exposed global array of default modes
-extern const DefaultModeEntry defaultModes[MAX_MODES];
+extern const DefaultModeEntry defaultModes[NUM_DEFAULT_MODES];
 
 #endif

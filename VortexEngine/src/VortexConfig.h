@@ -238,6 +238,43 @@
 // Mostly for catching leaks or high memory usage in development.
 #define MAX_MEMORY            8000
 
+// Memory Pools
+//
+// The engine never allocates memory while running, all of the objects
+// that come and go at runtime are carved out of fixed block pools which
+// are allocated once at startup. Fixed blocks can never fragment memory,
+// the only failure is running out of blocks so these are the maximum
+// number of each object that can exist at the same time.
+//
+// Patterns: two leds worth for the current mode and the menu preview
+// mode, plus one spare for a temporary pattern
+#define DEVICE_PATTERN_POOL_SIZE   5
+#define PATTERN_POOL_SIZE          DEVICE_PATTERN_POOL_SIZE
+// Instantiated modes: the current mode and one more being serialized
+#define DEVICE_MODE_POOL_SIZE      2
+#define MODE_POOL_SIZE             DEVICE_MODE_POOL_SIZE
+// Mode links: one for each mode in the mode list
+#define DEVICE_MODELINK_POOL_SIZE  MAX_MODES
+#define MODELINK_POOL_SIZE         DEVICE_MODELINK_POOL_SIZE
+// Menus: only one menu is ever open at a time
+#define DEVICE_MENU_POOL_SIZE      1
+#define MENU_POOL_SIZE             DEVICE_MENU_POOL_SIZE
+// ByteStreams: the data of every ByteStream lives in one arena, this holds
+// the serialized form of every mode plus any temporary buffers used for
+// saving, loading and transferring modes. On the device the arena is all
+// of the free ram between the static data and the stack (where the heap
+// would be) and it always leaves this many bytes free below the stack
+// pointer, this is the same as the default malloc margin. Elsewhere the
+// arena is a fixed size buffer of BYTESTREAM_ARENA_SIZE bytes.
+#define BYTESTREAM_STACK_MARGIN 32
+// The margin alone is not enough because an allocation made while the stack
+// is shallow can be overrun when the stack later grows deeper (for example
+// saving all modes after receiving one), so the arena also never grows into
+// this many bytes at the top of ram. This must cover the deepest stack the
+// engine ever reaches, which is about 260 bytes.
+#define BYTESTREAM_STACK_RESERVE 300
+#define BYTESTREAM_ARENA_SIZE 640
+
 // Log Level
 //
 // Set the logging level to control info/error/debug logs accordingly
@@ -351,6 +388,35 @@
 // it will allocate space permanently for the new brush and never free it
 #define DEBUG_ALLOCATIONS     0
 
+// Heap Tracking
+//
+// Only for the desktop vortexlib build, this tracks the memory the engine
+// uses in the ByteStream arena and the memory pools at the size it really has
+// on the attiny3217. This makes it possible to see how close the device gets
+// to running out of memory, and with the device limits set (see --max-heap in
+// the cli) to fail allocations where the device would.
+//
+// There are no limits by default so nothing changes unless they are set.
+//
+// This is off by default, build the cli with 'make HEAP_TRACKING=1' to turn
+// it on (make clean first, the objects aren't rebuilt when it changes)
+#ifndef HEAP_TRACKING
+#define HEAP_TRACKING         0
+#endif
+#if HEAP_TRACKING == 1 && (!defined(VORTEX_LIB) || defined(WASM))
+#error "HEAP_TRACKING is only supported in the desktop vortexlib build"
+#endif
+
+// Heap Tracking Device Arena Size
+//
+// The ByteStream arena on the attiny3217 is all of the ram between the end of
+// the globals and the stack reserve (BYTESTREAM_STACK_RESERVE), heap tracking
+// limits the arena to this with --max-heap=device. The 3217 has 2048 bytes of
+// ram, this is the data + bss of the duo build which includes the memory
+// pools, update it when that changes (avr-size vortex.elf).
+#define HEAP_TRACKING_DEVICE_GLOBALS 928
+#define HEAP_TRACKING_DEVICE_SIZE (2048 - HEAP_TRACKING_DEVICE_GLOBALS - BYTESTREAM_STACK_RESERVE)
+
 // Variable Tickrate
 //
 // This controls whether the setTickrate function is available and
@@ -421,6 +487,14 @@
 //
 //  See the below header for all of the available color constants
 #include "Colors/ColorConstants.h"
+
+// static_assert spelling that works in both C11 and C++11, the sources
+// are being converted to C but headers are shared during the transition
+#if defined(__cplusplus)
+#define STATIC_ASSERT(cond, msg) static_assert(cond, msg)
+#else
+#define STATIC_ASSERT(cond, msg) _Static_assert(cond, msg)
+#endif
 
 // Randomizer Menu Color
 #define RGB_MENU_RANDOMIZER         RGB_WHITE1
@@ -599,8 +673,26 @@
 #endif
 
 #ifdef VORTEX_LIB
+// VORTEX_LIB_SLIM keeps the slim engine of the device, for example the heap
+// test uses it so the engine uses memory exactly like the device does
+#ifndef VORTEX_LIB_SLIM
 #undef VORTEX_SLIM
 #define VORTEX_SLIM 0
+#endif
+
+// VortexLib has plenty of memory and the editor/test framework juggle far
+// more modes and patterns at once so give the pools lots of room, heap
+// tracking limits the engine to the DEVICE_ sizes above
+#undef PATTERN_POOL_SIZE
+#define PATTERN_POOL_SIZE     128
+#undef MODE_POOL_SIZE
+#define MODE_POOL_SIZE        16
+#undef MODELINK_POOL_SIZE
+#define MODELINK_POOL_SIZE    128
+#undef MENU_POOL_SIZE
+#define MENU_POOL_SIZE        2
+#undef BYTESTREAM_ARENA_SIZE
+#define BYTESTREAM_ARENA_SIZE (256 * 1024)
 
 // The test framework needs brighter menu colors can't really see them on the screen
 #undef RGB_MENU_RANDOMIZER

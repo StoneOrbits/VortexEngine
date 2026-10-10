@@ -18,8 +18,9 @@
 #define VL_MAX_DWORDS_TRANSFER 128
 #define VL_MAX_DATA_TRANSFER (VL_MAX_DWORDS_TRANSFER * sizeof(uint32_t))
 
-// the IR receiver buffer size in dwords
-#define VL_RECV_BUF_SIZE VL_MAX_DATA_TRANSFER
+// the VL receiver buffer size in bytes, a packet is a 2 byte prefix and a
+// payload whose size is sent in a single byte so it can never be larger
+#define VL_RECV_BUF_SIZE (2 + 255)
 
 #define VL_THRESHOLD  0.5
 #define VL_THRES_UP   (1 + VL_THRESHOLD)

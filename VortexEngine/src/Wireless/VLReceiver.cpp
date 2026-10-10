@@ -15,20 +15,37 @@
 #include <avr/io.h>
 #endif
 
-BitStream VLReceiver::m_vlData;
-VLReceiver::RecvState VLReceiver::m_recvState = WAITING_HEADER_MARK;
-uint32_t VLReceiver::m_prevTime = 0;
-uint8_t VLReceiver::m_pinState = 0;
-uint16_t VLReceiver::m_previousBytes = 0;
+// the receive state machine used for the PCI handler
+typedef uint8_t RecvState;
+enum {
+  WAITING_HEADER_MARK,
+  WAITING_HEADER_SPACE,
+  READING_BAUD_MARK,
+  READING_BAUD_SPACE,
+  READING_DATA_MARK,
+  READING_DATA_SPACE,
+  READING_DATA_PARITY_MARK,
+  READING_DATA_PARITY_SPACE
+};
+
+// BitStream object that VL data is fed to bit by bit
+static BitStream s_vlData;
+// state information used by the PCIHandler
+static RecvState s_recvState = WAITING_HEADER_MARK;
+// used to track pin changes
+static uint32_t s_prevTime = 0;
+static uint8_t s_pinState = 0;
+// used to compare if received data has changed since last checking
+static uint16_t s_previousBytes = 0;
 // the determined time based on sync
-uint16_t VLReceiver::m_vlMarkThreshold = 0;
-uint16_t VLReceiver::m_vlSpaceThreshold = 0;
+static uint16_t s_vlMarkThreshold = 0;
+static uint16_t s_vlSpaceThreshold = 0;
 // counter is reused for two purposes
-uint8_t VLReceiver::m_counter = 0;
+static uint8_t s_counter = 0;
 // parity is for each byte of data received
-uint8_t VLReceiver::m_parityBit = 0;
+static uint8_t s_parityBit = 0;
 // legacy is for old receiving method (sucks)
-bool VLReceiver::m_legacy = false;
+static bool s_legacy = false;
 
 #ifdef VORTEX_EMBEDDED
 #define MIN_THRESHOLD   200
@@ -44,7 +61,7 @@ bool VLReceiver::m_legacy = false;
 //   6 ACC64 64 results accumulated > doesn't work
 #define SAMPLE_COUNT    5
 // the threshold needs to start high then it will be automatically pulled down
-uint16_t threshold = THRESHOLD_BEGIN;
+static uint16_t s_threshold = THRESHOLD_BEGIN;
 ISR(ADC0_WCOMP_vect)
 {
   // this will store the last known state
@@ -54,13 +71,13 @@ ISR(ADC0_WCOMP_vect)
   // calculate a threshold by using the baseline minimum value that is above 0
   // with a static offset, this ensures whatever the baseline light level and/or
   // hardware sensitivity is it will always pick a threshold just above the 'off'
-  if (val > MIN_THRESHOLD && val < (threshold + BASE_OFFSET)) {
-    threshold = val + BASE_OFFSET;
+  if (val > MIN_THRESHOLD && val < (s_threshold + BASE_OFFSET)) {
+    s_threshold = val + BASE_OFFSET;
   }
   // compare the current analog value to the light threshold
-  bool isAboveThreshold = (val > threshold);
+  bool isAboveThreshold = (val > s_threshold);
   if (wasAboveThreshold != isAboveThreshold) {
-    VLReceiver::recvPCIHandler();
+    VLReceiver_recvPCIHandler();
     wasAboveThreshold = isAboveThreshold;
   }
   // Clear the Window Comparator interrupt flag
@@ -68,67 +85,73 @@ ISR(ADC0_WCOMP_vect)
 }
 #endif
 
-bool VLReceiver::init()
+bool VLReceiver_init()
 {
 #ifdef VORTEX_EMBEDDED
   // Disable digital input buffer on the pin to save power
   PORTB.PIN1CTRL &= ~PORT_ISC_gm;
   PORTB.PIN1CTRL |= PORT_ISC_INPUT_DISABLE_gc;
 #endif
-  return m_vlData.init(VL_RECV_BUF_SIZE);
+  // receive into a static buffer so the receiver never touches the heap
+  static uint8_t s_vlDataBuf[VL_RECV_BUF_SIZE];
+  return BitStream_initBuf(&s_vlData, s_vlDataBuf, VL_RECV_BUF_SIZE);
 }
 
-void VLReceiver::cleanup()
+void VLReceiver_cleanup()
 {
 }
 
-bool VLReceiver::dataReady()
+bool VLReceiver_dataReady()
 {
   // is the receiver actually receiving data?
-  if (!isReceiving()) {
+  if (!VLReceiver_isReceiving()) {
     return false;
   }
-  uint8_t size = m_vlData.peekData(1);
+  uint8_t size = BitStream_peekData(&s_vlData, 1);
   // check if there are size + 1 bytes in the VLData receiver
-  return (m_vlData.bytepos() >= ((uint32_t)size + 2));
+  return (BitStream_bytepos(&s_vlData) >= ((uint32_t)size + 2));
 }
 
 // whether actively receiving
-bool VLReceiver::isReceiving()
+bool VLReceiver_isReceiving()
 {
   // if there are at least 2 bytes in the data buffer then
   // the receiver is receiving a packet. If there is less
   // than 2 bytes then we're still waiting for the 'blocks'
   // and 'remainder' bytes which prefix a packet
-  return (m_vlData.bytepos() > 2);
+  return (BitStream_bytepos(&s_vlData) > 2);
 }
 
 // the percent of data received
-uint8_t VLReceiver::percentReceived()
+uint8_t VLReceiver_percentReceived()
 {
-  if (!isReceiving()) {
+  if (!VLReceiver_isReceiving()) {
     return 0;
   }
-  uint8_t size = m_vlData.peekData(1);
+  uint8_t size = BitStream_peekData(&s_vlData, 1);
   // round by adding half of the total to the numerator
-  return (uint8_t)((uint16_t)((m_vlData.bytepos() * 100 + (size / 2)) / size));
+  return (uint8_t)((uint16_t)((BitStream_bytepos(&s_vlData) * 100 + (size / 2)) / size));
 }
 
-bool VLReceiver::receiveMode(Mode *pMode)
+bool VLReceiver_receiveMode(Mode *pMode)
 {
   ByteStream buf;
+  ByteStream_make(&buf);
   // read from the receive buffer into the byte stream
-  if (!read(buf)) {
+  if (!VLReceiver_read(&buf)) {
     // no data to read right now, or an error
     DEBUG_LOG("No data available to read, or error reading");
+    ByteStream_destroy(&buf);
     return false;
   }
-  DEBUG_LOGF("Received %u bytes", buf.rawSize());
+  DEBUG_LOGF("Received %u bytes", ByteStream_rawSize(&buf));
   // load the data into the target mode
-  return pMode->loadFromBuffer(buf);
+  bool rv = Mode_loadFromBuffer(pMode, &buf);
+  ByteStream_destroy(&buf);
+  return rv;
 }
 
-bool VLReceiver::beginReceiving()
+bool VLReceiver_beginReceiving()
 {
 #ifdef VORTEX_EMBEDDED
   // Set up the ADC
@@ -172,11 +195,11 @@ bool VLReceiver::beginReceiving()
   // start the first conversion
   ADC0.COMMAND = ADC_STCONV_bm;
 #endif
-  resetVLState();
+  VLReceiver_resetVLState();
   return true;
 }
 
-bool VLReceiver::endReceiving()
+bool VLReceiver_endReceiving()
 {
 #ifdef VORTEX_EMBEDDED
   // Stop conversions and disable the ADC
@@ -186,66 +209,77 @@ bool VLReceiver::endReceiving()
   return true;
 }
 
-bool VLReceiver::onNewData()
+bool VLReceiver_onNewData()
 {
-  if (bytesReceived() == m_previousBytes) {
+  if (VLReceiver_bytesReceived() == s_previousBytes) {
     return false;
   }
-  m_previousBytes = bytesReceived();
+  s_previousBytes = VLReceiver_bytesReceived();
   return true;
 }
 
-bool VLReceiver::read(ByteStream &data)
+uint16_t VLReceiver_bytesReceived()
 {
-  if (!m_vlData.bytepos() || m_vlData.bytepos() > VL_MAX_DATA_TRANSFER) {
+  return BitStream_bytepos(&s_vlData);
+}
+
+bool VLReceiver_read(ByteStream *data)
+{
+  if (!BitStream_bytepos(&s_vlData) || BitStream_bytepos(&s_vlData) > VL_MAX_DATA_TRANSFER) {
     DEBUG_LOG("Nothing to read, or read too much");
     return false;
   }
-  uint8_t size = m_vlData.peekData(1);
-  const uint8_t *actualData = m_vlData.data() + 2;
-  if (!data.rawInit(actualData, size)) {
+  uint8_t size = BitStream_peekData(&s_vlData, 1);
+  const uint8_t *actualData = BitStream_data(&s_vlData) + 2;
+  if (!ByteStream_rawInit(data, actualData, size)) {
     DEBUG_LOG("Failed to init buffer for VL read");
     return false;
   }
   // reset the VL state and receive buffer now
-  resetVLState();
+  VLReceiver_resetVLState();
   return true;
 }
 
 // The recv PCI handler is called every time the analog value passes the
 // 'threshold' which is dynamically established to be about half way between
 // 'light' and 'dark' in the current environment. So in other words, it is
+// turn on/off the legacy receiver
+void VLReceiver_setLegacyReceiver(bool legacy)
+{
+  s_legacy = legacy;
+}
+
 // called for every 'on' or 'off' blink
-void VLReceiver::recvPCIHandler()
+void VLReceiver_recvPCIHandler()
 {
   // toggle the tracked pin state no matter what
-  m_pinState = (uint8_t)!m_pinState;
+  s_pinState = (uint8_t)!s_pinState;
   // grab current time
-  uint32_t now = Time::microseconds();
+  uint32_t now = Time_microseconds();
   // calc time difference between previous change and now
-  uint32_t diff = (uint32_t)(now - m_prevTime);
-  m_prevTime = now;
+  uint32_t diff = (uint32_t)(now - s_prevTime);
+  s_prevTime = now;
   // filter out values much too large from being truncated
   if (diff > UINT16_MAX) {
     return;
   }
   // handle the blink duration and process it into data
-  if (m_legacy) {
-    handleVLTimingLegacy((uint16_t)diff);
+  if (s_legacy) {
+    VLReceiver_handleVLTimingLegacy((uint16_t)diff);
   } else {
-    handleVLTiming((uint16_t)diff);
+    VLReceiver_handleVLTiming((uint16_t)diff);
   }
 }
 
 // state machine that can be fed VL timings to parse them and interpret the intervals
-void VLReceiver::handleVLTimingLegacy(uint16_t diff)
+void VLReceiver_handleVLTimingLegacy(uint16_t diff)
 {
-  switch (m_recvState) {
+  switch (s_recvState) {
   case WAITING_HEADER_MARK:
     // just look for a big blink timing
     if (diff >= VL_HEADER_SPACE_MIN_LEGACY && diff <= VL_HEADER_MARK_MAX_LEGACY) {
       // go straight to the header space
-      m_recvState = WAITING_HEADER_SPACE;
+      s_recvState = WAITING_HEADER_SPACE;
     }
     break;
   case WAITING_HEADER_SPACE:
@@ -253,127 +287,127 @@ void VLReceiver::handleVLTimingLegacy(uint16_t diff)
     // because being restrictive here isn't really beneficial
     if (diff >= VL_HEADER_SPACE_MIN_LEGACY && diff <= VL_HEADER_MARK_MAX_LEGACY) {
       // iterate to first data mark
-      m_recvState = READING_DATA_MARK;
+      s_recvState = READING_DATA_MARK;
       // estimate the data threshold based on the length of the space
-      m_vlMarkThreshold = (diff / 4);
+      s_vlMarkThreshold = (diff / 4);
     }
     break;
   case READING_DATA_MARK:
     // classify as 1 or 0 based on the mark threshold and write into buffer
-    m_vlData.write1Bit(diff > m_vlMarkThreshold);
-    m_recvState = READING_DATA_SPACE;
+    BitStream_write1Bit(&s_vlData, diff > s_vlMarkThreshold);
+    s_recvState = READING_DATA_SPACE;
     break;
   case READING_DATA_SPACE:
     // in the legacy transmission the spaces didn't carry data
-    m_recvState = READING_DATA_MARK;
+    s_recvState = READING_DATA_MARK;
     break;
   default: // ??
-    DEBUG_LOGF("Bad receive state: %u", m_recvState);
+    DEBUG_LOGF("Bad receive state: %u", s_recvState);
     break;
   }
 }
 
 // state machine that can be fed VL timings to parse them and interpret the intervals
-void VLReceiver::handleVLTiming(uint16_t diff)
+void VLReceiver_handleVLTiming(uint16_t diff)
 {
   uint8_t bit;
-  switch (m_recvState) {
+  switch (s_recvState) {
   case WAITING_HEADER_MARK:
   case WAITING_HEADER_SPACE:
     // both cases are basically the same, just look for a big timing
     if (diff >= VL_HEADER_SPACE_MIN && diff <= VL_HEADER_MARK_MAX) {
       // iterate through first two states
-      m_recvState = (RecvState)(m_recvState + 1);
+      s_recvState = (RecvState)(s_recvState + 1);
     }
     break;
   case READING_BAUD_MARK:
     // accumulate the diff in the mark threshold for averaging later
-    m_vlMarkThreshold += diff;
-    m_recvState = READING_BAUD_SPACE;
+    s_vlMarkThreshold += diff;
+    s_recvState = READING_BAUD_SPACE;
     break;
   case READING_BAUD_SPACE:
     // couonter is used to count bauds till 4
-    m_counter++;
+    s_counter++;
     // accumulate the diff in the space threshold for averaging later
-    m_vlSpaceThreshold += diff;
+    s_vlSpaceThreshold += diff;
     // if not at 4 bauds yet keep reading baud marks
-    if (m_counter < 4) {
-      m_recvState = READING_BAUD_MARK;
+    if (s_counter < 4) {
+      s_recvState = READING_BAUD_MARK;
       break;
     }
     // otherwise read all 4 bauds now proceed with processing them
     // average out the mark and space from the bauds
-    m_vlMarkThreshold /= 4;
-    m_vlSpaceThreshold /= 4;
+    s_vlMarkThreshold /= 4;
+    s_vlSpaceThreshold /= 4;
     // reset counter and parity bit
-    m_counter = 0;
-    m_parityBit = 0;
+    s_counter = 0;
+    s_parityBit = 0;
     // advanced state to first data mark
-    m_recvState = READING_DATA_MARK;
+    s_recvState = READING_DATA_MARK;
     break;
   case READING_DATA_MARK:
     // counter is now counting the marks for parity tracking
-    m_counter++;
+    s_counter++;
     // extract the bit of data based on the calculated mark threshold
-    bit = (diff > m_vlMarkThreshold) ? 1 : 0;
+    bit = (diff > s_vlMarkThreshold) ? 1 : 0;
     // accumulate the parity and write out the bit into the vldata
-    m_parityBit = (m_parityBit ^ bit) & 1;
-    m_vlData.write1Bit(bit);
-    m_recvState = READING_DATA_SPACE;
+    s_parityBit = (s_parityBit ^ bit) & 1;
+    BitStream_write1Bit(&s_vlData, bit);
+    s_recvState = READING_DATA_SPACE;
     break;
   case READING_DATA_SPACE:
     // the spaces also transmit data in their lengths
-    bit = (diff > m_vlSpaceThreshold) ? 1 : 0;
+    bit = (diff > s_vlSpaceThreshold) ? 1 : 0;
     // also accumulate this data into the parity
-    m_parityBit = (m_parityBit ^ bit) & 1;
+    s_parityBit = (s_parityBit ^ bit) & 1;
     // and then write out the bit into the vldata
-    m_vlData.write1Bit(bit);
+    BitStream_write1Bit(&s_vlData, bit);
     // when counter is a multiple of 4 (since it only counts marks)
-    if ((m_counter % 4) == 0) {
+    if ((s_counter % 4) == 0) {
       // then go to the parity processing for the previous 8 bits of data
-      m_recvState = READING_DATA_PARITY_MARK;
+      s_recvState = READING_DATA_PARITY_MARK;
     } else {
       // otherwise continue reading out data bits
-      m_recvState = READING_DATA_MARK;
+      s_recvState = READING_DATA_MARK;
     }
     break;
   case READING_DATA_PARITY_MARK:
     // the parity is also a bit of data using a mark
-    bit = (diff > m_vlMarkThreshold) ? 1 : 0;
+    bit = (diff > s_vlMarkThreshold) ? 1 : 0;
     // check the parity bit against the running accumulated parity
-    if ((m_parityBit & 1) != bit) {
+    if ((s_parityBit & 1) != bit) {
       // immediately reset the receiver if the parity doesn't match
       // could show a flash here but that would probably just make
       // receiving worse by introducing a delay
-      resetVLState();
+      VLReceiver_resetVLState();
       break;
     }
     // the parity space is just an empty space after the parity bit
-    m_recvState = READING_DATA_PARITY_SPACE;
+    s_recvState = READING_DATA_PARITY_SPACE;
     break;
   case READING_DATA_PARITY_SPACE:
     // after the parity it's back to regular mark
-    m_recvState = READING_DATA_MARK;
+    s_recvState = READING_DATA_MARK;
     break;
   default: // ??
-    DEBUG_LOGF("Bad receive state: %u", m_recvState);
+    DEBUG_LOGF("Bad receive state: %u", s_recvState);
     break;
   }
 }
 
-void VLReceiver::resetVLState()
+void VLReceiver_resetVLState()
 {
-  m_counter = 0;
-  m_vlMarkThreshold = 0;
-  m_vlSpaceThreshold = 0;
-  m_previousBytes = 0;
-  m_parityBit = 0;
-  m_recvState = WAITING_HEADER_MARK;
+  s_counter = 0;
+  s_vlMarkThreshold = 0;
+  s_vlSpaceThreshold = 0;
+  s_previousBytes = 0;
+  s_parityBit = 0;
+  s_recvState = WAITING_HEADER_MARK;
   // zero out the receive buffer and reset bit receiver position
-  m_vlData.reset();
+  BitStream_reset(&s_vlData);
 #ifdef VORTEX_EMBEDDED
   // reset the threshold to a high value so that it can be pulled down again
-  threshold = THRESHOLD_BEGIN;
+  s_threshold = THRESHOLD_BEGIN;
 #endif
   DEBUG_LOG("VL State Reset");
 }

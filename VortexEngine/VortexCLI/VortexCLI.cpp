@@ -24,6 +24,7 @@
 #include "VortexCLI.h"
 
 #include "Log/Log.h"
+#include "Memory/Memory.h"
 
 #include "VortexLib.h"
 
@@ -158,6 +159,7 @@ VortexCLI::VortexCLI() :
   m_inPlace(false),
   m_record(false),
   m_storage(false),
+  m_eraseStorage(false),
   m_sleepEnabled(true),
   m_lockEnabled(true),
   m_jsonPretty(false),
@@ -188,6 +190,7 @@ static struct option long_options[] = {
   {"nolock", no_argument, nullptr, 'n'},
   {"quick", no_argument, nullptr, 'q'},
   {"storage", optional_argument, nullptr, 'S'},
+  {"erase-storage", no_argument, nullptr, 'E'},
   {"write-save", required_argument, nullptr, 'W'},
   {"write-mode", required_argument, nullptr, 'M'},
   {"load-save", required_argument, nullptr, 'L'},
@@ -197,6 +200,7 @@ static struct option long_options[] = {
   {"pattern", required_argument, nullptr, 'P'},
   {"colorset", required_argument, nullptr, 'C'},
   {"arguments", required_argument, nullptr, 'A'},
+  {"max-heap", required_argument, nullptr, 'Z'},
   {"help", no_argument, nullptr, 'h'},
   {nullptr, 0, nullptr, 0}
 };
@@ -244,6 +248,7 @@ static void print_usage(const char* program_name)
   fprintf(stderr, "\n");
   fprintf(stderr, "Storage and Data Conversion (optional):\n");
   fprintf(stderr, "  -S, --storage [file]     Persistent storage to file (default file: FlashStorage.flash)\n");
+  fprintf(stderr, "  -E, --erase-storage      Delete the storage file at exit (for tests that use storage)\n");
   fprintf(stderr, "  -W, --write-save <file>  Write a full .vortex savefile at exit\n");
   fprintf(stderr, "  -M, --write-mode <file>  At exit write the current mode to a .vtxmode file\n");
   fprintf(stderr, "  -L, --load-save <file>   Load a vortex savefile (either .vortex or .vtxmode)\n");
@@ -257,13 +262,21 @@ static void print_usage(const char* program_name)
   fprintf(stderr, "  -A, --arguments a1,a2... Preset the arguments on the first mode (csv list of arguments)\n");
   fprintf(stderr, "\n");
   fprintf(stderr, "Other Options:\n");
+#if HEAP_TRACKING == 1
+  fprintf(stderr, "  -Z, --max-heap <size>    Limit engine memory to the device pools and a size byte arena, or 'device' for the attiny3217\n");
+#endif
   fprintf(stderr, "  -h, --help               Display this help message\n");
   fprintf(stderr, "\n");
   fprintf(stderr, "Input Commands (pass to stdin):");
   for (uint32_t i = 0; i < NUM_USAGE; ++i) {
     fprintf(stderr, "%s", input_usage[i]);
   }
-  fprintf(stderr, "\n\n");
+  fprintf(stderr, "\n");
+  fprintf(stderr, "   v<N>  another device sends default mode N over VL (ex: v7)\n");
+#if HEAP_TRACKING == 1
+  fprintf(stderr, "   H     print the device memory stats\n");
+#endif
+  fprintf(stderr, "\n");
   fprintf(stderr, "Example Usage:\n");
   fprintf(stderr, "   ./vortex --color\n");
   fprintf(stderr, "   ./vortex -ci -P42 -Ccyan,purple\n");
@@ -358,7 +371,7 @@ bool VortexCLI::init(int argc, char *argv[])
 
   int opt = -1;
   int option_index = 0;
-  while ((opt = getopt_long(argc, argv, "xcstliranqS::W:M:L:I::O::HP:C:A:h", long_options, &option_index)) != -1) {
+  while ((opt = getopt_long(argc, argv, "xcstliranqS::EW:M:L:I::O::HP:C:A:Z:h", long_options, &option_index)) != -1) {
     switch (opt) {
     case 'x':
       // if the user wants pretty colors or hex codes
@@ -410,6 +423,10 @@ bool VortexCLI::init(int argc, char *argv[])
         m_storageFile = optarg;
       }
       break;
+    case 'E':
+      // delete the storage file at exit so the next run starts fresh
+      m_eraseStorage = true;
+      break;
     case 'W':
       m_writeSaveFile = optarg;
       break;
@@ -459,6 +476,16 @@ bool VortexCLI::init(int argc, char *argv[])
       // preset the arguments on the first mode
       m_argumentsStr = optarg;
       break;
+    case 'Z':
+#if HEAP_TRACKING == 1
+      // limit the device memory
+      heap_setMaxSize(strcmp(optarg, "device") == 0 ? HEAP_TRACKING_DEVICE_SIZE : strtoul(optarg, nullptr, 0));
+      break;
+#else
+      // don't silently run without the limit, a heap test would always pass
+      fprintf(stderr, "--max-heap needs heap tracking, build with 'make HEAP_TRACKING=1'\n");
+      exit(EXIT_FAILURE);
+#endif
     case 'h':
       // print usage and exit
       print_usage(argv[0]);
@@ -516,21 +543,23 @@ bool VortexCLI::init(int argc, char *argv[])
 
   // load a .vortex or .vtxmode savefile
   if (m_loadSaveFile.size() > 0) {
-    ByteStream stream(4096);
+    ByteStream stream;
+    ByteStream_make(&stream);
+    ByteStream_init(&stream, 4096);
     // Open the file in read mode
     FILE *inputFile = fopen(m_loadSaveFile.c_str(), "r");
     if (!inputFile) {
       printf("Failed to open: [%s] (%s)\n", m_loadSaveFile.c_str(), strerror(errno));
       exit(2);
     }
-    if (!fread((void *)stream.rawData(), 1, stream.capacity(), inputFile)) {
+    if (!fread((void *)ByteStream_rawData(&stream), 1, ByteStream_capacity(&stream), inputFile)) {
       // error
       printf("Failed to read [%s]\n", m_loadSaveFile.c_str());
       exit(2);
     }
     fclose(inputFile);
     // clear existing modes
-    Modes::clearModes();
+    Modes_clearModes();
     // check if the load from savefile was provided, this is kinda ugly but whatever
     if (m_loadSaveFile.size() >= 8 && m_loadSaveFile.rfind(".vtxmode") == m_loadSaveFile.size() - 8) {
       // ends with .vtxmode, load just a single mode
@@ -543,6 +572,9 @@ bool VortexCLI::init(int argc, char *argv[])
       printf("Savefile name must end in .vortex or .vtxmode: [%s]\n", m_loadSaveFile.c_str());
       exit(2);
     }
+    // the arena chunk points back at this stream so it must be released
+    // before the stream goes out of scope
+    ByteStream_destroy(&stream);
   }
 
   if (m_patternIDStr.length() > 0) {
@@ -560,13 +592,14 @@ bool VortexCLI::init(int argc, char *argv[])
     stringstream ss(m_colorsetStr);
     string color;
     Colorset set;
+    Colorset_make(&set);
     while (getline(ss, color, ',')) {
       // iterate letters and lowercase them
       transform(color.begin(), color.end(), color.begin(), [](unsigned char c){ return tolower(c); });
       if (color_map.count(color) > 0) {
-        set.addColor(color_map[color]);
+        Colorset_addColor(&set, RGBColor_fromU32(color_map[color]));
       } else {
-        set.addColor(strtoul(color.c_str(), nullptr, 16));
+        Colorset_addColor(&set, RGBColor_fromU32(strtoul(color.c_str(), nullptr, 16)));
       }
     }
     // TODO: add arg for the led position
@@ -575,7 +608,7 @@ bool VortexCLI::init(int argc, char *argv[])
   if (m_argumentsStr.length() > 0) {
     stringstream ss(m_argumentsStr);
     string arg;
-    PatternArgs args;
+    PatternArgs args = {};
     while (getline(ss, arg, ',')) {
       args.args[args.numArgs++] = strtoul(arg.c_str(), nullptr, 10);
     }
@@ -640,6 +673,7 @@ void VortexCLI::cleanup()
   }
   if (m_writeSaveFile.length() > 0) {
     ByteStream stream;
+    ByteStream_make(&stream);
     Vortex::getModes(stream);
     FILE *outputFile = fopen(m_writeSaveFile.c_str(), "w");
     if (!outputFile) {
@@ -647,13 +681,15 @@ void VortexCLI::cleanup()
       exit(2);
     }
     // Print the recorded input to the file
-    fwrite(stream.rawData(), 1, stream.rawSize(), outputFile);
+    fwrite(ByteStream_rawData(&stream), 1, ByteStream_rawSize(&stream), outputFile);
     // Close the output file
     fclose(outputFile);
     printf("Wrote vortex save to [%s]\n", m_writeSaveFile.c_str());
+    ByteStream_destroy(&stream);
   }
   if (m_writeModeFile.length() > 0) {
     ByteStream stream;
+    ByteStream_make(&stream);
     Vortex::getCurMode(stream);
     FILE *outputFile = fopen(m_writeModeFile.c_str(), "w");
     if (!outputFile) {
@@ -661,10 +697,11 @@ void VortexCLI::cleanup()
       exit(2);
     }
     // Print the recorded input to the file
-    fwrite(stream.rawData(), 1, stream.rawSize(), outputFile);
+    fwrite(ByteStream_rawData(&stream), 1, ByteStream_rawSize(&stream), outputFile);
     // Close the output file
     fclose(outputFile);
     printf("Wrote vtxmode save to [%s]\n", m_writeModeFile.c_str());
+    ByteStream_destroy(&stream);
   }
   m_keepGoing = false;
   m_isPaused = false;
@@ -672,6 +709,9 @@ void VortexCLI::cleanup()
     Vortex::doSave();
   }
   Vortex::cleanup();
+  if (m_storage && m_eraseStorage) {
+    remove(m_storageFile.c_str());
+  }
 #ifdef WASM
   emscripten_force_exit(0);
 #endif
@@ -718,7 +758,7 @@ void VortexCLI::show()
     // otherwise this just prints out the raw hex code if not in color mode
     for (uint32_t i = 0; i < m_numLeds; ++i) {
       char buf[128] = { 0 };
-      snprintf(buf, sizeof(buf), "%06X", m_ledList[i].raw());
+      snprintf(buf, sizeof(buf), "%06X", RGBColor_raw(&m_ledList[i]));
       out += buf;
     }
   }
@@ -763,6 +803,8 @@ void VortexCLI::installLeds(void *leds, uint32_t count)
 
 long VortexCLI::VortexCLICallbacks::checkPinHook(uint32_t pin)
 {
+  // the cli isn't part of the engine so it doesn't count towards the device
+  HEAP_TRACK_SCOPE(false);
   if (pin == 20) {
     // orbit button 2
     return Vortex::isButtonPressed(1) ? 0 : 1;
@@ -772,11 +814,15 @@ long VortexCLI::VortexCLICallbacks::checkPinHook(uint32_t pin)
 
 void VortexCLI::VortexCLICallbacks::ledsInit(void *cl, int count)
 {
+  // the cli isn't part of the engine so it doesn't count towards the device
+  HEAP_TRACK_SCOPE(false);
   g_pVortexCLI->installLeds(cl, count);
 }
 
 void VortexCLI::VortexCLICallbacks::ledsShow()
 {
+  // the cli isn't part of the engine so it doesn't count towards the device
+  HEAP_TRACK_SCOPE(false);
   g_pVortexCLI->show();
 }
 

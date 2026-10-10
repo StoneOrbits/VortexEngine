@@ -1,23 +1,26 @@
 #ifndef FACTORY_RESET_H
 #define FACTORY_RESET_H
 
+#include <stdbool.h>
 #include "../Menu.h"
 
-class FactoryReset : public Menu
+typedef struct FactoryReset
 {
-public:
-  FactoryReset(const RGBColor &col, bool advanced);
-  ~FactoryReset();
+  Menu m_base;
+} FactoryReset;
 
-  bool init() override;
-  MenuAction run() override;
+extern const MenuVtable FactoryReset_vtable;
 
-  // handlers for clicks
-  void onShortClick() override;
-  void onLongClick() override;
+FactoryReset *FactoryReset_new(const RGBColor *col, bool advanced);
+void FactoryReset_destroy(FactoryReset *self);
 
-private:
-  void showReset();
-};
+bool FactoryReset_init(FactoryReset *self);
+MenuAction FactoryReset_run(FactoryReset *self);
+
+// handlers for clicks
+void FactoryReset_onShortClick(FactoryReset *self);
+void FactoryReset_onLongClick(FactoryReset *self);
+
+void FactoryReset_showReset(FactoryReset *self);
 
 #endif

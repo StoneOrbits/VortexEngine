@@ -1,74 +1,92 @@
 #include "LighthousePattern.h"
 
+#include <string.h>
 #include "../../Serial/ByteStream.h"
 #include "../../Time/TimeControl.h"
 #include "../../Leds/Leds.h"
 #include "../../Log/Log.h"
+#include "../../Memory/Memory.h"
+#include "../Pattern.h"
 
-LighthousePattern::LighthousePattern(const PatternArgs &args) :
-  BlinkStepPattern(args),
-  m_fadeAmount(0),
-  m_fadeRate(0),
-  m_fadeTimer(),
-  m_stash(),
-  m_progress(0)
+const BlinkStepVtable LighthousePattern_bvtable = {
+  .base = {
+    .destroy = LighthousePattern_destroy,
+    .bind = MultiLedPattern_bind,
+    .init = LighthousePattern_initImpl,
+    .play = LighthousePattern_play
+  },
+  .blinkOn = LighthousePattern_blinkOn,
+  .blinkOff = LighthousePattern_blinkOff,
+  .prestep = BlinkStepPattern_prestep,
+  .poststep = LighthousePattern_poststep,
+};
+
+void LighthousePattern_init(LighthousePattern *self, const PatternArgs *args)
 {
-  m_patternID = PATTERN_LIGHTHOUSE;
-  REGISTER_ARG(m_fadeAmount);
-  REGISTER_ARG(m_fadeRate);
-  setArgs(args);
+  BlinkStepPattern_init(&self->base, args, &LighthousePattern_bvtable);
+  self->m_fadeAmount = 0;
+  self->m_fadeRate = 0;
+  Timer_make(&self->m_fadeTimer);
+  LedStash_make(&self->m_stash);
+  self->m_progress = 0;
+  Pattern_setPatternID((&self->base.base.base), PATTERN_LIGHTHOUSE);
+  REGISTER_ARG((&self->base.base.base), LighthousePattern, m_fadeAmount);
+  REGISTER_ARG((&self->base.base.base), LighthousePattern, m_fadeRate);
+  Pattern_setArgs((&self->base.base.base), args);
 }
 
-LighthousePattern::~LighthousePattern()
+void LighthousePattern_destroy(Pattern *pat)
 {
+  LighthousePattern *self = (LighthousePattern *)pat;
+  (void)self;
 }
 
-// init the pattern to initial state
-void LighthousePattern::init()
+void LighthousePattern_initImpl(Pattern *pat)
 {
-  BlinkStepPattern::init();
-
+  LighthousePattern *self = (LighthousePattern *)pat;
+  BlinkStepPattern_initImpl(pat);
   // fade timer setup
-  m_fadeTimer.reset();
-  m_fadeTimer.addAlarm(m_fadeRate);
-  m_fadeTimer.start();
-
+  Timer_reset(&self->m_fadeTimer);
+  Timer_addAlarm(&self->m_fadeTimer, self->m_fadeRate);
+  Timer_start0(&self->m_fadeTimer);
   // start colorset at index 0 so cur() works
-  m_colorset.setCurIndex(0);
+  Colorset_setCurIndex(&(&self->base.base.base)->m_colorset, 0);
 }
 
-// pure virtual must override the play function
-void LighthousePattern::play()
+void LighthousePattern_play(Pattern *pat)
 {
-  if (m_fadeTimer.alarm() == 0) {
-    fade();
+  LighthousePattern *self = (LighthousePattern *)pat;
+  if (Timer_alarm(&self->m_fadeTimer) == 0) {
+    LighthousePattern_fade(self);
   }
-
-  BlinkStepPattern::play();
+  BlinkStepPattern_play(pat);
 }
 
-void LighthousePattern::blinkOn()
+void LighthousePattern_blinkOn(BlinkStepPattern *bsp)
 {
-  Leds::restoreAll(m_stash);
-  Leds::setIndex((LedPos)m_progress, m_colorset.cur());
-  Leds::stashAll(m_stash);
+  LighthousePattern *self = (LighthousePattern *)bsp;
+  Leds_restoreAll(&self->m_stash);
+  Leds_setIndex((LedPos)self->m_progress, Colorset_cur(&(&self->base.base.base)->m_colorset));
+  Leds_stashAll(&self->m_stash);
 }
 
-void LighthousePattern::blinkOff()
+void LighthousePattern_blinkOff(BlinkStepPattern *bsp)
 {
-  Leds::stashAll(m_stash);
-  Leds::clearAll();
+  LighthousePattern *self = (LighthousePattern *)bsp;
+  Leds_stashAll(&self->m_stash);
+  Leds_clearAll();
 }
 
-void LighthousePattern::poststep()
+void LighthousePattern_poststep(BlinkStepPattern *bsp)
 {
-  m_progress = (m_progress + 1) % LED_COUNT;
-  m_colorset.getNext();
+  LighthousePattern *self = (LighthousePattern *)bsp;
+  self->m_progress = (self->m_progress + 1) % LED_COUNT;
+  Colorset_getNext(&(&self->base.base.base)->m_colorset);
 }
 
-void LighthousePattern::fade()
+void LighthousePattern_fade(LighthousePattern *self)
 {
   for (int i = 0; i < LED_COUNT; ++i) {
-    m_stash[i].adjustBrightness(m_fadeAmount);
+    RGBColor_adjustBrightness(LedStash_at(&self->m_stash, i), self->m_fadeAmount);
   }
 }

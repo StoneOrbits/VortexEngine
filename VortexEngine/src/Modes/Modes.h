@@ -1,6 +1,7 @@
 #ifndef MODES_H
 #define MODES_H
 
+#include <stdbool.h>
 #include "../Serial/ByteStream.h"
 #include "../Colors/ColorTypes.h"
 #include "../Patterns/Patterns.h"
@@ -10,9 +11,9 @@
 
 #include <inttypes.h>
 
-class PatternArgs;
-class Colorset;
-class Mode;
+typedef struct PatternArgs PatternArgs;
+typedef struct Colorset Colorset;
+typedef struct Mode Mode;
 
 // the device is locked and needs to be unlocked to turn on
 #define MODES_FLAG_LOCKED     (1 << 0)
@@ -39,223 +40,202 @@ class Mode;
 // will still have the old version number saved inside
 #define MODES_FLAG_NEW_FIRMWARE 0xF0
 
-class Modes
-{
-  // private unimplemented constructor
-  Modes();
+typedef struct ModeLink ModeLink;
 
-public:
-  // opting for static class here because there should only ever be one
+extern bool Modes_m_loaded;
+extern uint8_t Modes_m_curMode;
+extern uint8_t Modes_m_numModes;
+extern ModeLink * Modes_m_pCurModeLink;
+extern ModeLink * Modes_m_storedModes;
+extern uint32_t Modes_m_globalFlags;
+extern uint32_t Modes_m_lastSwitchTime;
+
+// Everything here is a free function operating on a single set of globals;
+// there should only ever be one
   // Modes control object and I don't like singletons
-  static bool init();
-  static void cleanup();
+bool Modes_init();
+void Modes_cleanup();
 
   // load modes so they are ready to play
-  static bool load();
+bool Modes_load();
 
   // play the current mode
-  static void play();
+void Modes_play();
 
   // full save/load to/from buffer
-  static bool saveToBuffer(ByteStream &saveBuffer);
-  static bool loadFromBuffer(ByteStream &saveBuffer);
+bool Modes_saveToBuffer(ByteStream *saveBuffer);
+bool Modes_loadFromBuffer(ByteStream *saveBuffer);
 
   // save/load the global settings to/from storage
-  static bool saveHeader();
-  static bool loadHeader();
+bool Modes_saveHeader();
+bool Modes_loadHeader();
 
   // full save/load to/from storage
-  static bool saveStorage();
-  static bool loadStorage();
+bool Modes_saveStorage();
+bool Modes_loadStorage();
 
   // save load the savefile header from storage
-  static bool serializeSaveHeader(ByteStream &saveBuffer);
-  static bool unserializeSaveHeader(ByteStream &saveBuffer);
+bool Modes_serializeSaveHeader(ByteStream *saveBuffer);
+bool Modes_unserializeSaveHeader(ByteStream *saveBuffer);
 
   // saves all modes to a buffer
-  static bool serialize(ByteStream &buffer);
+bool Modes_serialize(ByteStream *buffer);
   // load all modes from a buffer, optionally specify number of leds
-  static bool unserialize(ByteStream &buffer);
+bool Modes_unserialize(ByteStream *buffer);
 
   // set default settings (must save after)
-  static bool setDefaults();
+bool Modes_setDefaults();
 
   // shift the current mode to a different position relative to current position
   // negative values for up, positive values for down, 0 for no move
-  static bool shiftCurMode(int32_t offset = 1);
+bool Modes_shiftCurMode(int32_t offset);
 
   // add a new mode in various different ways
-  static bool addMode(PatternID id, RGBColor c1, RGBColor c2 = RGB_OFF,
-    RGBColor c3 = RGB_OFF, RGBColor c4 = RGB_OFF, RGBColor c5 = RGB_OFF,
-    RGBColor c6 = RGB_OFF, RGBColor c7 = RGB_OFF, RGBColor c8 = RGB_OFF);
-  static bool addMode(PatternID id, const PatternArgs *args, const Colorset *set);
-  static bool addMode(const Mode *mode);
+bool Modes_addMode(PatternID id, RGBColor c1, RGBColor c2,
+    RGBColor c3, RGBColor c4, RGBColor c5,
+    RGBColor c6, RGBColor c7, RGBColor c8);
+bool Modes_addMode(PatternID id, const PatternArgs *args, const Colorset *set);
+bool Modes_addMode(const Mode *mode);
 
   // add a new mode by unserializing raw
-  static bool addSerializedMode(ByteStream &serializedMode);
+bool Modes_addSerializedMode(ByteStream *serializedMode);
   // add a new mode by loading from a save buffer
-  static bool addModeFromBuffer(ByteStream &serializedMode);
+bool Modes_addModeFromBuffer(ByteStream *serializedMode);
 
   // update the current mode to match the given mode, optionally save
-  static bool updateCurMode(const Mode *mode);
+bool Modes_updateCurMode(const Mode *mode);
 
   // set the current active mode by index
-  static Mode *setCurMode(uint8_t index);
+Mode *Modes_setCurMode(uint8_t index);
 
   // get the current mode
-  static Mode *curMode();
+Mode *Modes_curMode();
   // iterate to next mode and return it
-  static Mode *nextMode();
+Mode *Modes_nextMode();
   // iterate to previous mode and return it
-  static Mode *previousMode();
+Mode *Modes_previousMode();
 
   // iterate to the next mode but skip empty modes, will not skip mode 0
   // to prevent possibly skipping all modes and ending in an infinite loop
-  static Mode *nextModeSkipEmpty();
+Mode *Modes_nextModeSkipEmpty();
 
   // the number of modes
-  static uint8_t numModes() { return m_numModes; }
-  static uint8_t curModeIndex() { return m_curMode; }
+static inline uint8_t Modes_numModes() { return Modes_m_numModes; }
+static inline uint8_t Modes_curModeIndex() { return Modes_m_curMode; }
 
   // the last time the modes switched to a new mode
-  static uint32_t lastSwitchTime() { return m_lastSwitchTime; }
+static inline uint32_t Modes_lastSwitchTime() { return Modes_m_lastSwitchTime; }
 
   // delete the current mode
-  static void deleteCurMode();
+void Modes_deleteCurMode();
 
   // delete all modes in the list
-  static void clearModes();
+void Modes_clearModes();
 
   // set the startup mode index (which mode will be displayed on startup)
-  static void setStartupMode(uint8_t index);
-  static uint8_t startupMode();
-  static Mode *switchToStartupMode();
+void Modes_setStartupMode(uint8_t index);
+uint8_t Modes_startupMode();
+Mode *Modes_switchToStartupMode();
 
   // set or get flags
-  static bool setFlag(uint8_t flag, bool enable, bool save = true);
-  static bool getFlag(uint8_t flag) { return ((m_globalFlags & flag) == flag); }
+bool Modes_setFlag(uint8_t flag, bool enable, bool save);
+static inline bool Modes_getFlag(uint8_t flag) { return ((Modes_m_globalFlags & flag) == flag); }
 
   // reset flags to factory default (must save after)
-  static void resetFlags() { m_globalFlags = 0; }
+static inline void Modes_resetFlags() { Modes_m_globalFlags = 0; }
 
   // inline functions to toggle the various flags
-  static bool setOneClickMode(bool enable, bool save = true) {
-    return setFlag(MODES_FLAG_ONE_CLICK, enable, save);
+static inline bool Modes_setOneClickMode(bool enable, bool save) {
+    return Modes_setFlag(MODES_FLAG_ONE_CLICK, enable, save);
   }
-  static bool oneClickModeEnabled() {
-    return getFlag(MODES_FLAG_ONE_CLICK);
+static inline bool Modes_oneClickModeEnabled() {
+    return Modes_getFlag(MODES_FLAG_ONE_CLICK);
   }
   // toggle the locked state
-  static bool setLocked(bool locked, bool save = true) {
-    return setFlag(MODES_FLAG_LOCKED, locked, save);
+static inline bool Modes_setLocked(bool locked, bool save) {
+    return Modes_setFlag(MODES_FLAG_LOCKED, locked, save);
   }
-  static bool locked() {
-    return getFlag(MODES_FLAG_LOCKED);
+static inline bool Modes_locked() {
+    return Modes_getFlag(MODES_FLAG_LOCKED);
   }
   // toggle advanced menus
-  static bool setAdvancedMenus(bool active, bool save = true) {
-    return setFlag(MODES_FLAG_ADV_MENUS, active, save);
+static inline bool Modes_setAdvancedMenus(bool active, bool save) {
+    return Modes_setFlag(MODES_FLAG_ADV_MENUS, active, save);
   }
-  static bool advancedMenusEnabled() {
-    return getFlag(MODES_FLAG_ADV_MENUS);
+static inline bool Modes_advancedMenusEnabled() {
+    return Modes_getFlag(MODES_FLAG_ADV_MENUS);
   }
   // toggle the keychain light mode
-  static bool setKeychainMode(bool active, bool save = true) {
-    return setFlag(MODES_FLAG_KEYCHAIN, active, save);
+static inline bool Modes_setKeychainMode(bool active, bool save) {
+    return Modes_setFlag(MODES_FLAG_KEYCHAIN, active, save);
   }
-  static bool keychainModeEnabled() {
-    return getFlag(MODES_FLAG_KEYCHAIN);
+static inline bool Modes_keychainModeEnabled() {
+    return Modes_getFlag(MODES_FLAG_KEYCHAIN);
   }
 
 #if MODES_TEST == 1
-  static void test();
+void Modes_test();
 #endif
 
 #ifdef VORTEX_LIB
   // get the maximum size a mode can occupy
-  static uint32_t maxModeSize();
+uint32_t Modes_maxModeSize();
   // get the maximum size a savefile can occupy
-  static uint32_t maxSaveSize();
+uint32_t Modes_maxSaveSize();
   // global flags value
-  static uint8_t globalFlags();
+uint8_t Modes_globalFlags();
 #endif
 
-private:
-  // linked list of internal mode storage
-  class ModeLink {
-  public:
-    // construct a link and optionally instantiate the link
-    ModeLink(const Mode *src = nullptr, bool inst = false);
-    ModeLink(const ByteStream &src, bool inst = false);
-    ~ModeLink();
+// a linked list node of internal mode storage
+struct ModeLink
+{
+  Mode *m_pInstantiatedMode;
+  ByteStream m_storedMode;
+  ModeLink *m_next;
+  ModeLink *m_prev;
+};
 
-    // init the link and append another link
-    bool init(const Mode *mode = nullptr);
-    bool append(const Mode *next);
-    bool append(const ByteStream &next);
 
-    // play the instantiated mode inside
-    void play();
+void ModeLink_init(ModeLink *self, const Mode *src, bool inst);
+void ModeLink_initBuf(ModeLink *self, const ByteStream *src, bool inst);
+void ModeLink_destroy(ModeLink *self);
+bool ModeLink_initMode(ModeLink *self, const Mode *mode);
+bool ModeLink_appendMode(ModeLink *self, const Mode *next);
+bool ModeLink_appendBuf(ModeLink *self, const ByteStream *next);
+void ModeLink_play(ModeLink *self);
+ModeLink *ModeLink_unlinkSelf(ModeLink *self);
+void ModeLink_linkAfter(ModeLink *self, ModeLink *link);
+void ModeLink_linkBefore(ModeLink *self, ModeLink *link);
+Mode *ModeLink_instantiate(ModeLink *self);
+void ModeLink_uninstantiate(ModeLink *self);
+bool ModeLink_save(ModeLink *self);
+ByteStream *ModeLink_buffer(ModeLink *self);
+Mode *ModeLink_mode(ModeLink *self);
+ModeLink *ModeLink_next(ModeLink *self);
+ModeLink *ModeLink_prev(ModeLink *self);
 
-    // unlink self from the chain, returns link that takes position
-    ModeLink *unlinkSelf();
-
-    // link in a node before or after self
-    void linkAfter(ModeLink *link);
-    void linkBefore(ModeLink *link);
-
-    // instantiate/destroy the mode
-    Mode *instantiate();
-    void uninstantiate();
-
-    // if the mode is instantiated and the instantiated version
-    // has changed at all then save will re-save it to the buffer
-    bool save();
-
-    // accessors
-    ByteStream &buffer() { return m_storedMode; }
-    Mode *mode() { return m_pInstantiatedMode; }
-    ModeLink *next() { return m_next; }
-    ModeLink *prev() { return m_prev; }
-
-    operator ByteStream &() { return m_storedMode; }
-    operator ByteStream() { return m_storedMode; }
-    operator Mode *() { return m_pInstantiatedMode; }
-  private:
-    Mode *m_pInstantiatedMode;
-    ByteStream m_storedMode;
-    ModeLink *m_next;
-    ModeLink *m_prev;
-  };
 
   // fetch a link from the chain by index
-  static ModeLink *getModeLink(uint32_t index);
+ModeLink *Modes_getModeLink(uint32_t index);
 
   // initialize current mode from ByteStream, optionally force re-init which
   // will destroy the current instantiated mode and re-load it from serial
-  static Mode *initCurMode(bool force = false);
-  static bool saveCurMode();
+Mode *Modes_initCurMode(bool force);
+bool Modes_saveCurMode();
 
   // whether modes have been loaded
-  static bool m_loaded;
 
   // the current mode we're on
-  static uint8_t m_curMode;
 
   // the number of modes loaded
-  static uint8_t m_numModes;
 
   // the current instantiated mode and it's respective link
-  static ModeLink *m_pCurModeLink;
 
   // list of serialized version of bufers
-  static ModeLink *m_storedModes;
 
   // global flags for all modes
-  static uint8_t m_globalFlags;
 
   // the last switch time of the modes
-  static uint32_t m_lastSwitchTime;
-};
+
 
 #endif

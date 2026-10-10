@@ -1,6 +1,7 @@
 #ifndef VL_SENDER_H
 #define VL_SENDER_H
 
+#include <stdbool.h>
 #include "../Serial/ByteStream.h"
 #include "../Serial/BitStream.h"
 
@@ -8,41 +9,25 @@
 
 #if VL_ENABLE_SENDER == 1
 
-class Mode;
+typedef struct Mode Mode;
 
-class VLSender
-{
-  VLSender();
+bool VLSender_init();
+void VLSender_cleanup();
 
-public:
-  static bool init();
-  static void cleanup();
+// send a mode
+void VLSender_send(const Mode *targetMode);
+void VLSender_sendLegacy(const Mode *targetMode);
 
-  // send a mode
-  static void send(const Mode *targetMode);
-  static void sendLegacy(const Mode *targetMode);
-
-private:
-  static bool loadMode(const Mode *targetMode);
-  // send a full 8 bits in a tight loop
-  static void sendByte(uint8_t data);
-  // send full 8 bits legacy protocol
-  static void sendByteLegacy(uint8_t data);
-  // send a mark/space by turning PWM on/off
-  static void sendMarkSpace(uint16_t markTime, uint16_t spaceTime);
-  // turn the VL transmitter on/off in realtime
-  static void startPWM();
-  static void stopPWM();
-
-  // the serial buffer for the data
-  static ByteStream m_serialBuf;
-  // a bit walker for the serial data
-  static BitStream m_bitStream;
-
-  // some runtime meta info
-  static uint8_t m_size;
-  static uint8_t m_parity;
-};
+bool VLSender_loadMode(const Mode *targetMode);
+// send a full 8 bits in a tight loop
+void VLSender_sendByte(uint8_t data);
+// send full 8 bits legacy protocol
+void VLSender_sendByteLegacy(uint8_t data);
+// send a mark/space by turning PWM on/off
+void VLSender_sendMarkSpace(uint16_t markTime, uint16_t spaceTime);
+// turn the VL transmitter on/off in realtime
+void VLSender_startPWM();
+void VLSender_stopPWM();
 
 #endif
 
