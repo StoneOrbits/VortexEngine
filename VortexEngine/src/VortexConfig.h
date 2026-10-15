@@ -238,6 +238,18 @@
 // Mostly for catching leaks or high memory usage in development.
 #define MAX_MEMORY            8000
 
+// Heap Tracking Device Heap Size
+//
+// The size of the simulated attiny3217 heap used by the heap tracker when the
+// cli is run with --max-heap=device. The 3217 has 2048 bytes of ram and the
+// duo uses 122 of that for globals, the rest is shared by the heap growing up
+// and the stack growing down. avr-libc malloc refuses to grow the heap within
+// 32 bytes (__malloc_margin) of the stack pointer, and the stack can grow
+// deeper after an allocation succeeds, so this reserves 256 bytes for the
+// deepest stack the engine reaches, any heap byte past this would collide
+// with the stack on the real device.
+#define HEAP_TRACKING_DEVICE_SIZE (2048 - 122 - 32 - 256)
+
 // Log Level
 //
 // Set the logging level to control info/error/debug logs accordingly
@@ -350,6 +362,22 @@
 // When the test framework does things like display a color for the first time
 // it will allocate space permanently for the new brush and never free it
 #define DEBUG_ALLOCATIONS     0
+
+// Heap Tracking
+//
+// Only for the desktop vortexlib build, this routes every engine allocation
+// through a simulated copy of the avr-libc heap where each allocation costs
+// the size it really has on the attiny3217. This makes it possible to see the
+// heap usage and fragmentation the device would have, and with a max heap size
+// set (see --max-heap in the cli) to fail allocations where the device would.
+//
+// The simulated heap is unlimited by default so nothing changes unless a max
+// heap size is set.
+#if defined(VORTEX_LIB) && !defined(WASM)
+#define HEAP_TRACKING         1
+#else
+#define HEAP_TRACKING         0
+#endif
 
 // Variable Tickrate
 //
@@ -599,8 +627,12 @@
 #endif
 
 #ifdef VORTEX_LIB
+// VORTEX_LIB_SLIM keeps the slim engine of the device, for example the heap
+// test uses it so the engine allocates exactly like the device does
+#ifndef VORTEX_LIB_SLIM
 #undef VORTEX_SLIM
 #define VORTEX_SLIM 0
+#endif
 
 // The test framework needs brighter menu colors can't really see them on the screen
 #undef RGB_MENU_RANDOMIZER

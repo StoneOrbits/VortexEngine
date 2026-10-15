@@ -19,6 +19,12 @@ RANLIB=ranlib
 
 CFLAGS=-O2 -Wall
 
+# the engine expects new to return null when it runs out of memory like it does
+# on the device, this makes new expressions check for that
+ifndef WASM
+CFLAGS += -fcheck-new
+endif
+
 # add -g flag for debug symbols if we're not using wasm
 ifndef WASM
 CFLAGS += -g
