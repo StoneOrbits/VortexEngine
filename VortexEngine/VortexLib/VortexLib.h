@@ -154,6 +154,9 @@ public:
   // timing either way
   static void IRDeliver(uint32_t timing);
   static void VLDeliver(uint32_t timing);
+  // simulate another device sending one of the default modes over VL, the
+  // timings it blinks are delivered to the VL receiver of this device
+  static void VLTransmitDefaultMode(uint8_t index);
 
   // get total/used storage space
   static void getStorageStats(uint32_t *outTotal, uint32_t *outUsed);
@@ -357,6 +360,11 @@ private:
     // this is an automated event that will reset the button click
     // after the ring menu hold-to-enter sequence
     EVENT_RESET_CLICK,
+
+    // another device sends a default mode over VL (target is the mode index)
+    EVENT_VL_TRANSMIT,
+    // print the simulated device heap stats (mainly used for testing)
+    EVENT_HEAP_STATS,
   };
 
   class VortexButtonEvent

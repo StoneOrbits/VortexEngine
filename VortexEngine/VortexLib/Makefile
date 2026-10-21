@@ -19,6 +19,14 @@ RANLIB=ranlib
 
 CFLAGS=-O2 -Wall
 
+# 'make HEAP_TRACKING=1' runs the engine in a simulated attiny3217 heap, see
+# HEAP_TRACKING in VortexConfig.h, the engine then expects new to return null
+# when it runs out of memory like it does on the device and -fcheck-new makes
+# new expressions check for that
+ifeq ($(HEAP_TRACKING),1)
+CFLAGS += -D HEAP_TRACKING=1 -fcheck-new
+endif
+
 # add -g flag for debug symbols if we're not using wasm
 ifndef WASM
 CFLAGS += -g
