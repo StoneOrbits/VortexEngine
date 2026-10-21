@@ -373,10 +373,14 @@
 //
 // The simulated heap is unlimited by default so nothing changes unless a max
 // heap size is set.
-#if defined(VORTEX_LIB) && !defined(WASM)
-#define HEAP_TRACKING         1
-#else
+//
+// This is off by default, build the cli with 'make HEAP_TRACKING=1' to turn
+// it on (make clean first, the objects aren't rebuilt when it changes)
+#ifndef HEAP_TRACKING
 #define HEAP_TRACKING         0
+#endif
+#if HEAP_TRACKING == 1 && (!defined(VORTEX_LIB) || defined(WASM))
+#error "HEAP_TRACKING is only supported in the desktop vortexlib build"
 #endif
 
 // Variable Tickrate

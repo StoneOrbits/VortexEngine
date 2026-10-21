@@ -36,7 +36,7 @@ if [ $NOMAKE -eq 0 ]; then
   mkdir -p $BUILD
   # this is a separate build from the regular cli because VORTEX_LIB_SLIM
   # changes the output of the regular tests
-  FLAGS="-O1 -g -fcheck-new -D VORTEX_LIB -D VORTEX_LIB_SLIM -I ../VortexLib -I ../src"
+  FLAGS="-O1 -g -fcheck-new -D VORTEX_LIB -D VORTEX_LIB_SLIM -D HEAP_TRACKING=1 -I ../VortexLib -I ../src"
   SOURCES="$(find ../src -name '*.cpp') ../VortexLib/VortexLib.cpp ../VortexCLI/VortexCLI.cpp"
   if ! echo $SOURCES | tr ' ' '\n' | \
       xargs -P "$(nproc)" -I{} sh -c "g++ $FLAGS -c {} -o $BUILD/\$(echo {} | sed 's,^\.\./,,; s,/,_,g').o" ||

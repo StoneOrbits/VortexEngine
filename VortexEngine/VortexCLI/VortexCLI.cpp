@@ -259,7 +259,9 @@ static void print_usage(const char* program_name)
   fprintf(stderr, "  -A, --arguments a1,a2... Preset the arguments on the first mode (csv list of arguments)\n");
   fprintf(stderr, "\n");
   fprintf(stderr, "Other Options:\n");
+#if HEAP_TRACKING == 1
   fprintf(stderr, "  -Z, --max-heap <size>    Limit the simulated device heap to size bytes, or 'device' for the attiny3217\n");
+#endif
   fprintf(stderr, "  -h, --help               Display this help message\n");
   fprintf(stderr, "\n");
   fprintf(stderr, "Input Commands (pass to stdin):");
@@ -268,7 +270,9 @@ static void print_usage(const char* program_name)
   }
   fprintf(stderr, "\n");
   fprintf(stderr, "   v<N>  another device sends default mode N over VL (ex: v7)\n");
+#if HEAP_TRACKING == 1
   fprintf(stderr, "   H     print the simulated device heap stats\n");
+#endif
   fprintf(stderr, "\n");
   fprintf(stderr, "Example Usage:\n");
   fprintf(stderr, "   ./vortex --color\n");
@@ -469,8 +473,12 @@ bool VortexCLI::init(int argc, char *argv[])
 #if HEAP_TRACKING == 1
       // limit the simulated device heap
       heap_setMaxSize(strcmp(optarg, "device") == 0 ? HEAP_TRACKING_DEVICE_SIZE : strtoul(optarg, nullptr, 0));
-#endif
       break;
+#else
+      // don't silently run without the limit, a heap test would always pass
+      fprintf(stderr, "--max-heap needs heap tracking, build with 'make HEAP_TRACKING=1'\n");
+      exit(EXIT_FAILURE);
+#endif
     case 'h':
       // print usage and exit
       print_usage(argv[0]);

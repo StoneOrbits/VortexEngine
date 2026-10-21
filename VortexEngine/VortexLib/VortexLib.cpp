@@ -909,9 +909,11 @@ void Vortex::doCommand(char c)
     // do nothing for the initial 'v', handleNumber() will handle the default
     // mode index that follows and queue the VL transmit of that mode
     break;
+#if HEAP_TRACKING == 1
   case 'H':
     m_buttonEventQueue.push_back(VortexButtonEvent(0, EVENT_HEAP_STATS));
     break;
+#endif
   default:
     handleNumber(c);
     // return instead of break because this isn't a command
@@ -1928,11 +1930,11 @@ void Vortex::handleInputQueue(Button *buttons, uint32_t numButtons)
   case EVENT_VL_TRANSMIT:
     VLTransmitDefaultMode(buttonEvent.target);
     break;
-  case EVENT_HEAP_STATS:
 #if HEAP_TRACKING == 1
+  case EVENT_HEAP_STATS:
     heap_printStats(m_commandLog.c_str());
-#endif
     break;
+#endif
   }
 }
 
