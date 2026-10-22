@@ -24,6 +24,7 @@
 #include "VortexCLI.h"
 
 #include "Log/Log.h"
+#include "Memory/Memory.h"
 
 #include "VortexLib.h"
 
@@ -197,6 +198,7 @@ static struct option long_options[] = {
   {"pattern", required_argument, nullptr, 'P'},
   {"colorset", required_argument, nullptr, 'C'},
   {"arguments", required_argument, nullptr, 'A'},
+  {"max-heap", required_argument, nullptr, 'Z'},
   {"help", no_argument, nullptr, 'h'},
   {nullptr, 0, nullptr, 0}
 };
@@ -257,13 +259,21 @@ static void print_usage(const char* program_name)
   fprintf(stderr, "  -A, --arguments a1,a2... Preset the arguments on the first mode (csv list of arguments)\n");
   fprintf(stderr, "\n");
   fprintf(stderr, "Other Options:\n");
+#if HEAP_TRACKING == 1
+  fprintf(stderr, "  -Z, --max-heap <size>    Limit engine memory to the device pools and a size byte arena, or 'device' for the attiny3217\n");
+#endif
   fprintf(stderr, "  -h, --help               Display this help message\n");
   fprintf(stderr, "\n");
   fprintf(stderr, "Input Commands (pass to stdin):");
   for (uint32_t i = 0; i < NUM_USAGE; ++i) {
     fprintf(stderr, "%s", input_usage[i]);
   }
-  fprintf(stderr, "\n\n");
+  fprintf(stderr, "\n");
+  fprintf(stderr, "   v<N>  another device sends default mode N over VL (ex: v7)\n");
+#if HEAP_TRACKING == 1
+  fprintf(stderr, "   H     print the device memory stats\n");
+#endif
+  fprintf(stderr, "\n");
   fprintf(stderr, "Example Usage:\n");
   fprintf(stderr, "   ./vortex --color\n");
   fprintf(stderr, "   ./vortex -ci -P42 -Ccyan,purple\n");
@@ -358,7 +368,7 @@ bool VortexCLI::init(int argc, char *argv[])
 
   int opt = -1;
   int option_index = 0;
-  while ((opt = getopt_long(argc, argv, "xcstliranqS::W:M:L:I::O::HP:C:A:h", long_options, &option_index)) != -1) {
+  while ((opt = getopt_long(argc, argv, "xcstliranqS::W:M:L:I::O::HP:C:A:Z:h", long_options, &option_index)) != -1) {
     switch (opt) {
     case 'x':
       // if the user wants pretty colors or hex codes
@@ -459,6 +469,16 @@ bool VortexCLI::init(int argc, char *argv[])
       // preset the arguments on the first mode
       m_argumentsStr = optarg;
       break;
+    case 'Z':
+#if HEAP_TRACKING == 1
+      // limit the device memory
+      heap_setMaxSize(strcmp(optarg, "device") == 0 ? HEAP_TRACKING_DEVICE_SIZE : strtoul(optarg, nullptr, 0));
+      break;
+#else
+      // don't silently run without the limit, a heap test would always pass
+      fprintf(stderr, "--max-heap needs heap tracking, build with 'make HEAP_TRACKING=1'\n");
+      exit(EXIT_FAILURE);
+#endif
     case 'h':
       // print usage and exit
       print_usage(argv[0]);
@@ -768,6 +788,8 @@ void VortexCLI::installLeds(void *leds, uint32_t count)
 
 long VortexCLI::VortexCLICallbacks::checkPinHook(uint32_t pin)
 {
+  // the cli isn't part of the engine so it doesn't count towards the device
+  HEAP_TRACK_SCOPE(false);
   if (pin == 20) {
     // orbit button 2
     return Vortex::isButtonPressed(1) ? 0 : 1;
@@ -777,11 +799,15 @@ long VortexCLI::VortexCLICallbacks::checkPinHook(uint32_t pin)
 
 void VortexCLI::VortexCLICallbacks::ledsInit(void *cl, int count)
 {
+  // the cli isn't part of the engine so it doesn't count towards the device
+  HEAP_TRACK_SCOPE(false);
   g_pVortexCLI->installLeds(cl, count);
 }
 
 void VortexCLI::VortexCLICallbacks::ledsShow()
 {
+  // the cli isn't part of the engine so it doesn't count towards the device
+  HEAP_TRACK_SCOPE(false);
   g_pVortexCLI->show();
 }
 

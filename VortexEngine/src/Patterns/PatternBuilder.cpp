@@ -70,6 +70,7 @@ static MEMPOOL_STORAGE(s_patternStorage, sizeof(AnyPattern), PATTERN_POOL_SIZE);
 bool PatternBuilder_init()
 {
   MemPool_init(&s_patternPool, s_patternStorage, sizeof(AnyPattern), PATTERN_POOL_SIZE);
+  MEMPOOL_TRACK(&s_patternPool, "pattern", DEVICE_PATTERN_POOL_SIZE);
   return true;
 }
 

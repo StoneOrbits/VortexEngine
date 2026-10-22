@@ -64,6 +64,19 @@ typedef struct MemPool
   uint8_t m_numUsed;
   // the most blocks that were ever in use at once
   uint8_t m_highWater;
+#if HEAP_TRACKING == 1
+  // the name of the pool for the heap stats
+  const char *m_name;
+  // which blocks were allocated while heap tracking was enabled
+  uint8_t *m_tracked;
+  // the next pool in the list of tracked pools
+  struct MemPool *m_nextTracked;
+  // the number of blocks on the device, the number of tracked blocks in use
+  // and the most tracked blocks that were ever in use at once
+  uint8_t m_deviceBlocks;
+  uint8_t m_trackedUsed;
+  uint8_t m_trackedPeak;
+#endif
 } MemPool;
 
 // setup the pool in the given storage, this is only done once and
@@ -75,5 +88,49 @@ void *MemPool_alloc(MemPool *self);
 void MemPool_free(MemPool *self, void *ptr);
 // whether a pointer is a block of this pool
 bool MemPool_contains(const MemPool *self, const void *ptr);
+
+#if HEAP_TRACKING == 1
+
+// Heap tracking, see HEAP_TRACKING in VortexConfig.h
+//
+// Only memory the engine uses while tracking is enabled counts towards the
+// device, this is turned on while the engine itself runs so that the memory
+// used by the vortexlib or cli (undo buffer, etc) isn't counted
+bool heap_setTracking(bool enabled);
+bool heap_tracking();
+
+// limit the ByteStream arena to this many device bytes and the pools to their
+// device number of blocks, 0 is unlimited
+void heap_setMaxSize(uint32_t size);
+uint32_t heap_maxSize();
+
+// a tracked ByteStream arena chunk is changing from oldSize to newSize device
+// bytes, returns false if the device wouldn't have room
+bool heap_arenaResize(uint32_t oldSize, uint32_t newSize);
+
+// print the device memory used by the arena and the pools
+void heap_printStats(const char *label);
+
+// track the blocks of a pool, deviceBlocks is the number it has on the device
+void MemPool_track(MemPool *self, const char *name, uint8_t deviceBlocks);
+#define MEMPOOL_TRACK(pool, name, deviceBlocks) MemPool_track(pool, name, deviceBlocks)
+
+// enables or disables heap tracking for a scope then restores it
+class HeapTrackScope
+{
+public:
+  HeapTrackScope(bool enabled) : m_prev(heap_setTracking(enabled)) {}
+  ~HeapTrackScope() { heap_setTracking(m_prev); }
+private:
+  bool m_prev;
+};
+#define HEAP_TRACK_SCOPE(enabled) HeapTrackScope heapTrackScope(enabled)
+
+#else
+
+#define MEMPOOL_TRACK(pool, name, deviceBlocks)
+#define HEAP_TRACK_SCOPE(enabled)
+
+#endif
 
 #endif

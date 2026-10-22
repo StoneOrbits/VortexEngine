@@ -73,6 +73,39 @@ jobs:
         run: ./runtests.sh --general
         working-directory: VortexEngine/tests
 
+  # runs the tests with the engine in a simulated attiny3217 heap to catch heap
+  # problems like fragmentation that the regular build can't see
+  heap:
+    needs: setup
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout current repository
+        uses: actions/checkout@v4
+      - name: Update Package Lists
+        run: sudo apt-get update
+      - name: Install Dependencies
+        run: sudo apt-get install g++ make --fix-missing
+      - name: Build with heap tracking
+        run: |
+          export VORTEX_VERSION_MAJOR=${{ needs.setup.outputs.vortex_version_major }}
+          export VORTEX_VERSION_MINOR=${{ needs.setup.outputs.vortex_version_minor }}
+          export VORTEX_BUILD_NUMBER=${{ needs.setup.outputs.vortex_build_number }}
+          export VORTEX_VERSION_NUMBER=${{ needs.setup.outputs.vortex_version_number }}
+          make -j HEAP_TRACKING=1
+        working-directory: VortexEngine
+      - name: Set execute permissions for test scripts
+        run: chmod +x ./runtests.sh ./heaptest.sh
+        working-directory: VortexEngine/tests
+      - name: Run general tests with heap tracking
+        # -n so the tests don't rebuild without heap tracking
+        run: ./runtests.sh -n --general
+        working-directory: VortexEngine/tests
+      - name: Run heap tests
+        # run these even when the general tests fail
+        if: ${{ !cancelled() }}
+        run: ./heaptest.sh
+        working-directory: VortexEngine/tests
+
   embedded:
     needs: [setup, test]
     runs-on: ubuntu-latest
@@ -91,6 +124,14 @@ jobs:
           export VORTEX_BUILD_NUMBER=${{ needs.setup.outputs.vortex_build_number }}
           export VORTEX_VERSION_NUMBER=${{ needs.setup.outputs.vortex_version_number }}
           make build
+      - name: Check the firmware never uses malloc
+        # the ByteStream arena starts where the malloc heap would, so any
+        # malloc in the firmware would hand out memory inside the arena
+        run: |
+          if ~/atmel_setup/avr8-gnu-toolchain-linux_x86_64/bin/avr-nm vortex.elf | grep -wE "malloc|calloc|realloc|free|__brkval"; then
+            echo "The firmware uses malloc, it would overlap the ByteStream arena"
+            exit 1
+          fi
       - name: Archive production artifacts
         uses: actions/upload-artifact@v4
         with:

@@ -112,6 +112,7 @@ const MenuEntry menuList[] = {
 bool Menus_init()
 {
   MemPool_init(&s_menuPool, s_menuStorage, sizeof(AnyMenu), MENU_POOL_SIZE);
+  MEMPOOL_TRACK(&s_menuPool, "menu", DEVICE_MENU_POOL_SIZE);
   Menus_m_menuState = MENU_STATE_NOT_OPEN;
   // sub-menus are initialized right before they run
   return true;

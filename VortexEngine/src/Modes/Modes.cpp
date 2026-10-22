@@ -39,6 +39,8 @@ bool Modes_init()
 {
   MemPool_init(&s_modeLinkPool, s_modeLinkStorage, sizeof(ModeLink), MODELINK_POOL_SIZE);
   MemPool_init(&s_modePool, s_modeStorage, sizeof(Mode), MODE_POOL_SIZE);
+  MEMPOOL_TRACK(&s_modeLinkPool, "modelink", DEVICE_MODELINK_POOL_SIZE);
+  MEMPOOL_TRACK(&s_modePool, "mode", DEVICE_MODE_POOL_SIZE);
 #if MODES_TEST == 1
   Mode_test();
   Modes_test();

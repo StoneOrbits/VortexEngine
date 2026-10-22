@@ -7,6 +7,9 @@
 #include "Serial/ByteStream.h"
 #include "Wireless/IRReceiver.h"
 #include "Wireless/VLReceiver.h"
+#include "Wireless/VLSender.h"
+#include "Modes/DefaultModes.h"
+#include "Memory/Memory.h"
 #include "Patterns/PatternBuilder.h"
 #include "Time/TimeControl.h"
 #include "Patterns/Pattern.h"
@@ -826,11 +829,15 @@ bool Vortex::init(VortexCallbacks *callbacks)
   }
 #endif
 
-  // init the engine
-  VortexEngine_init();
-  // load the modes
-  // TODO: don't load modes here? separate api?
-  Modes_load();
+  {
+    // only the engine itself counts towards the device memory
+    HEAP_TRACK_SCOPE(true);
+    // init the engine
+    VortexEngine_init();
+    // load the modes
+    // TODO: don't load modes here? separate api?
+    Modes_load();
+  }
   // clear the modes
   //Modes_clearModes();
   // save and set undo buffer
@@ -843,7 +850,10 @@ bool Vortex::init(VortexCallbacks *callbacks)
 
 void Vortex::cleanup()
 {
-  VortexEngine_cleanup();
+  {
+    HEAP_TRACK_SCOPE(true);
+    VortexEngine_cleanup();
+  }
   if (m_storedCallbacks) {
     delete m_storedCallbacks;
     m_storedCallbacks = nullptr;
@@ -883,6 +893,10 @@ void Vortex::handleNumber(char c)
   case 'b':
     // select button index to target for click events
     selectButton(number);
+    break;
+  case 'v':
+    // another device sends this default mode over VL
+    m_buttonEventQueue.push_back(VortexButtonEvent(number, EVENT_VL_TRANSMIT));
     break;
   default: // any other command
     if (number > 0) {
@@ -958,6 +972,15 @@ void Vortex::doCommand(char c)
     }
     quitClick();
     break;
+  case 'v':
+    // do nothing for the initial 'v', handleNumber() will handle the default
+    // mode index that follows and queue the VL transmit of that mode
+    break;
+#if HEAP_TRACKING == 1
+  case 'H':
+    m_buttonEventQueue.push_back(VortexButtonEvent(0, EVENT_HEAP_STATS));
+    break;
+#endif
   case 't':
     if (isButtonPressed()) {
       if (m_lastCommand != c) {
@@ -1037,6 +1060,7 @@ bool Vortex::tick()
     doCommand(getchar());
   }
   // tick the vortex engine forward
+  HEAP_TRACK_SCOPE(true);
   VortexEngine_tick();
   return true;
 }
@@ -1196,6 +1220,37 @@ void Vortex::VLDeliver(uint32_t timing)
 {
 #if VL_ENABLE_RECEIVER == 1
   VLReceiver_handleVLTiming(timing);
+#endif
+}
+
+void Vortex::VLTransmitDefaultMode(uint8_t index)
+{
+#if VL_ENABLE_SENDER == 1 && VL_ENABLE_RECEIVER == 1
+  if (index >= MAX_MODES) {
+    return;
+  }
+  // the mode is built and sent by an imaginary second device so none of
+  // this counts towards the device memory of this device
+  HEAP_TRACK_SCOPE(false);
+  Mode mode;
+  Mode_initDefault(&mode, &defaultModes[index]);
+  // capture the timings the sender would blink
+  class VLCapture : public VortexCallbacks
+  {
+  public:
+    void infraredWrite(bool mark, uint32_t amount) override { timings.push_back(amount); }
+    vector<uint32_t> timings;
+  };
+  VLCapture capture;
+  VortexCallbacks *callbacks = m_storedCallbacks;
+  m_storedCallbacks = &capture;
+  VLSender_send(&mode);
+  m_storedCallbacks = callbacks;
+  Mode_destroy(&mode);
+  // and deliver them to the receiver of this device
+  for (uint32_t timing : capture.timings) {
+    VLDeliver(timing);
+  }
 #endif
 }
 
@@ -1822,6 +1877,9 @@ bool Vortex::doSave()
 
 void Vortex::handleInputQueue(Button *buttons, uint32_t numButtons)
 {
+  // this runs inside the engine tick but the input queue isn't part of the
+  // engine so it shouldn't count towards the device memory
+  HEAP_TRACK_SCOPE(false);
   // if there's nothing in the queue just return
   if (!m_buttonEventQueue.size()) {
     return;
@@ -1831,7 +1889,8 @@ void Vortex::handleInputQueue(Button *buttons, uint32_t numButtons)
   m_buttonEventQueue.pop_front();
   // the target button for this event (no target if event is just 'wait')
   Button *pButton = buttons;
-  if (buttonEvent.type != EVENT_WAIT && buttonEvent.type != EVENT_RAPID_CLICK) {
+  if (buttonEvent.type != EVENT_WAIT && buttonEvent.type != EVENT_RAPID_CLICK &&
+      buttonEvent.type != EVENT_VL_TRANSMIT && buttonEvent.type != EVENT_HEAP_STATS) {
     // make sure the button that is targeted is actually a valid index
     if (buttonEvent.target >= numButtons) {
       return;
@@ -1929,8 +1988,11 @@ void Vortex::handleInputQueue(Button *buttons, uint32_t numButtons)
       swap(backup, m_buttonEventQueue);
       // ticks the engine forward some number of ticks, the event queue is empty
       // so the engine won't process any input events while doing this
-      for (uint32_t i = 0; i < buttonEvent.target; ++i) {
-        VortexEngine_tick();
+      {
+        HEAP_TRACK_SCOPE(true);
+        for (uint32_t i = 0; i < buttonEvent.target; ++i) {
+          VortexEngine_tick();
+        }
       }
       // then restore the event queue so that events are processed like normal
       swap(backup, m_buttonEventQueue);
@@ -1973,6 +2035,14 @@ void Vortex::handleInputQueue(Button *buttons, uint32_t numButtons)
   case EVENT_RESET_CLICK:
     pButton->m_isPressed = false;
     break;
+  case EVENT_VL_TRANSMIT:
+    VLTransmitDefaultMode(buttonEvent.target);
+    break;
+#if HEAP_TRACKING == 1
+  case EVENT_HEAP_STATS:
+    heap_printStats(m_commandLog.c_str());
+    break;
+#endif
   }
 }
 
@@ -2015,6 +2085,7 @@ uint32_t Vortex::getNumInputs()
 
 void Vortex::printlog(const char *file, const char *func, int line, const char *msg, va_list list)
 {
+  HEAP_TRACK_SCOPE(false);
   if (!Vortex::m_consoleHandle) {
     return;
   }

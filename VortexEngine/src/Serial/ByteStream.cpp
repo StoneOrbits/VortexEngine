@@ -51,6 +51,10 @@ typedef struct ArenaChunk
   ByteStream *owner;
   // the total size of this chunk including this header
   arena_size_t size;
+#if HEAP_TRACKING == 1
+  // the size of this chunk on the device, 0 if it isn't tracked
+  arena_size_t deviceSize;
+#endif
 } ArenaChunk;
 
 // chunks are rounded up to keep every chunk header and RawBuffer aligned
@@ -58,6 +62,12 @@ typedef struct ArenaChunk
 #define ARENA_CHUNK_HEADER ARENA_ALIGN(sizeof(ArenaChunk))
 // the total chunk size for a buffer of the given capacity
 #define ARENA_CHUNK_SIZE(capacity) ARENA_ALIGN(ARENA_CHUNK_HEADER + sizeof(RawBuffer) + (capacity))
+
+#if HEAP_TRACKING == 1
+// the chunk size on the device, the header is a 2 byte pointer and a 2 byte
+// size and chunks are aligned to 2 bytes, the RawBuffer is the same size
+#define ARENA_DEVICE_CHUNK_SIZE(capacity) (((4 + sizeof(RawBuffer) + (capacity)) + 1) & ~1)
+#endif
 
 #ifdef VORTEX_EMBEDDED
 // the end of the static data, provided by the linker
@@ -162,9 +172,19 @@ static RawBuffer *ByteStream_allocBuffer(ByteStream *owner, uint32_t capacity)
     ERROR_OUT_OF_MEMORY();
     return NULL;
   }
+#if HEAP_TRACKING == 1
+  arena_size_t deviceSize = heap_tracking() ? ARENA_DEVICE_CHUNK_SIZE(capacity) : 0;
+  if (!heap_arenaResize(0, deviceSize)) {
+    ERROR_OUT_OF_MEMORY();
+    return NULL;
+  }
+#endif
   ArenaChunk *chunk = (ArenaChunk *)(s_arena + s_arenaUsed);
   chunk->owner = owner;
   chunk->size = size;
+#if HEAP_TRACKING == 1
+  chunk->deviceSize = deviceSize;
+#endif
   s_arenaUsed += size;
   if (s_arenaUsed > s_arenaHighWater) {
     s_arenaHighWater = s_arenaUsed;
@@ -175,6 +195,9 @@ static RawBuffer *ByteStream_allocBuffer(ByteStream *owner, uint32_t capacity)
 // release a buffer back to the arena, this compacts the arena
 static void ByteStream_freeBuffer(RawBuffer *buf)
 {
+#if HEAP_TRACKING == 1
+  heap_arenaResize(ByteStream_chunk(buf)->deviceSize, 0);
+#endif
   ByteStream_resizeChunk(ByteStream_chunk(buf), 0);
 }
 
@@ -182,7 +205,24 @@ static void ByteStream_freeBuffer(RawBuffer *buf)
 // any buffer in the arena (including this one) so the owners are updated
 static bool ByteStream_resizeBuffer(ByteStream *owner, uint32_t capacity)
 {
+#if HEAP_TRACKING == 1
+  // a chunk stays tracked or untracked for as long as it lives
+  ArenaChunk *chunk = ByteStream_chunk(owner->m_pData);
+  arena_size_t oldDeviceSize = chunk->deviceSize;
+  arena_size_t deviceSize = oldDeviceSize ? ARENA_DEVICE_CHUNK_SIZE(capacity) : 0;
+  if (!heap_arenaResize(oldDeviceSize, deviceSize)) {
+    ERROR_OUT_OF_MEMORY();
+    return false;
+  }
+  if (!ByteStream_resizeChunk(chunk, ARENA_CHUNK_SIZE(capacity))) {
+    heap_arenaResize(deviceSize, oldDeviceSize);
+    return false;
+  }
+  chunk->deviceSize = deviceSize;
+  return true;
+#else
   return ByteStream_resizeChunk(ByteStream_chunk(owner->m_pData), ARENA_CHUNK_SIZE(capacity));
+#endif
 }
 
 void ByteStream_make(ByteStream *self)
