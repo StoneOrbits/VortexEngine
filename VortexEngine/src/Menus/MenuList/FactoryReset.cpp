@@ -1,4 +1,5 @@
 #include "FactoryReset.h"
+#include "../Menus.h"
 
 #include "../../VortexEngine.h"
 #include "../../Modes/DefaultModes.h"
@@ -8,122 +9,180 @@
 #include "../../Time/Timings.h"
 #include "../../Modes/Modes.h"
 #include "../../Modes/Mode.h"
+#include "../../Colors/Colorset.h"
 #include "../../Leds/Leds.h"
 #include "../../Log/Log.h"
+#include "../../Memory/Memory.h"
 
 #include "../../VortexConfig.h"
 
-FactoryReset::FactoryReset(const RGBColor &col, bool advanced) :
-  Menu(col, advanced)
+// the derived hooks, dispatched through the base Menu vtable
+static void FactoryReset_destroyHook(void *self);
+static bool FactoryReset_initHook(void *self);
+static MenuAction FactoryReset_runHook(void *self);
+static void FactoryReset_onShortClickHook(void *self);
+static void FactoryReset_onLongClickHook(void *self);
+
+const MenuVtable FactoryReset_vtable = {
+  FactoryReset_initHook,
+  FactoryReset_runHook,
+  NULL,
+  FactoryReset_onShortClickHook,
+  FactoryReset_onLongClickHook,
+  NULL,
+  FactoryReset_destroyHook,
+};
+
+FactoryReset *FactoryReset_new(const RGBColor *col, bool advanced)
 {
+  FactoryReset *self = (FactoryReset *)Menus_allocMenu();
+  if (!self) {
+    return NULL;
+  }
+  Menu_initBase(&self->m_base, &FactoryReset_vtable);
+  RGBColor_setRGB(&self->m_base.m_menuColor, col);
+  self->m_base.m_advanced = advanced;
+  return self;
 }
 
-FactoryReset::~FactoryReset()
+void FactoryReset_destroy(FactoryReset *self)
 {
+  Menu_baseDestroy(&self->m_base);
 }
 
-bool FactoryReset::init()
+bool FactoryReset_init(FactoryReset *self)
 {
-  if (!Menu::init()) {
+  Menu *menu = &self->m_base;
+  if (!Menu_baseInit(menu)) {
     return false;
   }
   // bypass led selection for fac reset if a multi was set on
   // the current slot because it doesn't make sense to pick
-  Mode *cur = Modes::curMode();
+  Mode *cur = Modes_curMode();
   if (!cur) {
     return false;
   }
-  if (cur->isMultiLed()) {
-    m_ledSelected = true;
-    m_targetLeds = MAP_LED(LED_MULTI);
+  if (Mode_isMultiLed(cur)) {
+    menu->m_ledSelected = true;
+    menu->m_targetLeds = MAP_LED(LED_MULTI);
   }
-  if (!m_advanced) {
+  if (!menu->m_advanced) {
     // skip led selection
-    m_ledSelected = true;
+    menu->m_ledSelected = true;
   }
   // Start on exit by default
-  m_curSelection = false;
+  menu->m_curSelection = false;
   DEBUG_LOG("Entered factory reset");
   return true;
 }
 
-Menu::MenuAction FactoryReset::run()
+MenuAction FactoryReset_run(FactoryReset *self)
 {
-  MenuAction result = Menu::run();
+  Menu *menu = &self->m_base;
+  MenuAction result = Menu_runBase(menu);
   if (result != MENU_CONTINUE) {
     return result;
   }
-  showReset();
+  FactoryReset_showReset(self);
   return MENU_CONTINUE;
 }
 
-void FactoryReset::onShortClick()
+void FactoryReset_onShortClick(FactoryReset *self)
 {
-  m_curSelection = (uint8_t)!m_curSelection;
+  Menu *menu = &self->m_base;
+  menu->m_curSelection = (uint8_t)!menu->m_curSelection;
 }
 
-void FactoryReset::onLongClick()
+void FactoryReset_onLongClick(FactoryReset *self)
 {
-  if (m_curSelection == 0) {
+  Menu *menu = &self->m_base;
+  if (menu->m_curSelection == 0) {
     // if the selection isn't actually on factory reset then just leave
-    leaveMenu();
+    Menu_leaveMenu(menu, false);
     return;
   }
   // if the button hasn't been held long enough just return
-  if (g_pButton->holdDuration() <= (FACTORY_RESET_THRESHOLD_TICKS + MS_TO_TICKS(10))) {
+  if (Button_holdDuration(g_pButton) <= (FACTORY_RESET_THRESHOLD_TICKS + MS_TO_TICKS(10))) {
     return;
   }
   // the button was held down long enough so actually perform the factory reset
   // restore defaults and then leave menu and save
-  if (m_advanced) {
+  if (menu->m_advanced) {
     // reset the target mode slot on the target led
-    const DefaultModeEntry &defMode = defaultModes[Modes::curModeIndex()];
-    Mode *cur = Modes::curMode();
-    MAP_FOREACH_LED(m_targetLeds) {
-      const DefaultLedEntry &led = defMode.leds[pos];
-      Colorset set(led.numColors, led.cols);
-      cur->setPattern(led.patternID, pos, nullptr, &set);
+    const DefaultModeEntry *defMode = &defaultModes[Modes_curModeIndex()];
+    Mode *cur = Modes_curMode();
+    MAP_FOREACH_LED(menu->m_targetLeds) {
+      const DefaultLedEntry *led = &defMode->leds[pos];
+      Colorset set;
+      Colorset_makeCols(&set, led->numColors, led->cols);
+      Mode_setPattern(cur, led->patternID, pos, NULL, &set);
     }
-    cur->init();
+    Mode_initPatterns(cur);
   } else {
-    Leds::setBrightness(DEFAULT_BRIGHTNESS);
-    VortexEngine::setAutoCycle(false);
-    Modes::setDefaults();
-    Modes::setCurMode(0);
-    Modes::resetFlags();
+    Leds_setBrightness(DEFAULT_BRIGHTNESS);
+    VortexEngine_setAutoCycle(false);
+    Modes_setDefaults();
+    Modes_setCurMode(0);
+    Modes_resetFlags();
   }
-  leaveMenu(true);
+  Menu_leaveMenu(menu, true);
 }
 
-void FactoryReset::showReset()
+void FactoryReset_showReset(FactoryReset *self)
 {
-  if (m_curSelection == 0) {
-    Leds::clearAll();
-    Leds::blinkAll(350, 350, RGB_WHITE0);
+  Menu *menu = &self->m_base;
+  if (menu->m_curSelection == 0) {
+    Leds_clearAll();
+    Leds_blinkAll(350, 350, RGB_WHITE0);
     return;
   }
-  bool isPressed = g_pButton->isPressed();
+  bool isPressed = Button_isPressed(g_pButton);
   if (!isPressed) {
-    Leds::clearAll();
-    Leds::blinkAll(50, 50, RGB_RED4);
+    Leds_clearAll();
+    Leds_blinkAll(50, 50, RGB_RED4);
     return;
   }
   // don't start the fill until the button has been held for a bit
-  uint32_t holdDur = g_pButton->holdDuration();
+  uint32_t holdDur = Button_holdDuration(g_pButton);
   if (holdDur < MS_TO_TICKS(100)) {
     return;
   }
   uint16_t progress = ((holdDur * 100) / FACTORY_RESET_THRESHOLD_TICKS);
   DEBUG_LOGF("progress: %d", progress);
   if (progress >= 100) {
-    Leds::setAll(RGB_WHITE);
+    Leds_setAll(RGB_WHITE);
     return;
   }
   uint8_t offMs = 100;
   uint8_t onMs = (progress > 60) ? 30 : 100;
   uint8_t sat = (uint8_t)((progress * 5) >> 1); // Using bit shift for division by 2
-  Leds::clearAll();
-  Leds::blinkIndex(LED_0, offMs, onMs, HSVColor(0, 255 - sat, 180));
-  Leds::blinkIndex(LED_1, offMs, onMs, RGB_WHITE0);
+  HSVColor hsv = HSVColor_makeHSV(0, 255 - sat, 180);
+  Leds_clearAll();
+  Leds_blinkIndex(LED_0, offMs, onMs, RGBColor_fromHSV(&hsv));
+  Leds_blinkIndex(LED_1, offMs, onMs, RGB_WHITE0);
 }
 
+static void FactoryReset_onShortClickHook(void *self)
+{
+  FactoryReset_onShortClick((FactoryReset *)self);
+}
+
+static void FactoryReset_onLongClickHook(void *self)
+{
+  FactoryReset_onLongClick((FactoryReset *)self);
+}
+
+static bool FactoryReset_initHook(void *self)
+{
+  return FactoryReset_init((FactoryReset *)self);
+}
+
+static MenuAction FactoryReset_runHook(void *self)
+{
+  return FactoryReset_run((FactoryReset *)self);
+}
+
+static void FactoryReset_destroyHook(void *self)
+{
+  FactoryReset_destroy((FactoryReset *)self);
+}

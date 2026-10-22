@@ -5,85 +5,106 @@
 #include "../../Leds/Leds.h"
 #include "../../Log/Log.h"
 
-BlinkStepPattern::BlinkStepPattern(const PatternArgs &args) :
-  MultiLedPattern(args),
-  m_blinkOnDuration(0),
-  m_blinkOffDuration(0),
-  m_stepDuration(0),
-  m_blinkTimer(),
-  m_stepTimer()
-{
-  // BlinkStep is an abstract class it cannot be directly
-  // instantiated so we do not need to assign a pattern id
-  REGISTER_ARG(m_blinkOnDuration);
-  REGISTER_ARG(m_blinkOffDuration);
-  REGISTER_ARG(m_stepDuration);
-}
+#include "../../Memory/Memory.h"
 
-BlinkStepPattern::~BlinkStepPattern()
+const BlinkStepVtable BlinkStepPattern_bvtable = {
+  .base = {
+    .destroy = Pattern_destroy,
+    .bind = MultiLedPattern_bind,
+    .init = BlinkStepPattern_initImpl,
+    .play = BlinkStepPattern_play
+  },
+  .blinkOn = BlinkStepPattern_blinkOn,
+  .blinkOff = BlinkStepPattern_blinkOff,
+  .prestep = BlinkStepPattern_prestep,
+  .poststep = BlinkStepPattern_poststep
+};
+
+void BlinkStepPattern_init(BlinkStepPattern *self, const PatternArgs *args, const BlinkStepVtable *vtable)
 {
+  self->bvtable = vtable;
+  MultiLedPattern_init(&self->base, args, vtable ? &vtable->base : NULL);
+
+  self->m_blinkOnDuration = 0;
+  self->m_blinkOffDuration = 0;
+  self->m_stepDuration = 0;
+  Timer_make(&self->m_blinkTimer);
+  Timer_make(&self->m_stepTimer);
+
+  Pattern_setPatternID(&self->base.base, PATTERN_NONE);
+  Pattern_setFlags(&self->base.base, Pattern_getFlags(&self->base.base) | PATTERN_FLAG_MULTI);
+
+  REGISTER_ARG((Pattern *)&self->base.base, BlinkStepPattern, m_blinkOnDuration);
+  REGISTER_ARG((Pattern *)&self->base.base, BlinkStepPattern, m_blinkOffDuration);
+  REGISTER_ARG((Pattern *)&self->base.base, BlinkStepPattern, m_stepDuration);
+
+  Pattern_setArgs(&self->base.base, args);
 }
 
 // init the pattern to initial state
-void BlinkStepPattern::init()
+void BlinkStepPattern_initImpl(Pattern *pat)
 {
-  MultiLedPattern::init();
+  BlinkStepPattern *self = (BlinkStepPattern *)pat;
+
+  MultiLedPattern_doInit(pat);
 
   // reset the blink timer entirely
-  m_blinkTimer.reset();
+  Timer_reset(&self->m_blinkTimer);
   // dops timing
-  m_blinkTimer.addAlarm(m_blinkOnDuration);
-  m_blinkTimer.addAlarm(m_blinkOffDuration);
+  Timer_addAlarm1(&self->m_blinkTimer, self->m_blinkOnDuration);
+  Timer_addAlarm1(&self->m_blinkTimer, self->m_blinkOffDuration);
   // start the blink timer from the next frame
-  m_blinkTimer.start();
+  Timer_start0(&self->m_blinkTimer);
 
   // reset and add alarm
-  m_stepTimer.reset();
-  m_stepTimer.addAlarm(m_stepDuration);
-  m_stepTimer.start();
+  Timer_reset(&self->m_stepTimer);
+  Timer_addAlarm1(&self->m_stepTimer, self->m_stepDuration);
+  Timer_start0(&self->m_stepTimer);
 }
 
 // pure virtual must override the play function
-void BlinkStepPattern::play()
+void BlinkStepPattern_play(Pattern *pat)
 {
+  BlinkStepPattern *self = (BlinkStepPattern *)pat;
+
   // whether to trigger a step event based on the step timer
-  bool shouldStep = (m_stepTimer.alarm() == 0);
+  bool shouldStep = (Timer_alarm(&self->m_stepTimer) == 0);
   if (shouldStep) {
-    prestep();
+    self->bvtable->prestep(self);
   }
-  switch (m_blinkTimer.alarm()) {
+  switch (Timer_alarm(&self->m_blinkTimer)) {
   case -1: // just break and still run post-step
     break;
   case 0: // turn on the leds for given mapping
-    blinkOn();
+    self->bvtable->blinkOn(self);
     break;
   case 1: // turn off the leds
-    blinkOff();
+    self->bvtable->blinkOff(self);
     break;
   }
   if (shouldStep) {
-    poststep();
+    self->bvtable->poststep(self);
   }
 }
 
-void BlinkStepPattern::blinkOn()
+void BlinkStepPattern_blinkOn(BlinkStepPattern *self)
 {
   // override me
 }
 
-void BlinkStepPattern::blinkOff()
+void BlinkStepPattern_blinkOff(BlinkStepPattern *self)
 {
   // override me
-  Leds::clearAll();
+  Leds_clearAll();
 }
 
-void BlinkStepPattern::prestep()
+void BlinkStepPattern_prestep(BlinkStepPattern *self)
 {
   // override me
 }
 
-void BlinkStepPattern::poststep()
+void BlinkStepPattern_poststep(BlinkStepPattern *self)
 {
   // override me
-  m_colorset.getNext();
+  Colorset_getNext(&self->base.base.m_colorset);
 }

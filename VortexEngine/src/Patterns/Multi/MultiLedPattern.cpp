@@ -1,28 +1,29 @@
 #include "MultiLedPattern.h"
 
-MultiLedPattern::MultiLedPattern(const PatternArgs &args) :
-  Pattern(args)
+const PatternVtable MultiLedPattern_vtable = {
+  .destroy = Pattern_destroy,
+  .bind = MultiLedPattern_bind,
+  .init = MultiLedPattern_doInit,
+  .play = Pattern_basePlay
+};
+
+void MultiLedPattern_init(MultiLedPattern *self, const PatternArgs *args, const PatternVtable *vtable)
 {
+  Pattern_initBase(&self->base, PATTERN_NONE, vtable ? vtable : &MultiLedPattern_vtable);
   // this is a multi led pattern
-  m_patternFlags |= PATTERN_FLAG_MULTI;
-
-  // MultiLed is an abstract class it cannot be directly
-  // instantiated so we do not need to assign a pattern id
+  Pattern_setFlags(&self->base, Pattern_getFlags(&self->base) | PATTERN_FLAG_MULTI);
+  Pattern_setArgs(&self->base, args);
 }
 
-MultiLedPattern::~MultiLedPattern()
-{
-}
-
-void MultiLedPattern::bind(LedPos pos)
+void MultiLedPattern_bind(Pattern *self, LedPos pos)
 {
   // the 'LedPos' is LED_COUNT when binding a multi-led pattern
   // as opposed to being an individual LED when it's single
-  Pattern::bind(LED_COUNT);
+  Pattern_baseBind(self, LED_COUNT);
 }
 
 // init the pattern to initial state
-void MultiLedPattern::init()
+void MultiLedPattern_doInit(Pattern *self)
 {
-  Pattern::init();
+  Pattern_baseInit(self);
 }

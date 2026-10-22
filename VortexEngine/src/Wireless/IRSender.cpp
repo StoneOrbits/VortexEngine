@@ -12,166 +12,192 @@
 #endif
 
 // the serial buffer for the data
-ByteStream IRSender::m_serialBuf;
+static ByteStream IRSender_m_serialBuf;
 // a bit walker for the serial data
-BitStream IRSender::m_bitStream;
+static BitStream IRSender_m_bitStream;
 // whether actively sending
-bool IRSender::m_isSending = false;
+static bool IRSender_m_isSending = false;
 // the time of the last sent chunk
-uint32_t IRSender::m_lastSendTime = 0;
+static uint32_t IRSender_m_lastSendTime = 0;
+
 // some runtime meta info
-uint32_t IRSender::m_size = 0;
+static uint32_t IRSender_m_size = 0;
 // the number of blocks that will be sent
-uint8_t IRSender::m_numBlocks = 0;
+static uint8_t IRSender_m_numBlocks = 0;
 // the amount in the final block
-uint8_t IRSender::m_remainder = 0;
+static uint8_t IRSender_m_remainder = 0;
+
 // configuration options for the sender
-uint32_t IRSender::m_blockSize = 0;
+static uint32_t IRSender_m_blockSize = 0;
+
 // write total
-uint32_t IRSender::m_writeCounter = 0;
+static uint32_t IRSender_m_writeCounter = 0;
 
 #if defined(VORTEX_EMBEDDED)
-// Timer used for PWM, is initialized in initpwm()
+// Timer used for PWM, is initialized in initPWM()
 Tcc *IR_TCCx;
 #endif
 
-bool IRSender::init()
+// sender functions
+static void IRSender_beginSend();
+// send a full 8 bits in a tight loop
+static void IRSender_sendByte(uint8_t data);
+// send a mark/space by turning PWM on/off
+static void IRSender_sendMark(uint16_t time);
+static void IRSender_sendSpace(uint16_t time);
+// Pulse-Width Modulator (IR Transmitter)
+static void IRSender_initPWM();
+// turn the IR transmitter on/off in realtime
+static void IRSender_startPWM();
+static void IRSender_stopPWM();
+
+bool IRSender_isSending()
+{
+  return IRSender_m_isSending;
+}
+
+uint32_t IRSender_percentDone()
+{
+  return (uint32_t)(((float)IRSender_m_writeCounter / (float)IRSender_m_size) * 100.0);
+}
+
+bool IRSender_init()
 {
   // initialize the IR device
-  initPWM();
+  IRSender_initPWM();
   return true;
 }
 
-void IRSender::cleanup()
+void IRSender_cleanup()
 {
 }
 
-bool IRSender::loadMode(const Mode *targetMode)
+bool IRSender_loadMode(const Mode *targetMode)
 {
-  m_serialBuf.clear();
+  ByteStream_clear(&IRSender_m_serialBuf);
   // save the target mode to it's savefile buffer format
-  if (!targetMode->saveToBuffer(m_serialBuf)) {
+  if (!Mode_saveToBuffer(targetMode, &IRSender_m_serialBuf, 0)) {
     DEBUG_LOG("Failed to save mode to buffer");
     return false;
   }
   // ensure the data isn't too big
-  if (m_serialBuf.rawSize() > IR_MAX_DATA_TRANSFER) {
-    DEBUG_LOGF("Cannot transfer that much data: %u bytes", m_serialBuf.rawSize());
+  if (ByteStream_rawSize(&IRSender_m_serialBuf) > IR_MAX_DATA_TRANSFER) {
+    DEBUG_LOGF("Cannot transfer that much data: %u bytes", ByteStream_rawSize(&IRSender_m_serialBuf));
     return false;
   }
   // point the bitstream at the serial buffer
-  m_bitStream.init((uint8_t *)m_serialBuf.rawData(), m_serialBuf.rawSize());
+  BitStream_initBuf(&IRSender_m_bitStream, (uint8_t *)ByteStream_rawData(&IRSender_m_serialBuf), ByteStream_rawSize(&IRSender_m_serialBuf));
   // the size of the packet
-  m_size = m_serialBuf.rawSize();
+  IRSender_m_size = ByteStream_rawSize(&IRSender_m_serialBuf);
   // the number of blocks that will be sent (possibly just 1 with less than 32 bytes)
-  m_numBlocks = (m_size + (IR_DEFAULT_BLOCK_SIZE - 1)) / IR_DEFAULT_BLOCK_SIZE;
+  IRSender_m_numBlocks = (uint8_t)((IRSender_m_size + (IR_DEFAULT_BLOCK_SIZE - 1)) / IR_DEFAULT_BLOCK_SIZE);
   // the amount in the final block (possibly the only block)
-  m_remainder = m_size % (IR_DEFAULT_BLOCK_SIZE + 0);
-  DEBUG_LOGF("Num blocks: %u", m_numBlocks);
-  DEBUG_LOGF("Remainder: %u", m_remainder);
-  DEBUG_LOGF("Size: %u", m_size);
+  IRSender_m_remainder = (uint8_t)(IRSender_m_size % (IR_DEFAULT_BLOCK_SIZE + 0));
+  DEBUG_LOGF("Num blocks: %u", IRSender_m_numBlocks);
+  DEBUG_LOGF("Remainder: %u", IRSender_m_remainder);
+  DEBUG_LOGF("Size: %u", IRSender_m_size);
   // reset write counter
-  m_writeCounter = 0;
+  IRSender_m_writeCounter = 0;
   return true;
 }
 
-bool IRSender::send()
+bool IRSender_send()
 {
   // must have at least one block to send
-  if (m_numBlocks < 1) {
-    m_isSending = false;
-    return m_isSending;
+  if (IRSender_m_numBlocks < 1) {
+    IRSender_m_isSending = false;
+    return IRSender_m_isSending;
   }
-  if (!m_isSending) {
-    beginSend();
+  if (!IRSender_m_isSending) {
+    IRSender_beginSend();
   }
-  if (m_lastSendTime > 0 && m_lastSendTime + IR_DEFAULT_BLOCK_SPACING > Time::getCurtime()) {
+  if (IRSender_m_lastSendTime > 0 && IRSender_m_lastSendTime + IR_DEFAULT_BLOCK_SPACING > Time_getCurtime()) {
     // don't send yet
-    return m_isSending;
+    return IRSender_m_isSending;
   }
   // blocksize is default unless it's the last block, then it's the remainder
-  uint32_t blocksize = (m_numBlocks == 1) ? m_remainder : IR_DEFAULT_BLOCK_SIZE;
-  DEBUG_LOGF("IRSender Sending block #%u", m_numBlocks);
+  uint32_t blocksize = (IRSender_m_numBlocks == 1) ? IRSender_m_remainder : IR_DEFAULT_BLOCK_SIZE;
+  DEBUG_LOGF("IRSender Sending block #%u", IRSender_m_numBlocks);
   // pointer to the data at the correct location
-  const uint8_t *buf_ptr = m_bitStream.data() + m_writeCounter;
+  const uint8_t *buf_ptr = BitStream_data(&IRSender_m_bitStream) + IRSender_m_writeCounter;
   // iterate each byte in the block and write it
   for (uint32_t i = 0; i < blocksize; ++i) {
     // write the byte
-    sendByte(*buf_ptr);
+    IRSender_sendByte(*buf_ptr);
     // increment to next byte in buffer
     buf_ptr++;
     // record the written byte
-    m_writeCounter++;
+    IRSender_m_writeCounter++;
   }
   // wrote one block
-  m_numBlocks--;
+  IRSender_m_numBlocks--;
   // still sending if we have more blocks
-  m_isSending = (m_numBlocks > 0);
+  IRSender_m_isSending = (IRSender_m_numBlocks > 0);
   // the curtime
-  m_lastSendTime = Time::getCurtime();
+  IRSender_m_lastSendTime = Time_getCurtime();
   // return whether still sending
-  return m_isSending;
+  return IRSender_m_isSending;
 }
 
-void IRSender::beginSend()
+static void IRSender_beginSend()
 {
-  m_isSending = true;
+  IRSender_m_isSending = true;
   DEBUG_LOGF("[%zu] Beginning send size %u (blocks: %u remainder: %u blocksize: %u)",
-    Time::microseconds(), m_size, m_numBlocks, m_remainder, m_blockSize);
+    Time_microseconds(), IRSender_m_size, IRSender_m_numBlocks, IRSender_m_remainder, IRSender_m_blockSize);
   // init sender before writing, is this necessary here? I think so
-  initPWM();
+  IRSender_initPWM();
   // wakeup the other receiver with a very quick mark/space
-  sendMark(50);
-  sendSpace(100);
+  IRSender_sendMark(50);
+  IRSender_sendSpace(100);
   // now send the header
-  sendMark(IR_HEADER_MARK);
-  sendSpace(IR_HEADER_SPACE);
+  IRSender_sendMark(IR_HEADER_MARK);
+  IRSender_sendSpace(IR_HEADER_SPACE);
   // reset writeCounter
-  m_writeCounter = 0;
+  IRSender_m_writeCounter = 0;
   // write the number of blocks being sent, most likely just 1
-  sendByte(m_numBlocks);
+  IRSender_sendByte(IRSender_m_numBlocks);
   // now write the number of bytes in the last block
-  sendByte(m_remainder);
+  IRSender_sendByte(IRSender_m_remainder);
 }
 
-void IRSender::sendByte(uint8_t data)
+static void IRSender_sendByte(uint8_t data)
 {
   // Sends from left to right, MSB first
   for (int b = 0; b < 8; b++) {
     // grab the bit of data at the indexspace
     uint32_t bit = (data >> (7 - b)) & 1;
     // send 3x timing size for 1s and 1x timing for 0
-    sendMark(IR_TIMING + (IR_TIMING * (2 * bit)));
+    IRSender_sendMark((uint16_t)(IR_TIMING + (IR_TIMING * (2 * bit))));
     // send 1x timing size for space
-    sendSpace(IR_TIMING);
+    IRSender_sendSpace(IR_TIMING);
   }
-  DEBUG_LOGF("Sent byte[%u]: 0x%x", m_writeCounter, data);
+  DEBUG_LOGF("Sent byte[%u]: 0x%x", IRSender_m_writeCounter, data);
  }
 
-void IRSender::sendMark(uint16_t time)
+static void IRSender_sendMark(uint16_t time)
 {
 #ifdef VORTEX_LIB
   // send mark timing over socket
   Vortex::vcallbacks()->infraredWrite(true, time);
 #else
-  startPWM();
-  Time::delayMicroseconds(time);
+  IRSender_startPWM();
+  Time_delayMicroseconds(time);
 #endif
 }
 
-void IRSender::sendSpace(uint16_t time)
+static void IRSender_sendSpace(uint16_t time)
 {
 #ifdef VORTEX_LIB
   // send space timing over socket
   Vortex::vcallbacks()->infraredWrite(false, time);
 #else
-  stopPWM();
-  Time::delayMicroseconds(time);
+  IRSender_stopPWM();
+  Time_delayMicroseconds(time);
 #endif
 }
 
 // shamelessly stolen from IRLib2, thanks
-void IRSender::initPWM()
+static void IRSender_initPWM()
 {
 #if defined(VORTEX_EMBEDDED)
   // just in case
@@ -181,7 +207,6 @@ void IRSender::initPWM()
   uint8_t pin = g_APinDescription[IR_SEND_PWM_PIN].ulPin;   // 8
   ETCChannel IR_TCC_Channel = TCC0_CH0;
   int8_t IR_PER_EorF = PORT_PMUX_PMUXE_E;
-  //println();Serial.print("Port:"); Serial.print(port,DEC); Serial.print(" Pin:"); Serial.println(pin,DEC);
   // Enable the port multiplexer for the PWM channel on pin
   PORT->Group[port].PINCFG[pin].bit.PMUXEN = 1;
 
@@ -189,7 +214,6 @@ void IRSender::initPWM()
   // F & E peripherals specify the timers: TCC0, TCC1 and TCC2
   PORT->Group[port].PMUX[pin >> 1].reg |= IR_PER_EorF;
 
-//  pinPeripheral (IR_SEND_PWM_PIN,PIO_TIMER_ALT);
   // Feed GCLK0 to TCC0 and TCC1
   REG_GCLK_CLKCTRL = GCLK_CLKCTRL_CLKEN |       // Enable GCLK0 to TCC0 and TCC1
                      GCLK_CLKCTRL_GEN_GCLK0 |   // Select GCLK0
@@ -212,7 +236,6 @@ void IRSender::initPWM()
   // Set the duty cycle of the PWM on TCC0 to 33%
   IR_TCCx->CC[GetTCChannelNumber(IR_TCC_Channel)].reg = cc/3;
   while (IR_TCCx->SYNCBUSY.reg & TCC_SYNCBUSY_MASK);
-  //while(IR_TCCx->SYNCBUSY.bit.CC3);
 
   // Enable IR_TCCx timer but do not turn on PWM yet. Will turn it on later.
   IR_TCCx->CTRLA.reg |= TCC_CTRLA_PRESCALER_DIV1;     // Divide GCLK0 by 1
@@ -222,7 +245,7 @@ void IRSender::initPWM()
 #endif
 }
 
-void IRSender::startPWM()
+static void IRSender_startPWM()
 {
 #if defined(VORTEX_EMBEDDED)
   // start the PWM
@@ -231,7 +254,7 @@ void IRSender::startPWM()
 #endif
 }
 
-void IRSender::stopPWM()
+static void IRSender_stopPWM()
 {
 #if defined(VORTEX_EMBEDDED)
   // stop the PWM

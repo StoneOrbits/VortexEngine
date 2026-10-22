@@ -7,6 +7,9 @@
 #include "Serial/ByteStream.h"
 #include "Wireless/IRReceiver.h"
 #include "Wireless/VLReceiver.h"
+#include "Wireless/VLSender.h"
+#include "Modes/DefaultModes.h"
+#include "Memory/Memory.h"
 #include "Patterns/PatternBuilder.h"
 #include "Time/TimeControl.h"
 #include "Patterns/Pattern.h"
@@ -79,8 +82,8 @@ val tick_vortex() {
 
 emscripten::val getDataArray(const ByteStream &byteStream)
 {
-  const uint8_t *dataPtr = byteStream.data();
-  uint32_t size = byteStream.size();
+  const uint8_t *dataPtr = ByteStream_data(&byteStream);
+  uint32_t size = ByteStream_size(&byteStream);
 
   emscripten::val dataArray = emscripten::val::array();
 
@@ -93,8 +96,8 @@ emscripten::val getDataArray(const ByteStream &byteStream)
 
 emscripten::val getRawDataArray(const ByteStream &byteStream)
 {
-  const uint8_t *rawDataPtr = reinterpret_cast<const uint8_t *>(byteStream.rawData());
-  uint32_t rawSize = byteStream.rawSize();
+  const uint8_t *rawDataPtr = reinterpret_cast<const uint8_t *>(ByteStream_rawData(&byteStream));
+  uint32_t rawSize = ByteStream_rawSize(&byteStream);
 
   emscripten::val rawDataArray = emscripten::val::array();
 
@@ -112,7 +115,7 @@ bool createByteStreamFromData(val bytesArray, ByteStream &stream)
 
   // Assuming size is part of the data or passed separately
   size_t size = data.size();
-  if (!stream.rawInit(data.data(), size)) {
+  if (!ByteStream_rawInit(&stream, data.data(), size)) {
     return true;
   }
   return false;
@@ -123,6 +126,100 @@ PatternID intToPatternID(int val)
 {
   return (PatternID)val;
 }
+
+// embind deletes the objects it owns, ByteStreams must release their arena
+// chunk first and are heap allocated so the arena owner never moves
+namespace emscripten {
+namespace internal {
+template<>
+void raw_destructor<ByteStream>(ByteStream *ptr)
+{
+  ByteStream_destroy(ptr);
+  delete ptr;
+}
+}
+}
+
+// constructor wrappers for the C style init functions
+static ByteStream *wasm_ByteStream_new()
+{
+  ByteStream *stream = new ByteStream;
+  ByteStream_make(stream);
+  return stream;
+}
+
+static ByteStream *wasm_ByteStream_newBuf(uint32_t size, const uint8_t *buf)
+{
+  ByteStream *stream = new ByteStream;
+  ByteStream_makeBuf(stream, size, buf);
+  return stream;
+}
+
+static Colorset wasm_Colorset_new()
+{
+  Colorset set;
+  Colorset_make(&set);
+  return set;
+}
+
+static Colorset wasm_Colorset_newRGB(RGBColor c1, RGBColor c2, RGBColor c3, RGBColor c4,
+  RGBColor c5, RGBColor c6, RGBColor c7, RGBColor c8)
+{
+  Colorset set;
+  Colorset_makeRGB(&set, c1, c2, c3, c4, c5, c6, c7, c8);
+  return set;
+}
+
+static Colorset wasm_Colorset_newCols(uint8_t numCols, const uint32_t *cols)
+{
+  Colorset set;
+  Colorset_makeCols(&set, numCols, cols);
+  return set;
+}
+
+#define WASM_ARGS_P0
+#define WASM_ARGS_P1 uint8_t a1
+#define WASM_ARGS_P2 WASM_ARGS_P1, uint8_t a2
+#define WASM_ARGS_P3 WASM_ARGS_P2, uint8_t a3
+#define WASM_ARGS_P4 WASM_ARGS_P3, uint8_t a4
+#define WASM_ARGS_P5 WASM_ARGS_P4, uint8_t a5
+#define WASM_ARGS_P6 WASM_ARGS_P5, uint8_t a6
+#define WASM_ARGS_P7 WASM_ARGS_P6, uint8_t a7
+#define WASM_ARGS_P8 WASM_ARGS_P7, uint8_t a8
+#define WASM_ARGS_A0
+#define WASM_ARGS_A1 , a1
+#define WASM_ARGS_A2 WASM_ARGS_A1, a2
+#define WASM_ARGS_A3 WASM_ARGS_A2, a3
+#define WASM_ARGS_A4 WASM_ARGS_A3, a4
+#define WASM_ARGS_A5 WASM_ARGS_A4, a5
+#define WASM_ARGS_A6 WASM_ARGS_A5, a6
+#define WASM_ARGS_A7 WASM_ARGS_A6, a7
+#define WASM_ARGS_A8 WASM_ARGS_A7, a8
+#define WASM_PATTERN_ARGS_NEW(n) \
+  static PatternArgs wasm_PatternArgs_new##n(WASM_ARGS_P##n) \
+  { \
+    PatternArgs args; \
+    PatternArgs_make##n(&args WASM_ARGS_A##n); \
+    return args; \
+  }
+WASM_PATTERN_ARGS_NEW(0)
+WASM_PATTERN_ARGS_NEW(1)
+WASM_PATTERN_ARGS_NEW(2)
+WASM_PATTERN_ARGS_NEW(3)
+WASM_PATTERN_ARGS_NEW(4)
+WASM_PATTERN_ARGS_NEW(5)
+WASM_PATTERN_ARGS_NEW(6)
+WASM_PATTERN_ARGS_NEW(7)
+WASM_PATTERN_ARGS_NEW(8)
+
+// the anonymous enums that hold the LedPos and PatternID values
+typedef decltype(LED_FIRST) LedPosEnum;
+typedef decltype(PATTERN_NONE) PatternIDEnum;
+
+// placeholder types to group the static module functions in js
+struct PatternBuilderBinding {};
+struct MenusBinding {};
+struct ModesBinding {};
 
 EMSCRIPTEN_BINDINGS(Vortex) {
   // vector<string>
@@ -135,163 +232,164 @@ EMSCRIPTEN_BINDINGS(Vortex) {
 
   // Bind the HSVColor class
   class_<HSVColor>("HSVColor")
-    .constructor<>()
-    .constructor<uint8_t, uint8_t, uint8_t>()
-    .constructor<uint32_t>()
-    .function("empty", &HSVColor::empty)
-    .function("clear", &HSVColor::clear)
-    .function("raw", &HSVColor::raw)
+    .constructor(&HSVColor_make)
+    .constructor(&HSVColor_makeHSV)
+    .constructor(&HSVColor_fromU32)
+    .function("empty", &HSVColor_empty, allow_raw_pointers())
+    .function("clear", &HSVColor_clear, allow_raw_pointers())
+    .function("raw", &HSVColor_raw, allow_raw_pointers())
     .property("hue", &HSVColor::hue)
     .property("sat", &HSVColor::sat)
     .property("val", &HSVColor::val);
 
   // Bind the RGBColor class
   class_<RGBColor>("RGBColor")
-    .constructor<>()
-    .constructor<uint8_t, uint8_t, uint8_t>()
-    .constructor<uint32_t>()
-    .function("empty", &RGBColor::empty)
-    .function("clear", &RGBColor::clear)
-    .function("adjustBrightness", &RGBColor::adjustBrightness)
-    .function("serialize", &RGBColor::serialize)
-    .function("unserialize", &RGBColor::unserialize)
-    .function("raw", &RGBColor::raw)
+    .constructor(&RGBColor_make)
+    .constructor(&RGBColor_makeRGB)
+    .constructor(&RGBColor_fromU32)
+    .function("empty", &RGBColor_empty, allow_raw_pointers())
+    .function("clear", &RGBColor_clear, allow_raw_pointers())
+    .function("adjustBrightness", &RGBColor_adjustBrightness, allow_raw_pointers())
+    .function("serialize", &RGBColor_serialize, allow_raw_pointers())
+    .function("unserialize", &RGBColor_unserialize, allow_raw_pointers())
+    .function("raw", &RGBColor_raw, allow_raw_pointers())
     .property("red", &RGBColor::red)
     .property("green", &RGBColor::green)
     .property("blue", &RGBColor::blue);
 
   // Bind the utility conversion functions
-  function("hsv_to_rgb_rainbow", &hsv_to_rgb_rainbow);
-  function("hsv_to_rgb_raw_C", &hsv_to_rgb_raw_C);
-  function("hsv_to_rgb_generic", &hsv_to_rgb_generic);
-  function("rgb_to_hsv_approx", &rgb_to_hsv_approx);
-  function("rgb_to_hsv_generic", &rgb_to_hsv_generic);
+  function("hsv_to_rgb_rainbow", &hsv_to_rgb_rainbow, allow_raw_pointers());
+  function("hsv_to_rgb_raw_C", &hsv_to_rgb_raw_C, allow_raw_pointers());
+  function("hsv_to_rgb_generic", &hsv_to_rgb_generic, allow_raw_pointers());
+  function("rgb_to_hsv_approx", &rgb_to_hsv_approx, allow_raw_pointers());
+  function("rgb_to_hsv_generic", &rgb_to_hsv_generic, allow_raw_pointers());
 
   class_<ByteStream>("ByteStream")
-    .constructor<>()
-    .constructor<uint32_t, const uint8_t *>()
+    .constructor(&wasm_ByteStream_new, allow_raw_pointers())
+    .constructor(&wasm_ByteStream_newBuf, allow_raw_pointers())
 
     // member functions
-    .function("rawInit", &ByteStream::rawInit, allow_raw_pointer<const uint8_t *>())
-    .function("init", &ByteStream::init, allow_raw_pointer<const unsigned char *>())
-    .function("clear", &ByteStream::clear)
-    .function("shrink", &ByteStream::shrink)
-    .function("append", &ByteStream::append)
-    .function("extend", &ByteStream::extend)
-    .function("trim", &ByteStream::trim)
-    .function("compress", &ByteStream::compress)
-    .function("decompress", &ByteStream::decompress)
-    .function("recalcCRC", &ByteStream::recalcCRC)
-    .function("sanity", &ByteStream::sanity)
-    .function("checkCRC", &ByteStream::checkCRC)
-    .function("isCRCDirty", &ByteStream::isCRCDirty)
-    .function("serialize8", &ByteStream::serialize8)
-    .function("serialize16", &ByteStream::serialize16)
-    .function("serialize32", &ByteStream::serialize32)
-    .function("resetUnserializer", &ByteStream::resetUnserializer)
-    .function("moveUnserializer", &ByteStream::moveUnserializer)
-    .function("unserializerAtEnd", &ByteStream::unserializerAtEnd)
+    .function("rawInit", &ByteStream_rawInit, allow_raw_pointers())
+    .function("init", &ByteStream_initBuf, allow_raw_pointers())
+    .function("clear", &ByteStream_clear, allow_raw_pointers())
+    .function("shrink", &ByteStream_shrink, allow_raw_pointers())
+    .function("append", &ByteStream_append, allow_raw_pointers())
+    .function("extend", &ByteStream_extend, allow_raw_pointers())
+    .function("trim", &ByteStream_trim, allow_raw_pointers())
+    .function("compress", &ByteStream_compress, allow_raw_pointers())
+    .function("decompress", &ByteStream_decompress, allow_raw_pointers())
+    .function("recalcCRC", &ByteStream_recalcCRC, allow_raw_pointers())
+    .function("sanity", &ByteStream_sanity, allow_raw_pointers())
+    .function("checkCRC", &ByteStream_checkCRC, allow_raw_pointers())
+    .function("isCRCDirty", &ByteStream_isCRCDirty, allow_raw_pointers())
+    .function("serialize8", &ByteStream_serialize8, allow_raw_pointers())
+    .function("serialize16", &ByteStream_serialize16, allow_raw_pointers())
+    .function("serialize32", &ByteStream_serialize32, allow_raw_pointers())
+    .function("resetUnserializer", &ByteStream_resetUnserializer, allow_raw_pointers())
+    .function("moveUnserializer", &ByteStream_moveUnserializer, allow_raw_pointers())
+    .function("unserializerAtEnd", &ByteStream_unserializerAtEnd, allow_raw_pointers())
     // TODO: provide better apis here
-    //.function("unserialize8", &ByteStream::unserialize8)
-    //.function("unserialize16", &ByteStream::unserialize16)
-    //.function("unserialize32", &ByteStream::unserialize32)
-    .function("peek8", &ByteStream::peek8)
-    .function("peek16", &ByteStream::peek16)
-    .function("peek32", &ByteStream::peek32)
-    .function("data", &ByteStream::data, allow_raw_pointer<uint8_t>())
-    .function("rawData", &ByteStream::rawData, allow_raw_pointer<void>())
-    .function("rawSize", &ByteStream::rawSize)
-    .function("size", &ByteStream::size)
-    .function("capacity", &ByteStream::capacity)
-    .function("is_compressed", &ByteStream::is_compressed)
-    .function("CRC", &ByteStream::CRC);
+    //.function("unserialize8", &ByteStream_unserialize8)
+    //.function("unserialize16", &ByteStream_unserialize16)
+    //.function("unserialize32", &ByteStream_unserialize32)
+    .function("peek8", &ByteStream_peek8, allow_raw_pointers())
+    .function("peek16", &ByteStream_peek16, allow_raw_pointers())
+    .function("peek32", &ByteStream_peek32, allow_raw_pointers())
+    .function("data", &ByteStream_data, allow_raw_pointers())
+    .function("rawData", &ByteStream_rawData, allow_raw_pointers())
+    .function("rawSize", &ByteStream_rawSize, allow_raw_pointers())
+    .function("size", &ByteStream_size, allow_raw_pointers())
+    .function("capacity", &ByteStream_capacity, allow_raw_pointers())
+    .function("is_compressed", &ByteStream_is_compressed, allow_raw_pointers())
+    .function("CRC", &ByteStream_CRC, allow_raw_pointers());
 
   // Binding static enum values
-  enum_<LedPos>("LedPos")
-    .value("LED_FIRST", LedPos::LED_FIRST)
-    .value("LED_0", LedPos::LED_0)
-    .value("LED_1", LedPos::LED_1)
-    .value("LED_COUNT", LedPos::LED_COUNT)
-    .value("LED_LAST", LedPos::LED_LAST)
-    .value("LED_ALL", LedPos::LED_ALL)
-    .value("LED_MULTI", LedPos::LED_MULTI)
-    .value("LED_ALL_SINGLE", LedPos::LED_ALL_SINGLE)
-    .value("LED_ANY", LedPos::LED_ANY);
+  // LedPos and PatternID are plain integers now so they are exposed to js as numbers
+  enum_<LedPosEnum>("LedPos", enum_value_type::number)
+    .value("LED_FIRST", (LedPosEnum)LED_FIRST)
+    .value("LED_0", (LedPosEnum)LED_0)
+    .value("LED_1", (LedPosEnum)LED_1)
+    .value("LED_COUNT", (LedPosEnum)LED_COUNT)
+    .value("LED_LAST", (LedPosEnum)LED_LAST)
+    .value("LED_ALL", (LedPosEnum)LED_ALL)
+    .value("LED_MULTI", (LedPosEnum)LED_MULTI)
+    .value("LED_ALL_SINGLE", (LedPosEnum)LED_ALL_SINGLE)
+    .value("LED_ANY", (LedPosEnum)LED_ANY);
 
   function("intToPatternID", &intToPatternID);
   function("isMultiLedPatternID", &isMultiLedPatternID);
   function("isSingleLedPatternID", &isSingleLedPatternID);
 
-  enum_<PatternID>("PatternID")
+  enum_<PatternIDEnum>("PatternID", enum_value_type::number)
     // Meta Constants
-    .value("PATTERN_NONE", PatternID::PATTERN_NONE)
+    .value("PATTERN_NONE", (PatternIDEnum)PATTERN_NONE)
 
     // single led patterns
-    .value("PATTERN_STROBE", PatternID::PATTERN_STROBE)
-    .value("PATTERN_HYPERSTROBE", PatternID::PATTERN_HYPERSTROBE)
-    .value("PATTERN_PICOSTROBE", PatternID::PATTERN_PICOSTROBE)
-    .value("PATTERN_STROBIE", PatternID::PATTERN_STROBIE)
-    .value("PATTERN_DOPS", PatternID::PATTERN_DOPS)
-    .value("PATTERN_ULTRADOPS", PatternID::PATTERN_ULTRADOPS)
-    .value("PATTERN_STROBEGAP", PatternID::PATTERN_STROBEGAP)
-    .value("PATTERN_HYPERGAP", PatternID::PATTERN_HYPERGAP)
-    .value("PATTERN_PICOGAP", PatternID::PATTERN_PICOGAP)
-    .value("PATTERN_STROBIEGAP", PatternID::PATTERN_STROBIEGAP)
-    .value("PATTERN_DOPSGAP", PatternID::PATTERN_DOPSGAP)
-    .value("PATTERN_ULTRAGAP", PatternID::PATTERN_ULTRAGAP)
-    .value("PATTERN_BLINKIE", PatternID::PATTERN_BLINKIE)
-    .value("PATTERN_GHOSTCRUSH", PatternID::PATTERN_GHOSTCRUSH)
-    .value("PATTERN_DOUBLEDOPS", PatternID::PATTERN_DOUBLEDOPS)
-    .value("PATTERN_CHOPPER", PatternID::PATTERN_CHOPPER)
-    .value("PATTERN_DASHGAP", PatternID::PATTERN_DASHGAP)
-    .value("PATTERN_DASHDOPS", PatternID::PATTERN_DASHDOPS)
-    .value("PATTERN_DASHCRUSH", PatternID::PATTERN_DASHCRUSH)
-    .value("PATTERN_ULTRADASH", PatternID::PATTERN_ULTRADASH)
-    .value("PATTERN_GAPCYCLE", PatternID::PATTERN_GAPCYCLE)
-    .value("PATTERN_DASHCYCLE", PatternID::PATTERN_DASHCYCLE)
-    .value("PATTERN_TRACER", PatternID::PATTERN_TRACER)
-    .value("PATTERN_RIBBON", PatternID::PATTERN_RIBBON)
-    .value("PATTERN_MINIRIBBON", PatternID::PATTERN_MINIRIBBON)
-    .value("PATTERN_BLEND", PatternID::PATTERN_BLEND)
-    .value("PATTERN_BLENDSTROBE", PatternID::PATTERN_BLENDSTROBE)
-    .value("PATTERN_BLENDSTROBEGAP", PatternID::PATTERN_BLENDSTROBEGAP)
-    .value("PATTERN_COMPLEMENTARY_BLEND", PatternID::PATTERN_COMPLEMENTARY_BLEND)
-    .value("PATTERN_COMPLEMENTARY_BLENDSTROBE", PatternID::PATTERN_COMPLEMENTARY_BLENDSTROBE)
-    .value("PATTERN_COMPLEMENTARY_BLENDSTROBEGAP", PatternID::PATTERN_COMPLEMENTARY_BLENDSTROBEGAP)
-    .value("PATTERN_SOLID", PatternID::PATTERN_SOLID)
+    .value("PATTERN_STROBE", (PatternIDEnum)PATTERN_STROBE)
+    .value("PATTERN_HYPERSTROBE", (PatternIDEnum)PATTERN_HYPERSTROBE)
+    .value("PATTERN_PICOSTROBE", (PatternIDEnum)PATTERN_PICOSTROBE)
+    .value("PATTERN_STROBIE", (PatternIDEnum)PATTERN_STROBIE)
+    .value("PATTERN_DOPS", (PatternIDEnum)PATTERN_DOPS)
+    .value("PATTERN_ULTRADOPS", (PatternIDEnum)PATTERN_ULTRADOPS)
+    .value("PATTERN_STROBEGAP", (PatternIDEnum)PATTERN_STROBEGAP)
+    .value("PATTERN_HYPERGAP", (PatternIDEnum)PATTERN_HYPERGAP)
+    .value("PATTERN_PICOGAP", (PatternIDEnum)PATTERN_PICOGAP)
+    .value("PATTERN_STROBIEGAP", (PatternIDEnum)PATTERN_STROBIEGAP)
+    .value("PATTERN_DOPSGAP", (PatternIDEnum)PATTERN_DOPSGAP)
+    .value("PATTERN_ULTRAGAP", (PatternIDEnum)PATTERN_ULTRAGAP)
+    .value("PATTERN_BLINKIE", (PatternIDEnum)PATTERN_BLINKIE)
+    .value("PATTERN_GHOSTCRUSH", (PatternIDEnum)PATTERN_GHOSTCRUSH)
+    .value("PATTERN_DOUBLEDOPS", (PatternIDEnum)PATTERN_DOUBLEDOPS)
+    .value("PATTERN_CHOPPER", (PatternIDEnum)PATTERN_CHOPPER)
+    .value("PATTERN_DASHGAP", (PatternIDEnum)PATTERN_DASHGAP)
+    .value("PATTERN_DASHDOPS", (PatternIDEnum)PATTERN_DASHDOPS)
+    .value("PATTERN_DASHCRUSH", (PatternIDEnum)PATTERN_DASHCRUSH)
+    .value("PATTERN_ULTRADASH", (PatternIDEnum)PATTERN_ULTRADASH)
+    .value("PATTERN_GAPCYCLE", (PatternIDEnum)PATTERN_GAPCYCLE)
+    .value("PATTERN_DASHCYCLE", (PatternIDEnum)PATTERN_DASHCYCLE)
+    .value("PATTERN_TRACER", (PatternIDEnum)PATTERN_TRACER)
+    .value("PATTERN_RIBBON", (PatternIDEnum)PATTERN_RIBBON)
+    .value("PATTERN_MINIRIBBON", (PatternIDEnum)PATTERN_MINIRIBBON)
+    .value("PATTERN_BLEND", (PatternIDEnum)PATTERN_BLEND)
+    .value("PATTERN_BLENDSTROBE", (PatternIDEnum)PATTERN_BLENDSTROBE)
+    .value("PATTERN_BLENDSTROBEGAP", (PatternIDEnum)PATTERN_BLENDSTROBEGAP)
+    .value("PATTERN_COMPLEMENTARY_BLEND", (PatternIDEnum)PATTERN_COMPLEMENTARY_BLEND)
+    .value("PATTERN_COMPLEMENTARY_BLENDSTROBE", (PatternIDEnum)PATTERN_COMPLEMENTARY_BLENDSTROBE)
+    .value("PATTERN_COMPLEMENTARY_BLENDSTROBEGAP", (PatternIDEnum)PATTERN_COMPLEMENTARY_BLENDSTROBEGAP)
+    .value("PATTERN_SOLID", (PatternIDEnum)PATTERN_SOLID)
     // multi led patterns
-    .value("PATTERN_HUE_SCROLL", PatternID::PATTERN_HUE_SCROLL)
-    .value("PATTERN_THEATER_CHASE", PatternID::PATTERN_THEATER_CHASE)
-    .value("PATTERN_CHASER", PatternID::PATTERN_CHASER)
-    .value("PATTERN_ZIGZAG", PatternID::PATTERN_ZIGZAG)
-    .value("PATTERN_ZIPFADE", PatternID::PATTERN_ZIPFADE)
-    .value("PATTERN_DRIP", PatternID::PATTERN_DRIP)
-    .value("PATTERN_DRIPMORPH", PatternID::PATTERN_DRIPMORPH)
-    .value("PATTERN_CROSSDOPS", PatternID::PATTERN_CROSSDOPS)
-    .value("PATTERN_DOUBLESTROBE", PatternID::PATTERN_DOUBLESTROBE)
-    .value("PATTERN_METEOR", PatternID::PATTERN_METEOR)
-    .value("PATTERN_SPARKLETRACE", PatternID::PATTERN_SPARKLETRACE)
-    .value("PATTERN_VORTEXWIPE", PatternID::PATTERN_VORTEXWIPE)
-    .value("PATTERN_WARP", PatternID::PATTERN_WARP)
-    .value("PATTERN_WARPWORM", PatternID::PATTERN_WARPWORM)
-    .value("PATTERN_SNOWBALL", PatternID::PATTERN_SNOWBALL)
-    .value("PATTERN_LIGHTHOUSE", PatternID::PATTERN_LIGHTHOUSE)
-    .value("PATTERN_PULSISH", PatternID::PATTERN_PULSISH)
-    .value("PATTERN_FILL", PatternID::PATTERN_FILL)
-    .value("PATTERN_BOUNCE", PatternID::PATTERN_BOUNCE)
-    .value("PATTERN_SPLITSTROBIE", PatternID::PATTERN_SPLITSTROBIE)
-    .value("PATTERN_BACKSTROBE", PatternID::PATTERN_BACKSTROBE)
-    .value("PATTERN_VORTEX", PatternID::PATTERN_VORTEX)
-    .value("PATTERN_COUNT", PatternID::PATTERN_COUNT);
+    .value("PATTERN_HUE_SCROLL", (PatternIDEnum)PATTERN_HUE_SCROLL)
+    .value("PATTERN_THEATER_CHASE", (PatternIDEnum)PATTERN_THEATER_CHASE)
+    .value("PATTERN_CHASER", (PatternIDEnum)PATTERN_CHASER)
+    .value("PATTERN_ZIGZAG", (PatternIDEnum)PATTERN_ZIGZAG)
+    .value("PATTERN_ZIPFADE", (PatternIDEnum)PATTERN_ZIPFADE)
+    .value("PATTERN_DRIP", (PatternIDEnum)PATTERN_DRIP)
+    .value("PATTERN_DRIPMORPH", (PatternIDEnum)PATTERN_DRIPMORPH)
+    .value("PATTERN_CROSSDOPS", (PatternIDEnum)PATTERN_CROSSDOPS)
+    .value("PATTERN_DOUBLESTROBE", (PatternIDEnum)PATTERN_DOUBLESTROBE)
+    .value("PATTERN_METEOR", (PatternIDEnum)PATTERN_METEOR)
+    .value("PATTERN_SPARKLETRACE", (PatternIDEnum)PATTERN_SPARKLETRACE)
+    .value("PATTERN_VORTEXWIPE", (PatternIDEnum)PATTERN_VORTEXWIPE)
+    .value("PATTERN_WARP", (PatternIDEnum)PATTERN_WARP)
+    .value("PATTERN_WARPWORM", (PatternIDEnum)PATTERN_WARPWORM)
+    .value("PATTERN_SNOWBALL", (PatternIDEnum)PATTERN_SNOWBALL)
+    .value("PATTERN_LIGHTHOUSE", (PatternIDEnum)PATTERN_LIGHTHOUSE)
+    .value("PATTERN_PULSISH", (PatternIDEnum)PATTERN_PULSISH)
+    .value("PATTERN_FILL", (PatternIDEnum)PATTERN_FILL)
+    .value("PATTERN_BOUNCE", (PatternIDEnum)PATTERN_BOUNCE)
+    .value("PATTERN_SPLITSTROBIE", (PatternIDEnum)PATTERN_SPLITSTROBIE)
+    .value("PATTERN_BACKSTROBE", (PatternIDEnum)PATTERN_BACKSTROBE)
+    .value("PATTERN_VORTEX", (PatternIDEnum)PATTERN_VORTEX)
+    .value("PATTERN_COUNT", (PatternIDEnum)PATTERN_COUNT);
     // meta constants
-    //.value("PATTERN_FIRST", PatternID::PATTERN_FIRST)
-    //.value("PATTERN_SINGLE_FIRST", PatternID::PATTERN_SINGLE_FIRST)
-    //.value("PATTERN_MULTI_FIRST", PatternID::PATTERN_MULTI_FIRST)
-    //.value("PATTERN_SINGLE_LAST", PatternID::PATTERN_SINGLE_LAST)
-    //.value("PATTERN_SINGLE_COUNT", PatternID::PATTERN_SINGLE_COUNT)
-    //.value("PATTERN_MULTI_LAST", PatternID::PATTERN_MULTI_LAST)
-    //.value("PATTERN_MULTI_COUNT", PatternID::PATTERN_MULTI_COUNT)
-    //.value("PATTERN_LAST", PatternID::PATTERN_LAST)
+    //.value("PATTERN_FIRST", (PatternIDEnum)PATTERN_FIRST)
+    //.value("PATTERN_SINGLE_FIRST", (PatternIDEnum)PATTERN_SINGLE_FIRST)
+    //.value("PATTERN_MULTI_FIRST", (PatternIDEnum)PATTERN_MULTI_FIRST)
+    //.value("PATTERN_SINGLE_LAST", (PatternIDEnum)PATTERN_SINGLE_LAST)
+    //.value("PATTERN_SINGLE_COUNT", (PatternIDEnum)PATTERN_SINGLE_COUNT)
+    //.value("PATTERN_MULTI_LAST", (PatternIDEnum)PATTERN_MULTI_LAST)
+    //.value("PATTERN_MULTI_COUNT", (PatternIDEnum)PATTERN_MULTI_COUNT)
+    //.value("PATTERN_LAST", (PatternIDEnum)PATTERN_LAST)
 
   enum_<MenuEntryID>("MenuEntryID")
     .value("MENU_NONE", MenuEntryID::MENU_NONE)
@@ -307,69 +405,69 @@ EMSCRIPTEN_BINDINGS(Vortex) {
     .value("MENU_FACTORY_RESET", MenuEntryID::MENU_FACTORY_RESET);
 
   class_<Colorset>("Colorset")
-    .constructor<>()
-    .constructor<RGBColor, RGBColor, RGBColor, RGBColor, RGBColor, RGBColor, RGBColor, RGBColor>()
-    .constructor<uint8_t, const uint32_t *>()
-    .function("init", &Colorset::init)
-    .function("clear", &Colorset::clear)
-    .function("equals", select_overload<bool(const Colorset & set) const>(&Colorset::equals))
-    .function("get", &Colorset::get)
-    .function("set", &Colorset::set)
-    .function("skip", &Colorset::skip)
-    .function("cur", &Colorset::cur)
-    .function("setCurIndex", &Colorset::setCurIndex)
-    .function("resetIndex", &Colorset::resetIndex)
-    .function("curIndex", &Colorset::curIndex)
-    .function("getPrev", &Colorset::getPrev)
-    .function("getNext", &Colorset::getNext)
-    .function("peek", &Colorset::peek)
-    .function("peekNext", &Colorset::peekNext)
-    .function("numColors", &Colorset::numColors)
-    .function("onStart", &Colorset::onStart)
-    .function("onEnd", &Colorset::onEnd)
-    .function("serialize", &Colorset::serialize)
-    .function("unserialize", &Colorset::unserialize)
-    .function("addColor", select_overload<bool(RGBColor)>(&Colorset::addColor))
-    .function("addColorHSV", &Colorset::addColorHSV)
-    .function("randomize", &Colorset::randomize)
-    .function("adjustBrightness", &Colorset::adjustBrightness)
-    .function("removeColor", &Colorset::removeColor)
-    .function("operator[]", &Colorset::operator[])
+    .constructor(&wasm_Colorset_new)
+    .constructor(&wasm_Colorset_newRGB)
+    .constructor(&wasm_Colorset_newCols, allow_raw_pointers())
+    .function("init", &Colorset_init, allow_raw_pointers())
+    .function("clear", &Colorset_clear, allow_raw_pointers())
+    .function("equals", &Colorset_equals, allow_raw_pointers())
+    .function("get", &Colorset_get, allow_raw_pointers())
+    .function("set", &Colorset_setColor, allow_raw_pointers())
+    .function("skip", &Colorset_skip, allow_raw_pointers())
+    .function("cur", &Colorset_cur, allow_raw_pointers())
+    .function("setCurIndex", &Colorset_setCurIndex, allow_raw_pointers())
+    .function("resetIndex", &Colorset_resetIndex, allow_raw_pointers())
+    .function("curIndex", &Colorset_curIndex, allow_raw_pointers())
+    .function("getPrev", &Colorset_getPrev, allow_raw_pointers())
+    .function("getNext", &Colorset_getNext, allow_raw_pointers())
+    .function("peek", &Colorset_peek, allow_raw_pointers())
+    .function("peekNext", &Colorset_peekNext, allow_raw_pointers())
+    .function("numColors", &Colorset_numColors, allow_raw_pointers())
+    .function("onStart", &Colorset_onStart, allow_raw_pointers())
+    .function("onEnd", &Colorset_onEnd, allow_raw_pointers())
+    .function("serialize", &Colorset_serialize, allow_raw_pointers())
+    .function("unserialize", &Colorset_unserialize, allow_raw_pointers())
+    .function("addColor", &Colorset_addColor, allow_raw_pointers())
+    .function("addColorHSV", &Colorset_addColorHSV, allow_raw_pointers())
+    .function("randomize", &Colorset_randomize, allow_raw_pointers())
+    .function("adjustBrightness", &Colorset_adjustBrightness, allow_raw_pointers())
+    .function("removeColor", &Colorset_removeColor, allow_raw_pointers())
+    .function("operator[]", &Colorset_at, allow_raw_pointers())
     // If more specific or additional randomize functions are needed, they can be added here as well
-    .function("randomizeSolid", &Colorset::randomizeSolid)
-    .function("randomizeComplimentary", &Colorset::randomizeComplimentary)
-    .function("randomizeTriadic", &Colorset::randomizeTriadic)
-    .function("randomizeSquare", &Colorset::randomizeSquare)
-    .function("randomizePentadic", &Colorset::randomizePentadic)
-    .function("randomizeRainbow", &Colorset::randomizeRainbow);
+    .function("randomizeSolid", &Colorset_randomizeSolid, allow_raw_pointers())
+    .function("randomizeComplimentary", &Colorset_randomizeComplimentary, allow_raw_pointers())
+    .function("randomizeTriadic", &Colorset_randomizeTriadic, allow_raw_pointers())
+    .function("randomizeSquare", &Colorset_randomizeSquare, allow_raw_pointers())
+    .function("randomizePentadic", &Colorset_randomizePentadic, allow_raw_pointers())
+    .function("randomizeRainbow", &Colorset_randomizeRainbow, allow_raw_pointers());
 
   class_<PatternArgs>("PatternArgs")
-    .constructor<>()
-    .constructor<uint8_t>()
-    .constructor<uint8_t, uint8_t>()
-    .constructor<uint8_t, uint8_t, uint8_t>()
-    .constructor<uint8_t, uint8_t, uint8_t, uint8_t>()
-    .constructor<uint8_t, uint8_t, uint8_t, uint8_t, uint8_t>()
-    .constructor<uint8_t, uint8_t, uint8_t, uint8_t, uint8_t, uint8_t>()
-    .constructor<uint8_t, uint8_t, uint8_t, uint8_t, uint8_t, uint8_t, uint8_t>()
-    .constructor<uint8_t, uint8_t, uint8_t, uint8_t, uint8_t, uint8_t, uint8_t, uint8_t>()
-    .function("init", select_overload<void()>(&PatternArgs::init))
-    .function("init", select_overload<void(uint8_t)>(&PatternArgs::init))
-    .function("init", select_overload<void(uint8_t, uint8_t)>(&PatternArgs::init))
-    .function("init", select_overload<void(uint8_t, uint8_t, uint8_t)>(&PatternArgs::init))
-    .function("init", select_overload<void(uint8_t, uint8_t, uint8_t, uint8_t)>(&PatternArgs::init))
-    .function("init", select_overload<void(uint8_t, uint8_t, uint8_t, uint8_t, uint8_t)>(&PatternArgs::init))
-    .function("init", select_overload<void(uint8_t, uint8_t, uint8_t, uint8_t, uint8_t, uint8_t)>(&PatternArgs::init))
-    .function("init", select_overload<void(uint8_t, uint8_t, uint8_t, uint8_t, uint8_t, uint8_t, uint8_t)>(&PatternArgs::init))
-    .function("init", select_overload<void(uint8_t, uint8_t, uint8_t, uint8_t, uint8_t, uint8_t, uint8_t, uint8_t)>(&PatternArgs::init))
-    .function("addArgs", select_overload<void(uint8_t)>(&PatternArgs::addArgs))
-    .function("addArgs", select_overload<void(uint8_t, uint8_t)>(&PatternArgs::addArgs))
-    .function("addArgs", select_overload<void(uint8_t, uint8_t, uint8_t)>(&PatternArgs::addArgs))
-    .function("addArgs", select_overload<void(uint8_t, uint8_t, uint8_t, uint8_t)>(&PatternArgs::addArgs))
-    .function("addArgs", select_overload<void(uint8_t, uint8_t, uint8_t, uint8_t, uint8_t)>(&PatternArgs::addArgs))
-    .function("addArgs", select_overload<void(uint8_t, uint8_t, uint8_t, uint8_t, uint8_t, uint8_t)>(&PatternArgs::addArgs))
-    .function("addArgs", select_overload<void(uint8_t, uint8_t, uint8_t, uint8_t, uint8_t, uint8_t, uint8_t)>(&PatternArgs::addArgs))
-    .function("addArgs", select_overload<void(uint8_t, uint8_t, uint8_t, uint8_t, uint8_t, uint8_t, uint8_t, uint8_t)>(&PatternArgs::addArgs))
+    .constructor(&wasm_PatternArgs_new0)
+    .constructor(&wasm_PatternArgs_new1)
+    .constructor(&wasm_PatternArgs_new2)
+    .constructor(&wasm_PatternArgs_new3)
+    .constructor(&wasm_PatternArgs_new4)
+    .constructor(&wasm_PatternArgs_new5)
+    .constructor(&wasm_PatternArgs_new6)
+    .constructor(&wasm_PatternArgs_new7)
+    .constructor(&wasm_PatternArgs_new8)
+    .function("init", &PatternArgs_init0, allow_raw_pointers())
+    .function("init", &PatternArgs_init1, allow_raw_pointers())
+    .function("init", &PatternArgs_init2, allow_raw_pointers())
+    .function("init", &PatternArgs_init3, allow_raw_pointers())
+    .function("init", &PatternArgs_init4, allow_raw_pointers())
+    .function("init", &PatternArgs_init5, allow_raw_pointers())
+    .function("init", &PatternArgs_init6, allow_raw_pointers())
+    .function("init", &PatternArgs_init7, allow_raw_pointers())
+    .function("init", &PatternArgs_init8, allow_raw_pointers())
+    .function("addArgs", &PatternArgs_addArgs1, allow_raw_pointers())
+    .function("addArgs", &PatternArgs_addArgs2, allow_raw_pointers())
+    .function("addArgs", &PatternArgs_addArgs3, allow_raw_pointers())
+    .function("addArgs", &PatternArgs_addArgs4, allow_raw_pointers())
+    .function("addArgs", &PatternArgs_addArgs5, allow_raw_pointers())
+    .function("addArgs", &PatternArgs_addArgs6, allow_raw_pointers())
+    .function("addArgs", &PatternArgs_addArgs7, allow_raw_pointers())
+    .function("addArgs", &PatternArgs_addArgs8, allow_raw_pointers())
     .property("arg1", &PatternArgs::arg1)
     .property("arg2", &PatternArgs::arg2)
     .property("arg3", &PatternArgs::arg3)
@@ -380,33 +478,33 @@ EMSCRIPTEN_BINDINGS(Vortex) {
     .property("arg8", &PatternArgs::arg8);
 
   class_<Pattern>("Pattern")
-    .function("bind", &Pattern::bind)
-    .function("init", &Pattern::init)
-    .function("serialize", &Pattern::serialize)
-    .function("unserialize", &Pattern::unserialize)
-    .function("setArg", &Pattern::setArg)
-    .function("getArg", &Pattern::getArg)
-    .function("setArgs", &Pattern::setArgs)
-    .function("getArgs", &Pattern::getArgs)
-    .function("getNumArgs", &Pattern::getNumArgs)
-    .function("equals", &Pattern::equals, allow_raw_pointer<const Pattern *>())
-    .function("getColorset", select_overload<const Colorset() const>(&Pattern::getColorset))
-    .function("setColorset", &Pattern::setColorset)
-    .function("clearColorset", &Pattern::clearColorset)
-    .function("setLedPos", &Pattern::setLedPos)
-    .function("getPatternID", &Pattern::getPatternID)
-    .function("getLedPos", &Pattern::getLedPos)
-    .function("getFlags", &Pattern::getFlags)
-    .function("hasFlags", &Pattern::hasFlags);
+    .function("bind", &Pattern_bind, allow_raw_pointers())
+    .function("init", &Pattern_init, allow_raw_pointers())
+    .function("serialize", &Pattern_serialize, allow_raw_pointers())
+    .function("unserialize", &Pattern_unserialize, allow_raw_pointers())
+    .function("setArg", &Pattern_setArg, allow_raw_pointers())
+    .function("getArg", &Pattern_getArg, allow_raw_pointers())
+    .function("setArgs", &Pattern_setArgs, allow_raw_pointers())
+    .function("getArgs", &Pattern_getArgs, allow_raw_pointers())
+    .function("getNumArgs", &Pattern_getNumArgs, allow_raw_pointers())
+    .function("equals", &Pattern_equals, allow_raw_pointers())
+    .function("getColorset", &Pattern_getColorset, allow_raw_pointers())
+    .function("setColorset", &Pattern_setColorset, allow_raw_pointers())
+    .function("clearColorset", &Pattern_clearColorset, allow_raw_pointers())
+    .function("setLedPos", &Pattern_setLedPos, allow_raw_pointers())
+    .function("getPatternID", &Pattern_getPatternID, allow_raw_pointers())
+    .function("getLedPos", &Pattern_getLedPos, allow_raw_pointers())
+    .function("getFlags", &Pattern_getFlags, allow_raw_pointers())
+    .function("hasFlags", &Pattern_hasFlags, allow_raw_pointers());
 
-  class_<PatternBuilder>("PatternBuilder")
-    .class_function("make", &PatternBuilder::make, allow_raw_pointers())
-    .class_function("dupe", &PatternBuilder::dupe, allow_raw_pointers())
-    .class_function("makeSingle", &PatternBuilder::makeSingle, allow_raw_pointers())
-    .class_function("makeMulti", &PatternBuilder::makeMulti, allow_raw_pointers())
-    //.function("unserialize", &PatternBuilder::unserialize)
-    .class_function("getDefaultArgs", &PatternBuilder::getDefaultArgs)
-    .class_function("numDefaultArgs", &PatternBuilder::numDefaultArgs);
+  class_<PatternBuilderBinding>("PatternBuilder")
+    .class_function("make", &PatternBuilder_make, allow_raw_pointers())
+    .class_function("dupe", &PatternBuilder_dupe, allow_raw_pointers())
+    .class_function("makeSingle", &PatternBuilder_makeSingle, allow_raw_pointers())
+    .class_function("makeMulti", &PatternBuilder_makeMulti, allow_raw_pointers())
+    //.function("unserialize", &PatternBuilder_unserialize)
+    .class_function("getDefaultArgs", &PatternBuilder_getDefaultArgs, allow_raw_pointers())
+    .class_function("numDefaultArgs", &PatternBuilder_numDefaultArgs);
 
   class_<Mode>("Mode")
     //.constructor<>()
@@ -415,96 +513,96 @@ EMSCRIPTEN_BINDINGS(Vortex) {
     //.constructor<PatternID, const PatternArgs &, const Colorset &>()
     //.constructor<PatternID, const PatternArgs *, const Colorset *>()
     //.constructor<const Mode *>()
-    .function("copyFrom", select_overload<void(const Mode &)>(&Mode::operator=))
-    .function("equals", &Mode::operator==)
-    .function("notEquals", &Mode::operator!=)
-    .function("init", &Mode::init)
-    .function("play", &Mode::play)
-    .function("saveToBuffer", &Mode::saveToBuffer)
-    .function("loadFromBuffer", &Mode::loadFromBuffer)
-    .function("serialize", &Mode::serialize)
-    .function("unserialize", &Mode::unserialize)
-    .function("equalsMode", &Mode::equals, allow_raw_pointer<const Mode *>())
-    //.function("setLedCount", &Mode::setLedCount)
-    .function("getLedCount", &Mode::getLedCount)
-    .function("getColorset", select_overload<const Colorset(LedPos) const>(&Mode::getColorset))
-    .function("getPatternID", &Mode::getPatternID)
-    .function("getPattern", select_overload<Pattern * (LedPos)>(&Mode::getPattern), emscripten::allow_raw_pointers())
-    .function("getConstPattern", select_overload<const Pattern * (LedPos) const>(&Mode::getPattern), emscripten::allow_raw_pointers())
-    .function("setPattern", static_cast<bool(Mode:: *)(PatternID, LedPos, const PatternArgs *, const Colorset *)>(&Mode::setPattern), emscripten::allow_raw_pointers())
-    .function("setPattern2", &Mode::setPattern, allow_raw_pointers())
-    .function("setColorset", select_overload<bool(const Colorset &, LedPos)>(&Mode::setColorset))
-    .function("clearPattern", &Mode::clearPattern)
-    .function("clearColorset", &Mode::clearColorset)
-    .function("setArg", &Mode::setArg)
-    .function("getArg", &Mode::getArg)
-    .function("hasMultiLed", &Mode::hasMultiLed)
-    .function("hasSingleLed", &Mode::hasSingleLed)
-    .function("hasSameSingleLed", &Mode::hasSameSingleLed)
-    .function("hasSparseSingleLed", &Mode::hasSparseSingleLed)
-    .function("isEmpty", &Mode::isEmpty)
-    //.function("getSingleLedMap", &Mode::getSingleLedMap)
-    .function("isMultiLed", &Mode::isMultiLed);
+    .function("copyFrom", &Mode_assign, allow_raw_pointers())
+    .function("equals", &Mode_opEquals, allow_raw_pointers())
+    .function("notEquals", &Mode_opNotEquals, allow_raw_pointers())
+    .function("init", &Mode_initPatterns, allow_raw_pointers())
+    .function("play", &Mode_play, allow_raw_pointers())
+    .function("saveToBuffer", &Mode_saveToBuffer, allow_raw_pointers())
+    .function("loadFromBuffer", &Mode_loadFromBuffer, allow_raw_pointers())
+    .function("serialize", &Mode_serialize, allow_raw_pointers())
+    .function("unserialize", &Mode_unserialize, allow_raw_pointers())
+    .function("equalsMode", &Mode_equals, allow_raw_pointers())
+    //.function("setLedCount", &Mode_setLedCount)
+    .function("getLedCount", &Mode_getLedCount, allow_raw_pointers())
+    .function("getColorset", &Mode_getColorset, allow_raw_pointers())
+    .function("getPatternID", &Mode_getPatternID, allow_raw_pointers())
+    .function("getPattern", &Mode_getPatternMutable, allow_raw_pointers())
+    .function("getConstPattern", &Mode_getPattern, allow_raw_pointers())
+    .function("setPattern", &Mode_setPattern, allow_raw_pointers())
+    .function("setPattern2", &Mode_setPattern, allow_raw_pointers())
+    .function("setColorset", &Mode_setColorset, allow_raw_pointers())
+    .function("clearPattern", &Mode_clearPattern, allow_raw_pointers())
+    .function("clearColorset", &Mode_clearColorset, allow_raw_pointers())
+    .function("setArg", &Mode_setArg, allow_raw_pointers())
+    .function("getArg", &Mode_getArg, allow_raw_pointers())
+    .function("hasMultiLed", &Mode_hasMultiLed, allow_raw_pointers())
+    .function("hasSingleLed", &Mode_hasSingleLed, allow_raw_pointers())
+    .function("hasSameSingleLed", &Mode_hasSameSingleLed, allow_raw_pointers())
+    .function("hasSparseSingleLed", &Mode_hasSparseSingleLed, allow_raw_pointers())
+    .function("isEmpty", &Mode_isEmpty, allow_raw_pointers())
+    //.function("getSingleLedMap", &Mode_getSingleLedMap)
+    .function("isMultiLed", &Mode_isMultiLed, allow_raw_pointers());
 
-  class_<Menus>("Menus")
-    .class_function("init", &Menus::init)
-    .class_function("cleanup", &Menus::cleanup)
-    .class_function("run", &Menus::run)
-    .class_function("openMenuSelection", &Menus::openMenuSelection)
-    .class_function("openMenu", &Menus::openMenu)
-    .class_function("showSelection", &Menus::showSelection)
-    .class_function("checkOpen", &Menus::checkOpen)
-    .class_function("checkInMenu", &Menus::checkInMenu)
-    .class_function("curMenu", &Menus::curMenu, allow_raw_pointers())
-    .class_function("curMenuID", &Menus::curMenuID);
+  class_<MenusBinding>("Menus")
+    .class_function("init", &Menus_init)
+    .class_function("cleanup", &Menus_cleanup)
+    .class_function("run", &Menus_run)
+    .class_function("openMenuSelection", &Menus_openMenuSelection)
+    .class_function("openMenu", &Menus_openMenu)
+    .class_function("showSelection", &Menus_showSelection)
+    .class_function("checkOpen", &Menus_checkOpen)
+    .class_function("checkInMenu", &Menus_checkInMenu)
+    .class_function("curMenu", &Menus_curMenu, allow_raw_pointers())
+    .class_function("curMenuID", &Menus_curMenuID);
 
   class_<Menu>("Menu")
-    .function("init", &Menu::init)
-    .function("run", &Menu::run)
-    .function("onLedSelected", &Menu::onLedSelected)
-    .function("onShortClick", &Menu::onShortClick)
-    .function("onLongClick", &Menu::onLongClick)
-    .function("leaveMenu", &Menu::leaveMenu);
-    //.function("setTargetLeds", &Menu::setTargetLeds);
+    .function("init", &Menu_init, allow_raw_pointers())
+    .function("run", &Menu_run, allow_raw_pointers())
+    .function("onLedSelected", &Menu_onLedSelected, allow_raw_pointers())
+    .function("onShortClick", &Menu_onShortClick, allow_raw_pointers())
+    .function("onLongClick", &Menu_onLongClick, allow_raw_pointers())
+    .function("leaveMenu", &Menu_leaveMenu, allow_raw_pointers());
+    //.function("setTargetLeds", &Menu_setTargetLeds);
 
-  class_<Modes>("Modes")
-    .class_function("init", &Modes::init)
-    .class_function("cleanup", &Modes::cleanup)
-    .class_function("play", &Modes::play)
-    .class_function("saveToBuffer", select_overload<bool(ByteStream&)>(&Modes::saveToBuffer))
-    .class_function("loadFromBuffer", select_overload<bool(ByteStream&)>(&Modes::loadFromBuffer))
-    .class_function("loadStorage", &Modes::loadStorage)
-    .class_function("saveStorage", &Modes::saveStorage)
-    .class_function("serialize", &Modes::serialize)
-    .class_function("unserialize", &Modes::unserialize)
-    .class_function("setDefaults", &Modes::setDefaults)
-    .class_function("shiftCurMode", &Modes::shiftCurMode)
-    .class_function("updateCurMode", &Modes::updateCurMode, allow_raw_pointers())
-    .class_function("setCurMode", &Modes::setCurMode, allow_raw_pointers())
-    .class_function("curMode", &Modes::curMode, allow_raw_pointers())
-    .class_function("nextMode", &Modes::nextMode, allow_raw_pointers())
-    .class_function("previousMode", &Modes::previousMode, allow_raw_pointers())
-    .class_function("nextModeSkipEmpty", &Modes::nextModeSkipEmpty, allow_raw_pointers())
-    .class_function("numModes", &Modes::numModes)
-    .class_function("curModeIndex", &Modes::curModeIndex)
-    .class_function("lastSwitchTime", &Modes::lastSwitchTime)
-    .class_function("deleteCurMode", &Modes::deleteCurMode)
-    .class_function("clearModes", &Modes::clearModes)
-    .class_function("setStartupMode", &Modes::setStartupMode)
-    .class_function("startupMode", &Modes::startupMode)
-    //.class_function("initCurMode", &Modes::initCurMode, allow_raw_pointers())
-    //.class_function("saveCurMode", &Modes::saveCurMode)
-    .class_function("setFlag", &Modes::setFlag)
-    .class_function("getFlag", &Modes::getFlag)
-    .class_function("resetFlags", &Modes::resetFlags)
-    .class_function("setOneClickMode", &Modes::setOneClickMode)
-    .class_function("oneClickModeEnabled", &Modes::oneClickModeEnabled)
-    .class_function("setLocked", &Modes::setLocked)
-    .class_function("locked", &Modes::locked)
-    .class_function("setAdvancedMenus", &Modes::setAdvancedMenus)
-    .class_function("advancedMenusEnabled", &Modes::advancedMenusEnabled)
-    .class_function("setKeychainMode", &Modes::setKeychainMode)
-    .class_function("keychainModeEnabled", &Modes::keychainModeEnabled);
+  class_<ModesBinding>("Modes")
+    .class_function("init", &Modes_init)
+    .class_function("cleanup", &Modes_cleanup)
+    .class_function("play", &Modes_play)
+    .class_function("saveToBuffer", &Modes_saveToBuffer, allow_raw_pointers())
+    .class_function("loadFromBuffer", &Modes_loadFromBuffer, allow_raw_pointers())
+    .class_function("loadStorage", &Modes_loadStorage)
+    .class_function("saveStorage", &Modes_saveStorage)
+    .class_function("serialize", &Modes_serialize, allow_raw_pointers())
+    .class_function("unserialize", &Modes_unserialize, allow_raw_pointers())
+    .class_function("setDefaults", &Modes_setDefaults)
+    .class_function("shiftCurMode", &Modes_shiftCurMode)
+    .class_function("updateCurMode", &Modes_updateCurMode, allow_raw_pointers())
+    .class_function("setCurMode", &Modes_setCurMode, allow_raw_pointers())
+    .class_function("curMode", &Modes_curMode, allow_raw_pointers())
+    .class_function("nextMode", &Modes_nextMode, allow_raw_pointers())
+    .class_function("previousMode", &Modes_previousMode, allow_raw_pointers())
+    .class_function("nextModeSkipEmpty", &Modes_nextModeSkipEmpty, allow_raw_pointers())
+    .class_function("numModes", &Modes_numModes)
+    .class_function("curModeIndex", &Modes_curModeIndex)
+    .class_function("lastSwitchTime", &Modes_lastSwitchTime)
+    .class_function("deleteCurMode", &Modes_deleteCurMode)
+    .class_function("clearModes", &Modes_clearModes)
+    .class_function("setStartupMode", &Modes_setStartupMode)
+    .class_function("startupMode", &Modes_startupMode)
+    //.class_function("initCurMode", &Modes_initCurMode, allow_raw_pointers())
+    //.class_function("saveCurMode", &Modes_saveCurMode)
+    .class_function("setFlag", &Modes_setFlag)
+    .class_function("getFlag", &Modes_getFlag)
+    .class_function("resetFlags", &Modes_resetFlags)
+    .class_function("setOneClickMode", &Modes_setOneClickMode)
+    .class_function("oneClickModeEnabled", &Modes_oneClickModeEnabled)
+    .class_function("setLocked", &Modes_setLocked)
+    .class_function("locked", &Modes_locked)
+    .class_function("setAdvancedMenus", &Modes_setAdvancedMenus)
+    .class_function("advancedMenusEnabled", &Modes_advancedMenusEnabled)
+    .class_function("setKeychainMode", &Modes_setKeychainMode)
+    .class_function("keychainModeEnabled", &Modes_keychainModeEnabled);
 
   class_<Vortex>("Vortex")
     .class_function("init", select_overload<void()>(&Vortex::init))
@@ -521,8 +619,8 @@ EMSCRIPTEN_BINDINGS(Vortex) {
     .class_function("isButtonPressed", &Vortex::isButtonPressed)
     .class_function("sendWait", &Vortex::sendWait)
     .class_function("rapidClick", &Vortex::rapidClick)
-    .class_function("getMenuDemoMode", &Vortex::getMenuDemoMode, allow_raw_pointer<arg<1>>())
-    .class_function("setMenuDemoMode", &Vortex::setMenuDemoMode, allow_raw_pointer<arg<1>>())
+    .class_function("getMenuDemoMode", &Vortex::getMenuDemoMode, allow_raw_pointers())
+    .class_function("setMenuDemoMode", &Vortex::setMenuDemoMode, allow_raw_pointers())
     .class_function("quitClick", &Vortex::quitClick)
     .class_function("IRDeliver", &Vortex::IRDeliver)
     .class_function("VLDeliver", &Vortex::VLDeliver)
@@ -680,14 +778,14 @@ Vortex::Vortex()
     // error! out of memory
   }
 #ifdef _WIN32
-  m_randCtx.seed((uint32_t)(time(NULL) ^ GetTickCount64()));
+  Random_seed(&m_randCtx, (uint32_t)(time(NULL) ^ GetTickCount64()));
 #else
   struct timespec ts;
   unsigned long theTick = 0U;
   clock_gettime(CLOCK_MONOTONIC, &ts);
   theTick = ts.tv_nsec / 1000000;
   theTick += ts.tv_sec * 1000;
-  m_randCtx.seed(time(NULL) ^ theTick);
+  Random_seed(&m_randCtx, time(NULL) ^ theTick);
 #endif
 }
 
@@ -731,13 +829,17 @@ bool Vortex::init(VortexCallbacks *callbacks)
   }
 #endif
 
-  // init the engine
-  VortexEngine::init();
-  // load the modes
-  // TODO: don't load modes here? separate api?
-  Modes::load();
+  {
+    // only the engine itself counts towards the device memory
+    HEAP_TRACK_SCOPE(true);
+    // init the engine
+    VortexEngine_init();
+    // load the modes
+    // TODO: don't load modes here? separate api?
+    Modes_load();
+  }
   // clear the modes
-  //Modes::clearModes();
+  //Modes_clearModes();
   // save and set undo buffer
   doSave();
 
@@ -748,7 +850,10 @@ bool Vortex::init(VortexCallbacks *callbacks)
 
 void Vortex::cleanup()
 {
-  VortexEngine::cleanup();
+  {
+    HEAP_TRACK_SCOPE(true);
+    VortexEngine_cleanup();
+  }
   if (m_storedCallbacks) {
     delete m_storedCallbacks;
     m_storedCallbacks = nullptr;
@@ -788,6 +893,10 @@ void Vortex::handleNumber(char c)
   case 'b':
     // select button index to target for click events
     selectButton(number);
+    break;
+  case 'v':
+    // another device sends this default mode over VL
+    m_buttonEventQueue.push_back(VortexButtonEvent(number, EVENT_VL_TRANSMIT));
     break;
   default: // any other command
     if (number > 0) {
@@ -863,6 +972,15 @@ void Vortex::doCommand(char c)
     }
     quitClick();
     break;
+  case 'v':
+    // do nothing for the initial 'v', handleNumber() will handle the default
+    // mode index that follows and queue the VL transmit of that mode
+    break;
+#if HEAP_TRACKING == 1
+  case 'H':
+    m_buttonEventQueue.push_back(VortexButtonEvent(0, EVENT_HEAP_STATS));
+    break;
+#endif
   case 't':
     if (isButtonPressed()) {
       if (m_lastCommand != c) {
@@ -913,12 +1031,12 @@ bool Vortex::sleepEnabled()
 // whether the engine is sleeping, and/or to enter sleep
 void Vortex::enterSleep(bool save)
 {
-  VortexEngine::enterSleep(save);
+  VortexEngine_enterSleep(save);
 }
 
 bool Vortex::isSleeping()
 {
-  return VortexEngine::isSleeping();
+  return VortexEngine_isSleeping();
 }
 
 bool Vortex::tick()
@@ -942,7 +1060,8 @@ bool Vortex::tick()
     doCommand(getchar());
   }
   // tick the vortex engine forward
-  VortexEngine::tick();
+  HEAP_TRACK_SCOPE(true);
+  VortexEngine_tick();
   return true;
 }
 
@@ -954,13 +1073,13 @@ void Vortex::installCallbacks(VortexCallbacks *callbacks)
 
 void Vortex::setInstantTimestep(bool timestep)
 {
-  Time::setInstantTimestep(timestep);
+  Time_setInstantTimestep(timestep);
 }
 
 // select the button to send clicks to (0 = first button)
 void Vortex::selectButton(uint8_t buttonIndex)
 {
-  if (buttonIndex >= Buttons::numButtons()) {
+  if (buttonIndex >= Buttons_numButtons()) {
     return;
   }
   m_selectedButton = buttonIndex;
@@ -1061,7 +1180,7 @@ void Vortex::rapidClick(uint32_t amount)
 
 Mode *Vortex::getMenuDemoMode()
 {
-  Menu *pMenu = Menus::curMenu();
+  Menu *pMenu = Menus_curMenu();
   if (!pMenu) {
     return nullptr;
   }
@@ -1073,15 +1192,15 @@ bool Vortex::setMenuDemoMode(const Mode *mode)
   if (!mode) {
      return false;
   }
-  Menu *pMenu = Menus::curMenu();
+  Menu *pMenu = Menus_curMenu();
   if (!pMenu) {
     return false;
   }
-  if (!mode->getLedCount() || pMenu->m_previewMode.equals(mode)) {
+  if (!Mode_getLedCount(mode) || Mode_equals(&pMenu->m_previewMode, mode)) {
     return false;
   }
-  pMenu->m_previewMode = *mode;
-  pMenu->m_previewMode.init();
+  Mode_assign(&pMenu->m_previewMode, mode);
+  Mode_initPatterns(&pMenu->m_previewMode);
   return true;
 }
 
@@ -1093,72 +1212,103 @@ void Vortex::quitClick()
 void Vortex::IRDeliver(uint32_t timing)
 {
 #if IR_ENABLE_RECEIVER == 1
-  IRReceiver::handleIRTiming(timing);
+  IRReceiver_handleIRTiming(timing);
 #endif
 }
 
 void Vortex::VLDeliver(uint32_t timing)
 {
 #if VL_ENABLE_RECEIVER == 1
-  VLReceiver::handleVLTiming(timing);
+  VLReceiver_handleVLTiming(timing);
+#endif
+}
+
+void Vortex::VLTransmitDefaultMode(uint8_t index)
+{
+#if VL_ENABLE_SENDER == 1 && VL_ENABLE_RECEIVER == 1
+  if (index >= MAX_MODES) {
+    return;
+  }
+  // the mode is built and sent by an imaginary second device so none of
+  // this counts towards the device memory of this device
+  HEAP_TRACK_SCOPE(false);
+  Mode mode;
+  Mode_initDefault(&mode, &defaultModes[index]);
+  // capture the timings the sender would blink
+  class VLCapture : public VortexCallbacks
+  {
+  public:
+    void infraredWrite(bool mark, uint32_t amount) override { timings.push_back(amount); }
+    vector<uint32_t> timings;
+  };
+  VLCapture capture;
+  VortexCallbacks *callbacks = m_storedCallbacks;
+  m_storedCallbacks = &capture;
+  VLSender_send(&mode);
+  m_storedCallbacks = callbacks;
+  Mode_destroy(&mode);
+  // and deliver them to the receiver of this device
+  for (uint32_t timing : capture.timings) {
+    VLDeliver(timing);
+  }
 #endif
 }
 
 void Vortex::getStorageStats(uint32_t *outTotal, uint32_t *outUsed)
 {
   if (outTotal) {
-    *outTotal = VortexEngine::totalStorageSpace();
+    *outTotal = VortexEngine_totalStorageSpace();
   }
   if (outUsed) {
-    *outUsed = VortexEngine::savefileSize();
+    *outUsed = VortexEngine_savefileSize();
   }
 }
 
 void Vortex::loadStorage()
 {
-  Modes::loadStorage();
+  Modes_loadStorage();
 }
 
 void Vortex::openRandomizer(bool advanced)
 {
-  Menus::openMenu(MENU_RANDOMIZER, advanced);
+  Menus_openMenu(MENU_RANDOMIZER, advanced);
 }
 
 void Vortex::openColorSelect(bool advanced)
 {
-  Menus::openMenu(MENU_COLOR_SELECT, advanced);
+  Menus_openMenu(MENU_COLOR_SELECT, advanced);
 }
 
 void Vortex::openPatternSelect(bool advanced)
 {
-  Menus::openMenu(MENU_PATTERN_SELECT, advanced);
+  Menus_openMenu(MENU_PATTERN_SELECT, advanced);
 }
 
 void Vortex::openGlobalBrightness(bool advanced)
 {
-  Menus::openMenu(MENU_GLOBAL_BRIGHTNESS, advanced);
+  Menus_openMenu(MENU_GLOBAL_BRIGHTNESS, advanced);
 }
 
 void Vortex::openFactoryReset(bool advanced)
 {
-  Menus::openMenu(MENU_FACTORY_RESET, advanced);
+  Menus_openMenu(MENU_FACTORY_RESET, advanced);
 }
 
 void Vortex::openModeSharing(bool advanced)
 {
-  Menus::openMenu(MENU_MODE_SHARING, advanced);
+  Menus_openMenu(MENU_MODE_SHARING, advanced);
 }
 
 void Vortex::openEditorConnection(bool advanced)
 {
 #if ENABLE_EDITOR_CONNECTION == 1
-  Menus::openMenu(MENU_EDITOR_CONNECTION, advanced);
+  Menus_openMenu(MENU_EDITOR_CONNECTION, advanced);
 #endif
 }
 
 //void Vortex::clearMenuTargetLeds()
 //{
-//  Menu *cur = Menus::curMenu();
+//  Menu *cur = Menus_curMenu();
 //  if (!cur) {
 //    return;
 //  }
@@ -1167,7 +1317,7 @@ void Vortex::openEditorConnection(bool advanced)
 //
 //void Vortex::setMenuTargetLeds(LedMap targetLeds)
 //{
-//  Menu *cur = Menus::curMenu();
+//  Menu *cur = Menus_curMenu();
 //  if (!cur) {
 //    return;
 //  }
@@ -1176,7 +1326,7 @@ void Vortex::openEditorConnection(bool advanced)
 //
 //void Vortex::addMenuTargetLeds(LedPos pos)
 //{
-//  Menu *cur = Menus::curMenu();
+//  Menu *cur = Menus_curMenu();
 //  if (!cur) {
 //    return;
 //  }
@@ -1187,15 +1337,15 @@ void Vortex::openEditorConnection(bool advanced)
 bool Vortex::getModes(ByteStream &outStream)
 {
   // now serialize all the modes
-  Modes::saveToBuffer(outStream);
+  Modes_saveToBuffer(&outStream);
   return true;
 }
 
 bool Vortex::setModes(ByteStream &stream, bool save)
 {
-  Modes::clearModes();
+  Modes_clearModes();
   // now unserialize the stream of data that was read
-  if (!Modes::loadFromBuffer(stream)) {
+  if (!Modes_loadFromBuffer(&stream)) {
     return false;
   }
   return !save || doSave();
@@ -1203,41 +1353,41 @@ bool Vortex::setModes(ByteStream &stream, bool save)
 
 bool Vortex::matchLedCount(ByteStream &stream, bool vtxMode)
 {
-  if (!stream.decompress()) {
+  if (!ByteStream_decompress(&stream)) {
     return false;
   }
   // reset the unserializer index before unserializing anything
-  stream.resetUnserializer();
+  ByteStream_resetUnserializer(&stream);
   uint8_t major = 0;
   uint8_t minor = 0;
   // unserialize the vortex version
-  stream.unserialize8(&major);
-  stream.unserialize8(&minor);
+  ByteStream_unserialize8(&stream, &major);
+  ByteStream_unserialize8(&stream, &minor);
   // unserialize the global brightness
   if (!vtxMode) {
     uint8_t flags;
-    stream.unserialize8(&flags);
+    ByteStream_unserialize8(&stream, &flags);
     uint8_t brightness = 0;
-    stream.unserialize8(&brightness);
+    ByteStream_unserialize8(&stream, &brightness);
     uint8_t numModes = 0;
-    stream.unserialize8(&numModes);
+    ByteStream_unserialize8(&stream, &numModes);
   }
   uint8_t ledCount = 0;
-  stream.unserialize8(&ledCount);
+  ByteStream_unserialize8(&stream, &ledCount);
   // put the unserializer back where it was for the next thing
-  stream.resetUnserializer();
+  ByteStream_resetUnserializer(&stream);
   return setLedCount(ledCount);
 }
 
 bool Vortex::checkLedCount()
 {
-  Mode *mode = Modes::curMode();
+  Mode *mode = Modes_curMode();
   if (!mode) {
     return false;
   }
-  uint8_t numLeds = mode->getLedCount();
+  uint8_t numLeds = Mode_getLedCount(mode);
   if (numLeds != LED_COUNT) {
-    //Leds::setLedCount(numLeds);
+    //Leds_setLedCount(numLeds);
     return false;
   }
   return true;
@@ -1255,40 +1405,40 @@ uint8_t Vortex::getLedCount()
 
 bool Vortex::getCurMode(ByteStream &outStream)
 {
-  Mode *pMode = Modes::curMode();
+  Mode *pMode = Modes_curMode();
   if (!pMode) {
     return false;
   }
   // save to ensure we get the correct mode, not using doSave() because it causes
   // an undo buffer entry to be added
-  if (!Modes::saveStorage()) {
+  if (!Modes_saveStorage()) {
     return false;
   }
-  return Modes::curMode()->saveToBuffer(outStream);
+  return Mode_saveToBuffer(Modes_curMode(), &outStream, LED_COUNT);
 }
 
 uint32_t Vortex::curModeIndex()
 {
-  return Modes::curModeIndex();
+  return Modes_curModeIndex();
 }
 
 uint32_t Vortex::numModes()
 {
-  return Modes::numModes();
+  return Modes_numModes();
 }
 
 uint32_t Vortex::numLedsInMode()
 {
-  Mode *pMode = Modes::curMode();
+  Mode *pMode = Modes_curMode();
   if (!pMode) {
     return false;
   }
-  return pMode->getLedCount();
+  return Mode_getLedCount(pMode);
 }
 
 bool Vortex::addMode(const Mode *mode, bool save)
 {
-  if (!Modes::addMode(mode)) {
+  if (!Modes_addMode(mode)) {
     return false;
   }
   return !save || doSave();
@@ -1297,14 +1447,15 @@ bool Vortex::addMode(const Mode *mode, bool save)
 bool Vortex::addNewMode(bool save)
 {
   Colorset set;
-  set.randomize(m_randCtx);
+  Colorset_make(&set);
+  Colorset_randomize(&set, &m_randCtx, 0);
   // create a random pattern ID from all patterns
   PatternID randomPattern;
   do {
     // continuously re-randomize the pattern so we don't get solids
-    randomPattern = (PatternID)m_randCtx.next16(PATTERN_FIRST, PATTERN_SINGLE_LAST);
+    randomPattern = (PatternID)Random_next16(&m_randCtx, PATTERN_FIRST, PATTERN_SINGLE_LAST);
   } while (randomPattern == PATTERN_SOLID);
-  if (!Modes::addMode(randomPattern, nullptr, &set)) {
+  if (!Modes_addMode(randomPattern, nullptr, &set)) {
     return false;
   }
   return !save || doSave();
@@ -1312,7 +1463,7 @@ bool Vortex::addNewMode(bool save)
 
 bool Vortex::addNewMode(ByteStream &stream, bool save)
 {
-  if (!Modes::addModeFromBuffer(stream)) {
+  if (!Modes_addModeFromBuffer(&stream)) {
     return false;
   }
   return !save || doSave();
@@ -1320,10 +1471,10 @@ bool Vortex::addNewMode(ByteStream &stream, bool save)
 
 bool Vortex::setCurMode(uint32_t index, bool save)
 {
-  if (index >= Modes::numModes()) {
+  if (index >= Modes_numModes()) {
     return true;
   }
-  if (!Modes::setCurMode(index)) {
+  if (!Modes_setCurMode(index)) {
     return false;
   }
   return !save || doSave();
@@ -1331,54 +1482,54 @@ bool Vortex::setCurMode(uint32_t index, bool save)
 
 bool Vortex::nextMode(bool save)
 {
-  if (!Modes::numModes()) {
+  if (!Modes_numModes()) {
     return true;
   }
-  Modes::nextMode();
+  Modes_nextMode();
   return !save || doSave();
 }
 
 bool Vortex::delCurMode(bool save)
 {
-  if (!Modes::numModes()) {
+  if (!Modes_numModes()) {
     return true;
   }
-  Modes::deleteCurMode();
+  Modes_deleteCurMode();
   return !save || doSave();
 }
 
 bool Vortex::shiftCurMode(int8_t offset, bool save)
 {
-  if (!Modes::numModes()) {
+  if (!Modes_numModes()) {
     return true;
   }
   if (offset == 0) {
     return true;
   }
-  Modes::shiftCurMode(offset);
+  Modes_shiftCurMode(offset);
   return !save || doSave();
 }
 
 bool Vortex::setPattern(PatternID id, const PatternArgs *args, const Colorset *set, bool save)
 {
-  Mode *pMode = Modes::curMode();
+  Mode *pMode = Modes_curMode();
   if (!pMode) {
     return false;
   }
-  if (!pMode->setPattern(id, LED_ANY, args, set)) {
+  if (!Mode_setPattern(pMode, id, LED_ANY, args, set)) {
     return false;
   }
-  pMode->init();
+  Mode_initPatterns(pMode);
   return !save || doSave();
 }
 
 PatternID Vortex::getPatternID(LedPos pos)
 {
-  Mode *pMode = Modes::curMode();
+  Mode *pMode = Modes_curMode();
   if (!pMode) {
     return PATTERN_NONE;
   }
-  return pMode->getPatternID(pos);
+  return Mode_getPatternID(pMode, pos);
 }
 
 string Vortex::getPatternName(LedPos pos)
@@ -1388,21 +1539,21 @@ string Vortex::getPatternName(LedPos pos)
 
 string Vortex::getModeName()
 {
-  Mode *pMode = Modes::curMode();
+  Mode *pMode = Modes_curMode();
   if (!pMode) {
     return patternToString(PATTERN_NONE);
   }
-  if (pMode->isMultiLed()) {
-    return patternToString(pMode->getPatternID(LED_MULTI));
+  if (Mode_isMultiLed(pMode)) {
+    return patternToString(Mode_getPatternID(pMode, LED_MULTI));
   }
   // can't use isSampleSingleLed because that will compare the entire
   // pattern for differences in any single led pattern, we only care
   // about the pattern id being different
   bool all_same_id = true;
-  PatternID first = pMode->getPatternID(LED_FIRST);
+  PatternID first = Mode_getPatternID(pMode, LED_FIRST);
   for (uint32_t i = LED_FIRST + 1; i < numLedsInMode(); ++i) {
     // if any don't match 0 then no good
-    if (pMode->getPatternID((LedPos)i) != first) {
+    if (Mode_getPatternID(pMode, (LedPos)i) != first) {
       all_same_id = false;
       break;
     }
@@ -1418,57 +1569,57 @@ string Vortex::getModeName()
 bool Vortex::setPatternAt(LedPos pos, PatternID id,
   const PatternArgs *args, const Colorset *set, bool save)
 {
-  Mode *pMode = Modes::curMode();
+  Mode *pMode = Modes_curMode();
   if (!pMode) {
     return false;
   }
-  if (!pMode->setPattern(id, pos, args, set)) {
+  if (!Mode_setPattern(pMode, id, pos, args, set)) {
     return false;
   }
-  pMode->init();
+  Mode_initPatterns(pMode);
   return !save || doSave();
 }
 
 bool Vortex::getColorset(LedPos pos, Colorset &set)
 {
-  Mode *pMode = Modes::curMode();
+  Mode *pMode = Modes_curMode();
   if (!pMode) {
     return false;
   }
-  set = pMode->getColorset(pos);
+  set = Mode_getColorset(pMode, pos);
   return true;
 }
 
 bool Vortex::setColorset(LedPos pos, const Colorset &set, bool save)
 {
-  Mode *pMode = Modes::curMode();
+  Mode *pMode = Modes_curMode();
   if (!pMode) {
     return false;
   }
-  if (!pMode->setColorset(set, pos)) {
+  if (!Mode_setColorset(pMode, &set, pos)) {
     return false;
   }
-  pMode->init();
+  Mode_initPatterns(pMode);
   return !save || doSave();
 }
 
 bool Vortex::getPatternArgs(LedPos pos, PatternArgs &args)
 {
-  Mode *pMode = Modes::curMode();
+  Mode *pMode = Modes_curMode();
   if (!pMode) {
     return false;
   }
-  Pattern *pat = pMode->getPattern(pos);
+  Pattern *pat = Mode_getPatternMutable(pMode, pos);
   if (!pat) {
     return false;
   }
-  pat->getArgs(args);
+  Pattern_getArgs(pat, &args);
   return true;
 }
 
 bool Vortex::setPatternArgs(LedPos pos, PatternArgs &args, bool save)
 {
-  Mode *pMode = Modes::curMode();
+  Mode *pMode = Modes_curMode();
   if (!pMode) {
     return false;
   }
@@ -1476,25 +1627,25 @@ bool Vortex::setPatternArgs(LedPos pos, PatternArgs &args, bool save)
   // Equivalent to cases LED_ANY, LED_ALL and LED_MULTI
   if (pos == LED_ANY || pos == LED_ALL || pos == LED_MULTI) {
 #if VORTEX_SLIM == 0
-    pat = pMode->getPattern(LED_MULTI);
+    pat = Mode_getPatternMutable(pMode, LED_MULTI);
     if (pat) {
-      pat->setArgs(args);
+      Pattern_setArgs(pat, &args);
     }
     if (pos == LED_MULTI) {
       // don't fallthrough if actually multi, it's possible
       // we got here by falling through from LED_ALL
-      pMode->init();
+      Mode_initPatterns(pMode);
       return !save || doSave();
     }
     // fall through if LED_ALL and change the single leds
     else if (pos == LED_ANY || pos == LED_ALL) {
       for (LedPos pos = LED_FIRST; pos < LED_COUNT; ++pos) {
-        pat = pMode->getPattern(pos);
+        pat = Mode_getPatternMutable(pMode, pos);
         if (pat) {
-          pat->setArgs(args);
+          Pattern_setArgs(pat, &args);
         }
       }
-      pMode->init();
+      Mode_initPatterns(pMode);
       // actually break here
       return !save || doSave();
     }
@@ -1504,12 +1655,12 @@ bool Vortex::setPatternArgs(LedPos pos, PatternArgs &args, bool save)
   // equivalent to case LED_ALL_SINGLE
   else if (pos == LED_ALL_SINGLE) {
     for (LedPos pos = LED_FIRST; pos < LED_COUNT; ++pos) {
-      pat = pMode->getPattern(pos);
+      pat = Mode_getPatternMutable(pMode, pos);
       if (pat) {
-        pat->setArgs(args);
+        Pattern_setArgs(pat, &args);
       }
     }
-    pMode->init();
+    Mode_initPatterns(pMode);
     // actually break here
     return !save || doSave();
   }
@@ -1519,12 +1670,12 @@ bool Vortex::setPatternArgs(LedPos pos, PatternArgs &args, bool save)
     if (pos >= LED_COUNT) {
       return false;
     }
-    pat = pMode->getPattern(pos);
+    pat = Mode_getPatternMutable(pMode, pos);
     if (!pat) {
       return false;
     }
-    pat->setArgs(args);
-    pMode->init();
+    Pattern_setArgs(pat, &args);
+    Mode_initPatterns(pMode);
     return !save || doSave();
   }
 
@@ -1533,11 +1684,11 @@ bool Vortex::setPatternArgs(LedPos pos, PatternArgs &args, bool save)
 
 bool Vortex::isCurModeMulti()
 {
-  Mode *pMode = Modes::curMode();
+  Mode *pMode = Modes_curMode();
   if (!pMode) {
     return false;
   }
-  return pMode->isMultiLed();
+  return Mode_isMultiLed(pMode);
 }
 
 string Vortex::patternToString(PatternID id)
@@ -1581,20 +1732,21 @@ string Vortex::ledToString(LedPos pos)
 // the number of custom parameters for any given pattern id
 uint32_t Vortex::numCustomParams(PatternID id)
 {
-  return PatternBuilder::numDefaultArgs(id);
+  return PatternBuilder_numDefaultArgs(id);
 }
 
 vector<string> Vortex::getCustomParams(PatternID id)
 {
-  Pattern *pat = PatternBuilder::make(id);
+  Pattern *pat = PatternBuilder_make(id, nullptr);
   vector<string> params;
   if (!pat) {
     return params;
   }
-  for (uint32_t i = 0; i < pat->getNumArgs(); ++i) {
-    params.push_back(pat->getArgName(i));
+  for (uint32_t i = 0; i < Pattern_getNumArgs(pat); ++i) {
+    params.push_back(Pattern_getArgName(pat, i));
   }
-  delete pat;
+  Pattern_destroy(pat);
+  PatternBuilder_freePattern(pat);
   return params;
 }
 
@@ -1609,31 +1761,40 @@ bool Vortex::addUndoBuffer()
     return true;
   }
   ByteStream modes;
+  ByteStream_make(&modes);
   getModes(modes);
-  if (!modes.size()) {
+  if (!ByteStream_size(&modes)) {
+    ByteStream_destroy(&modes);
     return false;
   }
   // only save an undo if the buffer is different
-  if (m_undoBuffer.size() > 0 && modes.CRC() == m_undoBuffer.back().CRC()) {
+  if (m_undoBuffer.size() > 0 && ByteStream_CRC(&modes) == ByteStream_CRC(&m_undoBuffer.back())) {
     //printf("Not saving duplicate undo buffer\n");
+    ByteStream_destroy(&modes);
     return false;
   }
   // must rewind to that step before pushing next step
   while (m_undoIndex > 0) {
+    ByteStream_destroy(&m_undoBuffer.back());
     m_undoBuffer.pop_back();
     m_undoIndex--;
   }
-  m_undoBuffer.push_back(modes);
+  // the arena tracks each buffer's owner so move the data into
+  // the deque element rather than copying the struct
+  m_undoBuffer.emplace_back();
+  ByteStream_make(&m_undoBuffer.back());
+  ByteStream_move(&modes, &m_undoBuffer.back());
   //printf("Pushing undo buffer (pos: %u)\n", m_undoIndex);
   // make sure list doesn't grow too big
   if (m_undoLimit && m_undoBuffer.size() > m_undoLimit) {
     //printf("Popping front of undo buffer\n");
+    ByteStream_destroy(&m_undoBuffer.front());
     m_undoBuffer.pop_front();
   }
 #if 0
   printf("Buffer:\n");
   for (uint32_t i = 0; i < m_undoBuffer.size(); ++i) {
-    printf("\t%u: %x", i, m_undoBuffer[i].CRC());
+    printf("\t%u: %x", i, ByteStream_CRC(&m_undoBuffer[i]));
     if ((m_undoBuffer.size() - 1) - m_undoIndex == i) {
       printf(" <--\n");
     } else {
@@ -1657,7 +1818,7 @@ bool Vortex::applyUndo()
   //printf("Buffer:\n");
 #if 0
   for (uint32_t i = 0; i < m_undoBuffer.size(); ++i) {
-    printf("\t%u: %x", i, m_undoBuffer[i].CRC());
+    printf("\t%u: %x", i, ByteStream_CRC(&m_undoBuffer[i]));
     if ((m_undoBuffer.size() - 1) - m_undoIndex == i) {
       printf(" <--\n");
     } else {
@@ -1667,7 +1828,7 @@ bool Vortex::applyUndo()
 #endif
   // index from the back instead of the front
   uint32_t backIndex = highestIndex - m_undoIndex;
-  m_undoBuffer[backIndex].resetUnserializer();
+  ByteStream_resetUnserializer(&m_undoBuffer[backIndex]);
   Vortex::setModes(m_undoBuffer[backIndex], false);
   return true;
 }
@@ -1701,21 +1862,24 @@ bool Vortex::redo()
 
 void Vortex::setTickrate(uint32_t tickrate)
 {
-  Time::setTickrate(tickrate);
+  Time_setTickrate(tickrate);
 }
 
 uint32_t Vortex::getTickrate()
 {
-  return Time::getTickrate();
+  return Time_getTickrate();
 }
 
 bool Vortex::doSave()
 {
-  return Modes::saveStorage() && addUndoBuffer();
+  return Modes_saveStorage() && addUndoBuffer();
 }
 
 void Vortex::handleInputQueue(Button *buttons, uint32_t numButtons)
 {
+  // this runs inside the engine tick but the input queue isn't part of the
+  // engine so it shouldn't count towards the device memory
+  HEAP_TRACK_SCOPE(false);
   // if there's nothing in the queue just return
   if (!m_buttonEventQueue.size()) {
     return;
@@ -1725,7 +1889,8 @@ void Vortex::handleInputQueue(Button *buttons, uint32_t numButtons)
   m_buttonEventQueue.pop_front();
   // the target button for this event (no target if event is just 'wait')
   Button *pButton = buttons;
-  if (buttonEvent.type != EVENT_WAIT && buttonEvent.type != EVENT_RAPID_CLICK) {
+  if (buttonEvent.type != EVENT_WAIT && buttonEvent.type != EVENT_RAPID_CLICK &&
+      buttonEvent.type != EVENT_VL_TRANSMIT && buttonEvent.type != EVENT_HEAP_STATS) {
     // make sure the button that is targeted is actually a valid index
     if (buttonEvent.target >= numButtons) {
       return;
@@ -1741,14 +1906,14 @@ void Vortex::handleInputQueue(Button *buttons, uint32_t numButtons)
   case EVENT_SHORT_CLICK:
     pButton->m_newRelease = true;
     pButton->m_shortClick = true;
-    pButton->m_pressTime = Time::getCurtime();
+    pButton->m_pressTime = Time_getCurtime();
     pButton->m_holdDuration = SHORT_CLICK_THRESHOLD_TICKS - 1;
     DEBUG_LOG("Injecting short click");
     break;
   case EVENT_LONG_CLICK:
     pButton->m_newRelease = true;
     pButton->m_longClick = true;
-    pButton->m_pressTime = Time::getCurtime();
+    pButton->m_pressTime = Time_getCurtime();
     pButton->m_holdDuration = SHORT_CLICK_THRESHOLD_TICKS + 1;
     DEBUG_LOG("Injecting long click");
     break;
@@ -1757,7 +1922,7 @@ void Vortex::handleInputQueue(Button *buttons, uint32_t numButtons)
     // to something more than the menu trigger threshold that will make
     // us immediately enter the menus. But we need to unset the pressed
     // button right after so we push a reset click event to reset the button
-    pButton->m_pressTime = Time::getCurtime();
+    pButton->m_pressTime = Time_getCurtime();
 #if defined(SLEEP_ENTER_THRESHOLD_TICKS) && defined(SLEEP_WINDOW_THRESHOLD_TICKS)
     // microlight must hold longer (past sleep time)
     pButton->m_holdDuration = MENU_TRIGGER_THRESHOLD_TICKS + SLEEP_ENTER_THRESHOLD_TICKS + SLEEP_WINDOW_THRESHOLD_TICKS + 1;
@@ -1773,7 +1938,7 @@ void Vortex::handleInputQueue(Button *buttons, uint32_t numButtons)
     // to something more than the menu trigger threshold that will make
     // us immediately enter the menus. But we need to unset the pressed
     // button right after so we push a reset click event to reset the button
-    pButton->m_pressTime = Time::getCurtime();
+    pButton->m_pressTime = Time_getCurtime();
     pButton->m_holdDuration = ADV_MENU_DURATION_TICKS + 1;
     pButton->m_longClick = true;
     pButton->m_newRelease = true;
@@ -1784,7 +1949,7 @@ void Vortex::handleInputQueue(Button *buttons, uint32_t numButtons)
     // to something more than the menu trigger threshold that will make
     // us immediately enter the menus. But we need to unset the pressed
     // button right after so we push a reset click event to reset the button
-    pButton->m_pressTime = Time::getCurtime();
+    pButton->m_pressTime = Time_getCurtime();
     pButton->m_holdDuration = DELETE_THRESHOLD_TICKS + DELETE_CYCLE_TICKS + 1;
     pButton->m_longClick = true;
     pButton->m_newRelease = true;
@@ -1796,7 +1961,7 @@ void Vortex::handleInputQueue(Button *buttons, uint32_t numButtons)
     // us immediately enter the menus. But we need to unset the pressed
     // button right after so we push a reset click event to reset the button
 #ifdef SLEEP_ENTER_THRESHOLD_TICKS
-    pButton->m_pressTime = Time::getCurtime();
+    pButton->m_pressTime = Time_getCurtime();
     pButton->m_holdDuration = SLEEP_ENTER_THRESHOLD_TICKS + 1;
     pButton->m_longClick = true;
     pButton->m_newRelease = true;
@@ -1809,7 +1974,7 @@ void Vortex::handleInputQueue(Button *buttons, uint32_t numButtons)
     // us immediately enter the menus. But we need to unset the pressed
     // button right after so we push a reset click event to reset the button
 #ifdef FORCE_SLEEP_THRESHOLD_TICKS
-    pButton->m_pressTime = Time::getCurtime();
+    pButton->m_pressTime = Time_getCurtime();
     pButton->m_holdDuration = FORCE_SLEEP_THRESHOLD_TICKS + 1;
     pButton->m_longClick = true;
     pButton->m_newRelease = true;
@@ -1823,21 +1988,24 @@ void Vortex::handleInputQueue(Button *buttons, uint32_t numButtons)
       swap(backup, m_buttonEventQueue);
       // ticks the engine forward some number of ticks, the event queue is empty
       // so the engine won't process any input events while doing this
-      for (uint32_t i = 0; i < buttonEvent.target; ++i) {
-        VortexEngine::tick();
+      {
+        HEAP_TRACK_SCOPE(true);
+        for (uint32_t i = 0; i < buttonEvent.target; ++i) {
+          VortexEngine_tick();
+        }
       }
       // then restore the event queue so that events are processed like normal
       swap(backup, m_buttonEventQueue);
     }
     break;
   case EVENT_TOGGLE_CLICK:
-    if (pButton->isPressed()) {
+    if (Button_isPressed(pButton)) {
       // re-calc all this stuff because there's no api in Button class to do it
       // I don't want to add the api there because it's useless besides for this
       pButton->m_buttonState = false;
       pButton->m_isPressed = false;
-      pButton->m_holdDuration = (uint32_t)(Time::getCurtime() - pButton->m_pressTime);
-      pButton->m_releaseTime = Time::getCurtime();
+      pButton->m_holdDuration = (uint32_t)(Time_getCurtime() - pButton->m_pressTime);
+      pButton->m_releaseTime = Time_getCurtime();
       pButton->m_newRelease = true;
       pButton->m_shortClick = (pButton->m_holdDuration <= SHORT_CLICK_THRESHOLD_TICKS);
       pButton->m_longClick = !pButton->m_shortClick;
@@ -1845,8 +2013,8 @@ void Vortex::handleInputQueue(Button *buttons, uint32_t numButtons)
     } else {
       pButton->m_buttonState = true;
       pButton->m_isPressed = true;
-      pButton->m_releaseDuration = (uint32_t)(Time::getCurtime() - pButton->m_releaseTime);
-      pButton->m_pressTime = Time::getCurtime();
+      pButton->m_releaseDuration = (uint32_t)(Time_getCurtime() - pButton->m_releaseTime);
+      pButton->m_pressTime = Time_getCurtime();
       pButton->m_newPress = true;
       DEBUG_LOG("Injecting press");
     }
@@ -1855,7 +2023,7 @@ void Vortex::handleInputQueue(Button *buttons, uint32_t numButtons)
     pButton->m_consecutivePresses = buttonEvent.target;
     pButton->m_newRelease = true;
     pButton->m_shortClick = true;
-    pButton->m_pressTime = Time::getCurtime();
+    pButton->m_pressTime = Time_getCurtime();
     pButton->m_holdDuration = 1;
     DEBUG_LOGF("Injecting %u x rapid click", buttonEvent.target);
     break;
@@ -1867,6 +2035,14 @@ void Vortex::handleInputQueue(Button *buttons, uint32_t numButtons)
   case EVENT_RESET_CLICK:
     pButton->m_isPressed = false;
     break;
+  case EVENT_VL_TRANSMIT:
+    VLTransmitDefaultMode(buttonEvent.target);
+    break;
+#if HEAP_TRACKING == 1
+  case EVENT_HEAP_STATS:
+    heap_printStats(m_commandLog.c_str());
+    break;
+#endif
   }
 }
 
@@ -1909,6 +2085,7 @@ uint32_t Vortex::getNumInputs()
 
 void Vortex::printlog(const char *file, const char *func, int line, const char *msg, va_list list)
 {
+  HEAP_TRACK_SCOPE(false);
   if (!Vortex::m_consoleHandle) {
     return;
   }
@@ -1936,12 +2113,12 @@ void Vortex::printlog(const char *file, const char *func, int line, const char *
 
 void Vortex::setStorageFilename(const string &name)
 {
-  Storage::setStorageFilename(name);
+  Storage_setStorageFilename(name);
 }
 
 string Vortex::getStorageFilename()
 {
-  return Storage::getStorageFilename();
+  return Storage_getStorageFilename();
 }
 
 json Vortex::modeToJson(const Mode *mode)
@@ -1951,17 +2128,17 @@ json Vortex::modeToJson(const Mode *mode)
   }
 
   json modeJson;
-  modeJson["num_leds"] = mode->getLedCount();
-  modeJson["flags"] = (uint8_t)mode->getFlags();
+  modeJson["num_leds"] = Mode_getLedCount(mode);
+  modeJson["flags"] = (uint8_t)Mode_getFlags(mode);
 
-  const Pattern *multiPattern = mode->getPattern(LED_MULTI);
+  const Pattern *multiPattern = Mode_getPattern(mode, LED_MULTI);
   if (multiPattern) {
     modeJson["multi_pat"] = patternToJson(multiPattern);
   }
 
   json singlePatterns = json::array();
-  for (LedPos l = LED_FIRST; l < mode->getLedCount(); ++l) {
-    const Pattern *pattern = mode->getPattern(l);
+  for (LedPos l = LED_FIRST; l < Mode_getLedCount(mode); ++l) {
+    const Pattern *pattern = Mode_getPattern(mode, l);
     if (pattern) {
       singlePatterns.push_back(patternToJson(pattern));
     } else {
@@ -1979,7 +2156,8 @@ Mode *Vortex::modeFromJson(const json &modeJson)
     return nullptr;
   }
 
-  Mode *mode = new Mode();
+  Mode *mode = new Mode;
+  Mode_init(mode);
   if (!mode) {
     return nullptr;
   }
@@ -1996,10 +2174,12 @@ Mode *Vortex::modeFromJson(const json &modeJson)
     Pattern *multiPattern = patternFromJson(multiPatJson);
     if (multiPattern) {
       PatternArgs args;
-      multiPattern->getArgs(args);
-      Colorset set = multiPattern->getColorset();
-      mode->setPattern(multiPattern->getPatternID(), LED_MULTI, &args, &set);
-      delete multiPattern;
+      PatternArgs_make0(&args);
+      Pattern_getArgs(multiPattern, &args);
+      Colorset set = Pattern_getColorset(multiPattern);
+      Mode_setPattern(mode, Pattern_getPatternID(multiPattern), LED_MULTI, &args, &set);
+      Pattern_destroy(multiPattern);
+      PatternBuilder_freePattern(multiPattern);
     }
   }
 
@@ -2011,10 +2191,12 @@ Mode *Vortex::modeFromJson(const json &modeJson)
         Pattern *pattern = patternFromJson(patJson);
         if (pattern) {
           PatternArgs args;
-          pattern->getArgs(args);
-          Colorset set = pattern->getColorset();
-          mode->setPattern(pattern->getPatternID(), pos++, &args, &set);
-          delete pattern;
+          PatternArgs_make0(&args);
+          Pattern_getArgs(pattern, &args);
+          Colorset set = Pattern_getColorset(pattern);
+          Mode_setPattern(mode, Pattern_getPatternID(pattern), pos++, &args, &set);
+          Pattern_destroy(pattern);
+          PatternBuilder_freePattern(pattern);
         }
       }
     }
@@ -2027,10 +2209,12 @@ Mode *Vortex::modeFromJson(const json &modeJson)
       return mode;
     }
     PatternArgs args;
-    pattern->getArgs(args);
-    Colorset set = pattern->getColorset();
-    mode->setPattern(pattern->getPatternID(), LED_FIRST, &args, &set);
-    delete pattern;
+    PatternArgs_make0(&args);
+    Pattern_getArgs(pattern, &args);
+    Colorset set = Pattern_getColorset(pattern);
+    Mode_setPattern(mode, Pattern_getPatternID(pattern), LED_FIRST, &args, &set);
+    Pattern_destroy(pattern);
+    PatternBuilder_freePattern(pattern);
   }
 
   return mode;
@@ -2043,15 +2227,15 @@ json Vortex::patternToJson(const Pattern *pattern)
   }
 
   json patternJson;
-  patternJson["pattern_id"] = pattern->getPatternID();
-  patternJson["flags"] = pattern->getFlags();
+  patternJson["pattern_id"] = Pattern_getPatternID(pattern);
+  patternJson["flags"] = Pattern_getFlags(pattern);
 
-  const Colorset &colorset = pattern->getColorset();
-  patternJson["numColors"] = colorset.numColors();
+  const Colorset &colorset = Pattern_getColorset(pattern);
+  patternJson["numColors"] = Colorset_numColors(&colorset);
 
   json colorsetArray = json::array();
-  for (uint8_t c = 0; c < colorset.numColors(); ++c) {
-    const RGBColor &color = colorset.get(c);
+  for (uint8_t c = 0; c < Colorset_numColors(&colorset); ++c) {
+    const RGBColor &color = Colorset_get(&colorset, c);
     std::stringstream colorString;
     colorString << "0x"
       << std::setfill('0') << std::setw(2) << std::hex << (int)color.red
@@ -2062,8 +2246,8 @@ json Vortex::patternToJson(const Pattern *pattern)
   patternJson["colorset"] = colorsetArray;
 
   json argsArray = json::array();
-  for (uint8_t a = 0; a < pattern->getNumArgs(); ++a) {
-    argsArray.push_back(pattern->getArg(a));
+  for (uint8_t a = 0; a < Pattern_getNumArgs(pattern); ++a) {
+    argsArray.push_back(Pattern_getArg(pattern, a));
   }
   patternJson["args"] = argsArray;
 
@@ -2089,16 +2273,18 @@ Pattern *Vortex::patternFromJson(const json &patternJson)
 
   // Parse out the args
   PatternArgs args;
+  PatternArgs_make0(&args);
   if (patternJson.contains("args") && patternJson["args"].is_array()) {
     for (const auto &arg : patternJson["args"]) {
       if (arg.is_number_unsigned()) {
-        args.addArgs(static_cast<uint8_t>(arg.get<uint8_t>()));
+        PatternArgs_addArgs1(&args, static_cast<uint8_t>(arg.get<uint8_t>()));
       }
     }
   }
 
   // Parse out the colorset
   Colorset set;
+  Colorset_make(&set);
   if (patternJson.contains("colorset") && patternJson["colorset"].is_array()) {
     for (const auto &colorElement : patternJson["colorset"]) {
       if (colorElement.is_string()) {
@@ -2107,20 +2293,20 @@ Pattern *Vortex::patternFromJson(const json &patternJson)
           strVal = strVal.substr(2);
         }
         uint32_t dwCol = strtoul(strVal.c_str(), NULL, 16);
-        set.addColor(RGBColor(dwCol));
+        Colorset_addColor(&set, RGBColor_fromU32(dwCol));
       }
     }
   }
 
   // Build the pattern with ID + args
-  Pattern *pattern = PatternBuilder::make(id, &args);
+  Pattern *pattern = PatternBuilder_make(id, &args);
   if (!pattern) {
     return nullptr;
   }
 
   // Apply colorset and init
-  pattern->setColorset(set);
-  pattern->init();
+  Pattern_setColorset(pattern, &set);
+  Pattern_init(pattern);
 
   return pattern;
 }
@@ -2128,7 +2314,7 @@ Pattern *Vortex::patternFromJson(const json &patternJson)
 json Vortex::saveModeToJson()
 {
   json saveJson;
-  Mode *cur = Modes::curMode();
+  Mode *cur = Modes_curMode();
   if (!cur) {
     return nullptr;
   }
@@ -2152,7 +2338,7 @@ bool Vortex::loadModeFromJson(const json &js)
   //  minor = js["version_minor"].get<uint8_t>();
   //}
 
-  //if (!VortexEngine::checkVersion(major, minor)) {
+  //if (!VortexEngine_checkVersion(major, minor)) {
   //  return false;
   //}
 
@@ -2160,7 +2346,8 @@ bool Vortex::loadModeFromJson(const json &js)
   if (!mode) {
     return false;
   }
-  bool rv = Modes::addMode(mode);
+  bool rv = Modes_addMode(mode);
+  Mode_destroy(mode);
   delete mode;
   return rv;
 }
@@ -2171,17 +2358,17 @@ json Vortex::saveToJson()
 
   saveJson["version_major"] = static_cast<uint8_t>(VORTEX_VERSION_MAJOR);
   saveJson["version_minor"] = static_cast<uint8_t>(VORTEX_VERSION_MINOR);
-  saveJson["global_flags"] = Modes::globalFlags();
-  saveJson["brightness"] = static_cast<uint8_t>(Leds::getBrightness());
+  saveJson["global_flags"] = Modes_globalFlags();
+  saveJson["brightness"] = static_cast<uint8_t>(Leds_getBrightness());
 
-  uint8_t numModes = Modes::numModes();
+  uint8_t numModes = Modes_numModes();
   saveJson["num_modes"] = numModes;
 
   json modesArray = json::array();
-  Modes::setCurMode(0);
+  Modes_setCurMode(0);
   for (uint8_t i = 0; i < numModes; ++i) {
     modesArray.push_back(saveModeToJson());
-    Modes::nextMode();
+    Modes_nextMode();
   }
   saveJson["modes"] = modesArray;
 
@@ -2204,18 +2391,18 @@ bool Vortex::loadFromJson(const json& js)
     minor = js["version_minor"].get<uint8_t>();
   }
 
-  if (!VortexEngine::checkVersion(major, minor)) {
+  if (!VortexEngine_checkVersion(major, minor)) {
     return false;
   }
 
   if (js.contains("brightness") && js["brightness"].is_number_unsigned()) {
     uint8_t brightness = js["brightness"].get<uint8_t>();
-    Leds::setBrightness(brightness);
+    Leds_setBrightness(brightness);
   }
 
   if (js.contains("global_flags") && js["global_flags"].is_number_unsigned()) {
     uint8_t global_flags = js["global_flags"].get<uint8_t>();
-    Modes::setFlag(global_flags, true, false);
+    Modes_setFlag(global_flags, true, false);
   }
 
   uint8_t num_modes = 0;
@@ -2227,7 +2414,7 @@ bool Vortex::loadFromJson(const json& js)
     return false;
   }
 
-  Modes::clearModes();
+  Modes_clearModes();
   for (const auto &modeValue : js["modes"]) {
     if (modeValue.is_null() || !modeValue.is_object()) {
       continue;
@@ -2238,14 +2425,14 @@ bool Vortex::loadFromJson(const json& js)
     }
   }
 
-  return Modes::numModes() == num_modes;
+  return Modes_numModes() == num_modes;
 }
 
 // print/parse the current mode json
 std::string Vortex::printModeJson(bool pretty)
 {
   std::string jsonStr = "{}";
-  Mode *cur = Modes::curMode();
+  Mode *cur = Modes_curMode();
   if (!cur) {
     return jsonStr;
   }
@@ -2267,7 +2454,8 @@ bool Vortex::parseModeJson(const std::string &jsonStr)
     return false;
   }
   // update the current mode with the parsed json mode
-  bool result = Modes::updateCurMode(tempMode);
+  bool result = Modes_updateCurMode(tempMode);
+  Mode_destroy(tempMode);
   delete tempMode;
   return result;
 }
@@ -2276,11 +2464,11 @@ bool Vortex::parseModeJson(const std::string &jsonStr)
 std::string Vortex::printPatternJson(LedPos pos, bool pretty)
 {
   std::string jsonStr = "{}";
-  Mode *cur = Modes::curMode();
+  Mode *cur = Modes_curMode();
   if (!cur) {
     return jsonStr;
   }
-  Pattern *pat = cur->getPattern(pos);
+  Pattern *pat = Mode_getPatternMutable(cur, pos);
   if (!pat) {
     return jsonStr;
   }
@@ -2290,7 +2478,7 @@ std::string Vortex::printPatternJson(LedPos pos, bool pretty)
 
 bool Vortex::parsePatternJson(LedPos pos, const std::string &jsonStr)
 {
-  Mode *cur = Modes::curMode();
+  Mode *cur = Modes_curMode();
   if (!cur) {
     return false;
   }
@@ -2306,12 +2494,14 @@ bool Vortex::parsePatternJson(LedPos pos, const std::string &jsonStr)
     return false;
   }
   // update the current mode with the parsed json mode
-  PatternID patID = tempPat->getPatternID();
+  PatternID patID = Pattern_getPatternID(tempPat);
   PatternArgs args;
-  tempPat->getArgs(args);
-  Colorset set = tempPat->getColorset();
-  delete tempPat;
-  return cur->setPattern(patID, pos, &args, &set);
+  PatternArgs_make0(&args);
+  Pattern_getArgs(tempPat, &args);
+  Colorset set = Pattern_getColorset(tempPat);
+  Pattern_destroy(tempPat);
+  PatternBuilder_freePattern(tempPat);
+  return Mode_setPattern(cur, patID, pos, &args, &set);
 }
 
 // dump the json to output

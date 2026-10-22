@@ -2,41 +2,43 @@
 #define PATTERN_BUILDER_H
 
 #include "Patterns.h"
+#include "Pattern.h"
+#include "PatternArgs.h"
+#include "Multi/MultiLedPattern.h"
+#include "Single/SingleLedPattern.h"
 
-class Pattern;
-class PatternArgs;
-class ByteStream;
-class MultiLedPattern;
-class SingleLedPattern;
+typedef struct ByteStream ByteStream;
 
-class PatternBuilder
-{
-public:
-  // generic make any pattern
-  static Pattern *make(PatternID id, const PatternArgs *args = nullptr);
+// allocate the pattern pool, all patterns are allocated from this pool
+bool PatternBuilder_init(void);
+// grab a block from the pattern pool to construct a pattern in
+void *PatternBuilder_allocPattern(void);
+// return a pattern's block to the pool, call Pattern_destroy first
+void PatternBuilder_freePattern(Pattern *pat);
 
-  // make a copy of an existing pattern
-  static Pattern *dupe(const Pattern *pat);
+// generic make any pattern
+Pattern *PatternBuilder_make(PatternID id, const PatternArgs *args);
 
-  // generate a single LED pattern (nullptr if patternid is not single LED)
-  static SingleLedPattern *makeSingle(PatternID id, const PatternArgs *args = nullptr);
+// make a copy of an existing pattern
+Pattern *PatternBuilder_dupe(const Pattern *pat);
 
-  // generate a multi LED pattern (nullptr if patternid is not multi LED)
-  static MultiLedPattern *makeMulti(PatternID id, const PatternArgs *args = nullptr);
+// generate a single LED pattern (NULL if patternid is not single LED)
+SingleLedPattern *PatternBuilder_makeSingle(PatternID id, const PatternArgs *args);
 
-  // unserialize a buffer into a pattern
-  static Pattern *unserialize(ByteStream &buffer);
+// generate a multi LED pattern (NULL if patternid is not multi LED)
+MultiLedPattern *PatternBuilder_makeMulti(PatternID id, const PatternArgs *args);
 
-  // This is just the default arguments for any given pattern id
-  // it will *not* indicate the true amount of arguments a pattern has
-  static PatternArgs getDefaultArgs(PatternID id);
-  // this will give you actual amount of default args
-  static uint8_t numDefaultArgs(PatternID id);
+// unserialize a buffer into a pattern
+Pattern *PatternBuilder_unserialize(ByteStream *buffer);
 
-private:
-  // helper routines
-  static Pattern *makeInternal(PatternID id, const PatternArgs *args = nullptr);
-  static Pattern *generate(PatternID id, const PatternArgs *args = nullptr);
-};
+// This is just the default arguments for any given pattern id
+// it will *not* indicate the true amount of arguments a pattern has
+void PatternBuilder_getDefaultArgs(PatternID id, PatternArgs *out);
+// this will give you actual amount of default args
+uint8_t PatternBuilder_numDefaultArgs(PatternID id);
+
+// helper routines
+Pattern *PatternBuilder_makeInternal(PatternID id, const PatternArgs *args);
+Pattern *PatternBuilder_generate(PatternID id, const PatternArgs *args);
 
 #endif

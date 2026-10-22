@@ -1,66 +1,17 @@
 #ifndef BUTTON_H
 #define BUTTON_H
 
+#include <stdbool.h>
 #include <inttypes.h>
 
 #include "../VortexConfig.h"
 
 // although there is only one button on the VortexFramework
-// I am still opting for a non-static button class
-class Button
-{
-private:
-  // private unimplemented copy and assignment constructors to prevent copies
-  Button(Button const &);
-  void operator=(Button const &);
-
-public:
-  Button();
-  ~Button();
-
-  // initialize a new button object with a pin number
-  bool init(uint8_t pin);
-  // directly poll the pin for whether it's pressed right now
-  bool check();
-  // poll the button pin and update the state of the button object
-  void update();
-
-#ifdef VORTEX_EMBEDDED
-  // enable the button-wake trigger to wake the device on press
-  void enableWake();
-#endif
-
-  // whether the button was pressed this tick
-  bool onPress() const { return m_newPress; }
-  // whether the button was released this tick
-  bool onRelease() const { return m_newRelease; }
-  // whether the button is currently pressed
-  bool isPressed() const { return m_isPressed; }
-
-  // whether the button was shortclicked this tick
-  bool onShortClick() const { return m_shortClick; }
-  // whether the button was long clicked this tick
-  bool onLongClick() const { return m_longClick; }
-  // fired when a certain number of presses is reached, the consecutive press
-  // counter is automatically reset when that happens
-  bool onConsecutivePresses(uint8_t numPresses);
-
-  // when the button was last pressed
-  uint32_t pressTime() const { return m_pressTime; }
-  // when the button was last released
-  uint32_t releaseTime() const { return m_releaseTime; }
-
-  // how long the button is currently or was last held down (in ticks)
-  uint32_t holdDuration() const { return m_holdDuration; }
-  // how long the button is currently or was last released for (in ticks)
-  uint32_t releaseDuration() const { return m_releaseDuration; }
-
-  // the number of consecutive presses
-  uint8_t consecutivePresses() const { return m_consecutivePresses; }
-  // the number of releases
-  uint8_t releaseCount() const { return m_releaseCount; }
-
-private:
+// I am still opting for a non-static button struct
+//
+// the members are intentionally left public so the VortexLib side can
+// manipulate them directly to inject button events
+typedef struct Button {
   // ========================================
   // state data that is populated each check
 
@@ -92,14 +43,53 @@ private:
   bool m_shortClick;
   // whether a long click occurred
   bool m_longClick;
+} Button;
 
-#ifdef VORTEX_LIB
-  // allow the VortexLib class to manipulate the members of this
-  // class so that it can inject button events to make apis like
-  // Vortex::shortClick() and Vortex::longClick() possible
-  friend class Vortex;
+// initialize a new button object, this does not touch the pin
+void Button_make(Button *self);
+void Button_destroy(Button *self);
+
+// initialize a new button object with a pin number
+bool Button_init(Button *self, uint8_t pin);
+// directly poll the pin for whether it's pressed right now
+bool Button_check(Button *self);
+// poll the button pin and update the state of the button object
+void Button_update(Button *self);
+
+#ifdef VORTEX_EMBEDDED
+// enable the button-wake trigger to wake the device on press
+void Button_enableWake(Button *self);
 #endif
-};
+
+// whether the button was pressed this tick
+bool Button_onPress(const Button *self);
+// whether the button was released this tick
+bool Button_onRelease(const Button *self);
+// whether the button is currently pressed
+bool Button_isPressed(const Button *self);
+
+// whether the button was shortclicked this tick
+bool Button_onShortClick(const Button *self);
+// whether the button was long clicked this tick
+bool Button_onLongClick(const Button *self);
+// fired when a certain number of presses is reached, the consecutive press
+// counter is automatically reset when that happens
+bool Button_onConsecutivePresses(Button *self, uint8_t numPresses);
+
+// when the button was last pressed
+uint32_t Button_pressTime(const Button *self);
+// when the button was last released
+uint32_t Button_releaseTime(const Button *self);
+
+// how long the button is currently or was last held down (in ticks)
+uint32_t Button_holdDuration(const Button *self);
+// how long the button is currently or was last released for (in ticks)
+uint32_t Button_releaseDuration(const Button *self);
+
+// the number of consecutive presses
+uint8_t Button_consecutivePresses(const Button *self);
+// the number of releases
+uint8_t Button_releaseCount(const Button *self);
 
 // See Button.cpp for info about this
 extern Button *g_pButton;

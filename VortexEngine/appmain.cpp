@@ -2,6 +2,6 @@
 
 int main()
 {
-  VortexEngine::init();
+  VortexEngine_init();
   return 0;
 }

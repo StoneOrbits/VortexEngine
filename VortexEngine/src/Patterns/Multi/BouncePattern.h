@@ -1,24 +1,26 @@
-#include "BlinkStepPattern.h"
+#ifndef BOUNCE_PATTERN_H
+#define BOUNCE_PATTERN_H
 
+#include <stdbool.h>
+#include "BlinkStepPattern.h"
 #include "../../Time/Timings.h"
 
-class BouncePattern : public BlinkStepPattern
-{
-public:
-  BouncePattern(const PatternArgs &args);
-  virtual ~BouncePattern();
-
-  // init the pattern to initial state
-  virtual void init() override;
-
-protected:
-  virtual void blinkOn() override;
-  virtual void poststep() override;
-
-private:
-  // how much the warp has progressed
+typedef struct BouncePattern {
+  // must remain the first member
+  BlinkStepPattern base;
   uint8_t m_progress;
-  // the fade amount
   uint8_t m_fadeAmount;
-};
+} BouncePattern;
 
+// the blink/step vtable for this pattern
+extern const BlinkStepVtable BouncePattern_bvtable;
+
+// initialize a new BouncePattern
+void BouncePattern_init(BouncePattern *self, const PatternArgs *args);
+void BouncePattern_destroy(Pattern *self);
+
+void BouncePattern_initImpl(Pattern *self);
+void BouncePattern_blinkOn(BlinkStepPattern *self);
+void BouncePattern_poststep(BlinkStepPattern *self);
+
+#endif
