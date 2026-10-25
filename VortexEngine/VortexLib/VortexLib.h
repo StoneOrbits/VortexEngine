@@ -155,6 +155,10 @@ public:
   static void IRDeliver(uint32_t timing);
   static void VLDeliver(uint32_t timing);
 
+  // simulate another device sending one of the default modes over VL, the
+  // timings it blinks are delivered to the VL receiver of this device
+  static void VLTransmitDefaultMode(uint8_t index);
+
   // get total/used storage space
   static void getStorageStats(uint32_t *outTotal, uint32_t *outUsed);
   static void loadStorage();
@@ -353,6 +357,8 @@ private:
     EVENT_RAPID_CLICK,
     // quit the engine (not really a 'click')
     EVENT_QUIT_CLICK,
+    // another device sends a default mode over VL (target is the mode index)
+    EVENT_VL_TRANSMIT,
 
     // this is an automated event that will reset the button click
     // after the ring menu hold-to-enter sequence

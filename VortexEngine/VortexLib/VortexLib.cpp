@@ -7,6 +7,8 @@
 #include "Serial/ByteStream.h"
 #include "Wireless/IRReceiver.h"
 #include "Wireless/VLReceiver.h"
+#include "Wireless/VLSender.h"
+#include "Modes/DefaultModes.h"
 #include "Patterns/PatternBuilder.h"
 #include "Time/TimeControl.h"
 #include "Patterns/Pattern.h"
@@ -789,6 +791,10 @@ void Vortex::handleNumber(char c)
     // select button index to target for click events
     selectButton(number);
     break;
+  case 'v':
+    // another device sends this default mode over VL
+    m_buttonEventQueue.push_back(VortexButtonEvent(number, EVENT_VL_TRANSMIT));
+    break;
   default: // any other command
     if (number > 0) {
       // offset repeat amount by exactly 1 because it's already done
@@ -864,17 +870,17 @@ void Vortex::doCommand(char c)
     quitClick();
     break;
   case 't':
-    if (isButtonPressed()) {
-      if (m_lastCommand != c) {
-        DEBUG_LOG("Injecting release");
-      }
-      releaseButton();
-    } else {
-      if (m_lastCommand != c) {
-        DEBUG_LOG("Injecting press");
-      }
-      pressButton();
+    if (m_lastCommand != c) {
+      DEBUG_LOG("Injecting toggle");
     }
+    // queue the toggle so it happens in order with the other commands, if the
+    // button was pressed right away then a press, wait and release would all
+    // happen before the first tick when the input is piped in
+    m_buttonEventQueue.push_back(VortexButtonEvent(m_selectedButton, EVENT_TOGGLE_CLICK));
+    break;
+  case 'v':
+    // do nothing for the initial 'v', handleNumber() will handle the default
+    // mode index that follows and queue the VL transmit of that mode
     break;
   case 'r':
     // do nothing for the initial 'r', handleNumber() will handle the numeric
@@ -1101,6 +1107,32 @@ void Vortex::VLDeliver(uint32_t timing)
 {
 #if VL_ENABLE_RECEIVER == 1
   VLReceiver::handleVLTiming(timing);
+#endif
+}
+
+void Vortex::VLTransmitDefaultMode(uint8_t index)
+{
+#if VL_ENABLE_SENDER == 1 && VL_ENABLE_RECEIVER == 1
+  if (index >= MAX_MODES) {
+    return;
+  }
+  Mode mode(defaultModes[index]);
+  // capture the timings the sender would blink
+  class VLCapture : public VortexCallbacks
+  {
+  public:
+    void infraredWrite(bool mark, uint32_t amount) override { timings.push_back(amount); }
+    vector<uint32_t> timings;
+  };
+  VLCapture capture;
+  VortexCallbacks *callbacks = m_storedCallbacks;
+  m_storedCallbacks = &capture;
+  VLSender::send(&mode);
+  m_storedCallbacks = callbacks;
+  // and deliver them to the receiver of this device
+  for (uint32_t timing : capture.timings) {
+    VLDeliver(timing);
+  }
 #endif
 }
 
@@ -1725,7 +1757,8 @@ void Vortex::handleInputQueue(Button *buttons, uint32_t numButtons)
   m_buttonEventQueue.pop_front();
   // the target button for this event (no target if event is just 'wait')
   Button *pButton = buttons;
-  if (buttonEvent.type != EVENT_WAIT && buttonEvent.type != EVENT_RAPID_CLICK) {
+  if (buttonEvent.type != EVENT_WAIT && buttonEvent.type != EVENT_RAPID_CLICK &&
+      buttonEvent.type != EVENT_VL_TRANSMIT) {
     // make sure the button that is targeted is actually a valid index
     if (buttonEvent.target >= numButtons) {
       return;
@@ -1841,8 +1874,11 @@ void Vortex::handleInputQueue(Button *buttons, uint32_t numButtons)
       pButton->m_newRelease = true;
       pButton->m_shortClick = (pButton->m_holdDuration <= SHORT_CLICK_THRESHOLD_TICKS);
       pButton->m_longClick = !pButton->m_shortClick;
+      // release the pin too so the next button update doesn't see a change
+      releaseButton(buttonEvent.target);
       DEBUG_LOG("Injecting release");
     } else {
+      pressButton(buttonEvent.target);
       pButton->m_buttonState = true;
       pButton->m_isPressed = true;
       pButton->m_releaseDuration = (uint32_t)(Time::getCurtime() - pButton->m_releaseTime);
@@ -1866,6 +1902,9 @@ void Vortex::handleInputQueue(Button *buttons, uint32_t numButtons)
     break;
   case EVENT_RESET_CLICK:
     pButton->m_isPressed = false;
+    break;
+  case EVENT_VL_TRANSMIT:
+    VLTransmitDefaultMode(buttonEvent.target);
     break;
   }
 }
