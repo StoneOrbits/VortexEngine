@@ -263,7 +263,9 @@ static void print_usage(const char* program_name)
   for (uint32_t i = 0; i < NUM_USAGE; ++i) {
     fprintf(stderr, "%s", input_usage[i]);
   }
-  fprintf(stderr, "\n\n");
+  fprintf(stderr, "\n");
+  fprintf(stderr, "   v<N>  another device sends default mode N over VL (ex: v7)\n");
+  fprintf(stderr, "\n");
   fprintf(stderr, "Example Usage:\n");
   fprintf(stderr, "   ./vortex --color\n");
   fprintf(stderr, "   ./vortex -ci -P42 -Ccyan,purple\n");
