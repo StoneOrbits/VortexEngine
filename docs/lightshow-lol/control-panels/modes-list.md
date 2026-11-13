@@ -76,7 +76,7 @@ Click a mode in the list to select it. When selected, action buttons appear next
 - <i class="fas fa-share-alt"></i> **Share** — opens a dialog to share the mode with the Vortex Community
 - <i class="fas fa-link"></i> **Link** — generates a compressed URL for the mode and copies it to your clipboard
 - <i class="fa-solid fa-copy"></i> **Copy** — copies the mode's JSON data to your clipboard
-- **× Delete** — removes the mode from the list (cannot be undone)
+- **× Delete** — removes the mode from the list (undoable with Ctrl+Z)
 
 The Share, Link, and Copy buttons only show when a mode is selected. The Delete button is always visible.
 

@@ -52,6 +52,9 @@ parent: Control Panels
   <div class="sep"></div>
   <div class="item">Paste</div>
   <div class="sep"></div>
+  <div class="item">Undo</div>
+  <div class="item">Redo</div>
+  <div class="sep"></div>
   <div class="item">Help</div>
 </div>
 </div>
@@ -62,6 +65,8 @@ Right-click around the editor to copy, paste, share, and get help. Right-clickin
 - **Get Link** — creates a shareable URL to send to anyone
 - **Share Mode** — sends your mode to vortex.community
 - **Paste** — pastes whatever's on your clipboard
+- **Undo** — reverses your last change
+- **Redo** — re-applies the last undone change
 - **Help** — opens the wiki without leaving the editor
 
 Right-click any **panel** or **color swatch** and choose **Help** for that specific panel. On the **Modes Panel** you'll also find copy, link, share, paste, and delete options.
@@ -69,6 +74,17 @@ Right-click any **panel** or **color swatch** and choose **Help** for that speci
 ### Keyboard Shortcuts
 
 `Ctrl+C` opens the copy menu at your cursor. `Ctrl+V` pastes right away — no prompts.
+
+### Undo & Redo
+
+Every change you make in the editor can be undone. Right-click the canvas and choose **Undo** or **Redo**, or use the keyboard shortcuts below.
+
+| Action | Shortcut |
+|--------|----------|
+| Undo | `Ctrl+Z` |
+| Redo | `Ctrl+Y` or `Ctrl+Shift+Z` |
+
+A small text log appears briefly at the bottom of the canvas showing what was undone or redone (e.g. "Pattern: Solid Red", "Deleted Mode 2"). Undo works across pattern changes, color edits, mode add/delete, colorset generator, import, and more.
 
 ### Help Popup
 
