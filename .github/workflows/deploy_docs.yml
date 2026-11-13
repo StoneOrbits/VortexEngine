@@ -103,6 +103,30 @@ jobs:
         with:
           path: ./_site
 
+      # Second build of the same docs for https://lightshow.lol/wiki
+      - name: Set baseurl for lightshow.lol/wiki
+        run: |
+          sed -i 's|^baseurl:.*|baseurl: "/wiki"|' docs/_config.yml
+          if grep -q '^url:' docs/_config.yml; then
+            sed -i 's|^url:.*|url: "https://lightshow.lol"|' docs/_config.yml
+          else
+            echo 'url: "https://lightshow.lol"' >> docs/_config.yml
+          fi
+
+      - name: Build with Jekyll for lightshow.lol/wiki
+        uses: actions/jekyll-build-pages@v1
+        with:
+          source: ./docs
+          destination: ./_site_wiki
+
+      - name: Upload lightshow.lol/wiki artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: wiki-site
+          path: ./_site_wiki
+          include-hidden-files: true
+          retention-days: 7
+
 
   deploy:
     runs-on: ubuntu-latest
@@ -112,3 +136,31 @@ jobs:
         id: deployment
         uses: actions/deploy-pages@v4
 
+  deploy-lightshow:
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Download lightshow.lol/wiki artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: wiki-site
+          path: ./_site_wiki
+
+      - name: Setup SSH Agent
+        uses: webfactory/ssh-agent@v0.9.0
+        with:
+          ssh-private-key: ${{ secrets.DEPLOY_SSH_KEY }}
+
+      # Pinned host key (no ssh-keyscan trust-on-first-use on every run)
+      - name: Add server to known_hosts
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.DEPLOY_KNOWN_HOSTS }}" >> ~/.ssh/known_hosts
+
+      - name: Deploy to lightshow.lol/wiki
+        env:
+          DEPLOY_HOST: ${{ secrets.DEPLOY_HOST }}
+          DEPLOY_USER: ${{ secrets.DEPLOY_USER }}
+          DEPLOY_PATH: ${{ secrets.DEPLOY_PATH }}
+        run: |
+          rsync -az --delete --delay-updates ./_site_wiki/ "$DEPLOY_USER@$DEPLOY_HOST:$DEPLOY_PATH/"
