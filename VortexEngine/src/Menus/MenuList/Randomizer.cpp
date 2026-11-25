@@ -58,6 +58,13 @@ bool Randomizer::init()
       }
     }
     m_singlesRandCtx[l].seed(ledData.recalcCRC());
+#if VORTEX_SLIM == 0
+    // the 'all' randomization uses the multi context, if there is no multi
+    // pattern seed it from the first led so it still follows the current mode
+    if (l == LED_FIRST && !cur->hasMultiLed()) {
+      m_multiRandCtx.seed(ledData.recalcCRC());
+    }
+#endif
   }
   DEBUG_LOG("Entered randomizer");
   return true;
@@ -79,7 +86,7 @@ Menu::MenuAction Randomizer::run()
 #if VORTEX_SLIM == 0
   // if they are trying to randomize a multi-led pattern just convert
   // the pattern to all singles with the same colorset upon entry
-  if (m_previewMode.isMultiLed() && m_targetLeds != MAP_LED(LED_MULTI)) {
+  if (m_previewMode.isMultiLed() && m_targetLeds != MAP_LED(LED_MULTI) && m_targetLeds != MAP_LED_ALL) {
     // convert the pattern to a single led pattern, this will map
     // all multi led patterns to single led patterns using modulo
     // so no matter which multi-led pattern they have selected it
@@ -143,7 +150,13 @@ void Randomizer::onLongClick()
 bool Randomizer::reRoll()
 {
 #if VORTEX_SLIM == 0
-  if (m_targetLeds == MAP_LED(LED_MULTI)) {
+  if (m_targetLeds == MAP_LED_ALL) {
+    // on the Vortex randomizing 'all' rolls one pattern and one colorset for
+    // the whole mode, rolling each of the 68 leds separately looks like noise
+    if (!reRollAll()) {
+      return false;
+    }
+  } else if (m_targetLeds == MAP_LED(LED_MULTI)) {
     if (!reRollMulti()) {
       return false;
     }
@@ -204,10 +217,93 @@ PatternID Randomizer::rollMultiLedPatternID(Random &ctx)
 }
 #endif
 
+#if VORTEX_SLIM == 0
+bool Randomizer::reRollAll()
+{
+  Random &ctx = m_multiRandCtx;
+  if (m_flags & RANDOMIZE_PATTERN) {
+    if (m_advanced) {
+      // advanced mode rolls a custom single led pattern for every led
+      if (!rollCustomPattern(ctx, &m_previewMode, LED_ALL)) {
+        ERROR_LOG("Failed to roll custom pattern");
+        return false;
+      }
+    } else if (!m_previewMode.setPattern(rollAnyPatternID(ctx), LED_ALL)) {
+      ERROR_LOG("Failed to select pattern");
+      return false;
+    }
+  }
+  if (m_flags & RANDOMIZE_COLORSET) {
+    if (!m_previewMode.setColorset(rollColorset(ctx), LED_ALL)) {
+      ERROR_LOG("Failed to roll new colorset");
+      return false;
+    }
+  }
+  return true;
+}
+
+PatternID Randomizer::rollAnyPatternID(Random &ctx)
+{
+  PatternID newPat;
+  do {
+    // any single or multi led pattern (including the POV textures), but skip
+    // the same undesirable single led patterns as rollSingleLedPatternID
+    newPat = (PatternID)ctx.next8(PATTERN_FIRST, PATTERN_LAST);
+  } while (newPat == PATTERN_SOLID || newPat == PATTERN_RIBBON || newPat == PATTERN_MINIRIBBON);
+  return newPat;
+}
+#endif
+
 bool Randomizer::reRollSingles()
 {
-  // re-roll each led position with it's respective random context
+  // when a group of leds is targeted (a ring, an arm, a side...) roll once and
+  // give the whole group the same pattern and colorset so the group looks
+  // like one piece, a single led target behaves exactly like before
+  bool group = !MAP_IS_ONE_LED(m_targetLeds);
+  Random &groupCtx = m_singlesRandCtx[ledmapGetFirstLed(m_targetLeds) % LED_COUNT];
+  PatternID groupPat = PATTERN_NONE;
+  Colorset groupSet;
+  if (group) {
+    if ((m_flags & RANDOMIZE_PATTERN) && !m_advanced) {
+      groupPat = rollSingleLedPatternID(groupCtx);
+    }
+    if (m_flags & RANDOMIZE_COLORSET) {
+      groupSet = rollColorset(groupCtx);
+    }
+  }
+  bool first = true;
   MAP_FOREACH_LED(m_targetLeds) {
+    if (group) {
+      if (m_flags & RANDOMIZE_PATTERN) {
+        if (m_advanced) {
+          // roll the custom pattern on the first led then copy it to the rest
+          if (first) {
+            if (!rollCustomPattern(groupCtx, &m_previewMode, pos)) {
+              ERROR_LOG("Failed to roll custom pattern");
+              return false;
+            }
+          } else {
+            PatternArgs args;
+            Pattern *src = m_previewMode.getPattern(ledmapGetFirstLed(m_targetLeds));
+            if (src) {
+              src->getArgs(args);
+              if (!m_previewMode.setPattern(src->getPatternID(), pos, &args)) {
+                return false;
+              }
+            }
+          }
+        } else if (!m_previewMode.setPattern(groupPat, pos)) {
+          ERROR_LOG("Failed to select pattern");
+          return false;
+        }
+      }
+      if ((m_flags & RANDOMIZE_COLORSET) && !m_previewMode.setColorset(groupSet, pos)) {
+        ERROR_LOG("Failed to roll new colorset");
+        return false;
+      }
+      first = false;
+      continue;
+    }
     Random &ctx = m_singlesRandCtx[pos];
     if (m_flags & RANDOMIZE_PATTERN) {
       // in advanced mode, when not randomizing the multi position, use a

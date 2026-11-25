@@ -242,8 +242,13 @@ bool Mode::serialize(ByteStream &buffer, uint8_t numLeds) const
   // if there are any sparse singles (spaces) then we need to
   // serialize an led map of which singles are set
   if (flags & MODE_FLAG_SPARSE_SINGLES) {
-    if (!buffer.serialize32((uint32_t)getSingleLedMap())) {
-      return false;
+    // the map is serialized as one 32bit word per 32 leds, so devices with
+    // 32 or fewer leds produce exactly the same data as before
+    LedMap map = getSingleLedMap();
+    for (uint32_t i = 0; i < ledmapSerialWords(numLeds); ++i) {
+      if (!buffer.serialize32((i < LEDMAP_WORDS) ? map.words[i] : 0)) {
+        return false;
+      }
     }
   }
   // then iterate each single led and serialize it
@@ -321,10 +326,18 @@ bool Mode::unserialize(ByteStream &buffer)
     return true;
   }
   // is there an led map to unserialize? if not default to all
-  LedMap map = (1 << ledCount) - 1;
+  LedMap map = LedMap::fromRange(LED_FIRST, (uint32_t)ledCount - 1);
   if (flags & MODE_FLAG_SPARSE_SINGLES) {
-    if (!buffer.unserialize32((uint32_t *)&map)) {
-      return false;
+    map = MAP_LED_NONE;
+    // one 32bit word per 32 leds (see serialize)
+    for (uint32_t i = 0; i < ledmapSerialWords(ledCount); ++i) {
+      uint32_t word = 0;
+      if (!buffer.unserialize32(&word)) {
+        return false;
+      }
+      if (i < LEDMAP_WORDS) {
+        map.words[i] = word;
+      }
     }
   }
   // unserialize all singleled patterns into their positions
@@ -768,15 +781,9 @@ bool Mode::hasSameSingleLed() const
 
 bool Mode::hasSparseSingleLed() const
 {
-  switch (getSingleLedMap()) {
-  case MAP_LED_ALL:
-  case 0:
-    // if all or none are set it's not sparse
-    return false;
-  default:
-    // if anything else is set it's sparse
-    return true;
-  }
+  LedMap map = getSingleLedMap();
+  // if all or none are set it's not sparse, anything else is sparse
+  return !(map == MAP_LED_ALL || map.isEmpty());
 }
 
 bool Mode::isEmpty() const
@@ -798,7 +805,7 @@ bool Mode::isEmpty() const
 
 LedMap Mode::getSingleLedMap() const
 {
-  LedMap map = 0;
+  LedMap map;
   for (LedPos pos = LED_FIRST; pos < MODE_LEDCOUNT; pos++) {
     if (m_singlePats[pos]) {
       ledmapSetLed(map, pos);
@@ -1005,7 +1012,7 @@ void Mode::test()
   INFO_LOG("Test getSingleLedMap with all single-led patterns passed.\n");
 
   // Test getSingleLedMap with sparse single-led patterns
-  assert(modeSparseTest.getSingleLedMap() == (1 << LED_3 | 1 << LED_5 | 1 << LED_7));
+  assert(modeSparseTest.getSingleLedMap() == (MAP_LED(LED_3) | MAP_LED(LED_5) | MAP_LED(LED_7)));
   INFO_LOG("Test getSingleLedMap with sparse single-led patterns passed.\n");
 
   // Test isMultiLed with only multi-led pattern

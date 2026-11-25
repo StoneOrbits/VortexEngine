@@ -4,28 +4,14 @@
 #include "../../Leds/Leds.h"
 #include "../../Log/Log.h"
 
-// Mapping of LED positions to steps.
-// The lights runs across evens, then back across odds.
-// Index this array with m_step in order to get correct LedPos
-const LedPos ZigzagPattern::ledStepPositions[] = {
-  LED_0,
-  LED_3,
-  LED_1,
-  LED_4,
-  LED_2,
-
-  LED_5,
-  LED_3,
-  LED_0,
-  LED_4,
-  LED_1,
-  LED_5,
-  LED_2
-};
-
 // There just happens to be LED_COUNT steps in the pattern
-#define NUM_ZIGZAG_STEPS (sizeof(ledStepPositions) / sizeof(ledStepPositions[0]))
+#define NUM_ZIGZAG_STEPS LED_COUNT
 #define HALF_ZIGZAG_STEPS (NUM_ZIGZAG_STEPS / 2)
+
+// the steps where each snake changes color, on the Orbit these were 4 and 7
+// which is just past the tip of the first quadrant and the start of the second
+#define ZIGZAG_BOUNDARY_1 ((LEDS_PER_QUADRANT / 2) + 1)
+#define ZIGZAG_BOUNDARY_2 (LEDS_PER_QUADRANT)
 
 ZigzagPattern::ZigzagPattern(const PatternArgs &args) :
   MultiLedPattern(args),
@@ -62,8 +48,8 @@ void ZigzagPattern::init()
   m_stepTimer.start();
 
   // initialize the snakes with dops timing
-  m_snake1.init(m_onDuration, m_offDuration, m_colorset, 0, 0, m_snakeSize, m_fadeAmount, 3);
-  m_snake2.init(m_onDuration, m_offDuration, m_colorset, 1, HALF_ZIGZAG_STEPS, m_snakeSize, m_fadeAmount, 8);
+  m_snake1.init(m_onDuration, m_offDuration, m_colorset, 0, 0, m_snakeSize, m_fadeAmount, ZIGZAG_BOUNDARY_1);
+  m_snake2.init(m_onDuration, m_offDuration, m_colorset, 1, HALF_ZIGZAG_STEPS, m_snakeSize, m_fadeAmount, ZIGZAG_BOUNDARY_2);
 }
 
 // pure virtual must override the play function
@@ -161,7 +147,7 @@ void ZigzagPattern::Snake::drawSnake()
       col.adjustBrightness(m_fadeAmount * segment);
     }
     // lookup the target in the step positions array and turn it on with given color/brightness
-    Leds::setIndex(ledStepPositions[segment_position], col);
+    Leds::setIndex((LedPos)segment_position, col);
     // if this segment is on the step where the color changes
     if (segment_position == m_changeBoundary) {
       // then decrement the color index for the rest of the snake so that the

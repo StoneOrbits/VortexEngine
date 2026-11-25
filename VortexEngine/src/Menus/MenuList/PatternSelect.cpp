@@ -92,7 +92,7 @@ void PatternSelect::nextPattern()
     m_previewMode.setPattern(m_newPatternID);
   } else {
     // if the user selected multi then just put singles on all leds
-    LedMap setLeds = (m_targetLeds == MAP_LED(LED_MULTI)) ? LED_ALL : m_targetLeds;
+    LedMap setLeds = (m_targetLeds == MAP_LED(LED_MULTI)) ? MAP_LED_ALL : m_targetLeds;
     m_previewMode.setPatternMap(setLeds, m_newPatternID);
     // TODO: clear multi a better way
     m_previewMode.clearPattern(LED_MULTI);

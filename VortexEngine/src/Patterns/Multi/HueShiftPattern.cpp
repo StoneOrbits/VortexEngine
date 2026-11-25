@@ -1,5 +1,7 @@
 #include "HueShiftPattern.h"
 
+#define HUE_SHIFT_PER_LED (((5 * 28) / LED_COUNT) ? ((5 * 28) / LED_COUNT) : 1)
+
 #include "../../Serial/ByteStream.h"
 #include "../../Time/TimeControl.h"
 #include "../../Leds/Leds.h"
@@ -75,17 +77,11 @@ void HueShiftPattern::play()
     m_cur.hue += sign;
   }
   HSVColor showColor = HSVColor(m_cur.hue, 255, 255);
-
-  // variable amount to shift, more LEDs should have smaller shifts 
-  uint8_t shiftAmount = 108 / LED_COUNT;
-  // if you increment color with each led index there's a sharp contrast between the first and last led 
-  // instead this creates a perfectly looped gradient between the first and last led which is better
-  for (LedPos pos = LED_FIRST; pos < (LED_COUNT / 2) + 1; ++pos) {
-    if (((LED_COUNT / 2) + pos) != LED_COUNT) {
-      // set the target led with the current HSV color
-      Leds::setIndex((LedPos)((LED_COUNT / 2) + pos), hsv_to_rgb_generic(showColor));
-    }
-    Leds::setIndex((LedPos)((LED_COUNT / 2) - pos), hsv_to_rgb_generic(showColor));
-    showColor.hue = (showColor.hue + shiftAmount) % 256;
+  // set the target led with the current HSV color
+  for (LedPos pos = LED_FIRST; pos < LED_COUNT; ++pos) {
+    Leds::setIndex(pos, hsv_to_rgb_generic(showColor));
+    // the Orbit shifted 5 hue per led over 28 leds, keep the same total
+    // spread of hues across the whole device
+    showColor.hue = (showColor.hue + HUE_SHIFT_PER_LED) % 256;
   }
 }

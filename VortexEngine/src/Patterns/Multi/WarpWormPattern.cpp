@@ -29,7 +29,8 @@ void WarpWormPattern::init()
 
 void WarpWormPattern::blinkOn()
 {
-  int wormSize = LED_COUNT / 3;
+  // the Orbit used a worm of 6 leds which is 6/7 of a quadrant
+  int wormSize = (LEDS_PER_QUADRANT * 6) / 7;
   Leds::setAll(m_colorset.get(0));
   for (int body = 0; body < wormSize; ++body) {
     if (body + m_progress < LED_COUNT) {

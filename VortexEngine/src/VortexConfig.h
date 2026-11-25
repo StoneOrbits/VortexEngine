@@ -181,6 +181,36 @@
 // present The maximum value is 255
 #define DEFAULT_BRIGHTNESS    255
 
+// POV Test Modes
+//
+// When enabled the default modes (used after a factory reset or when the
+// storage is empty, like after flashing a merged image) are the Vortex POV
+// texture patterns (each with a random colorset) instead of the normal default
+// modes
+#define POV_TEST_MODES        1
+
+// LED Power Limit
+//
+// The Vortex drives 68 leds from the battery/USB rail through B0520W
+// diodes which are only rated for 0.5A. The led driver estimates the current
+// of each frame (same model as FastLED) and scales the brightness down so the
+// leds never draw more than this budget, regardless of pattern or global brightness setting.
+#define LED_POWER_LIMIT_VOLTS 4
+#define LED_POWER_LIMIT_MA    450
+
+// LED Data Timing
+//
+// The led data is clocked faster than the WS2812B's stock 800kHz (1250ns per
+// bit) because the Vortex spins very fast and every frame counts. Found by
+// testing a board with ~/Projects/vortex-led-speed-test on 2026-11-21:
+//   900ns bits (1.11MHz) stable, 825ns (1.21MHz) flickers, 750ns breaks
+//   the latch gap was stable down to 30us, below 80us gains nothing
+// One frame (68 leds + latch) takes ~1.55ms with these values.
+#define LED_BIT_NS            900
+#define LED_T0H_NS            250
+#define LED_T1H_NS            650
+#define LED_RESET_US          80
+
 // Max Modes
 //
 // The maximum number of modes that can be stored on the device.

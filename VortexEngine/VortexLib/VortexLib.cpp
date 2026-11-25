@@ -286,6 +286,55 @@ EMSCRIPTEN_BINDINGS(Vortex) {
     .value("PATTERN_SPLITSTROBIE", PatternID::PATTERN_SPLITSTROBIE)
     .value("PATTERN_BACKSTROBE", PatternID::PATTERN_BACKSTROBE)
     .value("PATTERN_VORTEX", PatternID::PATTERN_VORTEX)
+    .value("PATTERN_POV_ZIGZAG", PatternID::PATTERN_POV_ZIGZAG)
+    .value("PATTERN_POV_SINE", PatternID::PATTERN_POV_SINE)
+    .value("PATTERN_POV_HELIX", PatternID::PATTERN_POV_HELIX)
+    .value("PATTERN_POV_CHECKER", PatternID::PATTERN_POV_CHECKER)
+    .value("PATTERN_POV_DIAMONDS", PatternID::PATTERN_POV_DIAMONDS)
+    .value("PATTERN_POV_CHEVRONS", PatternID::PATTERN_POV_CHEVRONS)
+    .value("PATTERN_POV_HEARTS", PatternID::PATTERN_POV_HEARTS)
+    .value("PATTERN_POV_STARS", PatternID::PATTERN_POV_STARS)
+    .value("PATTERN_POV_BRICKS", PatternID::PATTERN_POV_BRICKS)
+    .value("PATTERN_POV_DIAGONALS", PatternID::PATTERN_POV_DIAGONALS)
+    .value("PATTERN_POV_EQUALIZER", PatternID::PATTERN_POV_EQUALIZER)
+    .value("PATTERN_POV_DOTS", PatternID::PATTERN_POV_DOTS)
+    .value("PATTERN_POV_TEXT", PatternID::PATTERN_POV_TEXT)
+    .value("PATTERN_POV_LADDER", PatternID::PATTERN_POV_LADDER)
+    .value("PATTERN_POV_STAIRS", PatternID::PATTERN_POV_STAIRS)
+    .value("PATTERN_POV_BUNTING", PatternID::PATTERN_POV_BUNTING)
+    .value("PATTERN_POV_SCALES", PatternID::PATTERN_POV_SCALES)
+    .value("PATTERN_POV_CROSSES", PatternID::PATTERN_POV_CROSSES)
+    .value("PATTERN_POV_NAVAJO", PatternID::PATTERN_POV_NAVAJO)
+    .value("PATTERN_POV_DAZZLER", PatternID::PATTERN_POV_DAZZLER)
+    .value("PATTERN_POV_ARROWS", PatternID::PATTERN_POV_ARROWS)
+    .value("PATTERN_POV_MESA", PatternID::PATTERN_POV_MESA)
+    .value("PATTERN_POV_LIGHTNING", PatternID::PATTERN_POV_LIGHTNING)
+    .value("PATTERN_POV_FEATHERS", PatternID::PATTERN_POV_FEATHERS)
+    .value("PATTERN_POV_GREEKKEY", PatternID::PATTERN_POV_GREEKKEY)
+    .value("PATTERN_POV_DENTILS", PatternID::PATTERN_POV_DENTILS)
+    .value("PATTERN_POV_EGGDART", PatternID::PATTERN_POV_EGGDART)
+    .value("PATTERN_POV_LAUREL", PatternID::PATTERN_POV_LAUREL)
+    .value("PATTERN_POV_COLUMNS", PatternID::PATTERN_POV_COLUMNS)
+    .value("PATTERN_POV_TEETH", PatternID::PATTERN_POV_TEETH)
+    .value("PATTERN_POV_SPIRALS", PatternID::PATTERN_POV_SPIRALS)
+    .value("PATTERN_POV_KENTE", PatternID::PATTERN_POV_KENTE)
+    .value("PATTERN_POV_MUDCLOTH", PatternID::PATTERN_POV_MUDCLOTH)
+    .value("PATTERN_POV_SHIELD", PatternID::PATTERN_POV_SHIELD)
+    .value("PATTERN_POV_TATTOO", PatternID::PATTERN_POV_TATTOO)
+    .value("PATTERN_POV_CROSSFIRE", PatternID::PATTERN_POV_CROSSFIRE)
+    .value("PATTERN_POV_HOURGLASS", PatternID::PATTERN_POV_HOURGLASS)
+    .value("PATTERN_POV_BEADWORK", PatternID::PATTERN_POV_BEADWORK)
+    .value("PATTERN_POV_TIPIS", PatternID::PATTERN_POV_TIPIS)
+    .value("PATTERN_POV_RATTLESNAKE", PatternID::PATTERN_POV_RATTLESNAKE)
+    .value("PATTERN_POV_STARQUILT", PatternID::PATTERN_POV_STARQUILT)
+    .value("PATTERN_POV_AMPHORA", PatternID::PATTERN_POV_AMPHORA)
+    .value("PATTERN_POV_PALMETTE", PatternID::PATTERN_POV_PALMETTE)
+    .value("PATTERN_POV_BATTLEMENT", PatternID::PATTERN_POV_BATTLEMENT)
+    .value("PATTERN_POV_GUILLOCHE", PatternID::PATTERN_POV_GUILLOCHE)
+    .value("PATTERN_POV_SHARKTEETH", PatternID::PATTERN_POV_SHARKTEETH)
+    .value("PATTERN_POV_SUN", PatternID::PATTERN_POV_SUN)
+    .value("PATTERN_POV_CHAIN", PatternID::PATTERN_POV_CHAIN)
+    .value("PATTERN_POV_BASKET", PatternID::PATTERN_POV_BASKET)
     .value("PATTERN_COUNT", PatternID::PATTERN_COUNT);
     // meta constants
     //.value("PATTERN_FIRST", PatternID::PATTERN_FIRST)
@@ -624,6 +673,18 @@ static const char *patternNames[PATTERN_COUNT] = {
   "dripmorph", "crossdops", "doublestrobe", "meteor", "sparkletrace",
   "vortexwipe", "warp", "warpworm", "snowball", "lighthouse", "pulsish",
   "fill", "bounce", "splitstrobie", "backstrobe", "vortex",
+  "pov_zigzag", "pov_sine", "pov_helix", "pov_checker", "pov_diamonds",
+  "pov_chevrons", "pov_hearts", "pov_stars", "pov_bricks", "pov_diagonals",
+  "pov_equalizer", "pov_dots", "pov_text", "pov_ladder", "pov_stairs",
+  "pov_bunting", "pov_scales", "pov_crosses",
+  "pov_navajo", "pov_dazzler", "pov_arrows", "pov_mesa", "pov_lightning",
+  "pov_feathers", "pov_greekkey", "pov_dentils", "pov_eggdart", "pov_laurel",
+  "pov_columns", "pov_teeth", "pov_spirals", "pov_kente", "pov_mudcloth",
+  "pov_shield", "pov_tattoo",
+  "pov_crossfire", "pov_hourglass", "pov_beadwork", "pov_tipis",
+  "pov_rattlesnake", "pov_starquilt", "pov_amphora", "pov_palmette",
+  "pov_battlement", "pov_guilloche", "pov_sharkteeth", "pov_sun",
+  "pov_chain", "pov_basket",
 };
 
 // static vortex data

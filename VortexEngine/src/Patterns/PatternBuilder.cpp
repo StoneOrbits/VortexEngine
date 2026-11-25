@@ -10,6 +10,7 @@
 #include "Multi/Sequencer/Sequence.h"
 
 #include "Multi/TheaterChasePattern.h"
+#include "Multi/PovPattern.h"
 #include "Multi/HueShiftPattern.h"
 #include "Multi/ZigzagPattern.h"
 #include "Multi/DripPattern.h"
@@ -195,6 +196,10 @@ PatternArgs PatternBuilder::getDefaultArgs(PatternID id)
     case PATTERN_SPLITSTROBIE: return PatternArgs(DOPS_ON_DURATION, DOPS_OFF_DURATION, 0, 16, 3, 10, PATTERN_DOPS, PATTERN_STROBIE);
     case PATTERN_BACKSTROBE: return PatternArgs(DOPS_ON_DURATION, DOPS_OFF_DURATION, 0, HYPERSTROBE_ON_DURATION, HYPERSTROBE_OFF_DURATION, 10, PATTERN_DOPS, PATTERN_HYPERSTROBE);
     case PATTERN_VORTEX: return PatternArgs(1, 1, 130);
+    // POV textures: frames per column, dark frames between columns, blank
+    // columns between copies. One frame (~1.6ms for 68 leds) is the fastest
+    // the leds can change so 1/0 shows a new column on every frame.
+    case PATTERN_POV_FIRST ... PATTERN_POV_LAST: return PatternArgs(1, 0, PovPattern::defaultGap(id));
     case PATTERN_NONE: break;
     default: break;
 #else
@@ -283,6 +288,7 @@ Pattern *PatternBuilder::generate(PatternID id, const PatternArgs *userArgs)
     case PATTERN_SPLITSTROBIE:
     case PATTERN_BACKSTROBE: return new BackStrobePattern(args);
     case PATTERN_VORTEX: return new VortexPattern(args);
+    case PATTERN_POV_FIRST ... PATTERN_POV_LAST: return new PovPattern(args);
     case PATTERN_NONE: return nullptr;
 #else
     // in vortex slim just use basic pattern for all multi led

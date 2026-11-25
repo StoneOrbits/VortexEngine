@@ -70,6 +70,10 @@ private:
   bool reRollSingles();
   PatternID rollSingleLedPatternID(Random &ctx);
 
+  // re-roll the whole mode with one pattern (single or multi) and one colorset
+  bool reRollAll();
+  PatternID rollAnyPatternID(Random &ctx);
+
   // generate a random colorset with a random context
   Colorset rollColorset(Random &ctx);
 

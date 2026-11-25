@@ -28,13 +28,15 @@ void FillPattern::init()
 
 void FillPattern::blinkOn()
 {
-  Leds::setRange(LED_FIRST, (LedPos)m_progress, m_colorset.peekNext());
-  Leds::setRange((LedPos)m_progress, LED_LAST, m_colorset.cur());
+  // fill one quadrant (arm) at a time
+  LedPos edgePos = (LedPos)(m_progress * LEDS_PER_QUADRANT);
+  Leds::setRange(LED_FIRST, edgePos, m_colorset.peekNext());
+  Leds::setRange(edgePos, LED_LAST, m_colorset.cur());
 }
 
 void FillPattern::poststep()
 {
-  m_progress = (m_progress + 1) % LED_COUNT;
+  m_progress = (m_progress + 1) % NUM_QUADRANTS;
   if (m_progress == 0) {
     m_colorset.getNext();
   }

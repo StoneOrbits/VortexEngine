@@ -1,7 +1,7 @@
 #include "ChaserPattern.h"
 
-// This controls the ratio of chaser dots to LED_COUNT. Default 1 chaser per 7 LEDs. Range: 1-LED_COUNT.
-#define CHASER_RATIO 7
+// This controls the ratio of chaser dots to LED_COUNT. One chaser per quadrant like the Orbit. Range: 1-LED_COUNT.
+#define CHASER_RATIO LEDS_PER_QUADRANT
 
 
 // This pattern aims to be a demonstration of the sequencer.

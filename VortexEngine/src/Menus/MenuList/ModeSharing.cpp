@@ -298,7 +298,7 @@ void ModeSharing::showReceiveModeVL()
   if (VLReceiver::isReceiving()) {
     // using uint32_t to avoid overflow, the result should be within 10 to 255
     Leds::clearAll();
-    Leds::setRange(LED_FIRST, (LedPos)(VLReceiver::percentReceived() / 16), RGBColor(0, 1, 0));
+    Leds::setRange(LED_FIRST, (LedPos)(((uint32_t)VLReceiver::percentReceived() * LED_LAST) / 100), RGBColor(0, 1, 0));
   } else {
     Leds::setAll(0x010101);
   }
@@ -309,7 +309,7 @@ void ModeSharing::showReceiveModeIR()
   if (VLReceiver::isReceiving()) {
     // using uint32_t to avoid overflow, the result should be within 10 to 255
     Leds::clearAll();
-    Leds::setRange(LED_FIRST, (LedPos)(IRReceiver::percentReceived() / 16), RGBColor(0, 255, 0));
+    Leds::setRange(LED_FIRST, (LedPos)(((uint32_t)IRReceiver::percentReceived() * LED_LAST) / 100), RGBColor(0, 255, 0));
   } else {
     Leds::setAll(RGB_WHITE0);
   }

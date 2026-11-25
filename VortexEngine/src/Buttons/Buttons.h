@@ -9,8 +9,8 @@
 // of a hardcoded constant than a configuration setting
 #define NUM_BUTTONS 1
 
-// spark button pin
-#define BUTTON_PIN 5
+// vortex button pin
+#define BUTTON_PIN 8
 
 class Buttons
 {
