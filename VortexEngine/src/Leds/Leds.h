@@ -51,6 +51,18 @@ public:
   static void clearRangeOdds(Pair first, Pair last);
   static void clearAllOdds();
 
+  // Control full quadrants (arms) of Leds, QUADRANT_5 is the four tips
+  static void setQuadrant(Quadrant quadrant, RGBColor col);
+  static void setQuadrants(Quadrant first, Quadrant last, RGBColor col);
+  static void clearQuadrant(Quadrant quadrant) { setQuadrant(quadrant, RGB_OFF); }
+  static void clearQuadrants(Quadrant first, Quadrant last) { setQuadrants(first, last, RGB_OFF); }
+
+  // Control rings of leds, RING_1 is the middle and RING_LAST is the tips
+  static void setRing(Ring ring, RGBColor col);
+  static void setRings(Ring first, Ring last, RGBColor col);
+  static void clearRing(Ring ring) { setRing(ring, RGB_OFF); }
+  static void clearRings(Ring first, Ring last) { setRings(first, last, RGB_OFF); }
+
   // Turn on/off a mapping of leds with a color
   static void setMap(LedMap map, RGBColor col);
   static void clearMap(LedMap map);

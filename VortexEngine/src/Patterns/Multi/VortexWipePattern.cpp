@@ -5,9 +5,6 @@
 #include "../../Leds/Leds.h"
 #include "../../Log/Log.h"
 
-// add 1 to prevent the middle point from being led 0
-#define MIDDLE_POINT ((LED_COUNT + 1) / 2)
-
 VortexWipePattern::VortexWipePattern(const PatternArgs &args) :
   BlinkStepPattern(args),
   m_progress(0)
@@ -32,20 +29,17 @@ void VortexWipePattern::init()
 
 void VortexWipePattern::blinkOn()
 {
-  Leds::setAll(m_colorset.cur());
-  if (!m_progress) {
-    // none
+  for (int index = 0; index < m_progress; ++index) {
+    Leds::setRing((Ring)index, m_colorset.peekNext());
   }
-  if (m_progress) {
-    Leds::setRange((LedPos)(MIDDLE_POINT - (m_progress - 1)), (LedPos)(MIDDLE_POINT + (m_progress - 1)), m_colorset.peekNext());
+  for (int index = m_progress; index < RING_COUNT; ++index) {
+    Leds::setRing((Ring)index, m_colorset.cur());
   }
 }
 
 void VortexWipePattern::poststep()
 {
-  // step till the middle point
-  m_progress = (m_progress + 1) % (MIDDLE_POINT + 1);
-  // each cycle progress to the next color
+  m_progress = (m_progress + 1) % RING_COUNT;
   if (m_progress == 0) {
     m_colorset.getNext();
   }

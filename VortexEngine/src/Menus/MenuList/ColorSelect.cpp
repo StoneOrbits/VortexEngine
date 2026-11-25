@@ -233,7 +233,9 @@ void ColorSelect::showSelection(ColorSelectState mode)
     return;
   case STATE_PICK_HUE2:
     hue = m_targetHue1 * (255 / 4) + (m_curSelection * (255 / 16));
-    Leds::setIndex(LED_1, RGB_WHITE0);
+    // mark the second hue level with dim white between the colors (on the
+    // Spark this was a single led which is hard to see out of 68)
+    Leds::setMap(MAP_PAIR_ODDS, RGB_WHITE0);
     // force sat at hue level2
     sat = 255;
     break;

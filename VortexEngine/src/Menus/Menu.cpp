@@ -120,50 +120,41 @@ void Menu::showExit()
   Leds::blinkAll(EXIT_MENU_OFF_MS, EXIT_MENU_ON_MS, RGB_RED0);
 }
 
+// The groups of leds that can be selected before the individual leds, these
+// are the same groupings as the original Vortex (Orbit)
+static const LedMap bulbSelectionGroups[] = {
+  MAP_LED_ALL,
+  MAP_LED(LED_MULTI),
+  MAP_RINGS_EVEN,
+  MAP_RINGS_ODD,
+  MAP_RING_EDGE,
+  MAP_ALL_TOP,
+  MAP_ALL_BOT,
+  MAP_LINE_1,
+  MAP_LINE_2,
+  MAP_QUADRANT_1,
+  MAP_QUADRANT_2,
+  MAP_QUADRANT_3,
+  MAP_QUADRANT_4,
+};
+#define NUM_BULB_SELECTION_GROUPS (sizeof(bulbSelectionGroups) / sizeof(bulbSelectionGroups[0]))
+
 void Menu::nextBulbSelection()
 {
-  Mode *cur = Modes::curMode();
-  // The target led can be 0 through LED_COUNT to represent any led or all leds
-  // modulo by LED_COUNT + 1 to include LED_COUNT (all) as a target
-  switch (m_targetLeds) {
-  case MAP_LED_ALL:
-    if (cur->isMultiLed()) {
-      // do not allow multi led to select anything else
-      //break;
+  // cycle through each of the groups first
+  for (uint32_t i = 0; i < NUM_BULB_SELECTION_GROUPS; ++i) {
+    if (m_targetLeds == bulbSelectionGroups[i]) {
+      // after the last group move to the individual leds
+      m_targetLeds = (i + 1 < NUM_BULB_SELECTION_GROUPS) ? bulbSelectionGroups[i + 1] : MAP_LED(LED_FIRST);
+      return;
     }
-    m_targetLeds = MAP_LED(LED_MULTI);
-    break;
-  case MAP_LED(LED_MULTI):
-    m_targetLeds = MAP_PAIR_EVENS;
-    break;
-  case MAP_PAIR_EVENS:
-    m_targetLeds = MAP_PAIR_ODDS;
-    break;
-  case MAP_PAIR_ODDS:
-    m_targetLeds = MAP_OPPOSITES_1;
-    break;
-  case MAP_OPPOSITES_1:
-    m_targetLeds = MAP_OPPOSITES_2;
-    break;
-  case MAP_OPPOSITES_2:
-    m_targetLeds = MAP_OPPOSITES_3;
-    break;
-  case MAP_OPPOSITES_3:
-    m_targetLeds = MAP_LED(LED_FIRST);
-    break;
-  case MAP_LED(LED_LAST):
-    m_targetLeds = MAP_LED_ALL;
-    break;
-  default: // LED_FIRST through LED_LAST
-    // do not allow multi led to select anything else
-    if (cur->isMultiLed()) {
-      //m_targetLeds = MAP_LED_ALL;
-      //break;
-    }
-    // iterate as normal
-    m_targetLeds = MAP_LED(((ledmapGetFirstLed(m_targetLeds) + 1) % (LED_COUNT + 1)));
-    break;
   }
+  // then each individual led, after the last led wrap back to all
+  if (m_targetLeds == MAP_LED(LED_LAST)) {
+    m_targetLeds = MAP_LED_ALL;
+    return;
+  }
+  m_targetLeds = MAP_LED(ledmapGetFirstLed(m_targetLeds) + 1);
 }
 
 void Menu::bypassLedSelection(LedMap map)

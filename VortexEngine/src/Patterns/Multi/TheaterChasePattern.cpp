@@ -2,7 +2,7 @@
 
 #include "../../Leds/Leds.h"
 
-#define THEATER_CHASE_STEPS (LED_COUNT / 2)
+#define THEATER_CHASE_STEPS LED_COUNT
 
 TheaterChasePattern::TheaterChasePattern(const PatternArgs &args) :
   BlinkStepPattern(args),
@@ -21,7 +21,7 @@ void TheaterChasePattern::init()
 {
   BlinkStepPattern::init();
   // starts on odd evens
-  m_ledPositions = MAP_OPPOSITES_1;
+  m_ledPositions = MAP_PAIR_EVENS;
   m_stepCounter = 0;
 }
 
@@ -32,15 +32,8 @@ void TheaterChasePattern::blinkOn()
 
 void TheaterChasePattern::poststep()
 {
-  if (m_stepCounter == 0) {
-    m_ledPositions = MAP_OPPOSITES_1;
-  }
-  if (m_stepCounter == 1) {
-    m_ledPositions = MAP_OPPOSITES_2;
-  }
-  if (m_stepCounter == 2) {
-    m_ledPositions = MAP_OPPOSITES_3;
-  }
+  // the steps are odd evens/odds alternating each step
+  m_ledPositions = (m_stepCounter % 2) ? MAP_PAIR_ODDS : MAP_PAIR_EVENS;
   // increment step counter
   m_stepCounter = (m_stepCounter + 1) % THEATER_CHASE_STEPS;
 }

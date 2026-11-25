@@ -30,8 +30,9 @@ void SparkleTracePattern::blinkOff()
 
 void SparkleTracePattern::poststep()
 {
-  for (uint8_t dot = 0; dot < LED_COUNT / 6; ++dot) {
-    Leds::setIndex((LedPos)m_randCtx.next8(LED_FIRST, LED_LAST), m_colorset.cur());
+  // the Orbit sparkled 4 of its 16 pairs, so sparkle a quarter of the pairs
+  for (uint8_t dot = 0; dot < PAIR_COUNT / 4; ++dot) {
+    Leds::setPair((Pair)m_randCtx.next8(PAIR_FIRST, PAIR_LAST), m_colorset.cur());
   }
   m_colorset.skip();
   if (m_colorset.curIndex() == 0) {

@@ -2,7 +2,8 @@
 
 #include "../../Leds/Leds.h"
 
-#define WORM_SIZE LED_COUNT / 3
+// the Orbit used a worm of 6 leds which is 6/7 of a quadrant
+#define WORM_SIZE ((LEDS_PER_QUADRANT * 6) / 7)
 
 SnowballPattern::SnowballPattern(const PatternArgs &args) :
   BlinkStepPattern(args),
