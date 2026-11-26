@@ -191,7 +191,14 @@ uint32_t Time::microseconds()
   return (unsigned long)((now.QuadPart - start.QuadPart) * 1000000 / tps.QuadPart);
 #else // linux/wasm/etc
   struct timespec ts;
+#ifdef WASM
+  // newer emscripten doesn't support CLOCK_MONOTONIC_RAW (the call fails and
+  // leaves ts zeroed), which froze the clock at 0 and made every tick sleep a
+  // full tick length, blocking the page. CLOCK_MONOTONIC works everywhere.
+  clock_gettime(CLOCK_MONOTONIC, &ts);
+#else
   clock_gettime(CLOCK_MONOTONIC_RAW, &ts);
+#endif
   uint64_t us = SEC_TO_US((uint64_t)ts.tv_sec) + NS_TO_US((uint64_t)ts.tv_nsec);
   return (unsigned long)us;
 #endif

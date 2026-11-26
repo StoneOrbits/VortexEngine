@@ -171,8 +171,8 @@ EMSCRIPTEN_BINDINGS(Vortex) {
     .constructor<uint32_t, const uint8_t *>()
 
     // member functions
-    .function("rawInit", &ByteStream::rawInit, allow_raw_pointer<const uint8_t *>())
-    .function("init", &ByteStream::init, allow_raw_pointer<const uint8_t *>())
+    .function("rawInit", &ByteStream::rawInit, allow_raw_pointers())
+    .function("init", &ByteStream::init, allow_raw_pointers())
     .function("clear", &ByteStream::clear)
     .function("shrink", &ByteStream::shrink)
     .function("append", &ByteStream::append)
@@ -197,8 +197,8 @@ EMSCRIPTEN_BINDINGS(Vortex) {
     .function("peek8", &ByteStream::peek8)
     .function("peek16", &ByteStream::peek16)
     .function("peek32", &ByteStream::peek32)
-    .function("data", &ByteStream::data, allow_raw_pointer<uint8_t>())
-    .function("rawData", &ByteStream::rawData, allow_raw_pointer<void>())
+    .function("data", &ByteStream::data, allow_raw_pointers())
+    .function("rawData", &ByteStream::rawData, allow_raw_pointers())
     .function("rawSize", &ByteStream::rawSize)
     .function("size", &ByteStream::size)
     .function("capacity", &ByteStream::capacity)
@@ -212,7 +212,7 @@ EMSCRIPTEN_BINDINGS(Vortex) {
     .function("ledMulti", &Leds::ledMulti)
     .function("ledAllSingle", &Leds::ledAllSingle)
     .function("ledAny", &Leds::ledAny)
-    .function("ledData", &Leds::ledData, allow_raw_pointer<const RGBColor *>());
+    .function("ledData", &Leds::ledData, allow_raw_pointers());
 
   function("intToPatternID", &intToPatternID);
   function("isMultiLedPatternID", &isMultiLedPatternID);
@@ -387,7 +387,7 @@ EMSCRIPTEN_BINDINGS(Vortex) {
     .function("setArgs", &Pattern::setArgs)
     .function("getArgs", &Pattern::getArgs)
     .function("getNumArgs", &Pattern::getNumArgs)
-    .function("equals", &Pattern::equals, allow_raw_pointer<const Pattern *>())
+    .function("equals", &Pattern::equals, allow_raw_pointers())
     .function("getColorset", select_overload<const Colorset() const>(&Pattern::getColorset))
     .function("setColorset", &Pattern::setColorset)
     .function("clearColorset", &Pattern::clearColorset)
@@ -423,7 +423,7 @@ EMSCRIPTEN_BINDINGS(Vortex) {
     .function("loadFromBuffer", &Mode::loadFromBuffer)
     .function("serialize", &Mode::serialize)
     .function("unserialize", &Mode::unserialize)
-    .function("equalsMode", &Mode::equals, allow_raw_pointer<const Mode *>())
+    .function("equalsMode", &Mode::equals, allow_raw_pointers())
     .function("setLedCount", &Mode::setLedCount)
     .function("getLedCount", &Mode::getLedCount)
     .function("getColorset", select_overload<const Colorset(LedPos) const>(&Mode::getColorset))
@@ -537,8 +537,8 @@ EMSCRIPTEN_BINDINGS(Vortex) {
     .function("isButtonPressed", &Vortex::isButtonPressed)
     .function("sendWait", &Vortex::sendWait)
     .function("rapidClick", &Vortex::rapidClick)
-    .function("getMenuDemoMode", &Vortex::getMenuDemoMode, allow_raw_pointer<arg<1>>())
-    .function("setMenuDemoMode", &Vortex::setMenuDemoMode, allow_raw_pointer<arg<1>>())
+    .function("getMenuDemoMode", &Vortex::getMenuDemoMode, allow_raw_pointers())
+    .function("setMenuDemoMode", &Vortex::setMenuDemoMode, allow_raw_pointers())
     .function("quitClick", &Vortex::quitClick)
     .function("IRDeliver", &Vortex::IRDeliver)
     .function("VLDeliver", &Vortex::VLDeliver)
