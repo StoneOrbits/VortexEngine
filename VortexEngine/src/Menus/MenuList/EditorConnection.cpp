@@ -1,5 +1,7 @@
 #include "EditorConnection.h"
 
+#include "../../VortexEngine.h"
+
 #include "../../Patterns/PatternArgs.h"
 #include "../../Serial/ByteStream.h"
 #include "../../Serial/Serial.h"
@@ -16,8 +18,8 @@
 
 #include <string.h>
 
-EditorConnection::EditorConnection(const RGBColor &col, bool advanced) :
-  Menu(col, advanced),
+EditorConnection::EditorConnection(VortexEngine &engine, const RGBColor &col, bool advanced) :
+  Menu(engine, col, advanced),
   m_state(STATE_DISCONNECTED),
   m_timeOutStartTime(0),
   m_allowReset(true),
@@ -174,7 +176,7 @@ void EditorConnection::handleState()
     handleCommand();
     // watch for disconnects
     if (!isConnected()) {
-      Leds::holdAll(RGB_RED);
+      m_engine.leds().holdAll(RGB_RED);
       leaveMenu(true);
     }
     break;
@@ -259,7 +261,7 @@ void EditorConnection::handleState()
   case STATE_TRANSMIT_MODE_VL:
 #if VL_ENABLE_SENDER == 1
     // immediately load the mode and send it now
-    VLSender::send(&m_previewMode);
+    m_engine.vlSender().send(&m_previewMode);
 #endif
     m_state = STATE_TRANSMIT_MODE_VL_DONE;
     break;
@@ -274,7 +276,7 @@ void EditorConnection::handleState()
   case STATE_LISTEN_MODE_VL:
 #if VL_ENABLE_RECEIVER == 1
     // immediately load the mode and send it now
-    VLReceiver::beginReceiving();
+    m_engine.vlReceiver().beginReceiving();
 #endif
     m_state = STATE_LISTEN_MODE_VL_LISTEN;
     break;
@@ -303,13 +305,13 @@ void EditorConnection::handleState()
       // just wait
       break;
     }
-    if (Modes::numModes() == 0) {
+    if (m_engine.modes().numModes() == 0) {
       m_state = STATE_PULL_EACH_MODE_DONE;
     } else {
       // backup the old mode index so we can return to it
-      m_previousModeIndex = Modes::curModeIndex();
+      m_previousModeIndex = m_engine.modes().curModeIndex();
       // switch to mode 0 to ensure we start at the beginning
-      Modes::setCurMode(0);
+      m_engine.modes().setCurMode(0);
       m_state = STATE_PULL_EACH_MODE_SEND;
     }
     break;
@@ -326,9 +328,9 @@ void EditorConnection::handleState()
       break;
     }
     // if there is still more modes
-    if (Modes::curModeIndex() < (Modes::numModes() - 1)) {
+    if (m_engine.modes().curModeIndex() < (m_engine.modes().numModes() - 1)) {
       // then iterate to the next mode and send
-      Modes::nextMode();
+      m_engine.modes().nextMode();
       m_state = STATE_PULL_EACH_MODE_SEND;
     } else {
       // otherwise done sending modes
@@ -339,7 +341,7 @@ void EditorConnection::handleState()
     // send our acknowledgement that the modes were sent
     writeData(EDITOR_VERB_PULL_EACH_MODE_DONE);
     // switch back to the previous mode
-    Modes::setCurMode(m_previousModeIndex);
+    m_engine.modes().setCurMode(m_previousModeIndex);
     // go idle
     m_state = STATE_IDLE;
     break;
@@ -358,7 +360,7 @@ void EditorConnection::handleState()
       break;
     }
     // clear modes and start receiving
-    Modes::clearModes();
+    m_engine.modes().clearModes();
     // write out an ack
     writeData(EDITOR_VERB_PUSH_EACH_MODE_ACK);
     // ready to receive a mode
@@ -381,7 +383,7 @@ void EditorConnection::handleState()
     break;
   case STATE_PUSH_EACH_MODE_DONE:
     // save the new modes
-    Modes::saveStorage();
+    m_engine.modes().saveStorage();
     // did originally receive/send a DONE message here but it wasn't working
     // on lightshow.lol so just skip to IDLE
     m_state = STATE_IDLE;
@@ -415,8 +417,8 @@ void EditorConnection::showEditor()
 {
   switch (m_state) {
   case STATE_DISCONNECTED:
-    Leds::clearAll();
-    Leds::blinkAll(250, 150, RGB_WHITE0);
+    m_engine.leds().clearAll();
+    m_engine.leds().blinkAll(250, 150, RGB_WHITE0);
     break;
   case STATE_IDLE:
     m_previewMode.play();
@@ -441,21 +443,21 @@ void EditorConnection::receiveData()
 void EditorConnection::sendModes()
 {
   ByteStream modesBuffer;
-  Modes::saveToBuffer(modesBuffer);
+  m_engine.modes().saveToBuffer(modesBuffer);
   writeData(modesBuffer);
 }
 
 void EditorConnection::sendModeCount()
 {
   ByteStream buffer;
-  buffer.serialize8(Modes::numModes());
+  buffer.serialize8(m_engine.modes().numModes());
   writeData(buffer);
 }
 
 void EditorConnection::sendCurMode()
 {
   ByteStream modeBuffer;
-  Mode *cur = Modes::curMode();
+  Mode *cur = m_engine.modes().curMode();
   if (!cur) {
     // ??
     return;
@@ -484,7 +486,7 @@ void EditorConnection::listenModeVL()
 ReturnCode EditorConnection::sendBrightness()
 {
   ByteStream brightnessBuf;
-  if (!brightnessBuf.serialize8(Leds::getBrightness())) {
+  if (!brightnessBuf.serialize8(m_engine.leds().getBrightness())) {
     return RV_FAIL;
   }
   writeData(brightnessBuf);
@@ -537,7 +539,7 @@ ReturnCode EditorConnection::receiveModes()
   if (m_rv != RV_OK) {
     return m_rv;
   }
-  if (!Modes::loadFromBuffer(buf) || !Modes::saveStorage()) {
+  if (!m_engine.modes().loadFromBuffer(buf) || !m_engine.modes().saveStorage()) {
     return RV_FAIL;
   }
   return RV_OK;
@@ -569,7 +571,7 @@ ReturnCode EditorConnection::receiveMode()
     return m_rv;
   }
   // unserialize the mode into the demo mode
-  if (!Modes::addModeFromBuffer(buf)) {
+  if (!m_engine.modes().addModeFromBuffer(buf)) {
     return RV_FAIL;
   }
   return RV_OK;
@@ -628,8 +630,8 @@ ReturnCode EditorConnection::receiveBrightness()
     return RV_FAIL;
   }
   if (brightness > 0) {
-    Leds::setBrightness(brightness);
-    Modes::saveHeader();
+    m_engine.leds().setBrightness(brightness);
+    m_engine.modes().saveHeader();
   }
   return RV_OK;
 }
@@ -638,27 +640,27 @@ ReturnCode EditorConnection::receiveModeVL()
 {
 #if VL_ENABLE_RECEIVER == 1
   // if reveiving new data set our last data time
-  if (VLReceiver::onNewData()) {
-    m_timeOutStartTime = Time::getCurtime();
+  if (m_engine.vlReceiver().onNewData()) {
+    m_timeOutStartTime = m_engine.time().getCurtime();
     // if our last data was more than time out duration reset the recveiver
-  } else if (m_timeOutStartTime > 0 && (m_timeOutStartTime + MAX_TIMEOUT_DURATION) < Time::getCurtime()) {
-    VLReceiver::resetVLState();
+  } else if (m_timeOutStartTime > 0 && (m_timeOutStartTime + MAX_TIMEOUT_DURATION) < m_engine.time().getCurtime()) {
+    m_engine.vlReceiver().resetVLState();
     m_timeOutStartTime = 0;
     return RV_WAIT;
   }
   // check if the VLReceiver has a full packet available
-  if (!VLReceiver::dataReady()) {
+  if (!m_engine.vlReceiver().dataReady()) {
     // nothing available yet
     return RV_WAIT;
   }
   DEBUG_LOG("Mode ready to receive! Receiving...");
   // receive the VL mode into the current mode
-  if (!VLReceiver::receiveMode(&m_previewMode)) {
+  if (!m_engine.vlReceiver().receiveMode(&m_previewMode)) {
     ERROR_LOG("Failed to receive mode");
     return RV_FAIL;
   }
   DEBUG_LOGF("Success receiving mode: %u", m_previewMode.getPatternID());
-  if (!Modes::updateCurMode(&m_previewMode)) {
+  if (!m_engine.modes().updateCurMode(&m_previewMode)) {
     return RV_FAIL;
   }
 #endif
@@ -673,19 +675,19 @@ ReturnCode EditorConnection::receiveModeVL()
 void EditorConnection::showReceiveModeVL()
 {
 #if VL_ENABLE_RECEIVER == 1
-  if (VLReceiver::isReceiving()) {
+  if (m_engine.vlReceiver().isReceiving()) {
     // using uint32_t to avoid overflow, the result should be within 10 to 255
-    //Leds::setAll(RGBColor(0, VLReceiver::percentReceived(), 0));
-    Leds::setRange(LED_0, (LedPos)(((uint32_t)VLReceiver::percentReceived() * LED_COUNT) / 100), RGB_GREEN6);
+    //m_engine.leds().setAll(RGBColor(0, m_engine.vlReceiver().percentReceived(), 0));
+    m_engine.leds().setRange(LED_0, (LedPos)(((uint32_t)m_engine.vlReceiver().percentReceived() * LED_COUNT) / 100), RGB_GREEN6);
   } else {
-    Leds::setAll(RGB_WHITE0);
+    m_engine.leds().setAll(RGB_WHITE0);
   }
 #endif
 }
 
 bool EditorConnection::detectConnection()
 {
-  if (SerialComs::isConnected() || SerialComs::checkSerial()) {
+  if (m_engine.serial().isConnected() || m_engine.serial().checkSerial()) {
     return true;
   }
   return false;
@@ -693,20 +695,20 @@ bool EditorConnection::detectConnection()
 
 bool EditorConnection::isConnected()
 {
-  return SerialComs::isConnected();
+  return m_engine.serial().isConnected();
 }
 
 void EditorConnection::readData(ByteStream &buffer)
 {
-  SerialComs::read(buffer);
+  m_engine.serial().read(buffer);
 }
 
 void EditorConnection::writeData(ByteStream &buffer)
 {
-  SerialComs::write(buffer);
+  m_engine.serial().write(buffer);
 }
 
 void EditorConnection::writeData(const char *message)
 {
-  SerialComs::write(message);
+  m_engine.serial().write(message);
 }
